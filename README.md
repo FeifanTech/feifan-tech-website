@@ -43,7 +43,7 @@ A modern, responsive company website built with React and Tailwind CSS, featurin
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yymhxie/feifan-tech-website.git
+git clone https://github.com/FeifanTech/feifan-tech-website.git
 cd feifan-tech-website
 ```
 
