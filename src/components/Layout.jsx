@@ -11,6 +11,7 @@ const Layout = ({ children }) => {
     { name: '首页', path: '/', nameEn: 'Home' },
     { name: '关于我们', path: '/about', nameEn: 'About' },
     { name: '服务', path: '/services', nameEn: 'Services' },
+    { name: '产品', path: '/products', nameEn: 'Products' },
     { name: '联系我们', path: '/contact', nameEn: 'Contact' }
   ]
 
@@ -121,7 +122,7 @@ const Layout = ({ children }) => {
                 We help businesses thrive in the digital age with cutting-edge solutions.
               </p>
               <p className="text-gray-400 text-sm">
-                © 2024 Feifan Tech. All rights reserved.
+                © 2020- {new Date().getFullYear()} Feifan Tech. All rights reserved.
               </p>
             </div>
 

@@ -84,7 +84,7 @@ const Home = () => {
               Feifan Tech
             </h1>
             <p className="text-xl md:text-2xl mb-4 text-gray-200">
-              非凡科技 • Extraordinary Innovation
+              飞凡科技 • Extraordinary Innovation
             </p>
             <p className="text-lg md:text-xl mb-8 text-gray-300 max-w-3xl mx-auto">
               Pioneering the future of technology with innovative solutions that transform businesses 
@@ -93,17 +93,17 @@ const Home = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/services"
+                to="/products"
                 className="inline-flex items-center px-8 py-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                Explore Services
+                View Products
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
               <Link
-                to="/contact"
+                to="/services"
                 className="inline-flex items-center px-8 py-4 border-2 border-white/20 rounded-lg font-semibold hover:bg-white/5 hover:border-white/40 transition-all backdrop-blur-sm"
               >
-                Get In Touch
+                Explore Services
               </Link>
             </div>
           </motion.div>
