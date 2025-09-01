@@ -102,7 +102,33 @@
     },
     "timeline": {
       "title": "Our Journey",
-      "subtitle": "A timeline of our growth, achievements, and milestones"
+      "subtitle": "A timeline of our growth, achievements, and milestones",
+      "milestones": {
+        "2019": {
+          "title": "Company Founded",
+          "description": "Feifan Tech was established with a vision to revolutionize technology solutions."
+        },
+        "2020": {
+          "title": "First Major Client",
+          "description": "Successfully delivered our first enterprise-level digital transformation project."
+        },
+        "2021": {
+          "title": "Team Expansion",
+          "description": "Grew our team of expert developers and technology consultants."
+        },
+        "2022": {
+          "title": "Innovation Awards",
+          "description": "Recognized for outstanding innovation in enterprise technology solutions."
+        },
+        "2023": {
+          "title": "Global Reach",
+          "description": "Expanded operations to serve clients across multiple regions."
+        },
+        "2024": {
+          "title": "AI Integration",
+          "description": "Leading the integration of AI and machine learning in business solutions."
+        }
+      }
     },
     "cta": {
       "title": "Join Us on This Journey",

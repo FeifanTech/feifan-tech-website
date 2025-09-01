@@ -32,33 +32,33 @@ const About = () => {
   const milestones = [
     {
       year: '2019',
-      title: 'Company Founded',
-      description: 'Feifan Tech was established with a vision to revolutionize technology solutions.'
+      title: t('about.timeline.milestones.2019.title'),
+      description: t('about.timeline.milestones.2019.description')
     },
     {
       year: '2020',
-      title: 'First Major Client',
-      description: 'Successfully delivered our first enterprise-level digital transformation project.'
+      title: t('about.timeline.milestones.2020.title'),
+      description: t('about.timeline.milestones.2020.description')
     },
     {
       year: '2021',
-      title: 'Team Expansion',
-      description: 'Grew our team of expert developers and technology consultants.'
+      title: t('about.timeline.milestones.2021.title'),
+      description: t('about.timeline.milestones.2021.description')
     },
     {
       year: '2022',
-      title: 'Innovation Awards',
-      description: 'Recognized for outstanding innovation in enterprise technology solutions.'
+      title: t('about.timeline.milestones.2022.title'),
+      description: t('about.timeline.milestones.2022.description')
     },
     {
       year: '2023',
-      title: 'Global Reach',
-      description: 'Expanded operations to serve clients across multiple regions.'
+      title: t('about.timeline.milestones.2023.title'),
+      description: t('about.timeline.milestones.2023.description')
     },
     {
       year: '2024',
-      title: 'AI Integration',
-      description: 'Leading the integration of AI and machine learning in business solutions.'
+      title: t('about.timeline.milestones.2024.title'),
+      description: t('about.timeline.milestones.2024.description')
     }
   ]
 
