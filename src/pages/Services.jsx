@@ -10,7 +10,13 @@ import {
   Globe, 
   BarChart3,
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  Monitor,
+  Server,
+  Lock,
+  Brain,
+  TrendingUp,
+  Settings
 } from 'lucide-react'
 
 const Services = () => {
@@ -20,42 +26,42 @@ const Services = () => {
       title: 'Web Development',
       description: 'Modern, responsive web applications built with cutting-edge technologies',
       features: ['React/Vue/Angular', 'Node.js Backend', 'Progressive Web Apps', 'E-commerce Solutions'],
-      color: 'from-blue-500 to-blue-600'
+      bgColor: 'bg-blue-600'
     },
     {
       icon: <Smartphone className="w-8 h-8" />,
       title: 'Mobile Development',
       description: 'Native and cross-platform mobile applications for iOS and Android',
       features: ['React Native', 'Flutter', 'iOS/Android Native', 'App Store Optimization'],
-      color: 'from-green-500 to-green-600'
+      bgColor: 'bg-blue-500'
     },
     {
       icon: <Cloud className="w-8 h-8" />,
       title: 'Cloud Solutions',
       description: 'Scalable cloud infrastructure and migration services',
       features: ['AWS/Azure/GCP', 'DevOps & CI/CD', 'Microservices', 'Container Orchestration'],
-      color: 'from-purple-500 to-purple-600'
+      bgColor: 'bg-blue-700'
     },
     {
       icon: <Database className="w-8 h-8" />,
       title: 'Data Analytics',
       description: 'Transform your data into actionable business insights',
       features: ['Big Data Processing', 'Machine Learning', 'Business Intelligence', 'Real-time Analytics'],
-      color: 'from-orange-500 to-orange-600'
+      bgColor: 'bg-indigo-600'
     },
     {
       icon: <Shield className="w-8 h-8" />,
       title: 'Cybersecurity',
       description: 'Comprehensive security solutions to protect your digital assets',
       features: ['Security Audits', 'Penetration Testing', 'Compliance Solutions', 'Security Training'],
-      color: 'from-red-500 to-red-600'
+      bgColor: 'bg-slate-600'
     },
     {
       icon: <Cpu className="w-8 h-8" />,
       title: 'AI & ML Solutions',
       description: 'Intelligent systems powered by artificial intelligence',
       features: ['Custom AI Models', 'Natural Language Processing', 'Computer Vision', 'Predictive Analytics'],
-      color: 'from-indigo-500 to-indigo-600'
+      bgColor: 'bg-indigo-700'
     }
   ]
 
@@ -143,7 +149,7 @@ const Services = () => {
                 viewport={{ once: true }}
                 className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 group"
               >
-                <div className={`w-16 h-16 bg-${service.color.split('-')[1]}-600 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-sm`}>
+                <div className={`w-16 h-16 ${service.bgColor} rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-sm`}>
                   {service.icon}
                 </div>
                 
