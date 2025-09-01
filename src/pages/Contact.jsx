@@ -50,40 +50,31 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <Mail className="w-6 h-6" />,
-      title: 'Email',
-      content: 'yymhxie@gmail.com',
-      description: 'Send us an email anytime'
+      title: t('contact.info.email.title'),
+      content: t('contact.info.email.content'),
+      description: t('contact.info.email.description')
     },
     {
       icon: <MapPin className="w-6 h-6" />,
-      title: 'Location',
-      content: 'Hangzhou, Zhejiang, China',
-      description: 'Our headquarters location'
+      title: t('contact.info.location.title'),
+      content: t('contact.info.location.content'),
+      description: t('contact.info.location.description')
     },
     {
       icon: <Phone className="w-6 h-6" />,
-      title: 'Phone',
-      content: 'Available via Email',
-      description: 'Contact us for phone consultation'
+      title: t('contact.info.phone.title'),
+      content: t('contact.info.phone.content'),
+      description: t('contact.info.phone.description')
     },
     {
       icon: <Clock className="w-6 h-6" />,
-      title: 'Business Hours',
-      content: 'Mon - Fri: 9AM - 6PM CST',
-      description: 'China Standard Time'
+      title: t('contact.info.hours.title'),
+      content: t('contact.info.hours.content'),
+      description: t('contact.info.hours.description')
     }
   ]
 
-  const services = [
-    'Web Development',
-    'Mobile Development',
-    'Cloud Solutions',
-    'Data Analytics',
-    'Cybersecurity',
-    'AI & ML Solutions',
-    'Consulting',
-    'Other'
-  ]
+  const services = t('contact.form.services', { returnObjects: true })
 
   return (
     <div>
@@ -126,7 +117,7 @@ const Contact = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                          Full Name *
+                          {t('contact.form.name')} *
                         </label>
                         <input
                           type="text"
@@ -136,12 +127,12 @@ const Contact = () => {
                           value={formData.name}
                           onChange={handleChange}
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          placeholder="Your full name"
+                          placeholder={t('contact.form.placeholders.name')}
                         />
                       </div>
                       <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                          Email Address *
+                          {t('contact.form.email')} *
                         </label>
                         <input
                           type="email"
@@ -151,7 +142,7 @@ const Contact = () => {
                           value={formData.email}
                           onChange={handleChange}
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          placeholder="your@email.com"
+                          placeholder={t('contact.form.placeholders.email')}
                         />
                       </div>
                     </div>
@@ -159,7 +150,7 @@ const Contact = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                          Company
+                          {t('contact.form.company')}
                         </label>
                         <input
                           type="text"
@@ -168,12 +159,12 @@ const Contact = () => {
                           value={formData.company}
                           onChange={handleChange}
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          placeholder="Your company name"
+                          placeholder={t('contact.form.placeholders.company')}
                         />
                       </div>
                       <div>
                         <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                          Phone Number
+                          {t('contact.form.phone')}
                         </label>
                         <input
                           type="tel"
@@ -182,14 +173,14 @@ const Contact = () => {
                           value={formData.phone}
                           onChange={handleChange}
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          placeholder="Your phone number"
+                          placeholder={t('contact.form.placeholders.phone')}
                         />
                       </div>
                     </div>
 
                     <div>
                       <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
-                        Service Interested In
+                        {t('contact.form.service')}
                       </label>
                       <select
                         id="service"
@@ -198,7 +189,7 @@ const Contact = () => {
                         onChange={handleChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       >
-                        <option value="">Select a service</option>
+                        <option value="">{t('contact.form.placeholders.service')}</option>
                         {services.map((service) => (
                           <option key={service} value={service}>{service}</option>
                         ))}
@@ -207,7 +198,7 @@ const Contact = () => {
 
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                        Message *
+                        {t('contact.form.message')} *
                       </label>
                       <textarea
                         id="message"
@@ -217,7 +208,7 @@ const Contact = () => {
                         value={formData.message}
                         onChange={handleChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                        placeholder="Tell us about your project requirements..."
+                        placeholder={t('contact.form.placeholders.message')}
                       />
                     </div>
 
@@ -235,11 +226,11 @@ const Contact = () => {
                       {isSubmitting ? (
                         <div className="flex items-center">
                           <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
-                          Sending...
+                          {t('contact.form.sending')}
                         </div>
                       ) : (
                         <>
-                          Send Message
+                          {t('contact.form.submit')}
                           <Send className="ml-2 w-5 h-5" />
                         </>
                       )}

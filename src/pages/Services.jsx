@@ -25,44 +25,44 @@ const Services = () => {
   const services = [
     {
       icon: <Code className="w-8 h-8" />,
-      title: 'Web Development',
-      description: 'Modern, responsive web applications built with cutting-edge technologies',
-      features: ['React/Vue/Angular', 'Node.js Backend', 'Progressive Web Apps', 'E-commerce Solutions'],
+      title: t('services.items.webdev.title'),
+      description: t('services.items.webdev.description'),
+      features: t('services.items.webdev.features', { returnObjects: true }),
       bgColor: 'bg-blue-600'
     },
     {
       icon: <Smartphone className="w-8 h-8" />,
-      title: 'Mobile Development',
-      description: 'Native and cross-platform mobile applications for iOS and Android',
-      features: ['React Native', 'Flutter', 'iOS/Android Native', 'App Store Optimization'],
+      title: t('services.items.mobile.title'),
+      description: t('services.items.mobile.description'),
+      features: t('services.items.mobile.features', { returnObjects: true }),
       bgColor: 'bg-blue-500'
     },
     {
       icon: <Cloud className="w-8 h-8" />,
-      title: 'Cloud Solutions',
-      description: 'Scalable cloud infrastructure and migration services',
-      features: ['AWS/Azure/GCP', 'DevOps & CI/CD', 'Microservices', 'Container Orchestration'],
+      title: t('services.items.cloud.title'),
+      description: t('services.items.cloud.description'),
+      features: t('services.items.cloud.features', { returnObjects: true }),
       bgColor: 'bg-blue-700'
     },
     {
       icon: <Database className="w-8 h-8" />,
-      title: 'Data Analytics',
-      description: 'Transform your data into actionable business insights',
-      features: ['Big Data Processing', 'Machine Learning', 'Business Intelligence', 'Real-time Analytics'],
+      title: t('services.items.analytics.title'),
+      description: t('services.items.analytics.description'),
+      features: t('services.items.analytics.features', { returnObjects: true }),
       bgColor: 'bg-indigo-600'
     },
     {
       icon: <Shield className="w-8 h-8" />,
-      title: 'Cybersecurity',
-      description: 'Comprehensive security solutions to protect your digital assets',
-      features: ['Security Audits', 'Penetration Testing', 'Compliance Solutions', 'Security Training'],
+      title: t('services.items.security.title'),
+      description: t('services.items.security.description'),
+      features: t('services.items.security.features', { returnObjects: true }),
       bgColor: 'bg-slate-600'
     },
     {
       icon: <Cpu className="w-8 h-8" />,
-      title: 'AI & ML Solutions',
-      description: 'Intelligent systems powered by artificial intelligence',
-      features: ['Custom AI Models', 'Natural Language Processing', 'Computer Vision', 'Predictive Analytics'],
+      title: t('services.items.ai.title'),
+      description: t('services.items.ai.description'),
+      features: t('services.items.ai.features', { returnObjects: true }),
       bgColor: 'bg-indigo-700'
     }
   ]
@@ -70,37 +70,37 @@ const Services = () => {
   const process = [
     {
       step: '01',
-      title: 'Discovery & Analysis',
-      description: 'We start by understanding your business goals, challenges, and requirements through comprehensive analysis.',
+      title: t('services.process.steps.discovery.title'),
+      description: t('services.process.steps.discovery.description'),
       icon: <Globe className="w-6 h-6" />
     },
     {
       step: '02',
-      title: 'Strategy & Planning',
-      description: 'Develop a detailed project roadmap with clear milestones, timelines, and deliverables.',
+      title: t('services.process.steps.planning.title'),
+      description: t('services.process.steps.planning.description'),
       icon: <BarChart3 className="w-6 h-6" />
     },
     {
       step: '03',
-      title: 'Design & Development',
-      description: 'Execute the project using agile methodologies with regular updates and feedback loops.',
+      title: t('services.process.steps.development.title'),
+      description: t('services.process.steps.development.description'),
       icon: <Code className="w-6 h-6" />
     },
     {
       step: '04',
-      title: 'Testing & Deployment',
-      description: 'Rigorous testing followed by smooth deployment and ongoing support.',
+      title: t('services.process.steps.deployment.title'),
+      description: t('services.process.steps.deployment.description'),
       icon: <CheckCircle className="w-6 h-6" />
     }
   ]
 
   const industries = [
-    { name: 'Healthcare', description: 'Digital health solutions and patient management systems' },
-    { name: 'Finance', description: 'Fintech applications and secure payment systems' },
-    { name: 'E-commerce', description: 'Online marketplaces and retail platforms' },
-    { name: 'Education', description: 'E-learning platforms and educational technology' },
-    { name: 'Manufacturing', description: 'Industry 4.0 and IoT solutions' },
-    { name: 'Logistics', description: 'Supply chain optimization and tracking systems' }
+    { name: t('services.industries.items.healthcare.name'), description: t('services.industries.items.healthcare.description') },
+    { name: t('services.industries.items.finance.name'), description: t('services.industries.items.finance.description') },
+    { name: t('services.industries.items.ecommerce.name'), description: t('services.industries.items.ecommerce.description') },
+    { name: t('services.industries.items.education.name'), description: t('services.industries.items.education.description') },
+    { name: t('services.industries.items.manufacturing.name'), description: t('services.industries.items.manufacturing.description') },
+    { name: t('services.industries.items.logistics.name'), description: t('services.industries.items.logistics.description') }
   ]
 
   return (

@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "首页",
-    "about": "关于我们", 
+    "about": "关于我们",
     "services": "服务",
     "products": "产品",
     "contact": "联系我们"
@@ -9,7 +9,7 @@
   "common": {
     "learnMore": "了解更多",
     "getStarted": "立即开始",
-    "tryNow": "立即体验", 
+    "tryNow": "立即体验",
     "contactUs": "联系我们",
     "viewProducts": "查看产品",
     "exploreServices": "探索服务",
@@ -35,7 +35,7 @@
           "description": "前沿技术驱动数字化转型，助力企业实现跨越式发展"
         },
         "speed": {
-          "title": "敏捷开发", 
+          "title": "敏捷开发",
           "description": "敏捷开发方法，快速交付高质量产品原型和解决方案"
         },
         "security": {
@@ -50,7 +50,7 @@
     },
     "stats": {
       "projects": "项目交付",
-      "satisfaction": "客户满意度", 
+      "satisfaction": "客户满意度",
       "experience": "年专业经验",
       "support": "全天候支持"
     },
@@ -72,12 +72,12 @@
       "description": "通过创新技术解决方案赋能企业，助力增长、提升效率和数字化转型。我们相信科技应该是可及的、强大的，并且为每个组织带来变革性体验。"
     },
     "vision": {
-      "title": "发展愿景",
+      "title": "发展愿景", 
       "description": "成为企业数字化转型之旅中可信赖的领先技术伙伴，共同创造一个技术与人类潜能和商业成功无缝融合的美好未来。"
     },
     "leadership": {
       "title": "领导力卓越",
-      "cto": "首席技术官", 
+      "cto": "首席技术官",
       "description": "在数字化转型和创新战略方面拥有丰富经验的前瞻性技术领导者。"
     },
     "values": {
@@ -88,11 +88,11 @@
         "description": "持续突破界限，拥抱新技术，提供前沿解决方案。"
       },
       "excellence": {
-        "title": "追求卓越",
+        "title": "追求卓越", 
         "description": "致力于在所有工作中提供最高质量的服务。"
       },
       "collaboration": {
-        "title": "合作共赢", 
+        "title": "合作共赢",
         "description": "深信团队合作的力量，与客户建立稳固的伙伴关系。"
       },
       "integrity": {
@@ -105,136 +105,30 @@
       "subtitle": "我们成长、成就和里程碑的时间轴"
     },
     "cta": {
-      "title": "加入我们的旅程", 
+      "title": "加入我们的旅程",
       "description": "成为数字化转型革命的一部分。让我们一起创造非凡成果。"
     }
   },
   "services": {
     "hero": {
-      "title": "服务介绍",
-      "description": "量身定制的综合技术解决方案。从概念到部署，每一步都精心打造。"
+      "title": "我们的服务",
+      "description": "根据您的业务需求量身定制的综合技术解决方案。从概念到部署，我们在每一步都提供卓越的服务。"
     },
     "offerings": {
-      "title": "服务内容", 
-      "subtitle": "助力您的数字化转型的全链路技术服务"
-    },
-    "items": {
-      "webdev": {
-        "title": "Web 应用开发",
-        "description": "采用前沿技术构建现代化、响应式 Web 应用程序",
-        "features": [
-          "React/Vue/Angular 框架",
-          "Node.js 后端开发", 
-          "渐进式 Web 应用",
-          "电商解决方案"
-        ]
-      },
-      "mobile": {
-        "title": "移动应用开发",
-        "description": "为 iOS 和 Android 平台开发原生和跨平台移动应用",
-        "features": [
-          "React Native 开发",
-          "Flutter 开发",
-          "iOS/Android 原生开发",
-          "应用商店优化"
-        ]
-      },
-      "cloud": {
-        "title": "云计算解决方案",
-        "description": "可扩展的云基础设施和迁移服务",
-        "features": [
-          "AWS/Azure/GCP 云平台", 
-          "DevOps 与 CI/CD",
-          "微服务架构",
-          "容器编排"
-        ]
-      },
-      "analytics": {
-        "title": "数据分析",
-        "description": "将您的数据转化为可行动的业务洞察",
-        "features": [
-          "大数据处理",
-          "机器学习",
-          "商业智能",
-          "实时分析"
-        ]
-      },
-      "security": {
-        "title": "网络安全",
-        "description": "全面安全解决方案，保护您的数字资产",
-        "features": [
-          "安全审计", 
-          "渗透测试",
-          "合规解决方案",
-          "安全培训"
-        ]
-      },
-      "ai": {
-        "title": "AI 人工智能解决方案",
-        "description": "人工智能驱动的智能系统",
-        "features": [
-          "定制 AI 模型",
-          "自然语言处理",
-          "计算机视觉",
-          "预测分析"
-        ]
-      }
+      "title": "我们的服务内容",
+      "subtitle": "旨在加速您的数字化转型的端到端技术服务"
     },
     "process": {
-      "title": "服务流程",
-      "subtitle": "经过验证的方法论，确保项目成功和客户满意",
-      "steps": {
-        "discovery": {
-          "title": "需求分析",
-          "description": "通过全面分析，深入了解您的业务目标、挑战和需求。"
-        },
-        "planning": {
-          "title": "战略规划",
-          "description": "制定详细的项目路线图，明确里程碑、时间表和交付成果。"
-        },
-        "development": {
-          "title": "设计开发", 
-          "description": "采用敏捷开发方法执行项目，定期更新和反馈沟通。"
-        },
-        "deployment": {
-          "title": "测试部署",
-          "description": "严格测试后平稳部署，并提供持续的支持服务。"
-        }
-      }
+      "title": "我们的流程",
+      "subtitle": "经过验证的方法论，确保项目成功和客户满意度"
     },
     "industries": {
-      "title": "服务行业",
-      "subtitle": "我们的专业能力跨越多个行业，提供定制化解决方案",
-      "items": {
-        "healthcare": {
-          "name": "医疗健康",
-          "description": "数字化医疗解决方案和患者管理系统"
-        },
-        "finance": {
-          "name": "金融服务", 
-          "description": "金融科技应用和安全支付系统"
-        },
-        "ecommerce": {
-          "name": "电子商务",
-          "description": "在线市场和零售平台解决方案"
-        },
-        "education": {
-          "name": "教育科技",
-          "description": "在线学习平台和教育技术解决方案"
-        },
-        "manufacturing": {
-          "name": "智能制造",
-          "description": "工业 4.0 和物联网解决方案"
-        },
-        "logistics": {
-          "name": "物流供应链",
-          "description": "供应链优化和追踪系统"
-        }
-      }
+      "title": "我们服务的行业",
+      "subtitle": "我们的专业知识跨越多个行业，提供定制解决方案"
     },
     "cta": {
       "title": "准备好开始了吗？",
-      "description": "让我们讨论您的项目需求，了解我们如何助您实现愿景"
+      "description": "让我们讨论您的项目需求以及我们如何帮助实现您的愿景"
     }
   },
   "products": {
@@ -249,7 +143,7 @@
     },
     "items": {
       "ecommerce": {
-        "title": "兼利电商平台", 
+        "title": "兼利电商平台",
         "description": "集成支付、物流、用户管理和多商户功能的综合电商解决方案",
         "features": [
           "多商户管理系统",
@@ -264,7 +158,7 @@
         "description": "高精度语音识别技术，支持多语言实时转录和语音命令处理",
         "features": [
           "99%+识别准确率",
-          "支持50+种语言", 
+          "支持50+种语言",
           "实时转录",
           "噪音过滤技术",
           "API集成就绪"
@@ -301,7 +195,7 @@
         "description": "优化的算法确保快速响应和处理能力"
       },
       "security": {
-        "title": "安全可靠", 
+        "title": "安全可靠",
         "description": "企业级安全保障，全面的数据隐私保护"
       },
       "integration": {
@@ -343,24 +237,13 @@
         "phone": "您的电话号码",
         "service": "选择服务",
         "message": "告诉我们您的项目需求..."
-      },
-      "services": [
-        "Web 应用开发",
-        "移动应用开发",
-        "云计算解决方案",
-        "数据分析",
-        "网络安全",
-        "AI 人工智能解决方案",
-        "技术咨询",
-        "其他"
-      ]
+      }
     },
     "info": {
       "title": "联系信息",
       "description": "通过以下任何渠道与我们联系。我们在这里为您提供帮助并回答您可能有的任何问题。",
       "email": {
         "title": "邮箱",
-        "content": "yymhxie@gmail.com",
         "description": "随时给我们发邮件"
       },
       "location": {
@@ -389,13 +272,13 @@
     }
   },
   "footer": {
-    "company": "飞凡科技",
+    "company": "非凡科技",
     "description": "专注于创新和数字化转型的领先技术公司。我们帮助企业在数字时代蓬勃发展，提供前沿解决方案。",
-    "copyright": "© 2020-{{year}} 飞凡科技。保留所有权利。",
+    "copyright": "© 2024 非凡科技。保留所有权利。",
     "quickLinks": "快速链接",
-    "contact": "联系方式",
-    "address": "中国浙江杭州",
-    "email": "yymhxie@gmail.com",
-    "tagline": "技术领导与创新"
+    "contactTitle": "联系方式",
+    "location": "中国浙江杭州",
+    "leadership": "技术领导与创新",
+    "builtWith": "由非凡科技团队用❤️构建"
   }
 }

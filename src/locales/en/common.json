@@ -118,13 +118,119 @@
       "title": "What We Offer",
       "subtitle": "End-to-end technology services designed to accelerate your digital transformation"
     },
+    "items": {
+      "webdev": {
+        "title": "Web Development",
+        "description": "Modern, responsive web applications built with cutting-edge technologies",
+        "features": [
+          "React/Vue/Angular",
+          "Node.js Backend", 
+          "Progressive Web Apps",
+          "E-commerce Solutions"
+        ]
+      },
+      "mobile": {
+        "title": "Mobile Development",
+        "description": "Native and cross-platform mobile applications for iOS and Android",
+        "features": [
+          "React Native",
+          "Flutter",
+          "iOS/Android Native",
+          "App Store Optimization"
+        ]
+      },
+      "cloud": {
+        "title": "Cloud Solutions",
+        "description": "Scalable cloud infrastructure and migration services",
+        "features": [
+          "AWS/Azure/GCP",
+          "DevOps & CI/CD",
+          "Microservices",
+          "Container Orchestration"
+        ]
+      },
+      "analytics": {
+        "title": "Data Analytics",
+        "description": "Transform your data into actionable business insights",
+        "features": [
+          "Big Data Processing",
+          "Machine Learning",
+          "Business Intelligence",
+          "Real-time Analytics"
+        ]
+      },
+      "security": {
+        "title": "Cybersecurity",
+        "description": "Comprehensive security solutions to protect your digital assets",
+        "features": [
+          "Security Audits",
+          "Penetration Testing",
+          "Compliance Solutions",
+          "Security Training"
+        ]
+      },
+      "ai": {
+        "title": "AI & ML Solutions",
+        "description": "Intelligent systems powered by artificial intelligence",
+        "features": [
+          "Custom AI Models",
+          "Natural Language Processing",
+          "Computer Vision",
+          "Predictive Analytics"
+        ]
+      }
+    },
     "process": {
       "title": "Our Process", 
-      "subtitle": "A proven methodology that ensures project success and client satisfaction"
+      "subtitle": "A proven methodology that ensures project success and client satisfaction",
+      "steps": {
+        "discovery": {
+          "title": "Discovery & Analysis",
+          "description": "We start by understanding your business goals, challenges, and requirements through comprehensive analysis."
+        },
+        "planning": {
+          "title": "Strategy & Planning",
+          "description": "Develop a detailed project roadmap with clear milestones, timelines, and deliverables."
+        },
+        "development": {
+          "title": "Design & Development",
+          "description": "Execute the project using agile methodologies with regular updates and feedback loops."
+        },
+        "deployment": {
+          "title": "Testing & Deployment",
+          "description": "Rigorous testing followed by smooth deployment and ongoing support."
+        }
+      }
     },
     "industries": {
       "title": "Industries We Serve",
-      "subtitle": "Our expertise spans across multiple industries, delivering tailored solutions"
+      "subtitle": "Our expertise spans across multiple industries, delivering tailored solutions",
+      "items": {
+        "healthcare": {
+          "name": "Healthcare",
+          "description": "Digital health solutions and patient management systems"
+        },
+        "finance": {
+          "name": "Finance",
+          "description": "Fintech applications and secure payment systems"
+        },
+        "ecommerce": {
+          "name": "E-commerce",
+          "description": "Online marketplaces and retail platforms"
+        },
+        "education": {
+          "name": "Education",
+          "description": "E-learning platforms and educational technology"
+        },
+        "manufacturing": {
+          "name": "Manufacturing",
+          "description": "Industry 4.0 and IoT solutions"
+        },
+        "logistics": {
+          "name": "Logistics",
+          "description": "Supply chain optimization and tracking systems"
+        }
+      }
     },
     "cta": {
       "title": "Ready to Get Started?",
@@ -237,13 +343,24 @@
         "phone": "Your phone number",
         "service": "Select a service",
         "message": "Tell us about your project requirements..."
-      }
+      },
+      "services": [
+        "Web Development",
+        "Mobile Development",
+        "Cloud Solutions",
+        "Data Analytics",
+        "Cybersecurity",
+        "AI & ML Solutions",
+        "Consulting",
+        "Other"
+      ]
     },
     "info": {
       "title": "Contact Information",
       "description": "Get in touch with us through any of the following channels. We're here to help and answer any questions you might have.",
       "email": {
         "title": "Email",
+        "content": "yymhxie@gmail.com",
         "description": "Send us an email anytime"
       },
       "location": {
@@ -278,7 +395,7 @@
     "quickLinks": "Quick Links",
     "contact": "Contact", 
     "address": "Hangzhou, Zhejiang, China",
-    "email": "feifan.hangzhou@gmail.com",
+    "email": "yymhxie@gmail.com",
     "tagline": "Tech Leadership & Innovation"
   }
 }
