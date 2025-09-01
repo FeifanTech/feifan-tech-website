@@ -4,13 +4,16 @@
 
 ## 🌟 Overview
 
-A modern, responsive company website built with React and Tailwind CSS, featuring Apple-inspired design aesthetics and bilingual support (Chinese/English).
+A modern, responsive company website built with React and Tailwind CSS, featuring Apple-inspired design aesthetics and full internationalization support for Chinese, Japanese, Korean, and English.
 
 ## 🚀 Features
 
 - **Modern React Architecture** - Built with React 19 and Vite for optimal performance
 - **Responsive Design** - Mobile-first approach using Tailwind CSS v3.4.0
 - **Apple-Inspired Design** - Clean blue color scheme with subtle shadows and smooth animations
+- **Internationalization (i18n)** - Support for Chinese (中文), Japanese (日本語), Korean (한국어), and English
+- **Language Detection** - Automatic language detection based on browser settings
+- **Language Switcher** - Easy language switching with visual feedback
 - **Smooth Animations** - Enhanced user experience with Framer Motion
 - **Professional Layout** - Complete website structure with navigation and footer
 - **Bilingual Support** - Chinese and English content

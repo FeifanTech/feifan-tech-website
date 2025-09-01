@@ -14,20 +14,17 @@ import {
   Zap,
   Shield
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 const Products = () => {
+  const { t } = useTranslation('common')
+  
   const products = [
     {
       icon: <ShoppingCart className="w-8 h-8" />,
-      title: 'Jianli E-commerce Platform',
-      description: 'Comprehensive e-commerce solution with integrated payment, logistics, user management, and multi-vendor capabilities',
-      features: [
-        'Multi-vendor management system',
-        'AI recommendation engine',
-        'Mobile responsive design', 
-        'Analytics dashboard',
-        'Third-party payment integration'
-      ],
+      title: t('products.items.ecommerce.title'),
+      description: t('products.items.ecommerce.description'),
+      features: t('products.items.ecommerce.features', { returnObjects: true }),
       bgColor: 'bg-blue-600',
       status: 'live',
       users: '10,000+',
@@ -35,15 +32,9 @@ const Products = () => {
     },
     {
       icon: <Mic className="w-8 h-8" />,
-      title: 'AI Speech-to-Text Recognition',
-      description: 'High-accuracy speech recognition technology with multi-language real-time transcription and voice command processing',
-      features: [
-        '99%+ recognition accuracy',
-        '50+ languages supported',
-        'Real-time transcription',
-        'Noise filtering technology',
-        'API integration ready'
-      ],
+      title: t('products.items.speech.title'),
+      description: t('products.items.speech.description'),
+      features: t('products.items.speech.features', { returnObjects: true }),
       bgColor: 'bg-indigo-600',
       status: 'live',
       users: '50,000+',
@@ -51,15 +42,9 @@ const Products = () => {
     },
     {
       icon: <FileText className="w-8 h-8" />,
-      title: 'Intelligent OCR Recognition',
-      description: 'Advanced optical character recognition technology for fast and accurate text extraction from images and documents',
-      features: [
-        'Multiple image format support',
-        'Handwriting recognition',
-        'Table structure recognition',
-        'Batch processing capability',
-        'Multi-language text recognition'
-      ],
+      title: t('products.items.ocr.title'),
+      description: t('products.items.ocr.description'),
+      features: t('products.items.ocr.features', { returnObjects: true }),
       bgColor: 'bg-blue-700',
       status: 'live',
       users: '25,000+',
@@ -67,15 +52,9 @@ const Products = () => {
     },
     {
       icon: <Eye className="w-8 h-8" />,
-      title: 'AI Image Recognition',
-      description: 'Deep learning-based image recognition system for accurate identification and classification of objects, scenes, and people',
-      features: [
-        'Object detection & recognition',
-        'Facial recognition technology',
-        'Scene classification analysis',
-        'Image quality assessment',
-        'Custom model training'
-      ],
+      title: t('products.items.vision.title'),
+      description: t('products.items.vision.description'),
+      features: t('products.items.vision.features', { returnObjects: true }),
       bgColor: 'bg-slate-600',
       status: 'live',
       users: '15,000+',
@@ -86,23 +65,23 @@ const Products = () => {
   const features = [
     {
       icon: <Zap className="w-6 h-6" />,
-      title: 'High Performance',
-      description: 'Optimized algorithms ensure fast response and processing capabilities'
+      title: t('products.whyChoose.performance.title'),
+      description: t('products.whyChoose.performance.description')
     },
     {
       icon: <Shield className="w-6 h-6" />,
-      title: 'Secure & Reliable',
-      description: 'Enterprise-grade security with comprehensive data privacy protection'
+      title: t('products.whyChoose.security.title'),
+      description: t('products.whyChoose.security.description')
     },
     {
       icon: <Globe className="w-6 h-6" />,
-      title: 'Easy Integration',
-      description: 'Complete API documentation and SDK support for seamless integration'
+      title: t('products.whyChoose.integration.title'),
+      description: t('products.whyChoose.integration.description')
     },
     {
       icon: <Users className="w-6 h-6" />,
-      title: 'Professional Support',
-      description: '24/7 technical support and service guarantee for all customers'
+      title: t('products.whyChoose.support.title'),
+      description: t('products.whyChoose.support.description')
     }
   ]
 
@@ -117,13 +96,12 @@ const Products = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Products</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('products.hero.title')}</h1>
             <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto mb-4">
-              Innovative AI Solutions & E-commerce Platforms
+              {t('products.hero.subtitle')}
             </p>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-              Cutting-edge AI and e-commerce products designed to transform businesses 
-              and enhance user experiences with intelligent automation.
+              {t('products.hero.description')}
             </p>
           </motion.div>
         </div>
@@ -140,10 +118,10 @@ const Products = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Featured Products
+              {t('products.featured.title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Experience the power of AI-driven solutions and advanced e-commerce platforms
+              {t('products.featured.subtitle')}
             </p>
           </motion.div>
 
@@ -168,7 +146,7 @@ const Products = () => {
                     </div>
                   </div>
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                    Live
+                    {t('common.live')}
                   </span>
                 </div>
 
@@ -181,7 +159,7 @@ const Products = () => {
                 <div className="flex items-center space-x-6 mb-6">
                   <div className="flex items-center space-x-1">
                     <Users className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-600">{product.users} users</span>
+                    <span className="text-sm text-gray-600">{product.users} {t('common.users')}</span>
                   </div>
                   <div className="flex items-center space-x-1">
                     <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -191,7 +169,7 @@ const Products = () => {
 
                 {/* Features List */}
                 <div className="mb-8">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-4">Key Features:</h4>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-4">{t('common.keyFeatures')}:</h4>
                   <div className="grid grid-cols-1 gap-3">
                     {product.features.map((feature, idx) => (
                       <div key={idx} className="flex items-start">
@@ -206,10 +184,10 @@ const Products = () => {
                 <div className="flex flex-col sm:flex-row gap-3">
                   <button className="flex-1 inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-sm">
                     <Download className="w-4 h-4 mr-2" />
-                    Try Now
+                    {t('common.tryNow')}
                   </button>
                   <button className="flex-1 inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 transition-all">
-                    Learn More
+                    {t('common.learnMore')}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </button>
                 </div>
@@ -230,10 +208,10 @@ const Products = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Our Products?
+              {t('products.whyChoose.title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Built with cutting-edge technology and designed for enterprise-grade performance
+              {t('products.whyChoose.subtitle')}
             </p>
           </motion.div>
 
@@ -268,19 +246,18 @@ const Products = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Transform Your Business?
+              {t('products.cta.title')}
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-              Experience the power of our AI solutions and e-commerce platforms. 
-              Start your digital transformation journey today.
+              {t('products.cta.description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all transform hover:scale-105 shadow-lg">
-                Get Started Free
+                {t('products.cta.getFree')}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </button>
               <button className="inline-flex items-center px-8 py-4 border-2 border-white/20 rounded-lg font-semibold hover:bg-white/5 hover:border-white/40 transition-all backdrop-blur-sm">
-                Schedule Demo
+                {t('common.scheduleDemo')}
               </button>
             </div>
           </motion.div>

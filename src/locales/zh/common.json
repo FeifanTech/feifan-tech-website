@@ -1,0 +1,284 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于我们",
+    "services": "服务",
+    "products": "产品",
+    "contact": "联系我们"
+  },
+  "common": {
+    "learnMore": "了解更多",
+    "getStarted": "立即开始",
+    "tryNow": "立即试用",
+    "contactUs": "联系我们",
+    "viewProducts": "查看产品",
+    "exploreServices": "探索服务",
+    "getInTouch": "联系我们",
+    "startProject": "开始您的项目",
+    "scheduleDemo": "预约演示",
+    "live": "在线",
+    "users": "用户",
+    "keyFeatures": "核心功能"
+  },
+  "home": {
+    "hero": {
+      "title": "非凡科技",
+      "subtitle": "非凡创新",
+      "description": "以创新解决方案引领技术未来，推动企业数字化转型，赋能各行各业的数字化发展。"
+    },
+    "features": {
+      "title": "为什么选择非凡科技？",
+      "subtitle": "我们将技术专业知识与创新思维相结合，提供卓越的成果",
+      "items": {
+        "innovation": {
+          "title": "创新优先",
+          "description": "推动数字化转型的前沿技术解决方案"
+        },
+        "speed": {
+          "title": "快速开发",
+          "description": "采用敏捷方法进行快速原型设计和部署"
+        },
+        "security": {
+          "title": "安全为重",
+          "description": "每个解决方案都内置企业级安全保障"
+        },
+        "team": {
+          "title": "专家团队",
+          "description": "世界一流的开发者和技术领导者"
+        }
+      }
+    },
+    "stats": {
+      "projects": "项目交付",
+      "satisfaction": "客户满意度",
+      "experience": "年经验",
+      "support": "支持服务"
+    },
+    "testimonials": {
+      "title": "客户评价"
+    },
+    "cta": {
+      "title": "准备好转型您的业务了吗？",
+      "description": "让我们讨论非凡科技如何帮助您实现数字化转型目标"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "关于非凡科技",
+      "description": "我们是充满激情的技术专家，致力于创造推动数字化转型和商业成功的非凡解决方案。"
+    },
+    "mission": {
+      "title": "我们的使命",
+      "description": "通过创新的技术解决方案赋能企业，推动增长、效率和数字化转型。我们相信技术应该是可访问的、强大的，并且对每个组织都具有变革性。"
+    },
+    "vision": {
+      "title": "我们的愿景",
+      "description": "成为企业在数字化转型之旅中信赖的领先技术合作伙伴，创造一个技术无缝增强人类潜力和商业成功的未来。"
+    },
+    "leadership": {
+      "title": "领导力卓越",
+      "cto": "首席技术官",
+      "description": "在数字化转型和创新战略方面拥有丰富经验的远见技术领导者。"
+    },
+    "values": {
+      "title": "我们的价值观",
+      "subtitle": "这些核心价值观指导着我们做出的每一个决策和交付的每一个解决方案",
+      "innovation": {
+        "title": "创新",
+        "description": "我们不断突破界限，拥抱新技术，提供前沿解决方案。"
+      },
+      "excellence": {
+        "title": "卓越",
+        "description": "我们致力于在所做的一切工作中提供最高质量。"
+      },
+      "collaboration": {
+        "title": "协作",
+        "description": "我们相信团队合作的力量和与客户建立牢固合作伙伴关系。"
+      },
+      "integrity": {
+        "title": "诚信",
+        "description": "我们以诚实、透明和道德实践开展业务。"
+      }
+    },
+    "timeline": {
+      "title": "我们的历程",
+      "subtitle": "我们成长、成就和里程碑的时间线"
+    },
+    "cta": {
+      "title": "加入我们的旅程",
+      "description": "成为数字化转型革命的一部分。让我们一起创造非凡的成果。"
+    }
+  },
+  "services": {
+    "hero": {
+      "title": "我们的服务",
+      "description": "根据您的业务需求量身定制的综合技术解决方案。从概念到部署，我们在每一步都提供卓越的服务。"
+    },
+    "offerings": {
+      "title": "我们的服务内容",
+      "subtitle": "旨在加速您的数字化转型的端到端技术服务"
+    },
+    "process": {
+      "title": "我们的流程",
+      "subtitle": "经过验证的方法论，确保项目成功和客户满意度"
+    },
+    "industries": {
+      "title": "我们服务的行业",
+      "subtitle": "我们的专业知识跨越多个行业，提供定制解决方案"
+    },
+    "cta": {
+      "title": "准备好开始了吗？",
+      "description": "让我们讨论您的项目需求以及我们如何帮助实现您的愿景"
+    }
+  },
+  "products": {
+    "hero": {
+      "title": "我们的产品",
+      "subtitle": "创新的AI解决方案和电商平台",
+      "description": "前沿的AI和电商产品，旨在通过智能自动化转型企业并提升用户体验。"
+    },
+    "featured": {
+      "title": "特色产品",
+      "subtitle": "体验AI驱动解决方案和先进电商平台的强大功能"
+    },
+    "items": {
+      "ecommerce": {
+        "title": "兼利电商平台",
+        "description": "集成支付、物流、用户管理和多商户功能的综合电商解决方案",
+        "features": [
+          "多商户管理系统",
+          "AI推荐引擎",
+          "移动端响应式设计",
+          "分析仪表板",
+          "第三方支付集成"
+        ]
+      },
+      "speech": {
+        "title": "AI语音转文字识别",
+        "description": "高精度语音识别技术，支持多语言实时转录和语音命令处理",
+        "features": [
+          "99%+识别准确率",
+          "支持50+种语言",
+          "实时转录",
+          "噪音过滤技术",
+          "API集成就绪"
+        ]
+      },
+      "ocr": {
+        "title": "智能OCR识别",
+        "description": "先进的光学字符识别技术，快速准确地从图像和文档中提取文本",
+        "features": [
+          "多种图像格式支持",
+          "手写识别",
+          "表格结构识别",
+          "批量处理能力",
+          "多语言文本识别"
+        ]
+      },
+      "vision": {
+        "title": "AI图像识别",
+        "description": "基于深度学习的图像识别系统，准确识别和分类物体、场景和人物",
+        "features": [
+          "物体检测与识别",
+          "人脸识别技术",
+          "场景分类分析",
+          "图像质量评估",
+          "自定义模型训练"
+        ]
+      }
+    },
+    "whyChoose": {
+      "title": "为什么选择我们的产品？",
+      "subtitle": "采用前沿技术构建，专为企业级性能设计",
+      "performance": {
+        "title": "高性能",
+        "description": "优化的算法确保快速响应和处理能力"
+      },
+      "security": {
+        "title": "安全可靠",
+        "description": "企业级安全保障，全面的数据隐私保护"
+      },
+      "integration": {
+        "title": "易于集成",
+        "description": "完整的API文档和SDK支持，实现无缝集成"
+      },
+      "support": {
+        "title": "专业支持",
+        "description": "为所有客户提供24/7技术支持和服务保障"
+      }
+    },
+    "cta": {
+      "title": "准备好转型您的业务了吗？",
+      "description": "体验我们AI解决方案和电商平台的强大功能。立即开始您的数字化转型之旅。",
+      "getFree": "免费开始"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "联系我们",
+      "description": "准备开始您的下一个项目？我们很乐意听到您的想法，并讨论我们如何帮助实现它们。"
+    },
+    "form": {
+      "title": "发送消息给我们",
+      "name": "姓名",
+      "email": "邮箱地址",
+      "company": "公司",
+      "phone": "电话号码",
+      "service": "感兴趣的服务",
+      "message": "消息",
+      "submit": "发送消息",
+      "sending": "发送中...",
+      "success": "消息已发送！",
+      "successDesc": "感谢您联系我们。我们将在24小时内回复您。",
+      "placeholders": {
+        "name": "您的姓名",
+        "email": "your@email.com",
+        "company": "您的公司名称",
+        "phone": "您的电话号码",
+        "service": "选择服务",
+        "message": "告诉我们您的项目需求..."
+      }
+    },
+    "info": {
+      "title": "联系信息",
+      "description": "通过以下任何渠道与我们联系。我们在这里为您提供帮助并回答您可能有的任何问题。",
+      "email": {
+        "title": "邮箱",
+        "description": "随时给我们发邮件"
+      },
+      "location": {
+        "title": "位置",
+        "content": "中国浙江杭州",
+        "description": "我们的总部位置"
+      },
+      "phone": {
+        "title": "电话",
+        "content": "通过邮箱联系",
+        "description": "联系我们进行电话咨询"
+      },
+      "hours": {
+        "title": "营业时间",
+        "content": "周一 - 周五：上午9点 - 下午6点 CST",
+        "description": "中国标准时间"
+      }
+    },
+    "leadership": {
+      "title": "领导团队",
+      "description": "领导技术创新和数字化转型计划"
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "有关我们服务的常见问题的快速答案"
+    }
+  },
+  "footer": {
+    "company": "非凡科技",
+    "description": "专注于创新和数字化转型的领先技术公司。我们帮助企业在数字时代蓬勃发展，提供前沿解决方案。",
+    "copyright": "© 2024 非凡科技。保留所有权利。",
+    "quickLinks": "快速链接",
+    "contactTitle": "联系方式",
+    "location": "中国浙江杭州",
+    "leadership": "技术领导与创新",
+    "builtWith": "由非凡科技团队用❤️构建"
+  }
+}

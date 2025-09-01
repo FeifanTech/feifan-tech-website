@@ -2,17 +2,20 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, ChevronRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
+import LanguageSwitcher from './LanguageSwitcher'
 
 const Layout = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const location = useLocation()
+  const { t } = useTranslation('common')
 
   const navItems = [
-    { name: '首页', path: '/', nameEn: 'Home' },
-    { name: '关于我们', path: '/about', nameEn: 'About' },
-    { name: '服务', path: '/services', nameEn: 'Services' },
-    { name: '产品', path: '/products', nameEn: 'Products' },
-    { name: '联系我们', path: '/contact', nameEn: 'Contact' }
+    { name: t('nav.home'), path: '/' },
+    { name: t('nav.about'), path: '/about' },
+    { name: t('nav.services'), path: '/services' },
+    { name: t('nav.products'), path: '/products' },
+    { name: t('nav.contact'), path: '/contact' }
   ]
 
   const isActive = (path) => {
@@ -36,28 +39,33 @@ const Layout = ({ children }) => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`relative px-3 py-2 text-sm font-medium transition-colors ${
-                    isActive(item.path)
-                      ? 'text-blue-600'
-                      : 'text-gray-700 hover:text-blue-600'
-                  }`}
-                >
-                  {item.nameEn}
-                  {isActive(item.path) && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-full"
-                      initial={false}
-                    />
-                  )}
-                </Link>
-              ))}
-            </nav>
+            <div className="hidden md:flex items-center space-x-8">
+              <nav className="flex space-x-8">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`relative px-3 py-2 text-sm font-medium transition-colors ${
+                      isActive(item.path)
+                        ? 'text-blue-600'
+                        : 'text-gray-700 hover:text-blue-600'
+                    }`}
+                  >
+                    {item.name}
+                    {isActive(item.path) && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-full"
+                        initial={false}
+                      />
+                    )}
+                  </Link>
+                ))}
+              </nav>
+              
+              {/* Language Switcher */}
+              <LanguageSwitcher />
+            </div>
 
             {/* Mobile menu button */}
             <button
@@ -89,10 +97,15 @@ const Layout = ({ children }) => {
                           : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                       }`}
                     >
-                      <span>{item.nameEn}</span>
+                      <span>{item.name}</span>
                       <ChevronRight size={16} className="text-gray-400" />
                     </Link>
                   ))}
+                  
+                  {/* Mobile Language Switcher */}
+                  <div className="px-4 py-3 border-t">
+                    <LanguageSwitcher />
+                  </div>
                 </div>
               </motion.nav>
             )}
@@ -118,17 +131,16 @@ const Layout = ({ children }) => {
                 <span className="text-xl font-bold">Feifan Tech</span>
               </div>
               <p className="text-gray-400 mb-4 max-w-md">
-                Leading technology company focused on innovation and digital transformation. 
-                We help businesses thrive in the digital age with cutting-edge solutions.
+                {t('footer.description')}
               </p>
               <p className="text-gray-400 text-sm">
-                © 2020- {new Date().getFullYear()} Feifan Tech. All rights reserved.
+                {t('footer.copyright', { year: new Date().getFullYear() })}
               </p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h3 className="font-semibold mb-4">Quick Links</h3>
+              <h3 className="font-semibold mb-4">{t('footer.quickLinks')}</h3>
               <ul className="space-y-2">
                 {navItems.map((item) => (
                   <li key={item.path}>
@@ -136,7 +148,7 @@ const Layout = ({ children }) => {
                       to={item.path}
                       className="text-gray-400 hover:text-white transition-colors"
                     >
-                      {item.nameEn}
+                      {item.name}
                     </Link>
                   </li>
                 ))}
@@ -145,11 +157,11 @@ const Layout = ({ children }) => {
 
             {/* Contact Info */}
             <div>
-              <h3 className="font-semibold mb-4">Contact</h3>
+              <h3 className="font-semibold mb-4">{t('footer.contact')}</h3>
               <ul className="space-y-2 text-gray-400">
-                <li>Hangzhou, Zhejiang, China</li>
-                <li>yymhxie@gmail.com</li>
-                <li>Tech Leadership & Innovation</li>
+                <li>{t('footer.address')}</li>
+                <li>{t('footer.email')}</li>
+                <li>{t('footer.tagline')}</li>
               </ul>
             </div>
           </div>

@@ -2,36 +2,39 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Code, Zap, Shield, Users, Star, ChevronRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 const Home = () => {
+  const { t } = useTranslation('common')
+  
   const features = [
     {
       icon: <Code className="w-6 h-6" />,
-      title: 'Innovation First',
-      description: 'Cutting-edge technology solutions that drive digital transformation'
+      title: t('home.features.items.innovation.title'),
+      description: t('home.features.items.innovation.description')
     },
     {
       icon: <Zap className="w-6 h-6" />,
-      title: 'Fast Development',
-      description: 'Rapid prototyping and deployment with agile methodologies'
+      title: t('home.features.items.speed.title'),
+      description: t('home.features.items.speed.description')
     },
     {
       icon: <Shield className="w-6 h-6" />,
-      title: 'Security Focused',
-      description: 'Enterprise-grade security built into every solution'
+      title: t('home.features.items.security.title'),
+      description: t('home.features.items.security.description')
     },
     {
       icon: <Users className="w-6 h-6" />,
-      title: 'Expert Team',
-      description: 'World-class developers and technology leaders'
+      title: t('home.features.items.team.title'),
+      description: t('home.features.items.team.description')
     }
   ]
 
   const stats = [
-    { number: '50+', label: 'Projects Delivered' },
-    { number: '100%', label: 'Client Satisfaction' },
-    { number: '5+', label: 'Years Experience' },
-    { number: '24/7', label: 'Support Available' }
+    { number: '50+', label: t('home.stats.projects') },
+    { number: '100%', label: t('home.stats.satisfaction') },
+    { number: '5+', label: t('home.stats.experience') },
+    { number: '24/7', label: t('home.stats.support') }
   ]
 
   const testimonials = [
@@ -81,14 +84,13 @@ const Home = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-              Feifan Tech
+              {t('home.hero.title')}
             </h1>
             <p className="text-xl md:text-2xl mb-4 text-gray-200">
-              飞凡科技 • Extraordinary Innovation
+              {t('home.hero.subtitle')}
             </p>
             <p className="text-lg md:text-xl mb-8 text-gray-300 max-w-3xl mx-auto">
-              Pioneering the future of technology with innovative solutions that transform businesses 
-              and empower digital transformation across industries.
+              {t('home.hero.description')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -96,14 +98,14 @@ const Home = () => {
                 to="/products"
                 className="inline-flex items-center px-8 py-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                View Products
+                {t('common.viewProducts')}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
               <Link
                 to="/services"
                 className="inline-flex items-center px-8 py-4 border-2 border-white/20 rounded-lg font-semibold hover:bg-white/5 hover:border-white/40 transition-all backdrop-blur-sm"
               >
-                Explore Services
+                {t('common.exploreServices')}
               </Link>
             </div>
           </motion.div>
@@ -130,10 +132,10 @@ const Home = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Feifan Tech?
+              {t('home.features.title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We combine technical expertise with innovative thinking to deliver exceptional results
+              {t('home.features.subtitle')}
             </p>
           </motion.div>
 
@@ -190,7 +192,7 @@ const Home = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              What Our Clients Say
+              {t('home.testimonials.title')}
             </h2>
           </motion.div>
 
@@ -230,16 +232,16 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Transform Your Business?
+              {t('home.cta.title')}
             </h2>
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Let's discuss how Feifan Tech can help you achieve your digital transformation goals
+              {t('home.cta.description')}
             </p>
             <Link
               to="/contact"
               className="inline-flex items-center px-8 py-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
-              Start Your Project
+              {t('common.startProject')}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
           </motion.div>

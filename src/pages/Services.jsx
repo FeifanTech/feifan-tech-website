@@ -18,8 +18,10 @@ import {
   TrendingUp,
   Settings
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 const Services = () => {
+  const { t } = useTranslation('common')
   const services = [
     {
       icon: <Code className="w-8 h-8" />,
@@ -112,10 +114,9 @@ const Services = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Services</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('services.hero.title')}</h1>
             <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto">
-              Comprehensive technology solutions tailored to your business needs. 
-              From concept to deployment, we deliver excellence at every step.
+              {t('services.hero.description')}
             </p>
           </motion.div>
         </div>
@@ -132,10 +133,10 @@ const Services = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              What We Offer
+              {t('services.offerings.title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              End-to-end technology services designed to accelerate your digital transformation
+              {t('services.offerings.subtitle')}
             </p>
           </motion.div>
 
@@ -181,10 +182,10 @@ const Services = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Process
+              {t('services.process.title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A proven methodology that ensures project success and client satisfaction
+              {t('services.process.subtitle')}
             </p>
           </motion.div>
 
@@ -229,10 +230,10 @@ const Services = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Industries We Serve
+              {t('services.industries.title')}
             </h2>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Our expertise spans across multiple industries, delivering tailored solutions
+              {t('services.industries.subtitle')}
             </p>
           </motion.div>
 
@@ -264,10 +265,10 @@ const Services = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Ready to Get Started?
+              {t('services.cta.title')}
             </h2>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Let's discuss your project requirements and how we can help bring your vision to life
+              {t('services.cta.description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
@@ -276,7 +277,7 @@ const Services = () => {
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl"
               >
-                Start Your Project
+                {t('common.startProject')}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </motion.a>
               <motion.a
@@ -285,7 +286,7 @@ const Services = () => {
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 transition-all"
               >
-                Learn More About Us
+                {t('common.learnMore')} About Us
               </motion.a>
             </div>
           </motion.div>

@@ -1,0 +1,284 @@
+{
+  "nav": {
+    "home": "홈",
+    "about": "회사소개",
+    "services": "서비스",
+    "products": "제품",
+    "contact": "문의하기"
+  },
+  "common": {
+    "learnMore": "더 알아보기",
+    "getStarted": "시작하기",
+    "tryNow": "지금 체험",
+    "contactUs": "문의하기",
+    "viewProducts": "제품 보기",
+    "exploreServices": "서비스 둘러보기",
+    "getInTouch": "연락하기",
+    "startProject": "프로젝트 시작",
+    "scheduleDemo": "데모 예약",
+    "live": "서비스 중",
+    "users": "사용자",
+    "keyFeatures": "주요 기능"
+  },
+  "home": {
+    "hero": {
+      "title": "Feifan Tech",
+      "subtitle": "비범한 혁신",
+      "description": "비즈니스를 변화시키고 모든 산업에서 디지털 전환을 강화하는 혁신적인 솔루션으로 기술의 미래를 개척합니다."
+    },
+    "features": {
+      "title": "왜 Feifan Tech를 선택해야 할까요?",
+      "subtitle": "기술적 전문지식과 혁신적 사고를 결합하여 탁월한 결과를 제공합니다",
+      "items": {
+        "innovation": {
+          "title": "혁신 우선",
+          "description": "디지털 전환을 추진하는 최첨단 기술 솔루션"
+        },
+        "speed": {
+          "title": "빠른 개발",
+          "description": "애자일 방법론을 통한 신속한 프로토타이핑 및 배포"
+        },
+        "security": {
+          "title": "보안 중시",
+          "description": "모든 솔루션에 내장된 엔터프라이즈급 보안"
+        },
+        "team": {
+          "title": "전문가 팀",
+          "description": "세계 최고 수준의 개발자와 기술 리더"
+        }
+      }
+    },
+    "stats": {
+      "projects": "프로젝트 완료",
+      "satisfaction": "고객 만족도",
+      "experience": "년 경험",
+      "support": "지원 서비스"
+    },
+    "testimonials": {
+      "title": "고객 후기"
+    },
+    "cta": {
+      "title": "비즈니스 혁신 준비가 되셨나요?",
+      "description": "Feifan Tech가 디지털 전환 목표 달성을 어떻게 도울 수 있는지 논의해 보겠습니다"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Feifan Tech 소개",
+      "description": "우리는 디지털 전환과 비즈니스 성공을 이끄는 비범한 솔루션 창조에 열정을 가진 기술전문가들입니다."
+    },
+    "mission": {
+      "title": "우리의 사명",
+      "description": "성장, 효율성, 디지털 전환을 추진하는 혁신적인 기술 솔루션으로 비즈니스를 지원하는 것입니다. 기술은 모든 조직에 접근 가능하고, 강력하며, 변혁적이어야 한다고 믿습니다."
+    },
+    "vision": {
+      "title": "우리의 비전",
+      "description": "기업이 디지털 전환 여정에서 신뢰하는 선도적 기술 파트너가 되어, 기술이 인간의 잠재력과 비즈니스 성공을 원활하게 향상시키는 미래를 창조하는 것입니다."
+    },
+    "leadership": {
+      "title": "리더십 우수성",
+      "cto": "최고기술책임자",
+      "description": "디지털 전환과 혁신 전략 분야에서 풍부한 경험을 가진 비전 있는 기술 리더."
+    },
+    "values": {
+      "title": "우리의 가치",
+      "subtitle": "이러한 핵심 가치가 우리가 내리는 모든 결정과 제공하는 모든 솔루션을 이끌어갑니다",
+      "innovation": {
+        "title": "혁신",
+        "description": "우리는 지속적으로 경계를 넘어서며 새로운 기술을 수용하여 최첨단 솔루션을 제공합니다."
+      },
+      "excellence": {
+        "title": "우수성",
+        "description": "우리는 모든 업무에서 최고 품질을 제공하는 데 전념하고 있습니다."
+      },
+      "collaboration": {
+        "title": "협력",
+        "description": "우리는 팀워크의 힘과 고객과의 강력한 파트너십 구축을 믿습니다."
+      },
+      "integrity": {
+        "title": "성실성",
+        "description": "우리는 정직, 투명성, 윤리적 관행으로 사업을 수행합니다."
+      }
+    },
+    "timeline": {
+      "title": "우리의 여정",
+      "subtitle": "성장, 성취, 이정표의 타임라인"
+    },
+    "cta": {
+      "title": "이 여정에 함께하세요",
+      "description": "디지털 전환 혁명의 일부가 되어보세요. 함께 비범한 것을 창조합시다."
+    }
+  },
+  "services": {
+    "hero": {
+      "title": "우리의 서비스",
+      "description": "비즈니스 요구에 맞춘 포괄적인 기술 솔루션. 개념부터 배포까지 모든 단계에서 우수성을 제공합니다."
+    },
+    "offerings": {
+      "title": "제공 서비스",
+      "subtitle": "디지털 전환을 가속화하도록 설계된 종단간 기술 서비스"
+    },
+    "process": {
+      "title": "우리의 프로세스",
+      "subtitle": "프로젝트 성공과 고객 만족을 보장하는 검증된 방법론"
+    },
+    "industries": {
+      "title": "서비스 제공 산업",
+      "subtitle": "우리의 전문성은 여러 산업에 걸쳐 맞춤형 솔루션을 제공합니다"
+    },
+    "cta": {
+      "title": "시작할 준비가 되셨나요?",
+      "description": "프로젝트 요구사항과 비전 실현을 어떻게 도울 수 있는지 논의해 보겠습니다"
+    }
+  },
+  "products": {
+    "hero": {
+      "title": "우리의 제품",
+      "subtitle": "혁신적인 AI 솔루션 & 전자상거래 플랫폼",
+      "description": "지능형 자동화로 비즈니스를 변화시키고 사용자 경험을 향상시키도록 설계된 최첨단 AI 및 전자상거래 제품."
+    },
+    "featured": {
+      "title": "주요 제품",
+      "subtitle": "AI 기반 솔루션과 고급 전자상거래 플랫폼의 강력함을 경험해보세요"
+    },
+    "items": {
+      "ecommerce": {
+        "title": "겸리 전자상거래 플랫폼",
+        "description": "결제, 물류, 사용자 관리 및 다중 벤더 기능이 통합된 포괄적인 전자상거래 솔루션",
+        "features": [
+          "다중 벤더 관리 시스템",
+          "AI 추천 엔진",
+          "모바일 반응형 디자인",
+          "분석 대시보드",
+          "제3자 결제 통합"
+        ]
+      },
+      "speech": {
+        "title": "AI 음성-텍스트 변환 인식",
+        "description": "다국어 실시간 전사 및 음성 명령 처리를 지원하는 고정밀도 음성 인식 기술",
+        "features": [
+          "99%+ 인식 정확도",
+          "50개 이상 언어 지원",
+          "실시간 전사",
+          "노이즈 필터링 기술",
+          "API 통합 준비"
+        ]
+      },
+      "ocr": {
+        "title": "지능형 OCR 인식",
+        "description": "이미지와 문서에서 텍스트를 빠르고 정확하게 추출하는 고급 광학 문자 인식 기술",
+        "features": [
+          "다중 이미지 형식 지원",
+          "손글씨 인식",
+          "표 구조 인식",
+          "일괄 처리 기능",
+          "다국어 텍스트 인식"
+        ]
+      },
+      "vision": {
+        "title": "AI 이미지 인식",
+        "description": "객체, 장면, 인물의 정확한 식별 및 분류를 위한 딥러닝 기반 이미지 인식 시스템",
+        "features": [
+          "객체 검출 및 인식",
+          "얼굴 인식 기술",
+          "장면 분류 분석",
+          "이미지 품질 평가",
+          "맞춤형 모델 훈련"
+        ]
+      }
+    },
+    "whyChoose": {
+      "title": "왜 우리 제품을 선택해야 할까요?",
+      "subtitle": "최첨단 기술로 구축되고 엔터프라이즈급 성능을 위해 설계됨",
+      "performance": {
+        "title": "고성능",
+        "description": "최적화된 알고리즘으로 빠른 응답과 처리 능력을 보장"
+      },
+      "security": {
+        "title": "안전하고 신뢰할 수 있음",
+        "description": "포괄적인 데이터 프라이버시 보호를 갖춘 엔터프라이즈급 보안"
+      },
+      "integration": {
+        "title": "간편한 통합",
+        "description": "원활한 통합을 위한 완전한 API 문서 및 SDK 지원"
+      },
+      "support": {
+        "title": "전문 지원",
+        "description": "모든 고객을 위한 24시간 기술 지원 및 서비스 보장"
+      }
+    },
+    "cta": {
+      "title": "비즈니스 혁신 준비가 되셨나요?",
+      "description": "AI 솔루션과 전자상거래 플랫폼의 강력함을 경험해보세요. 지금 디지털 전환 여정을 시작하세요.",
+      "getFree": "무료로 시작하기"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "문의하기",
+      "description": "다음 프로젝트를 시작할 준비가 되셨나요? 여러분의 아이디어를 듣고 어떻게 실현할 수 있는지 논의하고 싶습니다."
+    },
+    "form": {
+      "title": "메시지 보내기",
+      "name": "성명",
+      "email": "이메일 주소",
+      "company": "회사명",
+      "phone": "전화번호",
+      "service": "관심 있는 서비스",
+      "message": "메시지",
+      "submit": "메시지 보내기",
+      "sending": "전송 중...",
+      "success": "메시지가 전송되었습니다!",
+      "successDesc": "문의해 주셔서 감사합니다. 24시간 이내에 연락드리겠습니다.",
+      "placeholders": {
+        "name": "성명을 입력해주세요",
+        "email": "your@email.com",
+        "company": "회사명을 입력해주세요",
+        "phone": "전화번호를 입력해주세요",
+        "service": "서비스를 선택해주세요",
+        "message": "프로젝트 요구사항에 대해 알려주세요..."
+      }
+    },
+    "info": {
+      "title": "연락처 정보",
+      "description": "다음 채널 중 어느 것을 통해서든 연락하세요. 도움을 드리고 궁금한 점에 답변해드리겠습니다.",
+      "email": {
+        "title": "이메일",
+        "description": "언제든 이메일을 보내주세요"
+      },
+      "location": {
+        "title": "위치",
+        "content": "중국 절강성 항저우시",
+        "description": "본사 위치"
+      },
+      "phone": {
+        "title": "전화",
+        "content": "이메일로 연락 가능",
+        "description": "전화 상담은 문의해 주세요"
+      },
+      "hours": {
+        "title": "영업 시간",
+        "content": "월 - 금: 오전 9시 - 오후 6시 CST",
+        "description": "중국 표준시"
+      }
+    },
+    "leadership": {
+      "title": "리더십 팀",
+      "description": "기술 혁신과 디지털 전환 이니셔티브를 이끌고 있습니다"
+    },
+    "faq": {
+      "title": "자주 묻는 질문",
+      "subtitle": "서비스에 대한 일반적인 질문에 대한 빠른 답변"
+    }
+  },
+  "footer": {
+    "company": "Feifan Tech",
+    "description": "혁신과 디지털 전환에 집중하는 선도적인 기술 회사. 최첨단 솔루션으로 디지털 시대에 비즈니스가 번영할 수 있도록 돕습니다.",
+    "copyright": "© 2024 Feifan Tech. 모든 권리 보유.",
+    "quickLinks": "바로가기",
+    "contactTitle": "연락처",
+    "location": "중국 절강성 항저우시",
+    "leadership": "기술 리더십 & 혁신",
+    "builtWith": "Feifan Tech 팀이 ❤️로 제작"
+  }
+}

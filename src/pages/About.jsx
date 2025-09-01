@@ -1,28 +1,31 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Target, Eye, Heart, Award, Users, Lightbulb } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 const About = () => {
+  const { t } = useTranslation('common')
+  
   const values = [
     {
       icon: <Lightbulb className="w-8 h-8" />,
-      title: 'Innovation',
-      description: 'We constantly push boundaries and embrace new technologies to deliver cutting-edge solutions.'
+      title: t('about.values.innovation.title'),
+      description: t('about.values.innovation.description')
     },
     {
       icon: <Heart className="w-8 h-8" />,
-      title: 'Excellence',
-      description: 'We are committed to delivering the highest quality in everything we do.'
+      title: t('about.values.excellence.title'),
+      description: t('about.values.excellence.description')
     },
     {
       icon: <Users className="w-8 h-8" />,
-      title: 'Collaboration',
-      description: 'We believe in the power of teamwork and building strong partnerships with our clients.'
+      title: t('about.values.collaboration.title'),
+      description: t('about.values.collaboration.description')
     },
     {
       icon: <Award className="w-8 h-8" />,
-      title: 'Integrity',
-      description: 'We conduct business with honesty, transparency, and ethical practices.'
+      title: t('about.values.integrity.title'),
+      description: t('about.values.integrity.description')
     }
   ]
 
@@ -70,10 +73,9 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">About Feifan Tech</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('about.hero.title')}</h1>
             <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto">
-              We are passionate technologists dedicated to creating extraordinary solutions 
-              that drive digital transformation and business success.
+              {t('about.hero.description')}
             </p>
           </motion.div>
         </div>
@@ -92,24 +94,20 @@ const About = () => {
               <div className="mb-8">
                 <div className="flex items-center mb-4">
                   <Target className="w-8 h-8 text-blue-600 mr-3" />
-                  <h2 className="text-3xl font-bold text-gray-900">Our Mission</h2>
+                  <h2 className="text-3xl font-bold text-gray-900">{t('about.mission.title')}</h2>
                 </div>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  To empower businesses with innovative technology solutions that drive growth, 
-                  efficiency, and digital transformation. We believe technology should be accessible, 
-                  powerful, and transformative for every organization.
+                  {t('about.mission.description')}
                 </p>
               </div>
 
               <div>
                 <div className="flex items-center mb-4">
                   <Eye className="w-8 h-8 text-purple-600 mr-3" />
-                  <h2 className="text-3xl font-bold text-gray-900">Our Vision</h2>
+                  <h2 className="text-3xl font-bold text-gray-900">{t('about.vision.title')}</h2>
                 </div>
                 <p className="text-lg text-gray-700 leading-relaxed">
-                  To be the leading technology partner that businesses trust for their digital 
-                  transformation journey, creating a future where technology seamlessly enhances 
-                  human potential and business success.
+                  {t('about.vision.description')}
                 </p>
               </div>
             </motion.div>
@@ -122,7 +120,7 @@ const About = () => {
               className="relative"
             >
               <div className="bg-blue-600 rounded-2xl p-8 text-white shadow-lg">
-                <h3 className="text-2xl font-bold mb-6">Leadership Excellence</h3>
+                <h3 className="text-2xl font-bold mb-6">{t('about.leadership.title')}</h3>
                 <div className="space-y-4">
                   <div className="flex items-start">
                     <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mr-4">
@@ -130,10 +128,9 @@ const About = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold">Xie Jinian (谢记年)</h4>
-                      <p className="text-blue-100">Chief Technology Officer</p>
+                      <p className="text-blue-100">{t('about.leadership.cto')}</p>
                       <p className="text-blue-100 text-sm mt-2">
-                        Visionary technology leader with extensive experience in digital 
-                        transformation and innovation strategy.
+                        {t('about.leadership.description')}
                       </p>
                     </div>
                   </div>
@@ -154,9 +151,9 @@ const About = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Values</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t('about.values.title')}</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              These core values guide every decision we make and every solution we deliver
+              {t('about.values.subtitle')}
             </p>
           </motion.div>
 
@@ -191,9 +188,9 @@ const About = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t('about.timeline.title')}</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A timeline of our growth, achievements, and milestones
+              {t('about.timeline.subtitle')}
             </p>
           </motion.div>
 
@@ -246,10 +243,10 @@ const About = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Join Us on This Journey
+              {t('about.cta.title')}
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-              Be part of the digital transformation revolution. Let's create something extraordinary together.
+              {t('about.cta.description')}
             </p>
           </motion.div>
         </div>

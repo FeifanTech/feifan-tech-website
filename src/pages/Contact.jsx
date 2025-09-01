@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, MapPin, Phone, Clock, Send, CheckCircle, User, MessageCircle } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 const Contact = () => {
+  const { t } = useTranslation('common')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -94,10 +96,9 @@ const Contact = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Get In Touch</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('contact.hero.title')}</h1>
             <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto">
-              Ready to start your next project? We'd love to hear about your ideas 
-              and discuss how we can help bring them to life.
+              {t('contact.hero.description')}
             </p>
           </motion.div>
         </div>
@@ -117,7 +118,7 @@ const Contact = () => {
               <div className="bg-white rounded-2xl shadow-sm p-8">
                 <div className="flex items-center mb-6">
                   <MessageCircle className="w-8 h-8 text-blue-600 mr-3" />
-                  <h2 className="text-2xl font-bold text-gray-900">Send us a message</h2>
+                  <h2 className="text-2xl font-bold text-gray-900">{t('contact.form.title')}</h2>
                 </div>
 
                 {!isSubmitted ? (
