@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Phone, Clock, Send, CheckCircle, MessageCircle } from 'lucide-react'
+import { Mail, MapPin, Phone, Clock, Send, CheckCircle, MessageCircle, AlertCircle } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { submitContactForm } from '../services/contactService.js'
 
 const Contact = () => {
   const { t } = useTranslation('common')
@@ -15,6 +16,8 @@ const Contact = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState(null)
+  const [submitMessage, setSubmitMessage] = useState('')
 
   const handleChange = (e) => {
     setFormData({
@@ -26,25 +29,39 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitError(null)
+    setSubmitMessage('')
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        service: '',
-        message: ''
-      })
-    }, 3000)
+    try {
+      // Submit to Supabase
+      const result = await submitContactForm(formData)
+      
+      if (result.success) {
+        setIsSubmitted(true)
+        setSubmitMessage(result.message)
+        
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false)
+          setSubmitMessage('')
+          setFormData({
+            name: '',
+            email: '',
+            company: '',
+            phone: '',
+            service: '',
+            message: ''
+          })
+        }, 5000)
+      } else {
+        setSubmitError(result.message)
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setSubmitError('An unexpected error occurred. Please try again later.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [
@@ -114,7 +131,22 @@ const Contact = () => {
                   </div>
 
                   {!isSubmitted ? (
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <>
+                      {submitError && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start"
+                        >
+                          <AlertCircle className="w-5 h-5 text-red-500 mr-3 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <h4 className="text-sm font-medium text-red-800 mb-1">{t('contact.form.error.title')}</h4>
+                            <p className="text-sm text-red-700">{submitError}</p>
+                          </div>
+                        </motion.div>
+                      )}
+                      
+                      <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                           <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -237,6 +269,7 @@ const Contact = () => {
                         )}
                       </motion.button>
                     </form>
+                    </>
                   ) : (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.9 }}
@@ -244,9 +277,9 @@ const Contact = () => {
                       className="text-center py-12"
                     >
                       <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('contact.form.success.title')}</h3>
                       <p className="text-gray-600">
-                        Thank you for contacting us. We'll get back to you within 24 hours.
+                        {submitMessage || t('contact.form.success.message')}
                       </p>
                     </motion.div>
                   )}

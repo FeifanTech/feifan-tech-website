@@ -375,8 +375,13 @@
       "message": "消息",
       "submit": "发送消息",
       "sending": "发送中...",
-      "success": "消息已发送！",
-      "successDesc": "感谢您联系我们。我们将在24小时内回复您。",
+      "success": {
+        "title": "消息已发送！",
+        "message": "感谢您联系我们。我们将在24小时内回复您。"
+      },
+      "error": {
+        "title": "发送失败"
+      },
       "placeholders": {
         "name": "您的姓名",
         "email": "your@email.com",

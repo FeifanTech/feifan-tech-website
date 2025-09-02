@@ -375,8 +375,13 @@
       "message": "Message",
       "submit": "Send Message",
       "sending": "Sending...",
-      "success": "Message Sent!",
-      "successDesc": "Thank you for contacting us. We'll get back to you within 24 hours.",
+      "success": {
+        "title": "Message Sent!",
+        "message": "Thank you for contacting us. We'll get back to you within 24 hours."
+      },
+      "error": {
+        "title": "Submission Failed"
+      },
       "placeholders": {
         "name": "Your full name",
         "email": "your@email.com", 
