@@ -1,4 +1,9 @@
 {
+  "site": {
+    "title": "Feifan Tech",
+    "titleTemplate": "{{pageTitle}} - Feifan Tech",
+    "description": "Feifan Tech - Pioneering the future of technology with innovative solutions that transform businesses and empower digital transformation"
+  },
   "nav": {
     "home": "Home",
     "about": "About",

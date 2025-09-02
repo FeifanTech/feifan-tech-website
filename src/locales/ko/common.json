@@ -1,4 +1,9 @@
 {
+  "site": {
+    "title": "페이판 테크",
+    "titleTemplate": "{{pageTitle}} - 페이판 테크",
+    "description": "페이판 테크 - 비즈니스를 변화시키고 디지털 전환을 강화하는 혁신적인 솔루션으로 기술의 미래를 개척합니다"
+  },
   "nav": {
     "home": "홈",
     "about": "회사소개",

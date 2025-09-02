@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
+import TitleManager from './components/TitleManager'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
@@ -29,6 +30,7 @@ function ScrollToHash() {
 function App() {
   return (
     <Router>
+      <TitleManager />
       <ScrollToHash />
       <Layout>
         <Routes>
