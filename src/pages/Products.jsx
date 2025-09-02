@@ -97,10 +97,10 @@ const Products = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">{t('products.hero.title')}</h1>
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 max-w-5xl mx-auto mb-4 leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 mb-4 leading-relaxed">
               {t('products.hero.subtitle')}
             </p>
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
               {t('products.hero.description')}
             </p>
           </motion.div>

@@ -89,7 +89,7 @@ const Home = () => {
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-4 text-gray-200 leading-relaxed">
               {t('home.hero.subtitle')}
             </p>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 text-gray-300 max-w-5xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 text-gray-300 leading-relaxed">
               {t('home.hero.description')}
             </p>
             
@@ -134,7 +134,7 @@ const Home = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {t('home.features.title')}
             </h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed">
               {t('home.features.subtitle')}
             </p>
           </motion.div>

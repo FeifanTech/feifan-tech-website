@@ -89,7 +89,7 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">{t('contact.hero.title')}</h1>
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 max-w-5xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed">
               {t('contact.hero.description')}
             </p>
           </motion.div>

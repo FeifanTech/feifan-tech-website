@@ -70,7 +70,7 @@ const About = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">{t('about.hero.title')}</h1>
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 max-w-5xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed">
               {t('about.hero.description')}
             </p>
           </motion.div>
@@ -172,7 +172,7 @@ const About = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t('about.values.title')}</h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed">
               {t('about.values.subtitle')}
             </p>
           </motion.div>
@@ -209,7 +209,7 @@ const About = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t('about.timeline.title')}</h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed">
               {t('about.timeline.subtitle')}
             </p>
           </motion.div>
@@ -265,7 +265,7 @@ const About = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {t('about.cta.title')}
             </h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
               {t('about.cta.description')}
             </p>
             <Link
