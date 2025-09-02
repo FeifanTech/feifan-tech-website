@@ -13,6 +13,10 @@ import { supabase, TABLES } from '../lib/supabase.js'
  */
 export const submitContactForm = async (formData) => {
   try {
+    // Debug: Log Supabase connection
+    console.log('Supabase URL configured:', !!import.meta.env.VITE_SUPABASE_URL)
+    console.log('Supabase Key configured:', !!import.meta.env.VITE_SUPABASE_ANON_KEY)
+    
     // Validate required fields
     if (!formData.name || !formData.email || !formData.message) {
       throw new Error('Name, email, and message are required fields')
@@ -44,7 +48,15 @@ export const submitContactForm = async (formData) => {
 
     if (error) {
       console.error('Supabase submission error:', error)
-      throw new Error('Failed to submit contact form. Please try again.')
+      
+      // Handle specific error cases
+      if (error.code === '42501') {
+        throw new Error('Database permission error. Please contact support.')
+      } else if (error.code === 'PGRST116') {
+        throw new Error('Database connection error. Please try again later.')
+      } else {
+        throw new Error(`Submission failed: ${error.message}`)
+      }
     }
 
     return {
@@ -79,7 +91,38 @@ const getUserIP = async () => {
 }
 
 /**
- * Get all contact submissions (admin function)
+ * Test Supabase connection
+ * @returns {Promise<Object>} Connection test result
+ */
+export const testSupabaseConnection = async () => {
+  try {
+    // Simple query to test connection
+    const { data, error } = await supabase
+      .from(TABLES.CONTACT_SUBMISSIONS)
+      .select('count')
+      .limit(1)
+
+    if (error) {
+      return {
+        success: false,
+        error: error.message,
+        message: 'Supabase connection failed'
+      }
+    }
+
+    return {
+      success: true,
+      message: 'Supabase connection successful'
+    }
+
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'Connection test failed'
+    }
+  }
+}
  * @param {Object} options - Query options
  * @param {number} options.limit - Number of submissions to fetch
  * @param {number} options.offset - Offset for pagination
