@@ -55,7 +55,17 @@
       "support": "全天候支持"
     },
     "testimonials": {
-      "title": "客户评价"
+      "title": "客户评价",
+      "customer1": {
+        "name": "维翰",
+        "position": "某创业公司 CTO",
+        "content": "飞凡科技完全改变了我们的数字基础设施。他们的创新方法和技术专长无人能及。"
+      },
+      "customer2": {
+        "name": "明月", 
+        "position": "某美股上市公司技术总监",
+        "content": "与飞凡科技合作是一个改变游戏规则的决定。他们以卓越的品质超越了我们的期望。"
+      }
     },
     "cta": {
       "title": "准备开启数字化转型之旅？",
@@ -77,8 +87,12 @@
     },
     "leadership": {
       "title": "领导力卓越",
+      "ceo": "首席执行官",
       "cto": "首席技术官", 
-      "description": "在数字化转型和创新战略方面拥有丰富经验的前瞻性技术领导者。"
+      "cpe": "首席工程师",
+      "description": "在数字化转型和创新战略方面拥有丰富经验的前瞻性技术领导者。",
+      "ceoDescription": "战略领导者，在企业管理和商业发展方面拥有丰富经验。",
+      "cpeDescription": "技术架构专家，在系统设计和工程实践方面拥有深厚的技术底蕴。"
     },
     "values": {
       "title": "企业价值观",
@@ -104,25 +118,21 @@
       "title": "发展历程",
       "subtitle": "我们成长、成就和里程碑的时间轴",
       "milestones": {
-        "2019": {
+        "2020": {
           "title": "公司成立",
           "description": "飞凡科技正式成立，立志以技术创新引领行业变革。"
         },
-        "2020": {
-          "title": "首个重大项目",
-          "description": "成功交付首个企业级数字化转型项目，奠定行业信誉。"
-        },
         "2021": {
-          "title": "团队扩张",
-          "description": "汇聚专业开发人才和技术顾问，团队实力显著增强。"
+          "title": "兼利电子商务平台",
+          "description": "成功交付兼利电子商务平台，在电商领域得到市场认可。"
         },
         "2022": {
           "title": "创新荣誉",
           "description": "凭借卓越的企业技术解决方案创新能力获得行业认可。"
         },
         "2023": {
-          "title": "全球布局",
-          "description": "业务拓展至多个区域，服务范围覆盖更广泛的客户群体。"
+          "title": "行业拓展",
+          "description": "业务拓展至多个领域，服务范围覆盖更广泛的行业领域。"
         },
         "2024": {
           "title": "AI技术融合",
@@ -386,7 +396,7 @@
       "description": "通过以下任何渠道与我们联系。我们在这里为您提供帮助并回答您可能有的任何问题。",
       "email": {
         "title": "邮箱",
-        "content": "yymhxie@gmail.com",
+        "content": "feifan.hangzhou@gmail.com",
         "description": "随时给我们发邮件"
       },
       "location": {
@@ -411,7 +421,25 @@
     },
     "faq": {
       "title": "常见问题",
-      "subtitle": "有关我们服务的常见问题的快速答案"
+      "subtitle": "有关我们服务的常见问题的快速答案",
+      "items": [
+        {
+          "question": "典型项目周期是多久？",
+          "answer": "项目周期根据范围和复杂性而定。简单网站通常需2-4周，复杂应用程序可能需3-6个月。我们在初次咨询时提供详细的时间表。"
+        },
+        {
+          "question": "是否提供持续支持和维护服务？",
+          "answer": "是的，我们提供全面的支持和维护包，确保您的解决方案继续保持最佳性能。包括更新、安全补丁和技术支持。"
+        },
+        {
+          "question": "专门从事哪些技术？",
+          "answer": "我们专门从事现代Web技术（React、Vue、Node.js）、移动开发（React Native、Flutter）、云平台（AWS、Azure、GCP）和新兴技术如AI/ML。"
+        },
+        {
+          "question": "如何确保项目质量？",
+          "answer": "我们遵循严格的测试程序、代码审查和敏捷开发实践。我们的质量保证流程包括自动化测试、性能优化和安全审计。"
+        }
+      ]
     }
   },
   "footer": {
@@ -421,7 +449,7 @@
     "quickLinks": "快速链接",
     "contact": "联系方式",
     "address": "中国浙江杭州",
-    "email": "yymhxie@gmail.com",
+    "email": "feifan.hangzhou@gmail.com",
     "tagline": "技术领导与创新"
   }
 }

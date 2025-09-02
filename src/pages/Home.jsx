@@ -39,15 +39,15 @@ const Home = () => {
 
   const testimonials = [
     {
-      name: 'Sarah Chen',
-      position: 'CEO, TechCorp',
-      content: 'Feifan Tech transformed our digital infrastructure completely. Their innovative approach and technical expertise is unmatched.',
+      name: t('home.testimonials.customer1.name'),
+      position: t('home.testimonials.customer1.position'),
+      content: t('home.testimonials.customer1.content'),
       rating: 5
     },
     {
-      name: 'Mark Johnson',
-      position: 'CTO, StartupX',
-      content: 'Working with Feifan Tech was a game-changer. They delivered beyond our expectations with exceptional quality.',
+      name: t('home.testimonials.customer2.name'),
+      position: t('home.testimonials.customer2.position'),
+      content: t('home.testimonials.customer2.content'),
       rating: 5
     }
   ]
@@ -77,19 +77,19 @@ const Home = () => {
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center text-white">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-white leading-tight">
               {t('home.hero.title')}
             </h1>
-            <p className="text-xl md:text-2xl mb-4 text-gray-200">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-4 text-gray-200 leading-relaxed">
               {t('home.hero.subtitle')}
             </p>
-            <p className="text-lg md:text-xl mb-8 text-gray-300 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 text-gray-300 max-w-5xl mx-auto leading-relaxed">
               {t('home.hero.description')}
             </p>
             
@@ -123,7 +123,7 @@ const Home = () => {
 
       {/* Features Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -134,12 +134,12 @@ const Home = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {t('home.features.title')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
               {t('home.features.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -162,7 +162,7 @@ const Home = () => {
 
       {/* Stats Section */}
       <section className="py-20 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
@@ -183,7 +183,7 @@ const Home = () => {
 
       {/* Testimonials Section */}
       <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -196,7 +196,7 @@ const Home = () => {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
@@ -224,7 +224,7 @@ const Home = () => {
 
       {/* CTA Section */}
       <section className="py-20 bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -234,14 +234,14 @@ const Home = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {t('home.cta.title')}
             </h2>
-            <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
               {t('home.cta.description')}
             </p>
             <Link
-              to="/contact"
+              to="/contact#contact-form"
               className="inline-flex items-center px-8 py-4 bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
-              {t('common.startProject')}
+              {t('common.contactUs')}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
           </motion.div>

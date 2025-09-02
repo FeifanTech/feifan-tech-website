@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { 
   ShoppingCart, 
@@ -9,7 +10,6 @@ import {
   CheckCircle,
   Star,
   Users,
-  Download,
   Globe,
   Zap,
   Shield
@@ -90,17 +90,17 @@ const Products = () => {
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('products.hero.title')}</h1>
-            <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">{t('products.hero.title')}</h1>
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 max-w-5xl mx-auto mb-4 leading-relaxed">
               {t('products.hero.subtitle')}
             </p>
-            <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
               {t('products.hero.description')}
             </p>
           </motion.div>
@@ -109,7 +109,7 @@ const Products = () => {
 
       {/* Products Grid */}
       <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -120,86 +120,85 @@ const Products = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {t('products.featured.title')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed">
               {t('products.featured.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {products.map((product, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 group"
-              >
-                {/* Product Header */}
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center space-x-4">
-                    <div className={`w-16 h-16 ${product.bgColor} rounded-xl flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform`}>
-                      {product.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-1">{product.title}</h3>
-                    </div>
-                  </div>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                    {t('common.live')}
-                  </span>
-                </div>
-
-                {/* Product Description */}
-                <div className="mb-6">
-                  <p className="text-gray-700">{product.description}</p>
-                </div>
-
-                {/* Product Stats */}
-                <div className="flex items-center space-x-6 mb-6">
-                  <div className="flex items-center space-x-1">
-                    <Users className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-600">{product.users} {t('common.users')}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="text-sm text-gray-600">{product.rating}/5.0</span>
-                  </div>
-                </div>
-
-                {/* Features List */}
-                <div className="mb-8">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-4">{t('common.keyFeatures')}:</h4>
-                  <div className="grid grid-cols-1 gap-3">
-                    {product.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-start">
-                        <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700">{feature}</span>
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+              {products.map((product, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 group"
+                >
+                  {/* Product Header */}
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="flex items-center space-x-4">
+                      <div className={`w-16 h-16 ${product.bgColor} rounded-xl flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform`}>
+                        {product.icon}
                       </div>
-                    ))}
+                      <div>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-1">{product.title}</h3>
+                      </div>
+                    </div>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                      {t('common.live')}
+                    </span>
                   </div>
-                </div>
 
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <button className="flex-1 inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-sm">
-                    <Download className="w-4 h-4 mr-2" />
-                    {t('common.tryNow')}
-                  </button>
-                  <button className="flex-1 inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 transition-all">
-                    {t('common.learnMore')}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                  {/* Product Description */}
+                  <div className="mb-6">
+                    <p className="text-gray-700">{product.description}</p>
+                  </div>
+
+                  {/* Product Stats */}
+                  <div className="flex items-center space-x-6 mb-6">
+                    <div className="flex items-center space-x-1">
+                      <Users className="w-4 h-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">{product.users} {t('common.users')}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                      <span className="text-sm text-gray-600">{product.rating}/5.0</span>
+                    </div>
+                  </div>
+
+                  {/* Features List */}
+                  <div className="mb-8">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-4">{t('common.keyFeatures')}:</h4>
+                    <div className="grid grid-cols-1 gap-3">
+                      {product.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-start">
+                          <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                          <span className="text-gray-700">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex justify-center">
+                    <Link 
+                      to="/contact#contact-form"
+                      className="flex-1 inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-sm"
+                    >
+                      {t('common.contactUs')}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
         </div>
       </section>
 
       {/* Features Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -210,12 +209,12 @@ const Products = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {t('products.whyChoose.title')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed">
               {t('products.whyChoose.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -237,8 +236,8 @@ const Products = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-20 bg-gray-900 text-white">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -248,17 +247,17 @@ const Products = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {t('products.cta.title')}
             </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
               {t('products.cta.description')}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all transform hover:scale-105 shadow-lg">
-                {t('products.cta.getFree')}
+            <div className="flex justify-center">
+              <Link 
+                to="/contact#contact-form"
+                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all transform hover:scale-105 shadow-lg"
+              >
+                {t('common.contactUs')}
                 <ArrowRight className="ml-2 w-5 h-5" />
-              </button>
-              <button className="inline-flex items-center px-8 py-4 border-2 border-white/20 rounded-lg font-semibold hover:bg-white/5 hover:border-white/40 transition-all backdrop-blur-sm">
-                {t('common.scheduleDemo')}
-              </button>
+              </Link>
             </div>
           </motion.div>
         </div>

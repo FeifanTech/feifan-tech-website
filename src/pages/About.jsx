@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Target, Eye, Heart, Award, Users, Lightbulb } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -31,11 +32,6 @@ const About = () => {
 
   const milestones = [
     {
-      year: '2019',
-      title: t('about.timeline.milestones.2019.title'),
-      description: t('about.timeline.milestones.2019.description')
-    },
-    {
       year: '2020',
       title: t('about.timeline.milestones.2020.title'),
       description: t('about.timeline.milestones.2020.description')
@@ -67,14 +63,14 @@ const About = () => {
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('about.hero.title')}</h1>
-            <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">{t('about.hero.title')}</h1>
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 max-w-5xl mx-auto leading-relaxed">
               {t('about.hero.description')}
             </p>
           </motion.div>
@@ -83,8 +79,8 @@ const About = () => {
 
       {/* Mission & Vision */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -121,7 +117,19 @@ const About = () => {
             >
               <div className="bg-blue-600 rounded-2xl p-8 text-white shadow-lg">
                 <h3 className="text-2xl font-bold mb-6">{t('about.leadership.title')}</h3>
-                <div className="space-y-4">
+                <div className="space-y-6">
+                  <div className="flex items-start">
+                    <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mr-4">
+                      <span className="text-lg font-bold">LY</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">Li Yufeng (李玉锋)</h4>
+                      <p className="text-blue-100">{t('about.leadership.ceo')}</p>
+                      <p className="text-blue-100 text-sm mt-2">
+                        {t('about.leadership.ceoDescription')}
+                      </p>
+                    </div>
+                  </div>
                   <div className="flex items-start">
                     <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mr-4">
                       <span className="text-lg font-bold">XJ</span>
@@ -134,6 +142,18 @@ const About = () => {
                       </p>
                     </div>
                   </div>
+                  <div className="flex items-start">
+                    <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mr-4">
+                      <span className="text-lg font-bold">WY</span>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">Wang Yugang (王玉岗)</h4>
+                      <p className="text-blue-100">{t('about.leadership.cpe')}</p>
+                      <p className="text-blue-100 text-sm mt-2">
+                        {t('about.leadership.cpeDescription')}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -143,7 +163,7 @@ const About = () => {
 
       {/* Values Section */}
       <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -152,12 +172,12 @@ const About = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t('about.values.title')}</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
               {t('about.values.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
             {values.map((value, index) => (
               <motion.div
                 key={index}
@@ -180,7 +200,7 @@ const About = () => {
 
       {/* Company Timeline */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -189,7 +209,7 @@ const About = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t('about.timeline.title')}</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
               {t('about.timeline.subtitle')}
             </p>
           </motion.div>
@@ -235,7 +255,7 @@ const About = () => {
 
       {/* Call to Action */}
       <section className="py-20 bg-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -245,9 +265,15 @@ const About = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {t('about.cta.title')}
             </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto leading-relaxed">
               {t('about.cta.description')}
             </p>
+            <Link
+              to="/contact#contact-form"
+              className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              {t('common.contactUs')}
+            </Link>
           </motion.div>
         </div>
       </section>

@@ -55,7 +55,17 @@
       "support": "Support Available"
     },
     "testimonials": {
-      "title": "What Our Clients Say"
+      "title": "What Our Clients Say",
+      "customer1": {
+        "name": "Weihan",
+        "position": "CTO, Startup Company",
+        "content": "Feifan Tech transformed our digital infrastructure completely. Their innovative approach and technical expertise is unmatched."
+      },
+      "customer2": {
+        "name": "Mingyue",
+        "position": "Tech Director, US Listed Company",
+        "content": "Working with Feifan Tech was a game-changer. They delivered beyond our expectations with exceptional quality."
+      }
     },
     "cta": {
       "title": "Ready to Transform Your Business?",
@@ -386,7 +396,7 @@
       "description": "Get in touch with us through any of the following channels. We're here to help and answer any questions you might have.",
       "email": {
         "title": "Email",
-        "content": "yymhxie@gmail.com",
+        "content": "feifan.hangzhou@gmail.com",
         "description": "Send us an email anytime"
       },
       "location": {
@@ -411,7 +421,25 @@
     },
     "faq": {
       "title": "Frequently Asked Questions",
-      "subtitle": "Quick answers to common questions about our services"
+      "subtitle": "Quick answers to common questions about our services",
+      "items": [
+        {
+          "question": "What is your typical project timeline?",
+          "answer": "Project timelines vary depending on scope and complexity. Simple websites typically take 2-4 weeks, while complex applications can take 3-6 months. We provide detailed timelines during our initial consultation."
+        },
+        {
+          "question": "Do you provide ongoing support and maintenance?",
+          "answer": "Yes, we offer comprehensive support and maintenance packages to ensure your solutions continue to perform optimally. This includes updates, security patches, and technical support."
+        },
+        {
+          "question": "What technologies do you specialize in?",
+          "answer": "We specialize in modern web technologies (React, Vue, Node.js), mobile development (React Native, Flutter), cloud platforms (AWS, Azure, GCP), and emerging technologies like AI/ML."
+        },
+        {
+          "question": "How do you ensure project quality?",
+          "answer": "We follow rigorous testing procedures, code reviews, and agile development practices. Our quality assurance process includes automated testing, performance optimization, and security audits."
+        }
+      ]
     }
   },
   "footer": {
@@ -421,7 +449,7 @@
     "quickLinks": "Quick Links",
     "contact": "Contact", 
     "address": "Hangzhou, Zhejiang, China",
-    "email": "yymhxie@gmail.com",
+    "email": "feifan.hangzhou@gmail.com",
     "tagline": "Tech Leadership & Innovation"
   }
 }

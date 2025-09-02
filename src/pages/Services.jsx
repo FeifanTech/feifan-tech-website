@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { 
   Code, 
@@ -108,14 +109,14 @@ const Services = () => {
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('services.hero.title')}</h1>
-            <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">{t('services.hero.title')}</h1>
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 max-w-5xl mx-auto leading-relaxed">
               {t('services.hero.description')}
             </p>
           </motion.div>
@@ -124,7 +125,7 @@ const Services = () => {
 
       {/* Services Grid */}
       <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -135,12 +136,12 @@ const Services = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {t('services.offerings.title')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed">
               {t('services.offerings.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -173,7 +174,7 @@ const Services = () => {
 
       {/* Process Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -184,12 +185,12 @@ const Services = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {t('services.process.title')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed">
               {t('services.process.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
             {process.map((step, index) => (
               <motion.div
                 key={index}
@@ -220,8 +221,8 @@ const Services = () => {
       </section>
 
       {/* Industries Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gray-50">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -229,15 +230,15 @@ const Services = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {t('services.industries.title')}
             </h2>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed">
               {t('services.industries.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {industries.map((industry, index) => (
               <motion.div
                 key={index}
@@ -245,10 +246,10 @@ const Services = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="p-6 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 hover:bg-white/20 transition-all"
+                className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-all"
               >
-                <h3 className="text-xl font-bold mb-3">{industry.name}</h3>
-                <p className="text-blue-100">{industry.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{industry.name}</h3>
+                <p className="text-gray-600">{industry.description}</p>
               </motion.div>
             ))}
           </div>
@@ -256,38 +257,34 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-20 bg-blue-600 text-white">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {t('services.cta.title')}
             </h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
               {t('services.cta.description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.a
-                href="/contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl"
+              <Link
+                to="/contact#contact-form"
+                className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                {t('common.startProject')}
+                {t('common.contactUs')}
                 <ArrowRight className="ml-2 w-5 h-5" />
-              </motion.a>
-              <motion.a
-                href="/about"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 transition-all"
+              </Link>
+              <Link
+                to="/about"
+                className="inline-flex items-center px-8 py-4 border-2 border-white/20 text-white rounded-lg font-semibold hover:bg-white/5 hover:border-white/40 transition-all backdrop-blur-sm"
               >
-                {t('common.learnMore')} About Us
-              </motion.a>
+                {t('common.learnMore')}
+              </Link>
             </div>
           </motion.div>
         </div>
