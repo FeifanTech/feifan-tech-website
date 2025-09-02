@@ -123,6 +123,8 @@ export const testSupabaseConnection = async () => {
     }
   }
 }
+/**
+ * Fetch contact submissions from database
  * @param {Object} options - Query options
  * @param {number} options.limit - Number of submissions to fetch
  * @param {number} options.offset - Offset for pagination
