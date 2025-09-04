@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Code, Zap, Shield, Users, Star, ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import homeBgImage from '../assets/homg_bg.gif'
 
 const Home = () => {
   const { t } = useTranslation('common')
@@ -57,24 +58,11 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
-          <div className="absolute inset-0 bg-black opacity-20"></div>
-          <motion.div
-            animate={{
-              backgroundPosition: ['0% 0%', '100% 100%'],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              repeatType: 'reverse',
-            }}
-            className="absolute inset-0 opacity-20"
-            style={{
-              backgroundImage: `radial-gradient(circle at 25% 25%, #3b82f6 0%, transparent 50%),
-                               radial-gradient(circle at 75% 75%, #1e40af 0%, transparent 50%)`,
-              backgroundSize: '100% 100%',
-            }}
-          />
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${homeBgImage})` }}
+        >
+          <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
         <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center text-white">

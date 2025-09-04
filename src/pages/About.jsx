@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Target, Eye, Heart, Award, Users, Lightbulb } from 'lucide-react'
+import { Target, Eye, Heart, Award, Users, Lightbulb, ExternalLink } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 const About = () => {
@@ -134,8 +134,19 @@ const About = () => {
                     <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mr-4">
                       <span className="text-lg font-bold">XJ</span>
                     </div>
-                    <div>
-                      <h4 className="font-semibold">Xie Jinian (谢记年)</h4>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-semibold">Xie Jinian (谢记年)</h4>
+                        <a
+                          href="https://yunyi-csl.pages.dev/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white/80 hover:text-white transition-colors"
+                          title="Visit personal website"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      </div>
                       <p className="text-blue-100">{t('about.leadership.cto')}</p>
                       <p className="text-blue-100 text-sm mt-2">
                         {t('about.leadership.description')}
