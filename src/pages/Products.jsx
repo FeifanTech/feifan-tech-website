@@ -26,7 +26,7 @@ const Products = () => {
       description: t('products.items.ecommerce.description'),
       features: t('products.items.ecommerce.features', { returnObjects: true }),
       bgColor: 'bg-blue-600',
-      status: 'live',
+      status: 'comingSoonOpenSource',
       users: '10,000+',
       rating: 4.8
     },
@@ -145,8 +145,12 @@ const Products = () => {
                         <h3 className="text-2xl font-bold text-gray-900 mb-1">{product.title}</h3>
                       </div>
                     </div>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                      {t('common.live')}
+                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                      product.status === 'live' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-blue-100 text-blue-800'
+                    }`}>
+                      {t(`common.${product.status}`)}
                     </span>
                   </div>
 

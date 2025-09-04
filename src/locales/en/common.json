@@ -22,6 +22,7 @@
     "startProject": "Start Your Project",
     "scheduleDemo": "Schedule Demo",
     "live": "Live",
+    "comingSoonOpenSource": "Coming Soon Open Source",
     "users": "users",
     "keyFeatures": "Key Features"
   },
@@ -67,8 +68,8 @@
         "content": "Feifan Tech transformed our digital infrastructure completely. Their innovative approach and technical expertise is unmatched."
       },
       "customer2": {
-        "name": "Mingyue",
-        "position": "Tech Director, US Listed Company",
+        "name": "Dingtian",
+        "position": "Former CTO of US Listed Company / Current CEO of Digital Enterprise",
         "content": "Working with Feifan Tech was a game-changer. They delivered beyond our expectations with exceptional quality."
       }
     },
@@ -128,8 +129,8 @@
           "description": "Successfully delivered our first enterprise-level digital transformation project."
         },
         "2021": {
-          "title": "Team Expansion",
-          "description": "Grew our team of expert developers and technology consultants."
+          "title": "Social E-commerce Platform",
+          "description": "Successfully delivered social e-commerce platform, gaining market recognition in the e-commerce sector."
         },
         "2022": {
           "title": "Innovation Awards",
@@ -290,7 +291,7 @@
     },
     "items": {
       "ecommerce": {
-        "title": "Jianli E-commerce Platform",
+        "title": "Social E-commerce Platform",
         "description": "Comprehensive e-commerce solution with integrated payment, logistics, user management, and multi-vendor capabilities",
         "features": [
           "Multi-vendor management system",
