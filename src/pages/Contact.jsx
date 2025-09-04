@@ -327,13 +327,14 @@ const Contact = () => {
                           </motion.a>
                         )
                       }
-                      // Location card - clickable to open map
+                      // Location card - clickable to open Baidu Maps
                       else if (index === 1) {
-                        const mapUrl = `https://maps.google.com/?q=${encodeURIComponent(info.content)}`
+                        // Use Baidu Maps URL for the specific location
+                        const baiduUrl = 'https://ditu.baidu.com/search/瑞鼎大厦-2号楼/@13367272.506314501,3522990.28875505,19z?querytype=s&da_src=shareurl&wd=瑞鼎大厦-2号楼&c=179&src=0&wd2=杭州市西湖区&pn=0&sug=1&l=13&b=(13343248,3512436;13399728,3544372)&from=webmap&biz_forward=%7B%22scaler%22:2,%22styles%22:%22pl%22%7D&sug_forward=8c32ab8aaa32aaa04d776e0a&device_ratio=2'
                         return (
                           <motion.a
                             key={index}
-                            href={mapUrl}
+                            href={baiduUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             initial={{ opacity: 0, y: 20 }}

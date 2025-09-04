@@ -412,7 +412,7 @@
       },
       "location": {
         "title": "Location", 
-        "content": "Hangzhou, Zhejiang, China",
+        "content": "Room 608, Building 2, Ruiding Building, No. 200 Zhenhua Road, Sandun Town, Xihu District, Hangzhou, Zhejiang Province",
         "description": "Our headquarters location"
       },
       "phone": {
@@ -459,7 +459,7 @@
     "copyright": "© 2020-{{year}} Feifan Tech. All rights reserved.",
     "quickLinks": "Quick Links",
     "contact": "Contact", 
-    "address": "Hangzhou, Zhejiang, China",
+    "address": "No. 200 Zhenhua Road, Sandun Town, Xihu District, Hangzhou, Zhejiang Province",
     "email": "feifan.hangzhou@gmail.com",
     "tagline": "Tech Leadership & Innovation"
   }

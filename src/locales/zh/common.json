@@ -412,7 +412,7 @@
       },
       "location": {
         "title": "位置",
-        "content": "中国浙江杭州",
+        "content": "浙江省杭州市西湖区三墩镇振华路200号，瑞鼎大厦2号楼608室",
         "description": "我们的总部位置"
       },
       "phone": {
@@ -459,7 +459,7 @@
     "copyright": "© 2020-{{year}} 飞凡科技。保留所有权利。",
     "quickLinks": "快速链接",
     "contact": "联系方式",
-    "address": "中国浙江杭州",
+    "address": "浙江省杭州市西湖区三墩镇振华路200号",
     "email": "feifan.hangzhou@gmail.com",
     "tagline": "技术领导与创新"
   }
