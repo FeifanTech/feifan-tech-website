@@ -1,6 +1,6 @@
 # Feifan Tech - Company Website
 
-非凡科技官方网站 | Official website for Feifan Tech
+飞凡科技官方网站 | Official website for Feifan Tech
 
 ## 🌟 Overview
 
