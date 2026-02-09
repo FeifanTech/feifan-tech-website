@@ -330,7 +330,7 @@ const Contact = () => {
                       // Location card - clickable to open Baidu Maps
                       else if (index === 1) {
                         // Use Baidu Maps URL for the specific location
-                        const baiduUrl = 'https://ditu.baidu.com/search/瑞鼎大厦-2号楼/@13367272.506314501,3522990.28875505,19z?querytype=s&da_src=shareurl&wd=瑞鼎大厦-2号楼&c=179&src=0&wd2=杭州市西湖区&pn=0&sug=1&l=13&b=(13343248,3512436;13399728,3544372)&from=webmap&biz_forward=%7B%22scaler%22:2,%22styles%22:%22pl%22%7D&sug_forward=8c32ab8aaa32aaa04d776e0a&device_ratio=2'
+                        const baiduUrl = 'https://ditu.baidu.com/search/银江软件园H座/@13367272.506314501,3522990.28875505,19z?querytype=s&da_src=shareurl&wd=银江软件园H座&c=179&src=0&wd2=杭州市西湖区西园八路2号&pn=0&sug=1&l=13&from=webmap&device_ratio=2'
                         return (
                           <motion.a
                             key={index}
