@@ -220,6 +220,28 @@
           "Computer Vision",
           "Predictive Analytics"
         ]
+      },
+      "industryCustomization": {
+        "title": "Industry Intelligent Customization",
+        "description": "Customized intelligent solutions tailored to different industries, deeply integrated with business scenarios",
+        "features": [
+          "In-depth industry scenario analysis",
+          "Customized business processes",
+          "Intelligent decision support",
+          "Business data insights",
+          "Continuous optimization and iteration"
+        ]
+      },
+      "privateDeployment": {
+        "title": "Private Deployment",
+        "description": "Complete on-premises deployment solutions ensuring data security and system autonomy",
+        "features": [
+          "Full on-premises deployment",
+          "Data security assurance",
+          "System autonomy and control",
+          "Customized operation support",
+          "Version upgrade services"
+        ]
       }
     },
     "process": {
@@ -333,6 +355,28 @@
           "Image quality assessment",
           "Custom model training"
         ]
+      },
+      "aiPlatform": {
+        "title": "AI Middleware Platform",
+        "description": "Unified AI capabilities platform providing enterprise-grade model management, scheduling, and monitoring services",
+        "features": [
+          "Unified model management",
+          "Intelligent task scheduling",
+          "Real-time performance monitoring",
+          "Multi-model fusion",
+          "Enterprise-grade permission management"
+        ]
+      },
+      "aiAgent": {
+        "title": "AI Agent",
+        "description": "Intelligent autonomous AI agent system that can understand, plan, and execute complex tasks",
+        "features": [
+          "Natural language interaction",
+          "Autonomous task planning",
+          "Multi-tool integration",
+          "Contextual memory",
+          "Continuous learning optimization"
+        ]
       }
     },
     "whyChoose": {
@@ -398,6 +442,8 @@
         "Data Analytics",
         "Cybersecurity",
         "AI & ML Solutions",
+        "Industry Intelligent Customization",
+        "Private Deployment",
         "Consulting",
         "Other"
       ]
