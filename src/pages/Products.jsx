@@ -12,7 +12,9 @@ import {
   Users,
   Globe,
   Zap,
-  Shield
+  Shield,
+  Network,
+  Bot
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
@@ -59,6 +61,26 @@ const Products = () => {
       status: 'live',
       users: '15,000+',
       rating: 4.6
+    },
+    {
+      icon: <Network className="w-8 h-8" />,
+      title: t('products.items.aiPlatform.title'),
+      description: t('products.items.aiPlatform.description'),
+      features: t('products.items.aiPlatform.features', { returnObjects: true }),
+      bgColor: 'bg-purple-600',
+      status: 'live',
+      users: '8,000+',
+      rating: 4.8
+    },
+    {
+      icon: <Bot className="w-8 h-8" />,
+      title: t('products.items.aiAgent.title'),
+      description: t('products.items.aiAgent.description'),
+      features: t('products.items.aiAgent.features', { returnObjects: true }),
+      bgColor: 'bg-violet-600',
+      status: 'live',
+      users: '12,000+',
+      rating: 4.9
     }
   ]
 

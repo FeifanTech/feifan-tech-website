@@ -17,7 +17,9 @@ import {
   Lock,
   Brain,
   TrendingUp,
-  Settings
+  Settings,
+  Sparkles,
+  HardDrive
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
@@ -65,6 +67,20 @@ const Services = () => {
       description: t('services.items.ai.description'),
       features: t('services.items.ai.features', { returnObjects: true }),
       bgColor: 'bg-indigo-700'
+    },
+    {
+      icon: <Sparkles className="w-8 h-8" />,
+      title: t('services.items.industryCustomization.title'),
+      description: t('services.items.industryCustomization.description'),
+      features: t('services.items.industryCustomization.features', { returnObjects: true }),
+      bgColor: 'bg-purple-600'
+    },
+    {
+      icon: <HardDrive className="w-8 h-8" />,
+      title: t('services.items.privateDeployment.title'),
+      description: t('services.items.privateDeployment.description'),
+      features: t('services.items.privateDeployment.features', { returnObjects: true }),
+      bgColor: 'bg-emerald-600'
     }
   ]
 
