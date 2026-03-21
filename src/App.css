@@ -2,47 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom styles for Feifan Tech website */
+/* Feifan Tech — Claude-inspired light theme */
 
 @layer base {
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
-    @apply antialiased;
+    @apply antialiased bg-claude-cream text-claude-dark;
   }
 }
 
 @layer components {
+  /* Accent text (terracotta) */
   .gradient-text {
-    @apply text-blue-600;
+    @apply text-claude-accent;
   }
-  
+
+  /* Accent background */
   .gradient-bg {
-    @apply bg-blue-600;
+    @apply bg-claude-accent;
   }
-  
+
+  /* Card hover lift */
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-md hover:-translate-y-1;
   }
-  
+
+  /* Primary button — warm terracotta */
   .btn-primary {
-    @apply inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl;
+    @apply inline-flex items-center px-6 py-3 bg-claude-accent text-white rounded-xl font-semibold
+           hover:bg-claude-accent-dark transition-all transform hover:scale-[1.02] shadow-sm hover:shadow-md;
   }
-  
+
+  /* Secondary button — warm outline */
   .btn-secondary {
-    @apply inline-flex items-center px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 transition-all;
+    @apply inline-flex items-center px-6 py-3 border border-claude-border text-claude-dark rounded-xl
+           font-semibold hover:border-claude-accent hover:text-claude-accent hover:bg-claude-accent-light transition-all;
+  }
+
+  /* Dark (charcoal) primary button */
+  .btn-dark {
+    @apply inline-flex items-center px-6 py-3 bg-claude-dark text-white rounded-xl font-semibold
+           hover:bg-[#333] transition-all transform hover:scale-[1.02] shadow-sm hover:shadow-md;
   }
 }
 
 @layer utilities {
   .text-shadow {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   }
-  
+
   .backdrop-blur-custom {
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+  }
+
+  /* Warm card shadow */
+  .shadow-warm {
+    box-shadow: 0 2px 12px 0 rgba(180, 130, 90, 0.10);
+  }
+
+  .shadow-warm-lg {
+    box-shadow: 0 8px 32px 0 rgba(180, 130, 90, 0.14);
   }
 }
 
@@ -50,7 +72,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(28px);
   }
   to {
     opacity: 1;
@@ -63,48 +85,49 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out;
+  animation: fadeInUp 0.7s ease-out;
 }
 
 .animate-pulse-subtle {
   animation: pulse-subtle 2s ease-in-out infinite;
 }
 
-/* Scrollbar styling */
+/* Scrollbar — warm beige */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100;
+  background: #F5F0E8;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-blue-400 rounded-full;
+  background: #D4C9BA;
+  border-radius: 100px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-blue-500;
+  background: #B8A999;
 }
 
-/* Focus styles */
+/* Focus ring */
 .focus-visible {
-  @apply ring-2 ring-blue-500 ring-offset-2 outline-none;
+  @apply ring-2 ring-claude-accent ring-offset-2 outline-none;
 }
 
 /* Loading spinner */
 .spinner {
-  border: 2px solid #f3f4f6;
-  border-top: 2px solid #3b82f6;
+  border: 2px solid #EDE8E1;
+  border-top: 2px solid #D97757;
   border-radius: 50%;
   width: 20px;
   height: 20px;
-  animation: spin 1s linear infinite;
+  animation: spin 0.9s linear infinite;
 }
 
 @keyframes spin {

@@ -31,16 +31,14 @@ const Contact = () => {
     setIsSubmitting(true)
     setSubmitError(null)
     setSubmitMessage('')
-    
+
     try {
-      // Submit to Supabase
       const result = await submitContactForm(formData)
-      
+
       if (result.success) {
         setIsSubmitted(true)
         setSubmitMessage(result.message)
-        
-        // Reset form after 5 seconds
+
         setTimeout(() => {
           setIsSubmitted(false)
           setSubmitMessage('')
@@ -66,25 +64,25 @@ const Contact = () => {
 
   const contactInfo = [
     {
-      icon: <Mail className="w-6 h-6" />,
+      icon: <Mail className="w-5 h-5" />,
       title: t('contact.info.email.title'),
       content: t('contact.info.email.content'),
       description: t('contact.info.email.description')
     },
     {
-      icon: <MapPin className="w-6 h-6" />,
+      icon: <MapPin className="w-5 h-5" />,
       title: t('contact.info.location.title'),
       content: t('contact.info.location.content'),
       description: t('contact.info.location.description')
     },
     {
-      icon: <Phone className="w-6 h-6" />,
+      icon: <Phone className="w-5 h-5" />,
       title: t('contact.info.phone.title'),
       content: t('contact.info.phone.content'),
       description: t('contact.info.phone.description')
     },
     {
-      icon: <Clock className="w-6 h-6" />,
+      icon: <Clock className="w-5 h-5" />,
       title: t('contact.info.hours.title'),
       content: t('contact.info.hours.content'),
       description: t('contact.info.hours.description')
@@ -94,19 +92,22 @@ const Contact = () => {
   const services = t('contact.form.services', { returnObjects: true })
   const faqItems = t('contact.faq.items', { returnObjects: true })
 
+  const inputClass = "w-full px-4 py-3 border border-claude-border rounded-xl bg-claude-cream text-claude-dark placeholder:text-claude-muted focus:ring-2 focus:ring-claude-accent focus:border-transparent transition-colors text-sm"
+
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black opacity-20"></div>
+      <section className="relative py-24 bg-claude-warm border-b border-claude-beige overflow-hidden">
         <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">{t('contact.hero.title')}</h1>
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight tracking-tight text-claude-dark">
+              {t('contact.hero.title')}
+            </h1>
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-claude-medium leading-relaxed max-w-3xl mx-auto">
               {t('contact.hero.description')}
             </p>
           </motion.div>
@@ -114,42 +115,44 @@ const Contact = () => {
       </section>
 
       {/* Contact Form & Info */}
-      <section id="contact-form" className="py-20 bg-gray-50">
+      <section id="contact-form" className="py-20 bg-claude-cream">
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 lg:gap-12">
             {/* Contact Form */}
             <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <div className="bg-white rounded-2xl shadow-sm p-8">
-                  <div className="flex items-center mb-6">
-                    <MessageCircle className="w-8 h-8 text-blue-600 mr-3" />
-                    <h2 className="text-2xl font-bold text-gray-900">{t('contact.form.title')}</h2>
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <div className="bg-white border border-claude-beige rounded-2xl shadow-warm p-8">
+                <div className="flex items-center mb-6">
+                  <div className="w-9 h-9 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent mr-3">
+                    <MessageCircle className="w-5 h-5" />
                   </div>
+                  <h2 className="text-xl font-bold text-claude-dark tracking-tight">{t('contact.form.title')}</h2>
+                </div>
 
-                  {!isSubmitted ? (
-                    <>
-                      {submitError && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start"
-                        >
-                          <AlertCircle className="w-5 h-5 text-red-500 mr-3 flex-shrink-0 mt-0.5" />
-                          <div>
-                            <h4 className="text-sm font-medium text-red-800 mb-1">{t('contact.form.error.title')}</h4>
-                            <p className="text-sm text-red-700">{submitError}</p>
-                          </div>
-                        </motion.div>
-                      )}
-                      
-                      <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {!isSubmitted ? (
+                  <>
+                    {submitError && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start"
+                      >
+                        <AlertCircle className="w-4 h-4 text-red-500 mr-3 flex-shrink-0 mt-0.5" />
                         <div>
-                          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                          <h4 className="text-sm font-medium text-red-800 mb-0.5">{t('contact.form.error.title')}</h4>
+                          <p className="text-sm text-red-700">{submitError}</p>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                          <label htmlFor="name" className="block text-sm font-medium text-claude-dark mb-1.5">
                             {t('contact.form.name')} *
                           </label>
                           <input
@@ -159,12 +162,12 @@ const Contact = () => {
                             required
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className={inputClass}
                             placeholder={t('contact.form.placeholders.name')}
                           />
                         </div>
                         <div>
-                          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                          <label htmlFor="email" className="block text-sm font-medium text-claude-dark mb-1.5">
                             {t('contact.form.email')} *
                           </label>
                           <input
@@ -174,15 +177,15 @@ const Contact = () => {
                             required
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className={inputClass}
                             placeholder={t('contact.form.placeholders.email')}
                           />
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
-                          <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                          <label htmlFor="company" className="block text-sm font-medium text-claude-dark mb-1.5">
                             {t('contact.form.company')}
                           </label>
                           <input
@@ -191,12 +194,12 @@ const Contact = () => {
                             name="company"
                             value={formData.company}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className={inputClass}
                             placeholder={t('contact.form.placeholders.company')}
                           />
                         </div>
                         <div>
-                          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                          <label htmlFor="phone" className="block text-sm font-medium text-claude-dark mb-1.5">
                             {t('contact.form.phone')}
                           </label>
                           <input
@@ -205,14 +208,14 @@ const Contact = () => {
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className={inputClass}
                             placeholder={t('contact.form.placeholders.phone')}
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="service" className="block text-sm font-medium text-claude-dark mb-1.5">
                           {t('contact.form.service')}
                         </label>
                         <select
@@ -220,7 +223,7 @@ const Contact = () => {
                           name="service"
                           value={formData.service}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className={inputClass}
                         >
                           <option value="">{t('contact.form.placeholders.service')}</option>
                           {services.map((service) => (
@@ -230,7 +233,7 @@ const Contact = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="message" className="block text-sm font-medium text-claude-dark mb-1.5">
                           {t('contact.form.message')} *
                         </label>
                         <textarea
@@ -240,7 +243,7 @@ const Contact = () => {
                           rows={5}
                           value={formData.message}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                          className={inputClass + ' resize-none'}
                           placeholder={t('contact.form.placeholders.message')}
                         />
                       </div>
@@ -248,146 +251,140 @@ const Contact = () => {
                       <motion.button
                         type="submit"
                         disabled={isSubmitting}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className={`w-full flex items-center justify-center px-6 py-4 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl ${
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        className={`w-full flex items-center justify-center px-6 py-3.5 rounded-xl font-semibold transition-all shadow-sm text-sm ${
                           isSubmitting
-                            ? 'bg-gray-400 cursor-not-allowed'
-                            : 'bg-blue-600 hover:bg-blue-700 text-white'
+                            ? 'bg-claude-border text-claude-muted cursor-not-allowed'
+                            : 'bg-claude-accent hover:bg-claude-accent-dark text-white hover:shadow-md'
                         }`}
                       >
                         {isSubmitting ? (
                           <div className="flex items-center">
-                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                            <div className="spinner mr-3"></div>
                             {t('contact.form.sending')}
                           </div>
                         ) : (
                           <>
                             {t('contact.form.submit')}
-                            <Send className="ml-2 w-5 h-5" />
+                            <Send className="ml-2 w-4 h-4" />
                           </>
                         )}
                       </motion.button>
                     </form>
-                    </>
-                  ) : (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-12"
-                    >
-                      <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('contact.form.success.title')}</h3>
-                      <p className="text-gray-600">
-                        {submitMessage || t('contact.form.success.message')}
-                      </p>
-                    </motion.div>
-                  )}
-                </div>
-              </motion.div>
+                  </>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-12"
+                  >
+                    <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle className="w-7 h-7 text-emerald-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-claude-dark mb-2 tracking-tight">{t('contact.form.success.title')}</h3>
+                    <p className="text-claude-medium text-sm">
+                      {submitMessage || t('contact.form.success.message')}
+                    </p>
+                  </motion.div>
+                )}
+              </div>
+            </motion.div>
 
-              {/* Contact Info */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <div className="mb-8">
-                  <div className="flex items-center mb-6">
-                    <Mail className="w-8 h-8 text-blue-600 mr-3" />
-                    <h2 className="text-2xl font-bold text-gray-900">{t('contact.info.title')}</h2>
+            {/* Contact Info */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <div className="mb-8">
+                <div className="flex items-center mb-5">
+                  <div className="w-9 h-9 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent mr-3">
+                    <Mail className="w-5 h-5" />
                   </div>
-                  <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                    {t('contact.info.description')}
-                  </p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
-                    {contactInfo.map((info, index) => {
-                      // Email card - clickable to open email client
-                      if (index === 0) {
-                        return (
-                          <motion.a
-                            key={index}
-                            href={`mailto:${info.content}`}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                            className="flex items-start p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer hover:scale-105 block"
-                          >
-                            <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white mr-4 flex-shrink-0 shadow-sm">
-                              {info.icon}
-                            </div>
-                            <div>
-                              <h3 className="text-lg font-semibold text-gray-900 mb-1">{info.title}</h3>
-                              <p className="text-gray-900 font-medium mb-1">{info.content}</p>
-                              <p className="text-gray-600 text-sm">{info.description}</p>
-                            </div>
-                          </motion.a>
-                        )
-                      }
-                      // Location card - clickable to open Baidu Maps
-                      else if (index === 1) {
-                        // Use Baidu Maps URL for the specific location
-                        const baiduUrl = 'https://ditu.baidu.com/search/银江软件园H座/@13367272.506314501,3522990.28875505,19z?querytype=s&da_src=shareurl&wd=银江软件园H座&c=179&src=0&wd2=杭州市西湖区西园八路2号&pn=0&sug=1&l=13&from=webmap&device_ratio=2'
-                        return (
-                          <motion.a
-                            key={index}
-                            href={baiduUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                            className="flex items-start p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer hover:scale-105 block"
-                          >
-                            <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white mr-4 flex-shrink-0 shadow-sm">
-                              {info.icon}
-                            </div>
-                            <div>
-                              <h3 className="text-lg font-semibold text-gray-900 mb-1">{info.title}</h3>
-                              <p className="text-gray-900 font-medium mb-1">{info.content}</p>
-                              <p className="text-gray-600 text-sm">{info.description}</p>
-                            </div>
-                          </motion.a>
-                        )
-                      }
-                      // Other cards (phone, hours) - non-clickable
-                      else {
-                        return (
-                          <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                            className="flex items-start p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
-                          >
-                            <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white mr-4 flex-shrink-0 shadow-sm">
-                              {info.icon}
-                            </div>
-                            <div>
-                              <h3 className="text-lg font-semibold text-gray-900 mb-1">{info.title}</h3>
-                              <p className="text-gray-900 font-medium mb-1">{info.content}</p>
-                              <p className="text-gray-600 text-sm">{info.description}</p>
-                            </div>
-                          </motion.div>
-                        )
-                      }
-                    })}
-                  </div>
-
-
+                  <h2 className="text-xl font-bold text-claude-dark tracking-tight">{t('contact.info.title')}</h2>
                 </div>
-              </motion.div>
-            </div>
+                <p className="text-claude-medium mb-7 leading-relaxed text-sm">
+                  {t('contact.info.description')}
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {contactInfo.map((info, index) => {
+                    const cardClass = "flex items-start p-5 bg-white border border-claude-beige rounded-2xl hover:shadow-warm transition-all"
+
+                    const iconBlock = (
+                      <div className="w-10 h-10 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent mr-4 flex-shrink-0">
+                        {info.icon}
+                      </div>
+                    )
+
+                    const content = (
+                      <div>
+                        <h3 className="text-sm font-semibold text-claude-dark mb-0.5">{info.title}</h3>
+                        <p className="text-claude-dark text-sm font-medium mb-1">{info.content}</p>
+                        <p className="text-claude-muted text-xs leading-relaxed">{info.description}</p>
+                      </div>
+                    )
+
+                    if (index === 0) {
+                      return (
+                        <motion.a
+                          key={index}
+                          href={`mailto:${info.content}`}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                          className={cardClass + ' cursor-pointer hover:scale-[1.02]'}
+                        >
+                          {iconBlock}
+                          {content}
+                        </motion.a>
+                      )
+                    } else if (index === 1) {
+                      const baiduUrl = 'https://ditu.baidu.com/search/银江软件园H座/@13367272.506314501,3522990.28875505,19z?querytype=s&da_src=shareurl&wd=银江软件园H座&c=179&src=0&wd2=杭州市西湖区西园八路2号&pn=0&sug=1&l=13&from=webmap&device_ratio=2'
+                      return (
+                        <motion.a
+                          key={index}
+                          href={baiduUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                          className={cardClass + ' cursor-pointer hover:scale-[1.02]'}
+                        >
+                          {iconBlock}
+                          {content}
+                        </motion.a>
+                      )
+                    } else {
+                      return (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                          className={cardClass}
+                        >
+                          {iconBlock}
+                          {content}
+                        </motion.div>
+                      )
+                    }
+                  })}
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-claude-warm border-t border-claude-beige">
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -396,24 +393,24 @@ const Contact = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t('contact.faq.title')}</h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed">
+            <h2 className="text-3xl md:text-4xl font-bold text-claude-dark mb-4 tracking-tight">{t('contact.faq.title')}</h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-claude-medium leading-relaxed">
               {t('contact.faq.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
             {faqItems.map((faq, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="bg-gray-50 rounded-lg p-6"
+                className="bg-white border border-claude-beige rounded-2xl p-6 hover:shadow-warm transition-all"
               >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
+                <h3 className="text-sm font-semibold text-claude-dark mb-2 tracking-tight">{faq.question}</h3>
+                <p className="text-claude-medium text-sm leading-relaxed">{faq.answer}</p>
               </motion.div>
             ))}
           </div>
