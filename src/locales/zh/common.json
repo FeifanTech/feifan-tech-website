@@ -1,4 +1,9 @@
 {
+  "announcement": {
+    "text": "✦ AI Agent 平台正式上线",
+    "cta": "立即体验 →",
+    "link": "/products"
+  },
   "site": {
     "title": "飞凡科技",
     "titleTemplate": "{{pageTitle}} - 飞凡科技",
@@ -30,7 +35,15 @@
     "hero": {
       "title": "飞凡科技",
       "subtitle": "科技创新，成就非凡",
-      "description": "以创新科技引领未来，为企业数字化转型提供专业解决方案，助力各行业实现跨越式发展。"
+      "description": "以创新科技引领未来，为企业数字化转型提供专业解决方案，助力各行业实现跨越式发展。",
+      "typewriter": [
+        "让 AI 真正融入你的业务",
+        "智能语音，理解每一句话",
+        "强大 OCR，秒速解锁文档内容",
+        "AI Agent，自主规划并执行任务",
+        "统一中间件，连接每个 AI 模型",
+        "行业定制 AI，引领真实商业变革"
+      ]
     },
     "features": {
       "title": "为什么选择飞凡科技？",
@@ -157,8 +170,14 @@
       "description": "量身定制的综合技术解决方案。从概念到部署，每一步都精心打造。"
     },
     "offerings": {
-      "title": "服务内容", 
+      "title": "服务内容",
       "subtitle": "助力您的数字化转型的全链路技术服务"
+    },
+    "tabs": {
+      "ai": "AI 核心能力",
+      "platform": "研发与集成",
+      "industry": "行业解决方案",
+      "deployment": "安全与部署"
     },
     "items": {
       "webdev": {

@@ -1,4 +1,9 @@
 {
+  "announcement": {
+    "text": "✦ AI Agent Platform is now live",
+    "cta": "Try it now →",
+    "link": "/products"
+  },
   "site": {
     "title": "Feifan Tech",
     "titleTemplate": "{{pageTitle}} - Feifan Tech",
@@ -30,7 +35,15 @@
     "hero": {
       "title": "Feifan Tech",
       "subtitle": "Extraordinary Innovation",
-      "description": "Pioneering the future of technology with innovative solutions that transform businesses and empower digital transformation across industries."
+      "description": "Pioneering the future of technology with innovative solutions that transform businesses and empower digital transformation across industries.",
+      "typewriter": [
+        "Bring AI truly into your business",
+        "Intelligent voice that understands every word",
+        "Powerful OCR, unlocking documents instantly",
+        "AI Agents that plan and act autonomously",
+        "Unified AI middleware connecting every model",
+        "Industry-tailored AI driving real transformation"
+      ]
     },
     "features": {
       "title": "Why Choose Feifan Tech?",
@@ -159,6 +172,12 @@
     "offerings": {
       "title": "What We Offer",
       "subtitle": "End-to-end technology services designed to accelerate your digital transformation"
+    },
+    "tabs": {
+      "ai": "AI Capabilities",
+      "platform": "Dev & Integration",
+      "industry": "Industry Solutions",
+      "deployment": "Secure Deployment"
     },
     "items": {
       "webdev": {

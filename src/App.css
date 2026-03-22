@@ -15,9 +15,20 @@
 }
 
 @layer components {
-  /* Accent text (terracotta) */
+  /* Gradient headline text — terracotta to amber */
   .gradient-text {
-    @apply text-claude-accent;
+    background: linear-gradient(135deg, #D97757 0%, #F5A623 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glass card for dark sections */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
   }
 
   /* Accent background */

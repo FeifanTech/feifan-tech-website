@@ -1,32 +1,131 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, Code, Zap, Shield, Users, Star, ChevronRight } from 'lucide-react'
+import { ArrowRight, Code, Zap, Shield, Users, Star, ChevronRight, Brain, Layers } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+
+/* ─── Counter hook: counts up when scrolled into view ─── */
+const useCounter = (target, duration = 1800) => {
+  const [count, setCount] = useState(0)
+  const [started, setStarted] = useState(false)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting && !started) setStarted(true) },
+      { threshold: 0.3 }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [started])
+
+  useEffect(() => {
+    if (!started) return
+    const numericTarget = parseInt(target.replace(/\D/g, ''), 10)
+    if (!numericTarget) return
+    let startTime = null
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCount(Math.floor(eased * numericTarget))
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [started, target, duration])
+
+  const suffix = target.replace(/[\d,]/g, '')
+  return { ref, display: started ? `${count}${suffix}` : '0' }
+}
+
+/* ─── Single stat item with counter ─── */
+const StatItem = ({ number, label }) => {
+  const { ref, display } = useCounter(number)
+  return (
+    <div ref={ref} className="text-center">
+      <div className="text-3xl md:text-4xl font-bold text-claude-accent mb-2 tracking-tight tabular-nums">
+        {display}
+      </div>
+      <div className="text-claude-medium text-sm">{label}</div>
+    </div>
+  )
+}
+
+/* ─── Typewriter component ─── */
+const Typewriter = ({ phrases }) => {
+  const [phraseIndex, setPhraseIndex] = useState(0)
+  const [charIndex, setCharIndex] = useState(0)
+  const [deleting, setDeleting] = useState(false)
+  const [text, setText] = useState('')
+
+  useEffect(() => {
+    if (!phrases || phrases.length === 0) return
+    const current = phrases[phraseIndex]
+    let timeout
+
+    if (!deleting && charIndex < current.length) {
+      timeout = setTimeout(() => {
+        setText(current.slice(0, charIndex + 1))
+        setCharIndex(charIndex + 1)
+      }, 45)
+    } else if (!deleting && charIndex === current.length) {
+      timeout = setTimeout(() => setDeleting(true), 2200)
+    } else if (deleting && charIndex > 0) {
+      timeout = setTimeout(() => {
+        setText(current.slice(0, charIndex - 1))
+        setCharIndex(charIndex - 1)
+      }, 22)
+    } else if (deleting && charIndex === 0) {
+      setDeleting(false)
+      setPhraseIndex((phraseIndex + 1) % phrases.length)
+    }
+    return () => clearTimeout(timeout)
+  }, [charIndex, deleting, phraseIndex, phrases])
+
+  return (
+    <span className="inline-flex items-baseline">
+      <span className="gradient-text font-semibold">{text}</span>
+      <span className="ml-0.5 inline-block w-0.5 h-[1.1em] bg-claude-accent align-middle animate-cursor-blink" />
+    </span>
+  )
+}
+
 const Home = () => {
   const { t } = useTranslation('common')
+  const typewriterPhrases = t('home.hero.typewriter', { returnObjects: true })
 
   const features = [
     {
-      icon: <Code className="w-5 h-5" />,
+      icon: <Brain className="w-6 h-6" />,
       title: t('home.features.items.innovation.title'),
-      description: t('home.features.items.innovation.description')
+      description: t('home.features.items.innovation.description'),
+      size: 'large',
     },
     {
-      icon: <Zap className="w-5 h-5" />,
+      icon: <Zap className="w-6 h-6" />,
       title: t('home.features.items.speed.title'),
-      description: t('home.features.items.speed.description')
+      description: t('home.features.items.speed.description'),
+      size: 'small',
     },
     {
-      icon: <Shield className="w-5 h-5" />,
+      icon: <Shield className="w-6 h-6" />,
       title: t('home.features.items.security.title'),
-      description: t('home.features.items.security.description')
+      description: t('home.features.items.security.description'),
+      size: 'small',
     },
     {
-      icon: <Users className="w-5 h-5" />,
+      icon: <Users className="w-6 h-6" />,
       title: t('home.features.items.team.title'),
-      description: t('home.features.items.team.description')
-    }
+      description: t('home.features.items.team.description'),
+      size: 'large',
+    },
+    {
+      icon: <Code className="w-6 h-6" />,
+      title: t('home.features.items.innovation.title'),
+      description: t('home.features.items.innovation.description'),
+      size: 'wide',
+      hidden: true,
+    },
   ]
 
   const stats = [
@@ -53,64 +152,86 @@ const Home = () => {
 
   return (
     <div>
-      {/* Hero Section */}
+      {/* ── Hero Section ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background */}
-        <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(135deg, #2D2A25 0%, #1F1F1F 40%, #3D2B1F 70%, #2D1F15 100%)' }}
-        >
-          {/* Warm glow orbs */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div
-              className="absolute rounded-full"
-              style={{
-                width: '600px', height: '600px',
-                top: '-100px', right: '-100px',
-                background: 'radial-gradient(circle, rgba(217,119,87,0.18) 0%, transparent 70%)',
-              }}
-            />
-            <div
-              className="absolute rounded-full"
-              style={{
-                width: '500px', height: '500px',
-                bottom: '-80px', left: '-80px',
-                background: 'radial-gradient(circle, rgba(217,119,87,0.12) 0%, transparent 70%)',
-              }}
-            />
-            <div
-              className="absolute rounded-full"
-              style={{
-                width: '300px', height: '300px',
-                top: '40%', left: '50%',
-                transform: 'translate(-50%, -50%)',
-                background: 'radial-gradient(circle, rgba(245,240,232,0.04) 0%, transparent 70%)',
-              }}
-            />
-          </div>
-          {/* Subtle grid texture */}
+        {/* Aurora background */}
+        <div className="absolute inset-0" style={{ background: '#1A1712' }}>
+          {/* Layer 1 — large terracotta aurora, top-right */}
           <div
-            className="absolute inset-0 opacity-[0.04]"
+            className="absolute rounded-full animate-aurora"
             style={{
-              backgroundImage: 'linear-gradient(rgba(245,240,232,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(245,240,232,0.5) 1px, transparent 1px)',
-              backgroundSize: '60px 60px',
+              width: '900px', height: '700px',
+              top: '-200px', right: '-200px',
+              background: 'radial-gradient(ellipse, rgba(217,119,87,0.22) 0%, rgba(185,80,40,0.10) 40%, transparent 70%)',
+              filter: 'blur(40px)',
+            }}
+          />
+          {/* Layer 2 — amber aurora, bottom-left */}
+          <div
+            className="absolute rounded-full animate-aurora-slow"
+            style={{
+              width: '700px', height: '600px',
+              bottom: '-150px', left: '-150px',
+              background: 'radial-gradient(ellipse, rgba(245,166,35,0.14) 0%, rgba(217,119,87,0.08) 40%, transparent 70%)',
+              filter: 'blur(50px)',
+            }}
+          />
+          {/* Layer 3 — warm white center glow */}
+          <div
+            className="absolute"
+            style={{
+              width: '600px', height: '400px',
+              top: '50%', left: '50%',
+              transform: 'translate(-50%, -50%)',
+              background: 'radial-gradient(ellipse, rgba(245,240,232,0.05) 0%, transparent 70%)',
+              filter: 'blur(30px)',
+            }}
+          />
+          {/* Dot grid texture */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: 'radial-gradient(rgba(245,240,232,0.08) 1px, transparent 1px)',
+              backgroundSize: '32px 32px',
+            }}
+          />
+          {/* Noise overlay for depth */}
+          <div className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: 'linear-gradient(rgba(245,240,232,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(245,240,232,0.4) 1px, transparent 1px)',
+              backgroundSize: '80px 80px',
             }}
           />
         </div>
 
-        <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center text-white">
+        <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-white leading-tight tracking-tight">
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-white/70 text-sm mb-8"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse-dot" />
+              <Layers className="w-3.5 h-3.5" />
+              <span>AI-Powered Technology Platform</span>
+            </motion.div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 text-white leading-tight tracking-tight">
               {t('home.hero.title')}
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-4 text-white/85 leading-relaxed">
-              {t('home.hero.subtitle')}
-            </p>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-10 text-white/65 leading-relaxed">
+
+            {/* Typewriter line */}
+            <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6 leading-relaxed min-h-[1.5em]">
+              <Typewriter phrases={Array.isArray(typewriterPhrases) ? typewriterPhrases : []} />
+            </div>
+
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-10 text-white/50 leading-relaxed max-w-3xl mx-auto">
               {t('home.hero.description')}
             </p>
 
@@ -123,10 +244,10 @@ const Home = () => {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
               <Link
-                to="/services"
-                className="inline-flex items-center px-8 py-4 border border-white/25 rounded-xl font-semibold hover:bg-white/10 hover:border-white/45 transition-all backdrop-blur-sm"
+                to="/contact#contact-form"
+                className="inline-flex items-center px-8 py-4 border border-white/20 rounded-xl font-semibold text-white hover:bg-white/8 hover:border-white/40 transition-all backdrop-blur-sm"
               >
-                {t('common.exploreServices')}
+                {t('common.scheduleDemo')}
               </Link>
             </div>
           </motion.div>
@@ -136,13 +257,13 @@ const Home = () => {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/50"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/30"
         >
           <ChevronRight className="w-6 h-6 transform rotate-90" />
         </motion.div>
       </section>
 
-      {/* Features Section */}
+      {/* ── Features Bento Grid ── */}
       <section className="py-20 bg-claude-cream">
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
@@ -150,7 +271,7 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-14"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-claude-dark mb-4 tracking-tight">
               {t('home.features.title')}
@@ -160,49 +281,103 @@ const Home = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 lg:gap-6">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="p-6 bg-white border border-claude-beige rounded-2xl hover:shadow-warm-lg transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="w-10 h-10 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent mb-4">
-                  {feature.icon}
+          {/* Bento grid: 4 columns on xl, 2 on md, 1 on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 auto-rows-fr">
+            {/* Card 1 — large (spans 2 cols) */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0 }}
+              viewport={{ once: true }}
+              className="xl:col-span-2 p-8 bg-claude-footer rounded-2xl flex flex-col justify-between min-h-[220px] hover:shadow-warm-lg transition-all duration-300 group relative overflow-hidden"
+            >
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: 'radial-gradient(ellipse at top right, rgba(217,119,87,0.15) 0%, transparent 60%)' }}
+              />
+              <div className="relative z-10">
+                <div className="w-11 h-11 bg-claude-accent/20 rounded-xl flex items-center justify-center text-claude-accent mb-5">
+                  <Brain className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-claude-dark mb-2 tracking-tight">{feature.title}</h3>
-                <p className="text-claude-medium text-sm leading-relaxed">{feature.description}</p>
-              </motion.div>
-            ))}
+                <h3 className="text-xl font-bold text-white mb-2 tracking-tight">{t('home.features.items.innovation.title')}</h3>
+                <p className="text-white/55 text-sm leading-relaxed">{t('home.features.items.innovation.description')}</p>
+              </div>
+            </motion.div>
+
+            {/* Card 2 — small */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="p-7 bg-white border border-claude-beige rounded-2xl hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1 min-h-[200px] flex flex-col justify-between"
+            >
+              <div className="w-10 h-10 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent mb-4 group-hover:bg-claude-accent group-hover:text-white transition-colors">
+                <Zap className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-claude-dark mb-2 tracking-tight">{t('home.features.items.speed.title')}</h3>
+                <p className="text-claude-medium text-sm leading-relaxed">{t('home.features.items.speed.description')}</p>
+              </div>
+            </motion.div>
+
+            {/* Card 3 — small */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="p-7 bg-claude-accent-light border border-claude-border rounded-2xl hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1 min-h-[200px] flex flex-col justify-between"
+            >
+              <div className="w-10 h-10 bg-claude-accent rounded-xl flex items-center justify-center text-white mb-4">
+                <Shield className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-claude-dark mb-2 tracking-tight">{t('home.features.items.security.title')}</h3>
+                <p className="text-claude-medium text-sm leading-relaxed">{t('home.features.items.security.description')}</p>
+              </div>
+            </motion.div>
+
+            {/* Card 4 — large (spans 2 cols on xl, full on md) */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="xl:col-span-2 p-8 bg-white border border-claude-beige rounded-2xl hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1 min-h-[200px] flex flex-col justify-between relative overflow-hidden"
+            >
+              <div
+                className="absolute top-0 right-0 w-40 h-40 opacity-30"
+                style={{ background: 'radial-gradient(circle at top right, #F2E5DC, transparent 70%)' }}
+              />
+              <div className="relative z-10">
+                <div className="w-10 h-10 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent mb-4 group-hover:bg-claude-accent group-hover:text-white transition-colors">
+                  <Users className="w-5 h-5" />
+                </div>
+                <h3 className="text-xl font-bold text-claude-dark mb-2 tracking-tight">{t('home.features.items.team.title')}</h3>
+                <p className="text-claude-medium text-sm leading-relaxed">{t('home.features.items.team.description')}</p>
+              </div>
+            </motion.div>
+
+            {/* Card 5 — wide stats card (spans 2 cols) */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="xl:col-span-2 p-8 bg-claude-warm border border-claude-beige rounded-2xl min-h-[120px] flex items-center"
+            >
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full">
+                {stats.map((stat, i) => (
+                  <StatItem key={i} number={stat.number} label={stat.label} />
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-claude-warm border-y border-claude-beige">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center"
-              >
-                <div className="text-3xl md:text-4xl font-bold text-claude-accent mb-2 tracking-tight">{stat.number}</div>
-                <div className="text-claude-medium text-sm">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
+      {/* ── Testimonials ── */}
       <section className="py-20 bg-claude-cream">
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
@@ -243,9 +418,13 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-claude-footer">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center">
+      {/* ── CTA Section ── */}
+      <section className="py-20 bg-claude-footer relative overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{ background: 'radial-gradient(ellipse at center, rgba(217,119,87,0.20) 0%, transparent 70%)' }}
+        />
+        <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -255,16 +434,24 @@ const Home = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight">
               {t('home.cta.title')}
             </h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-white/65 mb-10 leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-white/55 mb-10 leading-relaxed">
               {t('home.cta.description')}
             </p>
-            <Link
-              to="/contact#contact-form"
-              className="inline-flex items-center px-8 py-4 bg-claude-accent rounded-xl font-semibold text-white hover:bg-claude-accent-dark transition-all transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
-            >
-              {t('common.contactUs')}
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/contact#contact-form"
+                className="inline-flex items-center px-8 py-4 bg-claude-accent rounded-xl font-semibold text-white hover:bg-claude-accent-dark transition-all transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
+              >
+                {t('common.contactUs')}
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+              <Link
+                to="/products"
+                className="inline-flex items-center px-8 py-4 border border-white/20 rounded-xl font-semibold text-white hover:bg-white/8 hover:border-white/40 transition-all"
+              >
+                {t('common.viewProducts')}
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
