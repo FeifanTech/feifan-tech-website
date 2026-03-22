@@ -210,7 +210,7 @@ const Layout = ({ children }) => {
               <ul className="space-y-2 text-white/55 text-sm">
                 <li>{t('footer.address')}</li>
                 <li>{t('footer.email')}</li>
-                <li>{t('footer.tagline')}</li>
+                <li>WeChat: {t('contact.info.wechat.content')}</li>
               </ul>
             </div>
           </div>

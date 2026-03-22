@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Phone, Clock, Send, CheckCircle, MessageCircle, AlertCircle } from 'lucide-react'
+import { Mail, MapPin, Clock, Send, CheckCircle, MessageCircle, AlertCircle, MessageSquare } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { submitContactForm } from '../services/contactService.js'
 
@@ -67,27 +67,32 @@ const Contact = () => {
       icon: <Mail className="w-5 h-5" />,
       title: t('contact.info.email.title'),
       content: t('contact.info.email.content'),
-      description: t('contact.info.email.description')
+      description: t('contact.info.email.description'),
+      type: 'email'
+    },
+    {
+      icon: <MessageSquare className="w-5 h-5" />,
+      title: t('contact.info.wechat.title'),
+      content: t('contact.info.wechat.content'),
+      description: t('contact.info.wechat.description'),
+      type: 'wechat'
     },
     {
       icon: <MapPin className="w-5 h-5" />,
       title: t('contact.info.location.title'),
       content: t('contact.info.location.content'),
-      description: t('contact.info.location.description')
-    },
-    {
-      icon: <Phone className="w-5 h-5" />,
-      title: t('contact.info.phone.title'),
-      content: t('contact.info.phone.content'),
-      description: t('contact.info.phone.description')
+      description: t('contact.info.location.description'),
+      type: 'location'
     },
     {
       icon: <Clock className="w-5 h-5" />,
       title: t('contact.info.hours.title'),
       content: t('contact.info.hours.content'),
-      description: t('contact.info.hours.description')
+      description: t('contact.info.hours.description'),
+      type: 'hours'
     }
   ]
+  const processSteps = t('contact.process.steps', { returnObjects: true })
 
   const services = t('contact.form.services', { returnObjects: true })
   const faqItems = t('contact.faq.items', { returnObjects: true })
@@ -111,6 +116,53 @@ const Contact = () => {
               {t('contact.hero.description')}
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Cooperation Process */}
+      <section className="py-16 bg-claude-warm border-b border-claude-beige">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-2xl md:text-3xl font-bold text-claude-dark mb-3 tracking-tight">
+              {t('contact.process.title')}
+            </h2>
+            <p className="text-claude-medium text-base md:text-lg leading-relaxed">
+              {t('contact.process.subtitle')}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
+            {Array.isArray(processSteps) && processSteps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                {/* Connector line */}
+                {index < processSteps.length - 1 && (
+                  <div className="hidden xl:block absolute top-8 left-full w-full h-px bg-claude-border z-0 -translate-y-px" />
+                )}
+                <div className="relative z-10 bg-white border border-claude-beige rounded-2xl p-6 hover:shadow-warm transition-all">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="w-9 h-9 rounded-xl bg-claude-accent text-white text-sm font-bold flex items-center justify-center flex-shrink-0">
+                      {step.step}
+                    </span>
+                    <h3 className="text-sm font-bold text-claude-dark tracking-tight">{step.title}</h3>
+                  </div>
+                  <p className="text-claude-medium text-sm leading-relaxed">{step.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -312,13 +364,11 @@ const Contact = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {contactInfo.map((info, index) => {
                     const cardClass = "flex items-start p-5 bg-white border border-claude-beige rounded-2xl hover:shadow-warm transition-all"
-
                     const iconBlock = (
                       <div className="w-10 h-10 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent mr-4 flex-shrink-0">
                         {info.icon}
                       </div>
                     )
-
                     const content = (
                       <div>
                         <h3 className="text-sm font-semibold text-claude-dark mb-0.5">{info.title}</h3>
@@ -326,52 +376,33 @@ const Contact = () => {
                         <p className="text-claude-muted text-xs leading-relaxed">{info.description}</p>
                       </div>
                     )
+                    const baiduUrl = 'https://ditu.baidu.com/search/银江软件园H座/@13367272.506314501,3522990.28875505,19z?querytype=s&da_src=shareurl&wd=银江软件园H座&c=179&src=0&wd2=杭州市西湖区西园八路2号&pn=0&sug=1&l=13&from=webmap&device_ratio=2'
 
-                    if (index === 0) {
+                    if (info.type === 'email') {
                       return (
-                        <motion.a
-                          key={index}
-                          href={`mailto:${info.content}`}
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.6, delay: index * 0.1 }}
-                          viewport={{ once: true }}
-                          className={cardClass + ' cursor-pointer hover:scale-[1.02]'}
-                        >
-                          {iconBlock}
-                          {content}
+                        <motion.a key={index} href={`mailto:${info.content}`}
+                          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: index * 0.1 }} viewport={{ once: true }}
+                          className={cardClass + ' cursor-pointer hover:scale-[1.02]'}>
+                          {iconBlock}{content}
                         </motion.a>
                       )
-                    } else if (index === 1) {
-                      const baiduUrl = 'https://ditu.baidu.com/search/银江软件园H座/@13367272.506314501,3522990.28875505,19z?querytype=s&da_src=shareurl&wd=银江软件园H座&c=179&src=0&wd2=杭州市西湖区西园八路2号&pn=0&sug=1&l=13&from=webmap&device_ratio=2'
+                    } else if (info.type === 'location') {
                       return (
-                        <motion.a
-                          key={index}
-                          href={baiduUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.6, delay: index * 0.1 }}
-                          viewport={{ once: true }}
-                          className={cardClass + ' cursor-pointer hover:scale-[1.02]'}
-                        >
-                          {iconBlock}
-                          {content}
+                        <motion.a key={index} href={baiduUrl} target="_blank" rel="noopener noreferrer"
+                          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: index * 0.1 }} viewport={{ once: true }}
+                          className={cardClass + ' cursor-pointer hover:scale-[1.02]'}>
+                          {iconBlock}{content}
                         </motion.a>
                       )
                     } else {
                       return (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.6, delay: index * 0.1 }}
-                          viewport={{ once: true }}
-                          className={cardClass}
-                        >
-                          {iconBlock}
-                          {content}
+                        <motion.div key={index}
+                          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: index * 0.1 }} viewport={{ once: true }}
+                          className={cardClass}>
+                          {iconBlock}{content}
                         </motion.div>
                       )
                     }
