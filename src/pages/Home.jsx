@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Code, Zap, Shield, Users, Star, ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import homeBgImage from '../assets/homg_bg.gif'
-
 const Home = () => {
   const { t } = useTranslation('common')
 
@@ -59,10 +57,45 @@ const Home = () => {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${homeBgImage})` }}
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(135deg, #2D2A25 0%, #1F1F1F 40%, #3D2B1F 70%, #2D1F15 100%)' }}
         >
-          <div className="absolute inset-0 bg-claude-dark/50"></div>
+          {/* Warm glow orbs */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: '600px', height: '600px',
+                top: '-100px', right: '-100px',
+                background: 'radial-gradient(circle, rgba(217,119,87,0.18) 0%, transparent 70%)',
+              }}
+            />
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: '500px', height: '500px',
+                bottom: '-80px', left: '-80px',
+                background: 'radial-gradient(circle, rgba(217,119,87,0.12) 0%, transparent 70%)',
+              }}
+            />
+            <div
+              className="absolute rounded-full"
+              style={{
+                width: '300px', height: '300px',
+                top: '40%', left: '50%',
+                transform: 'translate(-50%, -50%)',
+                background: 'radial-gradient(circle, rgba(245,240,232,0.04) 0%, transparent 70%)',
+              }}
+            />
+          </div>
+          {/* Subtle grid texture */}
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: 'linear-gradient(rgba(245,240,232,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(245,240,232,0.5) 1px, transparent 1px)',
+              backgroundSize: '60px 60px',
+            }}
+          />
         </div>
 
         <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 text-center text-white">
