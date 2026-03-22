@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   Code,
   Smartphone,
@@ -19,55 +19,72 @@ import { useTranslation } from 'react-i18next'
 
 const Services = () => {
   const { t } = useTranslation('common')
-  const services = [
-    {
-      icon: <Code className="w-7 h-7" />,
-      title: t('services.items.webdev.title'),
-      description: t('services.items.webdev.description'),
-      features: t('services.items.webdev.features', { returnObjects: true }),
-    },
-    {
-      icon: <Smartphone className="w-7 h-7" />,
-      title: t('services.items.mobile.title'),
-      description: t('services.items.mobile.description'),
-      features: t('services.items.mobile.features', { returnObjects: true }),
-    },
-    {
-      icon: <Cloud className="w-7 h-7" />,
-      title: t('services.items.cloud.title'),
-      description: t('services.items.cloud.description'),
-      features: t('services.items.cloud.features', { returnObjects: true }),
-    },
-    {
-      icon: <Database className="w-7 h-7" />,
-      title: t('services.items.analytics.title'),
-      description: t('services.items.analytics.description'),
-      features: t('services.items.analytics.features', { returnObjects: true }),
-    },
-    {
-      icon: <Shield className="w-7 h-7" />,
-      title: t('services.items.security.title'),
-      description: t('services.items.security.description'),
-      features: t('services.items.security.features', { returnObjects: true }),
-    },
-    {
-      icon: <Cpu className="w-7 h-7" />,
-      title: t('services.items.ai.title'),
-      description: t('services.items.ai.description'),
-      features: t('services.items.ai.features', { returnObjects: true }),
-    },
-    {
-      icon: <Sparkles className="w-7 h-7" />,
-      title: t('services.items.industryCustomization.title'),
-      description: t('services.items.industryCustomization.description'),
-      features: t('services.items.industryCustomization.features', { returnObjects: true }),
-    },
-    {
-      icon: <HardDrive className="w-7 h-7" />,
-      title: t('services.items.privateDeployment.title'),
-      description: t('services.items.privateDeployment.description'),
-      features: t('services.items.privateDeployment.features', { returnObjects: true }),
-    }
+  const [activeTab, setActiveTab] = useState('ai')
+
+  const allServices = {
+    ai: [
+      {
+        icon: <Cpu className="w-7 h-7" />,
+        title: t('services.items.ai.title'),
+        description: t('services.items.ai.description'),
+        features: t('services.items.ai.features', { returnObjects: true }),
+      },
+      {
+        icon: <Database className="w-7 h-7" />,
+        title: t('services.items.analytics.title'),
+        description: t('services.items.analytics.description'),
+        features: t('services.items.analytics.features', { returnObjects: true }),
+      },
+    ],
+    platform: [
+      {
+        icon: <Code className="w-7 h-7" />,
+        title: t('services.items.webdev.title'),
+        description: t('services.items.webdev.description'),
+        features: t('services.items.webdev.features', { returnObjects: true }),
+      },
+      {
+        icon: <Smartphone className="w-7 h-7" />,
+        title: t('services.items.mobile.title'),
+        description: t('services.items.mobile.description'),
+        features: t('services.items.mobile.features', { returnObjects: true }),
+      },
+      {
+        icon: <Cloud className="w-7 h-7" />,
+        title: t('services.items.cloud.title'),
+        description: t('services.items.cloud.description'),
+        features: t('services.items.cloud.features', { returnObjects: true }),
+      },
+    ],
+    industry: [
+      {
+        icon: <Sparkles className="w-7 h-7" />,
+        title: t('services.items.industryCustomization.title'),
+        description: t('services.items.industryCustomization.description'),
+        features: t('services.items.industryCustomization.features', { returnObjects: true }),
+      },
+      {
+        icon: <Shield className="w-7 h-7" />,
+        title: t('services.items.security.title'),
+        description: t('services.items.security.description'),
+        features: t('services.items.security.features', { returnObjects: true }),
+      },
+    ],
+    deployment: [
+      {
+        icon: <HardDrive className="w-7 h-7" />,
+        title: t('services.items.privateDeployment.title'),
+        description: t('services.items.privateDeployment.description'),
+        features: t('services.items.privateDeployment.features', { returnObjects: true }),
+      },
+    ],
+  }
+
+  const tabs = [
+    { key: 'ai', label: t('services.tabs.ai') },
+    { key: 'platform', label: t('services.tabs.platform') },
+    { key: 'industry', label: t('services.tabs.industry') },
+    { key: 'deployment', label: t('services.tabs.deployment') },
   ]
 
   const process = [
@@ -126,14 +143,14 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* Services with Tabs */}
       <section className="py-20 bg-claude-cream">
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-claude-dark mb-4 tracking-tight">
               {t('services.offerings.title')}
@@ -143,33 +160,55 @@ const Services = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-6">
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 + index * 0.08 }}
-                className="bg-white border border-claude-beige rounded-2xl p-7 hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1"
+          {/* Tab Bar */}
+          <div className="flex flex-wrap justify-center gap-2 mb-10">
+            {tabs.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                  activeTab === tab.key
+                    ? 'bg-claude-accent text-white shadow-sm'
+                    : 'bg-white border border-claude-beige text-claude-medium hover:text-claude-dark hover:border-claude-accent hover:bg-claude-accent-light'
+                }`}
               >
-                <div className="w-12 h-12 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent mb-5 group-hover:bg-claude-accent group-hover:text-white transition-colors">
-                  {service.icon}
-                </div>
-
-                <h3 className="text-xl font-bold text-claude-dark mb-3 tracking-tight">{service.title}</h3>
-                <p className="text-claude-medium mb-5 text-sm leading-relaxed">{service.description}</p>
-
-                <ul className="space-y-2.5">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-claude-medium text-sm">
-                      <CheckCircle className="w-4 h-4 text-claude-accent mr-2.5 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
+                {tab.label}
+              </button>
             ))}
           </div>
+
+          {/* Tab Content */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-6"
+            >
+              {allServices[activeTab].map((service, index) => (
+                <div
+                  key={index}
+                  className="bg-white border border-claude-beige rounded-2xl p-7 hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1"
+                >
+                  <div className="w-12 h-12 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent mb-5 group-hover:bg-claude-accent group-hover:text-white transition-colors">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-claude-dark mb-3 tracking-tight">{service.title}</h3>
+                  <p className="text-claude-medium mb-5 text-sm leading-relaxed">{service.description}</p>
+                  <ul className="space-y-2.5">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center text-claude-medium text-sm">
+                        <CheckCircle className="w-4 h-4 text-claude-accent mr-2.5 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
 
@@ -201,17 +240,14 @@ const Services = () => {
                 viewport={{ once: true }}
                 className="relative text-center"
               >
-                {/* Connection Line */}
                 {index < process.length - 1 && (
-                  <div className="hidden lg:block absolute top-14 left-full w-full h-px bg-claude-border z-0"></div>
+                  <div className="hidden lg:block absolute top-14 left-full w-full h-px bg-claude-border z-0" />
                 )}
-
                 <div className="relative z-10">
                   <div className="w-28 h-28 bg-white border-2 border-claude-beige rounded-2xl flex flex-col items-center justify-center mx-auto mb-5 shadow-warm">
                     <span className="text-xl font-bold text-claude-accent mb-1 tracking-tight">{step.step}</span>
                     <div className="text-claude-accent">{step.icon}</div>
                   </div>
-
                   <h3 className="text-lg font-bold text-claude-dark mb-2 tracking-tight">{step.title}</h3>
                   <p className="text-claude-medium text-sm leading-relaxed">{step.description}</p>
                 </div>

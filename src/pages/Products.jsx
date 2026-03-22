@@ -150,25 +150,39 @@ const Products = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="bg-white border border-claude-beige rounded-2xl p-7 hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1"
+                className="bg-white border border-claude-beige rounded-2xl overflow-hidden hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1"
               >
+                {/* Gradient top bar */}
+                <div className={`h-1 w-full ${
+                  product.status === 'live'
+                    ? 'bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500'
+                    : 'bg-gradient-to-r from-claude-accent via-orange-400 to-amber-400'
+                }`} />
+
+                <div className="p-7">
                 {/* Product Header */}
                 <div className="flex items-start justify-between mb-5">
                   <div className="flex items-center space-x-4">
-                    <div className="w-13 h-13 w-14 h-14 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent group-hover:bg-claude-accent group-hover:text-white transition-colors">
+                    <div className="w-14 h-14 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent group-hover:bg-claude-accent group-hover:text-white transition-colors">
                       {product.icon}
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-claude-dark mb-0.5 tracking-tight">{product.title}</h3>
                     </div>
                   </div>
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
-                    product.status === 'live'
-                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                      : 'bg-claude-accent-light text-claude-accent border border-claude-border'
-                  }`}>
-                    {t(`common.${product.status}`)}
-                  </span>
+                  {product.status === 'live' ? (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-pulse-dot absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                      </span>
+                      {t('common.live')}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-claude-accent-light text-claude-accent border border-claude-border">
+                      {t('common.comingSoonOpenSource')}
+                    </span>
+                  )}
                 </div>
 
                 {/* Product Description */}
@@ -211,6 +225,7 @@ const Products = () => {
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
                 </div>
+                </div>{/* end inner padding div */}
               </motion.div>
             ))}
           </div>

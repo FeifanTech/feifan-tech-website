@@ -27,25 +27,32 @@ export default {
       animation: {
         'fade-in-up': 'fadeInUp 0.8s ease-out',
         'pulse-subtle': 'pulseSubtle 2s ease-in-out infinite',
+        'aurora': 'aurora 12s ease-in-out infinite alternate',
+        'aurora-slow': 'aurora 18s ease-in-out infinite alternate-reverse',
+        'cursor-blink': 'cursorBlink 1s step-end infinite',
+        'pulse-dot': 'pulseDot 2s ease-in-out infinite',
       },
       keyframes: {
         fadeInUp: {
-          '0%': {
-            opacity: '0',
-            transform: 'translateY(30px)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0)',
-          },
+          '0%': { opacity: '0', transform: 'translateY(30px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         pulseSubtle: {
-          '0%, 100%': {
-            transform: 'scale(1)',
-          },
-          '50%': {
-            transform: 'scale(1.05)',
-          },
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.05)' },
+        },
+        aurora: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
+        cursorBlink: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        },
+        pulseDot: {
+          '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.8)', opacity: '0.4' },
         },
       },
     },
