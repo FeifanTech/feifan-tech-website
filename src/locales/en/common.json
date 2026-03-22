@@ -86,6 +86,49 @@
         "content": "Working with Feifan Tech was a game-changer. They delivered beyond our expectations with exceptional quality."
       }
     },
+    "trust": {
+      "years": "5+",
+      "yearsLabel": "Years of Expertise",
+      "projects": "50+",
+      "projectsLabel": "Projects Delivered",
+      "products": "6",
+      "productsLabel": "AI Core Products",
+      "support": "24/7",
+      "supportLabel": "Technical Support"
+    },
+    "caseStudies": {
+      "title": "Real Results for Real Businesses",
+      "subtitle": "See how our AI solutions deliver measurable impact across industries",
+      "items": [
+        {
+          "industry": "Logistics",
+          "title": "Document Processing Automation",
+          "challenge": "Tens of thousands of freight documents required manual entry daily, causing high error rates and slow turnaround.",
+          "solution": "Deployed Intelligent OCR system with multi-format document recognition and batch processing.",
+          "metric": "60%",
+          "metricLabel": "Faster Processing",
+          "tags": ["OCR Recognition", "Batch Processing", "Private Deployment"]
+        },
+        {
+          "industry": "Retail Chain",
+          "title": "AI-Powered Customer Service Upgrade",
+          "challenge": "Peak-hour call queues averaged 8 minutes wait time; manual transcription consumed significant agent hours.",
+          "solution": "Integrated AI Speech Recognition with intelligent routing and real-time transcription.",
+          "metric": "50%",
+          "metricLabel": "Efficiency Gain",
+          "tags": ["Speech Recognition", "Real-time Transcription", "API Integration"]
+        },
+        {
+          "industry": "Internet Enterprise",
+          "title": "AI Agent Workflow Automation",
+          "challenge": "Cross-platform content review, data analytics, and report generation consumed 60% of team capacity.",
+          "solution": "Deployed AI Agent system to automate repetitive workflows with multi-tool integration.",
+          "metric": "3×",
+          "metricLabel": "Team Productivity",
+          "tags": ["AI Agent", "Workflow Automation", "Multi-tool Integration"]
+        }
+      ]
+    },
     "cta": {
       "title": "Ready to Transform Your Business?",
       "description": "Let's discuss how Feifan Tech can help you achieve your digital transformation goals"
@@ -467,6 +510,32 @@
         "Other"
       ]
     },
+    "process": {
+      "title": "How We Work Together",
+      "subtitle": "A clear, efficient path from first contact to successful delivery",
+      "steps": [
+        {
+          "step": "01",
+          "title": "Submit Your Needs",
+          "description": "Tell us about your project or challenge via the form, email, or WeChat."
+        },
+        {
+          "step": "02",
+          "title": "Response Within 24h",
+          "description": "Our team reviews your requirements and follows up with clarifying questions."
+        },
+        {
+          "step": "03",
+          "title": "Free Solution Assessment",
+          "description": "We provide a tailored technical proposal and solution outline at no cost."
+        },
+        {
+          "step": "04",
+          "title": "Confirm & Kick Off",
+          "description": "Align on scope, timeline, and milestones — then we get to work."
+        }
+      ]
+    },
     "info": {
       "title": "Contact Information",
       "description": "Get in touch with us through any of the following channels. We're here to help and answer any questions you might have.",
@@ -475,15 +544,15 @@
         "content": "feifan.hangzhou@gmail.com",
         "description": "Send us an email anytime"
       },
+      "wechat": {
+        "title": "WeChat",
+        "content": "feifantech",
+        "description": "Add us on WeChat for quick response"
+      },
       "location": {
-        "title": "Location", 
+        "title": "Location",
         "content": "Room 406, Building H, Yinjiang Software Park, No. 2 Xiyuan 8th Road, Xihu District, Hangzhou, Zhejiang Province",
         "description": "Our headquarters location"
-      },
-      "phone": {
-        "title": "Phone",
-        "content": "Available via Email", 
-        "description": "Contact us for phone consultation"
       },
       "hours": {
         "title": "Business Hours",

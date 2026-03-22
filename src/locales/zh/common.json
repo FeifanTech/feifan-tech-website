@@ -86,6 +86,49 @@
         "content": "与飞凡科技合作是一个改变游戏规则的决定。他们以卓越的品质超越了我们的期望。"
       }
     },
+    "trust": {
+      "years": "5+",
+      "yearsLabel": "年技术沉淀",
+      "projects": "50+",
+      "projectsLabel": "项目成功交付",
+      "products": "6",
+      "productsLabel": "AI 核心产品",
+      "support": "24/7",
+      "supportLabel": "全天候技术保障"
+    },
+    "caseStudies": {
+      "title": "真实落地，实测有效",
+      "subtitle": "飞凡 AI 产品在多个行业的真实交付案例与可量化成果",
+      "items": [
+        {
+          "industry": "物流行业",
+          "title": "单据处理自动化",
+          "challenge": "每天数万张货运单据需人工录入，错误率高、处理周期长，严重制约业务效率。",
+          "solution": "部署智能 OCR 识别系统，支持多格式单据批量处理与自动化流转。",
+          "metric": "60%",
+          "metricLabel": "处理效率提升",
+          "tags": ["OCR 识别", "批量处理", "私有化部署"]
+        },
+        {
+          "industry": "连锁零售",
+          "title": "AI 客服效率升级",
+          "challenge": "高峰期客服排队平均等待超 8 分钟，人工转录耗时严重、客户满意度持续下滑。",
+          "solution": "集成 AI 语音识别与实时转录，结合智能工单路由系统。",
+          "metric": "50%",
+          "metricLabel": "客服效率提升",
+          "tags": ["语音识别", "实时转录", "API 集成"]
+        },
+        {
+          "industry": "互联网企业",
+          "title": "AI Agent 工作流自动化",
+          "challenge": "跨平台内容审核、数据报告、运营分析等重复性工作占团队 60% 以上工时。",
+          "solution": "部署 AI Agent 系统，自动化多工具协同工作流，释放人力专注高价值任务。",
+          "metric": "3×",
+          "metricLabel": "团队人效提升",
+          "tags": ["AI Agent", "工作流自动化", "多工具集成"]
+        }
+      ]
+    },
     "cta": {
       "title": "准备开启数字化转型之旅？",
       "description": "让飞凡科技助您实现数字化转型目标，共创美好未来"
@@ -467,6 +510,32 @@
         "其他"
       ]
     },
+    "process": {
+      "title": "合作流程",
+      "subtitle": "清晰高效的合作路径，从初次接触到项目成功交付",
+      "steps": [
+        {
+          "step": "01",
+          "title": "提交需求",
+          "description": "通过表单、邮件或微信告知我们您的项目或需求，越详细越好。"
+        },
+        {
+          "step": "02",
+          "title": "24 小时内回复",
+          "description": "我们的团队评估需求后，在 24 小时内联系您进行深入沟通。"
+        },
+        {
+          "step": "03",
+          "title": "免费方案评估",
+          "description": "针对您的需求提供定制化技术方案和解决思路，完全免费。"
+        },
+        {
+          "step": "04",
+          "title": "确认启动",
+          "description": "明确范围、时间节点和交付计划后，正式开启项目合作。"
+        }
+      ]
+    },
     "info": {
       "title": "联系信息",
       "description": "通过以下任何渠道与我们联系。我们在这里为您提供帮助并回答您可能有的任何问题。",
@@ -474,6 +543,11 @@
         "title": "邮箱",
         "content": "feifan.hangzhou@gmail.com",
         "description": "随时给我们发邮件"
+      },
+      "wechat": {
+        "title": "微信",
+        "content": "feifantech",
+        "description": "添加微信，快速获得响应"
       },
       "location": {
         "title": "位置",
