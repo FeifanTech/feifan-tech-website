@@ -7,7 +7,22 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+        sans: ['DM Sans', 'Inter', 'ui-sans-serif', 'system-ui'],
+      },
+      colors: {
+        claude: {
+          cream: '#FAF9F7',
+          warm: '#F5F0E8',
+          beige: '#EDE8E1',
+          border: '#D4C9BA',
+          accent: '#D97757',
+          'accent-dark': '#B85C35',
+          'accent-light': '#F2E5DC',
+          dark: '#1F1F1F',
+          medium: '#5E5E5E',
+          muted: '#8C8C8C',
+          footer: '#2D2A25',
+        }
       },
       animation: {
         'fade-in-up': 'fadeInUp 0.8s ease-out',

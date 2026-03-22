@@ -23,46 +23,46 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 overflow-x-hidden">
+    <div className="min-h-screen bg-claude-cream overflow-x-hidden">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b">
+      <header className="sticky top-0 z-50 bg-claude-cream/95 backdrop-blur-md border-b border-claude-beige">
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm">
+              <div className="w-8 h-8 bg-claude-accent rounded-lg flex items-center justify-center shadow-sm">
                 <span className="text-white font-bold text-sm">F</span>
               </div>
-              <span className="text-xl font-bold text-gray-900">
+              <span className="text-xl font-semibold text-claude-dark tracking-tight">
                 Feifan Tech
               </span>
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <nav className="flex space-x-8">
+              <nav className="flex space-x-1">
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`relative px-3 py-2 text-sm font-medium transition-colors ${
+                    className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
                       isActive(item.path)
-                        ? 'text-blue-600'
-                        : 'text-gray-700 hover:text-blue-600'
+                        ? 'text-claude-accent bg-claude-accent-light'
+                        : 'text-claude-medium hover:text-claude-dark hover:bg-claude-warm'
                     }`}
                   >
                     {item.name}
                     {isActive(item.path) && (
                       <motion.div
                         layoutId="activeTab"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-full"
+                        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-claude-accent rounded-full"
                         initial={false}
                       />
                     )}
                   </Link>
                 ))}
               </nav>
-              
+
               {/* Language Switcher */}
               <LanguageSwitcher />
             </div>
@@ -70,7 +70,7 @@ const Layout = ({ children }) => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+              className="md:hidden p-2 rounded-lg text-claude-medium hover:text-claude-dark hover:bg-claude-warm bg-transparent shadow-none border-0"
             >
               {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -83,27 +83,27 @@ const Layout = ({ children }) => {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="md:hidden border-t bg-white/95 backdrop-blur-sm"
+                className="md:hidden border-t border-claude-beige bg-claude-cream/98 backdrop-blur-sm"
               >
-                <div className="py-4 space-y-2">
+                <div className="py-3 space-y-1">
                   {navItems.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}
                       onClick={() => setIsMenuOpen(false)}
-                      className={`flex items-center justify-between px-4 py-3 text-base font-medium transition-colors ${
+                      className={`flex items-center justify-between px-4 py-3 text-sm font-medium rounded-lg mx-2 transition-colors ${
                         isActive(item.path)
-                          ? 'text-blue-600 bg-blue-50'
-                          : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                          ? 'text-claude-accent bg-claude-accent-light'
+                          : 'text-claude-medium hover:text-claude-dark hover:bg-claude-warm'
                       }`}
                     >
                       <span>{item.name}</span>
-                      <ChevronRight size={16} className="text-gray-400" />
+                      <ChevronRight size={14} className="text-claude-muted" />
                     </Link>
                   ))}
-                  
+
                   {/* Mobile Language Switcher */}
-                  <div className="px-4 py-3 border-t">
+                  <div className="px-4 py-3 border-t border-claude-beige mt-2">
                     <LanguageSwitcher />
                   </div>
                 </div>
@@ -119,34 +119,34 @@ const Layout = ({ children }) => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white">
+      <footer className="bg-claude-footer text-white">
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Company Info */}
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm">
+                <div className="w-8 h-8 bg-claude-accent rounded-lg flex items-center justify-center shadow-sm">
                   <span className="text-white font-bold text-sm">F</span>
                 </div>
-                <span className="text-xl font-bold">Feifan Tech</span>
+                <span className="text-xl font-semibold tracking-tight">Feifan Tech</span>
               </div>
-              <p className="text-gray-400 mb-4 max-w-md">
+              <p className="text-white/60 mb-4 max-w-md text-sm leading-relaxed">
                 {t('footer.description')}
               </p>
-              <p className="text-gray-400 text-sm">
+              <p className="text-white/40 text-sm">
                 {t('footer.copyright', { year: new Date().getFullYear() })}
               </p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h3 className="font-semibold mb-4">{t('footer.quickLinks')}</h3>
+              <h3 className="font-semibold mb-4 text-white/90 text-sm uppercase tracking-wider">{t('footer.quickLinks')}</h3>
               <ul className="space-y-2">
                 {navItems.map((item) => (
                   <li key={item.path}>
                     <Link
                       to={item.path}
-                      className="text-gray-400 hover:text-white transition-colors"
+                      className="text-white/55 hover:text-white text-sm transition-colors"
                     >
                       {item.name}
                     </Link>
@@ -157,8 +157,8 @@ const Layout = ({ children }) => {
 
             {/* Contact Info */}
             <div>
-              <h3 className="font-semibold mb-4">{t('footer.contact')}</h3>
-              <ul className="space-y-2 text-gray-400">
+              <h3 className="font-semibold mb-4 text-white/90 text-sm uppercase tracking-wider">{t('footer.contact')}</h3>
+              <ul className="space-y-2 text-white/55 text-sm">
                 <li>{t('footer.address')}</li>
                 <li>{t('footer.email')}</li>
                 <li>{t('footer.tagline')}</li>
