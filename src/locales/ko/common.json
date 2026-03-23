@@ -73,6 +73,16 @@
       "experience": "년 경험",
       "support": "지원 서비스"
     },
+    "trust": {
+      "years": "5+",
+      "yearsLabel": "년 기술 축적",
+      "projects": "50+",
+      "projectsLabel": "프로젝트 납품",
+      "products": "6",
+      "productsLabel": "AI 핵심 제품",
+      "support": "24/7",
+      "supportLabel": "기술 지원"
+    },
     "testimonials": {
       "title": "고객 후기",
       "customer1": {

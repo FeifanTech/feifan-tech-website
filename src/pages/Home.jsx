@@ -10,6 +10,13 @@ const useCounter = (target, duration = 1800) => {
   const [started, setStarted] = useState(false)
   const ref = useRef(null)
 
+  // Parse: prefix (non-digit), number, suffix (rest) — e.g. "24/7" → ["", 24, "/7"]
+  const match = target.match(/^(\D*)(\d[\d,]*)(.*)$/) || ['', '', '', target]
+  const prefix = match[1]
+  const numericStr = match[2].replace(/,/g, '')
+  const suffix = match[3]
+  const numericTarget = parseInt(numericStr, 10) || 0
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting && !started) setStarted(true) },
@@ -20,9 +27,7 @@ const useCounter = (target, duration = 1800) => {
   }, [started])
 
   useEffect(() => {
-    if (!started) return
-    const numericTarget = parseInt(target.replace(/\D/g, ''), 10)
-    if (!numericTarget) return
+    if (!started || !numericTarget) return
     let startTime = null
     const step = (timestamp) => {
       if (!startTime) startTime = timestamp
@@ -32,10 +37,9 @@ const useCounter = (target, duration = 1800) => {
       if (progress < 1) requestAnimationFrame(step)
     }
     requestAnimationFrame(step)
-  }, [started, target, duration])
+  }, [started, numericTarget, duration])
 
-  const suffix = target.replace(/[\d,]/g, '')
-  return { ref, display: started ? `${count}${suffix}` : '0' }
+  return { ref, display: started ? `${prefix}${count}${suffix}` : '0' }
 }
 
 /* ─── Single stat item with counter ─── */
@@ -339,41 +343,152 @@ const Home = () => {
               </div>
             </motion.div>
 
-            {/* Card 4 — large (spans 2 cols on xl, full on md) */}
+            {/* Card 4 — full width */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
               viewport={{ once: true }}
-              className="xl:col-span-2 p-8 bg-white border border-claude-beige rounded-2xl hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1 min-h-[200px] flex flex-col justify-between relative overflow-hidden"
+              className="xl:col-span-4 p-8 bg-white border border-claude-beige rounded-2xl hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1 min-h-[180px] flex flex-col sm:flex-row sm:items-center gap-6 relative overflow-hidden"
             >
               <div
-                className="absolute top-0 right-0 w-40 h-40 opacity-30"
-                style={{ background: 'radial-gradient(circle at top right, #F2E5DC, transparent 70%)' }}
+                className="absolute top-0 right-0 w-64 h-full opacity-20"
+                style={{ background: 'radial-gradient(ellipse at top right, #F2E5DC, transparent 70%)' }}
               />
-              <div className="relative z-10">
+              <div className="relative z-10 flex-shrink-0">
                 <div className="w-10 h-10 bg-claude-accent-light rounded-xl flex items-center justify-center text-claude-accent mb-4 group-hover:bg-claude-accent group-hover:text-white transition-colors">
                   <Users className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl font-bold text-claude-dark mb-2 tracking-tight">{t('home.features.items.team.title')}</h3>
-                <p className="text-claude-medium text-sm leading-relaxed">{t('home.features.items.team.description')}</p>
+                <p className="text-claude-medium text-sm leading-relaxed max-w-sm">{t('home.features.items.team.description')}</p>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
 
-            {/* Card 5 — wide stats card (spans 2 cols) */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="xl:col-span-2 p-8 bg-claude-warm border border-claude-beige rounded-2xl min-h-[120px] flex items-center"
-            >
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full">
-                {stats.map((stat, i) => (
-                  <StatItem key={i} number={stat.number} label={stat.label} />
-                ))}
-              </div>
-            </motion.div>
+      {/* ── Trust Strip ── */}
+      <section className="py-10 bg-claude-warm border-y border-claude-beige">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {[
+              { value: t('home.trust.years'), label: t('home.trust.yearsLabel') },
+              { value: t('home.trust.projects'), label: t('home.trust.projectsLabel') },
+              { value: t('home.trust.products'), label: t('home.trust.productsLabel') },
+              { value: t('home.trust.support'), label: t('home.trust.supportLabel') },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="text-2xl md:text-3xl font-bold text-claude-accent mb-1 tracking-tight">{item.value}</div>
+                <div className="text-claude-medium text-xs md:text-sm">{item.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Trust Strip ── */}
+      <section className="py-10 bg-claude-warm border-y border-claude-beige">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {[
+              { value: t('home.trust.years'), label: t('home.trust.yearsLabel') },
+              { value: t('home.trust.projects'), label: t('home.trust.projectsLabel') },
+              { value: t('home.trust.products'), label: t('home.trust.productsLabel') },
+              { value: t('home.trust.support'), label: t('home.trust.supportLabel') },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="text-2xl md:text-3xl font-bold text-claude-accent mb-1 tracking-tight">{item.value}</div>
+                <div className="text-claude-medium text-xs md:text-sm">{item.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Case Studies ── */}
+      <section className="py-20 bg-claude-cream">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-claude-dark mb-4 tracking-tight">
+              {t('home.caseStudies.title')}
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-claude-medium leading-relaxed">
+              {t('home.caseStudies.subtitle')}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6">
+            {Array.isArray(caseStudies) && caseStudies.map((c, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: index * 0.12 }}
+                viewport={{ once: true }}
+                className="bg-white border border-claude-beige rounded-2xl overflow-hidden hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1 flex flex-col"
+              >
+                {/* Card header */}
+                <div className="px-7 pt-7 pb-5 border-b border-claude-beige">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-semibold text-claude-accent bg-claude-accent-light px-3 py-1 rounded-full">
+                      {c.industry}
+                    </span>
+                    <div className="w-8 h-8 rounded-xl bg-claude-warm flex items-center justify-center text-claude-accent">
+                      <TrendingUp className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-bold text-claude-dark tracking-tight">{c.title}</h3>
+                </div>
+
+                {/* Card body */}
+                <div className="px-7 py-5 flex-1 flex flex-col gap-4">
+                  <div>
+                    <p className="text-xs font-semibold text-claude-muted uppercase tracking-wider mb-1">Challenge</p>
+                    <p className="text-claude-medium text-sm leading-relaxed">{c.challenge}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-claude-muted uppercase tracking-wider mb-1">Solution</p>
+                    <p className="text-claude-medium text-sm leading-relaxed">{c.solution}</p>
+                  </div>
+
+                  {/* Metric highlight */}
+                  <div className="mt-auto pt-4 border-t border-claude-beige flex items-baseline gap-3">
+                    <span className="text-3xl font-bold text-claude-accent tracking-tight">{c.metric}</span>
+                    <span className="text-sm text-claude-medium">{c.metricLabel}</span>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {Array.isArray(c.tags) && c.tags.map((tag, ti) => (
+                      <span key={ti} className="inline-flex items-center gap-1 text-xs text-claude-muted bg-claude-warm border border-claude-beige px-2.5 py-1 rounded-full">
+                        <Tag className="w-2.5 h-2.5" />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

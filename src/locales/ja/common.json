@@ -73,6 +73,16 @@
       "experience": "年の経験",
       "support": "サポート提供"
     },
+    "trust": {
+      "years": "5+",
+      "yearsLabel": "年の技術蓄積",
+      "projects": "50+",
+      "projectsLabel": "プロジェクト実績",
+      "products": "6",
+      "productsLabel": "AIコア製品",
+      "support": "24/7",
+      "supportLabel": "技術サポート"
+    },
     "testimonials": {
       "title": "お客様の声",
       "customer1": {
