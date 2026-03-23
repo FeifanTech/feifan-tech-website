@@ -286,15 +286,15 @@ const Home = () => {
             </p>
           </motion.div>
 
-          {/* Bento grid: 3 columns on xl, 2 on md, 1 on mobile */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 auto-rows-fr">
-            {/* Card 1 — large (spans 2 cols) */}
+          {/* Bento grid: 4 equal columns on xl, 2 on md, 1 on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 auto-rows-fr">
+            {/* Card 1 */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0 }}
               viewport={{ once: true }}
-              className="xl:col-span-2 p-8 bg-claude-footer rounded-2xl flex flex-col justify-between min-h-[220px] hover:shadow-warm-lg transition-all duration-300 group relative overflow-hidden"
+              className="p-8 bg-claude-footer rounded-2xl flex flex-col justify-between min-h-[220px] hover:shadow-warm-lg transition-all duration-300 group relative overflow-hidden"
             >
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -343,13 +343,13 @@ const Home = () => {
               </div>
             </motion.div>
 
-            {/* Card 4 — full width */}
+            {/* Card 4 */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
               viewport={{ once: true }}
-              className="xl:col-span-2 p-8 bg-white border border-claude-beige rounded-2xl hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1 min-h-[220px] flex flex-col justify-between relative overflow-hidden"
+              className="p-8 bg-white border border-claude-beige rounded-2xl hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1 min-h-[220px] flex flex-col justify-between relative overflow-hidden"
             >
               <div
                 className="absolute top-0 right-0 w-64 h-full opacity-20"
@@ -360,7 +360,7 @@ const Home = () => {
                   <Users className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl font-bold text-claude-dark mb-2 tracking-tight">{t('home.features.items.team.title')}</h3>
-                <p className="text-claude-medium text-sm leading-relaxed max-w-sm">{t('home.features.items.team.description')}</p>
+                <p className="text-claude-medium text-sm leading-relaxed">{t('home.features.items.team.description')}</p>
               </div>
             </motion.div>
           </div>
