@@ -69,9 +69,19 @@
     },
     "stats": {
       "projects": "项目交付",
-      "satisfaction": "客户满意度", 
+      "satisfaction": "客户满意度",
       "experience": "年专业经验",
       "support": "全天候支持"
+    },
+    "trust": {
+      "years": "5+",
+      "yearsLabel": "年技术沉淀",
+      "projects": "50+",
+      "projectsLabel": "项目成功交付",
+      "products": "6",
+      "productsLabel": "AI 核心产品",
+      "support": "24/7",
+      "supportLabel": "全天候技术保障"
     },
     "testimonials": {
       "title": "客户评价",

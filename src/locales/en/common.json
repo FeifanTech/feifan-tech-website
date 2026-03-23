@@ -73,6 +73,16 @@
       "experience": "Years Experience",
       "support": "Support Available"
     },
+    "trust": {
+      "years": "5+",
+      "yearsLabel": "Years of Expertise",
+      "projects": "50+",
+      "projectsLabel": "Projects Delivered",
+      "products": "6",
+      "productsLabel": "AI Core Products",
+      "support": "24/7",
+      "supportLabel": "Technical Support"
+    },
     "testimonials": {
       "title": "What Our Clients Say",
       "customer1": {
