@@ -14,8 +14,10 @@ const Layout = ({ children }) => {
   const navItems = [
     { name: t('nav.home'), path: '/' },
     { name: t('nav.about'), path: '/about' },
+    { name: t('nav.team'), path: '/team' },
     { name: t('nav.services'), path: '/services' },
     { name: t('nav.products'), path: '/products' },
+    { name: t('nav.blog'), path: '/blog' },
     { name: t('nav.contact'), path: '/contact' }
   ]
 
@@ -94,13 +96,14 @@ const Layout = ({ children }) => {
               {/* Language Switcher */}
               <LanguageSwitcher />
 
-              {/* Schedule Demo CTA */}
+              {/* Live Demo CTA */}
               <Link
-                to="/contact#contact-form"
-                className="inline-flex items-center px-4 py-2 bg-claude-accent text-white text-sm font-semibold rounded-lg hover:bg-claude-accent-dark transition-all transform hover:scale-[1.02] shadow-sm"
+                to="/demo"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-claude-accent text-white text-sm font-semibold rounded-lg hover:bg-claude-accent-dark transition-all transform hover:scale-[1.02] shadow-sm"
               >
-                {t('common.scheduleDemo')}
-                <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-dot" />
+                {t('nav.demo')}
+                <ArrowRight className="ml-0.5 w-3.5 h-3.5" />
               </Link>
             </div>
 
@@ -142,12 +145,13 @@ const Layout = ({ children }) => {
                   {/* Mobile Demo Button */}
                   <div className="px-4 pt-2">
                     <Link
-                      to="/contact#contact-form"
+                      to="/demo"
                       onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center justify-center w-full px-4 py-3 bg-claude-accent text-white text-sm font-semibold rounded-lg hover:bg-claude-accent-dark transition-all"
+                      className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-claude-accent text-white text-sm font-semibold rounded-lg hover:bg-claude-accent-dark transition-all"
                     >
-                      {t('common.scheduleDemo')}
-                      <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse-dot" />
+                      {t('nav.demo')}
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
 

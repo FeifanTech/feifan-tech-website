@@ -11,10 +11,13 @@
   },
   "nav": {
     "home": "首页",
-    "about": "关于我们", 
+    "about": "关于我们",
+    "team": "团队",
     "services": "服务",
     "products": "产品",
-    "contact": "联系我们"
+    "blog": "博客",
+    "contact": "联系我们",
+    "demo": "在线体验"
   },
   "common": {
     "learnMore": "了解更多",
@@ -600,6 +603,65 @@
           "answer": "我们遵循严格的测试程序、代码审查和敏捷开发实践。我们的质量保证流程包括自动化测试、性能优化和安全审计。"
         }
       ]
+    }
+  },
+  "demo": {
+    "badge": "免费在线体验",
+    "title": "智能 OCR 在线识别",
+    "subtitle": "上传图片或选择样本，秒级提取文字内容。基于飞凡自研文档理解引擎，支持中英混合识别。",
+    "trySample": "快速体验样本",
+    "inputLabel": "上传图片",
+    "outputLabel": "识别结果",
+    "dropZone": {
+      "title": "拖拽图片到此处",
+      "subtitle": "支持 PNG、JPG、JPEG、WEBP 格式",
+      "button": "选择图片"
+    },
+    "runOCR": "开始识别",
+    "reset": "重置",
+    "copy": "复制文本",
+    "copied": "已复制",
+    "processing": "识别中...",
+    "processingHint": "正在分析图片内容，请稍候",
+    "idleHint": "上传图片或选择样本后，点击【开始识别】",
+    "errorTitle": "识别失败",
+    "confidence": "置信度",
+    "charCount": "字符数",
+    "done": "识别完成",
+    "stats": {
+      "accuracy": "行业文档识别准确率",
+      "speed": "平均识别响应时间",
+      "languages": "支持语言与方言"
+    },
+    "cta": {
+      "title": "需要企业级 OCR 方案？",
+      "subtitle": "私有化部署 · API接入 · 定制训练，欢迎联系我们",
+      "button": "预约技术交流"
+    }
+  },
+  "team": {
+    "eyebrow": "核心团队",
+    "title": "驱动飞凡科技的人",
+    "subtitle": "来自百度、阿里、字节、腾讯、科大讯飞等顶尖企业的技术精英，共同打造下一代企业AI产品",
+    "hiring": {
+      "title": "我们正在招募优秀的 AI 工程师",
+      "subtitle": "如果你热爱技术、渴望在真实场景落地AI，欢迎加入我们",
+      "button": "发送简历"
+    }
+  },
+  "blog": {
+    "eyebrow": "技术博客",
+    "title": "来自一线的 AI 实践洞察",
+    "subtitle": "飞凡技术团队分享企业AI落地经验、前沿技术解析和行业深度思考，每季度至少一篇",
+    "featured": "精选推荐",
+    "readMore": "阅读全文",
+    "backToList": "返回博客列表",
+    "viewProfile": "查看作者",
+    "related": "相关文章",
+    "cta": {
+      "title": "不想错过技术干货？",
+      "subtitle": "关注飞凡科技，第一时间获取最新技术文章和行业洞察",
+      "button": "联系我们订阅"
     }
   },
   "footer": {

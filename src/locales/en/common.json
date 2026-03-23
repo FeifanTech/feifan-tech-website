@@ -12,9 +12,12 @@
   "nav": {
     "home": "Home",
     "about": "About",
+    "team": "Team",
     "services": "Services",
     "products": "Products",
-    "contact": "Contact"
+    "blog": "Blog",
+    "contact": "Contact",
+    "demo": "Live Demo"
   },
   "common": {
     "learnMore": "Learn More",
@@ -595,6 +598,65 @@
           "answer": "We follow rigorous testing procedures, code reviews, and agile development practices. Our quality assurance process includes automated testing, performance optimization, and security audits."
         }
       ]
+    }
+  },
+  "demo": {
+    "badge": "Free Online Demo",
+    "title": "Intelligent OCR — Try It Now",
+    "subtitle": "Upload an image or use a preset sample. Extract text in seconds, powered by Feifan's proprietary document understanding engine with mixed Chinese-English support.",
+    "trySample": "Try with a sample",
+    "inputLabel": "Upload Image",
+    "outputLabel": "Recognition Result",
+    "dropZone": {
+      "title": "Drag & drop an image here",
+      "subtitle": "Supports PNG, JPG, JPEG, WEBP",
+      "button": "Choose Image"
+    },
+    "runOCR": "Start Recognition",
+    "reset": "Reset",
+    "copy": "Copy Text",
+    "copied": "Copied",
+    "processing": "Recognizing...",
+    "processingHint": "Analyzing image content, please wait",
+    "idleHint": "Upload an image or pick a sample, then click Start Recognition",
+    "errorTitle": "Recognition Failed",
+    "confidence": "Confidence",
+    "charCount": "Characters",
+    "done": "Done",
+    "stats": {
+      "accuracy": "Accuracy on enterprise documents",
+      "speed": "Average recognition latency",
+      "languages": "Supported languages & dialects"
+    },
+    "cta": {
+      "title": "Need an enterprise OCR solution?",
+      "subtitle": "Private deployment · API access · Custom training — let's talk",
+      "button": "Schedule a Tech Chat"
+    }
+  },
+  "team": {
+    "eyebrow": "Core Team",
+    "title": "The People Behind Feifan Tech",
+    "subtitle": "Veteran AI engineers from Baidu, Alibaba, ByteDance, Tencent, and iFlytek, building the next generation of enterprise AI products",
+    "hiring": {
+      "title": "We're Hiring AI Engineers",
+      "subtitle": "If you love technology and want to deploy AI in real-world scenarios, come join us",
+      "button": "Send Your Resume"
+    }
+  },
+  "blog": {
+    "eyebrow": "Tech Blog",
+    "title": "AI Insights from the Front Lines",
+    "subtitle": "Feifan's engineering team shares lessons from enterprise AI deployments, deep technical analyses, and industry perspectives — at least quarterly",
+    "featured": "Featured",
+    "readMore": "Read More",
+    "backToList": "Back to Blog",
+    "viewProfile": "View Profile",
+    "related": "Related Articles",
+    "cta": {
+      "title": "Don't miss our latest insights",
+      "subtitle": "Follow Feifan Tech for the latest technical articles and industry perspectives",
+      "button": "Subscribe via Contact"
     }
   },
   "footer": {
