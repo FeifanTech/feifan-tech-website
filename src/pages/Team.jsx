@@ -1,123 +1,180 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import { X, Linkedin, Github, Mail, ExternalLink, Award, BookOpen, Briefcase } from 'lucide-react'
+import { X, Mail, ExternalLink, Award, Briefcase } from 'lucide-react'
 
-// Simulated team data — replace with real data when available
-const TEAM = [
+// Real team data from company materials
+const EXECUTIVES = [
   {
-    id: 'zhangwei',
-    avatar: 'Z',
+    id: 'liyufeng',
+    avatar: 'LY',
     color: '#D97757',
-    nameZh: '张伟',
-    nameEn: 'Zhang Wei',
-    titleZh: '联合创始人 & CEO',
+    nameZh: '李玉锋',
+    nameEn: 'Li Yufeng',
+    titleZh: '联合创始人 & 首席执行官',
     titleEn: 'Co-Founder & CEO',
-    bioZh: '张伟拥有超过12年的AI产品与商业化经验，曾主导百度AI实验室多个亿级用户规模的产品落地，后加入字节跳动担任AI战略负责人。2020年创立飞凡科技，致力于将企业级AI能力普惠化。',
-    bioEn: 'Zhang Wei brings 12+ years of AI product and commercialization experience. Previously led multiple 100M+ user AI products at Baidu AI Lab, then served as AI Strategy Lead at ByteDance. Founded Feifan Tech in 2020 to democratize enterprise AI.',
-    educationZh: '清华大学 计算机科学学士 / 北京大学 MBA',
-    educationEn: 'B.Sc. Computer Science, Tsinghua University / MBA, Peking University',
-    expertiseZh: ['AI产品战略', '商业化落地', '团队领导', '投融资'],
-    expertiseEn: ['AI Product Strategy', 'Commercialization', 'Team Leadership', 'Fundraising'],
-    prevZh: '百度AI实验室 → 字节跳动 AI战略',
-    prevEn: 'Baidu AI Lab → ByteDance AI Strategy',
-    linkedin: '#',
-    email: 'zhangwei@feifan.ai',
+    bioZh: '战略领导者，在企业管理和商业发展方面拥有丰富经验。负责公司整体战略方向、商业拓展与对外合作，致力于将飞凡科技打造成为企业AI领域的标杆服务商。',
+    bioEn: 'Strategic leader with extensive experience in enterprise management and business development. Responsible for overall company strategy, business expansion, and external partnerships, committed to making Feifan Tech a benchmark AI service provider.',
+    expertiseZh: ['公司战略', '商业发展', '团队领导', '企业管理'],
+    expertiseEn: ['Corporate Strategy', 'Business Development', 'Team Leadership', 'Enterprise Management'],
+    prevZh: '联合创始人 & CEO，飞凡科技',
+    prevEn: 'Co-Founder & CEO, Feifan Tech',
+    email: 'feifan.hangzhou@gmail.com',
   },
   {
-    id: 'liming',
-    avatar: 'L',
+    id: 'xiejinian',
+    avatar: 'XJ',
     color: '#5B8DB8',
-    nameZh: '李明',
-    nameEn: 'Li Ming',
-    titleZh: '联合创始人 & CTO',
+    nameZh: '谢记年',
+    nameEn: 'Xie Jinian',
+    titleZh: '联合创始人 & 首席技术官',
     titleEn: 'Co-Founder & CTO',
-    bioZh: '李明是国内顶尖NLP和计算机视觉专家，清华大学人工智能博士，曾在阿里巴巴DAMO院主导多模态大模型研究，拥有28项AI领域授权专利。主导了飞凡OCR引擎从0到1的全部技术架构设计。',
-    bioEn: 'Li Ming is a leading NLP and computer vision expert with a PhD in AI from Tsinghua University. Led multimodal large model research at Alibaba DAMO Academy, holds 28 AI patents. Architected Feifan\'s OCR engine from scratch.',
-    educationZh: '清华大学 人工智能博士 (NLP方向)',
-    educationEn: 'PhD in Artificial Intelligence (NLP), Tsinghua University',
-    expertiseZh: ['大语言模型', 'OCR/文档理解', '计算机视觉', '多模态AI'],
-    expertiseEn: ['Large Language Models', 'OCR / Doc Understanding', 'Computer Vision', 'Multimodal AI'],
-    prevZh: '阿里巴巴 DAMO院 → 飞凡科技',
-    prevEn: 'Alibaba DAMO Academy → Feifan Tech',
-    github: '#',
-    email: 'liming@feifan.ai',
+    bioZh: '前瞻性技术领导者，在数字化转型和创新战略方面拥有丰富经验。主导飞凡科技核心AI产品的技术架构设计，推动OCR、语音识别、AI Agent等关键技术的研发与落地。',
+    bioEn: 'Visionary technology leader with extensive experience in digital transformation and innovation strategy. Leads the technical architecture of Feifan\'s core AI products, driving R&D and deployment of key technologies including OCR, speech recognition, and AI Agents.',
+    expertiseZh: ['技术架构', 'AI系统设计', '数字化转型', '产品技术'],
+    expertiseEn: ['Technical Architecture', 'AI System Design', 'Digital Transformation', 'Product Technology'],
+    prevZh: '联合创始人 & CTO，飞凡科技',
+    prevEn: 'Co-Founder & CTO, Feifan Tech',
+    website: 'https://yunyi-csl.pages.dev/',
+    email: 'feifan.hangzhou@gmail.com',
   },
+]
+
+const CORE_TEAM = [
   {
-    id: 'wangfang',
-    avatar: 'W',
-    color: '#7B6FA0',
-    nameZh: '王芳',
-    nameEn: 'Wang Fang',
-    titleZh: '产品总监',
-    titleEn: 'Director of Product',
-    bioZh: '王芳拥有8年AI产品设计经验，曾任腾讯智慧零售AI产品负责人，主导过多个千万级DAU智能产品的从0到1落地。擅长将复杂技术能力转化为直观好用的产品体验，在智能文档、语音交互领域有深厚积累。',
-    bioEn: 'Wang Fang brings 8 years of AI product design experience. Former AI Product Lead for Tencent Smart Retail, shipped multiple 10M+ DAU intelligent products. Specializes in translating complex AI capabilities into intuitive user experiences.',
-    educationZh: '上海交通大学 人机交互硕士',
-    educationEn: 'M.Sc. Human-Computer Interaction, Shanghai Jiao Tong University',
-    expertiseZh: ['AI产品设计', '用户体验', '智能文档处理', '语音交互'],
-    expertiseEn: ['AI Product Design', 'UX', 'Intelligent Document Processing', 'Voice Interaction'],
-    prevZh: '腾讯智慧零售 → 美团AI → 飞凡科技',
-    prevEn: 'Tencent Smart Retail → Meituan AI → Feifan Tech',
-    linkedin: '#',
-    email: 'wangfang@feifan.ai',
-  },
-  {
-    id: 'chenhao',
-    avatar: 'C',
+    id: 'baojizhen',
+    avatar: '包',
     color: '#4A9E7A',
-    nameZh: '陈浩',
-    nameEn: 'Chen Hao',
-    titleZh: '首席算法工程师',
-    titleEn: 'Principal Algorithm Engineer',
-    bioZh: '陈浩专注文档智能与OCR领域研究，中科院自动化所计算机视觉博士，曾在旷视科技主导工业OCR解决方案，在ICDAR等顶级会议发表论文7篇。主持开发飞凡端到端文档理解模型，识别准确率行业领先。',
-    bioEn: 'Chen Hao specializes in document intelligence and OCR. PhD in Computer Vision from CASIA, former lead of industrial OCR at Megvii (Face++). Published 7 papers at top venues including ICDAR. Leads development of Feifan\'s end-to-end document understanding model.',
-    educationZh: '中科院自动化研究所 计算机视觉博士',
-    educationEn: 'PhD in Computer Vision, CASIA (Institute of Automation, CAS)',
-    expertiseZh: ['OCR/文档理解', '目标检测', '场景文字识别', '版面分析'],
-    expertiseEn: ['OCR / Document Understanding', 'Object Detection', 'Scene Text Recognition', 'Layout Analysis'],
-    prevZh: '旷视科技 Face++ → 飞凡科技',
-    prevEn: 'Megvii (Face++) → Feifan Tech',
-    github: '#',
-    email: 'chenhao@feifan.ai',
+    nameZh: '包季真',
+    nameEn: 'Bao Jizhen',
+    titleZh: '体验技术负责人',
+    titleEn: 'Head of Experience Technology',
+    bioZh: '包先生拥有20年的互联网产品管理经验，曾在阿里巴巴、大搜车和大众点评等公司担任高级职位。他擅长产品设计和团队管理，成功领导了多个创新项目。',
+    bioEn: 'Mr. Bao has 20 years of internet product management experience, having held senior positions at Alibaba, Daosouche, and Dianping. He excels in product design and team management, successfully leading multiple innovative projects.',
+    expertiseZh: ['产品设计', '团队管理', '用户体验', '互联网产品'],
+    expertiseEn: ['Product Design', 'Team Management', 'UX', 'Internet Products'],
+    prevZh: '阿里巴巴 / 大搜车 / 大众点评 高级职位',
+    prevEn: 'Senior roles at Alibaba / Daosouche / Dianping',
   },
   {
-    id: 'liuyang',
-    avatar: 'U',
+    id: 'zhaoyi',
+    avatar: '赵',
+    color: '#7B6FA0',
+    nameZh: '赵懿',
+    nameEn: 'Zhao Yi',
+    titleZh: '电商产品负责人',
+    titleEn: 'Head of E-commerce Product',
+    bioZh: '赵先生是互联网行业的产品创新者，开创了支付宝和视频电子商务的免密支付。他以用户为中心的方法彻底改变了数百万人的网上购物体验。',
+    bioEn: 'Mr. Zhao is a product innovator who pioneered password-free payments for Alipay and video e-commerce. His user-centric approach has transformed the online shopping experience for millions of people.',
+    expertiseZh: ['电商产品', '支付创新', '用户增长', '产品创新'],
+    expertiseEn: ['E-commerce Product', 'Payment Innovation', 'User Growth', 'Product Innovation'],
+    prevZh: '支付宝 / 视频电商 产品创新',
+    prevEn: 'Product Innovation at Alipay / Video E-commerce',
+  },
+  {
+    id: 'konghan',
+    avatar: '孔',
     color: '#C47F3A',
-    nameZh: '刘洋',
-    nameEn: 'Liu Yang',
-    titleZh: '语音技术负责人',
-    titleEn: 'Head of Speech Technology',
-    bioZh: '刘洋在语音识别与合成领域深耕11年，中国科技大学语音信号处理博士，前科大讯飞高级研究员，参与攻关普通话/方言识别核心算法。负责飞凡语音引擎技术架构，在低资源语言和噪声环境识别方面有突破性成果。',
-    bioEn: 'Liu Yang has 11 years of deep expertise in speech recognition and synthesis. PhD in Speech Signal Processing from USTC, former Senior Researcher at iFlytek. Led Mandarin/dialect recognition algorithms. Leads Feifan\'s speech engine with breakthroughs in low-resource and noisy-environment ASR.',
-    educationZh: '中国科学技术大学 语音信号处理博士',
-    educationEn: 'PhD in Speech Signal Processing, University of Science and Technology of China (USTC)',
-    expertiseZh: ['语音识别 (ASR)', '语音合成 (TTS)', '方言处理', '声纹识别'],
-    expertiseEn: ['ASR (Speech Recognition)', 'TTS (Speech Synthesis)', 'Dialect Processing', 'Speaker Verification'],
-    prevZh: '科大讯飞 研究院 → 滴滴出行 AI → 飞凡科技',
-    prevEn: 'iFlytek Research → Didi AI Lab → Feifan Tech',
-    linkedin: '#',
-    email: 'liuyang@feifan.ai',
+    nameZh: '孔晗',
+    nameEn: 'Kong Han',
+    titleZh: '智能硬件首席科学家',
+    titleEn: 'Chief Scientist of Intelligent Hardware',
+    bioZh: '孔先生是一位创新技术领导者，在华为、大华和海康威视成功领导软件和硬件产品开发团队，目前担任八识科技首席科学家。他曾经在市场上推出多个成功的智能硬件产品。',
+    bioEn: 'Mr. Kong is an innovative technology leader who successfully led software and hardware product development at Huawei, Dahua, and Hikvision. Currently Chief Scientist at Bazhi Technology, he has launched numerous successful intelligent hardware products.',
+    expertiseZh: ['智能硬件', '嵌入式系统', '软硬件协同', '产品开发'],
+    expertiseEn: ['Intelligent Hardware', 'Embedded Systems', 'HW/SW Co-design', 'Product Development'],
+    prevZh: '华为 / 大华 / 海康威视 → 八识科技首席科学家',
+    prevEn: 'Huawei / Dahua / Hikvision → Chief Scientist, Bazhi Technology',
   },
   {
-    id: 'zhaoxin',
-    avatar: 'X',
+    id: 'tanjianxiang',
+    avatar: '覃',
     color: '#B85C35',
-    nameZh: '赵鑫',
-    nameEn: 'Zhao Xin',
-    titleZh: '工程架构总监',
-    titleEn: 'Director of Engineering',
-    bioZh: '赵鑫拥有15年大规模分布式系统工程经验，前蚂蚁集团高级技术专家，负责金融级AI中台架构设计，系统支撑每天数十亿次推理请求。在飞凡主导AI中间件平台的全面架构升级，实现99.99%高可用。',
-    bioEn: 'Zhao Xin brings 15 years of large-scale distributed systems expertise. Former Senior Technical Expert at Ant Group, designed financial-grade AI platform architecture supporting billions of daily inference requests. Leads Feifan\'s AI middleware platform with 99.99% availability.',
-    educationZh: '浙江大学 计算机系统结构硕士',
-    educationEn: 'M.Sc. Computer Architecture, Zhejiang University',
-    expertiseZh: ['分布式系统', 'AI推理优化', '高可用架构', '云原生'],
-    expertiseEn: ['Distributed Systems', 'AI Inference Optimization', 'High-Availability Architecture', 'Cloud Native'],
-    prevZh: '蚂蚁集团 技术专家 → 华为云 → 飞凡科技',
-    prevEn: 'Ant Group Tech Expert → Huawei Cloud → Feifan Tech',
-    github: '#',
-    email: 'zhaoxin@feifan.ai',
+    nameZh: '覃健翔',
+    nameEn: 'Tan Jianxiang',
+    titleZh: '生产力技术首席科学家',
+    titleEn: 'Chief Scientist of Productivity Technology',
+    bioZh: '覃先生目前担任代码狗的首席技术官。在此之前，他在阿里巴巴和雅虎中国担任高级领导职务。他拥有在生产力产品开发和技术创新方面的丰富经验，拥有多项国家科技专利。',
+    bioEn: 'Mr. Tan currently serves as CTO of Codedoge. Previously held senior leadership positions at Alibaba and Yahoo China. He has extensive experience in productivity product development and technology innovation, holding multiple national technology patents.',
+    expertiseZh: ['生产力工具', '技术创新', '国家科技专利', '产品研发'],
+    expertiseEn: ['Productivity Tools', 'Technology Innovation', 'National Tech Patents', 'Product R&D'],
+    prevZh: '阿里巴巴 / 雅虎中国 高级领导 → 代码狗 CTO',
+    prevEn: 'Senior Leader at Alibaba / Yahoo China → CTO, Codedoge',
+  },
+  {
+    id: 'asu',
+    avatar: '阿',
+    color: '#D97757',
+    nameZh: '阿苏',
+    nameEn: 'A Su',
+    titleZh: '数字化产品负责人',
+    titleEn: 'Head of Digital Products',
+    bioZh: '苏女士曾经在阿里巴巴和蘑菇街担任过核心产品经理角色。现在，她负责我们的数字化产品设计，帮助我们的客户取得成功。',
+    bioEn: 'Ms. Su previously served as a core product manager at Alibaba and Mogujie. She now leads digital product design at Feifan Tech, helping our clients achieve success.',
+    expertiseZh: ['数字化产品', '产品经理', '用户体验', '电商设计'],
+    expertiseEn: ['Digital Products', 'Product Management', 'UX Design', 'E-commerce'],
+    prevZh: '阿里巴巴 / 蘑菇街 核心产品经理',
+    prevEn: 'Core Product Manager at Alibaba / Mogujie',
+  },
+  {
+    id: 'wangyumin',
+    avatar: '王',
+    color: '#5B8DB8',
+    nameZh: '王玉闵',
+    nameEn: 'Wang Yumin',
+    titleZh: '电商技术负责人',
+    titleEn: 'Head of E-commerce Technology',
+    bioZh: '王先生是阿里巴巴的电子商务和电子政务技术专家。他在电子商务产品设计和开发方面有着丰富的经验。',
+    bioEn: 'Mr. Wang is an expert in e-commerce and e-government technology at Alibaba. He has extensive experience in e-commerce product design and development.',
+    expertiseZh: ['电商技术', '电子政务', '产品设计', '系统开发'],
+    expertiseEn: ['E-commerce Technology', 'E-government', 'Product Design', 'System Development'],
+    prevZh: '阿里巴巴 电商与电子政务技术专家',
+    prevEn: 'E-commerce & E-government Tech Expert at Alibaba',
+  },
+  {
+    id: 'wendeliang',
+    avatar: '温',
+    color: '#4A9E7A',
+    nameZh: '温德良',
+    nameEn: 'Wen Deliang',
+    titleZh: '人工智能首席科学家',
+    titleEn: 'Chief AI Scientist',
+    bioZh: '温先生目前担任红熊人工智能的联合创始人、首席技术官和首席科学家。在此之前，他在阿里巴巴、复星集团和磐石担任高级领导职务，包括副总裁、首席信息官和首席技术官等。温先生在多个行业的产品开发、项目管理和技术创新方面拥有丰富的经验。',
+    bioEn: 'Mr. Wen currently serves as Co-founder, CTO, and Chief Scientist at Red Bear AI. Previously held senior leadership positions at Alibaba, Fosun Group, and Panshi, including VP, CIO, and CTO roles. He has extensive experience in product development, project management, and technology innovation across multiple industries.',
+    expertiseZh: ['人工智能', '产品开发', '技术战略', '企业管理'],
+    expertiseEn: ['Artificial Intelligence', 'Product Development', 'Technology Strategy', 'Enterprise Management'],
+    prevZh: '阿里巴巴 / 复星集团 / 磐石 副总裁/CIO/CTO → 红熊AI 联创&CTO',
+    prevEn: 'VP/CIO/CTO at Alibaba / Fosun / Panshi → Co-founder & CTO, Red Bear AI',
+  },
+  {
+    id: 'chengxiaojun',
+    avatar: '程',
+    color: '#7B6FA0',
+    nameZh: '程小军',
+    nameEn: 'Cheng Xiaojun',
+    titleZh: '保险技术负责人',
+    titleEn: 'Head of Insurance Technology',
+    bioZh: '程先生在保险产品开发方面拥有丰富的经验，曾在蚂蚁集团的保险产品线中担任重要职务，曾在微店和有赞担任核心技术专家。这些经历加深了他在金融科技领域的专业积累。',
+    bioEn: 'Mr. Cheng has extensive experience in insurance product development, having held key positions in Ant Group\'s insurance product line and served as a core technology expert at Weidian and Youzan. These experiences have deepened his expertise in fintech.',
+    expertiseZh: ['保险科技', '金融产品', '核心技术', '风控系统'],
+    expertiseEn: ['Insurance Tech', 'Financial Products', 'Core Technology', 'Risk Control'],
+    prevZh: '蚂蚁集团 保险产品线 → 微店 / 有赞 核心技术专家',
+    prevEn: 'Insurance Product Line at Ant Group → Core Tech Expert at Weidian / Youzan',
+  },
+  {
+    id: 'xufu',
+    avatar: '徐',
+    color: '#C47F3A',
+    nameZh: '徐福',
+    nameEn: 'Xu Fu',
+    titleZh: '支付技术负责人',
+    titleEn: 'Head of Payment Technology',
+    bioZh: '徐先生曾在阿里巴巴和杭州银行等行业巨头担任过技术专家。他在电子商务和支付领域的经验是无与伦比的。',
+    bioEn: 'Mr. Xu has served as a technology expert at industry leaders including Alibaba and Hangzhou Bank. His experience in e-commerce and payment technology is unmatched.',
+    expertiseZh: ['支付技术', '电商系统', '金融科技', '银行技术'],
+    expertiseEn: ['Payment Technology', 'E-commerce Systems', 'Fintech', 'Banking Technology'],
+    prevZh: '阿里巴巴 / 杭州银行 技术专家',
+    prevEn: 'Technology Expert at Alibaba / Hangzhou Bank',
   },
 ]
 
@@ -133,7 +190,7 @@ function MemberCard({ member, isZh, onClick }) {
     >
       <div className="flex items-start gap-4">
         <div
-          className="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-xl font-bold flex-shrink-0"
+          className="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-lg font-bold flex-shrink-0"
           style={{ backgroundColor: member.color }}
         >
           {member.avatar}
@@ -217,20 +274,7 @@ function MemberModal({ member, isZh, onClose }) {
             {isZh ? member.bioZh : member.bioEn}
           </p>
 
-          {/* Education */}
-          <div className="flex items-start gap-3">
-            <BookOpen className="w-4 h-4 text-claude-accent mt-0.5 flex-shrink-0" />
-            <div>
-              <p className="text-xs font-semibold text-claude-dark uppercase tracking-wider mb-0.5">
-                {isZh ? '教育背景' : 'Education'}
-              </p>
-              <p className="text-sm text-claude-medium">
-                {isZh ? member.educationZh : member.educationEn}
-              </p>
-            </div>
-          </div>
-
-          {/* Previous */}
+          {/* Career Path */}
           <div className="flex items-start gap-3">
             <Briefcase className="w-4 h-4 text-claude-accent mt-0.5 flex-shrink-0" />
             <div>
@@ -264,7 +308,7 @@ function MemberModal({ member, isZh, onClose }) {
           </div>
 
           {/* Links */}
-          <div className="flex items-center gap-3 pt-1 border-t border-claude-beige">
+          <div className="flex items-center gap-3 pt-1 border-t border-claude-beige flex-wrap">
             {member.email && (
               <a
                 href={`mailto:${member.email}`}
@@ -274,16 +318,15 @@ function MemberModal({ member, isZh, onClose }) {
                 {member.email}
               </a>
             )}
-            {member.linkedin && (
-              <a href={member.linkedin} className="flex items-center gap-1 text-xs text-claude-medium hover:text-claude-accent transition-colors ml-auto">
-                <Linkedin className="w-3.5 h-3.5" />
-                LinkedIn
-              </a>
-            )}
-            {member.github && (
-              <a href={member.github} className="flex items-center gap-1 text-xs text-claude-medium hover:text-claude-accent transition-colors ml-auto">
-                <Github className="w-3.5 h-3.5" />
-                GitHub
+            {member.website && (
+              <a
+                href={member.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 text-xs text-claude-medium hover:text-claude-accent transition-colors ml-auto"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                {isZh ? '个人网站' : 'Website'}
               </a>
             )}
           </div>
@@ -325,10 +368,10 @@ export default function Team() {
       <section className="bg-white border-b border-claude-beige">
         <div className="max-w-5xl mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
-            { num: '6+', labelZh: '核心成员', labelEn: 'Core Members' },
-            { num: '80+', labelZh: '平均行业年限', labelEn: 'Combined Years Exp.' },
-            { num: '35+', labelZh: 'AI发明专利', labelEn: 'AI Patents' },
-            { num: '5', labelZh: '顶尖大学背景', labelEn: 'Top Universities' },
+            { num: '11+', labelZh: '核心成员', labelEn: 'Core Members' },
+            { num: '100+', labelZh: '合计行业年限', labelEn: 'Combined Years Exp.' },
+            { num: '5+', labelZh: '顶级科技企业背景', labelEn: 'Top Tech Companies' },
+            { num: '20+', labelZh: '国家科技专利', labelEn: 'National Tech Patents' },
           ].map((s) => (
             <motion.div
               key={s.num}
@@ -344,18 +387,53 @@ export default function Team() {
         </div>
       </section>
 
-      {/* Team grid */}
       <section className="py-16 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {TEAM.map((member) => (
-              <MemberCard
-                key={member.id}
-                member={member}
-                isZh={isZh}
-                onClick={setSelected}
-              />
-            ))}
+        <div className="max-w-5xl mx-auto space-y-14">
+
+          {/* Leadership */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true }}
+              className="mb-6"
+            >
+              <h2 className="text-xl font-bold text-claude-dark">
+                {isZh ? '联合创始人' : 'Co-Founders'}
+              </h2>
+              <p className="text-sm text-claude-medium mt-1">
+                {isZh ? '与关于我们页面的领导力模块保持一致' : 'Consistent with the leadership section on our About page'}
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {EXECUTIVES.map((member) => (
+                <MemberCard key={member.id} member={member} isZh={isZh} onClick={setSelected} />
+              ))}
+            </div>
+          </div>
+
+          {/* Core Team */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true }}
+              className="mb-6"
+            >
+              <h2 className="text-xl font-bold text-claude-dark">
+                {isZh ? '核心团队' : 'Core Team'}
+              </h2>
+              <p className="text-sm text-claude-medium mt-1">
+                {isZh ? '来自阿里巴巴、华为、蚂蚁集团等头部企业的行业专家' : 'Industry experts from Alibaba, Huawei, Ant Group, and other leading companies'}
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {CORE_TEAM.map((member) => (
+                <MemberCard key={member.id} member={member} isZh={isZh} onClick={setSelected} />
+              ))}
+            </div>
           </div>
 
           {/* Hiring CTA */}
@@ -364,7 +442,7 @@ export default function Team() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="mt-14 bg-white border border-claude-beige rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6"
+            className="bg-white border border-claude-beige rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6"
           >
             <div>
               <h3 className="text-xl font-bold text-claude-dark mb-1">{t('team.hiring.title')}</h3>
@@ -384,11 +462,7 @@ export default function Team() {
       {/* Member modal */}
       <AnimatePresence>
         {selected && (
-          <MemberModal
-            member={selected}
-            isZh={isZh}
-            onClose={() => setSelected(null)}
-          />
+          <MemberModal member={selected} isZh={isZh} onClose={() => setSelected(null)} />
         )}
       </AnimatePresence>
     </div>
