@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, Code, Zap, Shield, Users, Star, ChevronRight, Brain, Layers, TrendingUp, Tag } from 'lucide-react'
+import { ArrowRight, Code, Zap, Shield, Users, ChevronRight, Brain, Layers, TrendingUp, Tag } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 /* ─── Counter hook: counts up when scrolled into view ─── */
@@ -131,28 +131,6 @@ const Home = () => {
       size: 'wide',
       hidden: true,
     },
-  ]
-
-  const stats = [
-    { number: '50+', label: t('home.stats.projects') },
-    { number: '100%', label: t('home.stats.satisfaction') },
-    { number: '5+', label: t('home.stats.experience') },
-    { number: '24/7', label: t('home.stats.support') }
-  ]
-
-  const testimonials = [
-    {
-      name: t('home.testimonials.customer1.name'),
-      position: t('home.testimonials.customer1.position'),
-      content: t('home.testimonials.customer1.content'),
-      rating: 5
-    },
-    {
-      name: t('home.testimonials.customer2.name'),
-      position: t('home.testimonials.customer2.position'),
-      content: t('home.testimonials.customer2.content'),
-      rating: 5
-    }
   ]
 
   return (
@@ -460,47 +438,6 @@ const Home = () => {
                       </span>
                     ))}
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Testimonials ── */}
-      <section className="py-20 bg-claude-cream">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-claude-dark mb-4 tracking-tight">
-              {t('home.testimonials.title')}
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="p-8 bg-white border border-claude-beige rounded-2xl hover:shadow-warm transition-shadow"
-              >
-                <div className="flex mb-5">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-claude-accent fill-current" />
-                  ))}
-                </div>
-                <p className="text-claude-dark mb-6 leading-relaxed">"{testimonial.content}"</p>
-                <div className="border-t border-claude-beige pt-4">
-                  <div className="font-semibold text-claude-dark text-sm">{testimonial.name}</div>
-                  <div className="text-claude-muted text-sm mt-0.5">{testimonial.position}</div>
                 </div>
               </motion.div>
             ))}
