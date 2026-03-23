@@ -12,9 +12,12 @@
   "nav": {
     "home": "홈",
     "about": "회사소개",
+    "team": "팀",
     "services": "서비스",
     "products": "제품",
-    "contact": "문의하기"
+    "blog": "블로그",
+    "contact": "문의하기",
+    "demo": "라이브 데모"
   },
   "common": {
     "learnMore": "더 알아보기",
@@ -550,6 +553,65 @@
           "answer": "저희는 엄격한 테스팅 절차, 코드 리뷰, 애자일 개발 방법론을 따릅니다. 품질 보증 프로세스에는 자동화된 테스팅, 성능 최적화, 보안 감사가 포함됩니다."
         }
       ]
+    }
+  },
+  "demo": {
+    "badge": "무료 온라인 체험",
+    "title": "인텔리전트 OCR — 지금 바로 체험",
+    "subtitle": "이미지를 업로드하거나 샘플을 선택하여 몇 초 만에 텍스트를 추출하세요. 중영혼합 지원 자체 문서 이해 엔진 탑재.",
+    "trySample": "샘플로 체험하기",
+    "inputLabel": "이미지 업로드",
+    "outputLabel": "인식 결과",
+    "dropZone": {
+      "title": "여기에 이미지를 드래그 앤 드롭",
+      "subtitle": "PNG, JPG, JPEG, WEBP 지원",
+      "button": "이미지 선택"
+    },
+    "runOCR": "인식 시작",
+    "reset": "초기화",
+    "copy": "텍스트 복사",
+    "copied": "복사됨",
+    "processing": "인식 중...",
+    "processingHint": "이미지 콘텐츠를 분석하고 있습니다. 잠시 기다려 주세요",
+    "idleHint": "이미지를 업로드하거나 샘플을 선택한 후 '인식 시작'을 클릭하세요",
+    "errorTitle": "인식 실패",
+    "confidence": "신뢰도",
+    "charCount": "문자 수",
+    "done": "완료",
+    "stats": {
+      "accuracy": "기업 문서 인식 정확도",
+      "speed": "평균 인식 지연 시간",
+      "languages": "지원 언어 및 방언"
+    },
+    "cta": {
+      "title": "기업용 OCR 솔루션이 필요하신가요?",
+      "subtitle": "프라이빗 배포 · API 연동 · 커스텀 학습 — 상담 문의",
+      "button": "기술 상담 예약"
+    }
+  },
+  "team": {
+    "eyebrow": "핵심 팀",
+    "title": "페이판 테크를 만드는 사람들",
+    "subtitle": "Baidu, Alibaba, ByteDance, Tencent, iFlytek 출신의 AI 전문가들이 차세대 기업 AI 제품을 개발하고 있습니다",
+    "hiring": {
+      "title": "AI 엔지니어를 모집합니다",
+      "subtitle": "기술을 사랑하고 실제 현장에서 AI를 구현하고 싶은 분, 함께해요",
+      "button": "이력서 보내기"
+    }
+  },
+  "blog": {
+    "eyebrow": "기술 블로그",
+    "title": "현장에서 온 AI 인사이트",
+    "subtitle": "페이판 테크 엔지니어링 팀이 기업 AI 배포 경험, 심층 기술 분석, 산업 관점을 정기적으로 공유합니다",
+    "featured": "추천 글",
+    "readMore": "더 읽기",
+    "backToList": "블로그 목록으로",
+    "viewProfile": "프로필 보기",
+    "related": "관련 글",
+    "cta": {
+      "title": "최신 인사이트를 놓치지 마세요",
+      "subtitle": "페이판 테크를 팔로우하여 최신 기술 기사와 업계 분석을 받아보세요",
+      "button": "구독 문의"
     }
   },
   "footer": {

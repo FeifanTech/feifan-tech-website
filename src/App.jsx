@@ -7,6 +7,10 @@ import About from './pages/About'
 import Services from './pages/Services'
 import Products from './pages/Products'
 import Contact from './pages/Contact'
+import Demo from './pages/Demo'
+import Team from './pages/Team'
+import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 import './App.css'
 
 // Component to handle scroll to hash on route change
@@ -39,6 +43,10 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/products" element={<Products />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/demo" element={<Demo />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
         </Routes>
       </Layout>
     </Router>

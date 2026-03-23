@@ -12,9 +12,12 @@
   "nav": {
     "home": "ホーム",
     "about": "会社概要",
+    "team": "チーム",
     "services": "サービス",
     "products": "製品",
-    "contact": "お問い合わせ"
+    "blog": "ブログ",
+    "contact": "お問い合わせ",
+    "demo": "デモ体験"
   },
   "common": {
     "learnMore": "詳細を見る",
@@ -550,6 +553,65 @@
           "answer": "私たちは完全なテスト手順、コードレビュー、アジャイル開発手法を遵守しています。品質保証プロセスには自動テスト、パフォーマンス最適化、セキュリティ監査が含まれます。"
         }
       ]
+    }
+  },
+  "demo": {
+    "badge": "無料オンライン体験",
+    "title": "インテリジェント OCR — 今すぐ試す",
+    "subtitle": "画像をアップロードするかサンプルを選択して、数秒でテキストを抽出。日中英混合対応の自社文書理解エンジンを搭載。",
+    "trySample": "サンプルで試す",
+    "inputLabel": "画像をアップロード",
+    "outputLabel": "認識結果",
+    "dropZone": {
+      "title": "ここに画像をドラッグ＆ドロップ",
+      "subtitle": "PNG、JPG、JPEG、WEBP対応",
+      "button": "画像を選択"
+    },
+    "runOCR": "認識開始",
+    "reset": "リセット",
+    "copy": "テキストをコピー",
+    "copied": "コピー済み",
+    "processing": "認識中...",
+    "processingHint": "画像コンテンツを分析中です、しばらくお待ちください",
+    "idleHint": "画像をアップロードするかサンプルを選択して「認識開始」をクリック",
+    "errorTitle": "認識失敗",
+    "confidence": "信頼度",
+    "charCount": "文字数",
+    "done": "完了",
+    "stats": {
+      "accuracy": "企業文書認識精度",
+      "speed": "平均認識レイテンシ",
+      "languages": "対応言語・方言数"
+    },
+    "cta": {
+      "title": "エンタープライズ OCR ソリューションが必要ですか？",
+      "subtitle": "プライベートデプロイ・API連携・カスタムトレーニング",
+      "button": "技術相談を予約"
+    }
+  },
+  "team": {
+    "eyebrow": "コアチーム",
+    "title": "飛凡テックを動かす人材",
+    "subtitle": "Baidu、Alibaba、ByteDance、Tencent、iFlytek出身のAIエンジニアが次世代企業AIプロダクトを構築",
+    "hiring": {
+      "title": "AIエンジニア募集中",
+      "subtitle": "技術が好きで、現場でAIを展開したい方はぜひご連絡ください",
+      "button": "履歴書を送る"
+    }
+  },
+  "blog": {
+    "eyebrow": "テックブログ",
+    "title": "現場からのAIインサイト",
+    "subtitle": "飛凡テックのエンジニアチームが企業AI導入の知見・技術解説・業界考察を定期発信",
+    "featured": "注目記事",
+    "readMore": "続きを読む",
+    "backToList": "ブログ一覧へ",
+    "viewProfile": "プロフィールを見る",
+    "related": "関連記事",
+    "cta": {
+      "title": "最新のインサイトを見逃しませんか？",
+      "subtitle": "飛凡テックをフォローして最新の技術記事と業界分析を入手",
+      "button": "お問い合わせで登録"
     }
   },
   "footer": {
