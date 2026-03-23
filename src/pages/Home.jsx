@@ -286,8 +286,8 @@ const Home = () => {
             </p>
           </motion.div>
 
-          {/* Bento grid: 4 columns on xl, 2 on md, 1 on mobile */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 auto-rows-fr">
+          {/* Bento grid: 3 columns on xl, 2 on md, 1 on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 auto-rows-fr">
             {/* Card 1 — large (spans 2 cols) */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -349,7 +349,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
               viewport={{ once: true }}
-              className="xl:col-span-4 p-8 bg-white border border-claude-beige rounded-2xl hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1 min-h-[180px] flex flex-col sm:flex-row sm:items-center gap-6 relative overflow-hidden"
+              className="xl:col-span-2 p-8 bg-white border border-claude-beige rounded-2xl hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1 min-h-[220px] flex flex-col justify-between relative overflow-hidden"
             >
               <div
                 className="absolute top-0 right-0 w-64 h-full opacity-20"
@@ -363,32 +363,6 @@ const Home = () => {
                 <p className="text-claude-medium text-sm leading-relaxed max-w-sm">{t('home.features.items.team.description')}</p>
               </div>
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Trust Strip ── */}
-      <section className="py-10 bg-claude-warm border-y border-claude-beige">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {[
-              { value: t('home.trust.years'), label: t('home.trust.yearsLabel') },
-              { value: t('home.trust.projects'), label: t('home.trust.projectsLabel') },
-              { value: t('home.trust.products'), label: t('home.trust.productsLabel') },
-              { value: t('home.trust.support'), label: t('home.trust.supportLabel') },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                viewport={{ once: true }}
-                className="text-center"
-              >
-                <div className="text-2xl md:text-3xl font-bold text-claude-accent mb-1 tracking-tight">{item.value}</div>
-                <div className="text-claude-medium text-xs md:text-sm">{item.label}</div>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
