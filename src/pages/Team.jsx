@@ -13,12 +13,22 @@ const EXECUTIVES = [
     nameEn: 'Li Yufeng',
     titleZh: '联合创始人 & 首席执行官',
     titleEn: 'Co-Founder & CEO',
-    bioZh: '战略领导者，在企业管理和商业发展方面拥有丰富经验。负责公司整体战略方向、商业拓展与对外合作，致力于将飞凡科技打造成为企业AI领域的标杆服务商。',
-    bioEn: 'Strategic leader with extensive experience in enterprise management and business development. Responsible for overall company strategy, business expansion, and external partnerships, committed to making Feifan Tech a benchmark AI service provider.',
-    expertiseZh: ['公司战略', '商业发展', '团队领导', '企业管理'],
-    expertiseEn: ['Corporate Strategy', 'Business Development', 'Team Leadership', 'Enterprise Management'],
-    prevZh: '联合创始人 & CEO，飞凡科技',
-    prevEn: 'Co-Founder & CEO, Feifan Tech',
+    bioZh: '在创立飞凡科技之前，李先生在阿里巴巴/蘑菇街和有赞等大型互联网公司领导技术团队担任关键职务，推动了业务增长和技术创新。他的经验包括管理大型电子商务技术项目和领导跨职能团队为客户提供卓越的交付成果。李先生因其对公司的贡献获得了多个奖项，包括"年度最佳员工"等，领导力和远见卓识得到业内同行和客户的广泛认可。',
+    bioEn: 'Prior to co-founding Feifan Tech, Mr. Li led technology teams at major internet companies including Alibaba/Mogujie and Youzan, driving business growth and technological innovation. His experience spans managing large-scale e-commerce technology projects and leading cross-functional teams to deliver outstanding results. Mr. Li has received multiple awards including "Best Employee of the Year," with his leadership and vision widely recognized by industry peers and clients.',
+    expertiseZh: ['电子商务技术', '低代码平台', '交易系统', '团队领导', '商业战略'],
+    expertiseEn: ['E-commerce Technology', 'Low-code Platforms', 'Transaction Systems', 'Team Leadership', 'Business Strategy'],
+    prevZh: '淘宝高级工程师 → 蘑菇街平台负责人 → 有赞交易平台负责人',
+    prevEn: 'Senior Engineer at Taobao → Platform Lead at Mogujie → Transaction Platform Lead at Youzan',
+    careerZh: [
+      { period: '2007–2015', company: '阿里巴巴集团 · 淘宝', desc: '作为阿里巴巴集团子公司淘宝的高级工程师，李先生担任多个核心项目的技术负责人，成功开发了阿里巴巴的第一个低代码平台和淘宝全新交易平台。拥有多项国家技术专利。' },
+      { period: '2015–2019', company: '蘑菇街（美股上市）', desc: '在美国上市公司蘑菇街领导用户平台和营销平台开发团队，成功完成多个重要项目，为蘑菇街电子商务中台的建设奠定了坚实基础。' },
+      { period: '2019–2022', company: '有赞（港股上市）', desc: '在香港上市公司有赞领导交易平台开发团队，成功应对新冠肺炎疫情带来的挑战，为有赞的快速增长做出了重大贡献。' },
+    ],
+    careerEn: [
+      { period: '2007–2015', company: 'Alibaba Group · Taobao', desc: 'As Senior Engineer at Taobao, Mr. Li served as technical lead for multiple core projects, successfully developing Alibaba\'s first low-code platform and Taobao\'s new transaction platform. He holds multiple national technology patents.' },
+      { period: '2015–2019', company: 'Mogujie (US-listed)', desc: 'Led user platform and marketing platform development teams at US-listed Mogujie. Successfully completed multiple major projects, laying a solid foundation for Mogujie\'s e-commerce middleware infrastructure.' },
+      { period: '2019–2022', company: 'Youzan (HK-listed)', desc: 'Led the transaction platform development team at Hong Kong-listed Youzan, successfully navigating challenges posed by COVID-19 and making significant contributions to Youzan\'s rapid growth.' },
+    ],
     email: 'feifan.hangzhou@gmail.com',
   },
   {
@@ -29,12 +39,22 @@ const EXECUTIVES = [
     nameEn: 'Xie Jinian',
     titleZh: '联合创始人 & 首席技术官',
     titleEn: 'Co-Founder & CTO',
-    bioZh: '前瞻性技术领导者，在数字化转型和创新战略方面拥有丰富经验。主导飞凡科技核心AI产品的技术架构设计，推动OCR、语音识别、AI Agent等关键技术的研发与落地。',
-    bioEn: 'Visionary technology leader with extensive experience in digital transformation and innovation strategy. Leads the technical architecture of Feifan\'s core AI products, driving R&D and deployment of key technologies including OCR, speech recognition, and AI Agents.',
-    expertiseZh: ['技术架构', 'AI系统设计', '数字化转型', '产品技术'],
-    expertiseEn: ['Technical Architecture', 'AI System Design', 'Digital Transformation', 'Product Technology'],
-    prevZh: '联合创始人 & CTO，飞凡科技',
-    prevEn: 'Co-Founder & CTO, Feifan Tech',
+    bioZh: '作为首席技术官，谢先生拥有深厚的工程技术背景，专注于软件开发和系统架构。他在阿里巴巴、蘑菇街、钉钉和淘宝等多家公司担任过重要领导职务，在构建商业中台方面积累了丰富经验。他是公司技术委员会负责人，始终工作在研发最前沿，曾为阿里巴巴交易技术委员会、钉钉技术委员会做出贡献，并领导蘑菇街技术委员会推动多家公司的技术发展。',
+    bioEn: 'As CTO, Mr. Xie brings deep engineering expertise in software development and system architecture. He has held key leadership roles at Alibaba, Mogujie, DingTalk, and Taobao, accumulating rich experience in building business middleware platforms. He heads the company\'s Technology Committee, having contributed to Alibaba\'s Transaction Tech Committee, DingTalk\'s Tech Committee, and led Mogujie\'s Tech Committee.',
+    expertiseZh: ['系统架构', '商业中台', '敏捷研发', '技术委员会', 'AI工程'],
+    expertiseEn: ['System Architecture', 'Business Middleware', 'Agile R&D', 'Tech Committee', 'AI Engineering'],
+    prevZh: '华为高级工程师 → 阿里巴巴/蚂蚁集团研发主管 → 蘑菇街中台负责人',
+    prevEn: 'Senior Engineer at Huawei → R&D Director at Alibaba/Ant Group → Middleware Lead at Mogujie',
+    careerZh: [
+      { period: '2003–2006', company: '华为技术', desc: '作为华为业务与软件产品线的高级工程师，参与了多个电信运营支持系统的开发。对产品线的重大贡献和卓越技术才能使其入选业务与软件产品线专家库。' },
+      { period: '2007–2015 / 2018–2023', company: '阿里巴巴集团 & 蚂蚁集团', desc: '担任阿里巴巴多个产品线的研发主管，在电子商务、企业数字化和敏捷方法领域取得重大成果。是阿里巴巴为数不多的资深专家之一，曾与阿里巴巴前CTO行癫和现任CTO范禹有多年深入合作。' },
+      { period: '2015–2018', company: '蘑菇街（美股上市）', desc: '作为蘑菇街电子商务中台的负责人，通过技术创新和团队合作成功支持多家子公司的快速增长，为蘑菇街在美国上市奠定了基础。' },
+    ],
+    careerEn: [
+      { period: '2003–2006', company: 'Huawei Technologies', desc: 'As Senior Engineer in Huawei\'s business and software product line, participated in developing multiple telecom operation support systems. Significant contributions and outstanding technical skills earned him a spot in the product line expert database.' },
+      { period: '2007–2015 / 2018–2023', company: 'Alibaba Group & Ant Group', desc: 'Served as R&D Director for multiple product lines at Alibaba, achieving significant results in e-commerce, enterprise digitalization, and agile methodologies. One of Alibaba\'s few senior experts, he worked closely for many years with former CTO Xingdi and current CTO Fan Yu.' },
+      { period: '2015–2018', company: 'Mogujie (US-listed)', desc: 'As Head of E-commerce Middleware at Mogujie, successfully supported rapid growth of multiple subsidiaries through technological innovation and team collaboration, laying the foundation for Mogujie\'s US listing.' },
+    ],
     website: 'https://yunyi-csl.pages.dev/',
     email: 'feifan.hangzhou@gmail.com',
   },
@@ -120,8 +140,8 @@ const CORE_TEAM = [
     id: 'wangyumin',
     avatar: '王',
     color: '#5B8DB8',
-    nameZh: '王玉闵',
-    nameEn: 'Wang Yumin',
+    nameZh: '王玉岗',
+    nameEn: 'Wang Yugang',
     titleZh: '电商技术负责人',
     titleEn: 'Head of E-commerce Technology',
     bioZh: '王先生是阿里巴巴的电子商务和电子政务技术专家。他在电子商务产品设计和开发方面有着丰富的经验。',
@@ -135,7 +155,7 @@ const CORE_TEAM = [
     id: 'wendeliang',
     avatar: '温',
     color: '#4A9E7A',
-    nameZh: '温德良',
+    nameZh: '温德亮',
     nameEn: 'Wen Deliang',
     titleZh: '人工智能首席科学家',
     titleEn: 'Chief AI Scientist',
@@ -274,18 +294,40 @@ function MemberModal({ member, isZh, onClose }) {
             {isZh ? member.bioZh : member.bioEn}
           </p>
 
-          {/* Career Path */}
-          <div className="flex items-start gap-3">
-            <Briefcase className="w-4 h-4 text-claude-accent mt-0.5 flex-shrink-0" />
-            <div>
-              <p className="text-xs font-semibold text-claude-dark uppercase tracking-wider mb-0.5">
-                {isZh ? '从业经历' : 'Career Path'}
-              </p>
-              <p className="text-sm text-claude-medium">
-                {isZh ? member.prevZh : member.prevEn}
-              </p>
+          {/* Career Timeline (for executives with detailed history) */}
+          {(isZh ? member.careerZh : member.careerEn) ? (
+            <div className="flex items-start gap-3">
+              <Briefcase className="w-4 h-4 text-claude-accent mt-0.5 flex-shrink-0" />
+              <div className="flex-1">
+                <p className="text-xs font-semibold text-claude-dark uppercase tracking-wider mb-3">
+                  {isZh ? '从业经历' : 'Career History'}
+                </p>
+                <div className="space-y-3">
+                  {(isZh ? member.careerZh : member.careerEn).map((item, i) => (
+                    <div key={i} className="pl-3 border-l-2 border-claude-accent/30">
+                      <div className="flex flex-wrap items-baseline gap-x-2 mb-1">
+                        <span className="text-xs font-semibold text-claude-accent">{item.period}</span>
+                        <span className="text-xs font-medium text-claude-dark">{item.company}</span>
+                      </div>
+                      <p className="text-xs text-claude-medium leading-relaxed">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex items-start gap-3">
+              <Briefcase className="w-4 h-4 text-claude-accent mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-xs font-semibold text-claude-dark uppercase tracking-wider mb-0.5">
+                  {isZh ? '从业经历' : 'Career Path'}
+                </p>
+                <p className="text-sm text-claude-medium">
+                  {isZh ? member.prevZh : member.prevEn}
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Expertise */}
           <div className="flex items-start gap-3">
