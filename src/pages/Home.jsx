@@ -413,9 +413,7 @@ const Home = () => {
                       <Building2 className="w-5 h-5" />
                     </div>
                     {item.badge && (
-                      <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-claude-accent text-white">
-                        重点发力
-                      </span>
+                      <span className="text-base leading-none" title="热门行业">🔥</span>
                     )}
                   </div>
                   <h3 className={`text-base font-bold mb-2 tracking-tight ${item.accent}`}>{ind.name}</h3>

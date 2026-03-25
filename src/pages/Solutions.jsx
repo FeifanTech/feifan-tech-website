@@ -95,9 +95,7 @@ const Solutions = () => {
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       {INDUSTRY_PRIORITY.includes(key) && (
-                        <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-claude-accent text-white">
-                          重点发力
-                        </span>
+                        <span className="text-base leading-none" title="热门行业">🔥</span>
                       )}
                       {isOpen ? (
                         <ChevronUp className={`w-5 h-5 ${style.accent}`} />
