@@ -92,36 +92,6 @@ const CORE_TEAM = [
     prevEn: 'Product Innovation at Alipay / Video E-commerce',
   },
   {
-    id: 'konghan',
-    avatar: '孔',
-    color: '#C47F3A',
-    nameZh: '孔晗',
-    nameEn: 'Kong Han',
-    titleZh: '智能硬件首席科学家',
-    titleEn: 'Chief Scientist of Intelligent Hardware',
-    bioZh: '孔先生是一位创新技术领导者，在华为、大华和海康威视成功领导软件和硬件产品开发团队，目前担任八识科技首席科学家。他曾经在市场上推出多个成功的智能硬件产品。',
-    bioEn: 'Mr. Kong is an innovative technology leader who successfully led software and hardware product development at Huawei, Dahua, and Hikvision. Currently Chief Scientist at Bazhi Technology, he has launched numerous successful intelligent hardware products.',
-    expertiseZh: ['智能硬件', '嵌入式系统', '软硬件协同', '产品开发'],
-    expertiseEn: ['Intelligent Hardware', 'Embedded Systems', 'HW/SW Co-design', 'Product Development'],
-    prevZh: '华为 / 大华 / 海康威视 → 八识科技首席科学家',
-    prevEn: 'Huawei / Dahua / Hikvision → Chief Scientist, Bazhi Technology',
-  },
-  {
-    id: 'tanjianxiang',
-    avatar: '覃',
-    color: '#B85C35',
-    nameZh: '覃健翔',
-    nameEn: 'Tan Jianxiang',
-    titleZh: '生产力技术首席科学家',
-    titleEn: 'Chief Scientist of Productivity Technology',
-    bioZh: '覃先生目前担任代码狗的首席技术官。在此之前，他在阿里巴巴和雅虎中国担任高级领导职务。他拥有在生产力产品开发和技术创新方面的丰富经验，拥有多项国家科技专利。',
-    bioEn: 'Mr. Tan currently serves as CTO of Codedoge. Previously held senior leadership positions at Alibaba and Yahoo China. He has extensive experience in productivity product development and technology innovation, holding multiple national technology patents.',
-    expertiseZh: ['生产力工具', '技术创新', '国家科技专利', '产品研发'],
-    expertiseEn: ['Productivity Tools', 'Technology Innovation', 'National Tech Patents', 'Product R&D'],
-    prevZh: '阿里巴巴 / 雅虎中国 高级领导 → 代码狗 CTO',
-    prevEn: 'Senior Leader at Alibaba / Yahoo China → CTO, Codedoge',
-  },
-  {
     id: 'asu',
     avatar: '阿',
     color: '#D97757',
@@ -152,26 +122,11 @@ const CORE_TEAM = [
     prevEn: 'E-commerce & E-government Tech Expert at Alibaba',
   },
   {
-    id: 'wendeliang',
-    avatar: '温',
-    color: '#4A9E7A',
-    nameZh: '温德亮',
-    nameEn: 'Wen Deliang',
-    titleZh: '人工智能首席科学家',
-    titleEn: 'Chief AI Scientist',
-    bioZh: '温先生目前担任红熊人工智能的联合创始人、首席技术官和首席科学家。在此之前，他在阿里巴巴、复星集团和磐石担任高级领导职务，包括副总裁、首席信息官和首席技术官等。温先生在多个行业的产品开发、项目管理和技术创新方面拥有丰富的经验。',
-    bioEn: 'Mr. Wen currently serves as Co-founder, CTO, and Chief Scientist at Red Bear AI. Previously held senior leadership positions at Alibaba, Fosun Group, and Panshi, including VP, CIO, and CTO roles. He has extensive experience in product development, project management, and technology innovation across multiple industries.',
-    expertiseZh: ['人工智能', '产品开发', '技术战略', '企业管理'],
-    expertiseEn: ['Artificial Intelligence', 'Product Development', 'Technology Strategy', 'Enterprise Management'],
-    prevZh: '阿里巴巴 / 复星集团 / 磐石 副总裁/CIO/CTO → 红熊AI 联创&CTO',
-    prevEn: 'VP/CIO/CTO at Alibaba / Fosun / Panshi → Co-founder & CTO, Red Bear AI',
-  },
-  {
-    id: 'jinchongmin',
-    avatar: '金',
+    id: 'liuhe',
+    avatar: '六',
     color: '#B85C35',
-    nameZh: '金崇敏',
-    nameEn: 'Jin Chongmin',
+    nameZh: '六合',
+    nameEn: 'Liu He',
     titleZh: '资深交付总监',
     titleEn: 'Senior Delivery Director',
     bioZh: '金先生在项目管理和交付领域深耕10余年，曾任职于阿里巴巴集团和恒生电子。负责过多个国家级重点项目和部委省厅级项目，拥有丰富的大金融行业项目经验，擅长复杂项目的全程交付管控。',
@@ -240,6 +195,54 @@ const CORE_TEAM = [
     expertiseEn: ['Test Automation', 'QA Platform', 'Performance Testing', 'Quality Strategy'],
     prevZh: '阿里巴巴 / 有赞 测试负责人 → 飞凡科技 测试开发专家',
     prevEn: 'QA Lead at Alibaba / Youzan → QA Dev Expert at Feifan Tech',
+  },
+]
+
+const ECOSYSTEM_PARTNERS = [
+  {
+    id: 'konghan',
+    avatar: '孔',
+    color: '#C47F3A',
+    nameZh: '孔晗',
+    nameEn: 'Kong Han',
+    titleZh: '智能硬件首席科学家',
+    titleEn: 'Chief Scientist of Intelligent Hardware',
+    bioZh: '孔先生是一位创新技术领导者，在华为、大华和海康威视成功领导软件和硬件产品开发团队，目前担任八识科技首席科学家。他曾经在市场上推出多个成功的智能硬件产品。',
+    bioEn: 'Mr. Kong is an innovative technology leader who successfully led software and hardware product development at Huawei, Dahua, and Hikvision. Currently Chief Scientist at Bazhi Technology, he has launched numerous successful intelligent hardware products.',
+    expertiseZh: ['智能硬件', '嵌入式系统', '软硬件协同', '产品开发'],
+    expertiseEn: ['Intelligent Hardware', 'Embedded Systems', 'HW/SW Co-design', 'Product Development'],
+    prevZh: '华为 / 大华 / 海康威视 → 八识科技首席科学家',
+    prevEn: 'Huawei / Dahua / Hikvision → Chief Scientist, Bazhi Technology',
+  },
+  {
+    id: 'tanjianxiang',
+    avatar: '覃',
+    color: '#B85C35',
+    nameZh: '覃健翔',
+    nameEn: 'Tan Jianxiang',
+    titleZh: '生产力技术首席科学家',
+    titleEn: 'Chief Scientist of Productivity Technology',
+    bioZh: '覃先生目前担任代码狗的首席技术官。在此之前，他在阿里巴巴和雅虎中国担任高级领导职务。他拥有在生产力产品开发和技术创新方面的丰富经验，拥有多项国家科技专利。',
+    bioEn: 'Mr. Tan currently serves as CTO of Codedoge. Previously held senior leadership positions at Alibaba and Yahoo China. He has extensive experience in productivity product development and technology innovation, holding multiple national technology patents.',
+    expertiseZh: ['生产力工具', '技术创新', '国家科技专利', '产品研发'],
+    expertiseEn: ['Productivity Tools', 'Technology Innovation', 'National Tech Patents', 'Product R&D'],
+    prevZh: '阿里巴巴 / 雅虎中国 高级领导 → 代码狗 CTO',
+    prevEn: 'Senior Leader at Alibaba / Yahoo China → CTO, Codedoge',
+  },
+  {
+    id: 'wendeliang',
+    avatar: '温',
+    color: '#4A9E7A',
+    nameZh: '温德亮',
+    nameEn: 'Wen Deliang',
+    titleZh: '人工智能首席科学家',
+    titleEn: 'Chief AI Scientist',
+    bioZh: '温先生目前担任红熊人工智能的联合创始人、首席技术官和首席科学家。在此之前，他在阿里巴巴、复星集团和磐石担任高级领导职务，包括副总裁、首席信息官和首席技术官等。温先生在多个行业的产品开发、项目管理和技术创新方面拥有丰富的经验。',
+    bioEn: 'Mr. Wen currently serves as Co-founder, CTO, and Chief Scientist at Red Bear AI. Previously held senior leadership positions at Alibaba, Fosun Group, and Panshi, including VP, CIO, and CTO roles. He has extensive experience in product development, project management, and technology innovation across multiple industries.',
+    expertiseZh: ['人工智能', '产品开发', '技术战略', '企业管理'],
+    expertiseEn: ['Artificial Intelligence', 'Product Development', 'Technology Strategy', 'Enterprise Management'],
+    prevZh: '阿里巴巴 / 复星集团 / 磐石 副总裁/CIO/CTO → 红熊AI 联创&CTO',
+    prevEn: 'VP/CIO/CTO at Alibaba / Fosun / Panshi → Co-founder & CTO, Red Bear AI',
   },
 ]
 
@@ -489,9 +492,6 @@ export default function Team() {
               <h2 className="text-xl font-bold text-claude-dark">
                 {isZh ? '联合创始人' : 'Co-Founders'}
               </h2>
-              <p className="text-sm text-claude-medium mt-1">
-                {isZh ? '与关于我们页面的领导力模块保持一致' : 'Consistent with the leadership section on our About page'}
-              </p>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {EXECUTIVES.map((member) => (
@@ -518,6 +518,29 @@ export default function Team() {
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {CORE_TEAM.map((member) => (
+                <MemberCard key={member.id} member={member} isZh={isZh} onClick={setSelected} />
+              ))}
+            </div>
+          </div>
+
+          {/* Ecosystem Partners */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true }}
+              className="mb-6"
+            >
+              <h2 className="text-xl font-bold text-claude-dark">
+                {isZh ? '生态合作伙伴' : 'Ecosystem Partners'}
+              </h2>
+              <p className="text-sm text-claude-medium mt-1">
+                {isZh ? '与飞凡科技深度合作的外部专家与创业伙伴' : 'External experts and entrepreneurial partners in deep collaboration with Feifan Tech'}
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {ECOSYSTEM_PARTNERS.map((member) => (
                 <MemberCard key={member.id} member={member} isZh={isZh} onClick={setSelected} />
               ))}
             </div>
