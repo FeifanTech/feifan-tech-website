@@ -15,6 +15,8 @@
     "team": "Team",
     "services": "Services",
     "products": "Products",
+    "solutions": "Solutions",
+    "partners": "Partners",
     "blog": "Blog",
     "contact": "Contact",
     "demo": "Live Demo"
@@ -98,6 +100,38 @@
         "position": "Former CTO of US Listed Company / Current CEO of Digital Enterprise",
         "content": "Working with Feifan Tech was a game-changer. They delivered beyond our expectations with exceptional quality."
       }
+    },
+    "industrySolutions": {
+      "title": "Industry AI Solutions",
+      "subtitle": "Deep expertise across key verticals — from product distribution to custom AI development",
+      "items": {
+        "finance": {
+          "name": "Finance & Securities",
+          "desc": "Compliant outbound calls, KYC identity verification, and AI-assisted customer service to accelerate financial digital transformation.",
+          "tags": ["Compliant Outbound", "KYC", "Risk AI"]
+        },
+        "insurance": {
+          "name": "Insurance",
+          "desc": "Intelligent outbound prospecting, OCR-based claims processing, and AI agent assistance across the full insurance lifecycle.",
+          "tags": ["Lead Outbound", "Claims OCR", "Agent Assist"]
+        },
+        "retail": {
+          "name": "Retail Chains",
+          "desc": "AI customer service, voice quality inspection, and smart store analytics to power omnichannel retail operations.",
+          "tags": ["AI Service", "Voice QA", "Omnichannel"]
+        },
+        "government": {
+          "name": "Government & Telecom",
+          "desc": "Compliant notice broadcasts, document OCR automation, and AI call routing for public service efficiency.",
+          "tags": ["Notice Outbound", "Document OCR", "AI Routing"]
+        },
+        "education": {
+          "name": "Education & Training",
+          "desc": "Enrollment outbound, classroom transcription, and AI-powered content knowledge bases for learning institutions.",
+          "tags": ["Enrollment Calls", "AI Transcription", "Knowledge Base"]
+        }
+      },
+      "cta": "Get Industry Solution"
     },
     "caseStudies": {
       "title": "Real Results for Real Businesses",
@@ -223,7 +257,8 @@
       "ai": "AI Capabilities",
       "platform": "Dev & Integration",
       "industry": "Industry Solutions",
-      "deployment": "Secure Deployment"
+      "deployment": "Secure Deployment",
+      "training": "AI Enterprise Training"
     },
     "items": {
       "webdev": {
@@ -306,6 +341,17 @@
           "System autonomy and control",
           "Customized operation support",
           "Version upgrade services"
+        ]
+      },
+      "aiTraining": {
+        "title": "Enterprise AI Training",
+        "description": "Systematic AI tools training and adoption methodology for enterprise teams and leadership, rapidly building organizational AI capability",
+        "features": [
+          "AI Tools Workshops (ChatGPT/Copilot/Midjourney)",
+          "Enterprise AI Transformation Strategy Course",
+          "Industry-specific AI Use Case Deep Dives",
+          "Internal AI Assistant Setup & Rollout Guidance",
+          "Custom Curriculum + Post-training Coaching"
         ]
       }
     },
@@ -442,7 +488,30 @@
           "Contextual memory",
           "Continuous learning optimization"
         ]
+      },
+      "outboundCall": {
+        "title": "Smart Compliant Outbound Platform",
+        "description": "Purpose-built for regulated industries like finance, insurance, and government — AI-powered voice outbound with built-in compliance controls for efficient and compliant customer engagement",
+        "features": [
+          "Real-time compliance monitoring & alerts",
+          "AI speech recognition + live script assistance",
+          "Auto blacklist & cooling-off period enforcement",
+          "Multi-dimensional call QA & analytics reports",
+          "Private deployment with local data security"
+        ]
       }
+    },
+    "flagship": {
+      "badge": "Flagship Product",
+      "title": "Smart Compliant Outbound Platform",
+      "tagline": "Every outbound call — fully compliant",
+      "description": "Purpose-built for regulated industries like finance, insurance, and government. Full compliance controls across the entire outbound workflow, combined with AI voice capabilities and real-time script assistance to maximize outbound performance within regulatory requirements.",
+      "highlights": [
+        { "metric": "98%", "label": "Compliance Rate" },
+        { "metric": "40%", "label": "Efficiency Gain" },
+        { "metric": "60%", "label": "QA Cost Reduction" }
+      ],
+      "cta": "Contact for Pricing"
     },
     "whyChoose": {
       "title": "Why Choose Our Products?",
@@ -468,6 +537,125 @@
       "title": "Ready to Transform Your Business?",
       "description": "Experience the power of our AI solutions and e-commerce platforms. Start your digital transformation journey today.",
       "getFree": "Get Started Free"
+    }
+  },
+  "solutions": {
+    "hero": {
+      "title": "Industry Solutions",
+      "subtitle": "Feifan Tech delivers end-to-end AI solutions across key verticals — from product distribution to custom AI development"
+    },
+    "overview": {
+      "title": "What We Can Do for You",
+      "subtitle": "Proven AI products from leading vendors + Feifan's own R&D capabilities for rapid industry deployment"
+    },
+    "industries": {
+      "finance": {
+        "name": "Finance & Securities",
+        "hero": "Cost Reduction with Compliance First",
+        "desc": "End-to-end intelligent solutions addressing the three core pain points of financial institutions: customer outreach, compliance control, and risk identification.",
+        "usecases": [
+          "Compliant Outbound Calls: Post-loan collections, wealth management promotion, credit card activation — all with compliant recording and QA",
+          "Smart KYC: OCR document recognition + liveness detection, remote onboarding 80% faster",
+          "Agent AI Assistant: Real-time script suggestions, emotion detection, and customer profile push"
+        ],
+        "products": ["Smart Compliant Outbound Platform", "Intelligent OCR", "AI Speech-to-Text"]
+      },
+      "insurance": {
+        "name": "Insurance",
+        "hero": "Precise Acquisition, Efficient Claims",
+        "desc": "AI technology spans the full insurance lifecycle — from marketing acquisition to claims review — significantly reducing operational costs.",
+        "usecases": [
+          "Smart Outbound Prospecting: Targeted reach for ideal customers, outbound connection rate up 35%",
+          "Claims Document OCR: Auto-structuring invoices, medical records, and appraisal reports — claims efficiency up 60%",
+          "AI Underwriting Assist: Image recognition + medical NLP for rapid risk assessment"
+        ],
+        "products": ["Smart Compliant Outbound Platform", "Intelligent OCR", "AI Image Recognition"]
+      },
+      "retail": {
+        "name": "Retail Chains",
+        "hero": "Improve Experience, Drive Repurchase",
+        "desc": "AI customer service, voice quality inspection, and merchandise recognition empower retailers with full omnichannel digital operations.",
+        "usecases": [
+          "AI Customer Service Bot: 24/7 automated handling with >85% issue resolution rate",
+          "Voice Agent QA: Automatically identify service compliance risks, QA coverage from 5% to 100%",
+          "Product Image Recognition: Store display compliance checks and shelf out-of-stock alerts"
+        ],
+        "products": ["AI Speech-to-Text", "AI Image Recognition", "AI Agent"]
+      },
+      "government": {
+        "name": "Government & Telecom",
+        "hero": "Smart Public Services",
+        "desc": "Document automation, hotline AI routing, and compliant notice broadcasts accelerate public service quality and efficiency.",
+        "usecases": [
+          "Compliant Notice Outbound: Policy notices, payment reminders, event announcements — batch outbound with compliant recording archive",
+          "Document OCR Automation: Auto-structuring archived files, reducing manual entry hours by 70%",
+          "12345 Hotline AI Routing: Smart ticket routing with 92%+ assignment accuracy"
+        ],
+        "products": ["Smart Compliant Outbound Platform", "Intelligent OCR", "AI Agent"]
+      },
+      "education": {
+        "name": "Education & Training",
+        "hero": "Smart Enrollment, Efficient Teaching",
+        "desc": "From enrollment outreach to intelligent course content, AI empowers educational institutions to reduce costs and increase effectiveness.",
+        "usecases": [
+          "Smart Enrollment Outbound: Precise follow-up with interested students, enrollment conversion up 30%",
+          "Classroom Speech Transcription: Live subtitles and post-class full-text transcripts auto-generated",
+          "AI Search & Knowledge Base: Content AI processing to build institution-specific knowledge graphs"
+        ],
+        "products": ["Smart Compliant Outbound Platform", "AI Speech-to-Text", "AI Agent"]
+      }
+    },
+    "cta": {
+      "title": "Find Your Industry AI Solution",
+      "subtitle": "Our consultant team will provide a free industry solution assessment",
+      "button": "Get Solution"
+    }
+  },
+  "partners": {
+    "hero": {
+      "title": "Partner Program",
+      "subtitle": "Partner with Feifan Tech to capture the AI transformation demand across every industry"
+    },
+    "types": {
+      "title": "Three Flexible Partnership Models",
+      "reseller": {
+        "name": "Authorized Reseller",
+        "desc": "Obtain Feifan Tech product reseller authorization to sell to regional or industry customers, with competitive margins and full presales support.",
+        "benefits": ["Exclusive reseller discount", "Presales technical support", "Co-marketing programs", "Dedicated account manager"]
+      },
+      "isv": {
+        "name": "ISV Software Partner",
+        "desc": "Integrate Feifan AI capabilities via API/SDK into your software products to deliver stronger intelligent features and expand your market together.",
+        "benefits": ["API/SDK integration docs", "Technical integration support", "Joint solution development", "Revenue sharing model"]
+      },
+      "integrator": {
+        "name": "System Integrator",
+        "desc": "As a Feifan Tech implementation partner, take on AI project delivery and custom development for clients, with project commissions and certification support.",
+        "benefits": ["Project commission sharing", "Technical certification training", "Co-creation of solutions", "Priority project resources"]
+      }
+    },
+    "why": {
+      "title": "Why Partner with Feifan",
+      "items": [
+        { "title": "Backed by Leading Products", "desc": "Distribute mature AI products from top-tier upstream vendors — trusted quality that's easy to sell" },
+        { "title": "Comprehensive Support System", "desc": "From product training and presales support to project delivery, we accompany partners every step of the way" },
+        { "title": "Growing Market Opportunity", "desc": "AI commercial adoption is exploding — early movers win. Help partners rapidly unlock new revenue" },
+        { "title": "Flexible Partnership Terms", "desc": "Partnership terms customized to partner type, ensuring maximum mutual benefit" }
+      ]
+    },
+    "process": {
+      "title": "How to Join",
+      "steps": [
+        { "step": "01", "title": "Apply", "desc": "Submit a partnership application describing your business background and collaboration intent" },
+        { "step": "02", "title": "Align", "desc": "Our partnership team will confirm the collaboration direction with you within 48 hours" },
+        { "step": "03", "title": "Sign Agreement", "desc": "Finalize partnership model, rights, and responsibilities, then sign the partnership agreement" },
+        { "step": "04", "title": "Launch", "desc": "Receive product authorization, technical training, and dedicated support to officially launch" }
+      ]
+    },
+    "cta": {
+      "title": "Start Your Partnership Journey",
+      "subtitle": "We welcome partners of all sizes to jointly develop the AI commercial market",
+      "button": "Apply to Become a Partner"
     }
   },
   "contact": {

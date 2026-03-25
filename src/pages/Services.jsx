@@ -13,7 +13,8 @@ import {
   ArrowRight,
   CheckCircle,
   Sparkles,
-  HardDrive
+  HardDrive,
+  GraduationCap
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
@@ -78,6 +79,14 @@ const Services = () => {
         features: t('services.items.privateDeployment.features', { returnObjects: true }),
       },
     ],
+    training: [
+      {
+        icon: <GraduationCap className="w-7 h-7" />,
+        title: t('services.items.aiTraining.title'),
+        description: t('services.items.aiTraining.description'),
+        features: t('services.items.aiTraining.features', { returnObjects: true }),
+      },
+    ],
   }
 
   const tabs = [
@@ -85,6 +94,7 @@ const Services = () => {
     { key: 'platform', label: t('services.tabs.platform') },
     { key: 'industry', label: t('services.tabs.industry') },
     { key: 'deployment', label: t('services.tabs.deployment') },
+    { key: 'training', label: t('services.tabs.training') },
   ]
 
   const process = [

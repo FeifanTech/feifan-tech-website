@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, Code, Zap, Shield, Users, ChevronRight, Brain, Layers, TrendingUp, Tag } from 'lucide-react'
+import { ArrowRight, Code, Zap, Shield, Users, ChevronRight, Brain, Layers, TrendingUp, Tag, Building2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 /* ─── Counter hook: counts up when scrolled into view ─── */
@@ -367,6 +367,71 @@ const Home = () => {
                 <div className="text-claude-medium text-xs md:text-sm">{item.label}</div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Industry Solutions ── */}
+      <section className="py-20 bg-claude-warm border-y border-claude-beige">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-claude-dark mb-4 tracking-tight">
+              {t('home.industrySolutions.title')}
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-claude-medium leading-relaxed">
+              {t('home.industrySolutions.subtitle')}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4 lg:gap-5 mb-10">
+            {[
+              { key: 'finance', color: 'from-blue-50 to-indigo-50', accent: 'text-blue-600', border: 'border-blue-100' },
+              { key: 'insurance', color: 'from-emerald-50 to-teal-50', accent: 'text-emerald-600', border: 'border-emerald-100' },
+              { key: 'retail', color: 'from-orange-50 to-amber-50', accent: 'text-orange-500', border: 'border-orange-100' },
+              { key: 'government', color: 'from-purple-50 to-violet-50', accent: 'text-purple-600', border: 'border-purple-100' },
+              { key: 'education', color: 'from-rose-50 to-pink-50', accent: 'text-rose-500', border: 'border-rose-100' },
+            ].map((item, index) => {
+              const ind = t(`home.industrySolutions.items.${item.key}`, { returnObjects: true })
+              return (
+                <motion.div
+                  key={item.key}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.08 }}
+                  viewport={{ once: true }}
+                  className={`bg-gradient-to-br ${item.color} border ${item.border} rounded-2xl p-6 hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1`}
+                >
+                  <div className={`w-10 h-10 bg-white rounded-xl flex items-center justify-center ${item.accent} mb-4 shadow-sm`}>
+                    <Building2 className="w-5 h-5" />
+                  </div>
+                  <h3 className={`text-base font-bold mb-2 tracking-tight ${item.accent}`}>{ind.name}</h3>
+                  <p className="text-claude-medium text-sm leading-relaxed mb-3">{ind.desc}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {Array.isArray(ind.tags) && ind.tags.map((tag, ti) => (
+                      <span key={ti} className="text-xs bg-white/80 text-claude-muted px-2 py-0.5 rounded-full border border-white/60">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              )
+            })}
+          </div>
+
+          <div className="text-center">
+            <Link
+              to="/solutions"
+              className="inline-flex items-center px-6 py-3 bg-claude-accent text-white rounded-xl font-semibold hover:bg-claude-accent-dark transition-all transform hover:scale-[1.02] shadow-sm text-sm"
+            >
+              {t('home.industrySolutions.cta')}
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
