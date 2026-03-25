@@ -17,6 +17,8 @@ const Layout = ({ children }) => {
     { name: t('nav.team'), path: '/team' },
     { name: t('nav.services'), path: '/services' },
     { name: t('nav.products'), path: '/products' },
+    { name: t('nav.solutions'), path: '/solutions' },
+    { name: t('nav.partners'), path: '/partners' },
     { name: t('nav.blog'), path: '/blog' },
     { name: t('nav.contact'), path: '/contact' }
   ]
