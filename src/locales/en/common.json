@@ -151,7 +151,7 @@
           ]
         },
         "industry": {
-          "name": "Industrial & Agricultural AI",
+          "name": "Industrial & Agricultural",
           "desc": "Predictive maintenance for industrial equipment and intelligent precision agriculture, driving digital transformation in traditional industries.",
           "tags": [
             "Equipment Monitoring",
@@ -675,7 +675,7 @@
         ]
       },
       "industry": {
-        "name": "Industrial & Agricultural Intelligence",
+        "name": "Industrial & Agricultural",
         "hero": "AI-powered upgrade for traditional industries",
         "desc": "Focusing on manufacturing and modern agriculture, we leverage AI vision, IoT data analytics, and intelligent voice to help enterprises achieve smart equipment management and precision farming—reducing labor costs while improving efficiency and quality.",
         "usecases": [
