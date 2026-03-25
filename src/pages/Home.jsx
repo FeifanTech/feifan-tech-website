@@ -389,13 +389,14 @@ const Home = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4 lg:gap-5 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-5 mb-10">
             {[
               { key: 'finance', color: 'from-blue-50 to-indigo-50', accent: 'text-blue-600', border: 'border-blue-100' },
               { key: 'insurance', color: 'from-emerald-50 to-teal-50', accent: 'text-emerald-600', border: 'border-emerald-100' },
               { key: 'retail', color: 'from-orange-50 to-amber-50', accent: 'text-orange-500', border: 'border-orange-100' },
               { key: 'government', color: 'from-purple-50 to-violet-50', accent: 'text-purple-600', border: 'border-purple-100' },
-              { key: 'education', color: 'from-rose-50 to-pink-50', accent: 'text-rose-500', border: 'border-rose-100' },
+              { key: 'education', color: 'from-rose-50 to-pink-50', accent: 'text-rose-500', border: 'border-rose-100', badge: true },
+              { key: 'industry', color: 'from-yellow-50 to-lime-50', accent: 'text-yellow-700', border: 'border-yellow-100', badge: true },
             ].map((item, index) => {
               const ind = t(`home.industrySolutions.items.${item.key}`, { returnObjects: true })
               return (
@@ -407,8 +408,13 @@ const Home = () => {
                   viewport={{ once: true }}
                   className={`bg-gradient-to-br ${item.color} border ${item.border} rounded-2xl p-6 hover:shadow-warm-lg transition-all duration-300 group hover:-translate-y-1`}
                 >
-                  <div className={`w-10 h-10 bg-white rounded-xl flex items-center justify-center ${item.accent} mb-4 shadow-sm`}>
-                    <Building2 className="w-5 h-5" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`w-10 h-10 bg-white rounded-xl flex items-center justify-center ${item.accent} shadow-sm`}>
+                      <Building2 className="w-5 h-5" />
+                    </div>
+                    {item.badge && (
+                      <span className="text-base leading-none" title="热门行业">🔥</span>
+                    )}
                   </div>
                   <h3 className={`text-base font-bold mb-2 tracking-tight ${item.accent}`}>{ind.name}</h3>
                   <p className="text-claude-medium text-sm leading-relaxed mb-3">{ind.desc}</p>

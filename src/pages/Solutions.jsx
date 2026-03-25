@@ -10,7 +10,8 @@ import {
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
-const INDUSTRY_KEYS = ['finance', 'insurance', 'retail', 'government', 'education']
+const INDUSTRY_KEYS = ['finance', 'insurance', 'retail', 'government', 'education', 'industry']
+const INDUSTRY_PRIORITY = ['education', 'industry']
 
 const INDUSTRY_STYLES = {
   finance: { bg: 'bg-blue-50', border: 'border-blue-200', accent: 'text-blue-700', badge: 'bg-blue-100 text-blue-700' },
@@ -18,11 +19,12 @@ const INDUSTRY_STYLES = {
   retail: { bg: 'bg-orange-50', border: 'border-orange-200', accent: 'text-orange-600', badge: 'bg-orange-100 text-orange-600' },
   government: { bg: 'bg-purple-50', border: 'border-purple-200', accent: 'text-purple-700', badge: 'bg-purple-100 text-purple-700' },
   education: { bg: 'bg-rose-50', border: 'border-rose-200', accent: 'text-rose-600', badge: 'bg-rose-100 text-rose-600' },
+  industry: { bg: 'bg-yellow-50', border: 'border-yellow-200', accent: 'text-yellow-700', badge: 'bg-yellow-100 text-yellow-700' },
 }
 
 const Solutions = () => {
   const { t } = useTranslation('common')
-  const [expanded, setExpanded] = useState('finance')
+  const [expanded, setExpanded] = useState('industry')
 
   return (
     <div>
@@ -91,11 +93,16 @@ const Solutions = () => {
                         {!isOpen && <p className="text-claude-muted text-sm">{ind.hero}</p>}
                       </div>
                     </div>
-                    {isOpen ? (
-                      <ChevronUp className={`w-5 h-5 flex-shrink-0 ${style.accent}`} />
-                    ) : (
-                      <ChevronDown className="w-5 h-5 flex-shrink-0 text-claude-muted" />
-                    )}
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      {INDUSTRY_PRIORITY.includes(key) && (
+                        <span className="text-base leading-none" title="热门行业">🔥</span>
+                      )}
+                      {isOpen ? (
+                        <ChevronUp className={`w-5 h-5 ${style.accent}`} />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 text-claude-muted" />
+                      )}
+                    </div>
                   </button>
 
                   {isOpen && (

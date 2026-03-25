@@ -108,27 +108,56 @@
         "finance": {
           "name": "Finance & Securities",
           "desc": "Compliant outbound calls, KYC identity verification, and AI-assisted customer service to accelerate financial digital transformation.",
-          "tags": ["Compliant Outbound", "KYC", "Risk AI"]
+          "tags": [
+            "Compliant Outbound",
+            "KYC",
+            "Risk AI"
+          ]
         },
         "insurance": {
           "name": "Insurance",
           "desc": "Intelligent outbound prospecting, OCR-based claims processing, and AI agent assistance across the full insurance lifecycle.",
-          "tags": ["Lead Outbound", "Claims OCR", "Agent Assist"]
+          "tags": [
+            "Lead Outbound",
+            "Claims OCR",
+            "Agent Assist"
+          ]
         },
         "retail": {
           "name": "Retail Chains",
           "desc": "AI customer service, voice quality inspection, and smart store analytics to power omnichannel retail operations.",
-          "tags": ["AI Service", "Voice QA", "Omnichannel"]
+          "tags": [
+            "AI Service",
+            "Voice QA",
+            "Omnichannel"
+          ]
         },
         "government": {
           "name": "Government & Telecom",
           "desc": "Compliant notice broadcasts, document OCR automation, and AI call routing for public service efficiency.",
-          "tags": ["Notice Outbound", "Document OCR", "AI Routing"]
+          "tags": [
+            "Notice Outbound",
+            "Document OCR",
+            "AI Routing"
+          ]
         },
         "education": {
           "name": "Education & Training",
           "desc": "Enrollment outbound, classroom transcription, and AI-powered content knowledge bases for learning institutions.",
-          "tags": ["Enrollment Calls", "AI Transcription", "Knowledge Base"]
+          "tags": [
+            "Enrollment Calls",
+            "AI Transcription",
+            "Knowledge Base"
+          ]
+        },
+        "industry": {
+          "name": "Industrial & Agricultural AI",
+          "desc": "Predictive maintenance for industrial equipment and intelligent precision agriculture, driving digital transformation in traditional industries.",
+          "tags": [
+            "Equipment Monitoring",
+            "Smart Agriculture",
+            "Predictive Maintenance"
+          ]
         }
       },
       "cta": "Get Industry Solution"
@@ -144,7 +173,11 @@
           "solution": "Deployed Intelligent OCR system with multi-format document recognition and batch processing.",
           "metric": "60%",
           "metricLabel": "Faster Processing",
-          "tags": ["OCR Recognition", "Batch Processing", "Private Deployment"]
+          "tags": [
+            "OCR Recognition",
+            "Batch Processing",
+            "Private Deployment"
+          ]
         },
         {
           "industry": "Retail Chain",
@@ -153,7 +186,11 @@
           "solution": "Integrated AI Speech Recognition with intelligent routing and real-time transcription.",
           "metric": "50%",
           "metricLabel": "Efficiency Gain",
-          "tags": ["Speech Recognition", "Real-time Transcription", "API Integration"]
+          "tags": [
+            "Speech Recognition",
+            "Real-time Transcription",
+            "API Integration"
+          ]
         },
         {
           "industry": "Internet Enterprise",
@@ -162,7 +199,11 @@
           "solution": "Deployed AI Agent system to automate repetitive workflows with multi-tool integration.",
           "metric": "3×",
           "metricLabel": "Team Productivity",
-          "tags": ["AI Agent", "Workflow Automation", "Multi-tool Integration"]
+          "tags": [
+            "AI Agent",
+            "Workflow Automation",
+            "Multi-tool Integration"
+          ]
         }
       ]
     },
@@ -181,7 +222,7 @@
       "description": "To empower businesses with innovative technology solutions that drive growth, efficiency, and digital transformation. We believe technology should be accessible, powerful, and transformative for every organization."
     },
     "vision": {
-      "title": "Our Vision", 
+      "title": "Our Vision",
       "description": "To be the leading technology partner that businesses trust for their digital transformation journey, creating a future where technology seamlessly enhances human potential and business success."
     },
     "leadership": {
@@ -197,7 +238,7 @@
         "description": "We constantly push boundaries and embrace new technologies to deliver cutting-edge solutions."
       },
       "excellence": {
-        "title": "Excellence", 
+        "title": "Excellence",
         "description": "We are committed to delivering the highest quality in everything we do."
       },
       "collaboration": {
@@ -266,7 +307,7 @@
         "description": "Modern, responsive web applications built with cutting-edge technologies",
         "features": [
           "React/Vue/Angular",
-          "Node.js Backend", 
+          "Node.js Backend",
           "Progressive Web Apps",
           "E-commerce Solutions"
         ]
@@ -356,7 +397,7 @@
       }
     },
     "process": {
-      "title": "Our Process", 
+      "title": "Our Process",
       "subtitle": "A proven methodology that ensures project success and client satisfaction",
       "steps": {
         "discovery": {
@@ -428,7 +469,7 @@
         "description": "Comprehensive e-commerce solution with integrated payment, logistics, user management, and multi-vendor capabilities",
         "features": [
           "Multi-vendor management system",
-          "AI recommendation engine", 
+          "AI recommendation engine",
           "Mobile responsive design",
           "Analytics dashboard",
           "Third-party payment integration"
@@ -440,13 +481,13 @@
         "features": [
           "99%+ recognition accuracy",
           "50+ languages supported",
-          "Real-time transcription", 
+          "Real-time transcription",
           "Noise filtering technology",
           "API integration ready"
         ]
       },
       "ocr": {
-        "title": "Intelligent OCR Recognition", 
+        "title": "Intelligent OCR Recognition",
         "description": "Advanced optical character recognition technology for fast and accurate text extraction from images and documents",
         "features": [
           "Multiple image format support",
@@ -458,11 +499,11 @@
       },
       "vision": {
         "title": "AI Image Recognition",
-        "description": "Deep learning-based image recognition system for accurate identification and classification of objects, scenes, and people", 
+        "description": "Deep learning-based image recognition system for accurate identification and classification of objects, scenes, and people",
         "features": [
           "Object detection & recognition",
           "Facial recognition technology",
-          "Scene classification analysis", 
+          "Scene classification analysis",
           "Image quality assessment",
           "Custom model training"
         ]
@@ -507,9 +548,18 @@
       "tagline": "Every outbound call — fully compliant",
       "description": "Purpose-built for regulated industries like finance, insurance, and government. Full compliance controls across the entire outbound workflow, combined with AI voice capabilities and real-time script assistance to maximize outbound performance within regulatory requirements.",
       "highlights": [
-        { "metric": "98%", "label": "Compliance Rate" },
-        { "metric": "40%", "label": "Efficiency Gain" },
-        { "metric": "60%", "label": "QA Cost Reduction" }
+        {
+          "metric": "98%",
+          "label": "Compliance Rate"
+        },
+        {
+          "metric": "40%",
+          "label": "Efficiency Gain"
+        },
+        {
+          "metric": "60%",
+          "label": "QA Cost Reduction"
+        }
       ],
       "cta": "Contact for Pricing"
     },
@@ -521,7 +571,7 @@
         "description": "Optimized algorithms ensure fast response and processing capabilities"
       },
       "security": {
-        "title": "Secure & Reliable", 
+        "title": "Secure & Reliable",
         "description": "Enterprise-grade security with comprehensive data privacy protection"
       },
       "integration": {
@@ -558,7 +608,11 @@
           "Smart KYC: OCR document recognition + liveness detection, remote onboarding 80% faster",
           "Agent AI Assistant: Real-time script suggestions, emotion detection, and customer profile push"
         ],
-        "products": ["Smart Compliant Outbound Platform", "Intelligent OCR", "AI Speech-to-Text"]
+        "products": [
+          "Smart Compliant Outbound Platform",
+          "Intelligent OCR",
+          "AI Speech-to-Text"
+        ]
       },
       "insurance": {
         "name": "Insurance",
@@ -569,7 +623,11 @@
           "Claims Document OCR: Auto-structuring invoices, medical records, and appraisal reports — claims efficiency up 60%",
           "AI Underwriting Assist: Image recognition + medical NLP for rapid risk assessment"
         ],
-        "products": ["Smart Compliant Outbound Platform", "Intelligent OCR", "AI Image Recognition"]
+        "products": [
+          "Smart Compliant Outbound Platform",
+          "Intelligent OCR",
+          "AI Image Recognition"
+        ]
       },
       "retail": {
         "name": "Retail Chains",
@@ -580,7 +638,11 @@
           "Voice Agent QA: Automatically identify service compliance risks, QA coverage from 5% to 100%",
           "Product Image Recognition: Store display compliance checks and shelf out-of-stock alerts"
         ],
-        "products": ["AI Speech-to-Text", "AI Image Recognition", "AI Agent"]
+        "products": [
+          "AI Speech-to-Text",
+          "AI Image Recognition",
+          "AI Agent"
+        ]
       },
       "government": {
         "name": "Government & Telecom",
@@ -591,7 +653,11 @@
           "Document OCR Automation: Auto-structuring archived files, reducing manual entry hours by 70%",
           "12345 Hotline AI Routing: Smart ticket routing with 92%+ assignment accuracy"
         ],
-        "products": ["Smart Compliant Outbound Platform", "Intelligent OCR", "AI Agent"]
+        "products": [
+          "Smart Compliant Outbound Platform",
+          "Intelligent OCR",
+          "AI Agent"
+        ]
       },
       "education": {
         "name": "Education & Training",
@@ -602,7 +668,29 @@
           "Classroom Speech Transcription: Live subtitles and post-class full-text transcripts auto-generated",
           "AI Search & Knowledge Base: Content AI processing to build institution-specific knowledge graphs"
         ],
-        "products": ["Smart Compliant Outbound Platform", "AI Speech-to-Text", "AI Agent"]
+        "products": [
+          "Smart Compliant Outbound Platform",
+          "AI Speech-to-Text",
+          "AI Agent"
+        ]
+      },
+      "industry": {
+        "name": "Industrial & Agricultural Intelligence",
+        "hero": "AI-powered upgrade for traditional industries",
+        "desc": "Focusing on manufacturing and modern agriculture, we leverage AI vision, IoT data analytics, and intelligent voice to help enterprises achieve smart equipment management and precision farming—reducing labor costs while improving efficiency and quality.",
+        "usecases": [
+          "Predictive Equipment Maintenance: AI real-time sensor analysis to predict failures before they occur, reducing unplanned downtime",
+          "Visual Quality Inspection: High-accuracy AI vision replaces manual inspection with 99%+ defect detection accuracy",
+          "Precision Smart Agriculture: IoT sensors + remote sensing for precision irrigation, fertilization, and pest early warning",
+          "Agricultural Supply Chain Traceability: OCR + AI enables end-to-end digital tracking from farm to table",
+          "Factory Safety Monitoring: AI video analysis detects violations and safety hazards in real time"
+        ],
+        "products": [
+          "AI Visual Inspection Platform",
+          "Smart OCR Recognition",
+          "AI Data Analytics Engine",
+          "IoT Intelligent Monitoring"
+        ]
       }
     },
     "cta": {
@@ -621,35 +709,78 @@
       "reseller": {
         "name": "Authorized Reseller",
         "desc": "Obtain Feifan Tech product reseller authorization to sell to regional or industry customers, with competitive margins and full presales support.",
-        "benefits": ["Exclusive reseller discount", "Presales technical support", "Co-marketing programs", "Dedicated account manager"]
+        "benefits": [
+          "Exclusive reseller discount",
+          "Presales technical support",
+          "Co-marketing programs",
+          "Dedicated account manager"
+        ]
       },
       "isv": {
         "name": "ISV Software Partner",
         "desc": "Integrate Feifan AI capabilities via API/SDK into your software products to deliver stronger intelligent features and expand your market together.",
-        "benefits": ["API/SDK integration docs", "Technical integration support", "Joint solution development", "Revenue sharing model"]
+        "benefits": [
+          "API/SDK integration docs",
+          "Technical integration support",
+          "Joint solution development",
+          "Revenue sharing model"
+        ]
       },
       "integrator": {
         "name": "System Integrator",
         "desc": "As a Feifan Tech implementation partner, take on AI project delivery and custom development for clients, with project commissions and certification support.",
-        "benefits": ["Project commission sharing", "Technical certification training", "Co-creation of solutions", "Priority project resources"]
+        "benefits": [
+          "Project commission sharing",
+          "Technical certification training",
+          "Co-creation of solutions",
+          "Priority project resources"
+        ]
       }
     },
     "why": {
       "title": "Why Partner with Feifan",
       "items": [
-        { "title": "Backed by Leading Products", "desc": "Distribute mature AI products from top-tier upstream vendors — trusted quality that's easy to sell" },
-        { "title": "Comprehensive Support System", "desc": "From product training and presales support to project delivery, we accompany partners every step of the way" },
-        { "title": "Growing Market Opportunity", "desc": "AI commercial adoption is exploding — early movers win. Help partners rapidly unlock new revenue" },
-        { "title": "Flexible Partnership Terms", "desc": "Partnership terms customized to partner type, ensuring maximum mutual benefit" }
+        {
+          "title": "Backed by Leading Products",
+          "desc": "Distribute mature AI products from top-tier upstream vendors — trusted quality that's easy to sell"
+        },
+        {
+          "title": "Comprehensive Support System",
+          "desc": "From product training and presales support to project delivery, we accompany partners every step of the way"
+        },
+        {
+          "title": "Growing Market Opportunity",
+          "desc": "AI commercial adoption is exploding — early movers win. Help partners rapidly unlock new revenue"
+        },
+        {
+          "title": "Flexible Partnership Terms",
+          "desc": "Partnership terms customized to partner type, ensuring maximum mutual benefit"
+        }
       ]
     },
     "process": {
       "title": "How to Join",
       "steps": [
-        { "step": "01", "title": "Apply", "desc": "Submit a partnership application describing your business background and collaboration intent" },
-        { "step": "02", "title": "Align", "desc": "Our partnership team will confirm the collaboration direction with you within 48 hours" },
-        { "step": "03", "title": "Sign Agreement", "desc": "Finalize partnership model, rights, and responsibilities, then sign the partnership agreement" },
-        { "step": "04", "title": "Launch", "desc": "Receive product authorization, technical training, and dedicated support to officially launch" }
+        {
+          "step": "01",
+          "title": "Apply",
+          "desc": "Submit a partnership application describing your business background and collaboration intent"
+        },
+        {
+          "step": "02",
+          "title": "Align",
+          "desc": "Our partnership team will confirm the collaboration direction with you within 48 hours"
+        },
+        {
+          "step": "03",
+          "title": "Sign Agreement",
+          "desc": "Finalize partnership model, rights, and responsibilities, then sign the partnership agreement"
+        },
+        {
+          "step": "04",
+          "title": "Launch",
+          "desc": "Receive product authorization, technical training, and dedicated support to officially launch"
+        }
       ]
     },
     "cta": {
@@ -666,7 +797,7 @@
     "form": {
       "title": "Send us a message",
       "name": "Full Name",
-      "email": "Email Address", 
+      "email": "Email Address",
       "company": "Company",
       "phone": "Phone Number",
       "service": "Service Interested In",
@@ -682,7 +813,7 @@
       },
       "placeholders": {
         "name": "Your full name",
-        "email": "your@email.com", 
+        "email": "your@email.com",
         "company": "Your company name",
         "phone": "Your phone number",
         "service": "Select a service",
@@ -842,7 +973,7 @@
     "description": "Leading technology company focused on innovation and digital transformation. We help businesses thrive in the digital age with cutting-edge solutions.",
     "copyright": "© 2020-{{year}} Feifan Tech. All rights reserved.",
     "quickLinks": "Quick Links",
-    "contact": "Contact", 
+    "contact": "Contact",
     "address": "No. 2 Xiyuan 8th Road, Xihu District, Hangzhou, Zhejiang Province",
     "email": "feifan.hangzhou@gmail.com",
     "tagline": "Tech Leadership & Innovation"
