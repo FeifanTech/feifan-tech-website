@@ -6,6 +6,7 @@ import { submitContactForm } from '../services/contactService.js'
 
 const Contact = () => {
   const { t } = useTranslation('common')
+  const [networkError, setNetworkError] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,6 +32,7 @@ const Contact = () => {
     setIsSubmitting(true)
     setSubmitError(null)
     setSubmitMessage('')
+    setNetworkError(false)
 
     try {
       const result = await submitContactForm(formData)
@@ -52,6 +54,9 @@ const Contact = () => {
           })
         }, 5000)
       } else {
+        if (result.networkError) {
+          setNetworkError(true)
+        }
         setSubmitError(result.message)
       }
     } catch (error) {
@@ -196,7 +201,20 @@ const Contact = () => {
                         <AlertCircle className="w-4 h-4 text-red-500 mr-3 flex-shrink-0 mt-0.5" />
                         <div>
                           <h4 className="text-sm font-medium text-red-800 mb-0.5">{t('contact.form.error.title')}</h4>
-                          <p className="text-sm text-red-700">{submitError}</p>
+                          {networkError ? (
+                            <p className="text-sm text-red-700">
+                              表单服务暂时不可用，请直接发送邮件至{' '}
+                              <a
+                                href="mailto:feifan.hangzhou@gmail.com"
+                                className="font-semibold underline hover:text-red-900"
+                              >
+                                feifan.hangzhou@gmail.com
+                              </a>
+                              {' '}，我们会尽快回复。
+                            </p>
+                          ) : (
+                            <p className="text-sm text-red-700">{submitError}</p>
+                          )}
                         </div>
                       </motion.div>
                     )}
