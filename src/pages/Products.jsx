@@ -170,9 +170,13 @@ const Products = () => {
                 <span className="w-1.5 h-1.5 rounded-full bg-claude-accent animate-pulse-dot" />
                 {t('products.flagship.badge')}
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">
                 {t('products.flagship.title')}
               </h2>
+              <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full border bg-white/10 text-white/50 border-white/20 mb-3">
+                <span className="opacity-70">Powered by</span>
+                <span className="font-semibold">红熊AI</span>
+              </span>
               <p className="text-white/60 text-lg mb-2 font-medium">{t('products.flagship.tagline')}</p>
               <p className="text-white/50 text-base leading-relaxed mb-8 max-w-xl">
                 {t('products.flagship.description')}
@@ -234,7 +238,7 @@ const Products = () => {
                     : 'bg-gradient-to-r from-claude-accent via-orange-400 to-amber-400'
                 }`} />
 
-                <div className="p-7">
+                <div className="p-7 flex flex-col h-full">
                 {/* Product Header */}
                 <div className="flex items-start justify-between mb-5">
                   <div className="flex items-center space-x-4">
@@ -302,7 +306,7 @@ const Products = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex justify-center">
+                <div className="flex justify-center mt-auto">
                   <Link
                     to="/contact#contact-form"
                     className="flex-1 inline-flex items-center justify-center px-6 py-3 bg-claude-accent text-white rounded-xl font-semibold hover:bg-claude-accent-dark transition-all transform hover:scale-[1.02] shadow-sm text-sm"
