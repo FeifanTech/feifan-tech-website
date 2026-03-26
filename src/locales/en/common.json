@@ -540,6 +540,28 @@
           "Multi-dimensional call QA & analytics reports",
           "Private deployment with local data security"
         ]
+      },
+      "smartService": {
+        "title": "Smart Customer Service",
+        "description": "An LLM-powered omnichannel customer service platform supporting voice, chat, and ticketing—delivering 24/7 automated responses to reduce costs and improve satisfaction.",
+        "features": [
+          "Omnichannel integration: phone, chat, App, and WeChat in one place",
+          "Intent recognition and smart routing between AI and human agents",
+          "Knowledge base auto-retrieval for instant accurate answers",
+          "Sentiment detection and satisfaction prediction with real-time intervention",
+          "Full conversation analytics to continuously improve service quality"
+        ]
+      },
+      "smartLeads": {
+        "title": "Smart Customer Acquisition",
+        "description": "An AI intent-prediction engine that identifies high-potential prospects, automates outreach and nurturing, and significantly boosts lead conversion for sales teams.",
+        "features": [
+          "Multi-source data fusion to build 360° customer profiles",
+          "AI intent prediction model to prioritize high-intent leads",
+          "Intelligent script recommendations for higher first-contact conversion",
+          "Automated lead nurturing workflows to reduce manual follow-up",
+          "Full-funnel sales dashboard with real-time conversion tracking"
+        ]
       }
     },
     "flagship": {

@@ -15,7 +15,8 @@ import {
   Shield,
   Network,
   Bot,
-  PhoneCall
+  PhoneCall,
+  TrendingUp
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
@@ -30,8 +31,29 @@ const Products = () => {
       features: t('products.items.outboundCall.features', { returnObjects: true }),
       status: 'live',
       flagship: true,
+      poweredBy: '红熊AI',
       users: '1,000+',
       rating: 4.9
+    },
+    {
+      icon: <Users className="w-7 h-7" />,
+      title: t('products.items.smartService.title'),
+      description: t('products.items.smartService.description'),
+      features: t('products.items.smartService.features', { returnObjects: true }),
+      status: 'live',
+      poweredBy: '红熊AI',
+      users: '5,000+',
+      rating: 4.8
+    },
+    {
+      icon: <TrendingUp className="w-7 h-7" />,
+      title: t('products.items.smartLeads.title'),
+      description: t('products.items.smartLeads.description'),
+      features: t('products.items.smartLeads.features', { returnObjects: true }),
+      status: 'live',
+      poweredBy: '红熊AI',
+      users: '3,000+',
+      rating: 4.8
     },
     {
       icon: <ShoppingCart className="w-7 h-7" />,
@@ -148,9 +170,13 @@ const Products = () => {
                 <span className="w-1.5 h-1.5 rounded-full bg-claude-accent animate-pulse-dot" />
                 {t('products.flagship.badge')}
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">
                 {t('products.flagship.title')}
               </h2>
+              <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full border bg-white/10 text-white/50 border-white/20 mb-3">
+                <span className="opacity-70">Powered by</span>
+                <span className="font-semibold">红熊AI</span>
+              </span>
               <p className="text-white/60 text-lg mb-2 font-medium">{t('products.flagship.tagline')}</p>
               <p className="text-white/50 text-base leading-relaxed mb-8 max-w-xl">
                 {t('products.flagship.description')}
@@ -212,7 +238,7 @@ const Products = () => {
                     : 'bg-gradient-to-r from-claude-accent via-orange-400 to-amber-400'
                 }`} />
 
-                <div className="p-7">
+                <div className="p-7 flex flex-col h-full">
                 {/* Product Header */}
                 <div className="flex items-start justify-between mb-5">
                   <div className="flex items-center space-x-4">
@@ -220,7 +246,13 @@ const Products = () => {
                       {product.icon}
                     </div>
                     <div>
-                      <h3 className={`text-xl font-bold mb-0.5 tracking-tight ${product.flagship ? 'text-white' : 'text-claude-dark'}`}>{product.title}</h3>
+                      <h3 className={`text-xl font-bold mb-1 tracking-tight ${product.flagship ? 'text-white' : 'text-claude-dark'}`}>{product.title}</h3>
+                      {product.poweredBy && (
+                        <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full border ${product.flagship ? 'bg-white/10 text-white/50 border-white/20' : 'bg-orange-50 text-orange-500 border-orange-200'}`}>
+                          <span className="opacity-70">Powered by</span>
+                          <span className="font-semibold">{product.poweredBy}</span>
+                        </span>
+                      )}
                     </div>
                   </div>
                   {product.flagship ? (
@@ -274,7 +306,7 @@ const Products = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex justify-center">
+                <div className="flex justify-center mt-auto">
                   <Link
                     to="/contact#contact-form"
                     className="flex-1 inline-flex items-center justify-center px-6 py-3 bg-claude-accent text-white rounded-xl font-semibold hover:bg-claude-accent-dark transition-all transform hover:scale-[1.02] shadow-sm text-sm"
