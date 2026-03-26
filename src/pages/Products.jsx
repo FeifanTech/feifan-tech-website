@@ -15,7 +15,8 @@ import {
   Shield,
   Network,
   Bot,
-  PhoneCall
+  PhoneCall,
+  TrendingUp
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
