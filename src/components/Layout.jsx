@@ -221,6 +221,17 @@ const Layout = ({ children }) => {
             </div>
           </div>
         </div>
+        {/* ICP 备案 */}
+        <div className="border-t border-white/10 py-3 text-center text-white/40 text-xs">
+          <a
+            href="https://beian.miit.gov.cn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white/70 transition-colors"
+          >
+            浙ICP备2023018136号-3
+          </a>
+        </div>
       </footer>
     </div>
   )
