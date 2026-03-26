@@ -48,7 +48,7 @@ export const submitContactForm = async (formData) => {
 
     if (error) {
       console.error('Supabase submission error:', error)
-      
+
       // Handle specific error cases
       if (error.code === '42501') {
         throw new Error('Database permission error. Please contact support.')
@@ -58,7 +58,6 @@ export const submitContactForm = async (formData) => {
         throw new Error(`Submission failed: ${error.message}`)
       }
     }
-
     return {
       success: true,
       data: data[0],
@@ -67,8 +66,12 @@ export const submitContactForm = async (formData) => {
 
   } catch (error) {
     console.error('Contact form submission error:', error)
+    const isNetworkError = error.message?.includes('Failed to fetch') ||
+      error.message?.includes('NetworkError') ||
+      error.message?.includes('ERR_NAME_NOT_RESOLVED')
     return {
       success: false,
+      networkError: isNetworkError,
       error: error.message,
       message: error.message || 'An unexpected error occurred. Please try again.'
     }
