@@ -30,8 +30,29 @@ const Products = () => {
       features: t('products.items.outboundCall.features', { returnObjects: true }),
       status: 'live',
       flagship: true,
+      poweredBy: '红熊AI',
       users: '1,000+',
       rating: 4.9
+    },
+    {
+      icon: <Users className="w-7 h-7" />,
+      title: t('products.items.smartService.title'),
+      description: t('products.items.smartService.description'),
+      features: t('products.items.smartService.features', { returnObjects: true }),
+      status: 'live',
+      poweredBy: '红熊AI',
+      users: '5,000+',
+      rating: 4.8
+    },
+    {
+      icon: <TrendingUp className="w-7 h-7" />,
+      title: t('products.items.smartLeads.title'),
+      description: t('products.items.smartLeads.description'),
+      features: t('products.items.smartLeads.features', { returnObjects: true }),
+      status: 'live',
+      poweredBy: '红熊AI',
+      users: '3,000+',
+      rating: 4.8
     },
     {
       icon: <ShoppingCart className="w-7 h-7" />,
@@ -220,7 +241,13 @@ const Products = () => {
                       {product.icon}
                     </div>
                     <div>
-                      <h3 className={`text-xl font-bold mb-0.5 tracking-tight ${product.flagship ? 'text-white' : 'text-claude-dark'}`}>{product.title}</h3>
+                      <h3 className={`text-xl font-bold mb-1 tracking-tight ${product.flagship ? 'text-white' : 'text-claude-dark'}`}>{product.title}</h3>
+                      {product.poweredBy && (
+                        <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full border ${product.flagship ? 'bg-white/10 text-white/50 border-white/20' : 'bg-orange-50 text-orange-500 border-orange-200'}`}>
+                          <span className="opacity-70">Powered by</span>
+                          <span className="font-semibold">{product.poweredBy}</span>
+                        </span>
+                      )}
                     </div>
                   </div>
                   {product.flagship ? (
