@@ -141,22 +141,20 @@ const Home = () => {
         <div className="absolute inset-0" style={{ background: '#1A1712' }}>
           {/* Layer 1 — large terracotta aurora, top-right */}
           <div
-            className="absolute rounded-full animate-aurora"
+            className="absolute rounded-full"
             style={{
               width: '900px', height: '700px',
               top: '-200px', right: '-200px',
               background: 'radial-gradient(ellipse, rgba(217,119,87,0.22) 0%, rgba(185,80,40,0.10) 40%, transparent 70%)',
-              filter: 'blur(40px)',
             }}
           />
           {/* Layer 2 — amber aurora, bottom-left */}
           <div
-            className="absolute rounded-full animate-aurora-slow"
+            className="absolute rounded-full"
             style={{
               width: '700px', height: '600px',
               bottom: '-150px', left: '-150px',
               background: 'radial-gradient(ellipse, rgba(245,166,35,0.14) 0%, rgba(217,119,87,0.08) 40%, transparent 70%)',
-              filter: 'blur(50px)',
             }}
           />
           {/* Layer 3 — warm white center glow */}

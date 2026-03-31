@@ -146,6 +146,18 @@
   100% { transform: rotate(360deg); }
 }
 
+/* Respect system reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora,
+  .animate-aurora-slow,
+  .animate-pulse-dot,
+  .animate-pulse-subtle,
+  .animate-cursor-blink,
+  .animate-fade-in-up {
+    animation: none;
+  }
+}
+
 /* Responsive typography */
 @screen sm {
   .text-responsive {
