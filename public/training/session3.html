@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第三期：RAG + AI 工作流 + Skills 机制 — AI 办公实战培训 v2.0</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .rag-diagram {
+      background: #1E2433;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin: 1.25rem 0;
+      color: #E8EAF0;
+    }
+    .rag-flow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .rag-box {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      text-align: center;
+      min-width: 120px;
+    }
+    .rag-box.highlight { background: rgba(224,122,95,0.25); border-color: rgba(224,122,95,0.5); }
+    .rag-box.blue-h { background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.4); }
+    .rag-box.green-h { background: rgba(52,211,153,0.2); border-color: rgba(52,211,153,0.4); }
+    .rag-arrow { color: #6B7A99; font-size: 1.2rem; }
+    .rag-note { font-size: 0.78rem; color: #6B7A99; margin-top: 8px; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .skill-type-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .skill-type-header {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .prompt-skill .skill-type-header { background: #DBEAFE; color: #1E40AF; }
+    .tool-skill   .skill-type-header { background: #DCFCE7; color: #166534; }
+    .workflow-skill .skill-type-header { background: #EDE9FE; color: #6D28D9; }
+    .skill-type-body { padding: 1rem 1.25rem; }
+    .skill-type-body p { font-size: 0.84rem; color: var(--medium); margin-bottom: 0.5rem; }
+    .skill-type-body .example-tag {
+      display: inline-block;
+      background: var(--warm);
+      border-radius: var(--radius-sm);
+      padding: 3px 8px;
+      font-size: 0.78rem;
+      color: var(--dark);
+      margin-top: 4px;
+    }
+
+    .workflow-builder {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin: 1.25rem 0;
+    }
+    .wb-blocks {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .wb-block {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .wb-block .wb-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .wb-block .wb-label { font-size: 0.85rem; font-weight: 700; color: var(--dark); }
+    .wb-block .wb-desc  { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+    .wb-block.trigger { border-color: var(--warning); }
+    .wb-block.ai-step { border-color: var(--accent); }
+    .wb-block.tool-step { border-color: var(--info); }
+    .wb-block.condition { border-color: var(--success); }
+
+    .workflow-case {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+    .wc-header {
+      padding: 1rem 1.5rem;
+      background: var(--dark);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .wc-icon { font-size: 1.3rem; }
+    .wc-title { font-size: 0.95rem; font-weight: 700; }
+    .wc-body { padding: 1.25rem 1.5rem; }
+    .wc-flow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 0.75rem 0;
+    }
+    .wc-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .wc-box {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      min-width: 110px;
+    }
+    .wc-box.trigger-box  { background: #FEF3C7; border-color: #FDE68A; color: #92400E; }
+    .wc-box.ai-box       { background: #EDE9FE; border-color: #C4B5FD; color: #6D28D9; }
+    .wc-box.tool-box     { background: #DBEAFE; border-color: #93C5FD; color: #1E40AF; }
+    .wc-box.out-box      { background: #DCFCE7; border-color: #86EFAC; color: #166534; }
+    .wc-type { font-size: 0.68rem; color: var(--muted); }
+    .wc-arrow { font-size: 1.1rem; color: var(--border); }
+
+    .skills-roadmap {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .sr-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: box-shadow .2s;
+    }
+    .sr-item:hover { box-shadow: var(--shadow-md); }
+    .sr-num {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .sr-item:nth-child(1) .sr-num { background: var(--accent); }
+    .sr-item:nth-child(2) .sr-num { background: var(--info); }
+    .sr-item:nth-child(3) .sr-num { background: var(--success); }
+    .sr-item:nth-child(4) .sr-num { background: var(--warning); }
+    .sr-item:nth-child(5) .sr-num { background: var(--purple); }
+    .sr-content h4 { margin: 0 0 3px; font-size: 0.95rem; color: var(--dark); }
+    .sr-content p { margin: 0; font-size: 0.84rem; color: var(--medium); }
+    .sr-content .sr-detail { font-size: 0.8rem; color: var(--muted); margin-top: 4px; font-style: italic; }
+
+    .relationship-box {
+      background: #1E2433;
+      color: #E8EAF0;
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin: 1.25rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+    }
+    .rb-row {
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .rb-key { color: #82AAFF; min-width: 80px; font-weight: 700; }
+    .rb-sep { color: #C792EA; }
+    .rb-val { color: #C3E88D; }
+    .rb-comment { color: #6B7A99; font-style: italic; font-size: 0.8rem; }
+
+    @media (max-width: 768px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .wb-blocks { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>🤖</span>
+    <span>AI 办公实战培训</span>
+    <span class="logo-badge">v2.0</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="session1.html">第一期</a>
+    <a href="session2.html">第二期</a>
+    <a href="session3.html" class="active">第三期</a>
+    <a href="session4.html">第四期</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">第三期目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#mod1" class="active">
+        <span class="nav-num">1</span> 为什么需要 RAG？
+      </a></li>
+      <li><a href="#mod2">
+        <span class="nav-num">2</span> 用 Dify 搭建 RAG 知识库
+      </a></li>
+      <li><a href="#mod3">
+        <span class="nav-num">3</span> Skills 机制
+      </a></li>
+      <li><a href="#mod4">
+        <span class="nav-num">4</span> AI 工作流设计与实操
+      </a></li>
+      <li><a href="#homework">
+        <span class="nav-num">📝</span> 课后作业
+      </a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem;border-top:1px solid var(--border);margin-top:auto;">
+      <a href="session2.html" style="font-size:0.8rem;color:var(--muted);">← 第二期</a>
+      &nbsp;&nbsp;
+      <a href="session4.html" style="font-size:0.8rem;color:var(--muted);">第四期 →</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="breadcrumb">
+      <a href="index.html">🏠 课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">第三期：RAG + AI 工作流 + Skills 机制</span>
+    </div>
+
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">第三期</span>
+        AI 办公实战培训 v2.0
+      </div>
+      <h1>RAG + AI 工作流 + Skills 机制<br/>——从单点使用到系统化</h1>
+      <p class="hero-subtitle">理解 RAG 价值，搭建知识库；掌握 Skills 机制；设计并实现完整 AI 自动化工作流</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item">⏱️ 时长：2.5 小时</span>
+        <span class="hero-meta-item">🎯 4 个模块</span>
+        <span class="hero-meta-item">🔧 全程动手实操</span>
+        <span class="hero-meta-item">📦 带走：Dify 知识库 + Skill + 工作流</span>
+      </div>
+    </div>
+
+    <!-- ── Module 1 ── -->
+    <div id="mod1" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">🧠</div>
+        <div>
+          <div class="section-title">模块 1｜为什么需要 RAG？</div>
+          <div class="section-subtitle">15 分钟 · 认知建立</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 大模型的核心局限</div>
+
+      <div class="card card-accent-red">
+        <h3 style="margin-top:0;">⚠️ 大模型"不知道你"的问题</h3>
+        <p>大模型的知识截止于训练时，它不知道你的公司、你的产品、你的客户、你的内部文档。</p>
+        <div class="code-compare" style="margin:0.75rem 0;">
+          <div class="code-compare-panel">
+            <div class="code-compare-label label-bad">❌ 通用大模型的回答</div>
+            <pre style="border-radius:0;">用户：我们产品的 SLA 条款是什么？
+AI：抱歉，我没有关于贵公司产品
+    SLA 条款的具体信息。通常 SLA
+    包括...（开始瞎编通用内容）</pre>
+          </div>
+          <div class="code-compare-panel">
+            <div class="code-compare-label label-good">✅ RAG 增强后的回答</div>
+            <pre style="border-radius:0;">用户：我们产品的 SLA 条款是什么？
+AI：根据贵公司产品手册（v2.3）：
+    - 系统可用性：99.9%/月
+    - 故障响应：P0 级 30 分钟内
+    - 数据恢复：RPO ≤ 4 小时
+    [来源：产品手册第 12 页]</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> RAG 工作原理直觉理解</div>
+
+      <blockquote>
+        📖 <strong>RAG</strong>（Retrieval-Augmented Generation，检索增强生成）= 大模型 + 实时检索你的私有文档<br/>
+        <strong>类比：</strong>RAG 相当于给大模型配了一个"随时能查公司内部资料的助理"，现查现答，不靠记忆。
+      </blockquote>
+
+      <div class="rag-diagram">
+        <div style="font-size:0.8rem;color:#6B7A99;margin-bottom:1rem;font-weight:700;letter-spacing:0.06em;">RAG 工作流程</div>
+        <div class="rag-flow">
+          <div class="rag-box blue-h">👤 用户提问<br/><small style="color:#93C5FD">"SLA 是什么？"</small></div>
+          <div class="rag-arrow">→</div>
+          <div class="rag-box highlight">🔍 向量检索<br/><small>在文档库找相关段落</small></div>
+          <div class="rag-arrow">→</div>
+          <div class="rag-box green-h">📄 召回片段<br/><small style="color:#6EE7B7">最相关的 3-5 段</small></div>
+          <div class="rag-arrow">→</div>
+          <div class="rag-box">🤖 大模型<br/><small>基于片段 + 问题生成回答</small></div>
+          <div class="rag-arrow">→</div>
+          <div class="rag-box blue-h">✅ 有据可查<br/><small style="color:#93C5FD">的准确回答</small></div>
+        </div>
+        <p class="rag-note">⚠️ 关键：AI 基于检索到的真实文档片段回答，而不是凭训练时的记忆"瞎猜"</p>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> RAG 对公司的具体价值</div>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card">
+          <span class="card-icon">🎯</span>
+          <h3>售前知识库</h3>
+          <p>产品功能说明、历史方案、竞品对比，AI 实时检索回答客户问题，售前响应速度提升 10x。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">📦</span>
+          <h3>交付知识库</h3>
+          <p>历史项目文档、标准流程、问题解决方案，新人入职和项目交付不再依赖老员工记忆。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">⚙️</span>
+          <h3>技术知识库</h3>
+          <p>内部技术规范、API 文档、架构决策记录（ADR），技术决策有据可查，减少重复踩坑。</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 2 ── -->
+    <div id="mod2" class="section">
+      <div class="section-header">
+        <div class="section-icon green">🏗️</div>
+        <div>
+          <div class="section-title">模块 2｜用 Dify 搭建 RAG 知识库</div>
+          <div class="section-subtitle">35 分钟 · 全程实操，从零到跑通</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 实操流程（从零到跑通）</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>在 Dify 创建知识库</h4>
+            <p>登录 Dify 平台 → 知识库 → 新建知识库 → 命名（如"产品手册知识库"）→ 上传文档（支持 PDF/Word/TXT/Markdown）。<strong>用公司真实脱敏文档演示效果更好。</strong></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>配置分块策略（Chunk Size）</h4>
+            <p>理解分块的重要性：太大的块召回精度低，太小的块信息不完整。</p>
+            <div class="table-wrapper" style="margin:0.5rem 0;">
+              <table>
+                <thead>
+                  <tr><th>文档类型</th><th>推荐 Chunk Size</th><th>原因</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>技术文档/规范</td><td>500-800 字符</td><td>段落结构清晰，自然边界合适</td></tr>
+                  <tr><td>FAQ 列表</td><td>200-400 字符</td><td>每条 Q&A 应独立召回</td></tr>
+                  <tr><td>长篇报告</td><td>800-1200 字符</td><td>保持完整语义段落</td></tr>
+                  <tr><td>代码文档</td><td>300-600 字符</td><td>按函数/类分块</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>创建对话应用，关联知识库</h4>
+            <p>新建对话型应用 → 在上下文配置中关联刚才创建的知识库 → 设置 Top-K 召回数量（建议 3-5）。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>写 System Prompt（企业级 RAG 最重要配置）</h4>
+            <pre>你是公司产品知识助手，专门回答关于产品功能、技术规格和解决方案的问题。
+
+【重要规则】
+1. 仅基于提供的知识库内容回答问题
+2. 如果知识库中没有相关信息，明确告知用户"知识库中暂无此信息"，不要编造
+3. 回答时注明信息来源（文档名称和章节）
+4. 如果问题模糊，先询问澄清，再给出回答
+5. 对于知识库有的内容，给出准确、简洁的回答，并标注置信度
+
+【输出格式】
+- 直接回答问题
+- 来源：[文档名称 - 章节/页码]
+- 相关延伸：如有关联内容可主动提及</pre>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>测试与对比</h4>
+            <p>测试两类问题：<strong>① 知识库里有的问题</strong>（应给出有来源的准确回答）；<strong>② 知识库里没有的问题</strong>（应说"不知道"而不是瞎编）。对比差异，验证 System Prompt 的效果。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 常见问题与调优</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>问题现象</th><th>根因</th><th>解决方向</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AI 还是在瞎编</td>
+              <td>System Prompt 没有明确限制</td>
+              <td>加"仅基于知识库内容回答"约束；增加"不知道就说不知道"指令</td>
+            </tr>
+            <tr>
+              <td>检索不准，找错段落</td>
+              <td>Chunk Size 太大 / 文档质量差</td>
+              <td>调小分块大小；清洗文档格式（去除冗余表头/页脚）</td>
+            </tr>
+            <tr>
+              <td>回答不完整</td>
+              <td>检索召回数量不足</td>
+              <td>增加 Top-K 召回数（从 3 增到 5-8）</td>
+            </tr>
+            <tr>
+              <td>相似问题答案不一致</td>
+              <td>文档存在矛盾内容</td>
+              <td>清理知识库，建立文档版本管理机制</td>
+            </tr>
+            <tr>
+              <td>响应速度慢</td>
+              <td>文档量大 / 嵌入模型慢</td>
+              <td>选用更快的 Embedding 模型；优化知识库分类</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <span class="infobox-icon">⚠️</span>
+        <div>
+          <div class="infobox-title">企业级 RAG 最重要的一条原则</div>
+          <p style="font-size:0.875rem;">System Prompt 中必须明确指定 <strong>"仅基于知识库内容回答"</strong>，否则大模型会用自己的训练知识"补充"，导致回答混入不可靠信息。</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 3 ── -->
+    <div id="mod3" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">⚡</div>
+        <div>
+          <div class="section-title">模块 3｜Skills 机制——让 AI 具备可扩展的专项能力</div>
+          <div class="section-subtitle">30 分钟 · 本期新增核心内容</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <span class="infobox-icon">🎯</span>
+        <div>
+          <div class="infobox-title">Skills 是从"会用 AI"到"设计 AI 能力"的关键跨越</div>
+          <p style="font-size:0.875rem;">本模块是第三期新增的核心内容。掌握 Skills 机制，让你从 AI 使用者变成 AI 能力设计者。</p>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 什么是 Skills？</div>
+
+      <div class="card card-accent-purple">
+        <h3 style="margin-top:0;">📌 Skills = 固化的 SOP</h3>
+        <p>Skills（技能）是为 AI 预定义的、结构化的专项能力模块，通过 <strong>提示词 + 工具 + 知识</strong> 的组合，让 AI 在特定场景下始终以专业、一致的方式执行任务。</p>
+        <div class="code-compare" style="margin:0.75rem 0;">
+          <div class="code-compare-panel">
+            <div class="code-compare-label label-bad">🔤 提示词（临时指令）</div>
+            <pre style="border-radius:0;background:#FFF5F5;color:#7F1D1D;">每次用的时候都要重新输入
+质量取决于用的人会不会写
+无法保证一致性
+不可复用、不可分享</pre>
+          </div>
+          <div class="code-compare-panel">
+            <div class="code-compare-label label-good">⚙️ Skill（固化的 SOP）</div>
+            <pre style="border-radius:0;background:#F0FDF4;color:#14532D;">一次配置，团队共享使用
+触发即按标准 SOP 执行
+质量一致，可持续优化
+可复用、可组合、可扩展</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> Skills 的三个核心要素</div>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card" style="background:#FEF3C7;border-color:#FDE68A;">
+          <span class="card-icon">🎯</span>
+          <h3>触发条件（Trigger）</h3>
+          <p>什么情况下启用这个技能？<br/>
+          例：收到含"需求"关键词的消息时 / 用户上传文档时 / 被显式调用时</p>
+        </div>
+        <div class="feature-card" style="background:#EDE9FE;border-color:#C4B5FD;">
+          <span class="card-icon">⚙️</span>
+          <h3>执行逻辑（Workflow）</h3>
+          <p>这个技能的处理步骤是什么？<br/>
+          例：提取需求 → 识别模糊点 → 评估风险 → 生成确认清单</p>
+        </div>
+        <div class="feature-card" style="background:#DCFCE7;border-color:#86EFAC;">
+          <span class="card-icon">📊</span>
+          <h3>输出规范（Output）</h3>
+          <p>产出物的格式和质量标准是什么？<br/>
+          例：Markdown 结构化报告 / JSON / 特定表格格式</p>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> Skills 的三种形态</div>
+      <div class="skills-grid">
+        <div class="skill-type-card prompt-skill">
+          <div class="skill-type-header">🔤 Prompt Skill</div>
+          <div class="skill-type-body">
+            <p><strong>纯提示词组合，无需编码</strong></p>
+            <p>通过精心设计的 System Prompt 固化 AI 行为，最简单易上手的 Skill 类型。</p>
+            <div class="example-tag">示例："需求评审专家"：始终检查 6 类问题</div>
+            <div class="example-tag" style="margin-top:4px;">适合：有固定模板的重复性任务</div>
+          </div>
+        </div>
+        <div class="skill-type-card tool-skill">
+          <div class="skill-type-header">🔧 Tool Skill</div>
+          <div class="skill-type-body">
+            <p><strong>调用外部工具的技能</strong></p>
+            <p>AI + 工具调用，可以执行搜索、API 调用、数据库查询等操作。</p>
+            <div class="example-tag">示例："竞品分析"：联网搜索 + 结构化输出</div>
+            <div class="example-tag" style="margin-top:4px;">适合：需要实时数据或外部系统的任务</div>
+          </div>
+        </div>
+        <div class="skill-type-card workflow-skill">
+          <div class="skill-type-header">🔄 Workflow Skill</div>
+          <div class="skill-type-body">
+            <p><strong>多步骤自动化技能</strong></p>
+            <p>把多个 AI 步骤和工具步骤串联成完整的自动化流程。</p>
+            <div class="example-tag">示例："合同风险扫描"：上传→提取→分析→报告</div>
+            <div class="example-tag" style="margin-top:4px;">适合：流程固定的复杂任务</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 公司级 Skills 建设路线图（优先级推荐）</div>
+      <div class="skills-roadmap">
+        <div class="sr-item">
+          <div class="sr-num">P0</div>
+          <div class="sr-content">
+            <h4>需求分析 Skill</h4>
+            <p>输入原始需求，输出：结构化用户故事 + 模糊点清单 + 技术风险评估</p>
+            <div class="sr-detail">频率：每个项目必用 | 节省时间：每次 2-3 小时 → 15 分钟</div>
+          </div>
+        </div>
+        <div class="sr-item">
+          <div class="sr-num">P0</div>
+          <div class="sr-content">
+            <h4>代码 Review Skill</h4>
+            <p>输入代码，输出：问题清单（按 Critical/Major/Minor 排序）+ 改进建议</p>
+            <div class="sr-detail">频率：每次 PR/代码提交 | 节省时间：每次 1 小时 → 5 分钟</div>
+          </div>
+        </div>
+        <div class="sr-item">
+          <div class="sr-num">P1</div>
+          <div class="sr-content">
+            <h4>售前方案 Skill</h4>
+            <p>输入客户需求，输出：方案大纲 + 差异化竞争角度 + 价值主张</p>
+            <div class="sr-detail">频率：每次售前响应 | 节省时间：每次 4-6 小时 → 1 小时</div>
+          </div>
+        </div>
+        <div class="sr-item">
+          <div class="sr-num">P1</div>
+          <div class="sr-content">
+            <h4>运维排障 Skill</h4>
+            <p>输入错误日志，输出：根因分析 + 处理步骤 + 预防措施 + SOP</p>
+            <div class="sr-detail">频率：每次线上故障 | 节省时间：排障时间缩短 50%</div>
+          </div>
+        </div>
+        <div class="sr-item">
+          <div class="sr-num">P2</div>
+          <div class="sr-content">
+            <h4>合同审查 Skill</h4>
+            <p>输入合同文本，输出：关键条款提取 + 风险点标注 + 审查意见</p>
+            <div class="sr-detail">频率：每次合同签署前 | 节省时间：需律师复核，AI 做初筛</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 🛠️ 实操：在 Dify 中创建"需求分析 Skill"</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>定义触发条件和输入格式</h4>
+            <p>在 Dify 中新建工作流（Workflow）应用，添加"开始节点"，定义输入变量：<code>requirement_doc</code>（需求文档文本）。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>配置处理步骤（4 个 AI 节点串联）</h4>
+            <pre>节点 1：功能提取
+ 提示：从以下需求文档中提取所有功能点，
+       输出 JSON 格式（id/name/priority/module/complexity）
+       
+节点 2：模糊点识别  
+ 提示：基于上一步的功能列表，识别描述模糊的功能点，
+       说明模糊原因，输出需要确认的具体问题
+
+节点 3：技术风险评估
+ 提示：评估上述功能列表中的技术实现风险，
+       按严重程度（高/中/低）排序，给出规避建议
+
+节点 4：生成确认清单
+ 提示：整合前三步的分析，生成一份可直接发给
+       客户的确认问题清单（简洁、专业）</pre>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>固定输出格式</h4>
+            <p>在最后一个节点设置输出格式：Markdown 结构化报告，包含四个章节。添加"结束节点"，配置展示变量。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>测试并迭代优化</h4>
+            <p>用一份真实脱敏需求文档测试，检查各节点输出质量。如果某个节点质量不够，单独优化该节点的提示词，直到输出符合预期。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> Skills vs RAG vs 工作流的关系</div>
+      <div class="relationship-box">
+        <div class="rb-row">
+          <span class="rb-key">RAG</span>
+          <span class="rb-sep">→</span>
+          <span class="rb-val">给 AI 提供知识</span>
+          <span class="rb-comment">（知道什么，What to know）</span>
+        </div>
+        <div class="rb-row">
+          <span class="rb-key">Skills</span>
+          <span class="rb-sep">→</span>
+          <span class="rb-val">给 AI 定义能力</span>
+          <span class="rb-comment">（会做什么，What to do）</span>
+        </div>
+        <div class="rb-row">
+          <span class="rb-key">工作流</span>
+          <span class="rb-sep">→</span>
+          <span class="rb-val">串联 Skills 完成复杂任务</span>
+          <span class="rb-comment">（怎么做，How to do）</span>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:1rem;padding-top:1rem;">
+          <div class="rb-row">
+            <span class="rb-key" style="color:#F0A090;">三者结合</span>
+            <span class="rb-sep">=</span>
+            <span class="rb-val" style="color:#F0A090;">知识 + 能力 + 流程 = 完整的 AI 应用</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 4 ── -->
+    <div id="mod4" class="section">
+      <div class="section-header">
+        <div class="section-icon teal">🔄</div>
+        <div>
+          <div class="section-title">模块 4｜AI 工作流自动化设计与实操</div>
+          <div class="section-subtitle">30 分钟 · 设计 + 搭建</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 工作流的四个基本构件</div>
+      <div class="workflow-builder">
+        <div class="wb-blocks">
+          <div class="wb-block trigger">
+            <div class="wb-icon">🔔</div>
+            <div class="wb-label">触发器（Trigger）</div>
+            <div class="wb-desc">什么事件启动流程<br/>邮件/表单/Webhook/定时</div>
+          </div>
+          <div class="wb-block ai-step">
+            <div class="wb-icon">🤖</div>
+            <div class="wb-label">AI 节点（AI Step）</div>
+            <div class="wb-desc">哪些步骤需要大模型<br/>理解/生成/分类/提取</div>
+          </div>
+          <div class="wb-block tool-step">
+            <div class="wb-icon">🔧</div>
+            <div class="wb-label">工具节点（Tool Step）</div>
+            <div class="wb-desc">操作外部系统<br/>发邮件/写数据库/调 API</div>
+          </div>
+          <div class="wb-block condition">
+            <div class="wb-icon">⑂</div>
+            <div class="wb-label">判断节点（Condition）</div>
+            <div class="wb-desc">条件分支<br/>满足条件 A 走路径 1</div>
+          </div>
+        </div>
+        <p style="font-size:0.85rem;color:var(--medium);text-align:center;margin:0;">
+          将四种构件组合，可以构建从简单到复杂的任意 AI 自动化流程
+        </p>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 三个工作流设计案例</div>
+
+      <!-- Case 1 -->
+      <div class="workflow-case">
+        <div class="wc-header">
+          <div class="wc-icon">📧</div>
+          <div class="wc-title">案例 1：客户需求邮件自动处理</div>
+        </div>
+        <div class="wc-body">
+          <div class="wc-flow">
+            <div class="wc-step">
+              <div class="wc-box trigger-box">📧 收到邮件</div>
+              <div class="wc-type">触发器</div>
+            </div>
+            <div class="wc-arrow">→</div>
+            <div class="wc-step">
+              <div class="wc-box ai-box">🤖 AI 提取需求<br/>+ 识别紧急程度</div>
+              <div class="wc-type">AI 节点</div>
+            </div>
+            <div class="wc-arrow">→</div>
+            <div class="wc-step">
+              <div class="wc-box tool-box">📋 创建项目<br/>管理任务</div>
+              <div class="wc-type">工具节点</div>
+            </div>
+            <div class="wc-arrow">→</div>
+            <div class="wc-step">
+              <div class="wc-box out-box">🔔 飞书通知<br/>负责人</div>
+              <div class="wc-type">工具节点</div>
+            </div>
+          </div>
+          <p style="font-size:0.82rem;color:var(--muted);margin:0;">⏱️ 从邮件到飞书通知：自动化，响应时间从 4 小时缩短到 5 分钟</p>
+        </div>
+      </div>
+
+      <!-- Case 2 -->
+      <div class="workflow-case">
+        <div class="wc-header">
+          <div class="wc-icon">🔀</div>
+          <div class="wc-title">案例 2：代码提交自动 Review</div>
+        </div>
+        <div class="wc-body">
+          <div class="wc-flow">
+            <div class="wc-step">
+              <div class="wc-box trigger-box">🔨 Git Push<br/>触发</div>
+              <div class="wc-type">触发器</div>
+            </div>
+            <div class="wc-arrow">→</div>
+            <div class="wc-step">
+              <div class="wc-box ai-box">🤖 AI Review<br/>代码质量</div>
+              <div class="wc-type">AI 节点</div>
+            </div>
+            <div class="wc-arrow">→</div>
+            <div class="wc-step">
+              <div class="wc-box tool-box">💬 评论到<br/>PR</div>
+              <div class="wc-type">工具节点</div>
+            </div>
+            <div class="wc-arrow">→</div>
+            <div class="wc-step">
+              <div class="wc-box ai-box">⑂ 严重问题<br/>> 阈值？</div>
+              <div class="wc-type">条件节点</div>
+            </div>
+            <div class="wc-arrow">→</div>
+            <div class="wc-step">
+              <div class="wc-box out-box">🚨 飞书<br/>告警</div>
+              <div class="wc-type">工具节点</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 3 -->
+      <div class="workflow-case">
+        <div class="wc-header">
+          <div class="wc-icon">📊</div>
+          <div class="wc-title">案例 3：周报自动生成</div>
+        </div>
+        <div class="wc-body">
+          <div class="wc-flow">
+            <div class="wc-step">
+              <div class="wc-box trigger-box">🕔 每周五<br/>定时触发</div>
+              <div class="wc-type">触发器</div>
+            </div>
+            <div class="wc-arrow">→</div>
+            <div class="wc-step">
+              <div class="wc-box tool-box">📋 拉取飞书<br/>任务进展</div>
+              <div class="wc-type">工具节点</div>
+            </div>
+            <div class="wc-arrow">→</div>
+            <div class="wc-step">
+              <div class="wc-box ai-box">🤖 AI 整理<br/>生成周报草稿</div>
+              <div class="wc-type">AI 节点</div>
+            </div>
+            <div class="wc-arrow">→</div>
+            <div class="wc-step">
+              <div class="wc-box out-box">📤 推送给<br/>对应人员</div>
+              <div class="wc-type">工具节点</div>
+            </div>
+          </div>
+          <p style="font-size:0.82rem;color:var(--muted);margin:0;">每周节省每人 30-60 分钟的周报整理时间</p>
+        </div>
+      </div>
+
+      <!-- 实操任务 -->
+      <div class="module-badge"><span class="dot"></span> 🛠️ 实操任务：搭建"需求文档自动分析工作流"</div>
+
+      <div class="infobox infobox-teacher">
+        <span class="infobox-icon">👨‍🏫</span>
+        <div>
+          <div class="infobox-title">讲师说明：约 20 分钟完成以下工作流</div>
+          <p style="font-size:0.875rem;">使用 Dify Workflow，搭建一个三步 AI 流程，实现需求文档的自动分析。</p>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h3 style="margin-top:0;">📋 工作流设计规格</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr><th>#</th><th>节点类型</th><th>输入</th><th>AI 任务</th><th>输出格式</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0</td>
+                <td><span class="badge badge-orange">开始</span></td>
+                <td>用户粘贴需求文档</td>
+                <td>—</td>
+                <td>文本变量</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td><span class="badge badge-purple">AI 节点</span></td>
+                <td>需求文档全文</td>
+                <td>提取功能列表</td>
+                <td>JSON（id/name/priority/complexity）</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><span class="badge badge-purple">AI 节点</span></td>
+                <td>功能列表</td>
+                <td>识别技术风险点</td>
+                <td>Markdown 要点列表</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><span class="badge badge-purple">AI 节点</span></td>
+                <td>功能列表 + 风险点</td>
+                <td>生成客户确认问题清单</td>
+                <td>可直接发给客户的问题列表</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td><span class="badge badge-green">结束</span></td>
+                <td>三个节点的输出</td>
+                <td>—</td>
+                <td>综合报告展示</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="infobox infobox-tip" style="margin-top:1rem;margin-bottom:0;">
+          <span class="infobox-icon">🚀</span>
+          <div><strong>进阶（选做）</strong>：接入飞书 API，把工作流输出自动发送到指定飞书群，实现真正的自动化交付。</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Homework -->
+    <div id="homework" class="homework-box">
+      <div class="homework-header">
+        <div class="hw-icon">📝</div>
+        <h2>第三期课后作业</h2>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">1</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>识别工作中的重复性任务</strong>：找出你工作中一个<strong>重复性高、有规律</strong>的任务，分析它是否适合用 Skills + 工作流自动化。
+          </p>
+          <div class="hw-deliverable">分析报告：触发器/AI 步骤/工具步骤/输出规范</div>
+        </div>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">2</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>完善 Dify 知识库</strong>：把课上搭建的知识库，上传 2-3 份真实的公司文档（脱敏），优化 System Prompt，测试回答质量。
+          </p>
+          <div class="hw-deliverable">产出物：可演示的 Dify 知识库问答应用</div>
+        </div>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">3</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>设计一个 Skill</strong>：针对你识别出的高频任务，在 Dify 中创建一个 Skill（Workflow），定义触发条件、执行步骤和输出规范，并完成至少一次真实测试。
+          </p>
+          <div class="hw-deliverable">产出物：可运行的 Dify Skill + 测试截图</div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem;padding:0.75rem 1rem;background:rgba(255,255,255,0.06);border-radius:var(--radius-md);font-size:0.85rem;color:rgba(255,255,255,0.7);">
+        💬 <strong>下期分享：</strong>展示你设计的 Skill，讲解设计思路、遇到的挑战和解决方案，讨论在团队中落地的可行性。
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="session2.html" class="page-nav-btn">← 第二期：提示词工程</a>
+      <a href="session4.html" class="page-nav-btn">第四期：MCP + AI Native →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

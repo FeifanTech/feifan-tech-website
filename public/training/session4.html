@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第四期：MCP + AI Native + 售前专题 — AI 办公实战培训 v2.0</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .mcp-arch {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      gap: 0;
+      align-items: center;
+      background: #1E2433;
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin: 1.25rem 0;
+      color: #E8EAF0;
+    }
+    .mcp-side {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mcp-box {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      font-size: 0.83rem;
+    }
+    .mcp-box.client { border-color: rgba(224,122,95,0.5); background: rgba(224,122,95,0.15); }
+    .mcp-box.server { border-color: rgba(59,130,246,0.5); background: rgba(59,130,246,0.15); }
+    .mcp-label { font-size: 0.72rem; color: #6B7A99; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .mcp-mid { text-align: center; }
+    .mcp-protocol-badge {
+      background: rgba(224,122,95,0.25);
+      border: 1px solid rgba(224,122,95,0.5);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      color: #F0A090;
+      font-weight: 700;
+      writing-mode: horizontal-tb;
+    }
+    .mcp-arrows { font-size: 1rem; color: #4A5568; margin: 4px 0; text-align: center; }
+
+    .stage-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .stage-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .stage-header {
+      padding: 1rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .stage-1 .stage-header { background: #DBEAFE; color: #1E40AF; }
+    .stage-2 .stage-header { background: #DCFCE7; color: #166534; }
+    .stage-3 .stage-header { background: linear-gradient(135deg, #6D28D9, #4F46E5); color: #fff; }
+    .stage-body { padding: 1rem 1.25rem; background: #fff; border: 1px solid var(--border); border-top: none; }
+    .stage-body ul { margin: 0; padding-left: 1.2rem; }
+    .stage-body li { font-size: 0.84rem; color: var(--medium); margin-bottom: 5px; line-height: 1.5; }
+    .stage-3 .stage-body { background: #F5F3FF; border-color: #C4B5FD; }
+
+    .presales-flow {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin: 1.25rem 0;
+    }
+    .pf-step {
+      display: flex;
+      gap: 1.25rem;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .pf-step:last-child { border-bottom: none; }
+    .pf-step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--dark);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .pf-content { flex: 1; }
+    .pf-content h3 { font-size: 1rem; margin: 0 0 4px; color: var(--dark); }
+    .pf-time { font-size: 0.75rem; color: var(--muted); font-weight: 600; margin-bottom: 0.5rem; }
+    .pf-input { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--medium); margin-bottom: 4px; }
+    .pf-output { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--success); font-weight: 600; }
+    .pf-content p { font-size: 0.875rem; color: var(--medium); margin: 0.5rem 0 0; }
+    .pf-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--dark); color: #fff; border-radius: 999px; padding: 3px 10px; font-size: 0.72rem; margin-top: 6px; }
+
+    .action-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .action-table thead th {
+      background: var(--dark);
+      color: #fff;
+      padding: 12px 16px;
+      font-size: 0.82rem;
+      text-align: left;
+    }
+    .action-table tbody tr:nth-child(even) { background: var(--warm); }
+    .action-table tbody td { padding: 12px 16px; font-size: 0.84rem; color: var(--medium); vertical-align: top; border-top: 1px solid var(--beige); }
+    .action-table tbody td:first-child { font-weight: 700; color: var(--dark); }
+
+    .mcp-code {
+      background: #1E2433;
+      color: #E8EAF0;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 1rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+    .mc-comment { color: #6B7A99; }
+    .mc-keyword { color: #C792EA; }
+    .mc-string  { color: #C3E88D; }
+    .mc-fn      { color: #82AAFF; }
+    .mc-num     { color: #F78C6C; }
+
+    .ai-native-compare {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .anc-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .anc-header { padding: 0.75rem 1.25rem; font-size: 0.82rem; font-weight: 700; }
+    .anc-replaced { .anc-header { background: #FEE2E2; color: #991B1B; } }
+    .anc-amplified { .anc-header { background: #DCFCE7; color: #166534; } }
+    .anc-irreplaceable { .anc-header { background: #DBEAFE; color: #1E40AF; } }
+    .anc-replaced .anc-header    { background: #FEE2E2; color: #991B1B; }
+    .anc-amplified .anc-header   { background: #DCFCE7; color: #166534; }
+    .anc-body { background: #fff; border: 1px solid var(--border); border-top: none; padding: 1rem 1.25rem; }
+    .anc-body ul { margin: 0; padding-left: 1.2rem; }
+    .anc-body li { font-size: 0.84rem; color: var(--medium); margin-bottom: 4px; }
+
+    @media (max-width: 768px) {
+      .mcp-arch { grid-template-columns: 1fr; }
+      .mcp-mid { transform: rotate(90deg); margin: 0.5rem 0; }
+      .stage-cards { grid-template-columns: 1fr; }
+      .pf-step { flex-direction: column; gap: 0.75rem; }
+      .ai-native-compare { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>🤖</span>
+    <span>AI 办公实战培训</span>
+    <span class="logo-badge">v2.0</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="session1.html">第一期</a>
+    <a href="session2.html">第二期</a>
+    <a href="session3.html">第三期</a>
+    <a href="session4.html" class="active">第四期</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">第四期目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#mod1" class="active">
+        <span class="nav-num">1</span> MCP：让 AI 长出手脚
+      </a></li>
+      <li><a href="#mod2">
+        <span class="nav-num">2</span> AI Native 工作方式
+      </a></li>
+      <li><a href="#mod3">
+        <span class="nav-num">3</span> AI 辅助售前方案全流程
+      </a></li>
+      <li><a href="#mod4">
+        <span class="nav-num">4</span> 课程收尾：建立长效机制
+      </a></li>
+      <li><a href="#homework">
+        <span class="nav-num">📝</span> 最终产出物
+      </a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem;border-top:1px solid var(--border);margin-top:auto;">
+      <a href="session3.html" style="font-size:0.8rem;color:var(--muted);">← 第三期</a>
+      &nbsp;&nbsp;
+      <a href="index.html" style="font-size:0.8rem;color:var(--muted);">总览</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="breadcrumb">
+      <a href="index.html">🏠 课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">第四期：MCP + AI Native + 售前专题</span>
+    </div>
+
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">第四期</span>
+        AI 办公实战培训 v2.0
+      </div>
+      <h1>MCP + AI Native + 售前专题<br/>——AI 优先的最终形态</h1>
+      <p class="hero-subtitle">理解 MCP 协议；建立 AI Native 工作理念；完整 AI 辅助售前方案实操</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item">⏱️ 时长：2.5 小时</span>
+        <span class="hero-meta-item">🎯 4 个模块</span>
+        <span class="hero-meta-item">🚀 完整售前方案实操</span>
+        <span class="hero-meta-item">📦 带走：售前方案初稿 + AI 行动计划</span>
+      </div>
+    </div>
+
+    <!-- ── Module 1 ── -->
+    <div id="mod1" class="section">
+      <div class="section-header">
+        <div class="section-icon teal">🔌</div>
+        <div>
+          <div class="section-title">模块 1｜MCP——让 AI 真正连接你的世界</div>
+          <div class="section-subtitle">35 分钟 · 原理 + 场景 + 开发入门</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 从工具调用到 MCP：概念演进</div>
+
+      <div class="flow-diagram">
+        <div class="flow-row">
+          <div class="flow-box">🤖 早期 AI<br/><small>只能对话，被动回答</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box blue">🔧 工具调用<br/><small>搜索、计算器等固定工具</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box accent">🔌 MCP 协议<br/><small>连接任意外部系统</small></div>
+        </div>
+      </div>
+
+      <div class="card card-accent-teal">
+        <h3 style="margin-top:0;">🔌 一句话理解 MCP</h3>
+        <blockquote style="margin-bottom:0;font-size:1rem;font-style:normal;font-weight:600;">
+          MCP = AI 的 USB 接口。任何系统，只要实现了 MCP Server，AI 就能操作它。
+        </blockquote>
+        <p style="margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+          MCP（Model Context Protocol）是 Anthropic 提出的开放标准协议，让 AI 通过标准接口连接任意外部系统——就像 USB 接口让你可以连接任何外设一样。
+        </p>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> MCP 架构：两个角色</div>
+
+      <div class="mcp-arch">
+        <div class="mcp-side">
+          <div class="mcp-label">MCP Client（调用方）</div>
+          <div class="mcp-box client">🧠 Claude</div>
+          <div class="mcp-box client">⚙️ Cursor / Claude Code</div>
+          <div class="mcp-box client">🏗️ Dify</div>
+          <div class="mcp-box client">🤖 任何支持 MCP 的 AI</div>
+          <div style="font-size:0.75rem;color:#6B7A99;margin-top:8px;">调用 MCP Server 的能力</div>
+        </div>
+        <div class="mcp-mid">
+          <div class="mcp-protocol-badge">MCP<br/>标准<br/>协议</div>
+          <div class="mcp-arrows">⇄</div>
+        </div>
+        <div class="mcp-side">
+          <div class="mcp-label">MCP Server（能力提供方）</div>
+          <div class="mcp-box server">📋 飞书 / 企业微信</div>
+          <div class="mcp-box server">🗄️ 数据库（MySQL/PG）</div>
+          <div class="mcp-box server">📁 代码仓库（GitHub）</div>
+          <div class="mcp-box server">📊 项目管理（Jira）</div>
+          <div class="mcp-box server">🏢 自建 CRM / ERP</div>
+          <div style="font-size:0.75rem;color:#6B7A99;margin-top:8px;">把系统能力暴露为标准接口</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> MCP 对公司的具体价值</div>
+      <div class="card-grid card-grid-2">
+        <div class="feature-card">
+          <span class="card-icon">📋</span>
+          <h3>连接飞书</h3>
+          <p>AI 直接读取飞书文档、创建任务、发送消息。不再需要人工复制粘贴，信息流动完全自动化。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">📊</span>
+          <h3>连接项目管理系统</h3>
+          <p>AI 直接查询任务状态、更新进度、生成报告。项目管理从被动查询变为主动推送。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">👥</span>
+          <h3>连接 CRM</h3>
+          <p>AI 读取客户信息、历史跟进记录，在写售前方案时自动引用相关背景，个性化程度大幅提升。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">💻</span>
+          <h3>连接代码仓库</h3>
+          <p>AI 直接读取代码文件进行 Review，而不是靠人把代码复制过来。Cursor 已原生支持 GitHub MCP。</p>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> MCP Server 开发门槛（工程师视角）</div>
+
+      <div class="infobox infobox-success">
+        <span class="infobox-icon">✅</span>
+        <div>
+          <div class="infobox-title">核心结论：MCP Server 开发成本约等于写一组 REST API</div>
+          <p style="font-size:0.875rem;">对工程师而言，把自建系统接入 AI 生态是完全可行的工程任务。以下是一个最简单的 Python MCP Server 示例（约 50 行代码）：</p>
+        </div>
+      </div>
+
+      <div class="mcp-code">
+<span class="mc-comment"># 最简单的 MCP Server 示例：把公司项目查询接口暴露给 AI</span>
+<span class="mc-comment"># 安装：pip install mcp</span>
+
+<span class="mc-keyword">from</span> mcp.server <span class="mc-keyword">import</span> Server
+<span class="mc-keyword">from</span> mcp.server.stdio <span class="mc-keyword">import</span> stdio_server
+<span class="mc-keyword">from</span> mcp.types <span class="mc-keyword">import</span> Tool, TextContent
+<span class="mc-keyword">import</span> json
+
+server = <span class="mc-fn">Server</span>(<span class="mc-string">"company-tools"</span>)
+
+<span class="mc-comment"># 定义 AI 可以调用的工具（函数）</span>
+@server.<span class="mc-fn">list_tools</span>()
+<span class="mc-keyword">async def</span> <span class="mc-fn">list_tools</span>():
+    <span class="mc-keyword">return</span> [
+        <span class="mc-fn">Tool</span>(
+            name=<span class="mc-string">"get_project_status"</span>,
+            description=<span class="mc-string">"查询指定项目的当前状态、里程碑和风险"</span>,
+            inputSchema={
+                <span class="mc-string">"type"</span>: <span class="mc-string">"object"</span>,
+                <span class="mc-string">"properties"</span>: {
+                    <span class="mc-string">"project_id"</span>: {<span class="mc-string">"type"</span>: <span class="mc-string">"string"</span>, <span class="mc-string">"description"</span>: <span class="mc-string">"项目 ID"</span>}
+                }
+            }
+        )
+    ]
+
+<span class="mc-comment"># 实现工具的具体逻辑</span>
+@server.<span class="mc-fn">call_tool</span>()
+<span class="mc-keyword">async def</span> <span class="mc-fn">call_tool</span>(name: str, arguments: dict):
+    <span class="mc-keyword">if</span> name == <span class="mc-string">"get_project_status"</span>:
+        <span class="mc-comment"># 调用你公司的内部 API</span>
+        data = <span class="mc-fn">fetch_from_internal_api</span>(arguments[<span class="mc-string">"project_id"</span>])
+        <span class="mc-keyword">return</span> [<span class="mc-fn">TextContent</span>(type=<span class="mc-string">"text"</span>, text=json.<span class="mc-fn">dumps</span>(data, ensure_ascii=<span class="mc-keyword">False</span>))]
+
+<span class="mc-comment"># 启动 Server（Claude Desktop / Cursor 等通过 stdio 调用）</span>
+<span class="mc-keyword">if</span> __name__ == <span class="mc-string">"__main__"</span>:
+    <span class="mc-keyword">import</span> asyncio
+    asyncio.<span class="mc-fn">run</span>(stdio_server(<span class="mc-fn">main</span>(server)))
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 现有 MCP 生态速览</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>工具/平台</th><th>MCP Server 状态</th><th>可实现的 AI 操作</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>GitHub</td><td><span class="badge badge-green">✅ 官方支持</span></td><td>AI 直接读取/搜索代码、PR、Issues</td></tr>
+            <tr><td>Slack</td><td><span class="badge badge-green">✅ 官方支持</span></td><td>AI 发送消息、读取频道历史</td></tr>
+            <tr><td>Google Drive</td><td><span class="badge badge-green">✅ 官方支持</span></td><td>AI 读写 Google 文档/表格</td></tr>
+            <tr><td>数据库（MySQL/PG）</td><td><span class="badge badge-green">✅ 开源可用</span></td><td>AI 直接执行 SQL 查询分析数据</td></tr>
+            <tr><td>Jira</td><td><span class="badge badge-green">✅ 社区支持</span></td><td>AI 查询/创建/更新 Issue</td></tr>
+            <tr><td>Notion</td><td><span class="badge badge-green">✅ 官方支持</span></td><td>AI 读写 Notion 页面和数据库</td></tr>
+            <tr><td>飞书</td><td><span class="badge badge-blue">🔧 可自建</span></td><td>调用飞书 API 封装为 MCP Server</td></tr>
+            <tr><td>公司自建系统</td><td><span class="badge badge-orange">⚡ 工程师实现</span></td><td>任何能力都可以通过 MCP 暴露给 AI</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> MCP vs Skills vs 工作流的完整关系</div>
+      <div class="card card-accent-teal">
+        <div class="flow-diagram" style="background:transparent;border:none;padding:0.5rem 0;">
+          <div class="flow-row">
+            <div class="flow-box purple" style="min-width:150px;text-align:left;padding:12px 16px;">
+              <strong>Skills</strong><br/>
+              <small>定义 AI 的能力边界<br/>（能做什么）</small>
+            </div>
+            <div style="font-size:1.5rem;color:var(--border);">+</div>
+            <div class="flow-box blue" style="min-width:150px;text-align:left;padding:12px 16px;">
+              <strong>MCP</strong><br/>
+              <small>给 AI 接上外部系统的手脚<br/>（能操作什么）</small>
+            </div>
+            <div style="font-size:1.5rem;color:var(--border);">+</div>
+            <div class="flow-box green" style="min-width:150px;text-align:left;padding:12px 16px;">
+              <strong>工作流</strong><br/>
+              <small>编排执行顺序<br/>（怎么做）</small>
+            </div>
+            <div class="flow-arrow">=</div>
+            <div class="flow-box accent" style="min-width:160px;padding:12px 16px;">
+              <strong>真正意义上的<br/>AI Agent</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 2 ── -->
+    <div id="mod2" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">🚀</div>
+        <div>
+          <div class="section-title">模块 2｜AI Native 工作方式——思维的最终转变</div>
+          <div class="section-subtitle">25 分钟 · 自我诊断 + 认知升级</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 三个阶段的自我诊断</div>
+
+      <div class="stage-cards">
+        <div class="stage-card stage-1">
+          <div class="stage-header">阶段 1：AI 辅助（Tool User）</div>
+          <div class="stage-body">
+            <ul>
+              <li>偶尔用 AI 处理特定任务</li>
+              <li>大部分时候靠自己</li>
+              <li>AI 是"锦上添花"的工具</li>
+              <li>遇到问题才想到用 AI</li>
+            </ul>
+            <div class="badge badge-gray" style="margin-top:10px;">大多数人现在所在的位置</div>
+          </div>
+        </div>
+        <div class="stage-card stage-2">
+          <div class="stage-header">阶段 2：AI 优先（AI First）</div>
+          <div class="stage-body">
+            <ul>
+              <li>遇到任务先问"AI 能做哪些"</li>
+              <li>习惯用 AI 处理 A 类任务</li>
+              <li>自己专注 B/C 类判断</li>
+              <li>有个人提示词库</li>
+            </ul>
+            <div class="badge badge-green" style="margin-top:10px;">本课程的培训目标</div>
+          </div>
+        </div>
+        <div class="stage-card stage-3">
+          <div class="stage-header">🏆 阶段 3：AI Native</div>
+          <div class="stage-body">
+            <ul>
+              <li>从设计阶段就考虑 AI 介入点</li>
+              <li>团队协作方式围绕 AI 能力重构</li>
+              <li>AI 是基础设施而不是工具</li>
+              <li>Skills 持续迭代形成竞争壁垒</li>
+            </ul>
+            <div class="badge badge-purple" style="margin-top:10px;">长期发展目标</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> AI Native 的四个具体特征</div>
+      <div class="card-grid card-grid-2">
+        <div class="feature-card">
+          <span class="card-icon">📄</span>
+          <h3>文档即 Prompt 材料</h3>
+          <p>写需求文档时，同步考虑"这份文档能直接喂给 AI 处理吗"。结构化程度更高，为 AI 可处理性而设计。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">📦</span>
+          <h3>输出物标准化</h3>
+          <p>方案、代码、测试用例都有 AI 可处理的模板。知识沉淀到知识库而不是个人脑袋，离职不带走价值。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">⚖️</span>
+          <h3>人机边界清晰</h3>
+          <p>团队明确哪些角色的哪些工作由 AI 完成，人专注更高阶的判断和关系维护。边界模糊是最大效率杀手。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🔄</span>
+          <h3>Skills 持续迭代</h3>
+          <p>把团队沉淀的最佳实践持续转化为可复用的 Skills。这是可积累的智力资产，形成竞争壁垒。</p>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> AI 时代的个人竞争力重构</div>
+      <div class="ai-native-compare">
+        <div class="anc-card anc-replaced">
+          <div class="anc-header">⚠️ 被 AI 替代的能力（低附加值）</div>
+          <div class="anc-body">
+            <ul>
+              <li>重复性文档整理</li>
+              <li>样板代码编写</li>
+              <li>基础数据分析报告</li>
+              <li>格式转换处理</li>
+              <li>标准化文案撰写</li>
+            </ul>
+          </div>
+        </div>
+        <div class="anc-card anc-amplified">
+          <div class="anc-header">🚀 被 AI 放大的能力（高杠杆）</div>
+          <div class="anc-body">
+            <ul>
+              <li>执行速度（AI 加速执行）</li>
+              <li>代码产量（3-10x 提升）</li>
+              <li>方案覆盖度（更全面）</li>
+              <li>文档质量（更结构化）</li>
+              <li>响应速度（更及时）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">AI 替代不了的核心能力</div>
+          <ul style="font-size:0.875rem;margin:0.5rem 0 0;padding-left:1.2rem;">
+            <li><strong>复杂判断与决策</strong>：需要综合多方信息、价值观、利益权衡的决策</li>
+            <li><strong>利益协调</strong>：理解各方诉求，找到多方共赢的方案</li>
+            <li><strong>客户信任建立</strong>：长期积累的人际关系和信任</li>
+            <li><strong>创意方向把控</strong>：对"什么是好的"的审美判断和方向感</li>
+          </ul>
+          <p style="margin:0.75rem 0 0;font-size:0.875rem;font-weight:700;">
+            结论：未来竞争不是"你 vs AI"，而是"<span class="hl-red">会用 AI 的你</span> vs 不会用 AI 的你的竞争对手"
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 3 ── -->
+    <div id="mod3" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">🎯</div>
+        <div>
+          <div class="section-title">模块 3｜专题课：AI 辅助售前方案全流程</div>
+          <div class="section-subtitle">50 分钟 · 完整实操，现场生成一份售前方案初稿</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-teacher">
+        <span class="infobox-icon">🎯</span>
+        <div>
+          <div class="infobox-title">本模块目标</div>
+          <p style="font-size:0.875rem;">从客户需求输入，到可交付的售前方案，全程 AI 辅助，人只做方向判断和最终把关。现场走完整个流程，每位学员当天带走一份可用的方案初稿。</p>
+        </div>
+      </div>
+
+      <div class="presales-flow">
+        <!-- Step 1 -->
+        <div class="pf-step">
+          <div class="pf-step-num">1</div>
+          <div class="pf-content">
+            <h3>客户需求消化</h3>
+            <div class="pf-time">⏱️ 约 10 分钟</div>
+            <div class="pf-input">📥 <strong>输入：</strong>客户需求文档 / 会议纪要 / 邮件（脱敏真实案例）</div>
+            <div class="pf-output">📤 <strong>产出：</strong>结构化需求分析报告（2 页内）</div>
+            <p>让 AI 完成：① 提炼客户核心痛点（按优先级排序）；② 识别客户未说出口的隐性需求；③ 识别需求中的技术风险和边界模糊点；④ 生成需要向客户确认的问题清单。</p>
+            <pre style="margin-top:0.75rem;">你是一位有 10 年经验的解决方案架构师（SA）。
+请仔细阅读以下客户需求材料，完成四个任务：
+
+1. 【痛点分析】提炼客户核心痛点（按重要程度排序，≤5条）
+2. 【隐性需求】识别客户没有明说但可能存在的深层需求
+3. 【技术风险】列出需求中的技术风险和边界模糊点
+4. 【确认清单】生成需要向客户确认的问题列表（可直接发给客户）
+
+输出格式：Markdown，分四个章节，每章节 5-8 条要点。
+
+---材料开始---
+[粘贴脱敏的客户需求文档]
+---材料结束---</pre>
+            <div class="pf-badge">✅ 人工审核：确认痛点优先级是否准确</div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="pf-step">
+          <div class="pf-step-num">2</div>
+          <div class="pf-content">
+            <h3>方案框架设计</h3>
+            <div class="pf-time">⏱️ 约 10 分钟</div>
+            <div class="pf-input">📥 <strong>输入：</strong>Step 1 的需求分析 + 公司产品能力说明（从 Dify 知识库 RAG 检索）</div>
+            <div class="pf-output">📤 <strong>产出：</strong>方案大纲（可与讲师/同事快速对齐）</div>
+            <p>让 AI 生成方案目录结构，评估每个章节的论述重点，并建议<strong>差异化竞争角度</strong>（为什么选我们而不是竞争对手）。</p>
+            <pre style="margin-top:0.75rem;">基于以上需求分析，以及我们公司的产品能力：
+[从 Dify 知识库粘贴：公司产品能力说明]
+
+请生成一份售前方案的目录结构，包含：
+1. 方案章节列表（背景/痛点/解决方案/技术架构/实施计划/预期价值/报价逻辑）
+2. 每章节的 2-3 个核心论述重点
+3. 建议 2-3 个差异化竞争角度（对比主要竞争对手）
+
+输出格式：Markdown，结构清晰</pre>
+            <div class="pf-badge">✅ 人工审核：确认方案方向和竞争角度</div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="pf-step">
+          <div class="pf-step-num">3</div>
+          <div class="pf-content">
+            <h3>核心内容生成</h3>
+            <div class="pf-time">⏱️ 约 15 分钟</div>
+            <div class="pf-input">📥 <strong>输入：</strong>大纲各章节 + 技术架构说明 + 历史案例（RAG 检索）</div>
+            <div class="pf-output">📤 <strong>产出：</strong>方案各章节初稿</div>
+            <p>按大纲分章节，逐块让 AI 生成初稿。重点演示三个场景：</p>
+            <div class="card-grid card-grid-3" style="margin:0.75rem 0;">
+              <div style="background:var(--warm);border-radius:var(--radius-md);padding:1rem;border:1px solid var(--border);">
+                <h4 style="font-size:0.88rem;">📐 技术架构描述</h4>
+                <p style="font-size:0.82rem;color:var(--medium);">给出架构图说明，AI 生成专业的文字解释，包含关键技术选型和设计决策依据。</p>
+              </div>
+              <div style="background:var(--warm);border-radius:var(--radius-md);padding:1rem;border:1px solid var(--border);">
+                <h4 style="font-size:0.88rem;">📅 实施计划生成</h4>
+                <p style="font-size:0.82rem;color:var(--medium);">输入项目范围和团队规模，AI 生成分阶段实施计划（含里程碑和风险说明）。</p>
+              </div>
+              <div style="background:var(--warm);border-radius:var(--radius-md);padding:1rem;border:1px solid var(--border);">
+                <h4 style="font-size:0.88rem;">💰 ROI 价值主张</h4>
+                <p style="font-size:0.82rem;color:var(--medium);">输入客户痛点和方案能力，AI 生成量化的预期价值陈述（ROI 框架），增强说服力。</p>
+              </div>
+            </div>
+            <pre style="margin-top:0.5rem;">【实施计划生成示例 Prompt】
+你是一位有 10 年经验的项目经理（PMP）。
+基于以下项目信息，生成分阶段实施计划：
+
+项目范围：[填入]
+团队规模：[填入]
+时间约束：[填入]
+关键里程碑要求：[填入]
+
+请生成：
+1. 分阶段计划（Phase 1/2/3 及其目标和时间范围）
+2. 每阶段关键里程碑（Milestone）
+3. 主要风险及应对措施
+4. 对客户的资源投入要求
+
+格式：表格 + 甘特图（文字版）</pre>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="pf-step">
+          <div class="pf-step-num">4</div>
+          <div class="pf-content">
+            <h3>PPT 生成与优化</h3>
+            <div class="pf-time">⏱️ 约 10 分钟</div>
+            <div class="pf-input">📥 <strong>输入：</strong>完整方案文字稿</div>
+            <div class="pf-output">📤 <strong>产出：</strong>PPT 大纲 + 每页关键信息点</div>
+            <p>用 AI（配合飞书 / Gamma / ChatGPT）把文字方案转化为 PPT 大纲。用提示词控制结构、风格和信息密度。</p>
+            <pre>请将以下方案文字稿转化为 PPT 演示大纲：
+
+【规格要求】
+- 总页数：15-20 页
+- 风格：商务专业，信息密度中等
+- 每页：1 个核心观点 + 2-3 个支撑要点
+- 特别要求：每页给出建议的视觉元素（图表/流程图/数字大字/对比表格）
+
+【方案文字稿】
+[粘贴方案文字内容]</pre>
+            <div class="infobox infobox-tip" style="margin:0.75rem 0 0;padding:0.75rem;">
+              <span class="infobox-icon">⚠️</span>
+              <div style="font-size:0.82rem;"><strong>边界认知：</strong>AI 生成结构和文字，设计排版还需要人工或专业工具（Gamma / 飞书 / PowerPoint）完成最终美化。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="pf-step" style="border-bottom:none;">
+          <div class="pf-step-num">5</div>
+          <div class="pf-content">
+            <h3>质量把关与个性化</h3>
+            <div class="pf-time">⏱️ 约 5 分钟</div>
+            <div class="pf-input">📥 <strong>输入：</strong>AI 生成的完整初稿</div>
+            <div class="pf-output">📤 <strong>产出：</strong>可交付的售前方案初稿</div>
+            <p>AI <strong>不能</strong>替代的部分：</p>
+            <div class="card-grid card-grid-2" style="margin:0.5rem 0;">
+              <div class="card" style="padding:0.75rem;margin:0;">
+                <ul style="margin:0;padding-left:1rem;">
+                  <li style="font-size:0.82rem;">客户关系的个性化表达</li>
+                  <li style="font-size:0.82rem;">竞争对手的最新动态判断</li>
+                </ul>
+              </div>
+              <div class="card" style="padding:0.75rem;margin:0;">
+                <ul style="margin:0;padding-left:1rem;">
+                  <li style="font-size:0.82rem;">报价策略中的商务判断</li>
+                  <li style="font-size:0.82rem;">方案交付时的现场应变</li>
+                </ul>
+              </div>
+            </div>
+            <div class="flow-diagram" style="padding:1rem;margin:0.75rem 0 0;">
+              <div class="flow-row">
+                <div class="flow-box purple">AI 生成<br/>初稿</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box blue">人工审核<br/>把关</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box green">人工个性化<br/>润色</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box accent">客户<br/>交付</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 4 ── -->
+    <div id="mod4" class="section">
+      <div class="section-header">
+        <div class="section-icon green">🗺️</div>
+        <div>
+          <div class="section-title">模块 4｜课程收尾——建立长效机制</div>
+          <div class="section-subtitle">20 分钟 · 个人行动计划 + 团队路线图</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 个人行动计划（每人当场写下）</div>
+
+      <div class="card card-lg card-accent-red">
+        <h3 style="margin-top:0;">✍️ 现在，写下你的 AI 行动计划</h3>
+        <div class="card-grid card-grid-3">
+          <div style="background:var(--warm);border-radius:var(--radius-md);padding:1.25rem;border:1px solid var(--border);">
+            <div style="font-size:2rem;font-weight:900;color:var(--accent);line-height:1;margin-bottom:0.5rem;">明天</div>
+            <p style="font-size:0.875rem;font-weight:600;color:var(--dark);">明天开始做的一件事</p>
+            <p style="font-size:0.82rem;color:var(--muted);">要具体、可执行。<br/>例：用 AI 做今天的第一个 A 类任务</p>
+          </div>
+          <div style="background:var(--warm);border-radius:var(--radius-md);padding:1.25rem;border:1px solid var(--border);">
+            <div style="font-size:2rem;font-weight:900;color:var(--info);line-height:1;margin-bottom:0.5rem;">本月</div>
+            <p style="font-size:0.875rem;font-weight:600;color:var(--dark);">本月要搭建的一个 AI 辅助流程</p>
+            <p style="font-size:0.82rem;color:var(--muted);">要可量化。<br/>例：需求分析 Skill + 自动化工作流</p>
+          </div>
+          <div style="background:var(--warm);border-radius:var(--radius-md);padding:1.25rem;border:1px solid var(--border);">
+            <div style="font-size:2rem;font-weight:900;color:var(--success);line-height:1;margin-bottom:0.5rem;">三个月</div>
+            <p style="font-size:0.875rem;font-weight:600;color:var(--dark);">三个月内要实现的效率目标</p>
+            <p style="font-size:0.82rem;color:var(--muted);">要可测量。<br/>例：AI 覆盖 80% 的 A 类任务</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 团队 AI 能力建设路线图</div>
+      <div class="table-wrapper">
+        <table class="action-table">
+          <thead>
+            <tr>
+              <th>建设项</th>
+              <th>具体行动</th>
+              <th>负责角色</th>
+              <th>参考时间线</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>📚 提示词库</td>
+              <td>在飞书建立团队共享提示词库，按场景分类，持续沉淀优质模板</td>
+              <td>全员共建，指定 Owner</td>
+              <td>培训后 1 周启动</td>
+            </tr>
+            <tr>
+              <td>⚡ Skills 库</td>
+              <td>把高频任务（需求分析/代码 Review/运维排障）的最佳实践沉淀为 Dify Skills</td>
+              <td>技术骨干主导</td>
+              <td>培训后 2-4 周完成第一批</td>
+            </tr>
+            <tr>
+              <td>📖 知识库运营</td>
+              <td>Dify 知识库指定专人维护文档质量和版本，建立上传/更新规范</td>
+              <td>交付专家负责</td>
+              <td>培训后 1 个月建立规范</td>
+            </tr>
+            <tr>
+              <td>🔌 MCP 接入</td>
+              <td>评估哪个内部系统优先接入 AI 生态（建议：飞书或项目管理系统），制定路线图</td>
+              <td>工程师团队</td>
+              <td>培训后 1-2 个月评估</td>
+            </tr>
+            <tr>
+              <td>🔒 使用规范</td>
+              <td>明确哪些信息可以/不可以输入第三方 AI 平台，制定数据安全规范</td>
+              <td>管理层决策</td>
+              <td>培训后 2 周完成</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 持续学习机制</div>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card">
+          <span class="card-icon">📡</span>
+          <h3>模型能力追踪</h3>
+          <p>Anthropic / OpenAI 官方博客，每月关注一次模型能力更新。大模型能力每 3-6 个月有显著提升。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">💬</span>
+          <h3>实践分享群</h3>
+          <p>在飞书建立培训后的实践分享群，持续发"我今天用 AI 做了什么"，让案例和经验在团队流通。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">📊</span>
+          <h3>季度评估</h3>
+          <p>每季度用 ABC 框架重新评估工作任务，把新的 A 类任务交给 AI。能力提升是持续的过程。</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Final deliverable -->
+    <div id="homework" class="homework-box">
+      <div class="homework-header">
+        <div class="hw-icon">🏆</div>
+        <h2>四期课程最终产出物汇总</h2>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">1</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>第四期直接产出：售前方案初稿</strong>：今天课上 AI 辅助生成的售前方案初稿，完成人工审核和个性化调整后，<strong>可直接交给客户使用</strong>。
+          </p>
+          <div class="hw-deliverable">产出物：可交付的售前方案初稿</div>
+        </div>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">2</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>个人 AI 行动计划</strong>：写下你的明天、本月、三个月行动计划，在飞书提交，讲师和团队共同跟进落地情况。
+          </p>
+          <div class="hw-deliverable">产出物：个人 AI 行动计划（飞书文档）</div>
+        </div>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">3</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>四期综合复盘</strong>（可选）：对比第一期课前和今天的工作方式，量化 AI 对你个人效率的影响：节省了多少时间？哪些任务方式永久改变了？
+          </p>
+          <div class="hw-deliverable">选做：一页 AI 效率报告</div>
+        </div>
+      </div>
+
+      <!-- Summary table -->
+      <div style="margin-top:1.5rem;padding:1.25rem;background:rgba(255,255,255,0.06);border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.1);">
+        <div style="font-size:0.85rem;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:0.75rem;">📦 四期产出物总结</div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;">
+          <div style="background:rgba(255,255,255,0.06);border-radius:var(--radius-sm);padding:0.75rem;font-size:0.82rem;color:rgba(255,255,255,0.8);">
+            <strong style="color:var(--accent-light);">第一期</strong><br/>ABC 任务分类表 + 第一个有效 Prompt
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:var(--radius-sm);padding:0.75rem;font-size:0.82rem;color:rgba(255,255,255,0.8);">
+            <strong style="color:#93C5FD;">第二期</strong><br/>个人提示词模板库 + Cursor 实战成果
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:var(--radius-sm);padding:0.75rem;font-size:0.82rem;color:rgba(255,255,255,0.8);">
+            <strong style="color:#86EFAC;">第三期</strong><br/>Dify 知识库 + Skill + 工作流
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:var(--radius-sm);padding:0.75rem;font-size:0.82rem;color:rgba(255,255,255,0.8);">
+            <strong style="color:#DDD6FE;">第四期</strong><br/>售前方案初稿 + 个人 AI 行动计划
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem;padding:1rem;background:rgba(224,122,95,0.15);border-radius:var(--radius-md);border:1px solid rgba(224,122,95,0.3);font-size:0.9rem;color:rgba(255,255,255,0.9);">
+        🎉 <strong>感谢参与 AI 办公实战培训 v2.0！</strong><br/>
+        今天学到的工具和方法，只有在实际工作中反复使用才能真正内化。从明天开始，<strong>让 AI 帮你完成第一个 A 类任务</strong>，迈出 AI Native 的第一步。
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="session3.html" class="page-nav-btn">← 第三期：RAG + 工作流</a>
+      <a href="index.html" class="page-nav-btn">返回课程总览 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
