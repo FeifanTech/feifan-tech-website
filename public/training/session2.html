@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第二期：提示词工程 + AI Coding 实战 — AI 办公实战培训 v2.0</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .prompt-formula {
+      background: #1E2433;
+      color: #E8EAF0;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin: 1.25rem 0;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .pf-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+      font-size: 0.88rem;
+    }
+    .pf-key { color: #82AAFF; min-width: 160px; flex-shrink: 0; font-weight: 600; }
+    .pf-val { color: #C3E88D; }
+    .pf-comment { color: #6B7A99; font-style: italic; }
+
+    .coding-scenarios {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .cs-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .cs-header {
+      padding: 1rem 1.25rem;
+      background: var(--warm);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cs-icon { font-size: 1.4rem; }
+    .cs-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); }
+    .cs-tag   { font-size: 0.72rem; color: var(--muted); }
+    .cs-body  { padding: 1.25rem; }
+    .cs-body ul { margin: 0; padding-left: 1.2rem; }
+    .cs-body li { font-size: 0.84rem; color: var(--medium); margin-bottom: 5px; line-height: 1.5; }
+
+    .tool-compare-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: stretch;
+      margin: 0.75rem 0;
+      flex-wrap: wrap;
+    }
+    .tc-tool {
+      flex: 1;
+      min-width: 160px;
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      font-size: 0.82rem;
+    }
+    .tc-tool strong { color: var(--dark); display: block; margin-bottom: 3px; }
+    .tc-tool span { color: var(--medium); }
+
+    .prompt-lib {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .pl-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .pl-header {
+      padding: 8px 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .pl-dev    .pl-header { background: #DBEAFE; color: #1E40AF; }
+    .pl-test   .pl-header { background: #DCFCE7; color: #166534; }
+    .pl-review .pl-header { background: #EDE9FE; color: #6D28D9; }
+    .pl-ops    .pl-header { background: #FEF3C7; color: #92400E; }
+    .pl-card pre { margin: 0; border-radius: 0; font-size: 0.78rem; background: #FAFAFA; color: var(--dark); line-height: 1.6; padding: 1rem; }
+
+    @media (max-width: 768px) {
+      .coding-scenarios { grid-template-columns: 1fr; }
+      .prompt-lib { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>🤖</span>
+    <span>AI 办公实战培训</span>
+    <span class="logo-badge">v2.0</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="session1.html">第一期</a>
+    <a href="session2.html" class="active">第二期</a>
+    <a href="session3.html">第三期</a>
+    <a href="session4.html">第四期</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">第二期目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#mod1" class="active">
+        <span class="nav-num">1</span> 提示词设计底层逻辑
+      </a></li>
+      <li><a href="#mod2">
+        <span class="nav-num">2</span> 六种核心技法
+      </a></li>
+      <li><a href="#mod3">
+        <span class="nav-num">3</span> AI Coding 全链路实战
+      </a></li>
+      <li><a href="#mod4">
+        <span class="nav-num">4</span> 提示词管理与沉淀
+      </a></li>
+      <li><a href="#homework">
+        <span class="nav-num">📝</span> 课后作业
+      </a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem;border-top:1px solid var(--border);margin-top:auto;">
+      <a href="session1.html" style="font-size:0.8rem;color:var(--muted);">← 第一期</a>
+      &nbsp;&nbsp;
+      <a href="session3.html" style="font-size:0.8rem;color:var(--muted);">第三期 →</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="breadcrumb">
+      <a href="index.html">🏠 课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">第二期：提示词工程 + AI Coding 实战</span>
+    </div>
+
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">第二期</span>
+        AI 办公实战培训 v2.0
+      </div>
+      <h1>提示词工程 + AI Coding 实战<br/>——让 AI 真正成为你的开发搭档</h1>
+      <p class="hero-subtitle">掌握系统化的提示词设计方法；在代码开发全链路中大幅提升效率，实现开发提速 3x</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item">⏱️ 时长：2.5 小时</span>
+        <span class="hero-meta-item">🎯 4 个模块</span>
+        <span class="hero-meta-item">💻 7 个 Coding 场景</span>
+        <span class="hero-meta-item">📦 带走：Prompt 模板库 + Cursor 实战成果</span>
+      </div>
+    </div>
+
+    <!-- ── Module 1 ── -->
+    <div id="mod1" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">📐</div>
+        <div>
+          <div class="section-title">模块 1｜提示词设计的底层逻辑</div>
+          <div class="section-subtitle">20 分钟 · 认知建立</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 工程师视角的类比：提示词 = 函数签名</div>
+
+      <div class="infobox infobox-info">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">核心类比：提示词就是函数签名</div>
+          <p style="font-size:0.875rem;">一个好的提示词和一个好的函数一样，需要明确<strong>输入、约束、输出格式和边界情况</strong>。模糊的函数签名会产生不可预期的行为，模糊的提示词也一样。</p>
+        </div>
+      </div>
+
+      <div class="prompt-formula">
+        <div class="pf-row">
+          <span class="pf-key">// 函数设计视角</span>
+          <span class="pf-comment">prompt_function()</span>
+        </div>
+        <div class="pf-row">
+          <span class="pf-key">Input（输入）</span>
+          <span class="pf-val">背景信息、原始材料、文档、代码片段</span>
+        </div>
+        <div class="pf-row">
+          <span class="pf-key">Constraints（约束）</span>
+          <span class="pf-val">限制条件（不超过 500 字）、禁止事项（不要生图）</span>
+        </div>
+        <div class="pf-row">
+          <span class="pf-key">Output Format（格式）</span>
+          <span class="pf-val">Markdown / JSON / 代码 / 表格 / 要点列表</span>
+        </div>
+        <div class="pf-row">
+          <span class="pf-key">Edge Cases（边界）</span>
+          <span class="pf-val">遇到不确定情况时怎么处理（"如果信息不足，请列出需要补充的内容"）</span>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 提示词的四个核心要素（详解）</div>
+
+      <div class="card-grid card-grid-2" style="margin:1.25rem 0;">
+        <div class="card card-accent-red">
+          <h4>🎭 角色（Role）</h4>
+          <p>告诉 AI 它是谁，决定知识视角和表达风格。角色越具体，输出越专业。</p>
+          <div style="background:var(--warm);border-radius:var(--radius-sm);padding:0.75rem;margin-top:0.5rem;">
+            <p style="font-size:0.82rem;color:var(--medium);margin:0;">
+              ❌ 弱："你是一个程序员"<br/>
+              ✅ 强："你是一位有 10 年经验的 Java 架构师，专注于高并发系统设计，熟悉 Spring Cloud 生态"
+            </p>
+          </div>
+        </div>
+        <div class="card card-accent-blue">
+          <h4>🌍 背景（Context）</h4>
+          <p>当前情况，越具体越好。包含：项目背景、技术栈、团队规模、约束条件、已有尝试。</p>
+          <div style="background:var(--warm);border-radius:var(--radius-sm);padding:0.75rem;margin-top:0.5rem;">
+            <p style="font-size:0.82rem;color:var(--medium);margin:0;">
+              背景决定 AI 的"参考系"。同一个问题，背景不同，答案可以完全不同。
+            </p>
+          </div>
+        </div>
+        <div class="card card-accent-green">
+          <h4>📋 任务（Task）</h4>
+          <p>要做什么，用<strong>动词开头</strong>，避免歧义。一个提示词最好只完成一个清晰的任务。</p>
+          <div style="background:var(--warm);border-radius:var(--radius-sm);padding:0.75rem;margin-top:0.5rem;">
+            <p style="font-size:0.82rem;color:var(--medium);margin:0;">
+              好的动词：请分析、请生成、请评审、请设计、请重构、请翻译、请提取
+            </p>
+          </div>
+        </div>
+        <div class="card card-accent-purple">
+          <h4>📐 格式（Format）</h4>
+          <p>输出成什么样。不指定格式时，AI 会自行决定，往往不是你想要的。</p>
+          <div style="background:var(--warm);border-radius:var(--radius-sm);padding:0.75rem;margin-top:0.5rem;">
+            <p style="font-size:0.82rem;color:var(--medium);margin:0;">
+              选项：Markdown 表格 / JSON / 代码块 / 有序列表 / 要点摘要 / 指定字数范围
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 2 ── -->
+    <div id="mod2" class="section">
+      <div class="section-header">
+        <div class="section-icon red">✨</div>
+        <div>
+          <div class="section-title">模块 2｜六种核心提示词技法</div>
+          <div class="section-subtitle">50 分钟 · 每种配实操</div>
+        </div>
+      </div>
+
+      <!-- Technique 1 -->
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num">1</div>
+          <div>
+            <div class="technique-title">角色扮演（Role Prompting）</div>
+            <div class="technique-en">让 AI 扮演特定专家角色，显著提升垂直领域输出质量</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <p>指定专家角色后，AI 会自动调用对应领域的专业知识框架和表达风格，输出更贴近真实专家水平。</p>
+          <pre>你是一位有 10 年经验的 Java 架构师，专注于高并发系统设计。
+请从架构安全性角度审查以下代码，重点关注线程安全和资源泄漏。
+给出问题清单（按严重程度排序）和修复建议。
+
+---代码如下---
+[在此粘贴代码]</pre>
+          <div class="infobox infobox-tip" style="margin-bottom:0;">
+            <span class="infobox-icon">🛠️</span>
+            <div><strong>实操练习：</strong>用"高级工程师"角色让 AI 审查一段你的代码，对比没有角色定义时的输出差异。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technique 2 -->
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num">2</div>
+          <div>
+            <div class="technique-title">少样本示例（Few-shot Prompting）</div>
+            <div class="technique-en">给 AI 看 1-3 个"这是我想要的风格/格式"，AI 自动模仿</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <p>当你需要 AI 保持特定的风格、语气或格式时，直接给示例比文字描述更有效。AI 擅长模式匹配。</p>
+          <pre>请按照以下用户故事的格式，为新需求生成用户故事：
+
+【示例格式】
+作为 [用户类型]
+我希望 [完成某件事]
+以便 [获得某种价值]
+验收标准：
+  - [ ] 条件1
+  - [ ] 条件2
+
+【新需求描述】
+用户需要在手机端查看项目进度，并能接收关键节点提醒。</pre>
+          <div class="infobox infobox-tip" style="margin-bottom:0;">
+            <span class="infobox-icon">🛠️</span>
+            <div><strong>实操练习：</strong>找一份公司过去写的优质用户故事或需求文档，作为示例让 AI 按相同格式生成新需求。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technique 3 -->
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num">3</div>
+          <div>
+            <div class="technique-title">思维链（Chain of Thought，CoT）</div>
+            <div class="technique-en">加上"请一步一步思考"，让 AI 先推理再给结论</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <p>对于复杂问题，让 AI 展示推理过程而不是直接给结论，可以显著降低错误率。AI 在"思考"时能发现自己的逻辑漏洞。</p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr><th>适用场景</th><th>示例</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>复杂 Bug 定位</td><td>"请一步一步分析这个 NullPointerException 的可能根因..."</td></tr>
+                <tr><td>技术选型分析</td><td>"请逐步比较 Kafka vs RabbitMQ 在以下场景的适用性..."</td></tr>
+                <tr><td>性能问题排查</td><td>"请一步一步分析这段 SQL 的执行计划瓶颈..."</td></tr>
+                <tr><td>架构风险评估</td><td>"请逐步推演这个方案在高峰流量下的失效模式..."</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <pre>请一步一步分析这个内存溢出问题的可能原因。
+已知信息：
+- JVM 堆大小：4G，目前使用 3.8G
+- 问题在每天凌晨 2 点左右出现
+- GC 日志显示 Full GC 频率异常
+
+步骤：
+1. 首先分析可能的内存泄漏类型
+2. 根据时间规律推断可能的定时任务或批处理
+3. 给出优先级最高的排查路径
+4. 最后给出修复建议</pre>
+        </div>
+      </div>
+
+      <!-- Technique 4 -->
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num">4</div>
+          <div>
+            <div class="technique-title">输出格式控制</div>
+            <div class="technique-en">要求特定结构输出，便于后续处理或直接复用</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <p>要求 AI 输出 JSON / Markdown 表格 / 特定数据结构，可以直接喂给下游系统处理，节省大量手工整理时间。</p>
+          <pre>请将以下需求文档中的功能点提取出来，输出为 JSON 格式。
+
+JSON 字段定义：
+{
+  "features": [
+    {
+      "id": "F001",          // 功能编号
+      "name": "功能名称",     // 简短名称
+      "priority": "P0/P1/P2", // 优先级
+      "module": "涉及模块",   // 模块名称
+      "complexity": "高/中/低", // 预估复杂度
+      "description": "简要描述" // 一句话说明
+    }
+  ]
+}
+
+---需求文档---
+[在此粘贴需求]</pre>
+        </div>
+      </div>
+
+      <!-- Technique 5 -->
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num">5</div>
+          <div>
+            <div class="technique-title">迭代追问（Iterative Refinement）</div>
+            <div class="technique-en">AI 不是一次对话就结束的，学会用追问持续优化输出</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <p>把 AI 交互当作一个<strong>迭代精炼</strong>的过程，而不是一次问答。每次追问都在让输出向你的目标靠近一步。</p>
+          <div class="card" style="background:var(--warm);border:none;box-shadow:none;padding:1rem;">
+            <h4 style="margin-top:0;">📋 追问句式库</h4>
+            <div class="card-grid card-grid-2" style="margin:0.5rem 0 0;">
+              <div>
+                <p style="font-size:0.82rem;margin-bottom:3px;"><strong>深化展开：</strong></p>
+                <p style="font-size:0.82rem;color:var(--medium);">"请把第三点展开，给出具体实现步骤"<br/>"这个方案的风险点是什么？"<br/>"给出一个反例，什么情况下这个方案会失效？"</p>
+              </div>
+              <div>
+                <p style="font-size:0.82rem;margin-bottom:3px;"><strong>调整方向：</strong></p>
+                <p style="font-size:0.82rem;color:var(--medium);">"如果客户预算只有原来的一半，方案如何调整？"<br/>"用更简洁的语言重写，面向非技术的业务方"<br/>"从甲方/乙方/用户的视角重新描述一下"</p>
+              </div>
+            </div>
+          </div>
+          <div class="flow-diagram" style="padding:1rem;margin-top:0.75rem;">
+            <div class="flow-row">
+              <div class="flow-box">初始 Prompt</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box blue">AI 输出 v1</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box purple">迭代追问</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box green">AI 输出 v2</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box accent">满意结果</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technique 6 -->
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num">6</div>
+          <div>
+            <div class="technique-title">System Prompt 设计</div>
+            <div class="technique-en">在平台层固化 AI 的角色和行为边界</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <p>System Prompt 是对话开始前就设定好的"AI 行为规范"，相当于给 AI 写一份岗位职责书。在 Dify 等平台搭建应用时必用。</p>
+
+          <div class="infobox infobox-teacher">
+            <span class="infobox-icon">👨‍🏫</span>
+            <div>
+              <div class="infobox-title">🛠️ 实操：在 Dify 中创建"需求分析助手"</div>
+              <p style="font-size:0.875rem;">在 Dify 中新建一个对话应用，将以下 System Prompt 粘贴进去，并测试效果</p>
+            </div>
+          </div>
+
+          <pre>你是一位专业的需求分析专家，拥有 10 年软件项目交付经验。
+你的任务是帮助工程师和交付团队分析客户需求文档。
+
+【行为规范】
+1. 始终以结构化格式输出分析结果（功能清单 / 模糊点 / 风险点 / 确认问题）
+2. 对每个功能点评估优先级（P0 关键/P1 重要/P2 次要）
+3. 主动识别需求中的技术风险，不要遗漏
+4. 遇到描述模糊的需求，必须提出确认问题而不是假设
+5. 输出格式统一使用 Markdown，便于复制到项目管理系统
+
+【输出格式】
+## 1. 功能需求清单
+（表格形式，包含：功能名称/优先级/涉及模块/预估复杂度）
+
+## 2. 模糊点识别  
+（逐条列出，说明模糊原因）
+
+## 3. 技术风险点
+（按严重程度排序）
+
+## 4. 需向客户确认的问题
+（可直接发给客户的问题列表）</pre>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 3 ── -->
+    <div id="mod3" class="section">
+      <div class="section-header">
+        <div class="section-icon green">💻</div>
+        <div>
+          <div class="section-title">模块 3｜AI Coding 全链路实战</div>
+          <div class="section-subtitle">50 分钟 · 重点模块，覆盖开发全链路</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <span class="infobox-icon">🎯</span>
+        <div>
+          <div class="infobox-title">本模块目标</div>
+          <p style="font-size:0.875rem;">覆盖代码开发全链路的 7 个场景，每个场景均有现场实操。结束时每人完成一个真实的 AI Coding 任务。</p>
+        </div>
+      </div>
+
+      <div class="coding-scenarios">
+        <!-- Scenario 1 -->
+        <div class="cs-card">
+          <div class="cs-header">
+            <div class="cs-icon">⚡</div>
+            <div>
+              <div class="cs-title">场景 1：代码生成与脚手架搭建</div>
+              <div class="cs-tag">从文档/注释直接生成可运行代码</div>
+            </div>
+          </div>
+          <div class="cs-body">
+            <ul>
+              <li>从注释 / 接口文档生成函数实现</li>
+              <li>从数据库 Schema 生成 CRUD 代码模板</li>
+              <li>从 API 文档生成调用代码 + 错误处理</li>
+            </ul>
+            <div class="tool-compare-row">
+              <div class="tc-tool">
+                <strong>Claude</strong>
+                <span>长上下文理解，适合复杂场景</span>
+              </div>
+              <div class="tc-tool">
+                <strong>Cursor</strong>
+                <span>IDE 内联生成，实时上下文</span>
+              </div>
+              <div class="tc-tool">
+                <strong>Copilot</strong>
+                <span>补全为主，输入时触发</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 2 -->
+        <div class="cs-card">
+          <div class="cs-header">
+            <div class="cs-icon">🔍</div>
+            <div>
+              <div class="cs-title">场景 2：Code Review 与质量提升</div>
+              <div class="cs-tag">让 AI 扮演"高级工程师"审查代码</div>
+            </div>
+          </div>
+          <div class="cs-body">
+            <ul>
+              <li>识别潜在 Bug / 性能问题 / 安全漏洞</li>
+              <li>代码规范检查（命名/注释/结构）</li>
+              <li>生成改进建议并解释原因</li>
+            </ul>
+            <div class="infobox infobox-tip" style="margin:0.75rem 0 0;padding:0.75rem;">
+              <span class="infobox-icon">🛠️</span>
+              <div style="font-size:0.82rem;">实操：把一段真实业务代码给 Claude Review，对比 AI 发现的问题和人工 Review 的差异</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 3 -->
+        <div class="cs-card">
+          <div class="cs-header">
+            <div class="cs-icon">🧪</div>
+            <div>
+              <div class="cs-title">场景 3：测试用例生成</div>
+              <div class="cs-tag">全矩阵测试，秒级生成</div>
+            </div>
+          </div>
+          <div class="cs-body">
+            <ul>
+              <li>生成完整测试用例矩阵（正常/边界/异常/并发）</li>
+              <li>生成单元测试代码（JUnit / pytest）</li>
+              <li>生成接口测试用例（Postman Collection 格式）</li>
+            </ul>
+            <div class="infobox infobox-tip" style="margin:0.75rem 0 0;padding:0.75rem;">
+              <span class="infobox-icon">🛠️</span>
+              <div style="font-size:0.82rem;">实操：为一个真实业务函数（如订单金额计算）生成完整的单元测试</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 4 -->
+        <div class="cs-card">
+          <div class="cs-header">
+            <div class="cs-icon">🐛</div>
+            <div>
+              <div class="cs-title">场景 4：Bug 定位与修复</div>
+              <div class="cs-tag">CoT 推理，找到根本原因</div>
+            </div>
+          </div>
+          <div class="cs-body">
+            <ul>
+              <li>报错信息 + 代码 + 复现步骤 → AI CoT 推理根因</li>
+              <li>生成修复方案 + 解释为什么这样修</li>
+              <li>建议防止类似 Bug 的编码规范</li>
+            </ul>
+            <div class="infobox infobox-tip" style="margin:0.75rem 0 0;padding:0.75rem;">
+              <span class="infobox-icon">🛠️</span>
+              <div style="font-size:0.82rem;">实操：把一个真实的生产 Bug 描述给 AI，对比 AI 的排查路径与实际结论</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 5 -->
+        <div class="cs-card">
+          <div class="cs-header">
+            <div class="cs-icon">♻️</div>
+            <div>
+              <div class="cs-title">场景 5：重构与技术债清理</div>
+              <div class="cs-tag">识别坏味道，安全分步重构</div>
+            </div>
+          </div>
+          <div class="cs-body">
+            <ul>
+              <li>识别代码中的坏味道（God Class / 魔法数字 / 过深嵌套）</li>
+              <li>生成重构方案，分步执行，保持接口不变</li>
+              <li>为遗留代码生成注释 / 技术文档</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Scenario 6 -->
+        <div class="cs-card">
+          <div class="cs-header">
+            <div class="cs-icon">✏️</div>
+            <div>
+              <div class="cs-title">场景 6：Cursor 工具深度使用</div>
+              <div class="cs-tag">多文件联动，项目级 AI 理解</div>
+            </div>
+          </div>
+          <div class="cs-body">
+            <ul>
+              <li><strong>Composer 模式</strong>：多文件联动修改，理解整个项目上下文</li>
+              <li><strong>.cursorrules 配置</strong>：让 Cursor 遵守团队编码规范</li>
+              <li><strong>技巧</strong>：把设计文档/需求文档直接拖入 Cursor 作为上下文</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario 7 - ops (full width) -->
+      <div class="cs-card" style="grid-column:1/-1;">
+        <div class="cs-header">
+          <div class="cs-icon">🖥️</div>
+          <div>
+            <div class="cs-title">场景 7：运维与部署场景</div>
+            <div class="cs-tag">日志分析 / 配置生成 / SOP 自动生成</div>
+          </div>
+        </div>
+        <div class="cs-body">
+          <div class="card-grid card-grid-3" style="margin:0;">
+            <div>
+              <h4>📊 日志分析</h4>
+              <p style="font-size:0.84rem;color:var(--medium);">把系统日志（脱敏后）发给 AI，让它提取异常模式、生成根因分析报告、识别告警规则建议。</p>
+            </div>
+            <div>
+              <h4>🐋 配置文件生成</h4>
+              <p style="font-size:0.84rem;color:var(--medium);">描述部署需求 → 自动生成 Dockerfile / K8s YAML / CI/CD Pipeline 配置，极大减少手写配置错误。</p>
+            </div>
+            <div>
+              <h4>📋 SOP 自动生成</h4>
+              <p style="font-size:0.84rem;color:var(--medium);">根据告警信息和历史处理经验，生成标准化处理 SOP（标准作业程序），沉淀运维知识。</p>
+            </div>
+          </div>
+          <div class="prompt-lib" style="margin-top:1rem;">
+            <div class="pl-card pl-ops">
+              <div class="pl-header">🔧 日志分析 Prompt 模板</div>
+              <pre>你是一位有 8 年经验的 SRE 工程师。
+请分析以下系统日志，完成：
+1. 提取异常事件（按时间排序）
+2. 识别最可能的根本原因（列出 2-3 个候选）
+3. 给出优先级最高的排查步骤
+4. 建议告警规则（避免未来同类问题）
+
+---日志内容（已脱敏）---
+[在此粘贴日志]</pre>
+            </div>
+            <div class="pl-card pl-dev">
+              <div class="pl-header">🐋 Dockerfile 生成 Prompt 模板</div>
+              <pre>请为以下应用生成生产级别的 Dockerfile：
+- 语言/框架：Java 17 + Spring Boot 3.x
+- 构建工具：Maven
+- 运行端口：8080
+- 特殊要求：
+  - 多阶段构建（减小镜像体积）
+  - 非 root 用户运行
+  - 时区设置为 Asia/Shanghai
+  - JVM 参数优化（容器环境）
+
+同时输出对应的 .dockerignore 文件。</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code Review Demo -->
+      <div class="module-badge"><span class="dot"></span> 🎯 核心实操演示：AI Code Review 完整流程</div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>准备代码（1 分钟）</h4>
+            <p>找一段 50-100 行的真实业务代码（Java/Python/Go 均可），进行必要的脱敏处理（替换真实变量名和业务逻辑描述）。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>发给 Claude（2 分钟）</h4>
+            <p>使用以下 Prompt 模板：</p>
+            <pre>你是一位有 10 年经验的高级工程师，专注于代码质量和工程实践。
+请对以下代码进行全面 Code Review，重点关注：
+1. 潜在 Bug 或逻辑错误
+2. 性能瓶颈（时间复杂度/空间复杂度/数据库查询）
+3. 安全漏洞（SQL 注入/XSS/不安全反序列化等）
+4. 可读性和可维护性问题
+5. 是否符合 SOLID 原则
+
+输出格式：按严重程度（Critical/Major/Minor）分类，每条问题说明：
+- 问题位置（行号或函数名）
+- 问题描述
+- 修复建议（附修复后的代码片段）
+
+---代码---
+[在此粘贴代码]</pre>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>对比分析（5 分钟）</h4>
+            <p>记录 AI 发现的问题，与自己（或小组）之前发现的问题对比：AI 多发现了什么？遗漏了什么？哪些建议可以立即采纳？</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>追问优化（3 分钟）</h4>
+            <p>针对 AI 发现的最严重问题，追问"请给出完整的修复代码"，或"这个问题如何通过单元测试来防止？"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 4 ── -->
+    <div id="mod4" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📚</div>
+        <div>
+          <div class="section-title">模块 4｜提示词管理与沉淀</div>
+          <div class="section-subtitle">10 分钟 · 提示词也是资产</div>
+        </div>
+      </div>
+
+      <blockquote>
+        💡 好的提示词要版本化管理，就像代码一样。团队级提示词库是可以产生复利的工程资产。
+      </blockquote>
+
+      <div class="card-grid card-grid-2">
+        <div class="feature-card">
+          <span class="card-icon">📁</span>
+          <h3>建立团队提示词库</h3>
+          <p>在飞书建立团队共享文档，按场景分类（开发 / 测试 / 文档 / 售前 / 运维），每个提示词包含：描述 + 模板 + 示例输出 + 作者 + 版本日期。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">⚙️</span>
+          <h3>在 Dify 固化为应用</h3>
+          <p>把高频提示词在 Dify 中配置为应用，成员无需每次手动输入 System Prompt，直接使用标准化 AI 应用，保证输出质量一致性。</p>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 提示词库结构示例</div>
+      <div class="prompt-lib">
+        <div class="pl-card pl-dev">
+          <div class="pl-header">💻 开发类</div>
+          <pre>P-DEV-001  代码生成（含单测）
+P-DEV-002  Code Review（安全角度）
+P-DEV-003  重构建议生成
+P-DEV-004  API 文档生成</pre>
+        </div>
+        <div class="pl-card pl-test">
+          <div class="pl-header">🧪 测试类</div>
+          <pre>P-TEST-001  单元测试生成（JUnit）
+P-TEST-002  测试用例矩阵生成
+P-TEST-003  Postman 用例生成
+P-TEST-004  性能测试场景设计</pre>
+        </div>
+        <div class="pl-card pl-review">
+          <div class="pl-header">📋 需求分析类</div>
+          <pre>P-REQ-001  需求提炼与结构化
+P-REQ-002  模糊需求识别
+P-REQ-003  技术可行性评估
+P-REQ-004  用户故事生成</pre>
+        </div>
+        <div class="pl-card pl-ops">
+          <div class="pl-header">🚀 售前/交付类</div>
+          <pre>P-PRE-001  客户需求分析
+P-PRE-002  方案大纲生成
+P-PRE-003  竞品对比分析
+P-DEL-001  周报生成模板</pre>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Homework -->
+    <div id="homework" class="homework-box">
+      <div class="homework-header">
+        <div class="hw-icon">📝</div>
+        <h2>第二期课后作业</h2>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">1</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>提示词模板库建设</strong>：为开发工作中最高频的一个任务（测试用例 / Code Review / Bug 分析 / 需求分析）写出一个完整的提示词模板，用四要素（角色+背景+任务+格式）完整填写，并测试效果。
+          </p>
+          <div class="hw-deliverable">产出物：至少 3 个场景的提示词模板</div>
+        </div>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">2</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>Cursor 实战任务</strong>：在 Cursor 中完成一个真实的代码任务：代码生成 / 重构 / 或 Bug 修复，记录 AI 辅助的过程和效果，包括节省了多少时间。
+          </p>
+          <div class="hw-deliverable">产出物：Cursor 实战成果（截图/代码）</div>
+        </div>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">3</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>团队提示词库初建</strong>：在飞书新建一个"AI 提示词库"文档，把你的提示词模板添加进去，作为团队共享资产的种子。
+          </p>
+          <div class="hw-deliverable">产出物：飞书提示词库文档</div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem;padding:0.75rem 1rem;background:rgba(255,255,255,0.06);border-radius:var(--radius-md);font-size:0.85rem;color:rgba(255,255,255,0.7);">
+        💬 <strong>下期分享：</strong>下期开始时，请展示你的提示词模板和 Cursor 实战成果，讲一个用 AI 解决了一个具体开发问题的真实故事。
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="session1.html" class="page-nav-btn">← 第一期：重新认识 AI</a>
+      <a href="session3.html" class="page-nav-btn">第三期：RAG + 工作流 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

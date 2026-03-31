@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 办公实战培训课程 v2.0 — 课程总览</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Index page specific */
+    .index-hero {
+      background: linear-gradient(135deg, #1A2035 0%, var(--dark) 50%, #3D4F6B 100%);
+      border-radius: var(--radius-xl);
+      padding: 4rem 3.5rem;
+      margin-bottom: 3rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .index-hero::before {
+      content: '';
+      position: absolute;
+      right: -100px;
+      top: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,122,95,0.2) 0%, transparent 70%);
+    }
+    .index-hero::after {
+      content: '';
+      position: absolute;
+      left: -50px;
+      bottom: -80px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+    }
+    .index-hero-content { position: relative; z-index: 1; }
+    .index-hero h1 { font-size: 2.8rem; font-weight: 900; margin-bottom: 0.75rem; line-height: 1.2; }
+    .index-hero h1 span { color: var(--accent-light); }
+    .index-hero .hero-desc { font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 600px; line-height: 1.65; margin-bottom: 2rem; }
+    .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1; }
+    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+    .design-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      overflow-x: auto;
+    }
+    .df-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-width: 140px;
+      text-align: center;
+    }
+    .df-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-md);
+      background: #fff;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .df-title { font-size: 0.82rem; font-weight: 700; color: var(--dark); }
+    .df-sub   { font-size: 0.72rem; color: var(--muted); }
+    .df-arrow { font-size: 1.5rem; color: var(--border); flex-shrink: 0; margin: 0 0.25rem; padding-bottom: 28px; }
+
+    .sessions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
+
+    .outline-section { margin-bottom: 2.5rem; }
+    .overview-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      background: #fff;
+      border: 1px solid var(--border);
+      margin-bottom: 0.75rem;
+    }
+    .overview-row .or-num {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--dark);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .overview-row .or-label { font-size: 0.82rem; font-weight: 700; color: var(--muted); }
+    .overview-row .or-content { font-size: 0.9rem; color: var(--dark); font-weight: 600; }
+    .overview-row .or-outcome { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .tool-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+    .tool-card .tc-cat { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .tool-card .tc-items { list-style: none; }
+    .tool-card .tc-items li { font-size: 0.82rem; color: var(--medium); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+    .tool-card .tc-items li::before { content: '🔧'; font-size: 0.65rem; }
+
+    @media (max-width: 768px) {
+      .sessions-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr 1fr; }
+      .design-flow { padding: 1.25rem; }
+      .df-item { min-width: 100px; }
+      .index-hero { padding: 2.5rem 1.5rem; }
+      .index-hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sticky Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🤖</span>
+    <span>AI 办公实战培训</span>
+    <span class="logo-badge">v2.0</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html" class="active">课程总览</a>
+    <a href="session1.html">第一期</a>
+    <a href="session2.html">第二期</a>
+    <a href="session3.html">第三期</a>
+    <a href="session4.html">第四期</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">课程导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview" class="active">
+        <span class="nav-num">0</span> 课程总览
+      </a></li>
+      <li><a href="#design-logic">
+        <span class="nav-num">→</span> 设计逻辑
+      </a></li>
+      <li><a href="#session-cards">
+        <span class="nav-num">4</span> 四期简介
+      </a></li>
+      <li><a href="#deliverables">
+        <span class="nav-num">📦</span> 产出物汇总
+      </a></li>
+      <li><a href="#tools">
+        <span class="nav-num">🔧</span> 工具清单
+      </a></li>
+    </ul>
+    <div style="padding: 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border);">
+      <div class="sidebar-title">快速入口</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <a href="session1.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+          <span style="color:var(--accent);">●</span> 第一期：思维重构
+        </a>
+        <a href="session2.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#3182CE;">●</span> 第二期：提示词 + Coding
+        </a>
+        <a href="session3.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#38A169;">●</span> 第三期：RAG + 工作流
+        </a>
+        <a href="session4.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#805AD5;">●</span> 第四期：MCP + AI Native
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div id="overview"></div>
+
+    <!-- Hero -->
+    <div class="index-hero">
+      <div class="index-hero-content">
+        <div class="hero-badge">
+          <span class="hero-session-num">适用对象</span>
+          软件工程师 / 交付专家
+        </div>
+        <h1>AI 办公实战培训<br/><span>课程总览</span></h1>
+        <p class="hero-desc">
+          从零开始，逐步建立 <strong>AI 优先</strong>的工作方式，最终达到 <strong>AI Native</strong> 境界。
+          四期递进式课程，每期 2.5 小时，每期均有可带走的真实产出物。
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">4</div>
+            <div class="stat-label">期课程</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">10h</div>
+            <div class="stat-label">总时长</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">4</div>
+            <div class="stat-label">期产出物</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3x</div>
+            <div class="stat-label">开发效率提升目标</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Design Logic -->
+    <div id="design-logic" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">🧭</div>
+        <div>
+          <div class="section-title">课程总体设计逻辑</div>
+          <div class="section-subtitle">四期递进，螺旋上升，每期均有实操产出</div>
+        </div>
+      </div>
+
+      <div class="design-flow">
+        <div class="df-item">
+          <div class="df-icon">🧠</div>
+          <div class="df-title">第一期</div>
+          <div class="df-sub">思维重构 + 工具入门</div>
+          <div class="badge badge-blue" style="margin-top:4px;">敢用、会用</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">✍️</div>
+          <div class="df-title">第二期</div>
+          <div class="df-sub">提示词工程 + AI Coding</div>
+          <div class="badge badge-green" style="margin-top:4px;">用得好、开发提速</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">⚙️</div>
+          <div class="df-title">第三期</div>
+          <div class="df-sub">RAG + 工作流 + Skills</div>
+          <div class="badge badge-purple" style="margin-top:4px;">系统化、可复用</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">🚀</div>
+          <div class="df-title">第四期</div>
+          <div class="df-sub">MCP + AI Native + 售前</div>
+          <div class="badge badge-red" style="margin-top:4px;">AI 优先、内化落地</div>
+        </div>
+      </div>
+
+      <div class="card card-accent-orange">
+        <h3 style="margin-top:0;">📐 每期固定结构</h3>
+        <div class="progress-timeline" style="margin:1rem 0 0;">
+          <div class="timeline-item">
+            <div class="timeline-dot done">20%</div>
+            <div class="timeline-label">认知建立<br/>概念讲解</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">60%</div>
+            <div class="timeline-label">动手实操<br/>现场演练</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">20%</div>
+            <div class="timeline-label">总结复盘<br/>课后作业</div>
+          </div>
+        </div>
+        <div class="infobox infobox-tip" style="margin-top:1rem;">
+          <span class="infobox-icon">💡</span>
+          <div><strong>核心原则：</strong>每期结束时，学员带走一个当天可用的真实成果，不只是知识，而是可立即产生价值的输出物。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Session Cards -->
+    <div id="session-cards" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">📚</div>
+        <div>
+          <div class="section-title">四期课程详细介绍</div>
+          <div class="section-subtitle">点击进入每期完整讲义</div>
+        </div>
+      </div>
+
+      <div class="sessions-grid">
+        <!-- Session 1 -->
+        <div class="session-overview-card">
+          <div class="soc-num">01</div>
+          <div class="soc-badge"><span class="badge badge-blue">基础认知</span> <span class="badge badge-gray">2.5 小时</span></div>
+          <div class="soc-title">重新认识 AI<br/>——从"试一试"到"真的能用"</div>
+          <div class="soc-desc">打破心理障碍，建立正确的 AI 认知模型。理解大模型工作原理，掌握主流工具对比，完成第一个有价值的 AI 辅助任务。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">🧠 认知重构</span>
+            <span class="badge badge-gray">🛠️ 工具对比</span>
+            <span class="badge badge-gray">📋 ABC 框架</span>
+            <span class="badge badge-gray">💬 有效对话</span>
+          </div>
+          <a href="session1.html" class="soc-link">进入第一期 →</a>
+        </div>
+
+        <!-- Session 2 -->
+        <div class="session-overview-card">
+          <div class="soc-num">02</div>
+          <div class="soc-badge"><span class="badge badge-green">进阶实操</span> <span class="badge badge-gray">2.5 小时</span></div>
+          <div class="soc-title">提示词工程 + AI Coding 实战<br/>——让 AI 成为开发搭档</div>
+          <div class="soc-desc">掌握系统化提示词设计方法，在代码开发全链路（生成/Review/测试/重构/运维）中大幅提升效率，实现开发提速 3x。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">✍️ 6 种技法</span>
+            <span class="badge badge-gray">💻 AI Coding</span>
+            <span class="badge badge-gray">🔍 Code Review</span>
+            <span class="badge badge-gray">🧪 测试生成</span>
+          </div>
+          <a href="session2.html" class="soc-link">进入第二期 →</a>
+        </div>
+
+        <!-- Session 3 -->
+        <div class="session-overview-card">
+          <div class="soc-num">03</div>
+          <div class="soc-badge"><span class="badge badge-purple">系统化</span> <span class="badge badge-gray">2.5 小时</span></div>
+          <div class="soc-title">RAG + AI 工作流 + Skills 机制<br/>——从单点到系统化</div>
+          <div class="soc-desc">理解 RAG 核心价值，用 Dify 搭建知识库应用；掌握 Skills 机制让 AI 具备可扩展专项能力；设计并实现完整 AI 自动化工作流。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">📚 知识库 RAG</span>
+            <span class="badge badge-gray">⚡ Skills 机制</span>
+            <span class="badge badge-gray">🔄 工作流设计</span>
+            <span class="badge badge-gray">🏗️ Dify 实操</span>
+          </div>
+          <a href="session3.html" class="soc-link">进入第三期 →</a>
+        </div>
+
+        <!-- Session 4 -->
+        <div class="session-overview-card">
+          <div class="soc-num">04</div>
+          <div class="soc-badge"><span class="badge badge-red">AI Native</span> <span class="badge badge-gray">2.5 小时</span></div>
+          <div class="soc-title">MCP + AI Native + 售前专题<br/>——AI 优先的最终形态</div>
+          <div class="soc-desc">理解 MCP 协议让 AI"长出手脚"；建立 AI Native 工作理念；通过完整售前方案案例，掌握 AI 辅助复杂输出的全流程。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">🔌 MCP 协议</span>
+            <span class="badge badge-gray">🤖 AI Native</span>
+            <span class="badge badge-gray">📊 售前方案</span>
+            <span class="badge badge-gray">🗺️ 行动计划</span>
+          </div>
+          <a href="session4.html" class="soc-link">进入第四期 →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deliverables -->
+    <div id="deliverables" class="section">
+      <div class="section-header">
+        <div class="section-icon green">📦</div>
+        <div>
+          <div class="section-title">四期产出物汇总</div>
+          <div class="section-subtitle">每期结束时学员带走的真实成果</div>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>期数</th>
+              <th>主题</th>
+              <th>产出物</th>
+              <th>价值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge badge-blue">第一期</span></td>
+              <td>思维重构 + 工具入门</td>
+              <td>ABC 任务分类表（个人版）<br/>+ 第一个有效 Prompt</td>
+              <td>立即改变工作习惯，下周就用得上</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-green">第二期</span></td>
+              <td>提示词工程 + AI Coding</td>
+              <td>个人提示词模板库（≥3 个场景）<br/>+ 一个 Cursor 实战成果</td>
+              <td>形成可复用的 AI 工作资产</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-purple">第三期</span></td>
+              <td>RAG + 工作流 + Skills</td>
+              <td>跑通的 Dify 知识库<br/>+ 一个 Skill + 一个工作流</td>
+              <td>搭建团队级 AI 应用基础设施</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-red">第四期</span></td>
+              <td>MCP + AI Native + 售前</td>
+              <td>AI 辅助生成的售前方案初稿<br/>+ 个人 AI 行动计划</td>
+              <td>完整 AI Native 工作流程示范</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tools -->
+    <div id="tools" class="section">
+      <div class="section-header">
+        <div class="section-icon teal">🔧</div>
+        <div>
+          <div class="section-title">工具清单</div>
+          <div class="section-subtitle">课程全程使用的 AI 工具生态</div>
+        </div>
+      </div>
+
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tc-cat">💬 对话 AI</div>
+          <ul class="tc-items">
+            <li>Claude（需求分析、方案写作）</li>
+            <li>ChatGPT / GPT-4o（通用问答）</li>
+            <li>Gemini（Google 生态、多模态）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">💻 AI Coding</div>
+          <ul class="tc-items">
+            <li>Cursor（IDE 内联，多文件联动）</li>
+            <li>GitHub Copilot（代码补全）</li>
+            <li>Claude Code（复杂代码任务）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">🏗️ AI 平台</div>
+          <ul class="tc-items">
+            <li>Dify（知识库、Skills、工作流）</li>
+            <li>FastGPT（RAG 对话应用）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">🔄 工作流自动化</div>
+          <ul class="tc-items">
+            <li>Dify Workflow（AI 流程编排）</li>
+            <li>n8n（跨系统自动化流程）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">📄 文档 AI</div>
+          <ul class="tc-items">
+            <li>飞书 AI（文档、会议纪要）</li>
+            <li>Notion AI（知识管理）</li>
+            <li>Gamma（AI PPT 生成）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">🔌 协议层</div>
+          <ul class="tc-items">
+            <li>MCP — Model Context Protocol</li>
+            <li>（AI 连接外部系统的标准接口）</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Learning path -->
+      <div class="infobox infobox-teacher">
+        <span class="infobox-icon">👨‍🏫</span>
+        <div>
+          <div class="infobox-title">讲师准备材料清单</div>
+          <ul style="font-size:0.875rem;padding-left:1.25rem;margin-top:6px;">
+            <li>各期实操用的脱敏真实案例文档</li>
+            <li>Dify 平台预配置的演示环境（知识库 + Skills + 工作流各一套）</li>
+            <li>团队提示词模板库初版（培训结束后开放给学员）</li>
+            <li>课程录屏（每期课后 48 小时内发布至飞书）</li>
+            <li>MCP Server 示例代码仓库（第四期用）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <span></span>
+      <a href="session1.html" class="page-nav-btn">开始第一期 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  // Active sidebar link on scroll
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

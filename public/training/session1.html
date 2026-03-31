@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第一期：重新认识 AI — AI 办公实战培训 v2.0</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .myth-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .myth-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .myth-card .myth-wrong {
+      background: #FEE2E2;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid #FECACA;
+    }
+    .myth-card .myth-right {
+      background: #F0FDF4;
+      padding: 1rem 1.25rem;
+    }
+    .myth-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .myth-wrong .myth-label { color: #991B1B; }
+    .myth-right .myth-label { color: #166534; }
+    .myth-wrong p { font-size: 0.875rem; color: #7F1D1D; line-height: 1.5; }
+    .myth-right p { font-size: 0.875rem; color: #14532D; line-height: 1.5; }
+
+    .brain-analogy {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 0;
+      align-items: center;
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 1.25rem 0;
+    }
+    .ba-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+    }
+    .ba-icon { font-size: 3rem; }
+    .ba-title { font-size: 0.9rem; font-weight: 700; color: var(--dark); }
+    .ba-desc  { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .ba-mid   { text-align: center; font-size: 1.5rem; color: var(--accent); font-weight: 700; }
+
+    .model-strengths {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .ms-box {
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .ms-strong { background: #DCFCE7; border: 1px solid #86EFAC; }
+    .ms-weak   { background: #FEE2E2; border: 1px solid #FECACA; }
+    .ms-box h4 { margin-top: 0; font-size: 0.95rem; }
+    .ms-strong h4 { color: #166534; }
+    .ms-weak   h4 { color: #991B1B; }
+    .ms-box ul { margin: 0; padding-left: 1.2rem; }
+    .ms-box ul li { font-size: 0.85rem; margin-bottom: 4px; }
+    .ms-strong ul li { color: #14532D; }
+    .ms-weak   ul li { color: #7F1D1D; }
+
+    .concept-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .concept-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+    .concept-card .cc-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .concept-card .cc-en { font-size: 0.75rem; color: var(--muted); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+    .concept-card .cc-zh { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem; }
+    .concept-card .cc-desc { font-size: 0.82rem; color: var(--medium); line-height: 1.55; }
+    .concept-card .cc-analogy { font-size: 0.78rem; color: var(--muted); margin-top: 0.5rem; font-style: italic; padding: 6px; background: var(--warm); border-radius: var(--radius-sm); }
+
+    .prompt-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .pc-panel { border-radius: var(--radius-md); overflow: hidden; }
+    .pc-label { padding: 10px 16px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+    .pc-bad  .pc-label  { background: #FEE2E2; color: #991B1B; }
+    .pc-good .pc-label  { background: #DCFCE7; color: #166534; }
+    .pc-bad  pre { margin: 0; border-radius: 0; background: #FFF5F5; color: #7F1D1D; }
+    .pc-good pre { margin: 0; border-radius: 0; background: #F0FDF4; color: #14532D; }
+
+    .window-visual {
+      background: #1E2433;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 1.25rem 0;
+      color: #E8EAF0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+    .window-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 1.25rem;
+    }
+    .wdot { width: 12px; height: 12px; border-radius: 50%; }
+    .wdot-r { background: #FF5F57; }
+    .wdot-y { background: #FFBD2E; }
+    .wdot-g { background: #28CA41; }
+    .window-title { font-size: 0.75rem; color: #6B7A99; margin-left: 8px; }
+    .ctx-slot {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+    }
+    .ctx-slot .slot-label { flex-shrink: 0; font-size: 0.7rem; color: #6B7A99; width: 90px; }
+    .ctx-user    { background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); }
+    .ctx-doc     { background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.3); }
+    .ctx-history { background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.3); }
+    .ctx-system  { background: rgba(251,191,36,0.12);  border: 1px solid rgba(251,191,36,0.3); }
+
+    @media (max-width: 768px) {
+      .myth-grid { grid-template-columns: 1fr; }
+      .model-strengths { grid-template-columns: 1fr; }
+      .concept-cards { grid-template-columns: 1fr; }
+      .prompt-compare { grid-template-columns: 1fr; }
+      .brain-analogy { grid-template-columns: 1fr; }
+      .ba-mid { transform: rotate(90deg); margin: 0.5rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🤖</span>
+    <span>AI 办公实战培训</span>
+    <span class="logo-badge">v2.0</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="session1.html" class="active">第一期</a>
+    <a href="session2.html">第二期</a>
+    <a href="session3.html">第三期</a>
+    <a href="session4.html">第四期</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">第一期目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#mod1" class="active">
+        <span class="nav-num">1</span> 为什么这次 AI 不一样
+      </a></li>
+      <li><a href="#mod2">
+        <span class="nav-num">2</span> 主流大模型对比与选用
+      </a></li>
+      <li><a href="#mod3">
+        <span class="nav-num">3</span> 第一次真正有效的对话
+      </a></li>
+      <li><a href="#mod4">
+        <span class="nav-num">4</span> 思维转变：AI 优先
+      </a></li>
+      <li><a href="#homework">
+        <span class="nav-num">📝</span> 课后作业
+      </a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem; border-top:1px solid var(--border); margin-top:auto;">
+      <a href="index.html" style="font-size:0.8rem;color:var(--muted);">← 返回总览</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">🏠 课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">第一期：重新认识 AI</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">第一期</span>
+        AI 办公实战培训 v2.0
+      </div>
+      <h1>重新认识 AI<br/>——从"试一试"到"真的能用"</h1>
+      <p class="hero-subtitle">打破心理障碍，建立正确的 AI 认知模型，完成第一个有价值的 AI 辅助任务</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item">⏱️ 时长：2.5 小时</span>
+        <span class="hero-meta-item">🎯 4 个模块</span>
+        <span class="hero-meta-item">💪 2 次动手实操</span>
+        <span class="hero-meta-item">📦 带走：ABC 分类表 + 第一个有效 Prompt</span>
+      </div>
+    </div>
+
+    <!-- ── Module 1 ── -->
+    <div id="mod1" class="section">
+      <div class="section-header">
+        <div class="section-icon red">🚀</div>
+        <div>
+          <div class="section-title">模块 1｜为什么这次 AI 不一样</div>
+          <div class="section-subtitle">30 分钟 · 认知建立</div>
+        </div>
+      </div>
+
+      <!-- 历史节点 -->
+      <div class="module-badge"><span class="dot"></span> 工具演变历史节点</div>
+      <div class="card card-accent-red">
+        <h3 style="margin-top:0;">📜 从搜索引擎到大模型：生产方式的跃迁</h3>
+        <p>过去二十年，信息技术改变了我们<strong>获取信息的方式</strong>（搜索引擎）；而 AI 大模型正在改变的是<strong>"思考和生产"本身</strong>——这不是效率工具的升级，是生产方式的根本变化。</p>
+        <div class="flow-diagram">
+          <div class="flow-row">
+            <div class="flow-box">📖 查百科/图书馆<br/><small style="color:var(--muted)">信息获取方式 1.0</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box blue">🔍 搜索引擎<br/><small style="color:#1E40AF">信息获取方式 2.0</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box accent">🤖 AI 大模型<br/><small>思考 + 生产方式 3.0</small></div>
+          </div>
+          <p style="margin:0.75rem 0 0;font-size:0.8rem;color:var(--muted);">关键区别：前两次改变的是信息获取效率，这次改变的是知识转化为成果的过程本身</p>
+        </div>
+      </div>
+
+      <!-- 大模型原理 -->
+      <div class="module-badge"><span class="dot"></span> 大模型工作原理（直觉版，不讲数学）</div>
+
+      <div class="brain-analogy">
+        <div class="ba-side">
+          <div class="ba-icon">🌐</div>
+          <div class="ba-title">人类书写的知识</div>
+          <div class="ba-desc">书籍、论文、代码、对话<br/>互联网上的海量文本</div>
+        </div>
+        <div class="ba-mid">→<br/>压缩<br/>提炼<br/>→</div>
+        <div class="ba-side">
+          <div class="ba-icon">🧠</div>
+          <div class="ba-title">概率引擎</div>
+          <div class="ba-desc">记住了人类知识的<strong>模式</strong>和<strong>关联</strong>，而不是死记硬背<br/>给定上下文，预测下一个最合适的词</div>
+        </div>
+      </div>
+
+      <blockquote>
+        💡 <strong>一句话理解大模型：</strong>它是"压缩了人类知识的概率引擎"。不是数据库（不是在查表），而是在模拟人类写作和思考的模式。
+      </blockquote>
+
+      <div class="model-strengths">
+        <div class="ms-box ms-strong">
+          <h4>✅ 大模型的强项</h4>
+          <ul>
+            <li><strong>模式识别</strong>：从海量案例中抽取规律</li>
+            <li><strong>语言生成</strong>：流畅、专业、多风格写作</li>
+            <li><strong>跨领域关联</strong>：把不同领域知识组合</li>
+            <li><strong>结构化输出</strong>：按指定格式整理信息</li>
+            <li><strong>代码理解与生成</strong>：熟悉主流编程语言</li>
+            <li><strong>长文档处理</strong>：摘要、提取、分析</li>
+          </ul>
+        </div>
+        <div class="ms-box ms-weak">
+          <h4>❌ 大模型的弱项</h4>
+          <ul>
+            <li><strong>精确计算</strong>：数学运算需要工具辅助</li>
+            <li><strong>实时信息</strong>：训练截止后的事件不知道</li>
+            <li><strong>绝对可靠性</strong>：会产生"幻觉"（自信地说错）</li>
+            <li><strong>你的私有数据</strong>：不知道你公司的内部文档</li>
+            <li><strong>持久记忆</strong>：每次对话默认独立</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 三个概念 -->
+      <div class="module-badge"><span class="dot"></span> 三个必须理解的基础概念</div>
+      <div class="concept-cards">
+        <div class="concept-card">
+          <div class="cc-icon">🪙</div>
+          <div class="cc-en">Token</div>
+          <div class="cc-zh">词元/令牌</div>
+          <div class="cc-desc">AI 处理文本的最小单位，不是"字"，是字符片段。英文约 1 词 = 1-2 Token；中文约 1 字 = 1-2 Token。</div>
+          <div class="cc-analogy">类比：就像搭积木，Token 是最小的积木块，AI 逐个积木块地生成回复。</div>
+        </div>
+        <div class="concept-card">
+          <div class="cc-icon">🪟</div>
+          <div class="cc-en">Context Window</div>
+          <div class="cc-zh">上下文窗口</div>
+          <div class="cc-desc">AI 每次对话能"看到"的最大内容量。Claude 是 200K Token，约等于一本 300 页的书。超出部分会被遗忘。</div>
+          <div class="cc-analogy">类比：就像人的工作记忆，桌上能放多少资料就能处理多少，桌子满了就得清掉旧的。</div>
+        </div>
+        <div class="concept-card">
+          <div class="cc-icon">👻</div>
+          <div class="cc-en">Hallucination</div>
+          <div class="cc-zh">幻觉</div>
+          <div class="cc-desc">AI 在没有正确知识时，仍然会生成听起来合理但实际错误的内容，且语气非常自信。</div>
+          <div class="cc-analogy">类比：就像一个实习生，知识不足时不说"不知道"，而是凭感觉硬编答案。需要你来验证关键事实。</div>
+        </div>
+      </div>
+
+      <!-- 三个误区 -->
+      <div class="module-badge"><span class="dot"></span> 必须破除的三个误区</div>
+      <div class="myth-grid">
+        <div class="myth-card">
+          <div class="myth-wrong">
+            <div class="myth-label">❌ 误区一</div>
+            <p>AI 输出不稳定，不能信任</p>
+          </div>
+          <div class="myth-right">
+            <div class="myth-label">✅ 正确认知</div>
+            <p>AI 是高水平的<strong>草稿机</strong>，终稿由人决策。信任的是<strong>流程</strong>而非单次输出。草稿不需要完美，只需要节省你的初稿时间。</p>
+          </div>
+        </div>
+        <div class="myth-card">
+          <div class="myth-wrong">
+            <div class="myth-label">❌ 误区二</div>
+            <p>我会写代码/查文档，不需要 AI</p>
+          </div>
+          <div class="myth-right">
+            <div class="myth-label">✅ 正确认知</div>
+            <p>AI 节省的不是技能，是<strong>时间和认知负担</strong>。衡量标准是：同等质量下你花了多少时间？</p>
+          </div>
+        </div>
+        <div class="myth-card">
+          <div class="myth-wrong">
+            <div class="myth-label">❌ 误区三</div>
+            <p>用 AI 是走捷径，能力会退化</p>
+          </div>
+          <div class="myth-right">
+            <div class="myth-label">✅ 正确认知</div>
+            <p>使用计算器的人没有丧失数学能力。<strong>驾驭 AI 本身是一种新的高阶技能</strong>，是元能力的升级。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Demo -->
+      <div class="module-badge"><span class="dot"></span> 🎬 震撼开场 Demo（10 分钟现场演示）</div>
+      <div class="infobox infobox-demo">
+        <span class="infobox-icon">🎯</span>
+        <div>
+          <div class="infobox-title">演示场景：处理一封真实客户需求邮件</div>
+          <p style="font-size:0.875rem;color:var(--medium);margin-bottom:0.5rem;">
+            <strong>策略：先让学员看结果，再学方法。</strong>讲师把脱敏的真实客户邮件放入 Claude，现场演示以下三步：
+          </p>
+          <div class="steps" style="margin:0.75rem 0 0;">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h4>提炼核心痛点与隐性需求</h4>
+                <p>AI 自动识别邮件中显性需求（说出来的）和隐性需求（没说但重要的），并按优先级排序</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h4>生成结构化需求分析初稿</h4>
+                <p>输出规范格式的需求文档，包括功能范围、技术约束、时间节点、关键风险</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h4>输出技术可行性评估要点</h4>
+                <p>针对每个需求点，生成技术实现难点和预估复杂度，直接用于内部评估</p>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:0.82rem;color:var(--muted);margin:0.5rem 0 0;">⏱️ 整个过程 3 分钟内完成，展示效果后向学员说明"你们今天课后也能做到这件事"</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 2 ── -->
+    <div id="mod2" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">🔍</div>
+        <div>
+          <div class="section-title">模块 2｜主流大模型对比与选用</div>
+          <div class="section-subtitle">25 分钟 · 工具认知</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 三大模型定位速查</div>
+
+      <div class="compare-grid">
+        <!-- Claude -->
+        <div class="compare-card highlight">
+          <div class="model-logo">🟠</div>
+          <h3>Claude（Anthropic）</h3>
+          <div class="compare-item"><span>🏆 最强项：</span><strong>长文档理解、写作、严谨推理</strong></div>
+          <div class="compare-item"><span>🪟 上下文：</span><strong>200K Token</strong>（约 300 页书）</div>
+          <div class="compare-item"><span>✅ 适合：</span><strong>需求分析、方案写作、Code Review、长文档处理</strong></div>
+          <div class="compare-item"><span>⚠️ 弱点：</span>默认不联网、无法生图</div>
+          <div class="badge badge-red" style="margin-top:8px;">本课程主用</div>
+        </div>
+        <!-- ChatGPT -->
+        <div class="compare-card">
+          <div class="model-logo">🟢</div>
+          <h3>ChatGPT（GPT-4o）</h3>
+          <div class="compare-item"><span>🏆 最强项：</span><strong>工具生态、通用均衡、插件</strong></div>
+          <div class="compare-item"><span>🪟 上下文：</span><strong>128K Token</strong></div>
+          <div class="compare-item"><span>✅ 适合：</span><strong>日常问答、图像理解、代码生成</strong></div>
+          <div class="compare-item"><span>⚠️ 弱点：</span>长文档稳定性略弱</div>
+        </div>
+        <!-- Gemini -->
+        <div class="compare-card">
+          <div class="model-logo">🔵</div>
+          <h3>Gemini（Google）</h3>
+          <div class="compare-item"><span>🏆 最强项：</span><strong>多模态、Google 生态、超长上下文</strong></div>
+          <div class="compare-item"><span>🪟 上下文：</span><strong>1M Token</strong>（1.5 Pro）</div>
+          <div class="compare-item"><span>✅ 适合：</span><strong>结合 Google 文档/表格、视频理解</strong></div>
+          <div class="compare-item"><span>⚠️ 弱点：</span>中文质量波动</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">实用选型原则：不选"最好的"，选"最适合这个任务的"</div>
+          <ul style="font-size:0.875rem;margin:0.5rem 0 0;padding-left:1.2rem;">
+            <li>日常开发问答、代码生成 → <strong>GPT-4o 够用</strong></li>
+            <li>长文档分析、方案写作 → <strong>首选 Claude</strong></li>
+            <li>需要联网实时信息 → <strong>Gemini 或 ChatGPT + 联网模式</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 公司工具盘点 -->
+      <div class="module-badge"><span class="dot"></span> 公司现有工具盘点</div>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card">
+          <span class="card-icon">🚀</span>
+          <h3>飞书 AI</h3>
+          <p><strong>能力边界</strong>：文档问答、会议纪要整理、日程助手<br/>
+          <strong>适用场景</strong>：日常沟通与文档处理<br/>
+          <strong>局限</strong>：定制性有限，复杂推理不如独立模型</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">⚙️</span>
+          <h3>Dify 平台</h3>
+          <p><strong>定位</strong>：本课程实操的主平台<br/>
+          <strong>能力</strong>：知识库 RAG、工作流编排、自定义 AI 应用<br/>
+          <strong>优势</strong>：无需编码搭建企业级 AI 应用</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🔒</span>
+          <h3>使用规范建议</h3>
+          <p><strong>可以输入</strong>：脱敏后的技术问题、公开资料<br/>
+          <strong>禁止输入</strong>：客户真实信息、内部源代码（未脱敏）、合同等敏感数据<br/>
+          <strong>原则</strong>：数据安全红线优先</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 3 ── -->
+    <div id="mod3" class="section">
+      <div class="section-header">
+        <div class="section-icon green">💬</div>
+        <div>
+          <div class="section-title">模块 3｜第一次真正有效的对话</div>
+          <div class="section-subtitle">45 分钟 · 全程实操</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 为什么你之前用 AI 没感觉？</div>
+      <p>根源是<strong>输入质量决定输出质量</strong>。现场对比展示：</p>
+
+      <div class="prompt-compare">
+        <div class="pc-panel pc-bad">
+          <div class="pc-label">❌ 差的问法</div>
+          <pre>"帮我写一个技术方案"</pre>
+        </div>
+        <div class="pc-panel pc-good">
+          <div class="pc-label">✅ 好的问法</div>
+          <pre>角色：你是一位有 10 年经验的系统架构师
+背景：我们正在为一个日活 50 万的电商平台
+      做缓存层改造
+任务：请设计一个 Redis 集群高可用方案
+格式：输出包含方案概述、组件选型、关键配置、
+      风险点，使用 Markdown 格式</pre>
+        </div>
+      </div>
+
+      <div class="card card-accent-blue" style="margin-top:1rem;">
+        <h3 style="margin-top:0;">🧩 好提示词的四个要素</h3>
+        <div class="card-grid card-grid-2">
+          <div>
+            <p><strong>🎭 角色（Role）</strong><br/>告诉 AI 它是谁，决定知识视角和表达风格。<br/><code>"你是一位有 10 年经验的 Java 架构师"</code></p>
+          </div>
+          <div>
+            <p><strong>🌍 背景（Context）</strong><br/>当前情况，越具体越好。包含项目背景、技术栈、约束条件。</p>
+          </div>
+          <div>
+            <p><strong>📋 任务（Task）</strong><br/>要做什么，用动词开头，避免歧义。<br/><code>"请设计..." / "请分析..." / "请生成..."</code></p>
+          </div>
+          <div>
+            <p><strong>📐 格式（Format）</strong><br/>输出成什么样：字数/结构/语言风格/使用 Markdown 还是 JSON。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 上下文窗口实用理解 -->
+      <div class="module-badge"><span class="dot"></span> 上下文窗口的实用理解</div>
+
+      <div class="window-visual">
+        <div class="window-bar">
+          <div class="wdot wdot-r"></div>
+          <div class="wdot wdot-y"></div>
+          <div class="wdot wdot-g"></div>
+          <span class="window-title">Claude 的上下文窗口（工作台）</span>
+        </div>
+        <div class="ctx-slot ctx-system">
+          <span class="slot-label">System Prompt</span>
+          <span>角色定义 + 行为规则 + 输出格式要求</span>
+        </div>
+        <div class="ctx-slot ctx-doc">
+          <span class="slot-label">背景材料</span>
+          <span>你粘贴进来的文档、代码、需求说明、历史记录...</span>
+        </div>
+        <div class="ctx-slot ctx-history">
+          <span class="slot-label">对话历史</span>
+          <span>之前的问答记录（按时间顺序排列）</span>
+        </div>
+        <div class="ctx-slot ctx-user">
+          <span class="slot-label">当前问题</span>
+          <span>你现在发送的消息 ← AI 基于以上所有内容回答这个</span>
+        </div>
+        <p style="color:#6B7A99;font-size:0.78rem;margin:0.75rem 0 0;">
+          ⚠️ 上下文窗口满了就会丢弃最早的内容。长对话时注意开启新对话或手动总结上下文。
+        </p>
+      </div>
+
+      <div class="card-grid card-grid-3" style="margin-top:1rem;">
+        <div class="feature-card">
+          <span class="card-icon">📥</span>
+          <h3>塞什么进去</h3>
+          <p>把 AI 需要知道的<strong>所有背景</strong>都放进去，不要假设它记得上次对话。对话即完整信息包。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🔄</span>
+          <h3>何时开新对话</h3>
+          <p>话题转换时 / 对话超过 20 轮后 / 发现 AI 开始"忘事"时。开新对话比继续旧对话更可靠。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">📝</span>
+          <h3>长对话管理</h3>
+          <p>让 AI 总结当前对话要点 → 开新对话 → 粘贴摘要作为背景，续接之前的成果。</p>
+        </div>
+      </div>
+
+      <!-- 实操 -->
+      <div class="module-badge"><span class="dot"></span> 🛠️ 动手练习</div>
+      <div class="infobox infobox-teacher">
+        <span class="infobox-icon">👨‍🏫</span>
+        <div>
+          <div class="infobox-title">讲师说明：两个练习，约 30 分钟</div>
+          <p style="font-size:0.875rem;">分组进行，4-5 人一组，每组有一位助教辅助。实操结束后，1-2 组分享对比结果。</p>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">练1</div>
+          <div class="step-content">
+            <h4>对比练习：差的方式 vs 好的方式</h4>
+            <p>拿你手头一个<strong>真实的工作任务</strong>（技术文档编写/代码问题/需求分析等），先用一句话问 AI，记录输出；再用四要素（角色+背景+任务+格式）重新问一次，对比差异。小组讨论：哪里变好了？为什么？</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">练2</div>
+          <div class="step-content">
+            <h4>文档处理练习：PRD / 邮件分析</h4>
+            <p>把一份<strong>真实 PRD 或客户邮件（脱敏后）</strong>喂给 Claude，使用以下 Prompt 模板：</p>
+            <pre>你是一位有 10 年经验的产品经理和技术架构师。
+我将给你一份客户需求文档，请完成以下三个任务：
+1. 提炼关键需求（按优先级排序，用要点列表）
+2. 识别模糊点（哪些需求描述不清晰，可能引发歧义）
+3. 生成确认问题清单（我需要向客户确认的问题列表）
+
+输出格式：Markdown，分三个章节
+
+---文档内容开始---
+[在此粘贴你的文档]
+---文档内容结束---</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ── Module 4 ── -->
+    <div id="mod4" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">🧭</div>
+        <div>
+          <div class="section-title">模块 4｜思维转变：AI 优先是什么意思</div>
+          <div class="section-subtitle">20 分钟 · 本期最重要的带走内容</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 三类任务分类框架（ABC 框架）</div>
+
+      <div class="infobox infobox-info">
+        <span class="infobox-icon">🎯</span>
+        <div>
+          <div class="infobox-title">本期最重要的认知工具</div>
+          <p style="font-size:0.875rem;">遇到任何任务，先问"AI 能处理 A 类中的哪些部分"，而不是"这个能不能用 AI"。<br/>框架的目的是<strong>改变你的默认思维顺序</strong>：AI 优先，而不是 AI 可选。</p>
+        </div>
+      </div>
+
+      <div class="abc-grid">
+        <div class="abc-card abc-a">
+          <div class="abc-letter">A</div>
+          <h3>全权交给 AI（执行层）</h3>
+          <ul>
+            <li>草稿生成 / 格式转换</li>
+            <li>代码样板 / 文档翻译</li>
+            <li>测试用例初稿</li>
+            <li>会议纪要整理</li>
+            <li>日志分析</li>
+            <li>基础数据处理</li>
+          </ul>
+          <div class="badge badge-blue" style="margin-top:8px;">AI 主导，人确认</div>
+        </div>
+        <div class="abc-card abc-b">
+          <div class="abc-letter">B</div>
+          <h3>AI 辅助人判断（决策层）</h3>
+          <ul>
+            <li>需求分析</li>
+            <li>架构设计</li>
+            <li>风险评估</li>
+            <li>合同关键条款识别</li>
+            <li>客户沟通策略</li>
+            <li>技术选型建议</li>
+          </ul>
+          <div class="badge badge-green" style="margin-top:8px;">AI 生成方案，人决策</div>
+        </div>
+        <div class="abc-card abc-c">
+          <div class="abc-letter">C</div>
+          <h3>人主导 AI 辅助（判断层）</h3>
+          <ul>
+            <li>最终决策</li>
+            <li>客户关系维护</li>
+            <li>创意方向把控</li>
+            <li>涉及公司机密的核心判断</li>
+            <li>团队文化建设</li>
+          </ul>
+          <div class="badge badge-orange" style="margin-top:8px;">人主导，AI 参考</div>
+        </div>
+      </div>
+
+      <div class="card card-accent-green" style="margin-top:1.5rem;">
+        <h3 style="margin-top:0;">⚡ AI 优先的操作习惯</h3>
+        <p>当接到新任务时，思维路径应该是：</p>
+        <div class="flow-diagram" style="padding:1.25rem;">
+          <div class="flow-row">
+            <div class="flow-box">收到任务</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box blue">A 类部分？<br/><small>AI 直接执行</small></div>
+            <div class="flow-arrow">+</div>
+            <div class="flow-box purple">B 类部分？<br/><small>AI 辅助分析</small></div>
+            <div class="flow-arrow">+</div>
+            <div class="flow-box green">C 类部分？<br/><small>我来决策</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box accent">高质量输出<br/><small>更快完成</small></div>
+          </div>
+        </div>
+        <p style="font-size:0.875rem;color:var(--medium);margin:0.5rem 0 0;">
+          关键转变：<strong>不再问"这个能不能用 AI"（被动），而是"这个任务哪些部分可以让 AI 先做"（主动）。</strong>
+        </p>
+      </div>
+
+      <!-- SVG 可视化 -->
+      <div class="svg-wrapper">
+        <p style="font-weight:700;margin-bottom:1rem;color:var(--dark);">📊 工程师工作时间重新分配——AI 优先前后对比</p>
+        <svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" style="max-width:680px;width:100%;">
+          <!-- Before -->
+          <text x="10" y="28" font-size="13" font-weight="700" fill="#2D3748" font-family="sans-serif">传统工作方式</text>
+          <!-- Bar before -->
+          <rect x="10" y="38" width="170" height="36" rx="6" fill="#FECACA"/>
+          <text x="95" y="61" font-size="11" text-anchor="middle" fill="#991B1B" font-family="sans-serif">执行重复任务 50%</text>
+          <rect x="180" y="38" width="140" height="36" rx="6" fill="#FEF3C7"/>
+          <text x="250" y="61" font-size="11" text-anchor="middle" fill="#92400E" font-family="sans-serif">分析决策 30%</text>
+          <rect x="320" y="38" width="110" height="36" rx="6" fill="#DCFCE7"/>
+          <text x="375" y="61" font-size="11" text-anchor="middle" fill="#166534" font-family="sans-serif">核心判断 20%</text>
+          <!-- After -->
+          <text x="10" y="118" font-size="13" font-weight="700" fill="#2D3748" font-family="sans-serif">AI 优先工作方式</text>
+          <rect x="10" y="128" width="54" height="36" rx="6" fill="#BFDBFE"/>
+          <text x="37" y="151" font-size="10" text-anchor="middle" fill="#1E40AF" font-family="sans-serif">执行 15%</text>
+          <rect x="64" y="128" width="50" height="36" rx="6" fill="#DDD6FE"/>
+          <text x="89" y="151" font-size="10" text-anchor="middle" fill="#6D28D9" font-family="sans-serif">审查 15%</text>
+          <rect x="114" y="128" width="200" height="36" rx="6" fill="#BBF7D0"/>
+          <text x="214" y="151" font-size="11" text-anchor="middle" fill="#166534" font-family="sans-serif">高价值分析 + 决策 55%</text>
+          <rect x="314" y="128" width="116" height="36" rx="6" fill="#FED7AA"/>
+          <text x="372" y="151" font-size="11" text-anchor="middle" fill="#9A3412" font-family="sans-serif">创意 + 关系 35%</text>
+          <!-- AI tag -->
+          <rect x="10" y="128" width="304" height="36" rx="6" fill="none" stroke="#E07A5F" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="158" y="183" font-size="10" text-anchor="middle" fill="#E07A5F" font-family="sans-serif">← AI 处理这部分 →</text>
+          <!-- Legend -->
+          <text x="520" y="60" font-size="11" fill="#718096" font-family="sans-serif">时间轴（100%）</text>
+          <text x="520" y="80" font-size="10" fill="#FECACA" font-family="sans-serif">■ 低价值执行任务</text>
+          <text x="520" y="95" font-size="10" fill="#FEF3C7" font-family="sans-serif">■ 分析/决策任务</text>
+          <text x="520" y="110" font-size="10" fill="#DCFCE7" font-family="sans-serif">■ 核心创造任务</text>
+        </svg>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Homework -->
+    <div id="homework" class="homework-box">
+      <div class="homework-header">
+        <div class="hw-icon">📝</div>
+        <h2>第一期课后作业</h2>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">1</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>ABC 框架记录</strong>：用 ABC 框架记录一周的每日任务，记录哪些用了 AI、节省了多少时间，下期分享。
+          </p>
+          <div class="hw-deliverable">产出物：ABC 任务记录表</div>
+        </div>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">2</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>提炼你的第一个有效 Prompt</strong>：把今天实操中"好的问法"整理成一个可复用的提示词模板，保存到你的个人 Prompt 库。
+          </p>
+          <div class="hw-deliverable">产出物：第一个有效 Prompt 模板</div>
+        </div>
+      </div>
+
+      <div class="hw-item">
+        <div class="hw-num">3</div>
+        <div>
+          <p style="margin:0;color:rgba(255,255,255,0.9);">
+            <strong>选做</strong>：找一封真实的客户邮件/内部需求文档（脱敏），用今天学到的方法做一次需求分析，对比 AI 输出和你自己分析的结果。
+          </p>
+          <div class="hw-deliverable">选做：需求分析对比报告</div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem;padding:0.75rem 1rem;background:rgba(255,255,255,0.06);border-radius:var(--radius-md);font-size:0.85rem;color:rgba(255,255,255,0.7);">
+        💬 <strong>下期分享：</strong>下期开始时，请 2-3 位同学分享本周 ABC 记录中最有趣的发现，以及 AI 帮你节省时间最多的一个任务。
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="index.html" class="page-nav-btn">← 返回总览</a>
+      <a href="session2.html" class="page-nav-btn">第二期：提示词工程 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
