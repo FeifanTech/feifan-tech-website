@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>头脑风暴 — OpenClaw × AI CLI 融入培训体系探索</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* ── Page-specific Overrides ── */
+    .brainstorm-hero {
+      background: linear-gradient(135deg, #FAF9F6 0%, #F5F0E8 40%, #EDE8DE 100%);
+      border-radius: var(--radius-xl);
+      padding: 4rem 3.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .brainstorm-hero::before {
+      content: '';
+      position: absolute; right: -100px; top: -100px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,122,95,0.12) 0%, transparent 65%);
+    }
+    .brainstorm-hero::after {
+      content: '';
+      position: absolute; left: -60px; bottom: -80px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(128,90,213,0.08) 0%, transparent 65%);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); animation: pulseDot 2s ease-in-out infinite;
+    }
+    @keyframes pulseDot {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.6); opacity: 0.4; }
+    }
+    .brainstorm-hero h1 {
+      font-size: 2.8rem; font-weight: 900; line-height: 1.2;
+      color: var(--dark); margin-bottom: 1rem;
+    }
+    .brainstorm-hero h1 em { font-style: normal; color: var(--accent); }
+    .hero-desc {
+      font-size: 1.05rem; color: var(--medium); max-width: 640px;
+      line-height: 1.8; margin-bottom: 2rem;
+    }
+    .hero-tags { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(224,122,95,0.08); border: 1px solid rgba(224,122,95,0.25);
+      border-radius: 999px; padding: 6px 16px; font-size: 0.8rem;
+      font-weight: 600; color: var(--accent-dark);
+    }
+
+    /* ── Section Titles ── */
+    .section-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section-badge::before {
+      content: ''; display: block; width: 24px; height: 2px;
+      background: var(--accent); border-radius: 1px;
+    }
+
+    /* ── Trend Cards ── */
+    .trend-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 768px) { .trend-grid { grid-template-columns: 1fr; } }
+    .trend-card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 2rem; position: relative; overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .trend-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .trend-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    }
+    .trend-card.openclaw::before { background: linear-gradient(90deg, #805AD5, #B794F4); }
+    .trend-card.aicli::before { background: linear-gradient(90deg, #E07A5F, #F0A090); }
+    .trend-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .trend-card h3 { font-size: 1.3rem; font-weight: 800; color: var(--dark); margin-bottom: 0.5rem; }
+    .trend-card p { color: var(--medium); line-height: 1.7; font-size: 0.92rem; }
+    .trend-features {
+      margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .trend-feature {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; color: var(--dark);
+    }
+    .trend-feature::before {
+      content: '✓'; display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 50%; font-size: 0.65rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .trend-card.openclaw .trend-feature::before { background: #F3E8FF; color: #805AD5; }
+    .trend-card.aicli .trend-feature::before { background: #FFF5F0; color: #E07A5F; }
+
+    /* ── Mind Map ── */
+    .mindmap-container {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius-xl);
+      padding: 3rem; margin-bottom: 3rem; overflow-x: auto;
+    }
+    .mindmap-title {
+      text-align: center; font-size: 1.5rem; font-weight: 800;
+      color: var(--dark); margin-bottom: 2rem;
+    }
+    .mindmap-svg { display: block; margin: 0 auto; max-width: 100%; }
+
+    /* ── Role Integration Cards ── */
+    .role-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem; margin-bottom: 3rem;
+    }
+    .role-card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 2rem; position: relative; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .role-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .role-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+    .role-avatar {
+      width: 48px; height: 48px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; flex-shrink: 0;
+    }
+    .role-avatar.pm   { background: #EBF8FF; }
+    .role-avatar.dev  { background: #F0FFF4; }
+    .role-avatar.qa   { background: #FEFCBF; }
+    .role-avatar.del  { background: #FED7E2; }
+    .role-avatar.mgr  { background: #E9D8FD; }
+    .role-name { font-size: 1.1rem; font-weight: 700; color: var(--dark); }
+    .role-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .idea-list { list-style: none; padding: 0; }
+    .idea-list li {
+      padding: 0.6rem 0; border-bottom: 1px solid var(--beige);
+      font-size: 0.88rem; color: var(--dark); line-height: 1.6;
+      display: flex; gap: 0.5rem; align-items: flex-start;
+    }
+    .idea-list li:last-child { border-bottom: none; }
+    .idea-list li .idea-tag {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 999px; flex-shrink: 0; margin-top: 3px;
+    }
+    .tag-openclaw { background: #F3E8FF; color: #6B46C1; }
+    .tag-cli { background: #FFF5F0; color: #C05621; }
+    .tag-both { background: #F0FFF4; color: #276749; }
+
+    /* ── Synergy Matrix ── */
+    .matrix-container {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius-xl);
+      padding: 2.5rem; margin-bottom: 3rem; overflow-x: auto;
+    }
+    .matrix-table {
+      width: 100%; border-collapse: separate; border-spacing: 0;
+      font-size: 0.85rem;
+    }
+    .matrix-table th, .matrix-table td {
+      padding: 1rem; text-align: left; border-bottom: 1px solid var(--beige);
+    }
+    .matrix-table thead th {
+      background: var(--warm); font-weight: 700; color: var(--dark);
+      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .matrix-table thead th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+    .matrix-table thead th:last-child { border-radius: 0 var(--radius-sm) 0 0; }
+    .matrix-table tbody tr:hover { background: var(--warm); }
+    .matrix-table td:first-child { font-weight: 600; color: var(--dark); white-space: nowrap; }
+    .impact-high { color: #276749; font-weight: 700; }
+    .impact-mid  { color: #975A16; font-weight: 600; }
+    .impact-low  { color: var(--muted); }
+
+    /* ── Roadmap Timeline ── */
+    .roadmap-section { margin-bottom: 3rem; }
+    .roadmap-timeline { position: relative; padding-left: 2.5rem; }
+    .roadmap-timeline::before {
+      content: ''; position: absolute; left: 12px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(180deg, var(--accent) 0%, var(--border) 100%);
+    }
+    .roadmap-phase {
+      position: relative; margin-bottom: 2rem; padding: 1.5rem 2rem;
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md);
+      transition: box-shadow 0.25s;
+    }
+    .roadmap-phase:hover { box-shadow: var(--shadow-md); }
+    .roadmap-phase::before {
+      content: ''; position: absolute; left: -2.5rem; top: 1.75rem;
+      width: 12px; height: 12px; border-radius: 50%;
+      border: 3px solid var(--accent); background: #fff;
+    }
+    .phase-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+    .phase-tag {
+      font-size: 0.7rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 999px; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .phase-tag.p1 { background: #FED7E2; color: #97266D; }
+    .phase-tag.p2 { background: #FEFCBF; color: #975A16; }
+    .phase-tag.p3 { background: #C6F6D5; color: #276749; }
+    .phase-tag.p4 { background: #E9D8FD; color: #553C9A; }
+    .phase-title { font-size: 1.1rem; font-weight: 700; color: var(--dark); }
+    .phase-desc { color: var(--medium); font-size: 0.88rem; line-height: 1.7; }
+    .phase-items {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    @media (max-width: 640px) { .phase-items { grid-template-columns: 1fr; } }
+    .phase-item {
+      font-size: 0.82rem; color: var(--dark); padding: 4px 0;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .phase-item::before {
+      content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0;
+    }
+
+    /* ── Opportunity Radar ── */
+    .radar-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 768px) { .radar-grid { grid-template-columns: 1fr; } }
+    .radar-card {
+      text-align: center; padding: 2rem 1.5rem; border-radius: var(--radius-lg);
+      border: 1px solid var(--border); background: #fff;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .radar-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .radar-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .radar-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .radar-card p { font-size: 0.82rem; color: var(--medium); line-height: 1.6; }
+    .radar-meter {
+      margin-top: 1rem; height: 6px; background: var(--beige);
+      border-radius: 3px; overflow: hidden;
+    }
+    .radar-fill { height: 100%; border-radius: 3px; }
+    .fill-hot { background: linear-gradient(90deg, #E07A5F, #C05621); }
+    .fill-warm { background: linear-gradient(90deg, #D69E2E, #975A16); }
+    .fill-rising { background: linear-gradient(90deg, #38A169, #276749); }
+
+    /* ── Infobox overrides ── */
+    .infobox-insight {
+      background: linear-gradient(135deg, #F3E8FF 0%, #FAF5FF 100%);
+      border-left: 4px solid #805AD5;
+      border-radius: var(--radius-md);
+      padding: 1.5rem 2rem; margin: 1.5rem 0;
+    }
+    .infobox-insight .ib-title { color: #553C9A; font-weight: 700; margin-bottom: 0.5rem; }
+    .infobox-insight p { color: #4A5568; font-size: 0.9rem; line-height: 1.7; }
+
+    .infobox-idea {
+      background: linear-gradient(135deg, #FFFBEB 0%, #FEFCE8 100%);
+      border-left: 4px solid #D69E2E;
+      border-radius: var(--radius-md);
+      padding: 1.5rem 2rem; margin: 1.5rem 0;
+    }
+    .infobox-idea .ib-title { color: #975A16; font-weight: 700; margin-bottom: 0.5rem; }
+    .infobox-idea p { color: #4A5568; font-size: 0.9rem; line-height: 1.7; }
+
+    /* ── Workshop prompt ── */
+    .workshop-card {
+      background: linear-gradient(135deg, var(--warm) 0%, #fff 100%);
+      border: 2px dashed var(--border); border-radius: var(--radius-xl);
+      padding: 3rem; text-align: center; margin-bottom: 3rem;
+    }
+    .workshop-card h3 { font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 1rem; }
+    .workshop-card p { color: var(--medium); font-size: 0.95rem; max-width: 540px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── Interactive Tabs ── */
+    .tab-container { margin-bottom: 2rem; }
+    .tab-nav {
+      display: flex; gap: 0; border-bottom: 2px solid var(--beige); margin-bottom: 1.5rem;
+    }
+    .tab-btn {
+      padding: 0.75rem 1.5rem; font-size: 0.85rem; font-weight: 600;
+      color: var(--muted); background: none; border: none; cursor: pointer;
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tab-btn:hover { color: var(--dark); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Footer CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--dark) 0%, #1A2035 100%);
+      border-radius: var(--radius-xl); padding: 4rem; text-align: center;
+      margin-bottom: 2rem; color: #fff;
+    }
+    .cta-section h2 { font-size: 2rem; font-weight: 900; margin-bottom: 1rem; }
+    .cta-section p { opacity: 0.8; font-size: 1rem; max-width: 520px; margin: 0 auto 2rem; line-height: 1.7; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #fff; padding: 0.9rem 2rem;
+      border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .cta-btn:hover { background: var(--accent-dark); color: #fff; }
+
+    /* ── Utility ── */
+    .mb-0 { margin-bottom: 0; }
+    .mb-1 { margin-bottom: 0.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .mb-3 { margin-bottom: 1.5rem; }
+    .text-center { text-align: center; }
+    .divider {
+      height: 1px; background: var(--border); margin: 3rem 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════ Header ════════════════ -->
+<header class="site-header">
+  <div class="header-logo">
+    <span style="font-weight:800;font-size:1.1rem;color:var(--dark);">FeifanTech</span>
+    <span style="margin:0 8px;color:var(--border);">|</span>
+    <span style="font-size:0.82rem;color:var(--muted);">培训体系 × 前沿趋势</span>
+  </div>
+  <nav class="header-nav">
+    <a href="../index.html" style="font-size:0.85rem;">← 返回培训总览</a>
+  </nav>
+</header>
+
+<!-- ════════════════ Main Content ════════════════ -->
+<div class="page-body" style="max-width:1100px;margin:0 auto;padding:2rem;">
+
+  <!-- ── Hero ── -->
+  <section class="brainstorm-hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">头脑风暴 · Brainstorming Session</div>
+      <h1>OpenClaw × <em>AI CLI</em><br/>融入培训体系探索</h1>
+      <p class="hero-desc">
+        开源 AI 工具生态（OpenClaw）和 AI 产品 CLI 化正在重塑每个技术岗位的工作流。
+        本方案以五大角色培训体系为锚点，系统探索如何将这两大趋势有机融入
+        产品/开发/测试/交付/项目经理的能力成长路径。
+      </p>
+      <div class="hero-tags">
+        <span class="hero-tag">🦀 OpenClaw 开源生态</span>
+        <span class="hero-tag">⌨️ AI CLI 命令行范式</span>
+        <span class="hero-tag">👥 5 大角色覆盖</span>
+        <span class="hero-tag">🔄 渐进式融入</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ Part 1: 趋势洞察 ══════════ -->
+  <section id="trends">
+    <div class="section-badge">Part 01 — 趋势洞察</div>
+    <h2 style="font-size:1.8rem;font-weight:800;color:var(--dark);margin-bottom:0.5rem;">
+      两大浪潮，一个交汇点
+    </h2>
+    <p style="color:var(--medium);max-width:640px;margin-bottom:2rem;line-height:1.7;">
+      OpenClaw 和 AI CLI 看似独立的两条技术路线，实则在「开发者体验」和
+      「AI 民主化」的交汇处形成了巨大的协同效应。
+    </p>
+
+    <div class="trend-grid">
+      <!-- OpenClaw -->
+      <div class="trend-card openclaw">
+        <div class="trend-icon">🦀</div>
+        <h3>OpenClaw — 开源 AI 工具生态</h3>
+        <p>
+          以开源理念驱动的 AI 工具链正在颠覆闭源 SaaS 的垄断格局。
+          从模型运行时到 Agent 框架，从数据标注到模型微调，
+          开源方案让团队拥有真正的技术主权。
+        </p>
+        <div class="trend-features">
+          <div class="trend-feature">本地部署 & 数据不出域</div>
+          <div class="trend-feature">社区驱动的快速迭代</div>
+          <div class="trend-feature">可定制 Agent / 插件生态</div>
+          <div class="trend-feature">模型微调 & 领域适配</div>
+          <div class="trend-feature">透明的成本与安全模型</div>
+        </div>
+      </div>
+
+      <!-- AI CLI -->
+      <div class="trend-card aicli">
+        <div class="trend-icon">⌨️</div>
+        <h3>AI CLI 化 — 命令行优先范式</h3>
+        <p>
+          当 AI 产品从 GUI 走向 CLI，带来的不仅是效率革命，
+          更是工作流编排的全新可能——管道化、自动化、可脚本化的 AI 交互
+          正成为专业人士的标配。
+        </p>
+        <div class="trend-features">
+          <div class="trend-feature">管道化 AI 调用（pipe-able AI）</div>
+          <div class="trend-feature">Shell / CI 原生集成</div>
+          <div class="trend-feature">批量处理 & 自动化脚本</div>
+          <div class="trend-feature">版本化的 Prompt 管理</div>
+          <div class="trend-feature">跨平台统一开发体验</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infobox-insight">
+      <div class="ib-title">💡 关键洞察</div>
+      <p>
+        <strong>OpenClaw 提供「能力底座」，AI CLI 提供「交互范式」</strong>——
+        两者结合意味着：任何角色都可以通过命令行驱动开源 AI 能力，
+        将复杂的 AI 工作流编排为可复用、可审计、可版本管理的自动化管道。
+        这对我们现有的五大角色培训体系来说，既是升级契机，也是差异化竞争力。
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════ Part 2: 头脑风暴可视化 ══════════ -->
+  <section id="brainstorm">
+    <div class="section-badge">Part 02 — 头脑风暴</div>
+    <h2 style="font-size:1.8rem;font-weight:800;color:var(--dark);margin-bottom:0.5rem;">
+      思维发散 · 融入路径全景
+    </h2>
+    <p style="color:var(--medium);max-width:640px;margin-bottom:2rem;line-height:1.7;">
+      围绕「谁 × 用什么 × 解决什么」三个维度，我们为每个角色梳理了
+      OpenClaw + AI CLI 的融入切入点。
+    </p>
+
+    <div class="mindmap-container">
+      <div class="mindmap-title">🧠 培训体系 × 新趋势融入全景图</div>
+      <svg class="mindmap-svg" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans SC',sans-serif;">
+        <!-- Center node -->
+        <rect x="390" y="310" width="220" height="80" rx="20" fill="#E07A5F" opacity="0.9"/>
+        <text x="500" y="345" text-anchor="middle" fill="#fff" font-size="15" font-weight="800">OpenClaw × AI CLI</text>
+        <text x="500" y="370" text-anchor="middle" fill="#fff" font-size="11" opacity="0.85">融入培训体系</text>
+
+        <!-- Branches - Product Manager -->
+        <path d="M390,350 Q280,350 200,180" stroke="#3182CE" stroke-width="2.5" fill="none" opacity="0.5"/>
+        <rect x="80" y="50" width="240" height="190" rx="16" fill="#EBF8FF" stroke="#90CDF4" stroke-width="1.5"/>
+        <text x="200" y="80" text-anchor="middle" fill="#2B6CB0" font-size="14" font-weight="800">📋 产品经理</text>
+        <line x1="120" y1="92" x2="280" y2="92" stroke="#90CDF4" stroke-width="1"/>
+        <text x="100" y="115" fill="#2D3748" font-size="10.5">
+          <tspan x="100" dy="0">🦀 用开源 Agent 快速构建 MVP</tspan>
+          <tspan x="100" dy="20">⌨️ CLI 驱动的竞品分析管道</tspan>
+          <tspan x="100" dy="20">🦀 开源 RAG 搭建知识库原型</tspan>
+          <tspan x="100" dy="20">⌨️ 命令行批量生成 PRD 草稿</tspan>
+          <tspan x="100" dy="20">🔄 Prompt 模板版本管理</tspan>
+          <tspan x="100" dy="20">🦀 私有化部署评估框架</tspan>
+        </text>
+
+        <!-- Branches - Developer -->
+        <path d="M610,350 Q720,350 800,180" stroke="#38A169" stroke-width="2.5" fill="none" opacity="0.5"/>
+        <rect x="680" y="50" width="240" height="190" rx="16" fill="#F0FFF4" stroke="#9AE6B4" stroke-width="1.5"/>
+        <text x="800" y="80" text-anchor="middle" fill="#276749" font-size="14" font-weight="800">💻 开发工程师</text>
+        <line x1="700" y1="92" x2="900" y2="92" stroke="#9AE6B4" stroke-width="1"/>
+        <text x="700" y="115" fill="#2D3748" font-size="10.5">
+          <tspan x="700" dy="0">⌨️ AI CLI 代码生成 & 重构</tspan>
+          <tspan x="700" dy="20">🦀 本地模型驱动的 Code Review</tspan>
+          <tspan x="700" dy="20">⌨️ CLI 管道集成 CI/CD</tspan>
+          <tspan x="700" dy="20">🦀 开源 Copilot 自托管方案</tspan>
+          <tspan x="700" dy="20">🔄 MCP Server 自定义开发</tspan>
+          <tspan x="700" dy="20">⌨️ Shell 脚本编排 AI 工作流</tspan>
+        </text>
+
+        <!-- Branches - Tester -->
+        <path d="M390,390 Q280,460 160,520" stroke="#D69E2E" stroke-width="2.5" fill="none" opacity="0.5"/>
+        <rect x="30" y="430" width="240" height="190" rx="16" fill="#FEFCBF" stroke="#ECC94B" stroke-width="1.5"/>
+        <text x="150" y="460" text-anchor="middle" fill="#975A16" font-size="14" font-weight="800">🧪 测试工程师</text>
+        <line x1="50" y1="472" x2="250" y2="472" stroke="#ECC94B" stroke-width="1"/>
+        <text x="50" y="495" fill="#2D3748" font-size="10.5">
+          <tspan x="50" dy="0">⌨️ CLI 批量生成测试用例</tspan>
+          <tspan x="50" dy="20">🦀 开源模型驱动智能断言</tspan>
+          <tspan x="50" dy="20">⌨️ 管道化回归测试脚本</tspan>
+          <tspan x="50" dy="20">🦀 私有化测试数据生成</tspan>
+          <tspan x="50" dy="20">🔄 AI 辅助缺陷根因分析</tspan>
+          <tspan x="50" dy="20">⌨️ 命令行驱动性能基线</tspan>
+        </text>
+
+        <!-- Branches - Delivery Manager -->
+        <path d="M610,390 Q720,460 840,520" stroke="#E53E3E" stroke-width="2.5" fill="none" opacity="0.5"/>
+        <rect x="730" y="430" width="240" height="190" rx="16" fill="#FFF5F5" stroke="#FEB2B2" stroke-width="1.5"/>
+        <text x="850" y="460" text-anchor="middle" fill="#C53030" font-size="14" font-weight="800">🚀 交付经理</text>
+        <line x1="750" y1="472" x2="950" y2="472" stroke="#FEB2B2" stroke-width="1"/>
+        <text x="750" y="495" fill="#2D3748" font-size="10.5">
+          <tspan x="750" dy="0">⌨️ CLI 自动化交付报告</tspan>
+          <tspan x="750" dy="20">🦀 开源 AI 风险预警系统</tspan>
+          <tspan x="750" dy="20">⌨️ 管道化质量度量采集</tspan>
+          <tspan x="750" dy="20">🦀 本地 LLM 会议纪要生成</tspan>
+          <tspan x="750" dy="20">🔄 CLI 编排多系统数据汇总</tspan>
+          <tspan x="750" dy="20">⌨️ 一键生成里程碑总结</tspan>
+        </text>
+
+        <!-- Branches - Project Manager (center bottom) -->
+        <path d="M500,390 Q500,460 500,520" stroke="#805AD5" stroke-width="2.5" fill="none" opacity="0.5"/>
+        <rect x="380" y="510" width="240" height="175" rx="16" fill="#FAF5FF" stroke="#D6BCFA" stroke-width="1.5"/>
+        <text x="500" y="540" text-anchor="middle" fill="#553C9A" font-size="14" font-weight="800">📊 项目经理</text>
+        <line x1="400" y1="552" x2="600" y2="552" stroke="#D6BCFA" stroke-width="1"/>
+        <text x="400" y="575" fill="#2D3748" font-size="10.5">
+          <tspan x="400" dy="0">⌨️ CLI 驱动项目健康度巡检</tspan>
+          <tspan x="400" dy="20">🦀 开源 AI 进度预测模型</tspan>
+          <tspan x="400" dy="20">⌨️ 命令行生成周报/月报</tspan>
+          <tspan x="400" dy="20">🦀 私有化部署的沟通助手</tspan>
+          <tspan x="400" dy="20">🔄 CLI 管道打通 JIRA/飞书</tspan>
+        </text>
+
+        <!-- Legend -->
+        <rect x="20" y="290" width="130" height="80" rx="8" fill="#fff" stroke="#D8D0C4" stroke-width="1"/>
+        <text x="35" y="310" fill="#4A5568" font-size="9" font-weight="600">图例</text>
+        <text x="35" y="330" fill="#6B46C1" font-size="9">🦀 OpenClaw 开源能力</text>
+        <text x="35" y="348" fill="#C05621" font-size="9">⌨️ AI CLI 命令行范式</text>
+        <text x="35" y="366" fill="#276749" font-size="9">🔄 两者融合场景</text>
+      </svg>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════ Part 3: 角色详解 ══════════ -->
+  <section id="roles">
+    <div class="section-badge">Part 03 — 角色详解</div>
+    <h2 style="font-size:1.8rem;font-weight:800;color:var(--dark);margin-bottom:0.5rem;">
+      每个角色的融入方案
+    </h2>
+    <p style="color:var(--medium);max-width:640px;margin-bottom:2rem;line-height:1.7;">
+      点击选项卡查看各角色的详细融入路径、工具推荐与培训模块设计。
+    </p>
+
+    <!-- Tab Navigation -->
+    <div class="tab-container">
+      <div class="tab-nav">
+        <button class="tab-btn active" data-tab="pm">📋 产品经理</button>
+        <button class="tab-btn" data-tab="dev">💻 开发工程师</button>
+        <button class="tab-btn" data-tab="qa">🧪 测试工程师</button>
+        <button class="tab-btn" data-tab="del">🚀 交付经理</button>
+        <button class="tab-btn" data-tab="mgr">📊 项目经理</button>
+      </div>
+
+      <!-- PM Panel -->
+      <div class="tab-panel active" id="panel-pm">
+        <div class="role-grid">
+          <div class="role-card">
+            <div class="role-header">
+              <div class="role-avatar pm">🦀</div>
+              <div>
+                <div class="role-name">OpenClaw 融入点</div>
+                <div class="role-sub">产品经理 — 开源能力赋能</div>
+              </div>
+            </div>
+            <ul class="idea-list">
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 用开源 Agent 框架（如 LangChain、CrewAI）快速搭建产品原型，验证 AI 功能可行性</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 利用开源 RAG 方案（如 Haystack）搭建领域知识库，辅助需求分析</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 评估开源 vs 闭源 AI 方案的 TCO 对比框架，为产品技术选型提供决策依据</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 使用开源数据标注工具（如 Label Studio）设计产品标注流程</li>
+            </ul>
+          </div>
+          <div class="role-card">
+            <div class="role-header">
+              <div class="role-avatar pm">⌨️</div>
+              <div>
+                <div class="role-name">AI CLI 融入点</div>
+                <div class="role-sub">产品经理 — 命令行效率提升</div>
+              </div>
+            </div>
+            <ul class="idea-list">
+              <li><span class="idea-tag tag-cli">CLI</span> 用 AI CLI 工具批量分析用户反馈（<code>cat feedback.csv | ai summarize</code>）</li>
+              <li><span class="idea-tag tag-cli">CLI</span> 命令行驱动的竞品分析管道——抓取 → 结构化 → 对比 → 报告一站式完成</li>
+              <li><span class="idea-tag tag-cli">CLI</span> PRD 草稿生成：<code>ai generate prd --template=mobile --context=requirements.md</code></li>
+              <li><span class="idea-tag tag-both">融合</span> 将 Prompt 模板纳入 Git 版本管理，实现产品决策的可追溯性</li>
+            </ul>
+          </div>
+        </div>
+        <div class="infobox-idea">
+          <div class="ib-title">💡 培训模块设计建议</div>
+          <p>
+            在现有 <strong>training-advanced/session1</strong>（产品经理 AI 实战）中新增「开源 AI 产品力评估」实操环节；
+            在 appendix 中补充 CLI 工具速查表。建议新增半日工作坊：
+            「<strong>从 GUI 到 CLI：产品经理的 AI 效率跃迁</strong>」。
+          </p>
+        </div>
+      </div>
+
+      <!-- Dev Panel -->
+      <div class="tab-panel" id="panel-dev">
+        <div class="role-grid">
+          <div class="role-card">
+            <div class="role-header">
+              <div class="role-avatar dev">🦀</div>
+              <div>
+                <div class="role-name">OpenClaw 融入点</div>
+                <div class="role-sub">开发工程师 — 开源工具链深度集成</div>
+              </div>
+            </div>
+            <ul class="idea-list">
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 自托管 Copilot 方案：使用开源模型（CodeLlama / DeepSeek Coder）替代闭源 API</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 基于 Ollama/vLLM 的本地推理服务搭建与优化</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 开源 Agent 框架（AutoGen / LangGraph）的工程化实践</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> MCP Server 自定义开发——为团队特定工具链构建 AI 接口</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 开源模型的量化、微调与部署全流程</li>
+            </ul>
+          </div>
+          <div class="role-card">
+            <div class="role-header">
+              <div class="role-avatar dev">⌨️</div>
+              <div>
+                <div class="role-name">AI CLI 融入点</div>
+                <div class="role-sub">开发工程师 — CLI 优先开发范式</div>
+              </div>
+            </div>
+            <ul class="idea-list">
+              <li><span class="idea-tag tag-cli">CLI</span> Claude CLI / GitHub Copilot CLI 的高阶用法与 Shell 集成</li>
+              <li><span class="idea-tag tag-cli">CLI</span> AI CLI 管道集成 CI/CD：代码审查 → 测试生成 → 部署检查</li>
+              <li><span class="idea-tag tag-cli">CLI</span> Shell 脚本编排复杂 AI 工作流（多模型协作、结果聚合）</li>
+              <li><span class="idea-tag tag-both">融合</span> 构建自定义 CLI 工具——封装开源模型调用为团队专用命令</li>
+              <li><span class="idea-tag tag-both">融合</span> <code>git hooks + AI CLI</code> 自动化代码质量保障</li>
+            </ul>
+          </div>
+        </div>
+        <div class="infobox-idea">
+          <div class="ib-title">💡 培训模块设计建议</div>
+          <p>
+            在现有 <strong>training-advanced-for-dev/module4</strong>（Agent 与工具链编排）中新增「CLI 编排实战」Lab；
+            新增 <strong>module9</strong>：「<strong>开源 AI 工程化：从 Ollama 到生产级 Agent</strong>」，
+            覆盖本地部署、模型选型、性能优化和安全合规。
+          </p>
+        </div>
+      </div>
+
+      <!-- QA Panel -->
+      <div class="tab-panel" id="panel-qa">
+        <div class="role-grid">
+          <div class="role-card">
+            <div class="role-header">
+              <div class="role-avatar qa">🦀</div>
+              <div>
+                <div class="role-name">OpenClaw 融入点</div>
+                <div class="role-sub">测试工程师 — 开源 AI 测试能力</div>
+              </div>
+            </div>
+            <ul class="idea-list">
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 使用开源模型进行智能测试用例生成（不泄露业务数据到第三方）</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 基于本地 LLM 的测试数据脱敏与生成方案</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 开源 AI 驱动的视觉回归测试（如 Applitools 开源替代方案）</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 私有化部署的缺陷预测与根因分析模型</li>
+            </ul>
+          </div>
+          <div class="role-card">
+            <div class="role-header">
+              <div class="role-avatar qa">⌨️</div>
+              <div>
+                <div class="role-name">AI CLI 融入点</div>
+                <div class="role-sub">测试工程师 — 命令行自动化测试</div>
+              </div>
+            </div>
+            <ul class="idea-list">
+              <li><span class="idea-tag tag-cli">CLI</span> <code>ai test-gen --spec=api.yaml --coverage=boundary</code> 批量生成测试</li>
+              <li><span class="idea-tag tag-cli">CLI</span> CLI 管道化回归测试：变更检测 → 影响分析 → 用例筛选 → 执行</li>
+              <li><span class="idea-tag tag-cli">CLI</span> 命令行驱动的性能基线对比与趋势分析</li>
+              <li><span class="idea-tag tag-both">融合</span> 构建团队测试 CLI 工具——封装开源 AI 为测试中间件</li>
+            </ul>
+          </div>
+        </div>
+        <div class="infobox-idea">
+          <div class="ib-title">💡 培训模块设计建议</div>
+          <p>
+            在现有 <strong>training-advanced/session2</strong>（测试工程师 AI 实战）中新增「AI CLI 测试自动化」Lab；
+            在 session3（双角色打通）中增加「<strong>开源 AI 的数据安全优势——测试场景的私有化方案</strong>」专题。
+          </p>
+        </div>
+      </div>
+
+      <!-- Delivery Panel -->
+      <div class="tab-panel" id="panel-del">
+        <div class="role-grid">
+          <div class="role-card">
+            <div class="role-header">
+              <div class="role-avatar del">🦀</div>
+              <div>
+                <div class="role-name">OpenClaw 融入点</div>
+                <div class="role-sub">交付经理 — 开源 AI 驱动交付效率</div>
+              </div>
+            </div>
+            <ul class="idea-list">
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 开源 LLM 驱动的会议纪要自动生成（数据不出域）</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 基于本地模型的客户邮件/文档智能回复建议</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 开源 AI 风险预警——基于历史数据的交付风险识别</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 私有化知识库：团队经验教训的 RAG 检索系统</li>
+            </ul>
+          </div>
+          <div class="role-card">
+            <div class="role-header">
+              <div class="role-avatar del">⌨️</div>
+              <div>
+                <div class="role-name">AI CLI 融入点</div>
+                <div class="role-sub">交付经理 — 命令行驱动交付管理</div>
+              </div>
+            </div>
+            <ul class="idea-list">
+              <li><span class="idea-tag tag-cli">CLI</span> <code>ai delivery-report --sprint=23 --format=pptx</code> 一键生成交付报告</li>
+              <li><span class="idea-tag tag-cli">CLI</span> CLI 管道汇总多系统数据（JIRA + GitLab + SonarQube → 仪表盘）</li>
+              <li><span class="idea-tag tag-cli">CLI</span> 命令行驱动的里程碑回顾与总结生成</li>
+              <li><span class="idea-tag tag-both">融合</span> 将 AI CLI 工具编排为交付自动化 Pipeline</li>
+            </ul>
+          </div>
+        </div>
+        <div class="infobox-idea">
+          <div class="ib-title">💡 培训模块设计建议</div>
+          <p>
+            在现有 <strong>training-pm-delivery/module6</strong>（AI 交付质量管控）中新增「CLI 工具链实操」环节；
+            在 appendix 中补充「<strong>交付经理 CLI 工具箱：从命令行到自动化交付</strong>」速查手册。
+          </p>
+        </div>
+      </div>
+
+      <!-- PM Manager Panel -->
+      <div class="tab-panel" id="panel-mgr">
+        <div class="role-grid">
+          <div class="role-card">
+            <div class="role-header">
+              <div class="role-avatar mgr">🦀</div>
+              <div>
+                <div class="role-name">OpenClaw 融入点</div>
+                <div class="role-sub">项目经理 — 开源 AI 赋能项目管理</div>
+              </div>
+            </div>
+            <ul class="idea-list">
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 开源 AI 进度预测模型——基于历史数据的工期预估</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 私有化部署的项目沟通助手（多语言、多时区支持）</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 开源工具构建项目知识图谱——人员/模块/风险关联</li>
+              <li><span class="idea-tag tag-openclaw">OpenClaw</span> 基于本地 LLM 的合同/需求文档智能审阅</li>
+            </ul>
+          </div>
+          <div class="role-card">
+            <div class="role-header">
+              <div class="role-avatar mgr">⌨️</div>
+              <div>
+                <div class="role-name">AI CLI 融入点</div>
+                <div class="role-sub">项目经理 — 命令行驱动项目治理</div>
+              </div>
+            </div>
+            <ul class="idea-list">
+              <li><span class="idea-tag tag-cli">CLI</span> <code>ai project-health --repo=main --check=all</code> 项目健康度巡检</li>
+              <li><span class="idea-tag tag-cli">CLI</span> CLI 驱动的周报/月报自动生成（聚合 Git + JIRA + 飞书数据）</li>
+              <li><span class="idea-tag tag-cli">CLI</span> 命令行管道打通 JIRA/飞书/钉钉等多平台数据</li>
+              <li><span class="idea-tag tag-both">融合</span> 构建项目管理 AI CLI 工具集——标准化项目治理流程</li>
+            </ul>
+          </div>
+        </div>
+        <div class="infobox-idea">
+          <div class="ib-title">💡 培训模块设计建议</div>
+          <p>
+            在现有 <strong>training-pm-delivery/module2</strong>（AI 驱动项目规划）中新增「开源 AI 项目管理工具」实操；
+            建议新增半日工作坊：「<strong>项目经理的 CLI 武器库——从手动到自动的管理范式升级</strong>」。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════ Part 4: 机会热度雷达 ══════════ -->
+  <section id="radar">
+    <div class="section-badge">Part 04 — 机会热度</div>
+    <h2 style="font-size:1.8rem;font-weight:800;color:var(--dark);margin-bottom:0.5rem;">
+      六大高价值融入机会
+    </h2>
+    <p style="color:var(--medium);max-width:640px;margin-bottom:2rem;line-height:1.7;">
+      基于市场热度、实施难度和培训差异化三个维度，我们筛选出六个最具价值的融入方向。
+    </p>
+
+    <div class="radar-grid">
+      <div class="radar-card">
+        <div class="radar-icon">🔥</div>
+        <h4>AI CLI 工作流编排</h4>
+        <p>将 AI 调用编排为 Shell 管道，实现可复用、可审计的自动化工作流</p>
+        <div class="radar-meter"><div class="radar-fill fill-hot" style="width:95%"></div></div>
+      </div>
+      <div class="radar-card">
+        <div class="radar-icon">🏠</div>
+        <h4>开源模型私有化部署</h4>
+        <p>Ollama / vLLM 驱动的本地推理服务，解决数据安全与合规痛点</p>
+        <div class="radar-meter"><div class="radar-fill fill-hot" style="width:90%"></div></div>
+      </div>
+      <div class="radar-card">
+        <div class="radar-icon">🤖</div>
+        <h4>MCP + CLI 扩展开发</h4>
+        <p>自定义 MCP Server + CLI 封装，为团队打造专属 AI 工具链</p>
+        <div class="radar-meter"><div class="radar-fill fill-hot" style="width:85%"></div></div>
+      </div>
+      <div class="radar-card">
+        <div class="radar-icon">📊</div>
+        <h4>CLI 驱动报告自动化</h4>
+        <p>用命令行管道打通多系统数据，自动生成周报/月报/交付报告</p>
+        <div class="radar-meter"><div class="radar-fill fill-warm" style="width:80%"></div></div>
+      </div>
+      <div class="radar-card">
+        <div class="radar-icon">🧪</div>
+        <h4>AI CLI 测试自动化</h4>
+        <p>命令行驱动的测试生成、回归测试编排和缺陷分析管道</p>
+        <div class="radar-meter"><div class="radar-fill fill-warm" style="width:75%"></div></div>
+      </div>
+      <div class="radar-card">
+        <div class="radar-icon">🧠</div>
+        <h4>开源 RAG 知识库</h4>
+        <p>基于开源方案搭建团队/产品知识库，赋能全角色的知识检索</p>
+        <div class="radar-meter"><div class="radar-fill fill-rising" style="width:70%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════ Part 5: 协同矩阵 ══════════ -->
+  <section id="matrix">
+    <div class="section-badge">Part 05 — 协同矩阵</div>
+    <h2 style="font-size:1.8rem;font-weight:800;color:var(--dark);margin-bottom:0.5rem;">
+      现有培训模块 × 新趋势匹配度
+    </h2>
+    <p style="color:var(--medium);max-width:640px;margin-bottom:2rem;line-height:1.7;">
+      将 OpenClaw 和 AI CLI 与现有培训模块逐一对照，评估融入优先级。
+    </p>
+
+    <div class="matrix-container">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>现有培训模块</th>
+            <th>OpenClaw 融入度</th>
+            <th>AI CLI 融入度</th>
+            <th>融入建议</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Session 1 — 重新认识 AI</td>
+            <td class="impact-mid">⬛⬛⬛◻◻ 中</td>
+            <td class="impact-mid">⬛⬛⬛◻◻ 中</td>
+            <td>新增「开源 AI 生态全景」和「CLI 范式简介」内容</td>
+          </tr>
+          <tr>
+            <td>Session 2 — Prompt 工程 + AI Coding</td>
+            <td class="impact-mid">⬛⬛⬛◻◻ 中</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td>CLI 是 Prompt 工程的最佳实践场景——命令行即 Prompt 入口</td>
+          </tr>
+          <tr>
+            <td>Session 3 — RAG + AI 工作流</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td>开源 RAG 方案（Haystack/LlamaIndex）+ CLI 编排是天然结合点</td>
+          </tr>
+          <tr>
+            <td>Session 4 — MCP + AI Native</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td>MCP 协议 + 开源 Server + CLI 工具 = 终极 AI 工具链</td>
+          </tr>
+          <tr>
+            <td>PM 实战 (training-advanced)</td>
+            <td class="impact-mid">⬛⬛⬛◻◻ 中</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td>CLI 批量分析 + 开源原型搭建是产品经理的效率杠杆</td>
+          </tr>
+          <tr>
+            <td>QA 实战 (training-advanced)</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td>开源 AI 测试 + CLI 自动化 = 测试工程师的生产力翻倍</td>
+          </tr>
+          <tr>
+            <td>架构设计 (for-dev/module1)</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td class="impact-mid">⬛⬛⬛◻◻ 中</td>
+            <td>AI 原生架构需考虑开源模型部署拓扑与 CLI 工具集成</td>
+          </tr>
+          <tr>
+            <td>Agent 工具链 (for-dev/module4)</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td>最高优先级——开源 Agent + CLI 编排是核心能力</td>
+          </tr>
+          <tr>
+            <td>安全合规 (for-dev/module8)</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td class="impact-mid">⬛⬛◻◻◻ 中</td>
+            <td>开源方案的安全审计、供应链风险、许可证合规是关键议题</td>
+          </tr>
+          <tr>
+            <td>项目交付 (pm-delivery)</td>
+            <td class="impact-mid">⬛⬛⬛◻◻ 中</td>
+            <td class="impact-high">⬛⬛⬛⬛⬛ 高</td>
+            <td>CLI 驱动的项目管理自动化是交付效率的新引擎</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════ Part 6: 实施路线图 ══════════ -->
+  <section id="roadmap">
+    <div class="section-badge">Part 06 — 实施路线图</div>
+    <h2 style="font-size:1.8rem;font-weight:800;color:var(--dark);margin-bottom:0.5rem;">
+      渐进式融入四阶段
+    </h2>
+    <p style="color:var(--medium);max-width:640px;margin-bottom:2rem;line-height:1.7;">
+      采用「认知 → 体验 → 实战 → 内化」的渐进式路径，
+      确保新趋势在培训体系中自然落地。
+    </p>
+
+    <div class="roadmap-section">
+      <div class="roadmap-timeline">
+        <!-- Phase 1 -->
+        <div class="roadmap-phase">
+          <div class="phase-header">
+            <span class="phase-tag p1">Phase 1</span>
+            <span class="phase-title">认知植入 — 更新现有内容</span>
+          </div>
+          <p class="phase-desc">在现有培训模块中植入 OpenClaw 和 AI CLI 的基础认知，不改变课程结构。</p>
+          <div class="phase-items">
+            <div class="phase-item">Session 1 新增「开源 AI 生态全景图」</div>
+            <div class="phase-item">Session 2 补充「CLI 即 Prompt 入口」理念</div>
+            <div class="phase-item">Session 4 扩展 MCP + 开源 Server 案例</div>
+            <div class="phase-item">各角色 appendix 补充 CLI 工具速查表</div>
+            <div class="phase-item">更新所有培训中的工具推荐列表</div>
+            <div class="phase-item">录制 3-5 分钟的 CLI 演示短视频</div>
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="roadmap-phase">
+          <div class="phase-header">
+            <span class="phase-tag p2">Phase 2</span>
+            <span class="phase-title">体验工坊 — 半日 Workshop</span>
+          </div>
+          <p class="phase-desc">为每个角色设计 2-4 小时的动手工作坊，让学员亲身体验新工具。</p>
+          <div class="phase-items">
+            <div class="phase-item">「AI CLI 效率跃迁」通用 Workshop</div>
+            <div class="phase-item">开发者：Ollama + CLI 本地开发环境搭建</div>
+            <div class="phase-item">测试：AI CLI 测试自动化实操</div>
+            <div class="phase-item">PM/交付：CLI 报告生成 & 数据管道</div>
+            <div class="phase-item">项目经理：CLI 项目巡检工具体验</div>
+            <div class="phase-item">产品经理：开源 Agent 快速原型搭建</div>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="roadmap-phase">
+          <div class="phase-header">
+            <span class="phase-tag p3">Phase 3</span>
+            <span class="phase-title">深度模块 — 新增课程内容</span>
+          </div>
+          <p class="phase-desc">在各培训体系中正式新增深度模块，系统覆盖新技术。</p>
+          <div class="phase-items">
+            <div class="phase-item">for-dev 新增 Module 9：开源 AI 工程化</div>
+            <div class="phase-item">for-dev 新增 Module 10：AI CLI 高级编排</div>
+            <div class="phase-item">training-advanced 新增 Session 4：CLI 自动化</div>
+            <div class="phase-item">pm-delivery 新增 Module 7：CLI 项目治理</div>
+            <div class="phase-item">跨角色联合实战：OpenClaw 全栈 Demo Day</div>
+            <div class="phase-item">认证体系：「AI CLI 效能认证」设计</div>
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="roadmap-phase">
+          <div class="phase-header">
+            <span class="phase-tag p4">Phase 4</span>
+            <span class="phase-title">内化输出 — 团队实践沉淀</span>
+          </div>
+          <p class="phase-desc">推动学员将所学内化为团队标准实践，形成知识沉淀。</p>
+          <div class="phase-items">
+            <div class="phase-item">团队 AI CLI Playbook 编写</div>
+            <div class="phase-item">开源方案选型决策框架沉淀</div>
+            <div class="phase-item">最佳实践案例库持续更新</div>
+            <div class="phase-item">内部 MCP Server / CLI 工具共享平台</div>
+            <div class="phase-item">季度「AI 效能之星」评选</div>
+            <div class="phase-item">对外输出：技术博客 / 开源贡献</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════ Part 7: 下一步行动 ══════════ -->
+  <section id="next">
+    <div class="section-badge">Part 07 — 下一步行动</div>
+    <h2 style="font-size:1.8rem;font-weight:800;color:var(--dark);margin-bottom:2rem;">
+      从探索到落地
+    </h2>
+
+    <div class="workshop-card">
+      <h3>🎯 建议的首要行动</h3>
+      <p>
+        选择 <strong>1-2 个高融入度模块</strong>（推荐 Session 4: MCP + AI Native
+        和 for-dev/module4: Agent 工具链），先行试点 OpenClaw + AI CLI 内容，
+        通过 2 周的迭代验证效果后，再逐步铺开到其他培训体系。
+      </p>
+    </div>
+
+    <div class="role-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="role-card" style="text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem;">📝</div>
+        <div class="role-name mb-1">内容更新</div>
+        <p style="font-size:0.85rem;color:var(--medium);line-height:1.6;">
+          更新现有 Session 1-4 的工具介绍<br/>
+          补充 CLI 使用示例和 Demo<br/>
+          更新 appendix 工具速查表
+        </p>
+      </div>
+      <div class="role-card" style="text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem;">🛠️</div>
+        <div class="role-name mb-1">环境准备</div>
+        <p style="font-size:0.85rem;color:var(--medium);line-height:1.6;">
+          搭建 Ollama 培训环境<br/>
+          准备 AI CLI 工具安装指南<br/>
+          构建 Demo 用 MCP Server
+        </p>
+      </div>
+      <div class="role-card" style="text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem;">🧪</div>
+        <div class="role-name mb-1">试点验证</div>
+        <p style="font-size:0.85rem;color:var(--medium);line-height:1.6;">
+          选 1 个角色做 Workshop 试点<br/>
+          收集学员反馈与效果数据<br/>
+          迭代优化后推广到全角色
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section">
+    <h2>准备好开始探索了吗？</h2>
+    <p>
+      这份头脑风暴方案是融入新趋势的第一步。
+      下一步，我们将选择试点模块并进入详细课程设计阶段。
+    </p>
+    <a href="../index.html" class="cta-btn">
+      ← 返回培训总览
+    </a>
+  </section>
+
+</div>
+
+<!-- ════════════════ Tab Switching Script ════════════════ -->
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      // Update buttons
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      // Update panels
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-' + tab).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
