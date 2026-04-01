@@ -57,7 +57,7 @@ const Layout = ({ children }) => {
       </AnimatePresence>
 
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-claude-cream/95 backdrop-blur-md border-b border-claude-beige">
+      <header className="sticky top-0 z-50 bg-claude-cream border-b border-claude-beige">
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 2xl:px-16">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
