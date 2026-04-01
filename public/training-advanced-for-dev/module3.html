@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 03：RAG 系统深度实战 — AI 工程进阶培训 v2.0</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* RAG pipeline visual styling */
+    .rag-pipeline {
+      background: #F9FAFB;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 1.25rem 0;
+    }
+    .rag-pipeline-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .rag-pipeline-label .pipeline-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .rag-offline { background: #FFFBEB; border-color: #FDE68A; }
+    .rag-offline .pipeline-dot { background: #D97706; }
+    .rag-offline .rag-pipeline-label { color: #92400E; }
+    .rag-online { background: #F0F0FF; border-color: #C7D2FE; }
+    .rag-online .pipeline-dot { background: #6D28D9; }
+    .rag-online .rag-pipeline-label { color: #6D28D9; }
+    .rag-pipeline .flow-diagram { margin: 0; }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🏗️</span>
+    <span>AI 工程进阶培训</span>
+    <span class="logo-badge">进阶版</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">架构设计</a>
+    <a href="module2.html">Prompt工程</a>
+    <a href="module3.html" class="active">RAG实战</a>
+    <a href="module4.html">Agent编排</a>
+    <a href="module5.html">后端集成</a>
+    <a href="module6.html">前端集成</a>
+    <a href="module7.html">可观测性</a>
+    <a href="module8.html">安全合规</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块 03 目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#section-3-1" class="active">
+        <span class="nav-num">3.1</span> RAG 架构全景
+      </a></li>
+      <li><a href="#section-3-2">
+        <span class="nav-num">3.2</span> 分块策略选择
+      </a></li>
+      <li><a href="#section-3-3">
+        <span class="nav-num">3.3</span> 检索质量优化
+      </a></li>
+      <li><a href="#section-3-4">
+        <span class="nav-num">3.4</span> RAG 质量评估指标
+      </a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem; border-top:1px solid var(--border); margin-top:auto;">
+      <a href="index.html" style="font-size:0.8rem;color:var(--muted);">← 返回总览</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">🏠 课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">模块 03：RAG 系统深度实战</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">Module 03</span>
+        AI 工程进阶培训 v2.0
+      </div>
+      <h1>RAG 系统深度实战</h1>
+      <p class="hero-subtitle">构建企业级知识库检索系统，解决 LLM 知识时效性和私域数据问题</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><span class="role-badge role-backend">后端·架构师重点</span></span>
+        <span class="hero-meta-item">🔍 RAG 架构</span>
+        <span class="hero-meta-item">📦 分块策略</span>
+        <span class="hero-meta-item">🎯 检索优化</span>
+      </div>
+    </div>
+
+    <!-- ── Section 3.1: RAG 架构全景 ── -->
+    <div id="section-3-1" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">🔍</div>
+        <div>
+          <div class="section-title">3.1 RAG 架构全景</div>
+          <div class="section-subtitle">离线索引流水线 + 在线检索流水线</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 双流水线架构</div>
+
+      <div class="rag-pipeline rag-offline">
+        <div class="rag-pipeline-label"><span class="pipeline-dot"></span> 离线索引流水线</div>
+        <div class="flow-diagram" style="padding:1rem;">
+          <div class="flow-row">
+            <div class="flow-box">📄 原始文档</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box">✂️ 解析<br/><small style="color:#92400E">格式清洗</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box">📦 分块<br/><small style="color:#92400E">语义切割</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box">🔢 Embedding<br/><small style="color:#92400E">text-embed-3-small</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box">💾 向量存储<br/><small style="color:#92400E">Qdrant/Pgvector</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rag-pipeline rag-online">
+        <div class="rag-pipeline-label"><span class="pipeline-dot"></span> 在线检索流水线</div>
+        <div class="flow-diagram" style="padding:1rem;">
+          <div class="flow-row">
+            <div class="flow-box">🔍 用户查询<br/><small style="color:#6D28D9">查询增强</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box">🧠 查询增强<br/><small style="color:#6D28D9">HyDE/扩展</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box accent">📡 向量检索<br/><small style="color:rgba(255,255,255,0.85)">Top-K 召回</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box purple">🎯 重排序<br/><small style="color:#6D28D9">Cross-Encoder</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box blue">📎 上下文注入<br/><small style="color:#1E40AF">Prompt 构建</small></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box green">🤖 LLM → 响应</div>
+          </div>
+        </div>
+      </div>
+
+      <blockquote>
+        💡 <strong>核心理念：</strong>RAG = 检索增强生成。通过外挂知识库弥补 LLM 训练数据的时效性和领域覆盖不足，是当前企业 AI 应用的核心范式。
+      </blockquote>
+    </div>
+
+    <!-- ── Section 3.2: 分块策略选择 ── -->
+    <div id="section-3-2" class="section">
+      <div class="section-header">
+        <div class="section-icon green">📦</div>
+        <div>
+          <div class="section-title">3.2 分块策略选择</div>
+          <div class="section-subtitle">五种分块策略的适用场景与权衡</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 五种分块策略对比</div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>策略</th>
+              <th>适用场景</th>
+              <th>优点</th>
+              <th>缺点</th>
+              <th>推荐块大小</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>固定长度</strong></td>
+              <td>通用文本</td>
+              <td>实现简单</td>
+              <td>破坏语义</td>
+              <td>512 tokens</td>
+            </tr>
+            <tr>
+              <td><strong>递归字符</strong></td>
+              <td>结构化文档</td>
+              <td>尊重段落边界</td>
+              <td>块大小不均</td>
+              <td>1000 chars</td>
+            </tr>
+            <tr>
+              <td><strong>语义分块</strong></td>
+              <td>长篇内容</td>
+              <td>语义完整性好</td>
+              <td>计算成本高</td>
+              <td>变长</td>
+            </tr>
+            <tr>
+              <td><strong>父子分块</strong></td>
+              <td>需要上下文的场景</td>
+              <td>检索精准+上下文丰富</td>
+              <td>实现复杂</td>
+              <td>父:2048/子:256</td>
+            </tr>
+            <tr>
+              <td><strong>文档结构</strong></td>
+              <td>PDF/HTML</td>
+              <td>保留原始结构</td>
+              <td>依赖解析质量</td>
+              <td>按章节</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 父子分块实现示例（Python）</div>
+
+      <pre>from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+# 小块用于精准检索
+child_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=256,
+    chunk_overlap=32,
+)
+
+# 大块用于上下文注入
+parent_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=2048,
+    chunk_overlap=128,
+)
+
+def create_parent_child_docs(documents):
+    """创建父子文档对，子文档用于检索，父文档用于生成"""
+    parent_docs = parent_splitter.split_documents(documents)
+    
+    all_child_docs = []
+    for i, parent in enumerate(parent_docs):
+        children = child_splitter.split_documents([parent])
+        for child in children:
+            # 子文档携带父文档 ID，用于回溯完整上下文
+            child.metadata["parent_id"] = f"parent_{i}"
+        all_child_docs.extend(children)
+    
+    return parent_docs, all_child_docs</pre>
+    </div>
+
+    <!-- ── Section 3.3: 检索质量优化 ── -->
+    <div id="section-3-3" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">🎯</div>
+        <div>
+          <div class="section-title">3.3 检索质量优化</div>
+          <div class="section-subtitle">混合检索与查询增强技术</div>
+        </div>
+      </div>
+
+      <!-- Technique 1: Hybrid Search -->
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num">1</div>
+          <div>
+            <div class="technique-title">混合检索（Hybrid Search）</div>
+            <div class="technique-en">向量检索 + 关键词检索融合（BM25 + Dense）</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <p>单一检索方式各有盲区，混合检索通过 RRF（Reciprocal Rank Fusion）融合向量语义检索和 BM25 关键词检索的结果，显著提升召回率。</p>
+          <pre>from qdrant_client import QdrantClient
+from rank_bm25 import BM25Okapi
+
+class HybridRetriever:
+    def __init__(self, qdrant_client: QdrantClient, collection: str):
+        self.qdrant = qdrant_client
+        self.collection = collection
+    
+    def retrieve(
+        self, 
+        query: str, 
+        embedding: list[float],
+        top_k: int = 20,
+        alpha: float = 0.5,    # 0=纯关键词, 1=纯向量
+    ) -&gt; list[dict]:
+        # 向量检索
+        vector_results = self.qdrant.search(
+            collection_name=self.collection,
+            query_vector=embedding,
+            limit=top_k,
+        )
+        
+        # BM25 关键词检索
+        bm25_results = self._bm25_search(query, top_k)
+        
+        # RRF (Reciprocal Rank Fusion) 融合
+        return self._rrf_merge(vector_results, bm25_results, alpha)
+    
+    def _rrf_merge(self, vec_results, bm25_results, alpha, k=60):
+        scores = {}
+        for rank, doc in enumerate(vec_results):
+            doc_id = doc.id
+            scores[doc_id] = scores.get(doc_id, 0) + alpha / (k + rank + 1)
+        for rank, doc in enumerate(bm25_results):
+            doc_id = doc["id"]
+            scores[doc_id] = scores.get(doc_id, 0) + (1 - alpha) / (k + rank + 1)
+        return sorted(scores.items(), key=lambda x: x[1], reverse=True)</pre>
+        </div>
+      </div>
+
+      <!-- Technique 2: HyDE -->
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num">2</div>
+          <div>
+            <div class="technique-title">查询增强（HyDE）</div>
+            <div class="technique-en">假设性文档嵌入，提升语义匹配度</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <p>HyDE（Hypothetical Document Embeddings）先让 LLM 生成一个假想的答案文档，再用该文档的 embedding 做检索，比直接用查询做检索效果更好。</p>
+          <pre>async def hyde_retrieve(query: str, llm_client, embed_model) -&gt; list[dict]:
+    """
+    HyDE：先让 LLM 生成一个假想的答案文档，
+    再用该文档的 embedding 做检索，提升语义匹配度。
+    """
+    # Step 1: 生成假想文档
+    hypothetical_doc = await llm_client.complete(
+        f"请针对以下问题，生成一段假想的权威回答（约200字）：\n{query}"
+    )
+    
+    # Step 2: 对假想文档做 embedding
+    hypo_embedding = await embed_model.embed(hypothetical_doc)
+    
+    # Step 3: 用假想文档的 embedding 检索真实文档
+    results = await vector_store.similarity_search(hypo_embedding, top_k=10)
+    
+    return results</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 3.4: RAG 质量评估指标 ── -->
+    <div id="section-3-4" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📊</div>
+        <div>
+          <div class="section-title">3.4 RAG 质量评估指标</div>
+          <div class="section-subtitle">四大核心评估指标与目标值</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 四维评估指标一览</div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>指标</th>
+              <th>含义</th>
+              <th>计算方式</th>
+              <th>目标值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Context Recall</strong></td>
+              <td>相关文档召回率</td>
+              <td>召回相关块数/总相关块数</td>
+              <td>&gt; 0.85</td>
+            </tr>
+            <tr>
+              <td><strong>Context Precision</strong></td>
+              <td>检索准确率</td>
+              <td>相关块数/总检索块数</td>
+              <td>&gt; 0.75</td>
+            </tr>
+            <tr>
+              <td><strong>Answer Faithfulness</strong></td>
+              <td>回答忠实度</td>
+              <td>回答中有依据的陈述比例</td>
+              <td>&gt; 0.90</td>
+            </tr>
+            <tr>
+              <td><strong>Answer Relevance</strong></td>
+              <td>回答相关性</td>
+              <td>回答与问题的语义相关度</td>
+              <td>&gt; 0.80</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">推荐工具</div>
+          <p style="font-size:0.875rem;color:var(--medium);margin:0;">RAGAS 提供自动化 RAG 评估，可集成到 CI/CD 流水线。使用 <code>ragas evaluate()</code> 一键运行四维评估，将结果纳入 PR 自动化检查。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="module2.html" class="page-nav-btn">← 上一模块：Prompt 工程精要</a>
+      <a href="module4.html" class="page-nav-btn">下一模块：Agent 与工具链编排 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
