@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第三期：双角色打通 + AI Agent — AI 办公进阶培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .module-tag {
+      display: inline-block; background: #F3F0FF; border: 1px solid #C4B5FD;
+      color: #553C9A; border-radius: 999px; padding: 4px 12px;
+      font-size: 0.75rem; font-weight: 700; margin-bottom: 1rem;
+    }
+    .time-tag {
+      display: inline-block; background: var(--warm); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 999px; padding: 3px 10px;
+      font-size: 0.72rem; font-weight: 600; margin-left: 8px;
+    }
+    .practice-banner {
+      background: #F3F0FF; border: 2px dashed #C4B5FD;
+      border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 1.25rem 0;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .pb-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .pb-title { font-size: 0.9rem; font-weight: 700; color: #553C9A; margin-bottom: 4px; }
+    .pb-desc  { font-size: 0.85rem; color: var(--medium); line-height: 1.55; }
+
+    .chain-visual {
+      margin: 1.5rem 0;
+    }
+    .cv-label {
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px;
+    }
+    .cv-forward { color: var(--pm-color); }
+    .cv-reverse { color: var(--qa-color); }
+
+    .forward-chain {
+      display: flex; align-items: center; gap: 0; overflow-x: auto;
+      background: #EBF8FF; border: 1px solid #90CDF4;
+      border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 0.75rem;
+      flex-wrap: nowrap;
+    }
+    .reverse-chain {
+      display: flex; align-items: center; gap: 0; overflow-x: auto;
+      background: #F0FFF4; border: 1px solid #9AE6B4;
+      border-radius: var(--radius-lg); padding: 1rem 1.25rem;
+      flex-wrap: nowrap;
+    }
+    .chain-node {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 4px; min-width: 90px; text-align: center;
+    }
+    .cn-box {
+      border-radius: var(--radius-sm); padding: 6px 10px;
+      font-size: 0.75rem; font-weight: 700; white-space: nowrap;
+    }
+    .cn-pm { background: #BEE3F8; color: #2B6CB0; border: 1px solid #90CDF4; }
+    .cn-qa { background: #C6F6D5; color: #276749; border: 1px solid #9AE6B4; }
+    .cn-ai { background: #E9D8FD; color: #553C9A; border: 1px solid #C4B5FD; }
+    .cn-sub { font-size: 0.62rem; color: var(--muted); line-height: 1.3; }
+    .chain-arr { font-size: 0.9rem; color: var(--border); flex-shrink: 0; margin: 0 3px; padding-bottom: 14px; }
+
+    .demo-steps {
+      counter-reset: dstep;
+      list-style: none; padding: 0;
+    }
+    .demo-steps li {
+      counter-increment: dstep;
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1rem 1.25rem; background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-md); margin-bottom: 0.75rem;
+      position: relative;
+    }
+    .demo-steps li::before {
+      content: counter(dstep); min-width: 32px; height: 32px;
+      border-radius: 50%; background: var(--combined-color); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 800; flex-shrink: 0;
+    }
+    .ds-content h5 { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+    .ds-content p  { font-size: 0.83rem; color: var(--medium); margin: 0; line-height: 1.5; }
+    .ds-tag {
+      display: inline-block; margin-top: 5px;
+      background: #F3F0FF; border: 1px solid #C4B5FD;
+      border-radius: 999px; padding: 2px 8px;
+      font-size: 0.68rem; font-weight: 700; color: #553C9A;
+    }
+
+    .agent-case {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+    .ac-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(135deg, #2D1B69, #553C9A);
+      color: #fff;
+    }
+    .ac-num {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 900; flex-shrink: 0;
+    }
+    .ac-title { font-size: 1rem; font-weight: 700; }
+    .ac-sub   { font-size: 0.78rem; opacity: 0.75; }
+    .ac-body  { padding: 1.25rem 1.5rem; }
+
+    .sop-flow {
+      background: #F8F7FF; border: 1px solid #C4B5FD;
+      border-radius: var(--radius-lg); padding: 1.25rem; margin: 1rem 0;
+    }
+    .sop-title {
+      font-size: 0.75rem; font-weight: 700; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 1rem;
+    }
+    .sop-step {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 10px; background: #fff;
+      border-radius: var(--radius-sm); border: 1px solid #DDD6FE;
+      margin-bottom: 6px; font-size: 0.85rem;
+    }
+    .sop-step-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--purple); color: #fff; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 800; margin-top: 1px;
+    }
+    .sop-trigger {
+      background: #E9D8FD; border: 1px dashed #C4B5FD;
+      border-radius: var(--radius-sm); padding: 8px 12px;
+      font-size: 0.82rem; color: #553C9A; margin-bottom: 0.875rem;
+    }
+
+    .kb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.25rem 0; }
+    .kb-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.25rem;
+      border-top: 4px solid;
+    }
+    .kb-pm      { border-top-color: var(--pm-color); }
+    .kb-qa      { border-top-color: var(--qa-color); }
+    .kb-shared  { border-top-color: var(--purple); }
+    .kb-title { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem; }
+    .kb-items li { font-size: 0.8rem; color: var(--medium); line-height: 1.5; margin-bottom: 3px; }
+    .kb-value { font-size: 0.78rem; color: var(--muted); margin-top: 0.5rem; font-style: italic; padding: 6px 8px; background: var(--warm); border-radius: var(--radius-sm); }
+
+    .radar-wrap {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;
+    }
+    .radar-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.5rem;
+    }
+    .radar-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 1rem; }
+    .skill-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 0.875rem;
+    }
+    .skill-label { font-size: 0.78rem; color: var(--dark); width: 120px; flex-shrink: 0; font-weight: 600; }
+    .skill-bar-wrap { flex: 1; height: 8px; background: var(--beige); border-radius: 999px; overflow: hidden; }
+    .skill-bar { height: 100%; border-radius: 999px; }
+    .skill-score { font-size: 0.72rem; color: var(--muted); width: 30px; text-align: right; flex-shrink: 0; }
+    .bar-pm     { background: var(--pm-color); }
+    .bar-qa     { background: var(--qa-color); }
+    .bar-purple { background: var(--purple); }
+    .bar-accent { background: var(--accent); }
+
+    .collab-table-wrap { overflow-x: auto; margin: 1.25rem 0; }
+    .change-before { color: #7F1D1D; font-size: 0.82rem; }
+    .change-after  { color: #14532D; font-size: 0.82rem; font-weight: 600; }
+
+    .action-30days {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.25rem 0;
+    }
+    .a30-title { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 1rem; }
+    .a30-row {
+      display: flex; gap: 1rem; margin-bottom: 0.75rem; align-items: flex-start;
+    }
+    .a30-week {
+      width: 56px; flex-shrink: 0; text-align: center; padding: 4px 0;
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 0.72rem; font-weight: 700; color: var(--muted);
+    }
+    .a30-content { flex: 1; font-size: 0.85rem; color: var(--medium); line-height: 1.55; }
+    .a30-content strong { color: var(--dark); }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>🔗</span>
+    <span>AI 办公进阶培训</span>
+    <span class="logo-badge logo-badge-adv">第三期·打通</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="session1.html">第一期·PM</a>
+    <a href="session2.html">第二期·QA</a>
+    <a href="session3.html" class="active">第三期·打通</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">第三期目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#hero" class="active"><span class="nav-num">0</span> 本期概览</a></li>
+      <li><a href="#mod1"><span class="nav-num">1</span> 需求与测试双向打通</a></li>
+      <li><a href="#mod1-forward"><span class="nav-num">1a</span> 正向链路：PM→QA</a></li>
+      <li><a href="#mod1-reverse"><span class="nav-num">1b</span> 反向链路：QA→PM</a></li>
+      <li><a href="#mod1-demo"><span class="nav-num">1c</span> 全链路实操演示</a></li>
+      <li><a href="#mod2"><span class="nav-num">2</span> 需求变更联动管理</a></li>
+      <li><a href="#mod2-sop"><span class="nav-num">2a</span> 变更联动 SOP</a></li>
+      <li><a href="#mod3"><span class="nav-num">3</span> AI Agent 在测试场景</a></li>
+      <li><a href="#mod3-case1"><span class="nav-num">3a</span> Agent：测试报告生成</a></li>
+      <li><a href="#mod3-case2"><span class="nav-num">3b</span> Agent：Bug 路由</a></li>
+      <li><a href="#mod3-case3"><span class="nav-num">3c</span> Agent：需求可测试性评估</a></li>
+      <li><a href="#mod4"><span class="nav-num">4</span> 团队知识库与 Skills</a></li>
+      <li><a href="#mod4-skills"><span class="nav-num">4a</span> 五个优先级 Skills</a></li>
+      <li><a href="#mod5"><span class="nav-num">5</span> 个人与团队行动计划</a></li>
+      <li><a href="#action3"><span class="nav-num">✓</span> 行动指引 + 课程总结</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- Hero -->
+    <div class="session-hero hero-combined" id="hero">
+      <div class="hero-content">
+        <div class="hero-eyebrow">第三期 · 双角色打通</div>
+        <h1>构建 PM×QA 一体化 AI 工作流</h1>
+        <p class="hero-desc">打通产品和测试两端的 AI 链路，构建团队级的需求→测试一体化工作流。掌握 AI Agent 在 QA 场景的应用，从单次 AI 对话升级到 AI 自主执行多步任务。</p>
+        <div class="hero-meta">
+          <span class="hero-tag">⏱ 2.5 小时</span>
+          <span class="hero-tag">🎯 5 个模块</span>
+          <span class="hero-tag">🤖 3 个 Agent 案例</span>
+          <span class="hero-tag">📦 完整链路成果包</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="breadcrumb">
+      <a href="index.html">课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">第三期：双角色打通 + AI Agent</span>
+    </div>
+
+    <!-- 模块1：需求与测试双向打通 -->
+    <div class="section" id="mod1">
+      <div class="section-header">
+        <div class="section-num section-num-combined">1</div>
+        <div class="section-title-block">
+          <h2>需求与测试的双向打通</h2>
+          <p class="section-subtitle"><span class="module-tag">💻 实操</span><span class="time-tag">⏱ 30 分钟</span></p>
+        </div>
+      </div>
+
+      <p>复用前两期的所有成果，打通正向和反向两条 AI 链路，实现需求到测试的完整闭环。</p>
+    </div>
+
+    <!-- 1a: 正向链路 -->
+    <div class="section" id="mod1-forward">
+      <div class="section-header">
+        <div class="section-num section-num-combined">1a</div>
+        <div class="section-title-block">
+          <h2>正向链路：PM → QA</h2>
+          <p class="section-subtitle">上一个环节的 AI 输出，直接作为下一个环节的 AI 输入</p>
+        </div>
+      </div>
+
+      <div class="chain-visual">
+        <div class="cv-label cv-forward">
+          <span>→</span> 正向链路（PM 产出 流向 QA）
+        </div>
+        <div class="forward-chain">
+          <div class="chain-node">
+            <div class="cn-box cn-pm">需求描述</div>
+            <div class="cn-sub">客户原始输入</div>
+          </div>
+          <div class="chain-arr">→</div>
+          <div class="chain-node">
+            <div class="cn-box cn-pm">PRD 功能说明</div>
+            <div class="cn-sub">AI 规范化</div>
+          </div>
+          <div class="chain-arr">→</div>
+          <div class="chain-node">
+            <div class="cn-box cn-ai">AC (Given-When-Then)</div>
+            <div class="cn-sub">AI 同步生成</div>
+          </div>
+          <div class="chain-arr">→</div>
+          <div class="chain-node">
+            <div class="cn-box cn-qa">测试用例矩阵</div>
+            <div class="cn-sub">AI 系统覆盖</div>
+          </div>
+          <div class="chain-arr">→</div>
+          <div class="chain-node">
+            <div class="cn-box cn-qa">测试数据 JSON</div>
+            <div class="cn-sub">AI 批量生成</div>
+          </div>
+          <div class="chain-arr">→</div>
+          <div class="chain-node">
+            <div class="cn-box cn-qa">Pytest 脚本</div>
+            <div class="cn-sub">AI 代码生成</div>
+          </div>
+        </div>
+        <div class="cv-label cv-reverse mt-2">
+          <span>←</span> 反向链路（QA 视角 反哺 PM）
+        </div>
+        <div class="reverse-chain">
+          <div class="chain-node">
+            <div class="cn-box cn-qa">测试用例覆盖度</div>
+            <div class="cn-sub">实际覆盖情况</div>
+          </div>
+          <div class="chain-arr">→</div>
+          <div class="chain-node">
+            <div class="cn-box cn-ai">AI 双向审查</div>
+            <div class="cn-sub">交叉比对分析</div>
+          </div>
+          <div class="chain-arr">→</div>
+          <div class="chain-node">
+            <div class="cn-box cn-pm">需求遗漏识别</div>
+            <div class="cn-sub">用例无对应需求</div>
+          </div>
+          <div class="chain-arr">→</div>
+          <div class="chain-node">
+            <div class="cn-box cn-pm">测试覆盖盲区</div>
+            <div class="cn-sub">需求无对应用例</div>
+          </div>
+          <div class="chain-arr">→</div>
+          <div class="chain-node">
+            <div class="cn-box cn-pm">PRD 完善建议</div>
+            <div class="cn-sub">直接修改文档</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1b: 反向链路 -->
+    <div class="section" id="mod1-reverse">
+      <div class="section-header">
+        <div class="section-num section-num-combined">1b</div>
+        <div class="section-title-block">
+          <h2>反向链路：用测试视角审查需求</h2>
+          <p class="section-subtitle">发现需求遗漏 = 测试用例覆盖了但 PRD 没有描述的场景</p>
+        </div>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">💬 双向审查分析提示词</div>
+        <pre>以下是一个功能的相关材料：
+
+【测试用例列表】
+[粘贴测试用例表格或列表]
+
+【对应的 PRD 章节】
+[粘贴 PRD 内容]
+
+请分析三个维度的完整性问题：
+
+1. 测试用例 → PRD 缺失
+   有哪些测试用例场景在 PRD 中找不到对应的需求描述？
+   （说明 PRD 描述可能遗漏或不够清晰，附具体用例编号）
+
+2. PRD → 测试用例缺失
+   PRD 中有哪些功能描述没有对应的测试用例？
+   （说明测试覆盖可能存在遗漏，附具体 PRD 章节引用）
+
+3. AC 可测试性评估
+   哪些 AC 描述模糊、难以直接转化为可执行的测试用例？
+   给出具体的改写建议。
+
+输出：三个问题分别列出，每条附上具体条目、问题描述和修改建议</pre>
+      </div>
+
+      <div class="info-box ib-action">
+        <div class="info-box-title">💡 反向审查的真正价值</div>
+        这个提示词的核心价值不是"找 Bug"，而是在功能上线前就发现需求文档与测试用例之间的<strong>不一致和遗漏</strong>，从根源上减少返工——这是 PM+QA 兼任角色独有的能力。
+      </div>
+    </div>
+
+    <!-- 1c: 全链路实操演示 -->
+    <div class="section" id="mod1-demo">
+      <div class="section-header">
+        <div class="section-num section-num-combined">1c</div>
+        <div class="section-title-block">
+          <h2>全链路实操演示</h2>
+          <p class="section-subtitle">复用前两期成果，现场走完完整链路</p>
+        </div>
+      </div>
+
+      <ol class="demo-steps">
+        <li>
+          <div class="ds-content">
+            <h5>PRD 功能描述 → AI 提取测试点 + 生成 AC</h5>
+            <p>直接使用第一期产出的 PRD 章节，复用第一期的 AC 生成提示词。</p>
+            <span class="ds-tag">📋 复用第一期成果</span>
+          </div>
+        </li>
+        <li>
+          <div class="ds-content">
+            <h5>AC → AI 生成测试用例矩阵</h5>
+            <p>直接使用第二期的"从 PRD + AC 直接生成测试用例矩阵"提示词，覆盖正常/异常/边界。</p>
+            <span class="ds-tag">🧪 复用第二期成果</span>
+          </div>
+        </li>
+        <li>
+          <div class="ds-content">
+            <h5>测试用例矩阵 → AI 生成测试数据 JSON</h5>
+            <p>基于测试用例中的参数，批量生成覆盖所有场景的测试数据集（合法/边界/非法/业务异常）。</p>
+            <span class="ds-tag">🗂 数据驱动基础</span>
+          </div>
+        </li>
+        <li>
+          <div class="ds-content">
+            <h5>测试用例 + 接口文档 → AI 生成 Pytest 脚本骨架</h5>
+            <p>以测试数据 JSON 作为 @pytest.mark.parametrize 的输入，生成数据驱动的完整测试脚本。</p>
+            <span class="ds-tag">⚙️ 代码可直接运行</span>
+          </div>
+        </li>
+        <li>
+          <div class="ds-content">
+            <h5>反向审查：用测试用例检查 PRD 完整性</h5>
+            <p>将步骤 2 生成的测试用例和步骤 1 的 PRD，一起喂给 AI 进行双向完整性审查。</p>
+            <span class="ds-tag">🔄 闭环质量保障</span>
+          </div>
+        </li>
+      </ol>
+
+      <div class="info-box ib-note">
+        <div class="info-box-title">📦 全套产出物打包</div>
+        完成以上 5 步后，你将拥有一个功能的<strong>完整质量文档包</strong>：PRD（含 AC）+ 测试用例矩阵 + 测试数据 JSON + Pytest 测试脚本 + 双向审查报告。这是课程的核心产出物。
+      </div>
+
+      <div class="practice-banner">
+        <div class="pb-icon">💻</div>
+        <div>
+          <div class="pb-title">🎯 实操演示（20 分钟）</div>
+          <div class="pb-desc">选取一个中等复杂度的真实功能（有 3-5 个 AC 的规模），现场完整走一遍 5 步链路。讲师同步演示，学员同步操作，遇到问题当场解决。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块2：需求变更联动管理 -->
+    <div class="section" id="mod2">
+      <div class="section-header">
+        <div class="section-num section-num-combined">2</div>
+        <div class="section-title-block">
+          <h2>需求变更的联动管理</h2>
+          <p class="section-subtitle"><span class="time-tag">⏱ 20 分钟</span></p>
+        </div>
+      </div>
+
+      <div class="info-box ib-caution">
+        <div class="info-box-title">⚠️ 需求变更是质量风险最高的时刻</div>
+        需求变更后，测试用例同步更新是<strong>最容易被遗漏的事</strong>，尤其在 PM 和 QA 是同一个人、时间又紧的情况下。AI 辅助的变更影响分析，可以在 5 分钟内完成原本需要 1-2 小时的人工梳理。
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">💬 变更影响分析提示词</div>
+        <pre>原始需求（变更前）：
+[粘贴原始功能描述或 AC]
+
+变更内容：
+[描述具体变更，如："将最大购买数量从 99 改为 999"
+ 或"新增了'企业用户'角色，享有额外的折扣权限"]
+
+历史测试用例（可选）：
+[粘贴已有的相关测试用例]
+
+请分析：
+1. 受影响的原有测试用例（需要修改的，标注修改方向）
+2. 新增了哪些需要补充的测试场景（直接给出用例草稿）
+3. 是否影响其他关联功能（潜在的回归风险点）
+4. 建议的回归测试优先级（High/Medium/Low）
+
+输出：变更影响清单（用例ID + 影响类型：修改/删除/新增 + 具体说明）</pre>
+      </div>
+    </div>
+
+    <!-- 2a: 变更联动 SOP -->
+    <div class="section" id="mod2-sop">
+      <div class="section-header">
+        <div class="section-num section-num-combined">2a</div>
+        <div class="section-title-block">
+          <h2>建立变更联动 SOP</h2>
+          <p class="section-subtitle">在 Dify 中配置为自动化工作流，收到变更即自动触发分析</p>
+        </div>
+      </div>
+
+      <div class="sop-flow">
+        <div class="sop-title">📋 变更联动 SOP 工作流</div>
+        <div class="sop-trigger">⚡ 触发条件：收到需求变更通知（飞书消息 / 邮件 / 项目管理系统变更）</div>
+        <div class="sop-step"><div class="sop-step-num">1</div><div>AI 自动分析变更内容，提取变更范围和关键字段变化</div></div>
+        <div class="sop-step"><div class="sop-step-num">2</div><div>检索知识库中的历史测试用例，生成受影响用例清单（修改/删除/新增）</div></div>
+        <div class="sop-step"><div class="sop-step-num">3</div><div>基于变更内容，生成新增测试用例初稿（含测试数据建议）</div></div>
+        <div class="sop-step"><div class="sop-step-num">4</div><div>输出变更评估报告（影响范围 + 回归建议 + 工作量估算）</div></div>
+        <div class="sop-step"><div class="sop-step-num">5</div><div>发送飞书通知（包含摘要 + 完整报告链接），并更新项目管理系统</div></div>
+      </div>
+
+      <div class="card-grid-2">
+        <div class="card">
+          <h4>🔧 在 Dify 中配置</h4>
+          <ul>
+            <li>创建工作流类型的 Workflow</li>
+            <li>触发器：HTTP Webhook（项目管理系统调用）</li>
+            <li>Step 1-3：LLM 节点（使用变更影响分析提示词）</li>
+            <li>Step 4：RAG 检索节点（接入测试用例知识库）</li>
+            <li>Step 5：飞书通知节点</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>📋 配置要点</h4>
+          <ul>
+            <li>测试用例知识库需要定期更新（建议每次回归后同步）</li>
+            <li>变更通知需要包含足够上下文（原描述 + 变更后描述）</li>
+            <li>输出格式固定，方便后续自动化处理</li>
+            <li>人工最终确认：AI 的分析是建议，最终判断由人来做</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块3：AI Agent -->
+    <div class="section" id="mod3">
+      <div class="section-header">
+        <div class="section-num section-num-combined">3</div>
+        <div class="section-title-block">
+          <h2>AI Agent 在测试场景的应用</h2>
+          <p class="section-subtitle"><span class="module-tag">💻 实操</span><span class="time-tag">⏱ 35 分钟</span></p>
+        </div>
+      </div>
+
+      <div class="info-box ib-insight">
+        <div class="info-box-title">🚀 从"单次对话"到"自主执行"</div>
+        <strong>前两期学的是：</strong>我提问，AI 回答一次。<br>
+        <strong>AI Agent 是：</strong>我描述目标，AI 自主规划步骤、调用工具、完成多步任务。<br>
+        关键差异：Agent 有<strong>记忆、工具调用能力、多步推理</strong>，能真正替代重复性的多步工作流。
+      </div>
+
+      <div class="flow-row">
+        <div class="flow-item">
+          <div class="flow-icon">👤</div>
+          <div class="flow-label">输入目标</div>
+          <div class="flow-sub">描述期望结果</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">
+          <div class="flow-icon">🧠</div>
+          <div class="flow-label">Agent 规划</div>
+          <div class="flow-sub">分解子任务</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">
+          <div class="flow-icon">🔧</div>
+          <div class="flow-label">调用工具</div>
+          <div class="flow-sub">RAG/API/代码</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">
+          <div class="flow-icon">📊</div>
+          <div class="flow-label">输出结果</div>
+          <div class="flow-sub">报告/通知/文件</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">
+          <div class="flow-icon">✅</div>
+          <div class="flow-label">人工审核</div>
+          <div class="flow-sub">确认 + 反馈</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3a: 测试报告生成 Agent -->
+    <div class="section" id="mod3-case1">
+      <div class="section-header">
+        <div class="section-num section-num-combined">3a</div>
+        <div class="section-title-block">
+          <h2>Agent 案例一：自动化测试报告生成</h2>
+          <p class="section-subtitle">从原始测试结果到可发送的飞书报告，全程自动</p>
+        </div>
+      </div>
+
+      <div class="agent-case">
+        <div class="ac-header">
+          <div class="ac-num">A1</div>
+          <div>
+            <div class="ac-title">自动化测试报告生成 Agent</div>
+            <div class="ac-sub">适用场景：每次 CI/CD 执行后自动生成和发送测试报告</div>
+          </div>
+        </div>
+        <div class="ac-body">
+          <div class="af-input">📥 <strong>输入：</strong>测试执行结果（pytest XML 报告 / 截图 / 日志文件）</div>
+          <div class="agent-flow">
+            <div class="af-title">🤖 Agent 自主执行步骤</div>
+            <div class="af-steps">
+              <div class="af-step"><div class="step-dot">1</div><div>解析 pytest XML / JSON 报告，提取测试用例执行详情</div></div>
+              <div class="af-step"><div class="step-dot">2</div><div>统计通过率 / 失败率 / 跳过率，与上次执行对比变化趋势</div></div>
+              <div class="af-step"><div class="step-dot">3</div><div>对失败用例进行根因分类（断言失败 / 环境问题 / 超时 / 代码 Bug）</div></div>
+              <div class="af-step"><div class="step-dot">4</div><div>生成可视化测试报告（HTML 格式，含折线图和饼图）</div></div>
+              <div class="af-step"><div class="step-dot">5</div><div>发送飞书通知（摘要卡片 + 完整报告链接 + 失败用例列表）</div></div>
+            </div>
+          </div>
+          <div class="info-box ib-note mt-2" style="margin: 0;">
+            <div class="info-box-title">🔧 实现方式（Dify）</div>
+            Dify 工作流 → HTTP 触发器（CI/CD 回调）→ LLM 节点（分析报告）→ 代码节点（统计计算）→ 模板渲染（HTML 报告）→ 飞书 Bot 节点（发送通知）
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3b: Bug 路由 Agent -->
+    <div class="section" id="mod3-case2">
+      <div class="section-header">
+        <div class="section-num section-num-combined">3b</div>
+        <div class="section-title-block">
+          <h2>Agent 案例二：Bug 分类与路由</h2>
+          <p class="section-subtitle">新 Bug 提交后自动分类、匹配历史缺陷、建议负责人</p>
+        </div>
+      </div>
+
+      <div class="agent-case">
+        <div class="ac-header">
+          <div class="ac-num">A2</div>
+          <div>
+            <div class="ac-title">Bug 分类与路由 Agent</div>
+            <div class="ac-sub">适用场景：每次提交 Bug 后自动处理，减少人工分配时间</div>
+          </div>
+        </div>
+        <div class="ac-body">
+          <div class="af-input">📥 <strong>输入：</strong>新提交的 Bug 描述（口语化或初步规范化的报告）</div>
+          <div class="agent-flow">
+            <div class="af-title">🤖 Agent 自主执行步骤</div>
+            <div class="af-steps">
+              <div class="af-step"><div class="step-dot">1</div><div>判断严重级别（Critical/High/Medium/Low）并给出判断依据</div></div>
+              <div class="af-step"><div class="step-dot">2</div><div>识别所属模块和功能（基于 Bug 描述的语义理解）</div></div>
+              <div class="af-step"><div class="step-dot">3</div><div>从历史 Bug 知识库检索相似缺陷（RAG 检索），判断是否为重复 Bug</div></div>
+              <div class="af-step"><div class="step-dot">4</div><div>根据模块归属和历史数据，建议最合适的处理人</div></div>
+              <div class="af-step"><div class="step-dot">5</div><div>通过 MCP 接口更新 Bug 跟踪系统，并发送飞书通知给相关人员</div></div>
+            </div>
+          </div>
+          <div class="info-box ib-tip mt-2" style="margin: 0;">
+            <div class="info-box-title">⚡ 关键依赖</div>
+            历史 Bug 知识库（RAG）是这个 Agent 有效运作的核心。需要将历史 Bug 数据（至少 200+ 条）导入 Dify 知识库，按模块和类型分类标注。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3c: 需求可测试性评估 Agent -->
+    <div class="section" id="mod3-case3">
+      <div class="section-header">
+        <div class="section-num section-num-combined">3c</div>
+        <div class="section-title-block">
+          <h2>Agent 案例三：需求可测试性评估</h2>
+          <p class="section-subtitle">新 PRD 提交后自动评估可测试性，生成测试准备清单</p>
+        </div>
+      </div>
+
+      <div class="agent-case">
+        <div class="ac-header">
+          <div class="ac-num">A3</div>
+          <div>
+            <div class="ac-title">需求可测试性评估 Agent</div>
+            <div class="ac-sub">适用场景：需求评审前自动评估，提前发现需求质量问题</div>
+          </div>
+        </div>
+        <div class="ac-body">
+          <div class="af-input">📥 <strong>输入：</strong>新版 PRD 文档（或 PRD 章节）</div>
+          <div class="agent-flow">
+            <div class="af-title">🤖 Agent 自主执行步骤</div>
+            <div class="af-steps">
+              <div class="af-step"><div class="step-dot">1</div><div>提取所有功能点（解析 PRD 结构，按模块分类）</div></div>
+              <div class="af-step"><div class="step-dot">2</div><div>评估每个功能点的可测试性（是否有明确的验收标准？边界是否清晰？）</div></div>
+              <div class="af-step"><div class="step-dot">3</div><div>为可测试的功能点自动生成测试用例初稿（用于测试准备）</div></div>
+              <div class="af-step"><div class="step-dot">4</div><div>对不可测试的功能点生成澄清问题列表（发送给 PM 确认）</div></div>
+              <div class="af-step"><div class="step-dot">5</div><div>输出可测试性评估报告（评分 + 测试准备状态 + 风险提示）</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="practice-banner">
+        <div class="pb-icon">💻</div>
+        <div>
+          <div class="pb-title">🎯 实操：在 Dify 中搭建需求可测试性评估 Agent（25 分钟）</div>
+          <div class="pb-desc">
+            <strong>步骤：</strong>
+            1. 在 Dify 创建 Agent 类型应用<br>
+            2. 配置系统提示词（可测试性评估专家角色）<br>
+            3. 接入公司产品决策库知识库（RAG）<br>
+            4. 配置工具：文档解析 + 知识库检索<br>
+            5. 测试：上传一份真实 PRD，验证评估结果
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块4：团队知识库与 Skills -->
+    <div class="section" id="mod4">
+      <div class="section-header">
+        <div class="section-num section-num-combined">4</div>
+        <div class="section-title-block">
+          <h2>构建团队级 PM×QA 知识库与 Skills</h2>
+          <p class="section-subtitle"><span class="time-tag">⏱ 25 分钟</span></p>
+        </div>
+      </div>
+
+      <p>PM+QA 兼任角色积累了两种最有价值的知识：<strong>产品决策记录</strong>（为什么做这个功能）和<strong>质量经验记录</strong>（这个地方容易出 Bug）。</p>
+
+      <div class="kb-grid">
+        <div class="kb-card kb-pm">
+          <div class="kb-title">📋 产品决策库</div>
+          <ul class="kb-items">
+            <li>历史 PRD 文档</li>
+            <li>需求变更记录与原因</li>
+            <li>设计决策文档</li>
+            <li>需求评审纪要</li>
+          </ul>
+          <div class="kb-value">新需求可检索历史相关决策，避免重复踩坑</div>
+        </div>
+        <div class="kb-card kb-qa">
+          <div class="kb-title">🧪 测试经验库</div>
+          <ul class="kb-items">
+            <li>历史 Bug 按模块归类</li>
+            <li>高风险模块的测试重点</li>
+            <li>测试用例模板库</li>
+            <li>自动化脚本复用库</li>
+          </ul>
+          <div class="kb-value">新功能测试时 AI 自动推荐历史关注点</div>
+        </div>
+        <div class="kb-card kb-shared">
+          <div class="kb-title">✅ 验收标准库</div>
+          <ul class="kb-items">
+            <li>各模块的验收条件规范</li>
+            <li>典型 AC 示例（按业务类型）</li>
+            <li>行业通用测试标准</li>
+            <li>性能基线数据</li>
+          </ul>
+          <div class="kb-value">AI 写 AC 时有公司规范参考，输出更一致</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4a: 五个核心 Skills -->
+    <div class="section" id="mod4-skills">
+      <div class="section-header">
+        <div class="section-num section-num-combined">4a</div>
+        <div class="section-title-block">
+          <h2>五个优先建设的核心 Skills</h2>
+          <p class="section-subtitle">本课程场景下立刻可用的 Dify Skills 配置方案</p>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-num">1</div>
+          <div class="skill-name">需求完整性扫描（Skill）</div>
+        </div>
+        <div class="skill-body">
+          <div class="skill-io">
+            <div class="io-label">📥 输入</div>
+            <div class="io-val">PRD 章节文本</div>
+          </div>
+          <div class="skill-arrow">→</div>
+          <div class="skill-io">
+            <div class="io-label">📤 输出</div>
+            <div class="io-val">完整性评分 + 缺失项清单 + 具体修改建议</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-num">2</div>
+          <div class="skill-name">AC 生成器（Skill）</div>
+        </div>
+        <div class="skill-body">
+          <div class="skill-io">
+            <div class="io-label">📥 输入</div>
+            <div class="io-val">功能描述（任意格式）</div>
+          </div>
+          <div class="skill-arrow">→</div>
+          <div class="skill-io">
+            <div class="io-label">📤 输出</div>
+            <div class="io-val">Given-When-Then 格式 AC 列表，含优先级</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-num">3</div>
+          <div class="skill-name">测试用例生成器（Skill）</div>
+        </div>
+        <div class="skill-body">
+          <div class="skill-io">
+            <div class="io-label">📥 输入</div>
+            <div class="io-val">AC 列表 + 功能描述</div>
+          </div>
+          <div class="skill-arrow">→</div>
+          <div class="skill-io">
+            <div class="io-label">📤 输出</div>
+            <div class="io-val">完整测试用例矩阵（含测试数据建议和优先级）</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-num">4</div>
+          <div class="skill-name">变更影响分析器（Skill）</div>
+        </div>
+        <div class="skill-body">
+          <div class="skill-io">
+            <div class="io-label">📥 输入</div>
+            <div class="io-val">变更描述 + 历史测试用例</div>
+          </div>
+          <div class="skill-arrow">→</div>
+          <div class="skill-io">
+            <div class="io-label">📤 输出</div>
+            <div class="io-val">受影响用例清单 + 新增场景建议 + 回归优先级</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-header">
+          <div class="skill-num">5</div>
+          <div class="skill-name">Bug 报告规范器（Skill）</div>
+        </div>
+        <div class="skill-body">
+          <div class="skill-io">
+            <div class="io-label">📥 输入</div>
+            <div class="io-val">口语化 Bug 描述</div>
+          </div>
+          <div class="skill-arrow">→</div>
+          <div class="skill-io">
+            <div class="io-label">📤 输出</div>
+            <div class="io-val">标准化 Bug 报告（含严重级别判断依据）</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="practice-banner">
+        <div class="pb-icon">💻</div>
+        <div>
+          <div class="pb-title">🎯 实操：配置 AC 生成器 + 测试用例生成器（15 分钟）</div>
+          <div class="pb-desc">在 Dify 中完成 Skill 2（AC 生成器）和 Skill 3（测试用例生成器）的配置，并接入产品决策库知识库。完成后测试：输入一段真实的功能描述，验证输出的 AC 和测试用例质量。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块5：行动计划 -->
+    <div class="section" id="mod5">
+      <div class="section-header">
+        <div class="section-num section-num-combined">5</div>
+        <div class="section-title-block">
+          <h2>个人 + 团队行动计划</h2>
+          <p class="section-subtitle"><span class="time-tag">⏱ 20 分钟</span></p>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <h3>个人 AI 能力自我评估</h3>
+        <div class="radar-wrap">
+          <div class="radar-card">
+            <h4>📋 产品侧能力</h4>
+            <div class="skill-row">
+              <div class="skill-label">需求澄清</div>
+              <div class="skill-bar-wrap"><div class="skill-bar bar-pm" style="width:80%"></div></div>
+              <div class="skill-score">□ /5</div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label">PRD 写作</div>
+              <div class="skill-bar-wrap"><div class="skill-bar bar-pm" style="width:80%"></div></div>
+              <div class="skill-score">□ /5</div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label">竞品分析</div>
+              <div class="skill-bar-wrap"><div class="skill-bar bar-pm" style="width:60%"></div></div>
+              <div class="skill-score">□ /5</div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label">故事拆分</div>
+              <div class="skill-bar-wrap"><div class="skill-bar bar-pm" style="width:60%"></div></div>
+              <div class="skill-score">□ /5</div>
+            </div>
+          </div>
+          <div class="radar-card">
+            <h4>🧪 测试侧能力</h4>
+            <div class="skill-row">
+              <div class="skill-label">用例设计</div>
+              <div class="skill-bar-wrap"><div class="skill-bar bar-qa" style="width:80%"></div></div>
+              <div class="skill-score">□ /5</div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label">数据生成</div>
+              <div class="skill-bar-wrap"><div class="skill-bar bar-qa" style="width:80%"></div></div>
+              <div class="skill-score">□ /5</div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label">自动化脚本</div>
+              <div class="skill-bar-wrap"><div class="skill-bar bar-qa" style="width:60%"></div></div>
+              <div class="skill-score">□ /5</div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-label">Bug 管理</div>
+              <div class="skill-bar-wrap"><div class="skill-bar bar-qa" style="width:60%"></div></div>
+              <div class="skill-score">□ /5</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box ib-action">
+          <div class="info-box-title">📝 使用方式</div>
+          课程结束后，对每个维度打 1-5 分（1=完全不会，5=已在工作中稳定使用），找出得分最低的 2-3 个方向，制定 30 天强化计划。
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <h3>30 天个人行动计划</h3>
+        <div class="action-30days">
+          <div class="a30-title">🗓 建议的 30 天落地节奏</div>
+          <div class="a30-row">
+            <div class="a30-week">第 1 周</div>
+            <div class="a30-content"><strong>巩固基础：</strong>在当前 1 个真实项目中，完整跑通需求→AC→测试用例的正向链路，产出一份质量文档包。</div>
+          </div>
+          <div class="a30-row">
+            <div class="a30-week">第 2 周</div>
+            <div class="a30-content"><strong>提升自动化：</strong>为最核心的 3-5 个接口生成 AI 辅助的 Pytest 脚本，实现本地可运行的自动化套件。</div>
+          </div>
+          <div class="a30-row">
+            <div class="a30-week">第 3 周</div>
+            <div class="a30-content"><strong>Skills 上线：</strong>在 Dify 中配置并上线 AC 生成器和 Bug 报告规范器两个 Skill，在日常工作中正式使用。</div>
+          </div>
+          <div class="a30-row">
+            <div class="a30-week">第 4 周</div>
+            <div class="a30-content"><strong>沉淀分享：</strong>整理 30 天内效果最好的 3 个提示词/工作流，在团队分享会中分享，沉淀到团队知识库。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <h3>与工程师团队协作的新方式</h3>
+        <div class="table-wrap">
+          <table class="table-purple">
+            <thead>
+              <tr><th>场景</th><th>过去的协作方式</th><th>AI 时代的协作方式</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>需求评审</strong></td>
+                <td class="change-before">PM 口头解释，开发现场提问，来回沟通</td>
+                <td class="change-after">提前用 AI 生成评审材料 + 风险清单 + 开发问题预测，评审效率翻倍</td>
+              </tr>
+              <tr>
+                <td><strong>测试报告</strong></td>
+                <td class="change-before">手工汇总 Excel，截图贴邮件</td>
+                <td class="change-after">AI 自动生成可视化报告 + 人工补充分析结论和修复建议</td>
+              </tr>
+              <tr>
+                <td><strong>Bug 沟通</strong></td>
+                <td class="change-before">反复解释复现步骤，开发说"我这里没问题"</td>
+                <td class="change-after">标准化 Bug 报告 + AI 根因分析初稿 + 复现视频，大幅减少来回沟通</td>
+              </tr>
+              <tr>
+                <td><strong>需求变更</strong></td>
+                <td class="change-before">口头通知开发和测试，靠记忆同步影响范围</td>
+                <td class="change-after">变更影响分析报告自动推送，影响范围透明可见</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 行动指引 -->
+    <div class="action-guide" id="action3">
+      <div class="ag-header">
+        <div class="ag-icon" style="background: var(--combined-color);">🔗</div>
+        <h3>第三期 · 行动指引与课程总结</h3>
+      </div>
+      <div class="ag-body">
+        <div class="ag-col">
+          <h4>📦 本期产出物</h4>
+          <div class="ag-item">
+            <div class="ai-bullet">1</div>
+            <div>一个功能的完整质量文档包：PRD + AC + 测试用例矩阵 + 脚本骨架</div>
+          </div>
+          <div class="ag-item">
+            <div class="ai-bullet">2</div>
+            <div>在 Dify 中配置并上线的 AC 生成器和测试用例生成器两个 Skill</div>
+          </div>
+          <div class="ag-item">
+            <div class="ai-bullet">3</div>
+            <div>个人 AI 能力自评结果 + 30 天行动计划</div>
+          </div>
+          <div style="margin-top: 1rem;"><span class="deliverable-tag">📦 三期课程核心成果</span></div>
+        </div>
+        <div class="ag-col">
+          <h4>🚀 团队层面的后续建议</h4>
+          <div class="ag-item">
+            <div class="ai-bullet">→</div>
+            <div>建立 PM×QA 双向链路的标准化 SOP，写入团队工作规范</div>
+          </div>
+          <div class="ag-item">
+            <div class="ai-bullet">→</div>
+            <div>每两周一次"AI 实践分享"，把有效提示词沉淀到团队知识库</div>
+          </div>
+          <div class="ag-item">
+            <div class="ai-bullet">→</div>
+            <div>把 Skills 开放给工程师团队使用（需求分析 Skill 对工程师同样有价值）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="session2.html" class="page-nav-btn">← 第二期：测试工程师侧 AI 实战</a>
+      <a href="appendix.html" class="page-nav-btn">附录：工具 + 提示词索引 →</a>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

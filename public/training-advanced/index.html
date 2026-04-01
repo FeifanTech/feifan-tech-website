@@ -3,595 +3,590 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI 工程进阶培训 v2.0 — 课程总览</title>
+  <title>AI 办公进阶培训 — 产品经理 × 测试工程师</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Index page specific */
-    .index-hero {
-      background: linear-gradient(135deg, #1A2035 0%, var(--dark) 50%, #3D4F6B 100%);
+    /* Index-specific styles */
+    .cover-hero {
+      background: linear-gradient(135deg, #1A2035 0%, #2D3748 45%, #3D4F6B 100%);
       border-radius: var(--radius-xl);
-      padding: 4rem 3.5rem;
+      padding: 5rem 4rem;
       margin-bottom: 3rem;
       color: #fff;
       position: relative;
       overflow: hidden;
     }
-    .index-hero::before {
+    .cover-hero::before {
       content: '';
-      position: absolute;
-      right: -100px;
-      top: -100px;
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(109,40,217,0.2) 0%, transparent 70%);
+      position: absolute; right: -120px; top: -120px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,122,95,0.18) 0%, transparent 65%);
     }
-    .index-hero::after {
+    .cover-hero::after {
       content: '';
-      position: absolute;
-      left: -50px;
-      bottom: -80px;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+      position: absolute; left: -80px; bottom: -100px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(128,90,213,0.15) 0%, transparent 65%);
     }
-    .index-hero-content { position: relative; z-index: 1; }
-    .index-hero h1 { font-size: 2.8rem; font-weight: 900; margin-bottom: 0.75rem; line-height: 1.2; }
-    .index-hero h1 span { color: var(--accent-light); }
-    .index-hero .hero-desc { font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 650px; line-height: 1.65; margin-bottom: 2rem; }
-    .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
-    .stat-item { text-align: center; }
-    .stat-num { font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1; }
-    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 4px; }
+    .cover-content { position: relative; z-index: 1; }
+    .cover-eyebrow {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem;
+    }
+    .eyebrow-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--accent-light);
+    }
+    .cover-eyebrow span { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; }
+    .cover-hero h1 {
+      font-size: 3.2rem; font-weight: 900; line-height: 1.15; margin-bottom: 0.75rem;
+    }
+    .cover-hero h1 em { font-style: normal; color: var(--accent-light); }
+    .cover-tagline { font-size: 1.1rem; opacity: 0.8; max-width: 560px; line-height: 1.7; margin-bottom: 2.5rem; }
+    .cover-meta-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .cover-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 999px; padding: 6px 16px; font-size: 0.82rem; font-weight: 600;
+    }
+    .cover-stats {
+      display: flex; gap: 3rem; margin-top: 2rem; padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.15); flex-wrap: wrap;
+    }
+    .cs-item { text-align: center; }
+    .cs-num { font-size: 2.5rem; font-weight: 900; line-height: 1; }
+    .cs-label { font-size: 0.78rem; opacity: 0.6; margin-top: 4px; }
 
-    .design-flow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      background: var(--warm);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 2rem;
-      margin-bottom: 2.5rem;
-      overflow-x: auto;
+    .role-badge-row { display: flex; gap: 1rem; margin: 1.5rem 0; flex-wrap: wrap; }
+    .role-badge {
+      flex: 1; min-width: 200px;
+      border-radius: var(--radius-lg); padding: 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start;
     }
-    .df-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      min-width: 120px;
-      text-align: center;
+    .rb-pm { background: #EBF8FF; border: 1px solid #90CDF4; }
+    .rb-qa { background: #F0FFF4; border: 1px solid #9AE6B4; }
+    .rb-icon { font-size: 2rem; flex-shrink: 0; }
+    .rb-title { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .rb-desc  { font-size: 0.82rem; color: var(--medium); line-height: 1.55; }
+
+    .loop-diagram {
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 2rem; margin: 1.5rem 0;
     }
-    .df-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: var(--radius-md);
-      background: #fff;
-      border: 2px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
+    .loop-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; }
+    .loop-row { display: flex; align-items: center; gap: 0; flex-wrap: wrap; overflow-x: auto; }
+    .loop-node {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 5px; min-width: 90px; text-align: center; padding: 4px;
+    }
+    .ln-box {
+      border-radius: var(--radius-md); padding: 8px 12px;
+      font-size: 0.78rem; font-weight: 700; white-space: nowrap;
       box-shadow: var(--shadow-sm);
     }
-    .df-title { font-size: 0.82rem; font-weight: 700; color: var(--dark); }
-    .df-sub   { font-size: 0.72rem; color: var(--muted); }
-    .df-arrow { font-size: 1.5rem; color: var(--border); flex-shrink: 0; margin: 0 0.15rem; padding-bottom: 28px; }
-
-    .sessions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
-
-    .outline-section { margin-bottom: 2.5rem; }
-
-    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
-    .tool-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1rem 1.25rem;
+    .ln-pm      { background: #EBF8FF; border: 1px solid #90CDF4; color: #2B6CB0; }
+    .ln-qa      { background: #F0FFF4; border: 1px solid #9AE6B4; color: #276749; }
+    .ln-ai      { background: #F3F0FF; border: 1px solid #C4B5FD; color: #553C9A; }
+    .ln-shared  { background: var(--warm); border: 1px solid var(--border); color: var(--dark); }
+    .ln-sub     { font-size: 0.65rem; color: var(--muted); line-height: 1.3; }
+    .loop-arrow { font-size: 1rem; color: var(--border); flex-shrink: 0; align-self: center; margin: 0 2px; padding-bottom: 18px; }
+    .loop-return {
+      text-align: center; margin-top: 0.75rem;
+      font-size: 0.78rem; color: var(--muted); font-style: italic;
     }
-    .tool-card .tc-cat { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
-    .tool-card .tc-items { list-style: none; }
-    .tool-card .tc-items li { font-size: 0.82rem; color: var(--medium); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-    .tool-card .tc-items li::before { content: '🔧'; font-size: 0.65rem; }
 
-    .target-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-bottom: 2rem;
+    .structure-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin: 1.5rem 0; }
+    .sg-card {
+      border-radius: var(--radius-lg); padding: 1.5rem; text-align: center;
+      position: relative; overflow: hidden;
     }
-    .target-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-      text-align: center;
-    }
-    .target-card .tc-icon { font-size: 2rem; margin-bottom: 0.5rem; }
-    .target-card .tc-role { font-size: 0.9rem; font-weight: 800; color: var(--dark); margin-bottom: 0.35rem; }
-    .target-card .tc-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .sg-pm       { background: #EBF8FF; border: 2px solid #90CDF4; }
+    .sg-qa       { background: #F0FFF4; border: 2px solid #9AE6B4; }
+    .sg-combined { background: #F3F0FF; border: 2px solid #C4B5FD; }
+    .sg-num { font-size: 3.5rem; font-weight: 900; opacity: 0.12; line-height: 1; position: absolute; top: 8px; right: 16px; }
+    .sg-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .sg-title { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.35rem; }
+    .sg-desc  { font-size: 0.8rem; color: var(--medium); line-height: 1.5; }
 
-    @media (max-width: 768px) {
-      .sessions-grid { grid-template-columns: 1fr; }
-      .tools-grid { grid-template-columns: 1fr 1fr; }
-      .target-grid { grid-template-columns: 1fr; }
-      .design-flow { padding: 1.25rem; }
-      .df-item { min-width: 90px; }
-      .index-hero { padding: 2.5rem 1.5rem; }
-      .index-hero h1 { font-size: 2rem; }
+    .format-bar {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.25rem 0;
     }
+    .fb-item {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 1rem; text-align: center;
+    }
+    .fb-pct { font-size: 1.8rem; font-weight: 900; color: var(--accent); }
+    .fb-label { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
   </style>
 </head>
 <body>
 
-<!-- Sticky Header -->
+<!-- Header -->
 <header class="site-header">
   <div class="header-logo">
-    <span>🏗️</span>
-    <span>AI 工程进阶培训</span>
-    <span class="logo-badge">进阶版</span>
+    <span>🚀</span>
+    <span>AI 办公进阶培训</span>
+    <span class="logo-badge logo-badge-adv">进阶版</span>
   </div>
   <nav class="header-nav">
     <a href="index.html" class="active">课程总览</a>
-    <a href="module1.html">架构设计</a>
-    <a href="module2.html">Prompt工程</a>
-    <a href="module3.html">RAG实战</a>
-    <a href="module4.html">Agent编排</a>
-    <a href="module5.html">后端集成</a>
-    <a href="module6.html">前端集成</a>
-    <a href="module7.html">可观测性</a>
-    <a href="module8.html">安全合规</a>
+    <a href="session1.html">第一期·PM</a>
+    <a href="session2.html">第二期·QA</a>
+    <a href="session3.html">第三期·打通</a>
     <a href="appendix.html">附录</a>
   </nav>
 </header>
 
 <div class="page-wrapper">
-  <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="sidebar-title">课程导航</div>
+    <div class="sidebar-title">课程总览目录</div>
     <ul class="sidebar-nav">
-      <li><a href="#overview" class="active">
-        <span class="nav-num">0</span> 课程总览
-      </a></li>
-      <li><a href="#targets">
-        <span class="nav-num">👥</span> 适用角色
-      </a></li>
-      <li><a href="#design-logic">
-        <span class="nav-num">→</span> 学习路径
-      </a></li>
-      <li><a href="#module-cards">
-        <span class="nav-num">8</span> 八大模块
-      </a></li>
-      <li><a href="#tools">
-        <span class="nav-num">🔧</span> 工具生态
-      </a></li>
+      <li><a href="#cover" class="active"><span class="nav-num">①</span> 封面与课程简介</a></li>
+      <li><a href="#audience"><span class="nav-num">②</span> 适用对象与前置</a></li>
+      <li><a href="#logic"><span class="nav-num">③</span> 整体设计逻辑</a></li>
+      <li><a href="#advantage"><span class="nav-num">④</span> 双角色核心优势</a></li>
+      <li><a href="#loop"><span class="nav-num">⑤</span> AI 辅助闭环链路</a></li>
+      <li><a href="#structure"><span class="nav-num">⑥</span> 三期结构概览</a></li>
+      <li><a href="#format"><span class="nav-num">⑦</span> 每期固定结构</a></li>
+      <li><a href="#outcomes"><span class="nav-num">⑧</span> 课程成果总览</a></li>
+      <li><a href="#nav-guide"><span class="nav-num">⑨</span> 使用指引</a></li>
     </ul>
-    <div style="padding: 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border);">
-      <div class="sidebar-title">快速入口</div>
-      <div style="display: flex; flex-direction: column; gap: 6px;">
-        <a href="module1.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
-          <span style="color:#6D28D9;">●</span> M1：架构设计范式
-        </a>
-        <a href="module2.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
-          <span style="color:#D97706;">●</span> M2：Prompt 工程精要
-        </a>
-        <a href="module3.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
-          <span style="color:#1E40AF;">●</span> M3：RAG 深度实战
-        </a>
-        <a href="module4.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
-          <span style="color:#DC2626;">●</span> M4：Agent 与工具链
-        </a>
-        <a href="module5.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
-          <span style="color:#059669;">●</span> M5：后端集成
-        </a>
-        <a href="module6.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
-          <span style="color:#0891B2;">●</span> M6：前端集成
-        </a>
-        <a href="module7.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
-          <span style="color:#7C3AED;">●</span> M7：可观测性
-        </a>
-        <a href="module8.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
-          <span style="color:#BE185D;">●</span> M8：安全合规
-        </a>
-      </div>
-    </div>
   </aside>
 
-  <!-- Main -->
   <main class="main-content">
-    <div id="overview"></div>
 
-    <!-- Hero -->
-    <div class="index-hero">
-      <div class="index-hero-content">
-        <div class="hero-badge">
-          <span class="hero-session-num">Phase II</span>
-          Advanced Training Materials
+    <!-- ① 封面 -->
+    <div class="cover-hero" id="cover">
+      <div class="cover-content">
+        <div class="cover-eyebrow">
+          <div class="eyebrow-dot"></div>
+          <span>AI 办公进阶培训 · 内训专用材料</span>
         </div>
-        <h1>AI 工程进阶培训<br/><span>架构师 × 前后端工程师</span></h1>
-        <p class="hero-desc">
-          掌握 <strong>AI 原生工程体系</strong>，将 LLM 能力内化为工程基础设施，
-          构建可观测、可演进的 AI 应用架构。面向系统架构师、Java / Python / Go 后端工程师、
-          React / Vue / Node 前端工程师。
-        </p>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <div class="stat-num">8</div>
-            <div class="stat-label">模块</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">3</div>
-            <div class="stat-label">角色覆盖</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">全栈</div>
-            <div class="stat-label">前后端 + 架构</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">v2.0</div>
-            <div class="stat-label">进阶版 · 2025</div>
-          </div>
+        <h1>AI 办公<em>进阶</em>培训<br>产品经理 × 测试工程师</h1>
+        <p class="cover-tagline">你们是公司里唯一同时掌握"需求"和"验证"两端的角色，AI 能帮你把这两端真正打通——从需求到测试，一条完整的 AI 辅助链路在同一个人身上跑通。</p>
+        <div class="cover-meta-row">
+          <span class="cover-tag">📋 共 3 期课程</span>
+          <span class="cover-tag">⏱ 每期 2.5 小时</span>
+          <span class="cover-tag">🗓 建议每周一期</span>
+          <span class="cover-tag">🏢 公司内训专用</span>
+        </div>
+        <div class="cover-stats">
+          <div class="cs-item"><div class="cs-num">3</div><div class="cs-label">期课程</div></div>
+          <div class="cs-item"><div class="cs-num">7.5h</div><div class="cs-label">总时长</div></div>
+          <div class="cs-item"><div class="cs-num">15+</div><div class="cs-label">实操模块</div></div>
+          <div class="cs-item"><div class="cs-num">10+</div><div class="cs-label">提示词模板</div></div>
+          <div class="cs-item"><div class="cs-num">3</div><div class="cs-label">期产出物</div></div>
         </div>
       </div>
     </div>
 
-    <!-- Target Roles -->
-    <div id="targets" class="section">
+    <!-- ② 适用对象与前置要求 -->
+    <div class="section" id="audience">
       <div class="section-header">
-        <div class="section-icon purple">👥</div>
-        <div>
-          <div class="section-title">适用角色</div>
-          <div class="section-subtitle">三大核心角色，按需选修，各有侧重</div>
+        <div class="section-num">②</div>
+        <div class="section-title-block">
+          <h2>适用对象与前置要求</h2>
+          <p class="section-subtitle">明确受众画像，确保培训效果最大化</p>
         </div>
       </div>
 
-      <div class="target-grid">
-        <div class="target-card">
-          <div class="tc-icon">🏛️</div>
-          <div class="tc-role">系统架构师</div>
-          <div class="tc-desc">负责 AI 原生架构顶层设计，掌握模型选型、RAG 架构、Agent 编排与安全加固全链路</div>
-          <div style="margin-top:0.75rem;"><span class="role-badge role-architect">重点模块：M1 M3 M4 M8</span></div>
+      <div class="role-badge-row">
+        <div class="role-badge rb-pm">
+          <div class="rb-icon">📋</div>
+          <div>
+            <div class="rb-title">产品经理（PM）</div>
+            <div class="rb-desc">负责需求梳理、PRD 撰写、竞品分析、用户故事拆分；熟悉业务逻辑与用户场景；希望用 AI 提升需求质量与效率。</div>
+          </div>
         </div>
-        <div class="target-card">
-          <div class="tc-icon">⚙️</div>
-          <div class="tc-role">后端工程师</div>
-          <div class="tc-desc">Java / Python / Go 后端开发者，掌握 LLM SDK 集成、RAG Pipeline、Agent 框架与生产部署</div>
-          <div style="margin-top:0.75rem;"><span class="role-badge role-backend">重点模块：M3 M4 M5 M8</span></div>
-        </div>
-        <div class="target-card">
-          <div class="tc-icon">🎨</div>
-          <div class="tc-role">前端工程师</div>
-          <div class="tc-desc">React / Vue / Node 前端开发者，掌握 Streaming UI、AI 组件设计与 BFF 层 AI 集成</div>
-          <div style="margin-top:0.75rem;"><span class="role-badge role-frontend">重点模块：M2 M6 M7</span></div>
+        <div class="role-badge rb-qa">
+          <div class="rb-icon">🧪</div>
+          <div>
+            <div class="rb-title">测试工程师（QA）</div>
+            <div class="rb-desc">负责测试用例设计、自动化脚本、Bug 管理、回归测试；有一定编程基础；希望用 AI 提升测试覆盖率和自动化效率。</div>
+          </div>
         </div>
       </div>
 
-      <div class="infobox infobox-tip">
-        <span class="infobox-icon">💡</span>
-        <div><strong>全员必修：</strong>模块 2（Prompt 工程）与模块 7（可观测性）为全角色共修模块，建立统一的 AI 工程语言与评估标准。</div>
+      <div class="info-box ib-note">
+        <div class="info-box-title">⚡ 兼任角色说明</div>
+        本课程专为 <strong>同时兼任 PM 和 QA 双重职责</strong>的学员设计。你们的独特价值在于：拥有需求视角的同时具备测试思维，这是本课程能够打通完整 AI 链路的核心前提。
+      </div>
+
+      <h3>前置要求</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>前置课程</th><th>核心收获</th><th>与本课程的关系</th></tr></thead>
+          <tbody>
+            <tr><td>《AI 办公实战培训》第一期</td><td>AI 基础认知、提示词基础</td><td>本课程直接在此基础上进阶</td></tr>
+            <tr><td>《AI 办公实战培训》第二期</td><td>文本类任务 AI 提效</td><td>PRD 写作 AI 辅助的直接基础</td></tr>
+            <tr><td>《AI 办公实战培训》第三期</td><td>信息整理、会议录音处理</td><td>需求发现模块的前置技能</td></tr>
+            <tr><td>《AI 办公实战培训》第四期</td><td>Dify 工作流与知识库基础</td><td>第三期 Agent 搭建的必要前置</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <!-- Design Logic / Learning Path -->
-    <div id="design-logic" class="section">
+    <!-- ③ 整体设计逻辑 -->
+    <div class="section" id="logic">
       <div class="section-header">
-        <div class="section-icon orange">🧭</div>
-        <div>
-          <div class="section-title">学习路径设计</div>
-          <div class="section-subtitle">八模块递进，从架构思维到生产加固</div>
+        <div class="section-num">③</div>
+        <div class="section-title-block">
+          <h2>整体设计逻辑</h2>
+          <p class="section-subtitle">三期课程的递进关系与核心差异化</p>
         </div>
       </div>
 
-      <div class="design-flow">
-        <div class="df-item">
-          <div class="df-icon">🏛️</div>
-          <div class="df-title">架构设计</div>
-          <div class="df-sub">AI 原生范式</div>
-          <div class="badge badge-purple" style="margin-top:4px;">M1</div>
+      <div class="structure-grid">
+        <div class="sg-card sg-pm">
+          <div class="sg-num">1</div>
+          <div class="sg-icon">📋</div>
+          <div class="sg-title">第一期 · PM 侧</div>
+          <div class="sg-desc">产品经理 AI 实战<br>需求全链路提效<br>从模糊到精准</div>
         </div>
-        <div class="df-arrow">→</div>
-        <div class="df-item">
-          <div class="df-icon">✍️</div>
-          <div class="df-title">Prompt工程</div>
-          <div class="df-sub">高阶技巧</div>
-          <div class="badge badge-yellow" style="margin-top:4px;">M2</div>
+        <div class="sg-card sg-qa">
+          <div class="sg-num">2</div>
+          <div class="sg-icon">🧪</div>
+          <div class="sg-title">第二期 · QA 侧</div>
+          <div class="sg-desc">测试工程师 AI 实战<br>测试全链路提效<br>从覆盖到自动化</div>
         </div>
-        <div class="df-arrow">→</div>
-        <div class="df-item">
-          <div class="df-icon">📚</div>
-          <div class="df-title">RAG实战</div>
-          <div class="df-sub">深度检索</div>
-          <div class="badge badge-blue" style="margin-top:4px;">M3</div>
-        </div>
-        <div class="df-arrow">→</div>
-        <div class="df-item">
-          <div class="df-icon">🤖</div>
-          <div class="df-title">Agent编排</div>
-          <div class="df-sub">工具链</div>
-          <div class="badge badge-red" style="margin-top:4px;">M4</div>
-        </div>
-        <div class="df-arrow">→</div>
-        <div class="df-item">
-          <div class="df-icon">🔗</div>
-          <div class="df-title">后端/前端</div>
-          <div class="df-sub">工程集成</div>
-          <div class="badge badge-green" style="margin-top:4px;">M5-6</div>
-        </div>
-        <div class="df-arrow">→</div>
-        <div class="df-item">
-          <div class="df-icon">📊</div>
-          <div class="df-title">可观测性</div>
-          <div class="df-sub">评估体系</div>
-          <div class="badge badge-purple" style="margin-top:4px;">M7</div>
-        </div>
-        <div class="df-arrow">→</div>
-        <div class="df-item">
-          <div class="df-icon">🔒</div>
-          <div class="df-title">安全合规</div>
-          <div class="df-sub">生产加固</div>
-          <div class="badge badge-red" style="margin-top:4px;">M8</div>
+        <div class="sg-card sg-combined">
+          <div class="sg-num">3</div>
+          <div class="sg-icon">🔗</div>
+          <div class="sg-title">第三期 · 打通</div>
+          <div class="sg-desc">双角色打通 + AI Agent<br>需求→测试一体化<br>构建团队级工作流</div>
         </div>
       </div>
 
-      <div class="card card-accent-orange">
-        <h3 style="margin-top:0;">📐 课程设计原则</h3>
-        <div class="progress-timeline" style="margin:1rem 0 0;">
-          <div class="timeline-item">
-            <div class="timeline-dot done">理论</div>
-            <div class="timeline-label">架构思维<br/>设计模式</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot done">实战</div>
-            <div class="timeline-label">代码实操<br/>框架集成</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-dot done">加固</div>
-            <div class="timeline-label">可观测性<br/>安全合规</div>
-          </div>
-        </div>
-        <div class="infobox infobox-tip" style="margin-top:1rem;">
-          <span class="infobox-icon">🎯</span>
-          <div><strong>核心目标：</strong>将 LLM 能力内化为工程基础设施，不只是调用 API，而是构建可观测、可演进、可治理的 AI 应用架构。</div>
-        </div>
+      <div class="info-box ib-insight">
+        <div class="info-box-title">🎯 核心差异化：前期成果直接复用</div>
+        每一期的课堂产出物，在下一期中直接作为输入继续使用。第一期写的 PRD，第二期就用来生成测试用例；第二期的测试用例，第三期就用来构建完整链路。这种设计确保学员在课程结束时，已经拥有一个真实项目的完整 AI 辅助成果包。
       </div>
     </div>
 
-    <!-- Module Cards -->
-    <div id="module-cards" class="section">
+    <!-- ④ 双角色核心优势 -->
+    <div class="section" id="advantage">
       <div class="section-header">
-        <div class="section-icon blue">📚</div>
-        <div>
-          <div class="section-title">八大核心模块</div>
-          <div class="section-subtitle">点击进入每个模块的完整讲义</div>
+        <div class="section-num">④</div>
+        <div class="section-title-block">
+          <h2>双角色核心优势</h2>
+          <p class="section-subtitle">为什么 PM+QA 兼任角色在 AI 时代价值翻倍</p>
         </div>
       </div>
 
-      <div class="sessions-grid">
-        <!-- Module 1 -->
-        <div class="session-overview-card">
-          <div class="soc-num">01</div>
-          <div class="soc-badge"><span class="role-badge role-architect">架构师</span></div>
-          <div class="soc-title">AI 原生架构设计范式</div>
-          <div class="soc-desc">从传统分层架构到 AI 原生架构的演进路径。覆盖模型选型决策框架、LLM Gateway 设计、AI 能力分层抽象与架构治理策略。</div>
-          <div class="soc-metas">
-            <span class="badge badge-gray">🏛️ 架构演进</span>
-            <span class="badge badge-gray">🧩 模型选型</span>
-            <span class="badge badge-gray">🔀 Gateway 设计</span>
-            <span class="badge badge-gray">📐 能力分层</span>
-          </div>
-          <a href="module1.html" class="soc-link">进入模块一 →</a>
+      <div class="card-grid-2">
+        <div class="feature-card">
+          <div class="fc-icon">🔮</div>
+          <div class="fc-title">需求侧天然有测试思维</div>
+          <div class="fc-desc">在写需求的同时就能考虑验收条件、边界场景和异常流程。AI 可以将这个优势放大——在写需求的同时同步生成 Given-When-Then 格式的 AC（验收条件）。</div>
         </div>
-
-        <!-- Module 2 -->
-        <div class="session-overview-card">
-          <div class="soc-num">02</div>
-          <div class="soc-badge"><span class="role-badge role-all">全员</span></div>
-          <div class="soc-title">Prompt 工程精要与高阶技巧</div>
-          <div class="soc-desc">系统化 Prompt 设计方法论，从基础模式到 Chain-of-Thought、Few-Shot、Self-Consistency 等高阶技巧，建立工程级 Prompt 管理体系。</div>
-          <div class="soc-metas">
-            <span class="badge badge-gray">✍️ 系统 Prompt</span>
-            <span class="badge badge-gray">🔗 CoT 推理</span>
-            <span class="badge badge-gray">📋 模板管理</span>
-            <span class="badge badge-gray">🧪 评估迭代</span>
-          </div>
-          <a href="module2.html" class="soc-link">进入模块二 →</a>
+        <div class="feature-card">
+          <div class="fc-icon">⚡</div>
+          <div class="fc-title">测试侧深度理解需求意图</div>
+          <div class="fc-desc">测试时最清楚需求的设计边界，能写出比纯测试工程师更有针对性的测试用例。AI 可以把这个优势系统化——基于需求理解生成更精准的测试覆盖矩阵。</div>
         </div>
-
-        <!-- Module 3 -->
-        <div class="session-overview-card">
-          <div class="soc-num">03</div>
-          <div class="soc-badge"><span class="role-badge role-backend">后端</span> <span class="role-badge role-architect">架构师</span></div>
-          <div class="soc-title">RAG 系统深度实战</div>
-          <div class="soc-desc">从 Naive RAG 到 Advanced RAG 的完整实现。覆盖文档解析、Embedding 模型选型、向量检索优化、Hybrid Search、Re-ranking 全流程。</div>
-          <div class="soc-metas">
-            <span class="badge badge-gray">📄 文档解析</span>
-            <span class="badge badge-gray">🔢 Embedding</span>
-            <span class="badge badge-gray">🔍 混合检索</span>
-            <span class="badge badge-gray">📊 Re-ranking</span>
-          </div>
-          <a href="module3.html" class="soc-link">进入模块三 →</a>
+        <div class="feature-card">
+          <div class="fc-icon">🔄</div>
+          <div class="fc-title">闭环反馈无沟通损耗</div>
+          <div class="fc-desc">测试发现的需求问题可以直接反馈到需求文档，不需要跨团队沟通。AI 辅助的双向审查（需求→测试，测试→需求）在同一人身上可以快速闭环。</div>
         </div>
-
-        <!-- Module 4 -->
-        <div class="session-overview-card">
-          <div class="soc-num">04</div>
-          <div class="soc-badge"><span class="role-badge role-backend">后端</span> <span class="role-badge role-architect">架构师</span></div>
-          <div class="soc-title">Agent 与工具链编排</div>
-          <div class="soc-desc">Agent 设计模式与多步工具链编排。掌握 ReAct、Plan-and-Execute、Multi-Agent 模式，实现 Function Calling 与 MCP 协议集成。</div>
-          <div class="soc-metas">
-            <span class="badge badge-gray">🤖 Agent 模式</span>
-            <span class="badge badge-gray">🔧 Function Call</span>
-            <span class="badge badge-gray">🔌 MCP 协议</span>
-            <span class="badge badge-gray">🔄 多 Agent</span>
-          </div>
-          <a href="module4.html" class="soc-link">进入模块四 →</a>
-        </div>
-
-        <!-- Module 5 -->
-        <div class="session-overview-card">
-          <div class="soc-num">05</div>
-          <div class="soc-badge"><span class="role-badge role-backend">后端工程师</span></div>
-          <div class="soc-title">后端集成：Java / Python / Go</div>
-          <div class="soc-desc">三大主流后端语言的 LLM 集成方案。LangChain / LangChain4j / Go SDK 实战，Streaming 处理、并发控制、错误重试与生产级部署。</div>
-          <div class="soc-metas">
-            <span class="badge badge-gray">☕ Java 集成</span>
-            <span class="badge badge-gray">🐍 Python 集成</span>
-            <span class="badge badge-gray">🐹 Go 集成</span>
-            <span class="badge badge-gray">🚀 生产部署</span>
-          </div>
-          <a href="module5.html" class="soc-link">进入模块五 →</a>
-        </div>
-
-        <!-- Module 6 -->
-        <div class="session-overview-card">
-          <div class="soc-num">06</div>
-          <div class="soc-badge"><span class="role-badge role-frontend">前端工程师</span></div>
-          <div class="soc-title">前端集成：React / Vue / Node</div>
-          <div class="soc-desc">AI 驱动的前端工程实践。Streaming UI 渲染、AI 组件库设计、Vercel AI SDK 集成、BFF 层 AI 代理与前端状态管理。</div>
-          <div class="soc-metas">
-            <span class="badge badge-gray">⚛️ React 集成</span>
-            <span class="badge badge-gray">💚 Vue 集成</span>
-            <span class="badge badge-gray">📡 Streaming UI</span>
-            <span class="badge badge-gray">🎨 AI 组件</span>
-          </div>
-          <a href="module6.html" class="soc-link">进入模块六 →</a>
-        </div>
-
-        <!-- Module 7 -->
-        <div class="session-overview-card">
-          <div class="soc-num">07</div>
-          <div class="soc-badge"><span class="role-badge role-all">全员</span></div>
-          <div class="soc-title">可观测性与评估体系</div>
-          <div class="soc-desc">AI 应用全链路可观测体系构建。Trace 追踪、Metrics 采集、评估框架（RAGAS / DeepEval）、A/B 测试与持续质量监控。</div>
-          <div class="soc-metas">
-            <span class="badge badge-gray">📊 Trace 追踪</span>
-            <span class="badge badge-gray">📈 Metrics</span>
-            <span class="badge badge-gray">🧪 RAGAS 评估</span>
-            <span class="badge badge-gray">🔬 A/B 测试</span>
-          </div>
-          <a href="module7.html" class="soc-link">进入模块七 →</a>
-        </div>
-
-        <!-- Module 8 -->
-        <div class="session-overview-card">
-          <div class="soc-num">08</div>
-          <div class="soc-badge"><span class="role-badge role-architect">架构师</span> <span class="role-badge role-backend">后端</span></div>
-          <div class="soc-title">安全合规与生产加固</div>
-          <div class="soc-desc">AI 应用安全防护全景。Prompt 注入防御、数据脱敏、输出审核、速率限制、合规审计与灾备方案，确保 AI 系统生产级可靠性。</div>
-          <div class="soc-metas">
-            <span class="badge badge-gray">🛡️ 注入防御</span>
-            <span class="badge badge-gray">🔐 数据脱敏</span>
-            <span class="badge badge-gray">⚖️ 合规审计</span>
-            <span class="badge badge-gray">🔥 灾备方案</span>
-          </div>
-          <a href="module8.html" class="soc-link">进入模块八 →</a>
-        </div>
-      </div>
-
-      <!-- Appendix link -->
-      <div class="infobox infobox-teacher">
-        <span class="infobox-icon">📎</span>
-        <div>
-          <div class="infobox-title">附录资料</div>
-          <p style="font-size:0.875rem;margin-top:4px;">
-            附录包含参考架构图、工具速查表、术语对照表与推荐阅读清单。
-            <a href="appendix.html" style="color:var(--accent);font-weight:700;">查看附录 →</a>
-          </p>
+        <div class="feature-card">
+          <div class="fc-icon">📦</div>
+          <div class="fc-title">端到端完整产出物</div>
+          <div class="fc-desc">从客户需求到可运行的自动化测试脚本，整条链路在一个角色上完成。AI 辅助下，这条链路的产出时间可以缩短 60-80%，质量反而更高。</div>
         </div>
       </div>
     </div>
 
-    <!-- Tools -->
-    <div id="tools" class="section">
+    <!-- ⑤ AI 辅助闭环链路 -->
+    <div class="section" id="loop">
       <div class="section-header">
-        <div class="section-icon teal">🔧</div>
-        <div>
-          <div class="section-title">核心工具生态</div>
-          <div class="section-subtitle">课程涉及的关键框架与工具</div>
+        <div class="section-num">⑤</div>
+        <div class="section-title-block">
+          <h2>AI 辅助闭环链路</h2>
+          <p class="section-subtitle">上一个环节的 AI 输出，直接作为下一个环节的 AI 输入</p>
         </div>
       </div>
 
-      <div class="tools-grid">
-        <div class="tool-card">
-          <div class="tc-cat">🔗 LLM 框架</div>
-          <ul class="tc-items">
-            <li>LangChain（Python 编排框架）</li>
-            <li>LangGraph（Agent 图编排）</li>
-            <li>LangChain4j（Java 集成）</li>
-            <li>LiteLLM（统一 API 代理）</li>
+      <div class="loop-diagram">
+        <div class="loop-title">🔗 完整 AI 辅助链路（正向 + 反向）</div>
+        <div class="loop-row">
+          <div class="loop-node">
+            <div class="ln-box ln-shared">客户需求</div>
+            <div class="ln-sub">原始输入</div>
+          </div>
+          <div class="loop-arrow">→</div>
+          <div class="loop-node">
+            <div class="ln-box ln-pm">PRD</div>
+            <div class="ln-sub">AI 辅助撰写</div>
+          </div>
+          <div class="loop-arrow">→</div>
+          <div class="loop-node">
+            <div class="ln-box ln-pm">用户故事 + AC</div>
+            <div class="ln-sub">AI 同步生成</div>
+          </div>
+          <div class="loop-arrow">→</div>
+          <div class="loop-node">
+            <div class="ln-box ln-qa">测试用例</div>
+            <div class="ln-sub">AI 矩阵生成</div>
+          </div>
+          <div class="loop-arrow">→</div>
+          <div class="loop-node">
+            <div class="ln-box ln-qa">自动化脚本</div>
+            <div class="ln-sub">AI 代码生成</div>
+          </div>
+          <div class="loop-arrow">→</div>
+          <div class="loop-node">
+            <div class="ln-box ln-qa">Bug 报告</div>
+            <div class="ln-sub">AI 规范化</div>
+          </div>
+          <div class="loop-arrow">→</div>
+          <div class="loop-node">
+            <div class="ln-box ln-shared">变更同步</div>
+            <div class="ln-sub">AI 影响分析</div>
+          </div>
+        </div>
+        <div class="loop-return">↑ ──────── AI 反向审查需求完整性（测试用例覆盖度 → 需求遗漏识别）──────── ↓</div>
+      </div>
+
+      <div class="info-box ib-caution">
+        <div class="info-box-title">💡 这个闭环为什么重要</div>
+        其他角色（纯 PM 或纯 QA）只能在链路的一端使用 AI。只有 PM+QA 兼任角色才能让这条完整链路在一个人身上跑通，真正实现"上一个环节的 AI 输出直接作为下一个环节的 AI 输入"，最大化 AI 的复利效应。
+      </div>
+    </div>
+
+    <!-- ⑥ 三期结构概览 -->
+    <div class="section" id="structure">
+      <div class="section-header">
+        <div class="section-num">⑥</div>
+        <div class="section-title-block">
+          <h2>三期课程导航</h2>
+          <p class="section-subtitle">点击课程卡片进入对应章节</p>
+        </div>
+      </div>
+
+      <div class="card-grid-3">
+        <div class="session-card">
+          <div class="sc-num">01</div>
+          <div class="sc-title">产品经理侧 AI 实战</div>
+          <div class="sc-desc">从"写需求"到"设计需求"。用 AI 重构需求全链路，让 PRD 从费时费力的体力活变成高质量的思维产出。</div>
+          <div class="tag-row">
+            <span class="badge badge-blue">需求澄清</span>
+            <span class="badge badge-blue">PRD 写作</span>
+            <span class="badge badge-blue">竞品分析</span>
+            <span class="badge badge-blue">AC 生成</span>
+          </div>
+          <a href="session1.html" class="sc-link sc-link-pm">进入第一期 →</a>
+        </div>
+        <div class="session-card">
+          <div class="sc-num">02</div>
+          <div class="sc-title">测试工程师侧 AI 实战</div>
+          <div class="sc-desc">从"执行测试"到"设计测试"。用 AI 覆盖测试全链路，测试质量和效率同步提升。</div>
+          <div class="tag-row">
+            <span class="badge badge-green">用例设计</span>
+            <span class="badge badge-green">数据生成</span>
+            <span class="badge badge-green">自动化脚本</span>
+            <span class="badge badge-green">Bug 管理</span>
+          </div>
+          <a href="session2.html" class="sc-link sc-link-qa">进入第二期 →</a>
+        </div>
+        <div class="session-card">
+          <div class="sc-num">03</div>
+          <div class="sc-title">双角色打通 + AI Agent</div>
+          <div class="sc-desc">打通产品和测试两端的 AI 链路，构建团队级需求→测试一体化工作流，掌握 AI Agent 应用。</div>
+          <div class="tag-row">
+            <span class="badge badge-purple">双向链路</span>
+            <span class="badge badge-purple">变更联动</span>
+            <span class="badge badge-purple">AI Agent</span>
+            <span class="badge badge-purple">知识库</span>
+          </div>
+          <a href="session3.html" class="sc-link sc-link-combined">进入第三期 →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑦ 每期固定结构 -->
+    <div class="section" id="format">
+      <div class="section-header">
+        <div class="section-num">⑦</div>
+        <div class="section-title-block">
+          <h2>每期固定结构</h2>
+          <p class="section-subtitle">一致的课程节奏，确保每期都有可带走的真实产出物</p>
+        </div>
+      </div>
+
+      <div class="format-bar">
+        <div class="fb-item">
+          <div class="fb-pct">15%</div>
+          <div class="fb-label">认知建立<br>约 22 分钟</div>
+        </div>
+        <div class="fb-item">
+          <div class="fb-pct">70%</div>
+          <div class="fb-label">动手实操<br>约 105 分钟</div>
+        </div>
+        <div class="fb-item">
+          <div class="fb-pct">10%</div>
+          <div class="fb-label">总结复盘<br>约 15 分钟</div>
+        </div>
+        <div class="fb-item">
+          <div class="fb-pct">5%</div>
+          <div class="fb-label">作业发布<br>约 8 分钟</div>
+        </div>
+      </div>
+
+      <div class="card-grid-2 mt-2">
+        <div class="card">
+          <h4>📌 实操原则</h4>
+          <ul>
+            <li>所有实操使用<strong>真实项目素材</strong>（脱敏后），非虚拟案例</li>
+            <li>每个提示词模板都在课堂现场验证可用性</li>
+            <li>讲师 + 学员同步操作，遇到问题当场解决</li>
+            <li>优先"讲清楚怎么做"，理论讲解压缩到最少</li>
           </ul>
         </div>
-        <div class="tool-card">
-          <div class="tc-cat">🗄️ 向量与检索</div>
-          <ul class="tc-items">
-            <li>Qdrant（高性能向量数据库）</li>
-            <li>pgvector（PostgreSQL 向量扩展）</li>
-            <li>Elasticsearch（混合检索）</li>
-          </ul>
-        </div>
-        <div class="tool-card">
-          <div class="tc-cat">📊 可观测与评估</div>
-          <ul class="tc-items">
-            <li>LangFuse（LLM 可观测平台）</li>
-            <li>RAGAS（RAG 评估框架）</li>
-            <li>DeepEval（端到端评估）</li>
-          </ul>
-        </div>
-        <div class="tool-card">
-          <div class="tc-cat">⚛️ 前端 SDK</div>
-          <ul class="tc-items">
-            <li>Vercel AI SDK（Streaming UI）</li>
-            <li>React Server Components</li>
-            <li>Vue Composables</li>
-          </ul>
-        </div>
-        <div class="tool-card">
-          <div class="tc-cat">🤖 Agent 工具</div>
-          <ul class="tc-items">
-            <li>OpenAI Function Calling</li>
-            <li>MCP — Model Context Protocol</li>
-            <li>CrewAI（Multi-Agent 框架）</li>
-          </ul>
-        </div>
-        <div class="tool-card">
-          <div class="tc-cat">🔒 安全与部署</div>
-          <ul class="tc-items">
-            <li>Guardrails（输出审核）</li>
-            <li>OWASP LLM Top 10</li>
-            <li>Docker / K8s 部署方案</li>
+        <div class="card">
+          <h4>📦 每期产出物承诺</h4>
+          <ul>
+            <li><strong>第一期</strong>：一份包含完整 AC 的 PRD 章节 + 竞品分析报告初稿</li>
+            <li><strong>第二期</strong>：测试套件（用例矩阵 + 测试数据 + 脚本骨架）</li>
+            <li><strong>第三期</strong>：完整链路成果包 + AC 生成器/测试用例生成器两个 Skill</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- Bottom nav -->
+    <!-- ⑧ 课程成果总览 -->
+    <div class="section" id="outcomes">
+      <div class="section-header">
+        <div class="section-num">⑧</div>
+        <div class="section-title-block">
+          <h2>课程成果总览</h2>
+          <p class="section-subtitle">三期培训结束后，学员能做到什么</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table-striped">
+          <thead>
+            <tr>
+              <th>能力维度</th>
+              <th>课程前</th>
+              <th>课程后</th>
+              <th>预期提效</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>需求文档撰写</strong></td>
+              <td>4–8 小时/份</td>
+              <td>1–2 小时/份</td>
+              <td class="hl-green">↑ 70%</td>
+            </tr>
+            <tr>
+              <td><strong>竞品调研分析</strong></td>
+              <td>1–2 天</td>
+              <td>2–3 小时</td>
+              <td class="hl-green">↑ 60%</td>
+            </tr>
+            <tr>
+              <td><strong>验收条件生成</strong></td>
+              <td>2–3 小时/功能</td>
+              <td>30 分钟/功能</td>
+              <td class="hl-green">↑ 80%</td>
+            </tr>
+            <tr>
+              <td><strong>测试用例设计</strong></td>
+              <td>依赖个人经验，覆盖不均</td>
+              <td>AI 系统覆盖，标准化输出</td>
+              <td class="hl-green">↑ 质量 + 效率</td>
+            </tr>
+            <tr>
+              <td><strong>测试数据构造</strong></td>
+              <td>手动构造，费时费力</td>
+              <td>AI 批量生成，秒级完成</td>
+              <td class="hl-green">↑ 85%</td>
+            </tr>
+            <tr>
+              <td><strong>自动化脚本编写</strong></td>
+              <td>需要扎实编程能力</td>
+              <td>描述意图，AI 生成代码</td>
+              <td class="hl-green">门槛大幅降低</td>
+            </tr>
+            <tr>
+              <td><strong>Bug 报告规范化</strong></td>
+              <td>质量参差不齐，易被退回</td>
+              <td>AI 标准化，一次通过率高</td>
+              <td class="hl-green">↑ 开发效率</td>
+            </tr>
+            <tr>
+              <td><strong>需求变更联动</strong></td>
+              <td>手动排查影响范围，易遗漏</td>
+              <td>AI 自动分析，输出变更清单</td>
+              <td class="hl-green">↓ 漏测风险</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ⑨ 使用指引 -->
+    <div class="section" id="nav-guide">
+      <div class="section-header">
+        <div class="section-num">⑨</div>
+        <div class="section-title-block">
+          <h2>培训材料使用指引</h2>
+          <p class="section-subtitle">讲师和学员如何最有效地使用这套材料</p>
+        </div>
+      </div>
+
+      <div class="card-grid-2">
+        <div class="card">
+          <h4>🎤 讲师使用建议</h4>
+          <ul>
+            <li>每个 <span class="badge badge-accent">🎯 实操</span> 标注的模块，预留至少 10 分钟让学员动手</li>
+            <li>提示词模板可直接投屏展示，学员复制到自己的 AI 工具中使用</li>
+            <li>每期结束前，确认所有学员都完成了当期产出物</li>
+            <li>鼓励学员用自己的真实项目素材替换示例内容</li>
+            <li>附录中的提示词模板可以打印发给学员作为参考手册</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>🎓 学员使用建议</h4>
+          <ul>
+            <li>准备 1-2 个真实项目素材（PRD 片段、需求邮件、接口文档），脱敏后带到培训现场</li>
+            <li>每期课前复习前置课程笔记，特别是提示词结构框架</li>
+            <li>课堂实操时优先使用 Claude（长上下文场景）或 Gemini（需要联网的场景）</li>
+            <li>课后在 1 周内用真实工作任务完成作业，巩固课堂技能</li>
+            <li>遇到 AI 输出质量不满意时，先尝试改写提示词，而不是放弃</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="info-box ib-action">
+        <div class="info-box-title">📂 附录导航</div>
+        本课程附录包含：三期产出物汇总 · 专属工具清单 · 核心提示词模板索引（全文）· 个人能力自评表。<a href="appendix.html">点击进入附录 →</a>
+      </div>
+    </div>
+
     <div class="page-nav">
       <span></span>
-      <a href="module1.html" class="page-nav-btn">开始模块一：架构设计 →</a>
+      <a href="session1.html" class="page-nav-btn">第一期：产品经理侧 AI 实战 →</a>
     </div>
+
   </main>
 </div>
 
-<a href="#" class="back-top" title="返回顶部">↑</a>
+<a href="#" class="back-top">↑</a>
 
 <script>
   // Active sidebar link on scroll
   const sections = document.querySelectorAll('[id]');
   const navLinks = document.querySelectorAll('.sidebar-nav a');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const id = e.target.id;
-        navLinks.forEach(l => {
-          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
-        });
-      }
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
     });
-  }, { rootMargin: '-20% 0px -70% 0px' });
-  sections.forEach(s => observer.observe(s));
+  });
 </script>
 </body>
 </html>

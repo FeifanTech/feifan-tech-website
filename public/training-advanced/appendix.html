@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>附录：工具清单 + 提示词模板索引 — AI 办公进阶培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .deliverable-row {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.25rem; background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); margin-bottom: 0.875rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .dr-session {
+      min-width: 100px; text-align: center; padding: 0.5rem;
+      border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .dr-1 { background: #EBF8FF; color: var(--pm-color); border: 1px solid #90CDF4; }
+    .dr-2 { background: #F0FFF4; color: var(--qa-color); border: 1px solid #9AE6B4; }
+    .dr-3 { background: #F3F0FF; color: var(--combined-color); border: 1px solid #C4B5FD; }
+    .dr-content h5 { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .dr-content p { font-size: 0.83rem; color: var(--medium); margin: 0; line-height: 1.55; }
+
+    .tool-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.25rem;
+      box-shadow: var(--shadow-sm); transition: box-shadow .2s, transform .2s;
+    }
+    .tool-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .tool-header { display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; }
+    .tool-icon { font-size: 1.8rem; }
+    .tool-name { font-size: 1rem; font-weight: 700; color: var(--dark); }
+    .tool-level { font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+    .level-low    { background: #F0FFF4; color: #276749; border: 1px solid #9AE6B4; }
+    .level-medium { background: #FFFBEB; color: #744210; border: 1px solid #F6E05E; }
+    .level-high   { background: #FFF5F0; color: #7B341E; border: 1px solid var(--accent-light); }
+    .tool-desc { font-size: 0.82rem; color: var(--medium); line-height: 1.55; margin-bottom: 0.625rem; }
+    .tool-use  { font-size: 0.78rem; color: var(--muted); }
+    .tool-use strong { color: var(--dark); }
+
+    .prompt-full {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .pf-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 1rem 1.5rem; border-bottom: 1px solid var(--beige);
+      background: var(--warm);
+    }
+    .pf-meta {}
+    .pf-num { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 3px; }
+    .pf-name { font-size: 1rem; font-weight: 700; color: var(--dark); }
+    .pf-where { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .pf-tag { align-self: flex-start; }
+    .pf-body { padding: 1.25rem 1.5rem; }
+    .pf-body pre {
+      background: #1E2433; color: #E8EAF0;
+      border-radius: var(--radius-md); padding: 1.25rem;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+      line-height: 1.7; overflow-x: auto; margin: 0;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .pf-tip {
+      margin-top: 0.875rem; padding: 0.75rem 1rem;
+      background: var(--warm); border-radius: var(--radius-md);
+      font-size: 0.82rem; color: var(--medium);
+    }
+    .pf-tip strong { color: var(--dark); }
+
+    .self-assess {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.25rem 0;
+    }
+    .sa-title { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 1rem; }
+    .sa-row {
+      display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0;
+      border-bottom: 1px solid var(--beige);
+    }
+    .sa-row:last-child { border-bottom: none; }
+    .sa-label { font-size: 0.85rem; color: var(--dark); flex: 2; font-weight: 600; }
+    .sa-stars { display: flex; gap: 6px; }
+    .star {
+      width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border);
+      background: var(--warm); display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; color: var(--muted); font-weight: 700;
+    }
+    .sa-tip { font-size: 0.75rem; color: var(--muted); flex: 3; line-height: 1.45; }
+
+    .quick-ref {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.25rem 0;
+    }
+    .qr-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.25rem;
+    }
+    .qr-title { font-size: 0.85rem; font-weight: 700; color: var(--dark); margin-bottom: 0.75rem; }
+    .qr-list li { font-size: 0.8rem; color: var(--medium); line-height: 1.6; margin-bottom: 2px; }
+    .qr-list li strong { color: var(--dark); }
+
+    .cert-box {
+      background: linear-gradient(135deg, #1A2035, #2D3748);
+      color: #fff; border-radius: var(--radius-xl); padding: 3rem;
+      text-align: center; margin: 2rem 0; position: relative; overflow: hidden;
+    }
+    .cert-box::before {
+      content: ''; position: absolute; right: -80px; top: -80px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,122,95,0.15) 0%, transparent 70%);
+    }
+    .cert-content { position: relative; z-index: 1; }
+    .cert-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .cert-title { font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem; }
+    .cert-sub { font-size: 0.9rem; opacity: 0.75; max-width: 400px; margin: 0 auto 1.5rem; line-height: 1.65; }
+    .cert-badges { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .cert-badge {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px; padding: 6px 16px; font-size: 0.82rem; font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>📚</span>
+    <span>AI 办公进阶培训</span>
+    <span class="logo-badge" style="background: var(--dark);">附录</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="session1.html">第一期·PM</a>
+    <a href="session2.html">第二期·QA</a>
+    <a href="session3.html">第三期·打通</a>
+    <a href="appendix.html" class="active">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">附录目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#app0" class="active"><span class="nav-num">0</span> 附录导航</a></li>
+      <li><a href="#app1"><span class="nav-num">一</span> 三期产出物汇总</a></li>
+      <li><a href="#app2"><span class="nav-num">二</span> 专属工具清单</a></li>
+      <li><a href="#app3"><span class="nav-num">三</span> 提示词模板索引</a></li>
+      <li><a href="#app3-full"><span class="nav-num">3a</span> 完整提示词模板</a></li>
+      <li><a href="#app3-p1"><span class="nav-num">3b</span> 需求深挖框架</a></li>
+      <li><a href="#app3-p2"><span class="nav-num">3c</span> PRD 规范化模板</a></li>
+      <li><a href="#app3-p3"><span class="nav-num">3d</span> AC 生成模板</a></li>
+      <li><a href="#app3-p4"><span class="nav-num">3e</span> 测试用例矩阵模板</a></li>
+      <li><a href="#app3-p5"><span class="nav-num">3f</span> 测试数据生成</a></li>
+      <li><a href="#app3-p6"><span class="nav-num">3g</span> Pytest 脚本模板</a></li>
+      <li><a href="#app3-p7"><span class="nav-num">3h</span> Bug 报告规范化</a></li>
+      <li><a href="#app3-p8"><span class="nav-num">3i</span> 变更影响分析</a></li>
+      <li><a href="#app3-p9"><span class="nav-num">3j</span> 双向审查分析</a></li>
+      <li><a href="#app4"><span class="nav-num">四</span> 个人能力自评表</a></li>
+      <li><a href="#app5"><span class="nav-num">五</span> 课程结语</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- Hero -->
+    <div class="session-hero hero-appendix" id="app0">
+      <div class="hero-content">
+        <div class="hero-eyebrow">附录 · 参考资料</div>
+        <h1>核心资料汇总</h1>
+        <p class="hero-desc">三期课程产出物 · 专属工具清单 · 10 个核心提示词模板全文 · 个人能力自评表。本附录可打印作为随身参考手册。</p>
+        <div class="hero-meta">
+          <span class="hero-tag">📦 产出物汇总</span>
+          <span class="hero-tag">🛠 工具清单</span>
+          <span class="hero-tag">💬 10 个提示词</span>
+          <span class="hero-tag">📊 能力自评表</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="breadcrumb">
+      <a href="index.html">课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">附录</span>
+    </div>
+
+    <!-- 附录一：三期产出物汇总 -->
+    <div class="section" id="app1">
+      <div class="section-header">
+        <div class="section-num">一</div>
+        <div class="section-title-block">
+          <h2>三期产出物汇总</h2>
+          <p class="section-subtitle">每期培训结束时，学员应带走的具体成果</p>
+        </div>
+      </div>
+
+      <div class="deliverable-row">
+        <div class="dr-session dr-1">第一期<br>PM 侧</div>
+        <div class="dr-content">
+          <h5>📋 一份包含完整 AC 的 PRD 功能章节</h5>
+          <p>使用 Given-When-Then 格式的验收条件，覆盖正常流/边界情况/异常场景。已通过 AI 自检（逻辑矛盾/信息缺失/边界未定义检查）。</p>
+          <div class="tag-row mt-1">
+            <span class="badge badge-blue">PRD 章节</span>
+            <span class="badge badge-blue">AC 表格</span>
+            <span class="badge badge-blue">自检报告</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="deliverable-row">
+        <div class="dr-session dr-1">第一期<br>PM 侧</div>
+        <div class="dr-content">
+          <h5>🔍 竞品分析报告初稿</h5>
+          <p>使用三步法产出：竞品信息收集（联网）→ 多维对比矩阵 → 3-5 个产品机会点（含用户价值和实现难度评估）。</p>
+          <div class="tag-row mt-1">
+            <span class="badge badge-blue">对比矩阵</span>
+            <span class="badge badge-blue">机会点分析</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="deliverable-row">
+        <div class="dr-session dr-2">第二期<br>QA 侧</div>
+        <div class="dr-content">
+          <h5>📊 完整测试套件（一个功能模块）</h5>
+          <p>包含：测试用例矩阵（含优先级和对应 AC 编号）+ 测试数据 JSON（合法/边界/非法/业务异常各 5 条）+ Pytest 自动化脚本骨架（含 conftest.py）。</p>
+          <div class="tag-row mt-1">
+            <span class="badge badge-green">测试用例矩阵</span>
+            <span class="badge badge-green">测试数据 JSON</span>
+            <span class="badge badge-green">Pytest 脚本</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="deliverable-row">
+        <div class="dr-session dr-3">第三期<br>打通</div>
+        <div class="dr-content">
+          <h5>🔗 完整链路质量文档包</h5>
+          <p>针对同一个功能的：PRD（含 AC）+ 测试用例矩阵 + 测试数据 JSON + Pytest 脚本 + 双向审查报告（需求遗漏 + 测试覆盖盲区）。</p>
+          <div class="tag-row mt-1">
+            <span class="badge badge-purple">完整链路</span>
+            <span class="badge badge-purple">双向审查报告</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="deliverable-row">
+        <div class="dr-session dr-3">第三期<br>打通</div>
+        <div class="dr-content">
+          <h5>🤖 两个可用的 Dify Skills</h5>
+          <p>AC 生成器（输入功能描述 → 输出 Given-When-Then AC 列表）+ 测试用例生成器（输入 AC + 功能描述 → 输出完整测试用例矩阵），均已接入产品决策库知识库。</p>
+          <div class="tag-row mt-1">
+            <span class="badge badge-purple">AC 生成器</span>
+            <span class="badge badge-purple">测试用例生成器</span>
+            <span class="badge badge-purple">已接入知识库</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 附录二：专属工具清单 -->
+    <div class="section" id="app2">
+      <div class="section-header">
+        <div class="section-num">二</div>
+        <div class="section-title-block">
+          <h2>本课程专属工具清单</h2>
+          <p class="section-subtitle">按使用场景和技术门槛整理，方便按需选用</p>
+        </div>
+      </div>
+
+      <div class="card-grid-2">
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">🤖</div>
+            <div>
+              <div class="tool-name">Claude（长上下文）</div>
+              <span class="tool-level level-low">技术门槛：低</span>
+            </div>
+          </div>
+          <div class="tool-desc">支持超长上下文（200K token），可以处理完整 PRD 文档、大量测试用例、完整代码库。</div>
+          <div class="tool-use">
+            <strong>主要用途：</strong>长 PRD 分析、完整测试用例生成、复杂提示词执行、代码审查<br>
+            <strong>推荐场景：</strong>处理超过 3000 字的文档；需要多步骤推理的任务
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">🌐</div>
+            <div>
+              <div class="tool-name">Gemini（联网版）</div>
+              <span class="tool-level level-low">技术门槛：低</span>
+            </div>
+          </div>
+          <div class="tool-desc">支持实时联网搜索，可以获取最新的竞品信息、行业动态、产品发布说明。</div>
+          <div class="tool-use">
+            <strong>主要用途：</strong>竞品信息收集、实时市场分析、最新技术文档查阅<br>
+            <strong>推荐场景：</strong>竞品分析第一步（信息收集）；了解竞品最新功能更新
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">⚙️</div>
+            <div>
+              <div class="tool-name">Dify</div>
+              <span class="tool-level level-medium">技术门槛：中</span>
+            </div>
+          </div>
+          <div class="tool-desc">低代码 AI 应用开发平台，支持 Skills 配置、RAG 知识库、工作流和 Agent 搭建。</div>
+          <div class="tool-use">
+            <strong>主要用途：</strong>Skills 配置、RAG 知识库建设、变更联动工作流、Agent 搭建<br>
+            <strong>学习曲线：</strong>前置课程第四期已有基础，本课程直接进阶应用
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">💻</div>
+            <div>
+              <div class="tool-name">Cursor</div>
+              <span class="tool-level level-medium">技术门槛：中</span>
+            </div>
+          </div>
+          <div class="tool-desc">AI 原生代码编辑器，支持自然语言生成/修改代码，内置 AI 调试和代码解释功能。</div>
+          <div class="tool-use">
+            <strong>主要用途：</strong>测试脚本生成与调试、代码重构、脚本维护<br>
+            <strong>推荐场景：</strong>生成 Pytest/Playwright 脚本后的调试阶段
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">🎭</div>
+            <div>
+              <div class="tool-name">Playwright</div>
+              <span class="tool-level level-medium">技术门槛：中</span>
+            </div>
+          </div>
+          <div class="tool-desc">现代 UI 自动化测试框架，支持 Python/TypeScript，有强大的等待机制和调试工具。</div>
+          <div class="tool-use">
+            <strong>主要用途：</strong>UI 端到端自动化测试、页面录制转脚本<br>
+            <strong>特别优势：</strong>Playwright Codegen 可以录制操作生成脚本骨架
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">🧪</div>
+            <div>
+              <div class="tool-name">Pytest</div>
+              <span class="tool-level level-medium">技术门槛：中</span>
+            </div>
+          </div>
+          <div class="tool-desc">Python 主流测试框架，支持参数化、fixture、丰富的插件生态（pytest-html/allure）。</div>
+          <div class="tool-use">
+            <strong>主要用途：</strong>接口自动化测试、数据驱动测试<br>
+            <strong>配合工具：</strong>requests（HTTP）/ allure（报告）/ pytest-xdist（并行）
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">🦗</div>
+            <div>
+              <div class="tool-name">Locust</div>
+              <span class="tool-level level-medium">技术门槛：中</span>
+            </div>
+          </div>
+          <div class="tool-desc">Python 编写的分布式性能测试工具，支持真实用户行为模拟，有实时监控 Web 界面。</div>
+          <div class="tool-use">
+            <strong>主要用途：</strong>接口性能测试、并发场景验证<br>
+            <strong>适用场景：</strong>核心接口上线前的性能基准测试
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">📄</div>
+            <div>
+              <div class="tool-name">Swagger / OpenAPI</div>
+              <span class="tool-level level-low">技术门槛：低</span>
+            </div>
+          </div>
+          <div class="tool-desc">接口文档标准格式，作为 AI 生成测试数据和测试脚本的标准化输入源。</div>
+          <div class="tool-use">
+            <strong>主要用途：</strong>接口测试数据生成的输入文档、Pytest 脚本生成的参数来源<br>
+            <strong>使用方式：</strong>直接粘贴 Swagger YAML/JSON 到提示词中
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 附录三：提示词模板索引 -->
+    <div class="section" id="app3">
+      <div class="section-header">
+        <div class="section-num">三</div>
+        <div class="section-title-block">
+          <h2>核心提示词模板索引</h2>
+          <p class="section-subtitle">10 个核心模板快速导航，附完整内容</p>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>模板名称</th>
+              <th>所在模块</th>
+              <th>主要用途</th>
+              <th>适用工具</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>P1</td>
+              <td><a href="#app3-p1"><strong>需求深挖框架</strong></a></td>
+              <td>第一期 · 模块 2</td>
+              <td>从模糊需求提炼可确认的问题清单 + 隐性需求识别</td>
+              <td><span class="badge badge-blue">Claude</span></td>
+            </tr>
+            <tr>
+              <td>P2</td>
+              <td><a href="#app3-p2"><strong>PRD 功能规范化</strong></a></td>
+              <td>第一期 · 模块 3</td>
+              <td>口语描述 → 规范功能说明（含边界/异常/性能）</td>
+              <td><span class="badge badge-blue">Claude</span></td>
+            </tr>
+            <tr>
+              <td>P3</td>
+              <td><a href="#app3-p3"><strong>AC 一体化生成</strong></a></td>
+              <td>第一期 · 模块 3</td>
+              <td>功能描述 → Given-When-Then 格式 AC 表格</td>
+              <td><span class="badge badge-blue">Claude</span></td>
+            </tr>
+            <tr>
+              <td>P4</td>
+              <td><strong>竞品分析三步法</strong></td>
+              <td>第一期 · 模块 4</td>
+              <td>竞品信息收集 → 对比矩阵 → 产品机会点</td>
+              <td><span class="badge badge-green">Gemini 联网</span></td>
+            </tr>
+            <tr>
+              <td>P5</td>
+              <td><a href="#app3-p4"><strong>测试用例矩阵生成</strong></a></td>
+              <td>第二期 · 模块 2</td>
+              <td>PRD + AC → 完整测试用例矩阵 + 需求反向审查</td>
+              <td><span class="badge badge-blue">Claude</span></td>
+            </tr>
+            <tr>
+              <td>P6</td>
+              <td><a href="#app3-p5"><strong>测试数据批量生成</strong></a></td>
+              <td>第二期 · 模块 3</td>
+              <td>结构化/边界/非法/业务异常数据批量生成</td>
+              <td><span class="badge badge-blue">Claude</span></td>
+            </tr>
+            <tr>
+              <td>P7</td>
+              <td><a href="#app3-p6"><strong>Pytest 脚本生成</strong></a></td>
+              <td>第二期 · 模块 4</td>
+              <td>接口描述 → 可运行 Pytest 自动化测试代码</td>
+              <td><span class="badge badge-purple">Cursor</span><span class="badge badge-blue ml-1">Claude</span></td>
+            </tr>
+            <tr>
+              <td>P8</td>
+              <td><a href="#app3-p7"><strong>Bug 报告规范化</strong></a></td>
+              <td>第二期 · 模块 5</td>
+              <td>口语描述 → 标准化 Bug 报告（含严重级别判断）</td>
+              <td><span class="badge badge-blue">Claude</span></td>
+            </tr>
+            <tr>
+              <td>P9</td>
+              <td><a href="#app3-p8"><strong>变更影响分析</strong></a></td>
+              <td>第三期 · 模块 2</td>
+              <td>需求变更 → 受影响测试用例清单 + 新增场景建议</td>
+              <td><span class="badge badge-blue">Claude</span></td>
+            </tr>
+            <tr>
+              <td>P10</td>
+              <td><a href="#app3-p9"><strong>双向审查分析</strong></a></td>
+              <td>第三期 · 模块 1</td>
+              <td>测试用例 ↔ PRD 双向完整性检验</td>
+              <td><span class="badge badge-blue">Claude</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 完整提示词模板 -->
+    <div class="section" id="app3-full">
+      <div class="section-header">
+        <div class="section-num">3a</div>
+        <div class="section-title-block">
+          <h2>完整提示词模板</h2>
+          <p class="section-subtitle">直接复制使用，替换 [ ] 内容即可</p>
+        </div>
+      </div>
+
+      <!-- P1 -->
+      <div class="prompt-full" id="app3-p1">
+        <div class="pf-header">
+          <div class="pf-meta">
+            <div class="pf-num">P1 · 需求侧</div>
+            <div class="pf-name">需求深挖框架</div>
+            <div class="pf-where">所在位置：第一期 · 模块 2 · 需求发现与澄清</div>
+          </div>
+          <div class="pf-tag"><span class="badge badge-blue">Claude</span></div>
+        </div>
+        <div class="pf-body">
+          <pre>角色：你是一位经验丰富的产品经理，擅长用结构化方法澄清模糊需求
+
+背景：[粘贴客户的原始需求描述或会议记录]
+
+任务：
+  1. 识别需求中的模糊表述，列出需要澄清的问题（按优先级排序）
+  2. 识别客户可能没有明说的隐性需求
+  3. 识别潜在的边界冲突（与现有功能 / 其他需求的矛盾点）
+  4. 给出建议的确认问题清单（可直接发给客户）
+
+格式：分四个部分输出，每部分不超过 5 条，使用 Markdown 格式</pre>
+          <div class="pf-tip">
+            <strong>💡 使用技巧：</strong>第 4 部分的"确认问题清单"可以直接复制发给客户/业务方，语气已经默认较为礼貌。如果需要更简短的版本，在提示词末尾加"每部分压缩到 3 条以内"。
+          </div>
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="prompt-full" id="app3-p2">
+        <div class="pf-header">
+          <div class="pf-meta">
+            <div class="pf-num">P2 · 需求侧</div>
+            <div class="pf-name">PRD 功能规范化</div>
+            <div class="pf-where">所在位置：第一期 · 模块 3 · PRD 写作全流程</div>
+          </div>
+          <div class="pf-tag"><span class="badge badge-blue">Claude</span></div>
+        </div>
+        <div class="pf-body">
+          <pre>以下是一段口语化的功能描述：
+[粘贴功能描述，如"用户可以搜索商品"]
+
+请将其转化为规范的产品文档语言，包含以下部分：
+1. 正常流程（用户操作步骤 + 系统响应，尽量具体）
+2. 边界条件（输入限制、数量限制、长度限制等）
+3. 异常流程（错误处理、降级策略、友好提示）
+4. 性能要求（响应时间、并发要求，如无法推断请给出建议值）
+5. 数据约束（字段格式、长度、精度限制）
+
+如果以上某类信息在原描述中无法推断，请明确标注"【待确认】"并给出建议值供参考。
+输出：规范化后的功能说明（Markdown 格式）</pre>
+          <div class="pf-tip">
+            <strong>💡 使用技巧：</strong>处理之后，重点审查 AI 标注的"【待确认】"项目——这些是你在需求评审前必须确认的点。
+          </div>
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="prompt-full" id="app3-p3">
+        <div class="pf-header">
+          <div class="pf-meta">
+            <div class="pf-num">P3 · 需求侧</div>
+            <div class="pf-name">AC 一体化生成</div>
+            <div class="pf-where">所在位置：第一期 · 模块 3 · AC 一体化生成</div>
+          </div>
+          <div class="pf-tag"><span class="badge badge-blue">Claude</span></div>
+        </div>
+        <div class="pf-body">
+          <pre>基于以上功能描述（[粘贴功能描述或在对话中直接引用上文]），
+生成完整的验收条件（Acceptance Criteria）
+
+格式要求：
+- 使用 Given-When-Then 结构（三段式，清晰明确）
+- 必须覆盖：正常流程 / 边界情况 / 异常场景 / 性能场景（如适用）
+- 每个场景单独一行
+
+输出格式：Markdown 表格
+列：场景描述 | Given（前置条件）| When（触发动作）| Then（预期结果）| 优先级（P0/P1/P2）
+
+优先级定义：
+- P0：核心流程，任何情况下不可缺少
+- P1：重要场景，正式上线前必须覆盖
+- P2：边缘场景，迭代中可逐步覆盖</pre>
+          <div class="pf-tip">
+            <strong>💡 使用技巧：</strong>这个模板和 P5（测试用例矩阵生成）是"接力"关系——P3 的输出直接作为 P5 的输入。完成 AC 后立刻保存，第二期直接复用。
+          </div>
+        </div>
+      </div>
+
+      <!-- P5 -->
+      <div class="prompt-full" id="app3-p4">
+        <div class="pf-header">
+          <div class="pf-meta">
+            <div class="pf-num">P5 · 测试侧</div>
+            <div class="pf-name">测试用例矩阵生成（含反向需求审查）</div>
+            <div class="pf-where">所在位置：第二期 · 模块 2 · 从 PRD 直生测试矩阵</div>
+          </div>
+          <div class="pf-tag"><span class="badge badge-blue">Claude</span></div>
+        </div>
+        <div class="pf-body">
+          <pre>角色：你是一位同时具备产品和测试思维的高级测试工程师
+
+输入 1 - PRD 功能描述：
+[粘贴功能描述]
+
+输入 2 - 验收条件（AC）：
+[粘贴 Given-When-Then 格式的 AC 表格]
+
+任务：
+  1. 提取所有可测试点（每个 AC 必须对应至少 1 个测试用例，无对应请说明）
+  2. 为每个测试点生成测试用例（正常流 + 异常流 + 边界场景）
+  3. 识别高风险区域，标注需要重点测试的场景（说明风险原因）
+  4. 指出 PRD/AC 中描述不清晰、无法测试的地方（反向审查）
+
+输出格式：
+  A. 测试用例表格：
+     用例ID | 模块 | 场景描述 | 前置条件 | 操作步骤（编号）| 预期结果 | 优先级 | 对应AC编号
+  B. 风险标注：[高风险场景 + 风险原因 + 测试建议]
+  C. 需求疑问：[模糊/无法测试的 PRD/AC 条目 + 具体问题 + 修改建议]</pre>
+          <div class="pf-tip">
+            <strong>💡 使用技巧：</strong>输出 C 部分（需求疑问）往往比 A 部分（测试用例）更有价值——这是需求文档质量问题的精准定位，可以直接作为需求评审的补充意见反馈给 PM（就是自己）。
+          </div>
+        </div>
+      </div>
+
+      <!-- P6 -->
+      <div class="prompt-full" id="app3-p5">
+        <div class="pf-header">
+          <div class="pf-meta">
+            <div class="pf-num">P6 · 测试侧</div>
+            <div class="pf-name">测试数据批量生成</div>
+            <div class="pf-where">所在位置：第二期 · 模块 3 · 测试数据生成</div>
+          </div>
+          <div class="pf-tag"><span class="badge badge-blue">Claude</span></div>
+        </div>
+        <div class="pf-body">
+          <pre>生成 [N] 条 [功能名称] 测试数据，要求包含：
+
+- [n1] 条完全合法的数据（覆盖各种典型用户类型/使用场景）
+- [n2] 条边界值数据（[指定边界，如姓名最大长度/数值边界]）
+- [n3] 条非法数据（SQL 注入/XSS 脚本注入/特殊字符/超长输入/类型错误）
+- [n4] 条业务异常数据（[指定业务异常，如重复注册/黑名单/已过期]）
+
+字段：[列出所有字段名和类型，如 name(string), age(int), email(string)]
+
+输出格式：JSON 数组
+每条数据额外包含：
+  - "testType": "valid" | "boundary" | "invalid" | "bizError"
+  - "testScenario": "说明这条数据测试的具体场景"
+  - "expectedResult": "预期的系统响应（成功/具体错误信息）"</pre>
+          <div class="pf-tip">
+            <strong>💡 使用技巧：</strong>生成的 JSON 可以直接用于 Pytest 的 @pytest.mark.parametrize，结合 P7（Pytest 脚本生成）形成完整的数据驱动测试套件。
+          </div>
+        </div>
+      </div>
+
+      <!-- P7 -->
+      <div class="prompt-full" id="app3-p6">
+        <div class="pf-header">
+          <div class="pf-meta">
+            <div class="pf-num">P7 · 测试侧</div>
+            <div class="pf-name">Pytest 自动化测试脚本生成</div>
+            <div class="pf-where">所在位置：第二期 · 模块 4 · 自动化脚本生成</div>
+          </div>
+          <div class="pf-tag"><span class="badge badge-purple">Cursor</span><span class="badge badge-blue">Claude</span></div>
+        </div>
+        <div class="pf-body">
+          <pre>角色：你是一位精通 Python 自动化测试的工程师
+
+接口文档：
+  URL: [HTTP方法] [接口路径，如 POST /api/v1/users/register]
+  请求头：[Authorization / Content-Type 等]
+  请求体：[JSON 格式的参数结构和说明]
+  成功响应：[HTTP 200 + 响应体结构]
+  错误响应：[各错误码 + 含义，如 400/409/500]
+
+测试场景（来自测试用例矩阵）：
+  [列出需要覆盖的测试场景，每行一个]
+
+代码要求：
+  1. 使用 @pytest.mark.parametrize 做数据驱动（测试数据 JSON 作为输入）
+  2. 包含 conftest.py：
+     - base_url fixture（支持从环境变量读取，默认值为开发环境地址）
+     - auth_headers fixture（自动获取测试账号 token）
+  3. 断言覆盖：HTTP 状态码 + 响应体关键字段 + 业务状态码
+  4. 测试间数据隔离（如用唯一 phone/email 避免冲突）
+  5. 清晰的中文注释（说明每个测试的目的）
+
+输出：
+  1. test_[功能名].py（完整测试文件）
+  2. conftest.py（fixture 配置文件）
+  3. 简短的运行说明（pip install 哪些依赖 + 运行命令）</pre>
+          <div class="pf-tip">
+            <strong>💡 使用技巧：</strong>优先使用 Cursor 来执行这个提示词（可以在同一工具中直接运行和调试）。生成后检查 conftest.py 中的环境变量名称是否与团队约定一致。
+          </div>
+        </div>
+      </div>
+
+      <!-- P8 -->
+      <div class="prompt-full" id="app3-p7">
+        <div class="pf-header">
+          <div class="pf-meta">
+            <div class="pf-num">P8 · 测试侧</div>
+            <div class="pf-name">Bug 报告规范化</div>
+            <div class="pf-where">所在位置：第二期 · 模块 5 · Bug 管理与缺陷分析</div>
+          </div>
+          <div class="pf-tag"><span class="badge badge-blue">Claude</span></div>
+        </div>
+        <div class="pf-body">
+          <pre>基于以下测试过程描述，生成一份规范的 Bug 报告：
+[粘贴口语化的问题描述，越详细越好]
+
+输出格式（严格按此格式输出，不要省略任何字段）：
+
+**标题**：[模块] + [现象的一句话描述（控制在 20 字以内）]
+
+**严重级别**：Critical / High / Medium / Low
+判断依据：[说明为什么是这个级别]
+
+**缺陷类型**：功能缺陷 / 性能问题 / UI 问题 / 安全漏洞
+
+**复现概率**：必现 / 高频（>50%）/ 偶现（10-50%）/ 极低（<10%）
+依据：[说明复现次数和条件]
+
+**环境信息**：
+- 浏览器/客户端版本：[请填写]
+- 操作系统：[请填写]
+- 测试环境：开发环境 / 测试环境 / 预发布环境
+
+**前置条件**：[执行此 Bug 前需要的系统状态]
+
+**复现步骤**：
+1. [第一步]
+2. [第二步]
+（每步一行，尽可能具体）
+
+**实际结果**：[观察到的现象]
+
+**预期结果**：[按照需求规格，应该发生什么]
+
+**可能原因**（供开发参考）：[基于描述的合理猜测]
+
+**附件说明**：[建议截图/录屏/日志应该标注哪些关键点]</pre>
+          <div class="pf-tip">
+            <strong>💡 使用技巧：</strong>在 Dify 中将此提示词配置为 Bug 报告规范器 Skill，接入飞书机器人后，测试人员直接在飞书对话框描述问题即可自动生成规范报告。
+          </div>
+        </div>
+      </div>
+
+      <!-- P9 -->
+      <div class="prompt-full" id="app3-p8">
+        <div class="pf-header">
+          <div class="pf-meta">
+            <div class="pf-num">P9 · 打通层</div>
+            <div class="pf-name">变更影响分析</div>
+            <div class="pf-where">所在位置：第三期 · 模块 2 · 需求变更联动管理</div>
+          </div>
+          <div class="pf-tag"><span class="badge badge-blue">Claude</span></div>
+        </div>
+        <div class="pf-body">
+          <pre>原始需求（变更前）：
+[粘贴原始功能描述或 AC 列表]
+
+变更内容（变更后）：
+[具体描述变更，如新增字段/修改规则/删除功能/性能要求变化]
+
+历史测试用例（如有）：
+[粘贴相关测试用例，或说明用例编号范围]
+
+请分析：
+
+1. 受影响的原有测试用例（需要修改的）
+   格式：用例ID | 影响类型（修改/删除）| 需要如何改变
+
+2. 需要新增的测试场景（因变更引入的新测试点）
+   格式：直接给出测试用例草稿（含前置条件 + 操作步骤 + 预期结果）
+
+3. 关联功能回归风险点
+   格式：关联功能 | 风险描述 | 建议验证方式
+
+4. 回归测试优先级建议
+   High：必须在发布前验证
+   Medium：建议在发布前验证
+   Low：可以在下个迭代验证
+
+输出：变更影响评估报告（Markdown 格式）</pre>
+          <div class="pf-tip">
+            <strong>💡 使用技巧：</strong>配置为 Dify 工作流后，收到变更通知时自动触发，5 分钟内输出影响评估报告，确保变更不遗漏测试同步。
+          </div>
+        </div>
+      </div>
+
+      <!-- P10 -->
+      <div class="prompt-full" id="app3-p9">
+        <div class="pf-header">
+          <div class="pf-meta">
+            <div class="pf-num">P10 · 打通层</div>
+            <div class="pf-name">双向审查分析（需求 ↔ 测试完整性检验）</div>
+            <div class="pf-where">所在位置：第三期 · 模块 1 · 需求与测试双向打通</div>
+          </div>
+          <div class="pf-tag"><span class="badge badge-blue">Claude</span></div>
+        </div>
+        <div class="pf-body">
+          <pre>以下是同一个功能的 PRD 和测试用例：
+
+【测试用例列表】
+[粘贴测试用例，至少包含：用例ID / 场景描述 / 优先级]
+
+【PRD 功能描述 + AC】
+[粘贴 PRD 功能描述和 Given-When-Then 格式的 AC]
+
+请从三个维度进行双向完整性审查：
+
+维度 1：测试 → PRD（测试视角发现的需求问题）
+  有哪些测试用例场景在 PRD/AC 中找不到对应的需求描述？
+  （意味着：PRD 可能遗漏了描述，或 AC 不够完整）
+  格式：用例ID | 场景描述 | PRD 中缺失的内容 | 建议补充
+
+维度 2：PRD → 测试（需求视角发现的测试盲区）
+  PRD/AC 中有哪些功能描述没有对应的测试用例？
+  （意味着：测试覆盖可能存在遗漏）
+  格式：PRD 章节 / AC 条目 | 未覆盖的场景 | 建议新增用例
+
+维度 3：AC 可测试性评估
+  哪些 AC 描述模糊、难以直接转化为可执行的测试用例？
+  格式：AC 条目 | 模糊点说明 | 改写建议
+
+总结：整体完整性评分（1-10分）+ 最优先处理的 3 个问题</pre>
+          <div class="pf-tip">
+            <strong>💡 使用技巧：</strong>这是三期课程中最有价值的提示词之一。建议每次需求评审前都运行一次，发现问题越早修复成本越低。维度 1 的结果可以直接用于需求评审会议的"测试评审意见"部分。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 附录四：个人能力自评表 -->
+    <div class="section" id="app4">
+      <div class="section-header">
+        <div class="section-num">四</div>
+        <div class="section-title-block">
+          <h2>个人 AI 能力自评表</h2>
+          <p class="section-subtitle">课程结束后填写，找出需要重点练习的方向</p>
+        </div>
+      </div>
+
+      <div class="self-assess">
+        <div class="sa-title">📊 AI 辅助能力自评（1分=不会用，5分=日常工作稳定使用）</div>
+
+        <div class="sa-row">
+          <div class="sa-label">🔍 需求深挖与澄清</div>
+          <div class="sa-stars">
+            <div class="star">1</div><div class="star">2</div><div class="star">3</div><div class="star">4</div><div class="star">5</div>
+          </div>
+          <div class="sa-tip">能否在 5 分钟内用 AI 将一份模糊需求转化为可确认的澄清清单？</div>
+        </div>
+        <div class="sa-row">
+          <div class="sa-label">📋 PRD 写作与规范化</div>
+          <div class="sa-stars">
+            <div class="star">1</div><div class="star">2</div><div class="star">3</div><div class="star">4</div><div class="star">5</div>
+          </div>
+          <div class="sa-tip">能否用 AI 在 1-2 小时内完成一份含边界/异常的规范功能说明？</div>
+        </div>
+        <div class="sa-row">
+          <div class="sa-label">✅ AC 一体化生成</div>
+          <div class="sa-stars">
+            <div class="star">1</div><div class="star">2</div><div class="star">3</div><div class="star">4</div><div class="star">5</div>
+          </div>
+          <div class="sa-tip">写完功能说明后能否立即生成覆盖完整的 Given-When-Then AC？</div>
+        </div>
+        <div class="sa-row">
+          <div class="sa-label">🔍 竞品分析</div>
+          <div class="sa-stars">
+            <div class="star">1</div><div class="star">2</div><div class="star">3</div><div class="star">4</div><div class="star">5</div>
+          </div>
+          <div class="sa-tip">能否用三步法在 2 小时内完成一份有产品机会点的竞品分析报告？</div>
+        </div>
+        <div class="sa-row">
+          <div class="sa-label">🧪 测试用例设计</div>
+          <div class="sa-stars">
+            <div class="star">1</div><div class="star">2</div><div class="star">3</div><div class="star">4</div><div class="star">5</div>
+          </div>
+          <div class="sa-tip">能否用 AI 系统生成覆盖正常/边界/异常的完整测试矩阵并反向审查需求？</div>
+        </div>
+        <div class="sa-row">
+          <div class="sa-label">🗂 测试数据生成</div>
+          <div class="sa-stars">
+            <div class="star">1</div><div class="star">2</div><div class="star">3</div><div class="star">4</div><div class="star">5</div>
+          </div>
+          <div class="sa-tip">能否在 5 分钟内用 AI 生成包含合法/边界/非法/业务异常的完整测试数据集？</div>
+        </div>
+        <div class="sa-row">
+          <div class="sa-label">⚙️ 自动化脚本生成</div>
+          <div class="sa-stars">
+            <div class="star">1</div><div class="star">2</div><div class="star">3</div><div class="star">4</div><div class="star">5</div>
+          </div>
+          <div class="sa-tip">能否用 AI 生成可在本地运行的 Pytest 脚本？遇到报错能否用 AI 调试？</div>
+        </div>
+        <div class="sa-row">
+          <div class="sa-label">🐛 Bug 管理</div>
+          <div class="sa-stars">
+            <div class="star">1</div><div class="star">2</div><div class="star">3</div><div class="star">4</div><div class="star">5</div>
+          </div>
+          <div class="sa-tip">能否用 AI 将口语化的 Bug 描述转化为标准格式，并辅助根因分析？</div>
+        </div>
+        <div class="sa-row">
+          <div class="sa-label">🔗 正向链路运行</div>
+          <div class="sa-stars">
+            <div class="star">1</div><div class="star">2</div><div class="star">3</div><div class="star">4</div><div class="star">5</div>
+          </div>
+          <div class="sa-tip">能否独立完成从 PRD 到 Pytest 脚本的完整正向 AI 辅助链路？</div>
+        </div>
+        <div class="sa-row">
+          <div class="sa-label">🔄 变更联动管理</div>
+          <div class="sa-stars">
+            <div class="star">1</div><div class="star">2</div><div class="star">3</div><div class="star">4</div><div class="star">5</div>
+          </div>
+          <div class="sa-tip">收到需求变更后能否在 10 分钟内输出受影响的测试用例清单？</div>
+        </div>
+        <div class="sa-row">
+          <div class="sa-label">🤖 AI Agent 应用</div>
+          <div class="sa-stars">
+            <div class="star">1</div><div class="star">2</div><div class="star">3</div><div class="star">4</div><div class="star">5</div>
+          </div>
+          <div class="sa-tip">能否在 Dify 中搭建并上线一个实用的 Agent 或工作流 Skill？</div>
+        </div>
+      </div>
+
+      <div class="quick-ref">
+        <div class="qr-card">
+          <div class="qr-title">📌 评分后的建议行动</div>
+          <ul class="qr-list">
+            <li><strong>1-2 分：</strong>重新学习对应模块，找一个真实任务练习</li>
+            <li><strong>3 分：</strong>已经会用但不稳定，需要 2-3 次真实项目强化</li>
+            <li><strong>4 分：</strong>日常稳定使用，可以尝试优化提示词或分享给团队</li>
+            <li><strong>5 分：</strong>已经内化，可以帮助他人，考虑沉淀为团队 SOP</li>
+          </ul>
+        </div>
+        <div class="qr-card">
+          <div class="qr-title">🎯 找出你的 2 个优先练习方向</div>
+          <ul class="qr-list">
+            <li>选出得分最低的 2-3 个维度</li>
+            <li>每个方向制定一个"30 天内在真实项目中使用 3 次"的目标</li>
+            <li>每次使用后记录：用了什么提示词 / 输出是否满足期望 / 如何优化</li>
+            <li>第 30 天重新填写此自评表，看进步幅度</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 附录五：课程结语 -->
+    <div class="section" id="app5">
+      <div class="cert-box">
+        <div class="cert-content">
+          <div class="cert-icon">🎓</div>
+          <div class="cert-title">恭喜完成 AI 办公进阶培训全三期！</div>
+          <div class="cert-sub">你已经掌握了 PM×QA 双角色 AI 辅助的完整链路。接下来，在真实工作中持续使用才是真正的学习。</div>
+          <div class="cert-badges">
+            <span class="cert-badge">📋 需求全链路 AI 提效</span>
+            <span class="cert-badge">🧪 测试全链路 AI 覆盖</span>
+            <span class="cert-badge">🔗 PM×QA 双向打通</span>
+            <span class="cert-badge">🤖 AI Agent 应用</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-grid-2">
+        <div class="card">
+          <h4>📣 保持学习的建议</h4>
+          <ul>
+            <li>每两周尝试一个新的 AI 辅助工作方式，记录效果</li>
+            <li>把效果最好的提示词分享给团队，形成知识共享</li>
+            <li>关注 AI 工具的更新（Claude/Gemini 每月都有新功能）</li>
+            <li>遇到 AI 输出质量不佳时，先优化提示词，而不是放弃</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>🤝 团队协作的新范式</h4>
+          <ul>
+            <li>把课程中沉淀的 Skills 开放给工程师团队使用</li>
+            <li>在需求评审前主动提供 AI 生成的评审材料 + 风险清单</li>
+            <li>定期举办"AI 实践分享"，让团队整体能力提升</li>
+            <li>用 AI 链路产出的质量文档包，建立团队质量信心</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="session3.html" class="page-nav-btn">← 第三期：双角色打通 + AI Agent</a>
+      <a href="index.html" class="page-nav-btn">返回课程总览 →</a>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

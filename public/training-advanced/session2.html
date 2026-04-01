@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>第二期：测试工程师侧 AI 实战 — AI 办公进阶培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .step-list { counter-reset: step; list-style: none; padding: 0; }
+    .step-list li {
+      counter-increment: step; display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1rem 1.25rem; background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-md); margin-bottom: 0.75rem;
+    }
+    .step-list li::before {
+      content: "S" counter(step); min-width: 36px; height: 36px; border-radius: var(--radius-sm);
+      background: var(--qa-color); color: #fff; display: flex; align-items: center;
+      justify-content: center; font-size: 0.75rem; font-weight: 800; flex-shrink: 0;
+    }
+    .step-content h5 { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .step-content p  { font-size: 0.85rem; color: var(--medium); margin: 0; line-height: 1.55; }
+
+    .tech-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .tc-header {
+      background: #F0FFF4; border-bottom: 1px solid #9AE6B4;
+      padding: 0.875rem 1.25rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .tc-num {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--qa-color); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 800; flex-shrink: 0;
+    }
+    .tc-title { font-size: 0.95rem; font-weight: 700; color: #276749; }
+    .tc-body { padding: 1.25rem; }
+
+    .practice-banner {
+      background: #F0FFF4; border: 2px dashed #9AE6B4;
+      border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 1.25rem 0;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .pb-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .pb-title { font-size: 0.9rem; font-weight: 700; color: #276749; margin-bottom: 4px; }
+    .pb-desc  { font-size: 0.85rem; color: var(--medium); line-height: 1.55; }
+
+    .module-tag {
+      display: inline-block; background: #F0FFF4; border: 1px solid #9AE6B4;
+      color: #276749; border-radius: 999px; padding: 4px 12px;
+      font-size: 0.75rem; font-weight: 700; margin-bottom: 1rem;
+    }
+    .time-tag {
+      display: inline-block; background: var(--warm); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 999px; padding: 3px 10px;
+      font-size: 0.72rem; font-weight: 600; margin-left: 8px;
+    }
+
+    .coverage-map {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+      margin: 1.25rem 0;
+    }
+    .cm-cell {
+      padding: 1rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .cm-cell:nth-child(3n) { border-right: none; }
+    .cm-cell:nth-child(n+4) { border-bottom: none; }
+    .cm-stage { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 4px; }
+    .cm-action { font-size: 0.85rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .cm-desc   { font-size: 0.78rem; color: var(--medium); line-height: 1.45; }
+    .cm-odd  { background: #F0FFF4; }
+    .cm-even { background: #fff; }
+
+    .data-types {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.25rem 0;
+    }
+    .dt-box {
+      border-radius: var(--radius-md); padding: 1rem; text-align: center;
+      border: 1px solid;
+    }
+    .dt-valid   { background: #F0FFF4; border-color: #9AE6B4; }
+    .dt-boundary { background: #FFFBEB; border-color: #F6E05E; }
+    .dt-invalid  { background: #FFF5F0; border-color: var(--accent-light); }
+    .dt-bizError { background: #EBF8FF; border-color: #90CDF4; }
+    .dt-icon  { font-size: 1.5rem; margin-bottom: 4px; }
+    .dt-label { font-size: 0.8rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .dt-count { font-size: 0.72rem; color: var(--muted); }
+    .dt-example { font-size: 0.72rem; color: var(--medium); line-height: 1.4; margin-top: 4px; }
+
+    .script-tabs {
+      display: flex; gap: 0.5rem; margin-bottom: 0; flex-wrap: wrap;
+    }
+    .stab {
+      padding: 8px 16px; border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      font-size: 0.82rem; font-weight: 700; background: var(--beige);
+      color: var(--medium); border: 1px solid var(--border); border-bottom: none;
+      cursor: pointer;
+    }
+    .stab.active { background: #1E2433; color: #E8EAF0; border-color: #1E2433; }
+
+    .bug-format {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden; margin: 1rem 0;
+    }
+    .bf-row {
+      display: flex; border-bottom: 1px solid var(--beige);
+    }
+    .bf-row:last-child { border-bottom: none; }
+    .bf-label {
+      width: 140px; flex-shrink: 0; padding: 10px 14px;
+      background: var(--warm); font-size: 0.78rem; font-weight: 700; color: var(--dark);
+      border-right: 1px solid var(--border);
+    }
+    .bf-content {
+      flex: 1; padding: 10px 14px; font-size: 0.85rem; color: var(--medium); line-height: 1.55;
+    }
+    .bf-content.example { color: var(--muted); font-style: italic; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>🧪</span>
+    <span>AI 办公进阶培训</span>
+    <span class="logo-badge logo-badge-qa">第二期·QA</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="session1.html">第一期·PM</a>
+    <a href="session2.html" class="active">第二期·QA</a>
+    <a href="session3.html">第三期·打通</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">第二期目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#hero" class="active"><span class="nav-num">0</span> 本期概览</a></li>
+      <li><a href="#mod1"><span class="nav-num">1</span> 测试工程师 AI 价值地图</a></li>
+      <li><a href="#mod1-map"><span class="nav-num">1a</span> 全链路 AI 价值分布</a></li>
+      <li><a href="#mod2"><span class="nav-num">2</span> 测试用例设计 AI 革命</a></li>
+      <li><a href="#mod2-tech1"><span class="nav-num">2a</span> 等价类 + 边界值</a></li>
+      <li><a href="#mod2-tech2"><span class="nav-num">2b</span> 场景法与判定表</a></li>
+      <li><a href="#mod2-tech3"><span class="nav-num">2c</span> 从 PRD 直生测试矩阵</a></li>
+      <li><a href="#mod2-tech4"><span class="nav-num">2d</span> 探索性测试</a></li>
+      <li><a href="#mod3"><span class="nav-num">3</span> 测试数据生成</a></li>
+      <li><a href="#mod3-scenes"><span class="nav-num">3a</span> 三类数据生成场景</a></li>
+      <li><a href="#mod4"><span class="nav-num">4</span> 自动化脚本生成</a></li>
+      <li><a href="#mod4-api"><span class="nav-num">4a</span> Pytest 接口自动化</a></li>
+      <li><a href="#mod4-ui"><span class="nav-num">4b</span> Playwright UI 自动化</a></li>
+      <li><a href="#mod4-perf"><span class="nav-num">4c</span> Locust 性能测试</a></li>
+      <li><a href="#mod5"><span class="nav-num">5</span> Bug 管理与缺陷分析</a></li>
+      <li><a href="#action2"><span class="nav-num">✓</span> 行动指引 + 作业</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- Hero -->
+    <div class="session-hero hero-qa" id="hero">
+      <div class="hero-content">
+        <div class="hero-eyebrow">第二期 · 测试工程师侧</div>
+        <h1>从"执行测试"到"设计测试"</h1>
+        <p class="hero-desc">用 AI 覆盖测试全链路，从测试用例设计到自动化脚本生成，让测试质量和效率同步提升。把脚本编写从"写代码"变成"描述意图"。</p>
+        <div class="hero-meta">
+          <span class="hero-tag">⏱ 2.5 小时</span>
+          <span class="hero-tag">🎯 5 个模块</span>
+          <span class="hero-tag">💻 4 个实操环节</span>
+          <span class="hero-tag">📦 1 套测试套件产出物</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="breadcrumb">
+      <a href="index.html">课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">第二期：测试工程师侧 AI 实战</span>
+    </div>
+
+    <!-- 模块1：测试工程师 AI 价值地图 -->
+    <div class="section" id="mod1">
+      <div class="section-header">
+        <div class="section-num section-num-qa">1</div>
+        <div class="section-title-block">
+          <h2>测试工程师的 AI 价值地图</h2>
+          <p class="section-subtitle"><span class="module-tag">认知建立</span><span class="time-tag">⏱ 15 分钟</span></p>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <h3>测试工作的本质是什么？</h3>
+        <div class="card-grid-2">
+          <div class="feature-card">
+            <div class="fc-icon">🛡</div>
+            <div class="fc-title">建立质量信心</div>
+            <div class="fc-desc">测试的核心价值不是"找 Bug"，而是让团队知道<strong>哪些地方是安全的，哪些地方是风险点</strong>。AI 让这种信心建立更加系统化。</div>
+          </div>
+          <div class="feature-card">
+            <div class="fc-icon">🔬</div>
+            <div class="fc-title">从经验驱动到方法驱动</div>
+            <div class="fc-desc">传统测试用例覆盖度依赖个人经验，参差不齐。AI 可以系统性地应用测试设计方法，确保<strong>每次都不遗漏关键场景</strong>。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1a: 全链路 AI 价值分布 -->
+    <div class="section" id="mod1-map">
+      <div class="section-header">
+        <div class="section-num section-num-qa">1a</div>
+        <div class="section-title-block">
+          <h2>测试全链路 AI 价值分布</h2>
+          <p class="section-subtitle">每个阶段 AI 能做什么</p>
+        </div>
+      </div>
+
+      <div class="coverage-map">
+        <div class="cm-cell cm-odd">
+          <div class="cm-stage">需求分析</div>
+          <div class="cm-action">📋 提取可测试点</div>
+          <div class="cm-desc">识别测试风险，找出 PRD 中描述模糊无法测试的地方</div>
+        </div>
+        <div class="cm-cell cm-even">
+          <div class="cm-stage">用例设计</div>
+          <div class="cm-action">📝 生成测试矩阵</div>
+          <div class="cm-desc">系统覆盖功能/边界/异常/性能场景，生成 Given-When-Then 格式</div>
+        </div>
+        <div class="cm-cell cm-odd">
+          <div class="cm-stage">数据准备</div>
+          <div class="cm-action">🗂 批量生成数据</div>
+          <div class="cm-desc">正常/边界/非法/批量测试数据，JSON/SQL 格式输出</div>
+        </div>
+        <div class="cm-cell cm-even">
+          <div class="cm-stage">执行阶段</div>
+          <div class="cm-action">⚙️ 生成自动化脚本</div>
+          <div class="cm-desc">Pytest/Playwright/Locust 脚本，描述意图即可生成代码</div>
+        </div>
+        <div class="cm-cell cm-odd">
+          <div class="cm-stage">缺陷管理</div>
+          <div class="cm-action">🐛 规范化 Bug 报告</div>
+          <div class="cm-desc">口语描述 → 标准格式，自动判断严重级别，辅助根因分析</div>
+        </div>
+        <div class="cm-cell cm-even">
+          <div class="cm-stage">回归阶段</div>
+          <div class="cm-action">🔄 分析变更影响</div>
+          <div class="cm-desc">输入变更描述，AI 分析功能关联，建议回归测试范围和优先级</div>
+        </div>
+      </div>
+
+      <div class="info-box ib-tip">
+        <div class="info-box-title">⚡ 兼任 PM 的特殊优势</div>
+        你们写了需求，你们最清楚需求的边界和设计意图，这让你们能写出比纯测试工程师<strong>更有针对性</strong>的测试用例——AI 可以把这个优势系统化放大，生成更精准的测试覆盖矩阵。
+      </div>
+    </div>
+
+    <!-- 模块2：测试用例设计 -->
+    <div class="section" id="mod2">
+      <div class="section-header">
+        <div class="section-num section-num-qa">2</div>
+        <div class="section-title-block">
+          <h2>测试用例设计的 AI 革命</h2>
+          <p class="section-subtitle"><span class="module-tag">💻 实操</span><span class="time-tag">⏱ 45 分钟</span></p>
+        </div>
+      </div>
+
+      <div class="compare-panel">
+        <div class="cp-side cp-before">
+          <div class="cp-label">❌ 传统方式的问题</div>
+          <div class="cp-body">
+            <ul>
+              <li>依赖个人经验，不同人覆盖率差异大</li>
+              <li>容易遗漏边界值和异常场景</li>
+              <li>用例描述格式不统一</li>
+              <li>新人需要大量时间积累经验</li>
+              <li>重复性工作耗费大量精力</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cp-side cp-after">
+          <div class="cp-label">✅ AI 辅助的改变</div>
+          <div class="cp-body">
+            <ul>
+              <li>系统性应用等价类/边界值等方法</li>
+              <li>自动生成完整覆盖矩阵</li>
+              <li>标准化输出格式（表格/YAML/JSON）</li>
+              <li>新人使用 AI 也能达到资深测试水平</li>
+              <li>人专注高价值的探索性测试</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2a: 等价类+边界值 -->
+    <div class="section" id="mod2-tech1">
+      <div class="section-header">
+        <div class="section-num section-num-qa">2a</div>
+        <div class="section-title-block">
+          <h2>技法一：等价类 + 边界值自动化</h2>
+          <p class="section-subtitle">最基础也最重要的测试设计方法，AI 可以 100% 系统化</p>
+        </div>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">💬 等价类 + 边界值测试用例生成</div>
+        <pre>角色：你是一位资深测试工程师，精通测试用例设计方法
+
+输入：[功能描述或字段规则]
+示例：年龄字段，有效范围 18-65 岁，必须为整数
+
+任务：
+  1. 划分等价类（有效等价类 + 无效等价类，说明划分理由）
+  2. 识别所有边界值（包括边界内/边界上/边界外）
+  3. 生成完整测试用例集
+
+输出格式：Markdown 表格
+列：用例编号 | 输入数据 | 说明 | 预期结果 | 测试类型 | 优先级</pre>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table-qa">
+          <thead><tr><th>用例编号</th><th>输入数据</th><th>说明</th><th>预期结果</th><th>测试类型</th><th>优先级</th></tr></thead>
+          <tbody>
+            <tr><td>TC-001</td><td>35</td><td>有效等价类中间值</td><td>验证通过</td><td>正常流</td><td><span class="badge badge-green">P0</span></td></tr>
+            <tr><td>TC-002</td><td>18</td><td>下边界值</td><td>验证通过</td><td>边界值</td><td><span class="badge badge-green">P0</span></td></tr>
+            <tr><td>TC-003</td><td>65</td><td>上边界值</td><td>验证通过</td><td>边界值</td><td><span class="badge badge-green">P0</span></td></tr>
+            <tr><td>TC-004</td><td>17</td><td>下边界外（小 1）</td><td>验证失败，提示年龄不合法</td><td>边界值</td><td><span class="badge badge-blue">P1</span></td></tr>
+            <tr><td>TC-005</td><td>66</td><td>上边界外（大 1）</td><td>验证失败，提示年龄不合法</td><td>边界值</td><td><span class="badge badge-blue">P1</span></td></tr>
+            <tr><td>TC-006</td><td>18.5</td><td>无效等价类（小数）</td><td>验证失败，提示必须为整数</td><td>异常</td><td><span class="badge badge-blue">P1</span></td></tr>
+            <tr><td>TC-007</td><td>""</td><td>空值</td><td>验证失败，提示必填</td><td>边界</td><td><span class="badge badge-green">P0</span></td></tr>
+            <tr><td>TC-008</td><td>abc</td><td>非数字字符串</td><td>前端拒绝输入 / 提示格式错误</td><td>异常</td><td><span class="badge badge-blue">P1</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 2b: 场景法与判定表 -->
+    <div class="section" id="mod2-tech2">
+      <div class="section-header">
+        <div class="section-num section-num-qa">2b</div>
+        <div class="section-title-block">
+          <h2>技法二：场景法与判定表</h2>
+          <p class="section-subtitle">复杂业务规则的系统化拆解</p>
+        </div>
+      </div>
+
+      <p>输入业务规则（如：折扣规则、权限矩阵、状态流转），让 AI 生成判定表，并从判定表导出<strong>最小测试用例集</strong>（避免冗余，确保覆盖）。</p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">💬 判定表生成提示词</div>
+        <pre>以下是一个业务规则描述：
+[粘贴业务规则，如折扣规则、权限判断、状态转换]
+
+示例：
+  用户类型（普通/VIP/企业），购买金额（<100/100-500/>500），
+  是否使用优惠券，根据这三个条件决定折扣率。
+
+请：
+1. 生成完整的判定表（所有条件组合 × 所有结果）
+2. 识别并合并等价的测试用例（条件合并/无关条件）
+3. 导出最小测试用例集（去除冗余后）
+4. 标出高优先级测试用例（基于风险和业务重要性）
+
+输出：判定表（表格）+ 最小用例集（表格）</pre>
+      </div>
+    </div>
+
+    <!-- 2c: 从 PRD 直生测试矩阵 -->
+    <div class="section" id="mod2-tech3">
+      <div class="section-header">
+        <div class="section-num section-num-qa">2c</div>
+        <div class="section-title-block">
+          <h2>技法三：从 PRD + AC 直接生成测试用例矩阵</h2>
+          <p class="section-subtitle">PM+QA 兼任角色最高效的使用方式——复用第一期成果</p>
+        </div>
+      </div>
+
+      <div class="info-box ib-insight">
+        <div class="info-box-title">🔗 与第一期的衔接</div>
+        直接使用第一期产出的 PRD 章节（含 AC），作为本技法的输入。这正是"上一个环节的 AI 输出直接作为下一个环节的 AI 输入"的核心体现。
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">💬 PRD → 测试用例矩阵（核心提示词）</div>
+        <pre>角色：你是一位同时具备产品和测试思维的高级测试工程师
+
+输入 1 - PRD 功能描述：
+[粘贴功能描述]
+
+输入 2 - 验收条件（AC）：
+[粘贴 Given-When-Then 格式的 AC]
+
+任务：
+  1. 提取所有可测试点（每个 AC 必须对应至少一个测试用例）
+  2. 为每个测试点生成测试用例（正常流 + 异常流 + 边界场景）
+  3. 识别高风险区域，标注需要重点测试的场景
+  4. 指出 PRD 中描述不清晰、无法测试的地方（反向审查需求）
+
+输出格式：
+  A. 测试用例表格：用例ID | 模块 | 场景描述 | 前置条件 | 操作步骤 | 预期结果 | 优先级 | 对应AC编号
+  B. 风险标注：单独列出，说明风险原因和建议
+  C. 需求疑问：单独列出，作为需求评审反馈</pre>
+      </div>
+
+      <div class="practice-banner">
+        <div class="pb-icon">💻</div>
+        <div>
+          <div class="pb-title">🎯 实操任务（20 分钟）</div>
+          <div class="pb-desc">用第一期产出的 PRD 章节（含 AC），直接生成对应的测试用例矩阵。特别注意 AI 输出的 C 部分"需求疑问"——这些往往是需求中真正的问题所在，也是 QA 反向审查需求的核心价值。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2d: 探索性测试 -->
+    <div class="section" id="mod2-tech4">
+      <div class="section-header">
+        <div class="section-num section-num-qa">2d</div>
+        <div class="section-title-block">
+          <h2>技法四：探索性测试方向生成</h2>
+          <p class="section-subtitle">难以穷举场景的智能化测试策略</p>
+        </div>
+      </div>
+
+      <p>对于难以用用例穷举的场景（如 UI 交互、复杂业务流），让 AI 生成探索性测试的 Charter（测试宪章）：</p>
+
+      <div class="card-grid-3">
+        <div class="feature-card">
+          <div class="fc-icon">🎯</div>
+          <div class="fc-title">目标区域</div>
+          <div class="fc-desc">明确本次探索测试聚焦的功能模块和业务流程，避免漫无目的地测试。</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-icon">🔬</div>
+          <div class="fc-title">探索策略</div>
+          <div class="fc-desc">AI 建议的具体探索方向，如：快速操作、异常中断、权限切换、多设备等。</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-icon">⚠️</div>
+          <div class="fc-title">重点风险类型</div>
+          <div class="fc-desc">基于功能特征推断的高风险场景，如：并发操作、状态一致性、数据完整性。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块3：测试数据生成 -->
+    <div class="section" id="mod3">
+      <div class="section-header">
+        <div class="section-num section-num-qa">3</div>
+        <div class="section-title-block">
+          <h2>测试数据生成</h2>
+          <p class="section-subtitle"><span class="module-tag">💻 实操</span><span class="time-tag">⏱ 20 分钟</span></p>
+        </div>
+      </div>
+
+      <p>构造测试数据往往耗费大量时间，尤其是边界数据、关联数据、批量数据。AI 可以在几秒内生成大量覆盖各种场景的测试数据。</p>
+
+      <div class="data-types">
+        <div class="dt-box dt-valid">
+          <div class="dt-icon">✅</div>
+          <div class="dt-label">合法数据</div>
+          <div class="dt-count">5 条</div>
+          <div class="dt-example">各种正常用户，覆盖典型使用场景</div>
+        </div>
+        <div class="dt-box dt-boundary">
+          <div class="dt-icon">⚡</div>
+          <div class="dt-label">边界值数据</div>
+          <div class="dt-count">5 条</div>
+          <div class="dt-example">长度边界、格式边界、数值边界</div>
+        </div>
+        <div class="dt-box dt-invalid">
+          <div class="dt-icon">🚫</div>
+          <div class="dt-label">非法数据</div>
+          <div class="dt-count">5 条</div>
+          <div class="dt-example">SQL 注入、特殊字符、超长输入</div>
+        </div>
+        <div class="dt-box dt-bizError">
+          <div class="dt-icon">🔄</div>
+          <div class="dt-label">业务异常数据</div>
+          <div class="dt-count">5 条</div>
+          <div class="dt-example">重复注册、黑名单、已过期账号</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3a: 三类数据生成场景 -->
+    <div class="section" id="mod3-scenes">
+      <div class="section-header">
+        <div class="section-num section-num-qa">3a</div>
+        <div class="section-title-block">
+          <h2>三类测试数据生成场景</h2>
+          <p class="section-subtitle">结构化数据 / 接口数据 / 数据库关联数据</p>
+        </div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tc-header">
+          <div class="tc-num">A</div>
+          <div class="tc-title">结构化数据生成（用户注册、表单提交等）</div>
+        </div>
+        <div class="tc-body">
+          <div class="prompt-box">
+            <div class="prompt-label">💬 结构化测试数据生成</div>
+            <pre>生成 20 条用户注册测试数据，要求包含：
+- 5 条完全合法的数据（覆盖各种典型用户类型）
+- 5 条边界值数据（姓名长度边界/手机号格式边界/邮箱格式边界）
+- 5 条非法数据（SQL 注入/XSS 脚本/特殊字符/超长输入）
+- 5 条业务异常数据（已注册手机号/黑名单用户/无效邮箱域名）
+
+字段：name, phone, email, password, age
+输出格式：JSON 数组，每条数据附加 "testType" 和 "expectedResult" 字段</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tc-header">
+          <div class="tc-num">B</div>
+          <div class="tc-title">接口测试数据生成（基于 Swagger/OpenAPI）</div>
+        </div>
+        <div class="tc-body">
+          <div class="prompt-box">
+            <div class="prompt-label">💬 接口测试数据生成</div>
+            <pre>以下是一个 API 接口文档（Swagger 格式）：
+[粘贴接口定义]
+
+请为此接口生成完整的测试请求数据集，覆盖：
+1. 正常参数（各种合法参数组合）
+2. 缺少必填参数（每个必填字段缺失一次）
+3. 参数类型错误（数字传字符串等）
+4. 越权访问场景（使用其他用户的 token）
+5. 边界值参数（string 最大长度，number 最大值等）
+
+输出格式：JSON 数组，每个请求包含：requestBody / expectedStatusCode / expectedResponse / testScenario</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-card">
+        <div class="tc-header">
+          <div class="tc-num">C</div>
+          <div class="tc-title">数据库关联数据生成（性能测试/集成测试）</div>
+        </div>
+        <div class="tc-body">
+          <div class="prompt-box">
+            <div class="prompt-label">💬 数据库测试数据 SQL 生成</div>
+            <pre>以下是数据库表结构（DDL）：
+[粘贴 CREATE TABLE 语句]
+
+请生成满足以下要求的批量 SQL 插入语句：
+1. 生成 100 条用户数据（满足外键约束和业务规则）
+2. 每个用户关联 3-5 条订单记录（订单状态分布：60% 完成/20% 待支付/20% 取消）
+3. 每个订单关联 1-3 条商品明细
+4. 确保数据具有时间分布（最近 90 天均匀分布）
+
+输出：可直接执行的 SQL 文件，添加事务控制</pre>
+          </div>
+          <div class="practice-banner">
+            <div class="pb-icon">💻</div>
+            <div>
+              <div class="pb-title">🎯 动手练习（10 分钟）</div>
+              <div class="pb-desc">为当前项目一个真实接口（使用 Swagger 文档），生成覆盖所有异常场景的测试数据集，包含预期响应码。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块4：自动化测试脚本 -->
+    <div class="section" id="mod4">
+      <div class="section-header">
+        <div class="section-num section-num-qa">4</div>
+        <div class="section-title-block">
+          <h2>自动化测试脚本生成</h2>
+          <p class="section-subtitle"><span class="module-tag">💻 实操（技术重点）</span><span class="time-tag">⏱ 40 分钟</span></p>
+        </div>
+      </div>
+
+      <div class="info-box ib-insight">
+        <div class="info-box-title">🔄 AI 如何改变自动化测试的门槛</div>
+        <strong>过去：</strong>写自动化脚本需要扎实的编程能力，测试工程师花大量时间在"如何写代码"上。<br>
+        <strong>现在：</strong>你只需要描述"测试意图"，AI 生成脚本，你来<strong>审查逻辑 + 调试 + 维护</strong>。编程能力要求从"能写"变成"能读"。
+      </div>
+    </div>
+
+    <!-- 4a: Pytest 接口自动化 -->
+    <div class="section" id="mod4-api">
+      <div class="section-header">
+        <div class="section-num section-num-qa">4a</div>
+        <div class="section-title-block">
+          <h2>场景一：Pytest 接口自动化测试</h2>
+          <p class="section-subtitle">描述意图，AI 生成可运行的 Python 测试代码</p>
+        </div>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">💬 Pytest 自动化测试脚本生成</div>
+        <pre>角色：你是一位精通 Python 自动化测试的工程师
+
+接口文档：
+  URL: POST /api/v1/users/register
+  请求体: {"name": string, "phone": string, "email": string, "password": string}
+  响应: {"code": 0, "data": {"userId": string}, "message": "success"}
+  错误码: 400(参数错误) / 409(手机号已注册) / 500(服务器错误)
+
+测试场景：
+  1. 正常注册（新手机号，完整参数）
+  2. 手机号已注册（预期 409）
+  3. 缺少必填参数 name（预期 400）
+  4. 手机号格式错误（预期 400）
+  5. 密码长度不足（预期 400）
+
+要求：
+  1. 使用 @pytest.mark.parametrize 做数据驱动
+  2. 包含 conftest.py 的 fixture 配置（base_url, headers）
+  3. 断言：状态码 + 响应体结构 + 业务码
+  4. 测试间数据隔离（每个用例用独立手机号）
+  5. 有清晰的中文注释
+
+输出：完整的 test_user_register.py + conftest.py 代码</pre>
+      </div>
+
+      <div class="card-grid-2 mt-2">
+        <div class="card">
+          <h4>🔍 AI 生成脚本后的检查要点</h4>
+          <ul>
+            <li>断言是否覆盖了所有关键字段</li>
+            <li>测试数据是否能在不同环境运行</li>
+            <li>fixture 是否正确处理了 setup/teardown</li>
+            <li>异常场景的断言逻辑是否正确</li>
+            <li>是否有硬编码的环境地址或密钥</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>🐛 让 AI 帮你排查脚本报错</h4>
+          <ul>
+            <li>把<strong>完整错误信息 + 相关脚本代码</strong>一起喂给 AI</li>
+            <li>说明运行环境（Python 版本、依赖版本）</li>
+            <li>AI 通常能精确定位原因并给出修复方案</li>
+            <li>连续报错时让 AI 整体分析而不是逐条修改</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="practice-banner">
+        <div class="pb-icon">💻</div>
+        <div>
+          <div class="pb-title">🎯 实操任务（20 分钟）</div>
+          <div class="pb-desc">为项目中一个真实的核心接口，用 AI 生成完整的 Pytest 自动化测试脚本，并在本地环境跑通至少一个测试用例。遇到报错时使用 AI 辅助调试。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4b: Playwright UI 自动化 -->
+    <div class="section" id="mod4-ui">
+      <div class="section-header">
+        <div class="section-num section-num-qa">4b</div>
+        <div class="section-title-block">
+          <h2>场景二：Playwright UI 自动化测试</h2>
+          <p class="section-subtitle">从测试描述到可运行的 UI 测试脚本</p>
+        </div>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">💬 Playwright 测试脚本生成</div>
+        <pre>角色：你是一位精通 Playwright 的 UI 自动化测试工程师
+
+测试场景：用户登录并完成下单
+详细步骤：
+  1. 访问 [URL]
+  2. 点击"登录"按钮
+  3. 输入用户名：test@example.com，密码：Test@123
+  4. 点击"立即登录"
+  5. 等待跳转到首页（URL 包含 /home）
+  6. 搜索商品"手机"
+  7. 点击第一个搜索结果
+  8. 点击"加入购物车"
+  9. 点击购物车图标
+  10. 点击"结算"按钮
+  11. 验证跳转到结算页面（页面标题包含"订单确认"）
+
+页面关键元素：
+  - 登录按钮: button[data-testid="login-btn"]
+  - 搜索框: input#search-input
+  - 加购按钮: button.add-to-cart
+
+要求：使用 async/await，Page Object 模式，包含截图（失败时）</pre>
+      </div>
+
+      <div class="card-grid-3 mt-2">
+        <div class="feature-card">
+          <div class="fc-icon">🏗</div>
+          <div class="fc-title">脚本重构：Page Object 模式</div>
+          <div class="fc-desc">让 AI 把散乱的测试脚本重构为 Page Object 模式，提高复用性和可维护性。</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-icon">📝</div>
+          <div class="fc-title">补充注释和文档</div>
+          <div class="fc-desc">让 AI 为已有的测试脚本补充注释、docstring 和 README，降低维护成本。</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-icon">🔄</div>
+          <div class="fc-title">变更后的脚本分析</div>
+          <div class="fc-desc">需求变更后，让 AI 分析哪些测试脚本需要同步修改，给出具体修改建议。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4c: Locust 性能测试 -->
+    <div class="section" id="mod4-perf">
+      <div class="section-header">
+        <div class="section-num section-num-qa">4c</div>
+        <div class="section-title-block">
+          <h2>场景三：Locust 性能测试脚本</h2>
+          <p class="section-subtitle">描述并发场景，AI 生成性能测试脚本</p>
+        </div>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">💬 Locust 性能测试脚本生成</div>
+        <pre>以下是需要性能测试的场景：
+
+接口：POST /api/v1/search  请求体：{"keyword": string, "page": int}
+预期性能目标：100 并发用户，P95 响应时间 < 500ms
+
+用户行为模拟：
+  1. 用户登录（获取 token）
+  2. 搜索关键词（从预设词库随机选取）
+  3. 点击搜索结果（模拟翻页，随机 1-5 页）
+  4. 等待 1-3 秒后进行下一次搜索
+
+请生成 Locust 性能测试脚本，包含：
+1. 用户行为类（HttpUser）
+2. 登录 on_start，获取并保存 token
+3. 搜索和翻页任务（按权重分配：搜索 70% / 翻页 30%）
+4. 自定义断言（状态码 + 响应时间 + 数据完整性）
+5. 统计自定义指标（搜索成功率）
+
+输出：完整的 locustfile.py + 运行说明</pre>
+      </div>
+    </div>
+
+    <!-- 模块5：Bug 管理与缺陷分析 -->
+    <div class="section" id="mod5">
+      <div class="section-header">
+        <div class="section-num section-num-qa">5</div>
+        <div class="section-title-block">
+          <h2>Bug 管理与缺陷分析提效</h2>
+          <p class="section-subtitle"><span class="time-tag">⏱ 20 分钟</span></p>
+        </div>
+      </div>
+
+      <div class="info-box ib-caution">
+        <div class="info-box-title">💡 高质量 Bug 报告的价值</div>
+        高质量的 Bug 报告 = 更快的修复速度。很多 Bug 被开发"打回来"的原因是描述不清楚。用 AI 规范化 Bug 报告，可以<strong>显著减少沟通来回次数</strong>。
+      </div>
+
+      <div class="sub-section">
+        <h3>AI 辅助 Bug 报告规范化</h3>
+
+        <div class="prompt-box">
+          <div class="prompt-label">💬 Bug 报告规范化提示词</div>
+          <pre>基于以下测试过程描述，生成一份规范的 Bug 报告：
+[口语化描述测试发现的问题]
+
+示例描述："在手机号登录页面，输入正确账号密码后点登录，有时候会跳转失败，
+           刷新后又好了，在 Chrome 上复现了 3 次"
+
+输出格式：
+- 标题：一句话概括问题（模块 + 现象）
+- 严重级别：Critical/High/Medium/Low（附判断依据）
+- 缺陷类型：功能缺陷/性能问题/UI 问题/安全漏洞
+- 环境信息：浏览器/系统/版本号 [占位，请补充]
+- 复现概率：必现/高频/偶现/极低（说明依据）
+- 前置条件：
+- 复现步骤：（编号步骤，每步一行）
+- 实际结果：
+- 预期结果：
+- 可能原因分析（猜测，供开发参考）
+- 附件说明：建议截图/录屏/日志的关键标注点</pre>
+        </div>
+
+        <div class="bug-format">
+          <div class="bf-row">
+            <div class="bf-label">📌 标题</div>
+            <div class="bf-content">【登录模块】手机号密码登录偶发跳转失败，刷新后恢复正常</div>
+          </div>
+          <div class="bf-row">
+            <div class="bf-label">🔴 严重级别</div>
+            <div class="bf-content">High — 影响核心登录流程，偶发但用户无明显错误提示，可能导致用户流失</div>
+          </div>
+          <div class="bf-row">
+            <div class="bf-label">🔄 复现概率</div>
+            <div class="bf-content">偶现（3/10次，Chrome 环境下）</div>
+          </div>
+          <div class="bf-row">
+            <div class="bf-label">📋 复现步骤</div>
+            <div class="bf-content">1. 打开登录页<br>2. 输入已注册手机号 + 正确密码<br>3. 点击"立即登录"按钮</div>
+          </div>
+          <div class="bf-row">
+            <div class="bf-label">❌ 实际结果</div>
+            <div class="bf-content">页面无响应或停在登录页，无错误提示，无网络请求发出（偶发）</div>
+          </div>
+          <div class="bf-row">
+            <div class="bf-label">✅ 预期结果</div>
+            <div class="bf-content">登录成功，2 秒内跳转至首页，URL 变为 /home</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <h3>AI 辅助根因分析 + 回归范围判断</h3>
+        <div class="card-grid-2">
+          <div class="card">
+            <h4>🔍 根因分析提示词要素</h4>
+            <ul>
+              <li>输入：<strong>错误日志 + 相关代码片段 + Bug 现象描述</strong></li>
+              <li>AI 输出：可能根因（排序）+ 排查路径 + 修复方向建议</li>
+              <li>价值：帮你在跟开发沟通时更有针对性，减少"你来看一下"式沟通</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>🔄 回归范围分析提示词要素</h4>
+            <ul>
+              <li>输入：<strong>变更描述（改了哪个模块/接口）</strong></li>
+              <li>AI 输出：受影响功能列表 + 回归优先级建议</li>
+              <li>价值：减少漏测风险，合理分配回归测试时间</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 行动指引 -->
+    <div class="action-guide" id="action2">
+      <div class="ag-header">
+        <div class="ag-icon" style="background: var(--qa-color);">🧪</div>
+        <h3>第二期 · 行动指引与作业</h3>
+      </div>
+      <div class="ag-body">
+        <div class="ag-col">
+          <h4>📦 本期产出物</h4>
+          <div class="ag-item">
+            <div class="ai-bullet">1</div>
+            <div>一个功能模块的完整测试用例矩阵（含测试数据建议和优先级）</div>
+          </div>
+          <div class="ag-item">
+            <div class="ai-bullet">2</div>
+            <div>针对核心接口的 Pytest 自动化测试脚本骨架（含 conftest.py）</div>
+          </div>
+          <div class="ag-item">
+            <div class="ai-bullet">3</div>
+            <div>AI 反向审查需求的问题清单（测试视角发现的需求遗漏）</div>
+          </div>
+          <div style="margin-top: 1rem;"><span class="deliverable-tag">📦 本期带走的真实成果</span></div>
+        </div>
+        <div class="ag-col">
+          <h4>📝 课后作业（1 周内完成）</h4>
+          <div class="ag-item">
+            <div class="ai-bullet">→</div>
+            <div>用 AI 为当前项目生成一个功能模块的完整测试套件：测试用例矩阵 + 测试数据 JSON + Pytest 脚本骨架</div>
+          </div>
+          <div class="ag-item">
+            <div class="ai-bullet">→</div>
+            <div>尝试用 AI 规范化最近提交的一个 Bug 报告，对比前后差异并分享</div>
+          </div>
+          <div class="ag-item">
+            <div class="ai-bullet">→</div>
+            <div>在本地成功运行至少 3 个 AI 生成的测试用例，记录遇到的问题和解决过程</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="session1.html" class="page-nav-btn">← 第一期：产品经理侧 AI 实战</a>
+      <a href="session3.html" class="page-nav-btn">第三期：双角色打通 + AI Agent →</a>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

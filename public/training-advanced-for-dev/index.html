@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 工程进阶培训 v2.0 — 课程总览</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Index page specific */
+    .index-hero {
+      background: linear-gradient(135deg, #1A2035 0%, var(--dark) 50%, #3D4F6B 100%);
+      border-radius: var(--radius-xl);
+      padding: 4rem 3.5rem;
+      margin-bottom: 3rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .index-hero::before {
+      content: '';
+      position: absolute;
+      right: -100px;
+      top: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(109,40,217,0.2) 0%, transparent 70%);
+    }
+    .index-hero::after {
+      content: '';
+      position: absolute;
+      left: -50px;
+      bottom: -80px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+    }
+    .index-hero-content { position: relative; z-index: 1; }
+    .index-hero h1 { font-size: 2.8rem; font-weight: 900; margin-bottom: 0.75rem; line-height: 1.2; }
+    .index-hero h1 span { color: var(--accent-light); }
+    .index-hero .hero-desc { font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 650px; line-height: 1.65; margin-bottom: 2rem; }
+    .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1; }
+    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+    .design-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      overflow-x: auto;
+    }
+    .df-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-width: 120px;
+      text-align: center;
+    }
+    .df-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-md);
+      background: #fff;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .df-title { font-size: 0.82rem; font-weight: 700; color: var(--dark); }
+    .df-sub   { font-size: 0.72rem; color: var(--muted); }
+    .df-arrow { font-size: 1.5rem; color: var(--border); flex-shrink: 0; margin: 0 0.15rem; padding-bottom: 28px; }
+
+    .sessions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
+
+    .outline-section { margin-bottom: 2.5rem; }
+
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .tool-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+    .tool-card .tc-cat { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .tool-card .tc-items { list-style: none; }
+    .tool-card .tc-items li { font-size: 0.82rem; color: var(--medium); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+    .tool-card .tc-items li::before { content: '🔧'; font-size: 0.65rem; }
+
+    .target-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .target-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .target-card .tc-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .target-card .tc-role { font-size: 0.9rem; font-weight: 800; color: var(--dark); margin-bottom: 0.35rem; }
+    .target-card .tc-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    @media (max-width: 768px) {
+      .sessions-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr 1fr; }
+      .target-grid { grid-template-columns: 1fr; }
+      .design-flow { padding: 1.25rem; }
+      .df-item { min-width: 90px; }
+      .index-hero { padding: 2.5rem 1.5rem; }
+      .index-hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sticky Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🏗️</span>
+    <span>AI 工程进阶培训</span>
+    <span class="logo-badge">进阶版</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html" class="active">课程总览</a>
+    <a href="module1.html">架构设计</a>
+    <a href="module2.html">Prompt工程</a>
+    <a href="module3.html">RAG实战</a>
+    <a href="module4.html">Agent编排</a>
+    <a href="module5.html">后端集成</a>
+    <a href="module6.html">前端集成</a>
+    <a href="module7.html">可观测性</a>
+    <a href="module8.html">安全合规</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">课程导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview" class="active">
+        <span class="nav-num">0</span> 课程总览
+      </a></li>
+      <li><a href="#targets">
+        <span class="nav-num">👥</span> 适用角色
+      </a></li>
+      <li><a href="#design-logic">
+        <span class="nav-num">→</span> 学习路径
+      </a></li>
+      <li><a href="#module-cards">
+        <span class="nav-num">8</span> 八大模块
+      </a></li>
+      <li><a href="#tools">
+        <span class="nav-num">🔧</span> 工具生态
+      </a></li>
+    </ul>
+    <div style="padding: 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border);">
+      <div class="sidebar-title">快速入口</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <a href="module1.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+          <span style="color:#6D28D9;">●</span> M1：架构设计范式
+        </a>
+        <a href="module2.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#D97706;">●</span> M2：Prompt 工程精要
+        </a>
+        <a href="module3.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#1E40AF;">●</span> M3：RAG 深度实战
+        </a>
+        <a href="module4.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#DC2626;">●</span> M4：Agent 与工具链
+        </a>
+        <a href="module5.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#059669;">●</span> M5：后端集成
+        </a>
+        <a href="module6.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#0891B2;">●</span> M6：前端集成
+        </a>
+        <a href="module7.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#7C3AED;">●</span> M7：可观测性
+        </a>
+        <a href="module8.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#BE185D;">●</span> M8：安全合规
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div id="overview"></div>
+
+    <!-- Hero -->
+    <div class="index-hero">
+      <div class="index-hero-content">
+        <div class="hero-badge">
+          <span class="hero-session-num">Phase II</span>
+          Advanced Training Materials
+        </div>
+        <h1>AI 工程进阶培训<br/><span>架构师 × 前后端工程师</span></h1>
+        <p class="hero-desc">
+          掌握 <strong>AI 原生工程体系</strong>，将 LLM 能力内化为工程基础设施，
+          构建可观测、可演进的 AI 应用架构。面向系统架构师、Java / Python / Go 后端工程师、
+          React / Vue / Node 前端工程师。
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">8</div>
+            <div class="stat-label">模块</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3</div>
+            <div class="stat-label">角色覆盖</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">全栈</div>
+            <div class="stat-label">前后端 + 架构</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">v2.0</div>
+            <div class="stat-label">进阶版 · 2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Target Roles -->
+    <div id="targets" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">👥</div>
+        <div>
+          <div class="section-title">适用角色</div>
+          <div class="section-subtitle">三大核心角色，按需选修，各有侧重</div>
+        </div>
+      </div>
+
+      <div class="target-grid">
+        <div class="target-card">
+          <div class="tc-icon">🏛️</div>
+          <div class="tc-role">系统架构师</div>
+          <div class="tc-desc">负责 AI 原生架构顶层设计，掌握模型选型、RAG 架构、Agent 编排与安全加固全链路</div>
+          <div style="margin-top:0.75rem;"><span class="role-badge role-architect">重点模块：M1 M3 M4 M8</span></div>
+        </div>
+        <div class="target-card">
+          <div class="tc-icon">⚙️</div>
+          <div class="tc-role">后端工程师</div>
+          <div class="tc-desc">Java / Python / Go 后端开发者，掌握 LLM SDK 集成、RAG Pipeline、Agent 框架与生产部署</div>
+          <div style="margin-top:0.75rem;"><span class="role-badge role-backend">重点模块：M3 M4 M5 M8</span></div>
+        </div>
+        <div class="target-card">
+          <div class="tc-icon">🎨</div>
+          <div class="tc-role">前端工程师</div>
+          <div class="tc-desc">React / Vue / Node 前端开发者，掌握 Streaming UI、AI 组件设计与 BFF 层 AI 集成</div>
+          <div style="margin-top:0.75rem;"><span class="role-badge role-frontend">重点模块：M2 M6 M7</span></div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div><strong>全员必修：</strong>模块 2（Prompt 工程）与模块 7（可观测性）为全角色共修模块，建立统一的 AI 工程语言与评估标准。</div>
+      </div>
+    </div>
+
+    <!-- Design Logic / Learning Path -->
+    <div id="design-logic" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">🧭</div>
+        <div>
+          <div class="section-title">学习路径设计</div>
+          <div class="section-subtitle">八模块递进，从架构思维到生产加固</div>
+        </div>
+      </div>
+
+      <div class="design-flow">
+        <div class="df-item">
+          <div class="df-icon">🏛️</div>
+          <div class="df-title">架构设计</div>
+          <div class="df-sub">AI 原生范式</div>
+          <div class="badge badge-purple" style="margin-top:4px;">M1</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">✍️</div>
+          <div class="df-title">Prompt工程</div>
+          <div class="df-sub">高阶技巧</div>
+          <div class="badge badge-yellow" style="margin-top:4px;">M2</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">📚</div>
+          <div class="df-title">RAG实战</div>
+          <div class="df-sub">深度检索</div>
+          <div class="badge badge-blue" style="margin-top:4px;">M3</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">🤖</div>
+          <div class="df-title">Agent编排</div>
+          <div class="df-sub">工具链</div>
+          <div class="badge badge-red" style="margin-top:4px;">M4</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">🔗</div>
+          <div class="df-title">后端/前端</div>
+          <div class="df-sub">工程集成</div>
+          <div class="badge badge-green" style="margin-top:4px;">M5-6</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">📊</div>
+          <div class="df-title">可观测性</div>
+          <div class="df-sub">评估体系</div>
+          <div class="badge badge-purple" style="margin-top:4px;">M7</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">🔒</div>
+          <div class="df-title">安全合规</div>
+          <div class="df-sub">生产加固</div>
+          <div class="badge badge-red" style="margin-top:4px;">M8</div>
+        </div>
+      </div>
+
+      <div class="card card-accent-orange">
+        <h3 style="margin-top:0;">📐 课程设计原则</h3>
+        <div class="progress-timeline" style="margin:1rem 0 0;">
+          <div class="timeline-item">
+            <div class="timeline-dot done">理论</div>
+            <div class="timeline-label">架构思维<br/>设计模式</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">实战</div>
+            <div class="timeline-label">代码实操<br/>框架集成</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">加固</div>
+            <div class="timeline-label">可观测性<br/>安全合规</div>
+          </div>
+        </div>
+        <div class="infobox infobox-tip" style="margin-top:1rem;">
+          <span class="infobox-icon">🎯</span>
+          <div><strong>核心目标：</strong>将 LLM 能力内化为工程基础设施，不只是调用 API，而是构建可观测、可演进、可治理的 AI 应用架构。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module Cards -->
+    <div id="module-cards" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">📚</div>
+        <div>
+          <div class="section-title">八大核心模块</div>
+          <div class="section-subtitle">点击进入每个模块的完整讲义</div>
+        </div>
+      </div>
+
+      <div class="sessions-grid">
+        <!-- Module 1 -->
+        <div class="session-overview-card">
+          <div class="soc-num">01</div>
+          <div class="soc-badge"><span class="role-badge role-architect">架构师</span></div>
+          <div class="soc-title">AI 原生架构设计范式</div>
+          <div class="soc-desc">从传统分层架构到 AI 原生架构的演进路径。覆盖模型选型决策框架、LLM Gateway 设计、AI 能力分层抽象与架构治理策略。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">🏛️ 架构演进</span>
+            <span class="badge badge-gray">🧩 模型选型</span>
+            <span class="badge badge-gray">🔀 Gateway 设计</span>
+            <span class="badge badge-gray">📐 能力分层</span>
+          </div>
+          <a href="module1.html" class="soc-link">进入模块一 →</a>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="session-overview-card">
+          <div class="soc-num">02</div>
+          <div class="soc-badge"><span class="role-badge role-all">全员</span></div>
+          <div class="soc-title">Prompt 工程精要与高阶技巧</div>
+          <div class="soc-desc">系统化 Prompt 设计方法论，从基础模式到 Chain-of-Thought、Few-Shot、Self-Consistency 等高阶技巧，建立工程级 Prompt 管理体系。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">✍️ 系统 Prompt</span>
+            <span class="badge badge-gray">🔗 CoT 推理</span>
+            <span class="badge badge-gray">📋 模板管理</span>
+            <span class="badge badge-gray">🧪 评估迭代</span>
+          </div>
+          <a href="module2.html" class="soc-link">进入模块二 →</a>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="session-overview-card">
+          <div class="soc-num">03</div>
+          <div class="soc-badge"><span class="role-badge role-backend">后端</span> <span class="role-badge role-architect">架构师</span></div>
+          <div class="soc-title">RAG 系统深度实战</div>
+          <div class="soc-desc">从 Naive RAG 到 Advanced RAG 的完整实现。覆盖文档解析、Embedding 模型选型、向量检索优化、Hybrid Search、Re-ranking 全流程。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">📄 文档解析</span>
+            <span class="badge badge-gray">🔢 Embedding</span>
+            <span class="badge badge-gray">🔍 混合检索</span>
+            <span class="badge badge-gray">📊 Re-ranking</span>
+          </div>
+          <a href="module3.html" class="soc-link">进入模块三 →</a>
+        </div>
+
+        <!-- Module 4 -->
+        <div class="session-overview-card">
+          <div class="soc-num">04</div>
+          <div class="soc-badge"><span class="role-badge role-backend">后端</span> <span class="role-badge role-architect">架构师</span></div>
+          <div class="soc-title">Agent 与工具链编排</div>
+          <div class="soc-desc">Agent 设计模式与多步工具链编排。掌握 ReAct、Plan-and-Execute、Multi-Agent 模式，实现 Function Calling 与 MCP 协议集成。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">🤖 Agent 模式</span>
+            <span class="badge badge-gray">🔧 Function Call</span>
+            <span class="badge badge-gray">🔌 MCP 协议</span>
+            <span class="badge badge-gray">🔄 多 Agent</span>
+          </div>
+          <a href="module4.html" class="soc-link">进入模块四 →</a>
+        </div>
+
+        <!-- Module 5 -->
+        <div class="session-overview-card">
+          <div class="soc-num">05</div>
+          <div class="soc-badge"><span class="role-badge role-backend">后端工程师</span></div>
+          <div class="soc-title">后端集成：Java / Python / Go</div>
+          <div class="soc-desc">三大主流后端语言的 LLM 集成方案。LangChain / LangChain4j / Go SDK 实战，Streaming 处理、并发控制、错误重试与生产级部署。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">☕ Java 集成</span>
+            <span class="badge badge-gray">🐍 Python 集成</span>
+            <span class="badge badge-gray">🐹 Go 集成</span>
+            <span class="badge badge-gray">🚀 生产部署</span>
+          </div>
+          <a href="module5.html" class="soc-link">进入模块五 →</a>
+        </div>
+
+        <!-- Module 6 -->
+        <div class="session-overview-card">
+          <div class="soc-num">06</div>
+          <div class="soc-badge"><span class="role-badge role-frontend">前端工程师</span></div>
+          <div class="soc-title">前端集成：React / Vue / Node</div>
+          <div class="soc-desc">AI 驱动的前端工程实践。Streaming UI 渲染、AI 组件库设计、Vercel AI SDK 集成、BFF 层 AI 代理与前端状态管理。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">⚛️ React 集成</span>
+            <span class="badge badge-gray">💚 Vue 集成</span>
+            <span class="badge badge-gray">📡 Streaming UI</span>
+            <span class="badge badge-gray">🎨 AI 组件</span>
+          </div>
+          <a href="module6.html" class="soc-link">进入模块六 →</a>
+        </div>
+
+        <!-- Module 7 -->
+        <div class="session-overview-card">
+          <div class="soc-num">07</div>
+          <div class="soc-badge"><span class="role-badge role-all">全员</span></div>
+          <div class="soc-title">可观测性与评估体系</div>
+          <div class="soc-desc">AI 应用全链路可观测体系构建。Trace 追踪、Metrics 采集、评估框架（RAGAS / DeepEval）、A/B 测试与持续质量监控。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">📊 Trace 追踪</span>
+            <span class="badge badge-gray">📈 Metrics</span>
+            <span class="badge badge-gray">🧪 RAGAS 评估</span>
+            <span class="badge badge-gray">🔬 A/B 测试</span>
+          </div>
+          <a href="module7.html" class="soc-link">进入模块七 →</a>
+        </div>
+
+        <!-- Module 8 -->
+        <div class="session-overview-card">
+          <div class="soc-num">08</div>
+          <div class="soc-badge"><span class="role-badge role-architect">架构师</span> <span class="role-badge role-backend">后端</span></div>
+          <div class="soc-title">安全合规与生产加固</div>
+          <div class="soc-desc">AI 应用安全防护全景。Prompt 注入防御、数据脱敏、输出审核、速率限制、合规审计与灾备方案，确保 AI 系统生产级可靠性。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">🛡️ 注入防御</span>
+            <span class="badge badge-gray">🔐 数据脱敏</span>
+            <span class="badge badge-gray">⚖️ 合规审计</span>
+            <span class="badge badge-gray">🔥 灾备方案</span>
+          </div>
+          <a href="module8.html" class="soc-link">进入模块八 →</a>
+        </div>
+      </div>
+
+      <!-- Appendix link -->
+      <div class="infobox infobox-teacher">
+        <span class="infobox-icon">📎</span>
+        <div>
+          <div class="infobox-title">附录资料</div>
+          <p style="font-size:0.875rem;margin-top:4px;">
+            附录包含参考架构图、工具速查表、术语对照表与推荐阅读清单。
+            <a href="appendix.html" style="color:var(--accent);font-weight:700;">查看附录 →</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tools -->
+    <div id="tools" class="section">
+      <div class="section-header">
+        <div class="section-icon teal">🔧</div>
+        <div>
+          <div class="section-title">核心工具生态</div>
+          <div class="section-subtitle">课程涉及的关键框架与工具</div>
+        </div>
+      </div>
+
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tc-cat">🔗 LLM 框架</div>
+          <ul class="tc-items">
+            <li>LangChain（Python 编排框架）</li>
+            <li>LangGraph（Agent 图编排）</li>
+            <li>LangChain4j（Java 集成）</li>
+            <li>LiteLLM（统一 API 代理）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">🗄️ 向量与检索</div>
+          <ul class="tc-items">
+            <li>Qdrant（高性能向量数据库）</li>
+            <li>pgvector（PostgreSQL 向量扩展）</li>
+            <li>Elasticsearch（混合检索）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">📊 可观测与评估</div>
+          <ul class="tc-items">
+            <li>LangFuse（LLM 可观测平台）</li>
+            <li>RAGAS（RAG 评估框架）</li>
+            <li>DeepEval（端到端评估）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">⚛️ 前端 SDK</div>
+          <ul class="tc-items">
+            <li>Vercel AI SDK（Streaming UI）</li>
+            <li>React Server Components</li>
+            <li>Vue Composables</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">🤖 Agent 工具</div>
+          <ul class="tc-items">
+            <li>OpenAI Function Calling</li>
+            <li>MCP — Model Context Protocol</li>
+            <li>CrewAI（Multi-Agent 框架）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">🔒 安全与部署</div>
+          <ul class="tc-items">
+            <li>Guardrails（输出审核）</li>
+            <li>OWASP LLM Top 10</li>
+            <li>Docker / K8s 部署方案</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <span></span>
+      <a href="module1.html" class="page-nav-btn">开始模块一：架构设计 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  // Active sidebar link on scroll
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

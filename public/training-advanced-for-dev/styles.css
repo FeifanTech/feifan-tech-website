@@ -1,0 +1,176 @@
+/* AI 工程进阶培训 v2.0 — 样式
+   复用基础培训样式体系，增加进阶模块专用样式 */
+@import url('../training/styles.css');
+
+/* ── 进阶培训额外样式 ── */
+
+/* Architecture diagram box */
+.arch-diagram {
+  background: #1E2433;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
+  margin: 1.25rem 0;
+  color: #E8EAF0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  overflow-x: auto;
+  white-space: pre;
+  box-shadow: var(--shadow-md);
+}
+
+/* Role badges */
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.role-architect { background: #EDE9FE; color: #6D28D9; }
+.role-backend   { background: #DBEAFE; color: #1E40AF; }
+.role-frontend  { background: #DCFCE7; color: #166534; }
+.role-all       { background: #FEF3C7; color: #92400E; }
+
+/* Checklist styling */
+.checklist {
+  list-style: none;
+  padding-left: 0;
+  margin: 1rem 0;
+}
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 0.875rem;
+  color: var(--medium);
+  border-bottom: 1px solid var(--beige);
+}
+.checklist li:last-child { border-bottom: none; }
+.checklist li::before {
+  content: '☐';
+  flex-shrink: 0;
+  font-size: 1rem;
+  color: var(--accent);
+}
+
+/* Anti-pattern cards */
+.anti-pattern {
+  background: #FFF5F5;
+  border: 1px solid #FECACA;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.anti-pattern h4 { color: #991B1B; margin: 0 0 4px; font-size: 0.9rem; }
+.anti-pattern p { color: #7F1D1D; font-size: 0.85rem; margin: 0; }
+
+/* Best practice cards */
+.best-practice {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.best-practice h4 { color: #166534; margin: 0 0 4px; font-size: 0.9rem; }
+.best-practice p { color: #14532D; font-size: 0.85rem; margin: 0; }
+
+/* YAML/Config styled code blocks */
+.config-block {
+  background: #1A1E2E;
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  margin: 1rem 0;
+  color: #C3E88D;
+  box-shadow: var(--shadow-md);
+}
+.config-block .config-comment { color: #6B7A99; }
+.config-block .config-key { color: #82AAFF; }
+.config-block .config-value { color: #F78C6C; }
+
+/* Module card on index page */
+.module-overview-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow .25s, transform .25s;
+  display: flex;
+  flex-direction: column;
+}
+.module-overview-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+.moc-num {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--beige);
+  margin-bottom: 0.5rem;
+}
+.moc-title { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+.moc-desc  { font-size: 0.82rem; color: var(--medium); line-height: 1.55; margin-bottom: 1rem; flex: 1; }
+.moc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--dark);
+  color: #fff;
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background .2s;
+  align-self: flex-start;
+}
+.moc-link:hover { background: var(--accent); color: #fff; }
+
+/* Modules grid */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Risk level indicators */
+.risk-high   { color: #DC2626; font-weight: 700; }
+.risk-medium { color: #D97706; font-weight: 700; }
+.risk-low    { color: #16A34A; font-weight: 700; }
+
+/* Maturity indicators */
+.maturity-stable { color: #16A34A; }
+.maturity-growing { color: #D97706; }
+
+/* Section divider with label */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--beige);
+}
+
+@media (max-width: 768px) {
+  .modules-grid { grid-template-columns: 1fr; }
+}
