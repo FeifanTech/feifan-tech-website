@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 05：AI 风险识别与消除——从响应式到预防式</title>
+  <link rel="stylesheet" href="../training/styles.css" />
+  <style>
+    .risk-matrix {
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 1.5rem; margin: 1.25rem 0;
+    }
+    .rm-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      grid-template-rows: repeat(3,1fr); gap: 6px; margin-top: 1rem;
+      width: 100%; max-width: 500px;
+    }
+    .rm-cell {
+      border-radius: var(--radius-sm); padding: 8px; text-align: center;
+      font-size: 0.75rem; font-weight: 600; min-height: 64px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    }
+    .rm-high   { background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; }
+    .rm-mid    { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+    .rm-low    { background: #D1FAE5; color: #065F46; border: 1px solid #6EE7B7; }
+    .rm-label  { background: transparent; font-size: 0.7rem; color: var(--muted); border: none; }
+
+    .risk-card-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; margin: 1.25rem 0; }
+    .risk-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; }
+    .risk-card .rc-category { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .risk-card .rc-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 0.85rem; color: var(--medium); }
+    .risk-card .ri-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+
+    .register-table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.82rem; }
+    .register-table th { background: var(--warm); padding: 8px 12px; font-weight: 700; text-align: left; border-bottom: 2px solid var(--border); color: var(--dark); }
+    .register-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--medium); vertical-align: top; }
+    .register-table tr:nth-child(even) td { background: var(--warm); }
+    .risk-level { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
+    .rl-high   { background: #FEE2E2; color: #991B1B; }
+    .rl-mid    { background: #FEF3C7; color: #92400E; }
+    .rl-low    { background: #D1FAE5; color: #065F46; }
+
+    .crisis-flow { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; margin: 1.25rem 0; }
+    .cf-node { background: #fff; border: 1px solid var(--border); padding: 1rem; text-align: center; position: relative; }
+    .cf-node:not(:last-child)::after { content: '→'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--border); font-size: 1.25rem; z-index: 1; }
+    .cf-node .cn-step { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .cf-node .cn-icon { font-size: 1.5rem; margin-bottom: 4px; }
+    .cf-node .cn-title { font-size: 0.78rem; font-weight: 700; color: var(--dark); }
+    .cf-node .cn-time { font-size: 0.7rem; color: var(--accent); font-weight: 600; }
+    .cf-node:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+    .cf-node:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+
+    @media (max-width: 768px) {
+      .risk-card-grid { grid-template-columns: 1fr; }
+      .crisis-flow { grid-template-columns: 1fr; }
+      .cf-node:not(:last-child)::after { content: '↓'; right: 50%; bottom: -12px; top: auto; transform: translateX(50%); }
+      .cf-node { border-radius: var(--radius-sm) !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>🚀</span>
+    <span>AI 项目交付培训</span>
+    <span class="logo-badge">M5</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">认知重构</a>
+    <a href="module2.html">项目规划</a>
+    <a href="module3.html">团队协同</a>
+    <a href="module4.html">客户沟通</a>
+    <a href="module5.html" class="active">风险管理</a>
+    <a href="module6.html">质量交付</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#intro" class="active"><span class="nav-num">0</span> 模块简介</a></li>
+      <li><a href="#risk-types"><span class="nav-num">1</span> 项目风险类型</a></li>
+      <li><a href="#ai-scan"><span class="nav-num">2</span> AI 风险扫描</a></li>
+      <li><a href="#risk-matrix"><span class="nav-num">3</span> 风险矩阵分析</a></li>
+      <li><a href="#response-plan"><span class="nav-num">4</span> AI 生成应对预案</a></li>
+      <li><a href="#crisis-handling"><span class="nav-num">5</span> 危机处理流程</a></li>
+      <li><a href="#retrospective"><span class="nav-num">6</span> AI 辅助复盘</a></li>
+      <li><a href="#homework"><span class="nav-num">7</span> 课后作业</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div id="intro"></div>
+
+    <div class="session-header">
+      <div class="session-num">模块 05</div>
+      <h1 class="session-title">AI 风险识别与消除<br/>——从响应式到预防式</h1>
+      <p class="session-desc">项目失败的根本原因往往是风险管理失效。本模块教你用 AI 建立系统化的风险预警体系，将风险管理从"出了问题再处理"升级为"提前识别、主动防控"，让项目交付更有把握。</p>
+      <div class="session-meta">
+        <span class="meta-item">⏱️ 2 小时</span>
+        <span class="meta-item">🛡️ 主动防控</span>
+        <span class="meta-item">📦 产出：风险扫描清单</span>
+      </div>
+    </div>
+
+    <div id="risk-types" class="section">
+      <div class="section-header">
+        <div class="section-icon red">⚠️</div>
+        <div>
+          <div class="section-title">软件项目的常见风险分类</div>
+          <div class="section-subtitle">AI 帮你系统扫描 5 大维度的项目风险</div>
+        </div>
+      </div>
+
+      <div class="risk-card-grid">
+        <div class="risk-card">
+          <div class="rc-category" style="color:#C53030;">🔴 范围与需求风险</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#C53030;"></div>需求频繁变更，范围持续蔓延（Scope Creep）</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#C53030;"></div>需求不明确，开发开始后才发现重大遗漏</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#C53030;"></div>业务方对需求理解不一致，后期验收分歧</div>
+        </div>
+        <div class="risk-card">
+          <div class="rc-category" style="color:#D97706;">🟡 技术与架构风险</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#D97706;"></div>第三方 API/服务不稳定或文档不完整</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#D97706;"></div>技术选型过新，团队缺乏经验</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#D97706;"></div>遗留系统改造复杂度被低估</div>
+        </div>
+        <div class="risk-card">
+          <div class="rc-category" style="color:#2563EB;">🔵 资源与团队风险</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#2563EB;"></div>关键成员离职或请假，技能不可替代</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#2563EB;"></div>团队能力与项目需求不匹配</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#2563EB;"></div>多项目并行，资源争抢导致优先级混乱</div>
+        </div>
+        <div class="risk-card">
+          <div class="rc-category" style="color:#7C3AED;">🟣 干系人与沟通风险</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#7C3AED;"></div>关键决策人长期不可用，决策链条断裂</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#7C3AED;"></div>跨部门协作阻力大，依赖事项无法推进</div>
+          <div class="rc-item"><div class="ri-dot" style="background:#7C3AED;"></div>客户与内部团队对成功标准理解不一致</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ai-scan" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">🔍</div>
+        <div>
+          <div class="section-title">AI 系统化风险扫描</div>
+          <div class="section-subtitle">项目启动时 30 分钟完成全面风险识别</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div><strong>最佳实践：</strong>在项目启动后第一周运行此风险扫描，比等到项目出问题时再分析要有效得多。AI 擅长基于项目描述联想"看不见"的风险，这是人工很难做到的。</div>
+      </div>
+
+      <div class="code-block" style="margin-top:1.25rem;">
+你是一名有丰富经验的项目风险管理专家。
+
+请基于以下项目信息，进行系统化风险识别：
+
+项目概况：[填写项目名称、类型、规模、周期]
+技术架构：[填写主要技术栈和第三方依赖]
+团队情况：[填写团队规模、能力描述]
+客户背景：[填写客户类型、决策风格]
+特殊约束：[填写时间/预算/合规等约束]
+
+请从以下 5 个维度识别风险，每个维度列出 3-5 个风险：
+1. 📋 范围与需求风险
+2. 🔧 技术与架构风险
+3. 👥 资源与团队风险
+4. 🤝 干系人与沟通风险
+5. ⚙️ 外部依赖与环境风险
+
+每个风险包含：
+- 风险描述
+- 可能性（高/中/低）
+- 影响程度（高/中/低）
+- 风险等级（高/中/低）
+- 早期预警信号（怎么判断这个风险正在发生）
+      </div>
+
+      <div class="table-wrapper" style="margin-top:1.5rem;">
+        <table class="register-table">
+          <thead>
+            <tr>
+              <th>风险编号</th>
+              <th>风险描述</th>
+              <th>可能性</th>
+              <th>影响度</th>
+              <th>风险等级</th>
+              <th>预警信号</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>R-01</td>
+              <td>第三方支付接口文档不完整导致联调延期</td>
+              <td>高</td>
+              <td>高</td>
+              <td><span class="risk-level rl-high">高</span></td>
+              <td>联调开始后 3 天内未取得成功案例</td>
+            </tr>
+            <tr>
+              <td>R-02</td>
+              <td>客户业务需求在开发过程中频繁变更</td>
+              <td>高</td>
+              <td>中</td>
+              <td><span class="risk-level rl-high">高</span></td>
+              <td>每 Sprint 变更 Story 数超过 2 个</td>
+            </tr>
+            <tr>
+              <td>R-03</td>
+              <td>核心后端工程师请假/离职</td>
+              <td>低</td>
+              <td>高</td>
+              <td><span class="risk-level rl-mid">中</span></td>
+              <td>关键成员出现离职信号，无 backup</td>
+            </tr>
+            <tr>
+              <td>R-04</td>
+              <td>客户验收标准不明确导致上线前争议</td>
+              <td>中</td>
+              <td>中</td>
+              <td><span class="risk-level rl-mid">中</span></td>
+              <td>UAT 前未签署验收标准文件</td>
+            </tr>
+            <tr>
+              <td>R-05</td>
+              <td>性能测试不达标，需要架构优化</td>
+              <td>低</td>
+              <td>高</td>
+              <td><span class="risk-level rl-low">低</span></td>
+              <td>压测结果超出目标值 20% 以上</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="risk-matrix" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">📊</div>
+        <div>
+          <div class="section-title">风险优先级矩阵</div>
+          <div class="section-subtitle">用矩阵可视化风险，聚焦最高优先级处理</div>
+        </div>
+      </div>
+
+      <div class="risk-matrix">
+        <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">可能性 × 影响度 矩阵</div>
+        <div style="display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:0.72rem;color:var(--muted);text-align:center;margin-bottom:4px;">↑ 可能性</div>
+            <div style="display:grid;grid-template-columns:auto repeat(3,80px);gap:4px;align-items:center;">
+              <div></div>
+              <div style="text-align:center;font-size:0.72rem;color:var(--muted);">低影响</div>
+              <div style="text-align:center;font-size:0.72rem;color:var(--muted);">中影响</div>
+              <div style="text-align:center;font-size:0.72rem;color:var(--muted);">高影响</div>
+              <div style="font-size:0.72rem;color:var(--muted);writing-mode:vertical-lr;text-align:center;">高</div>
+              <div class="rm-cell rm-mid">关注</div>
+              <div class="rm-cell rm-high">严重<br/>R-02</div>
+              <div class="rm-cell rm-high">严重<br/>R-01</div>
+              <div style="font-size:0.72rem;color:var(--muted);writing-mode:vertical-lr;text-align:center;">中</div>
+              <div class="rm-cell rm-low">观察</div>
+              <div class="rm-cell rm-mid">关注<br/>R-04</div>
+              <div class="rm-cell rm-high">严重</div>
+              <div style="font-size:0.72rem;color:var(--muted);writing-mode:vertical-lr;text-align:center;">低</div>
+              <div class="rm-cell rm-low">忽略</div>
+              <div class="rm-cell rm-low">观察<br/>R-05</div>
+              <div class="rm-cell rm-mid">关注<br/>R-03</div>
+            </div>
+            <div style="font-size:0.72rem;color:var(--muted);text-align:right;margin-top:4px;">影响度 →</div>
+          </div>
+          <div style="flex:1;min-width:200px;">
+            <div style="font-size:0.85rem;font-weight:700;color:var(--dark);margin-bottom:0.75rem;">处理优先级</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;"><span style="width:12px;height:12px;border-radius:2px;background:#FEE2E2;flex-shrink:0;display:inline-block;"></span><strong>严重（红）</strong>：立即制定应对计划</div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;"><span style="width:12px;height:12px;border-radius:2px;background:#FEF3C7;flex-shrink:0;display:inline-block;"></span><strong>关注（黄）</strong>：定期监控，有应急预案</div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:0.82rem;"><span style="width:12px;height:12px;border-radius:2px;background:#D1FAE5;flex-shrink:0;display:inline-block;"></span><strong>观察（绿）</strong>：周期检查，暂不需专项应对</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="response-plan" class="section">
+      <div class="section-header">
+        <div class="section-icon green">🛡️</div>
+        <div>
+          <div class="section-title">AI 生成风险应对预案</div>
+          <div class="section-subtitle">每个高风险事项都有 AI 生成的备用方案</div>
+        </div>
+      </div>
+
+      <div class="card" style="background:#F0FFF4;border-color:#9AE6B4;">
+        <h3 style="margin-top:0;color:#276749;">示例：R-01 第三方接口延迟的应对预案（AI 生成）</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem;">
+          <div>
+            <div style="font-size:0.78rem;font-weight:700;color:#276749;margin-bottom:8px;">🔵 预防措施（事前）</div>
+            <ul style="font-size:0.82rem;color:var(--medium);padding-left:1rem;line-height:1.8;">
+              <li>提前 2 周获取 API 文档并预研</li>
+              <li>建立 Mock 接口，前端可并行开发</li>
+              <li>与第三方建立技术对接渠道</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:0.78rem;font-weight:700;color:#B7791F;margin-bottom:8px;">🟡 应急方案（触发后）</div>
+            <ul style="font-size:0.82rem;color:var(--medium);padding-left:1rem;line-height:1.8;">
+              <li>临时采用简化版接口降级方案</li>
+              <li>重新评估里程碑，提前通知客户</li>
+              <li>增派资源专项攻关接口问题</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:0.78rem;font-weight:700;color:#C53030;margin-bottom:8px;">🔴 最坏情况（Plan B）</div>
+            <ul style="font-size:0.82rem;color:var(--medium);padding-left:1rem;line-height:1.8;">
+              <li>切换备选第三方供应商方案</li>
+              <li>协商将此功能延后发布</li>
+              <li>临时上线不含此功能的版本</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:1.5rem;">
+请为以下高风险事项生成完整的应对预案：
+
+风险描述：[填写风险]
+风险等级：[高/中]
+项目当前阶段：[填写阶段]
+
+请提供：
+1. 预防措施（3-5 条，项目进行中持续执行）
+2. 触发条件（风险真正发生的判断标准）
+3. 即时响应步骤（风险触发后前 24 小时做什么）
+4. 应急备选方案（Plan B，含代价分析）
+5. 向客户/上级沟通的建议话术
+6. 复盘改进点（如何避免下次重复）
+      </div>
+    </div>
+
+    <div id="crisis-handling" class="section">
+      <div class="section-header">
+        <div class="section-icon red">🔥</div>
+        <div>
+          <div class="section-title">危机处理标准流程</div>
+          <div class="section-subtitle">项目危机来临时，AI 帮你有条不紊地应对</div>
+        </div>
+      </div>
+
+      <div class="crisis-flow">
+        <div class="cf-node">
+          <div class="cn-step">Step 1</div>
+          <div class="cn-icon">🚨</div>
+          <div class="cn-title">识别确认</div>
+          <div class="cn-time">0-2 小时</div>
+        </div>
+        <div class="cf-node">
+          <div class="cn-step">Step 2</div>
+          <div class="cn-icon">📊</div>
+          <div class="cn-title">影响评估</div>
+          <div class="cn-time">2-4 小时</div>
+        </div>
+        <div class="cf-node">
+          <div class="cn-step">Step 3</div>
+          <div class="cn-icon">📢</div>
+          <div class="cn-title">上报沟通</div>
+          <div class="cn-time">4-8 小时</div>
+        </div>
+        <div class="cf-node">
+          <div class="cn-step">Step 4</div>
+          <div class="cn-icon">⚙️</div>
+          <div class="cn-title">执行方案</div>
+          <div class="cn-time">8-48 小时</div>
+        </div>
+        <div class="cf-node">
+          <div class="cn-step">Step 5</div>
+          <div class="cn-icon">📝</div>
+          <div class="cn-title">复盘改进</div>
+          <div class="cn-time">危机后 1 周</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+项目发生了以下紧急情况：[描述危机事件]
+影响范围：[填写受影响的功能/人员/时间线]
+发现时间：[填写]
+
+请帮我：
+1. 快速评估这个危机对项目的影响范围（时间线/质量/客户信任）
+2. 生成未来 24 小时的行动清单（按优先级排序）
+3. 起草一封给客户/上级的紧急情况通报邮件
+4. 建议需要召集的关键人员和会议
+5. 列出可能的解决方案选项（含实施难度和预期效果）
+      </div>
+    </div>
+
+    <div id="retrospective" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">🔄</div>
+        <div>
+          <div class="section-title">AI 辅助项目复盘</div>
+          <div class="section-subtitle">将每次危机转化为组织学习资产</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">🔄 5 Why 根因分析（AI 辅助）</h3>
+        <div style="background:var(--warm);border-radius:var(--radius-md);padding:1rem;margin-bottom:1rem;">
+          <div style="font-size:0.8rem;font-weight:700;color:var(--dark);margin-bottom:8px;">问题：接口联调比计划延期 5 天</div>
+          <div style="font-size:0.82rem;color:var(--medium);line-height:1.9;">
+            <div>Why 1：为什么联调延期？→ 第三方 API 文档有错误</div>
+            <div>Why 2：为什么没提前发现文档问题？→ 前期预研时间不足</div>
+            <div>Why 3：为什么预研时间不足？→ 计划中没有为第三方依赖预留缓冲</div>
+            <div>Why 4：为什么没有预留缓冲？→ 风险识别阶段未将此列为高风险</div>
+            <div style="color:#276749;font-weight:600;">Why 5（根因）：项目启动时缺乏系统化的第三方依赖风险扫描流程</div>
+          </div>
+        </div>
+        <div style="font-size:0.82rem;color:var(--medium);">
+          <strong>改进行动：</strong>将"第三方依赖风险扫描"纳入项目启动检查清单，联调前 2 周必须完成 API 预研报告。
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:1rem;">
+请帮我对以下项目事件进行 5 Why 根因分析：
+
+问题描述：[填写问题]
+背景信息：[填写相关背景]
+
+请：
+1. 逐步进行 5 Why 分析，找到根本原因
+2. 区分"直接原因"和"系统性原因"
+3. 给出 3 个改进措施，防止类似问题复发
+4. 建议将哪些改进纳入团队/流程标准
+      </div>
+    </div>
+
+    <div id="homework" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📚</div>
+        <div>
+          <div class="section-title">课后作业</div>
+          <div class="section-subtitle">本周完成，带到下次课程分享</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">📝 作业：为你的项目建立风险扫描清单</h3>
+        <ol style="font-size:0.875rem;color:var(--medium);padding-left:1.25rem;line-height:1.9;">
+          <li><strong>选一个手头的项目</strong>，用本模块的风险扫描 Prompt 运行一次完整扫描</li>
+          <li><strong>建立风险登记册</strong>：将 AI 识别的风险按矩阵分类，标注优先级</li>
+          <li><strong>为 TOP3 高风险</strong>生成应对预案（用本模块 Prompt）</li>
+          <li><strong>与团队 Review</strong>：风险清单有哪些遗漏？哪些 AI 分析不准确？</li>
+        </ol>
+        <div class="infobox infobox-tip" style="margin-top:1rem;">
+          <span class="infobox-icon">🎁</span>
+          <div><strong>产出物：</strong>完成本课后，你将拥有一套<strong>可复用的项目风险扫描 Prompt 清单</strong>和<strong>风险应对预案生成工作流</strong>，每次项目启动时运行一遍。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="module4.html" class="page-nav-btn" style="background:var(--warm);color:var(--dark);border:1px solid var(--border);">← 模块四：客户沟通</a>
+      <a href="module6.html" class="page-nav-btn">模块六：AI 交付质量管控 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
