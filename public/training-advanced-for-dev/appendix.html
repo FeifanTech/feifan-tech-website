@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>附录：模板 · 工具表 · Checklist — AI 工程进阶培训 v2.0</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🏗️</span>
+    <span>AI 工程进阶培训</span>
+    <span class="logo-badge">进阶版</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">架构设计</a>
+    <a href="module2.html">Prompt工程</a>
+    <a href="module3.html">RAG实战</a>
+    <a href="module4.html">Agent编排</a>
+    <a href="module5.html">后端集成</a>
+    <a href="module6.html">前端集成</a>
+    <a href="module7.html">可观测性</a>
+    <a href="module8.html">安全合规</a>
+    <a href="appendix.html" class="active">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">附录目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#section-a" class="active">
+        <span class="nav-num">A</span> Prompt 模板库
+      </a></li>
+      <li><a href="#section-b">
+        <span class="nav-num">B</span> 模型选型参考表
+      </a></li>
+      <li><a href="#section-c">
+        <span class="nav-num">C</span> 工具与框架速查
+      </a></li>
+      <li><a href="#section-d">
+        <span class="nav-num">D</span> ADR 模板
+      </a></li>
+      <li><a href="#section-e">
+        <span class="nav-num">E</span> 完成评估 Checklist
+      </a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem; border-top:1px solid var(--border); margin-top:auto;">
+      <a href="index.html" style="font-size:0.8rem;color:var(--muted);">← 返回总览</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">🏠 课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">附录：模板 · 工具表 · Checklist</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">Appendix</span>
+        AI 工程进阶培训 v2.0
+      </div>
+      <h1>附录：模板 · 工具表 · Checklist</h1>
+      <p class="hero-subtitle">实用模板、工具速查和评估清单，随用随取</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><span class="role-badge role-all">全员通用</span></span>
+        <span class="hero-meta-item">📝 Prompt 模板</span>
+        <span class="hero-meta-item">🔧 工具速查</span>
+        <span class="hero-meta-item">✅ 评估 Checklist</span>
+      </div>
+    </div>
+
+    <!-- ── Section A: Prompt 模板库 ── -->
+    <div id="section-a" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">📝</div>
+        <div>
+          <div class="section-title">A. Prompt 模板库</div>
+          <div class="section-subtitle">三大常用场景 Prompt 模板</div>
+        </div>
+      </div>
+
+      <div class="card technique-card">
+        <div class="technique-header">
+          <span class="technique-num">A1</span> 代码审查 Prompt
+        </div>
+        <div class="technique-body">
+          <pre>## 身份
+你是一位拥有 10 年经验的高级工程师，擅长代码质量评审。
+
+## 任务
+对以下代码进行全面审查，重点关注：
+1. **正确性**：逻辑错误、边界条件、并发安全
+2. **性能**：算法复杂度、资源泄漏、不必要的计算
+3. **安全性**：注入风险、权限校验、敏感数据处理
+4. **可维护性**：命名规范、注释质量、职责清晰度
+
+## 输出格式（严格遵守）
+{
+  "overall_score": 0-10,
+  "summary": "一句话总结",
+  "issues": [
+    {
+      "severity": "critical|high|medium|low",
+      "line": "行号或范围",
+      "issue": "问题描述",
+      "suggestion": "改进建议"
+    }
+  ],
+  "highlights": ["做得好的地方"]
+}
+
+## 待审查代码
+{code}</pre>
+        </div>
+      </div>
+
+      <div class="card technique-card">
+        <div class="technique-header">
+          <span class="technique-num">A2</span> 技术文档生成 Prompt
+        </div>
+        <div class="technique-body">
+          <pre>## 身份
+你是一位技术写作专家，擅长将复杂技术概念转化为清晰的文档。
+
+## 任务
+为以下 API / 功能生成开发者文档。
+
+## 文档结构要求
+1. **概述**（2-3 句话说明用途）
+2. **快速开始**（可直接运行的代码示例）
+3. **参数说明**（表格形式）
+4. **返回值说明**
+5. **错误码说明**
+6. **最佳实践**（2-3 条注意事项）
+7. **常见问题**（3-5 个 FAQ）
+
+## 目标受众
+{audience}
+
+## 待文档化内容
+{content}</pre>
+        </div>
+      </div>
+
+      <div class="card technique-card">
+        <div class="technique-header">
+          <span class="technique-num">A3</span> 故障排查 Prompt
+        </div>
+        <div class="technique-body">
+          <pre>## 身份
+你是一位 SRE 专家，擅长快速定位和解决生产故障。
+
+## 任务
+根据以下错误信息和上下文，帮助定位问题根因。
+
+## 分析框架
+请按以下结构输出：
+1. **初步判断**：最可能的 2-3 个原因
+2. **排查步骤**：按优先级列出检查项（命令/操作）
+3. **临时缓解**：如果问题紧急，有哪些应急措施
+4. **根本解决**：推荐的永久解决方案
+5. **预防措施**：如何防止同类问题再次发生
+
+## 错误信息
+{error_message}
+
+## 系统上下文
+- 技术栈：{stack}
+- 发生时间：{time}
+- 影响范围：{scope}
+- 最近变更：{recent_changes}</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section B: 模型选型参考表 ── -->
+    <div id="section-b" class="section">
+      <div class="section-header">
+        <div class="section-icon green">🤖</div>
+        <div>
+          <div class="section-title">B. 模型选型参考表</div>
+          <div class="section-subtitle">主流 LLM 模型对比与推荐场景</div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>模型</th>
+            <th>最优场景</th>
+            <th>上下文窗口</th>
+            <th>速度</th>
+            <th>成本</th>
+            <th>推荐度</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>claude-3-7-sonnet</td>
+            <td>复杂推理、代码生成</td>
+            <td>200K</td>
+            <td>中</td>
+            <td>中</td>
+            <td>⭐⭐⭐⭐⭐</td>
+          </tr>
+          <tr>
+            <td>claude-3-5-haiku</td>
+            <td>实时对话、分类</td>
+            <td>200K</td>
+            <td>极快</td>
+            <td>低</td>
+            <td>⭐⭐⭐⭐⭐</td>
+          </tr>
+          <tr>
+            <td>gpt-4o</td>
+            <td>多模态、通用任务</td>
+            <td>128K</td>
+            <td>中</td>
+            <td>中</td>
+            <td>⭐⭐⭐⭐</td>
+          </tr>
+          <tr>
+            <td>gpt-4o-mini</td>
+            <td>简单问答、路由</td>
+            <td>128K</td>
+            <td>快</td>
+            <td>极低</td>
+            <td>⭐⭐⭐⭐</td>
+          </tr>
+          <tr>
+            <td>deepseek-v3</td>
+            <td>中文任务、代码</td>
+            <td>64K</td>
+            <td>快</td>
+            <td>极低</td>
+            <td>⭐⭐⭐⭐</td>
+          </tr>
+          <tr>
+            <td>gemini-2.0-flash</td>
+            <td>低延迟、多媒体</td>
+            <td>1M</td>
+            <td>极快</td>
+            <td>低</td>
+            <td>⭐⭐⭐</td>
+          </tr>
+          <tr>
+            <td>embedding-3-small</td>
+            <td>文本向量化</td>
+            <td>8K</td>
+            <td>极快</td>
+            <td>极低</td>
+            <td>⭐⭐⭐⭐⭐</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── Section C: 工具与框架速查表 ── -->
+    <div id="section-c" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">🔧</div>
+        <div>
+          <div class="section-title">C. 工具与框架速查表</div>
+          <div class="section-subtitle">AI 工程常用工具与框架一览</div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>类别</th>
+            <th>工具</th>
+            <th>适用场景</th>
+            <th>成熟度</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>编排框架</td>
+            <td>LangChain</td>
+            <td>Python 通用 LLM 编排</td>
+            <td><span class="maturity-stable">🟢 稳定</span></td>
+          </tr>
+          <tr>
+            <td>编排框架</td>
+            <td>LangGraph</td>
+            <td>有状态 Agent / 工作流</td>
+            <td><span class="maturity-stable">🟢 稳定</span></td>
+          </tr>
+          <tr>
+            <td>编排框架</td>
+            <td>LangChain4j</td>
+            <td>Java 生态</td>
+            <td><span class="maturity-growing">🟡 成长</span></td>
+          </tr>
+          <tr>
+            <td>向量数据库</td>
+            <td>Qdrant</td>
+            <td>高性能、云原生</td>
+            <td><span class="maturity-stable">🟢 稳定</span></td>
+          </tr>
+          <tr>
+            <td>向量数据库</td>
+            <td>pgvector</td>
+            <td>PostgreSQL 扩展</td>
+            <td><span class="maturity-stable">🟢 稳定</span></td>
+          </tr>
+          <tr>
+            <td>向量数据库</td>
+            <td>Chroma</td>
+            <td>本地开发、轻量</td>
+            <td><span class="maturity-stable">🟢 稳定</span></td>
+          </tr>
+          <tr>
+            <td>可观测性</td>
+            <td>LangFuse</td>
+            <td>LLM 全链路追踪</td>
+            <td><span class="maturity-stable">🟢 稳定</span></td>
+          </tr>
+          <tr>
+            <td>可观测性</td>
+            <td>LangSmith</td>
+            <td>LangChain 官方追踪</td>
+            <td><span class="maturity-stable">🟢 稳定</span></td>
+          </tr>
+          <tr>
+            <td>多模型网关</td>
+            <td>LiteLLM</td>
+            <td>统一多供应商接口</td>
+            <td><span class="maturity-stable">🟢 稳定</span></td>
+          </tr>
+          <tr>
+            <td>多模型网关</td>
+            <td>Portkey</td>
+            <td>企业级路由与缓存</td>
+            <td><span class="maturity-growing">🟡 成长</span></td>
+          </tr>
+          <tr>
+            <td>评估框架</td>
+            <td>RAGAS</td>
+            <td>RAG 质量自动化评估</td>
+            <td><span class="maturity-stable">🟢 稳定</span></td>
+          </tr>
+          <tr>
+            <td>评估框架</td>
+            <td>PromptFoo</td>
+            <td>Prompt 回归测试</td>
+            <td><span class="maturity-growing">🟡 成长</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── Section D: 架构决策记录（ADR）模板 ── -->
+    <div id="section-d" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📄</div>
+        <div>
+          <div class="section-title">D. 架构决策记录（ADR）模板</div>
+          <div class="section-subtitle">标准化 AI 架构决策记录模板</div>
+        </div>
+      </div>
+
+      <pre># ADR-[编号]: [标题]
+
+**状态**：提议中 / 已接受 / 已废弃
+**日期**：YYYY-MM-DD
+**决策者**：[姓名列表]
+
+## 背景
+[描述当前面临的问题和约束]
+
+## 决策
+[明确说明做出的决策]
+
+## 理由
+[说明为什么选择这个方案而非其他方案]
+
+## 备选方案
+| 方案 | 优点 | 缺点 | 被否原因 |
+|------|------|------|---------|
+| 方案 A | ... | ... | ... |
+| 方案 B | ... | ... | ... |
+
+## 后果
+**正面影响**：
+- ...
+
+**负面影响 / 风险**：
+- ...
+
+## 复核计划
+[说明何时、如何重新审视此决策]</pre>
+    </div>
+
+    <!-- ── Section E: 进阶培训完成评估 Checklist ── -->
+    <div id="section-e" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">✅</div>
+        <div>
+          <div class="section-title">E. 进阶培训完成评估 Checklist</div>
+          <div class="section-subtitle">三大角色能力评估标准</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="module-badge">架构师评估</span>
+        <ul class="checklist">
+          <li>能够设计包含 LLM Gateway、RAG、Agent 的完整 AI 应用架构</li>
+          <li>能够制定多模型路由和降级策略</li>
+          <li>能够设计 AI 系统的可观测性方案（四维指标）</li>
+          <li>能够识别并防御 AI 特有安全威胁</li>
+          <li>能够评估 RAG 系统质量（Context Recall / Answer Faithfulness）</li>
+          <li>能够主导 AI 功能上线前的安全合规审查</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="module-badge">后端工程师评估</span>
+        <ul class="checklist">
+          <li>能够在 Java/Python/Go 中集成 LLM API 并处理流式响应</li>
+          <li>能够实现企业级 RAG Pipeline（含混合检索、重排序）</li>
+          <li>能够设计和实现 Agent 工具函数（含安全防御）</li>
+          <li>能够接入 LangFuse 实现全链路追踪</li>
+          <li>能够配置 Prometheus 指标和告警规则</li>
+          <li>能够实现 PII 脱敏和 Prompt 注入防御</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="module-badge">前端工程师评估</span>
+        <ul class="checklist">
+          <li>能够实现流式 SSE 响应的消费和渲染</li>
+          <li>能够使用 React/Vue 构建流畅的 AI 对话界面</li>
+          <li>能够实现打字机效果和乐观更新 UI</li>
+          <li>能够在 Node.js BFF 层实现鉴权代理和会话管理</li>
+          <li>能够实现 AbortController 支持的流式请求中断</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="text-align:center; padding:2rem 0; color:var(--muted); font-size:0.82rem; border-top:1px solid var(--border); margin-top:2rem;">
+      <p>📝 本培训材料由飞帆科技 AI 工程团队编写，仅供内部培训使用。</p>
+      <p>🔄 更新周期：每季度随模型和框架迭代更新。</p>
+      <p>💬 反馈渠道：通过内部知识库提交勘误和改进建议。</p>
+      <p style="margin-top:1rem;"><em>AI 工程进阶培训 · 第二套材料 · v2.0 · 飞帆科技</em></p>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="module8.html" class="page-nav-btn">← 上一模块：安全合规</a>
+      <a href="index.html" class="page-nav-btn">返回课程总览 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

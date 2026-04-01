@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 07：可观测性与评估体系 — AI 工程进阶培训 v2.0</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* 四维观测卡片 */
+    .observe-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .observe-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .observe-card-header {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .observe-card-header.blue   { background: #3B82F6; }
+    .observe-card-header.green  { background: #10B981; }
+    .observe-card-header.purple { background: #8B5CF6; }
+    .observe-card-header.orange { background: #F59E0B; }
+    .observe-card-body {
+      padding: 1rem 1.25rem;
+    }
+    .observe-card-body ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .observe-card-body li {
+      font-size: 0.85rem;
+      color: var(--medium);
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .observe-card-body li:last-child {
+      border-bottom: none;
+    }
+    @media (max-width: 640px) {
+      .observe-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🏗️</span>
+    <span>AI 工程进阶培训</span>
+    <span class="logo-badge">进阶版</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">架构设计</a>
+    <a href="module2.html">Prompt工程</a>
+    <a href="module3.html">RAG实战</a>
+    <a href="module4.html">Agent编排</a>
+    <a href="module5.html">后端集成</a>
+    <a href="module6.html">前端集成</a>
+    <a href="module7.html" class="active">可观测性</a>
+    <a href="module8.html">安全合规</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块 07 目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#section-7-1" class="active">
+        <span class="nav-num">7.1</span> AI 系统四维观测模型
+      </a></li>
+      <li><a href="#section-7-2">
+        <span class="nav-num">7.2</span> LangFuse 集成
+      </a></li>
+      <li><a href="#section-7-3">
+        <span class="nav-num">7.3</span> Prometheus 指标设计
+      </a></li>
+      <li><a href="#section-7-4">
+        <span class="nav-num">7.4</span> 告警规则配置
+      </a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem; border-top:1px solid var(--border); margin-top:auto;">
+      <a href="index.html" style="font-size:0.8rem;color:var(--muted);">← 返回总览</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">🏠 课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">模块 07：可观测性与评估体系</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">Module 07</span>
+        AI 工程进阶培训 v2.0
+      </div>
+      <h1>可观测性与评估体系</h1>
+      <p class="hero-subtitle">没有可观测性的 AI 系统是黑盒，无法优化和保障 SLA</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><span class="role-badge role-all">全员必知</span></span>
+        <span class="hero-meta-item">📊 四维观测</span>
+        <span class="hero-meta-item">🔍 LangFuse</span>
+        <span class="hero-meta-item">📈 Prometheus</span>
+      </div>
+    </div>
+
+    <!-- ── Section 7.1: AI 系统四维观测模型 ── -->
+    <div id="section-7-1" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">📊</div>
+        <div>
+          <div class="section-title">7.1 AI 系统四维观测模型</div>
+          <div class="section-subtitle">技术 · 成本 · 质量 · 安全四维指标体系</div>
+        </div>
+      </div>
+
+      <div class="observe-grid">
+        <div class="observe-card">
+          <div class="observe-card-header blue">📊 技术指标</div>
+          <div class="observe-card-body">
+            <ul>
+              <li>延迟（P50 / P95 / P99）</li>
+              <li>错误率</li>
+              <li>吞吐量</li>
+            </ul>
+          </div>
+        </div>
+        <div class="observe-card">
+          <div class="observe-card-header green">💰 成本指标</div>
+          <div class="observe-card-body">
+            <ul>
+              <li>Token 用量</li>
+              <li>每请求成本</li>
+              <li>每用户成本</li>
+            </ul>
+          </div>
+        </div>
+        <div class="observe-card">
+          <div class="observe-card-header purple">🎯 质量指标</div>
+          <div class="observe-card-body">
+            <ul>
+              <li>用户满意度</li>
+              <li>回答相关性</li>
+              <li>幻觉率</li>
+            </ul>
+          </div>
+        </div>
+        <div class="observe-card">
+          <div class="observe-card-header orange">🛡️ 安全指标</div>
+          <div class="observe-card-body">
+            <ul>
+              <li>Prompt 注入尝试</li>
+              <li>越权访问</li>
+              <li>内容违规</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <blockquote>💡 核心理念：AI 应用的可观测性不仅是技术指标，还包括成本、质量和安全三个 AI 特有维度。四维观测缺一不可。</blockquote>
+    </div>
+
+    <!-- ── Section 7.2: LangFuse 集成 ── -->
+    <div id="section-7-2" class="section">
+      <div class="section-header">
+        <div class="section-icon green">🔍</div>
+        <div>
+          <div class="section-title">7.2 LangFuse 集成</div>
+          <div class="section-subtitle">全链路追踪与用户评分收集</div>
+        </div>
+      </div>
+
+      <pre># ✅ LangFuse 全链路追踪
+from langfuse import Langfuse
+from langfuse.decorators import observe, langfuse_context
+
+langfuse = Langfuse(
+    public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),
+    secret_key=os.getenv("LANGFUSE_SECRET_KEY"),
+    host=os.getenv("LANGFUSE_HOST", "https://cloud.langfuse.com"),
+)
+
+@observe(name="rag_pipeline")  # 自动记录输入/输出/延迟
+async def rag_pipeline(query: str, user_id: str) -&gt; str:
+    # 追踪检索步骤
+    with langfuse.trace(name="retrieval") as span:
+        docs = await retrieve_documents(query)
+        span.update(
+            output={"doc_count": len(docs)},
+            metadata={"query": query},
+        )
+    
+    # 追踪生成步骤
+    langfuse_context.update_current_observation(
+        input={"query": query, "context_length": sum(len(d) for d in docs)},
+        user_id=user_id,
+    )
+    
+    answer = await generate_answer(query, docs)
+    return answer
+
+# 用户评分收集（用于质量监控）
+async def collect_feedback(trace_id: str, score: float, comment: str):
+    langfuse.score(
+        trace_id=trace_id,
+        name="user_satisfaction",
+        value=score,            # 0.0 ~ 1.0
+        comment=comment,
+    )</pre>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">LangFuse 的核心价值</div>
+          <p style="font-size:0.875rem;color:var(--medium);margin:0;">LangFuse 提供了 LLM 应用的"X-Ray"能力 — 每次请求的输入/输出/延迟/Token 用量/用户评分一目了然。结合用户评分数据，可以持续优化 Prompt 和 RAG 策略。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 7.3: Prometheus 指标设计 ── -->
+    <div id="section-7-3" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📈</div>
+        <div>
+          <div class="section-title">7.3 Prometheus 指标设计</div>
+          <div class="section-subtitle">自定义 AI 指标与监控面板</div>
+        </div>
+      </div>
+
+      <pre># ✅ 自定义 AI 指标（Python Prometheus Client）
+from prometheus_client import Counter, Histogram, Gauge
+
+# 请求计数
+llm_requests_total = Counter(
+    'llm_requests_total',
+    'Total LLM API requests',
+    ['model', 'endpoint', 'status'],
+)
+
+# 延迟分布
+llm_latency_seconds = Histogram(
+    'llm_latency_seconds',
+    'LLM request latency',
+    ['model'],
+    buckets=[0.5, 1.0, 2.0, 5.0, 10.0, 30.0, 60.0],
+)
+
+# Token 用量
+llm_tokens_total = Counter(
+    'llm_tokens_total',
+    'Total tokens consumed',
+    ['model', 'type'],  # type: input | output
+)
+
+# 成本估算（实时）
+llm_cost_usd = Counter(
+    'llm_cost_usd_total',
+    'Estimated LLM cost in USD',
+    ['model'],
+)
+
+# 当前等待中的请求数
+llm_pending_requests = Gauge(
+    'llm_pending_requests',
+    'Currently in-flight LLM requests',
+    ['model'],
+)</pre>
+    </div>
+
+    <!-- ── Section 7.4: 告警规则配置 ── -->
+    <div id="section-7-4" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">⚠️</div>
+        <div>
+          <div class="section-title">7.4 告警规则配置</div>
+          <div class="section-subtitle">Prometheus 告警规则 — 错误率、延迟与成本异常</div>
+        </div>
+      </div>
+
+      <pre># ✅ Prometheus 告警规则
+groups:
+  - name: llm_alerts
+    rules:
+      - alert: LLMHighErrorRate
+        expr: |
+          rate(llm_requests_total{status="error"}[5m])
+          / rate(llm_requests_total[5m]) &gt; 0.05
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "LLM 错误率过高 ({{ $value | humanizePercentage }})"
+          
+      - alert: LLMHighLatency
+        expr: |
+          histogram_quantile(0.95, rate(llm_latency_seconds_bucket[5m])) &gt; 15
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "LLM P95 延迟超过 15 秒"
+
+      - alert: LLMCostAnomaly
+        expr: |
+          increase(llm_cost_usd_total[1h]) &gt; 50
+        labels:
+          severity: warning
+        annotations:
+          summary: "过去 1 小时 LLM 成本超过 $50"</pre>
+
+      <blockquote>⚠️ 重要：成本告警是 AI 应用特有的需求——一个失控的循环或意外的流量激增可以在几小时内产生数千美元的费用。始终设置成本硬上限和告警。</blockquote>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="module6.html" class="page-nav-btn">← 上一模块：前端集成</a>
+      <a href="module8.html" class="page-nav-btn">下一模块：安全合规 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
