@@ -1,0 +1,628 @@
+/* ============================================================
+   算法与AI协同培训 — 课程专用样式
+   Teal/Green 主题 | 继承通用样式
+   ============================================================ */
+
+@import url('../styles.css');
+
+/* ── 算法课程专用变量 ── */
+:root {
+  --algo-accent:       #2C7A7B;
+  --algo-accent-dark:  #1F5F60;
+  --algo-accent-light: #4A9B9C;
+  --algo-bg:           #F0F7F7;
+  --algo-bg-light:     #E6F3F3;
+  --algo-border:       #A8D5D5;
+  --algo-shadow:       0 4px 12px rgba(44,122,123,0.12);
+}
+
+/* ── 链接覆盖：使用 teal 色 ── */
+a { color: var(--algo-accent); }
+a:hover { color: var(--algo-accent-dark); }
+
+/* ── Logo Badge 覆盖 ── */
+.logo-badge { background: var(--algo-accent) !important; }
+
+/* ── 头部导航激活状态覆盖 ── */
+.header-nav a:hover,
+.header-nav a.active {
+  background: var(--algo-bg) !important;
+  color: var(--algo-accent) !important;
+}
+
+/* ── 侧边栏激活状态覆盖 ── */
+.sidebar-nav li a:hover {
+  color: var(--algo-accent);
+  border-left-color: var(--algo-accent-light);
+}
+.sidebar-nav li a.active {
+  color: var(--algo-accent);
+  border-left-color: var(--algo-accent);
+}
+.sidebar-nav li a.active .nav-num {
+  background: var(--algo-accent);
+}
+
+/* ── 步骤圆点覆盖 ── */
+.step-num { background: var(--algo-accent); box-shadow: 0 0 0 4px rgba(44,122,123,0.15); }
+
+/* ─────────────────────────────────────────────
+   算法课程 Hero
+───────────────────────────────────────────── */
+.algo-hero {
+  background: linear-gradient(135deg, #0F3D3E 0%, #1F5F60 50%, #2C7A7B 100%);
+  border-radius: var(--radius-xl);
+  padding: 4rem 3.5rem;
+  margin-bottom: 3rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.algo-hero::before {
+  content: '';
+  position: absolute;
+  right: -100px;
+  top: -100px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(74,155,156,0.3) 0%, transparent 70%);
+}
+.algo-hero::after {
+  content: '';
+  position: absolute;
+  left: -50px;
+  bottom: -80px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(44,122,123,0.25) 0%, transparent 70%);
+}
+.algo-hero-content { position: relative; z-index: 1; }
+.algo-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+.algo-hero h1 span { color: #80DFDF; }
+.algo-hero .hero-desc {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.85);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+.stat-item { text-align: center; }
+.stat-num { font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1; }
+.stat-num span { font-size: 1rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.65); margin-top: 4px; }
+
+/* ── Session hero 覆盖 (模块页) ── */
+.session-hero {
+  background: linear-gradient(135deg, #0F3D3E 0%, var(--algo-accent-dark) 60%, var(--algo-accent) 100%) !important;
+}
+.session-hero::after {
+  background: rgba(44,122,123,0.15) !important;
+}
+.hero-session-num { background: var(--algo-accent) !important; }
+
+/* ─────────────────────────────────────────────
+   Module Card — 顶部 teal 边框
+───────────────────────────────────────────── */
+.module-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--algo-accent);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.module-card:hover {
+  box-shadow: var(--algo-shadow);
+  transform: translateY(-3px);
+}
+.module-card .mc-num {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--algo-accent);
+  background: var(--algo-bg);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  align-self: flex-start;
+}
+.module-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.4;
+}
+.module-card p {
+  font-size: 0.875rem;
+  color: var(--medium);
+  line-height: 1.6;
+  flex: 1;
+}
+.module-card .mc-meta {
+  font-size: 0.78rem;
+  color: var(--muted);
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.module-card .mc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--algo-accent);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+.module-card .mc-link:hover { color: var(--algo-accent-dark); }
+
+/* ─────────────────────────────────────────────
+   Decision Tree 算法选择流程图
+───────────────────────────────────────────── */
+.decision-tree {
+  background: var(--algo-bg);
+  border: 1px solid var(--algo-border);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+.dt-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+.dt-node {
+  background: #fff;
+  border: 2px solid var(--algo-border);
+  border-radius: var(--radius-md);
+  padding: 10px 18px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--dark);
+  box-shadow: var(--shadow-sm);
+  min-width: 120px;
+  text-align: center;
+}
+.dt-node.start {
+  background: var(--algo-accent);
+  border-color: var(--algo-accent-dark);
+  color: #fff;
+  border-radius: 999px;
+}
+.dt-node.decision {
+  background: #FFF9C4;
+  border-color: #F9E04B;
+  color: #7A6000;
+  border-radius: 8px;
+  transform: rotate(-1deg);
+}
+.dt-node.result {
+  background: #E6F3F3;
+  border-color: var(--algo-accent);
+  color: var(--algo-accent-dark);
+  font-size: 0.8rem;
+}
+.dt-node.result-alt {
+  background: #EDE9FE;
+  border-color: #C4B5FD;
+  color: #6D28D9;
+  font-size: 0.8rem;
+}
+.dt-node.result-green {
+  background: #DCFCE7;
+  border-color: #86EFAC;
+  color: #166534;
+  font-size: 0.8rem;
+}
+.dt-arrow {
+  color: var(--muted);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.dt-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  margin: -0.4rem 0 0.4rem;
+}
+
+/* ─────────────────────────────────────────────
+   Algo Badge — teal 变体
+───────────────────────────────────────────── */
+.algo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--algo-bg);
+  border: 1px solid var(--algo-border);
+  color: var(--algo-accent-dark);
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.algo-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--algo-accent);
+}
+
+/* ─────────────────────────────────────────────
+   Case Card — 业务案例卡片
+───────────────────────────────────────────── */
+.case-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.case-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.75rem;
+  background: linear-gradient(135deg, var(--algo-accent-dark), var(--algo-accent));
+  color: #fff;
+}
+.case-header .case-icon { font-size: 2rem; }
+.case-header .case-num {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  background: rgba(255,255,255,0.2);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+.case-header h3 { font-size: 1.15rem; font-weight: 700; margin-top: 2px; }
+.case-header .case-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.case-header .case-tag {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.case-body { padding: 1.75rem; }
+.case-section {
+  margin-bottom: 1.25rem;
+}
+.case-section-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--algo-accent);
+  border-bottom: 1px solid var(--algo-bg);
+  padding-bottom: 6px;
+  margin-bottom: 0.75rem;
+}
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+.case-metric {
+  background: var(--algo-bg);
+  border: 1px solid var(--algo-border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+.case-metric .cm-val {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--algo-accent);
+  line-height: 1;
+}
+.case-metric .cm-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+/* ─────────────────────────────────────────────
+   Step Flow — 横向步骤指示器
+───────────────────────────────────────────── */
+.step-flow {
+  display: flex;
+  align-items: flex-start;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+.sf-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+  position: relative;
+  flex: 1;
+}
+.sf-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--algo-border);
+}
+.sf-dot {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--algo-bg);
+  border: 3px solid var(--algo-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  z-index: 1;
+  position: relative;
+  transition: all 0.2s;
+}
+.sf-item.active .sf-dot {
+  background: var(--algo-accent);
+  border-color: var(--algo-accent-dark);
+  box-shadow: 0 0 0 4px rgba(44,122,123,0.15);
+}
+.sf-label {
+  margin-top: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--medium);
+  text-align: center;
+  line-height: 1.4;
+}
+.sf-item.active .sf-label { color: var(--algo-accent); }
+.sf-sub {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 3px;
+  line-height: 1.3;
+}
+
+/* ─────────────────────────────────────────────
+   Code Example — Python code block (dark)
+───────────────────────────────────────────── */
+.code-example {
+  background: #0D1F2D;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin: 1.25rem 0;
+  box-shadow: var(--shadow-md);
+}
+.code-example-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #162736;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.code-example-lang {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--algo-accent-light);
+}
+.code-example-title {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+}
+.code-example pre {
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 1.25rem 1.5rem;
+  box-shadow: none;
+}
+/* Python syntax colors */
+.code-example .kw  { color: #89DDFF; }
+.code-example .fn  { color: #82AAFF; }
+.code-example .str { color: #C3E88D; }
+.code-example .num { color: #F78C6C; }
+.code-example .cmt { color: #546E7A; font-style: italic; }
+.code-example .cls { color: #FFCB6B; }
+
+/* ─────────────────────────────────────────────
+   Comparison Table — 算法对比表
+───────────────────────────────────────────── */
+.comparison-table {
+  overflow-x: auto;
+  margin: 1.25rem 0;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.comparison-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background: #fff;
+}
+.comparison-table thead th {
+  background: var(--algo-accent);
+  color: #fff;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+.comparison-table thead th:first-child {
+  background: var(--algo-accent-dark);
+}
+.comparison-table tbody tr { border-bottom: 1px solid var(--beige); }
+.comparison-table tbody tr:last-child { border-bottom: none; }
+.comparison-table tbody tr:hover { background: var(--algo-bg); }
+.comparison-table tbody td {
+  padding: 11px 16px;
+  color: var(--medium);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.comparison-table tbody td:first-child {
+  font-weight: 700;
+  color: var(--dark);
+  background: var(--warm);
+}
+.comparison-table .tick  { color: #16A34A; font-weight: 700; }
+.comparison-table .cross { color: #DC2626; font-weight: 700; }
+.comparison-table .mid   { color: #D69E2E; font-weight: 700; }
+
+/* ─────────────────────────────────────────────
+   Scenario / Business case highlight cards
+───────────────────────────────────────────── */
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.scenario-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.scenario-card:hover { box-shadow: var(--algo-shadow); transform: translateY(-2px); }
+.scenario-card .sc-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+.scenario-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+.scenario-card p  { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+.scenario-card .sc-algo {
+  margin-top: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--algo-accent);
+  background: var(--algo-bg);
+  border: 1px solid var(--algo-border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  display: inline-block;
+}
+
+/* ─────────────────────────────────────────────
+   Prompt Template block
+───────────────────────────────────────────── */
+.prompt-box {
+  background: #1A1F2E;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin: 1.25rem 0;
+  position: relative;
+}
+.prompt-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--algo-accent-light);
+  margin-bottom: 0.75rem;
+}
+.prompt-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.83rem;
+  color: #E8EAF0;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.prompt-var { color: #FFCB6B; font-style: italic; }
+
+/* ─────────────────────────────────────────────
+   Bottom navigation
+───────────────────────────────────────────── */
+.bottom-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--beige);
+  gap: 1rem;
+}
+.bottom-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+.btn-prev {
+  background: var(--warm);
+  border: 1px solid var(--border);
+  color: var(--medium);
+}
+.btn-prev:hover { background: var(--beige); color: var(--dark); }
+.btn-next {
+  background: var(--algo-accent);
+  color: #fff;
+}
+.btn-next:hover { background: var(--algo-accent-dark); color: #fff; }
+
+/* ─────────────────────────────────────────────
+   Back to top button override
+───────────────────────────────────────────── */
+.back-top { background: var(--algo-accent) !important; }
+.back-top:hover { background: var(--algo-accent-dark) !important; }
+
+/* ─────────────────────────────────────────────
+   Responsive
+───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .sidebar { width: 220px; }
+  .main-content { padding: 2rem 2rem; }
+}
+
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main-content { padding: 1.5rem 1.25rem; max-width: 100%; }
+  .algo-hero { padding: 2.5rem 1.5rem; }
+  .algo-hero h1 { font-size: 2rem; }
+  .step-flow { gap: 0; }
+  .sf-item { min-width: 80px; }
+  .bottom-nav { flex-direction: column; align-items: stretch; }
+  .bottom-nav a { justify-content: center; }
+  .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
+  .scenario-grid { grid-template-columns: repeat(2, 1fr); }
+  .abc-grid { grid-template-columns: 1fr; }
+  .code-compare { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .scenario-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; }
+  .stat-num { font-size: 1.8rem; }
+}

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>算法与AI协同开发培训 — 课程总览</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .path-flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2rem 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+    .pf-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 100px;
+      text-align: center;
+    }
+    .pf-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-md);
+      background: #fff;
+      border: 2px solid var(--algo-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      z-index: 1;
+    }
+    .pf-item.active .pf-icon {
+      background: var(--algo-accent);
+      border-color: var(--algo-accent-dark);
+    }
+    .pf-title { font-size: 0.8rem; font-weight: 700; color: var(--dark); }
+    .pf-sub   { font-size: 0.7rem; color: var(--muted); }
+    .pf-arrow { font-size: 1.5rem; color: var(--algo-border); flex-shrink: 0; padding-bottom: 28px; }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .modules-grid .module-card:nth-child(5) {
+      grid-column: 1 / -1;
+    }
+
+    .goal-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+    }
+    .goal-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: var(--algo-bg);
+      border: 1px solid var(--algo-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .goal-card h3 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .goal-card p  { font-size: 0.875rem; color: var(--medium); line-height: 1.6; }
+    .goal-card ul {
+      list-style: none;
+      margin-top: 0.5rem;
+      font-size: 0.84rem;
+      color: var(--medium);
+    }
+    .goal-card ul li::before { content: '✓ '; color: var(--algo-accent); font-weight: 700; }
+    .goal-card ul li { margin-bottom: 3px; }
+
+    @media (max-width: 768px) {
+      .modules-grid { grid-template-columns: 1fr; }
+      .modules-grid .module-card:nth-child(5) { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🧠 算法与AI协同培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html" class="active">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview"><span class="nav-num">①</span>课程概览</a></li>
+      <li><a href="#scenarios"><span class="nav-num">②</span>业务场景</a></li>
+      <li><a href="#goals"><span class="nav-num">③</span>学习目标</a></li>
+      <li><a href="#modules"><span class="nav-num">④</span>课程模块</a></li>
+      <li><a href="#path"><span class="nav-num">⑤</span>学习路径</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="algo-hero">
+      <div class="algo-hero-content">
+        <div class="algo-badge" style="margin-bottom:1rem;">
+          <span class="dot"></span> 飞凡科技工程团队内训课程
+        </div>
+        <h1>算法与<span>AI协同</span><br>开发培训</h1>
+        <p class="hero-desc">
+          系统掌握从业务场景分析到算法落地的完整方法论，结合AI工具大幅提升算法开发效率。
+          聚焦飞凡科技真实业务场景，打造具备算法思维的全栈工程师。
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">5<span>个</span></div>
+            <div class="stat-label">课程模块</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">20<span>h</span></div>
+            <div class="stat-label">课时总量</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5<span>个</span></div>
+            <div class="stat-label">实战案例</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">2<span>x</span></div>
+            <div class="stat-label">开发效率提升</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 课程概览 ─── -->
+    <section class="section" id="overview">
+      <div class="section-header">
+        <div class="section-icon teal">🧩</div>
+        <div>
+          <div class="section-title">课程概览</div>
+          <div class="section-subtitle">为什么工程师需要算法思维 + AI协同能力</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">课程设计理念</div>
+          本课程不是纯理论的算法教材，而是以飞凡科技真实业务场景为载体，教会工程师如何在实际项目中做出正确的算法选型决策，并借助 AI 工具将开发效率提升至新高度。
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-3">
+        <div class="card card-accent-teal">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🎯</div>
+          <strong>目标导向</strong>
+          <p style="font-size:0.875rem;color:var(--medium);margin-top:0.4rem;">从业务问题出发，而非从算法出发。先有问题，再找算法。</p>
+        </div>
+        <div class="card card-accent-blue">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🔬</div>
+          <strong>实战驱动</strong>
+          <p style="font-size:0.875rem;color:var(--medium);margin-top:0.4rem;">每个知识点对应飞凡实际业务案例，代码可直接复用。</p>
+        </div>
+        <div class="card card-accent-green">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🤖</div>
+          <strong>AI赋能</strong>
+          <p style="font-size:0.875rem;color:var(--medium);margin-top:0.4rem;">将 AI 工具融入算法开发全流程，重点讲授 Prompt 工程。</p>
+        </div>
+      </div>
+
+      <div class="card card-lg" style="background:var(--algo-bg);border-color:var(--algo-border);">
+        <strong style="color:var(--algo-accent-dark);">📋 适合人群</strong>
+        <div class="card-grid" style="margin-top:1rem;margin-bottom:0;">
+          <div>
+            <div style="font-weight:700;margin-bottom:4px;">✅ 最适合</div>
+            <ul style="list-style:none;font-size:0.875rem;color:var(--medium);">
+              <li>• 有1年以上开发经验的后端/全栈工程师</li>
+              <li>• 已接触过机器学习但缺乏系统方法论</li>
+              <li>• 希望提升算法选型与落地能力</li>
+              <li>• 正在或即将承担算法相关业务需求</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-weight:700;margin-bottom:4px;">⚠️ 前置要求</div>
+            <ul style="list-style:none;font-size:0.875rem;color:var(--medium);">
+              <li>• Python 基础语法（变量/函数/类）</li>
+              <li>• 了解 pandas/numpy 基本用法</li>
+              <li>• 熟悉 git 基本操作</li>
+              <li>• 了解 REST API 基本概念</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 飞凡业务场景 ─── -->
+    <section class="section" id="scenarios">
+      <div class="section-header">
+        <div class="section-icon teal">🏢</div>
+        <div>
+          <div class="section-title">飞凡科技典型业务场景</div>
+          <div class="section-subtitle">课程全程围绕这5个真实业务场景展开</div>
+        </div>
+      </div>
+
+      <div class="scenario-grid">
+        <div class="scenario-card">
+          <span class="sc-icon">📈</span>
+          <h4>商家销量预测</h4>
+          <p>基于历史销售数据，预测未来7/30天商品销量，辅助备货决策。</p>
+          <div class="sc-algo">时序预测</div>
+        </div>
+        <div class="scenario-card">
+          <span class="sc-icon">🛍️</span>
+          <h4>用户商品推荐</h4>
+          <p>根据用户行为和商品特征，实时推荐个性化商品列表，提升转化率。</p>
+          <div class="sc-algo">推荐算法</div>
+        </div>
+        <div class="scenario-card">
+          <span class="sc-icon">🎯</span>
+          <h4>购买意愿预测</h4>
+          <p>预测用户对特定商品的购买概率，驱动精准营销和资源分配。</p>
+          <div class="sc-algo">分类预测</div>
+        </div>
+        <div class="scenario-card">
+          <span class="sc-icon">🌡️</span>
+          <h4>IoT智能控制</h4>
+          <p>基于传感器数据自动调控温湿度等环境参数，实现智能化养殖管理。</p>
+          <div class="sc-algo">规则引擎 / RL</div>
+        </div>
+        <div class="scenario-card">
+          <span class="sc-icon">🐟</span>
+          <h4>水产养殖监控</h4>
+          <p>通过计算机视觉识别鱼类行为异常，实时监控水产健康状态。</p>
+          <div class="sc-algo">计算机视觉</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">🗺️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">从场景到算法</div>
+          以上5个场景覆盖了飞凡科技核心业务。在后续模块中，我们将深入每个场景的数据特性、问题定义、算法选型和实现细节，确保学以致用。
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 学习目标 ─── -->
+    <section class="section" id="goals">
+      <div class="section-header">
+        <div class="section-icon teal">🎓</div>
+        <div>
+          <div class="section-title">课程学习目标</div>
+          <div class="section-subtitle">完成课程后你将掌握的3项核心能力</div>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="goal-card" style="margin-bottom:1rem;">
+          <div class="goal-icon-wrap">🔍</div>
+          <div>
+            <h3>① 业务场景分析能力</h3>
+            <p>能够独立完成从业务需求到算法问题的转化，掌握系统化的分析框架，准确定义目标函数、数据需求和约束条件。</p>
+            <ul>
+              <li>掌握三步业务分析框架（目标→约束→数据）</li>
+              <li>能正确识别7类算法问题类型</li>
+              <li>能撰写标准的算法需求文档</li>
+            </ul>
+          </div>
+        </div>
+        <div class="goal-card" style="margin-bottom:1rem;">
+          <div class="goal-icon-wrap">⚖️</div>
+          <div>
+            <h3>② 算法选择与实施能力</h3>
+            <p>建立系统的算法选型框架，能够根据具体业务场景的数据规模、精度要求和资源约束，做出合理的算法选型决策。</p>
+            <ul>
+              <li>掌握5维度算法选择框架</li>
+              <li>熟悉传统ML、深度学习、强化学习的适用边界</li>
+              <li>能独立完成5个核心业务场景的算法实现</li>
+            </ul>
+          </div>
+        </div>
+        <div class="goal-card">
+          <div class="goal-icon-wrap">🤖</div>
+          <div>
+            <h3>③ AI协同开发能力</h3>
+            <p>将AI工具融入算法开发全流程，包括数据分析、特征工程、模型调优和代码优化，至少将相关工作效率提升1倍以上。</p>
+            <ul>
+              <li>掌握6类算法开发场景的Prompt模板</li>
+              <li>能用AI辅助完成数据探索和特征工程</li>
+              <li>掌握AI辅助超参调优的完整流程</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 课程模块 ─── -->
+    <section class="section" id="modules">
+      <div class="section-header">
+        <div class="section-icon teal">📚</div>
+        <div>
+          <div class="section-title">课程模块</div>
+          <div class="section-subtitle">5个模块，循序渐进，从思维到实战</div>
+        </div>
+      </div>
+
+      <div class="modules-grid">
+        <a href="module1.html" style="text-decoration:none;">
+          <div class="module-card">
+            <div class="mc-num">模块 01</div>
+            <h3>算法思维与业务分析框架</h3>
+            <p>建立从业务问题出发的算法思维，掌握三步分析框架，理解7类算法问题分类体系，学会从业务语言翻译到算法语言。</p>
+            <div class="mc-meta">
+              <span>⏱ 4课时</span>
+              <span>📊 业务分析方法论</span>
+            </div>
+            <div class="mc-link">进入模块 →</div>
+          </div>
+        </a>
+        <a href="module2.html" style="text-decoration:none;">
+          <div class="module-card">
+            <div class="mc-num">模块 02</div>
+            <h3>核心算法选择指南</h3>
+            <p>构建5维度算法选择框架，通过可视化决策树进行算法选型，深入对比传统ML/深度学习/强化学习，并制定飞凡5大业务场景的算法方案。</p>
+            <div class="mc-meta">
+              <span>⏱ 4课时</span>
+              <span>⚖️ 算法选型决策</span>
+            </div>
+            <div class="mc-link">进入模块 →</div>
+          </div>
+        </a>
+        <a href="module3.html" style="text-decoration:none;">
+          <div class="module-card">
+            <div class="mc-num">模块 03</div>
+            <h3>AI协同开发实战</h3>
+            <p>将AI工具融入算法开发全流程：数据探索、特征工程、模型选择、超参调优、代码优化。掌握6类专用Prompt模板，学会高效AI协同。</p>
+            <div class="mc-meta">
+              <span>⏱ 4课时</span>
+              <span>🤖 Prompt工程</span>
+            </div>
+            <div class="mc-link">进入模块 →</div>
+          </div>
+        </a>
+        <a href="module4.html" style="text-decoration:none;">
+          <div class="module-card">
+            <div class="mc-num">模块 04</div>
+            <h3>实战案例库</h3>
+            <p>5个完整业务案例的端到端实现：销量预测、商品推荐、购买意愿、IoT控制、水产监控。含完整Python代码、效果评估和AI协同要点。</p>
+            <div class="mc-meta">
+              <span>⏱ 5课时</span>
+              <span>💻 代码实战</span>
+            </div>
+            <div class="mc-link">进入模块 →</div>
+          </div>
+        </a>
+        <a href="module5.html" style="text-decoration:none;">
+          <div class="module-card">
+            <div class="mc-num">模块 05</div>
+            <h3>算法项目全流程管理</h3>
+            <p>掌握算法项目从需求分析到生产上线的完整生命周期管理：需求文档编写、模型评估体系、部署方案设计、监控与持续优化策略。</p>
+            <div class="mc-meta">
+              <span>⏱ 3课时</span>
+              <span>🚀 项目管理</span>
+            </div>
+            <div class="mc-link">进入模块 →</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ─── 学习路径 ─── -->
+    <section class="section" id="path">
+      <div class="section-header">
+        <div class="section-icon teal">🗺️</div>
+        <div>
+          <div class="section-title">学习路径</div>
+          <div class="section-subtitle">推荐的学习顺序与能力成长路径</div>
+        </div>
+      </div>
+
+      <div class="path-flow">
+        <div class="pf-item active">
+          <div class="pf-icon">🔍</div>
+          <div class="pf-title">业务分析</div>
+          <div class="pf-sub">模块一</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-item">
+          <div class="pf-icon">⚖️</div>
+          <div class="pf-title">算法选择</div>
+          <div class="pf-sub">模块二</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-item">
+          <div class="pf-icon">🤖</div>
+          <div class="pf-title">AI协同</div>
+          <div class="pf-sub">模块三</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-item">
+          <div class="pf-icon">💻</div>
+          <div class="pf-title">实战案例</div>
+          <div class="pf-sub">模块四</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-item">
+          <div class="pf-icon">🚀</div>
+          <div class="pf-title">项目管理</div>
+          <div class="pf-sub">模块五</div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-teal">
+          <strong>⏰ 学习时间规划</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 第1-2天：模块一（业务分析框架）</li>
+            <li>• 第3-4天：模块二（算法选择指南）</li>
+            <li>• 第5-6天：模块三（AI协同实战）</li>
+            <li>• 第7-8天：模块四（实战案例精研）</li>
+            <li>• 第9-10天：模块五（项目管理）</li>
+          </ul>
+        </div>
+        <div class="card card-accent-green">
+          <strong>📋 学习成果验证</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 能独立分析飞凡业务场景需求</li>
+            <li>• 能给出合理算法选型并说明理由</li>
+            <li>• 能用AI工具提速数据分析工作</li>
+            <li>• 完成至少1个完整案例代码实现</li>
+            <li>• 撰写1份项目需求与评估文档</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-success">
+        <div class="infobox-icon">🏆</div>
+        <div class="infobox-body">
+          <div class="infobox-title">完成课程后的能力认证</div>
+          完成所有模块并通过实战案例考核的工程师，将获得飞凡科技「算法开发能力认证」，并优先参与算法相关项目。
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Bottom Nav ─── -->
+    <div class="bottom-nav">
+      <span style="font-size:0.875rem;color:var(--muted);">准备好开始了吗？</span>
+      <a href="module1.html" class="btn-next">开始第一模块：算法思维与业务分析框架 →</a>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

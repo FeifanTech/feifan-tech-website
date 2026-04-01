@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块四：实战案例库 — 算法与AI协同培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .cases-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+      margin: 1rem 0 2rem;
+    }
+    .cn-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--medium);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .cn-item:hover { background: var(--algo-bg); color: var(--algo-accent); border-color: var(--algo-border); }
+    .cn-item .cn-icon { font-size: 1.25rem; display: block; margin-bottom: 4px; }
+
+    .case-meta-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .cm-item {
+      background: var(--algo-bg);
+      border: 1px solid var(--algo-border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem;
+      font-size: 0.84rem;
+    }
+    .cm-item strong { display: block; color: var(--algo-accent-dark); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 4px; }
+    .cm-item span   { color: var(--dark); }
+
+    .ai-points {
+      background: linear-gradient(135deg, #0F3D3E, #1F5F60);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      color: #fff;
+      margin: 1.25rem 0;
+    }
+    .ai-points h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.75rem; color: #80DFDF; }
+    .ai-points ul { list-style: none; font-size: 0.875rem; }
+    .ai-points ul li { margin-bottom: 6px; padding-left: 1.5rem; position: relative; color: rgba(255,255,255,0.9); }
+    .ai-points ul li::before { content: '🤖'; position: absolute; left: 0; font-size: 0.75rem; }
+
+    @media (max-width: 768px) {
+      .cases-nav-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .cases-nav-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🧠 算法与AI协同培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html" class="active">模块四</a>
+    <a href="module5.html">模块五</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块四导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#case1"><span class="nav-num">1</span>商家销量预测</a></li>
+      <li><a href="#case2"><span class="nav-num">2</span>用户商品推荐</a></li>
+      <li><a href="#case3"><span class="nav-num">3</span>购买意愿预测</a></li>
+      <li><a href="#case4"><span class="nav-num">4</span>IoT智能控制</a></li>
+      <li><a href="#case5"><span class="nav-num">5</span>水产养殖监控</a></li>
+    </ul>
+    <div class="sidebar-title" style="margin-top:1.5rem;">案例方法论</div>
+    <ul class="sidebar-nav">
+      <li><a href="#methodology"><span class="nav-num">★</span>案例学习方法</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块四</span>
+        实战案例
+      </div>
+      <h1>实战案例库</h1>
+      <p class="hero-subtitle">5个完整业务案例端到端实现：从业务背景到算法选型到代码实现，含完整Python代码和AI协同要点</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 5课时</div>
+        <div class="hero-meta-item">💼 5个完整案例</div>
+        <div class="hero-meta-item">💻 可运行代码</div>
+        <div class="hero-meta-item">🤖 AI协同要点</div>
+      </div>
+    </div>
+
+    <!-- ─── 案例快速导航 ─── -->
+    <div class="cases-nav-grid">
+      <a href="#case1" class="cn-item"><span class="cn-icon">📈</span>案例一<br>销量预测</a>
+      <a href="#case2" class="cn-item"><span class="cn-icon">🛍️</span>案例二<br>商品推荐</a>
+      <a href="#case3" class="cn-item"><span class="cn-icon">🎯</span>案例三<br>购买意愿</a>
+      <a href="#case4" class="cn-item"><span class="cn-icon">🌡️</span>案例四<br>IoT控制</a>
+      <a href="#case5" class="cn-item"><span class="cn-icon">🐟</span>案例五<br>水产监控</a>
+    </div>
+
+    <!-- ─── 案例一：商家销量预测 ─── -->
+    <section class="section" id="case1">
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-icon">📈</div>
+          <div>
+            <div class="case-num">案例一</div>
+            <h3>商家销量预测</h3>
+            <div class="case-tags">
+              <span class="case-tag">时序预测</span>
+              <span class="case-tag">Prophet</span>
+              <span class="case-tag">LightGBM</span>
+              <span class="case-tag">集成学习</span>
+            </div>
+          </div>
+        </div>
+        <div class="case-body">
+
+          <div class="case-section">
+            <div class="case-section-title">业务背景</div>
+            <p style="font-size:0.875rem;color:var(--medium);line-height:1.65;">飞凡平台上有超过5000个活跃商家，备货决策主要依赖商家经验。库存不足导致缺货损失每月约15%，库存积压导致的资金占用和损耗每月约8%。通过销量预测系统，帮助商家提前7~30天进行科学备货。</p>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">问题定义</div>
+            <div class="case-meta-row">
+              <div class="cm-item"><strong>预测目标</strong><span>SKU日销售量（件数）</span></div>
+              <div class="cm-item"><strong>预测粒度</strong><span>SKU × 日期</span></div>
+              <div class="cm-item"><strong>预测窗口</strong><span>未来7天/30天</span></div>
+              <div class="cm-item"><strong>评估指标</strong><span>MAPE &lt; 20%</span></div>
+              <div class="cm-item"><strong>运行方式</strong><span>每日凌晨批量</span></div>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">数据描述</div>
+            <div class="table-wrapper">
+              <table>
+                <thead><tr><th>数据源</th><th>字段</th><th>说明</th><th>质量备注</th></tr></thead>
+                <tbody>
+                  <tr><td>销售记录表</td><td>sku_id, date, sales_qty, gmv</td><td>2年历史，每日聚合</td><td>约2%缺失（门店关闭日）</td></tr>
+                  <tr><td>商品属性表</td><td>category, brand, price_tier</td><td>静态属性</td><td>质量较好</td></tr>
+                  <tr><td>营销活动表</td><td>promo_type, discount_rate, start_date, end_date</td><td>促销记录</td><td>历史活动覆盖率80%</td></tr>
+                  <tr><td>节假日表</td><td>date, holiday_name, is_holiday</td><td>中国节假日+电商大促</td><td>完整</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">算法选择与理由</div>
+            <div class="card card-accent-teal" style="margin-bottom:0.5rem;">
+              <strong>采用 Prophet + LightGBM 集成方案</strong>
+              <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+                <li>📌 <strong>Prophet</strong>：分解趋势、周效应、年效应、节假日效应，输出组件级解释，商家可理解</li>
+                <li>📌 <strong>LightGBM</strong>：捕捉促销、价格等外生特征与销量的非线性关系</li>
+                <li>📌 <strong>集成方式</strong>：Prophet预测作为特征输入LightGBM，加权平均最终预测</li>
+                <li>📌 <strong>新品处理</strong>：历史&lt;30天的SKU用同类目均值降级</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">关键代码实现</div>
+            <div class="code-example">
+              <div class="code-example-header">
+                <span class="code-example-lang">Python</span>
+                <span class="code-example-title">Prophet + LightGBM 销量预测集成</span>
+              </div>
+              <pre><code><span style="color:#89DDFF;">from</span> prophet <span style="color:#89DDFF;">import</span> Prophet
+<span style="color:#89DDFF;">import</span> lightgbm <span style="color:#89DDFF;">as</span> lgb
+<span style="color:#89DDFF;">import</span> pandas <span style="color:#89DDFF;">as</span> pd
+<span style="color:#89DDFF;">import</span> numpy <span style="color:#89DDFF;">as</span> np
+
+<span style="color:#89DDFF;">class</span> <span style="color:#FFCB6B;">SalesForecastEnsemble</span>:
+    <span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">__init__</span>(self, horizon: int = <span style="color:#F78C6C;">7</span>):
+        self.horizon = horizon
+        self.prophet_models = {}
+        self.lgb_model = <span style="color:#89DDFF;">None</span>
+
+    <span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">_fit_prophet</span>(self, df_sku: pd.DataFrame) -> Prophet:
+        <span style="color:#C3E88D;">"""为单个SKU训练Prophet模型"""</span>
+        m = Prophet(
+            yearly_seasonality=<span style="color:#89DDFF;">True</span>,
+            weekly_seasonality=<span style="color:#89DDFF;">True</span>,
+            daily_seasonality=<span style="color:#89DDFF;">False</span>,
+            changepoint_prior_scale=<span style="color:#F78C6C;">0.05</span>
+        )
+        <span style="color:#546E7A;"># 添加中国节假日</span>
+        m.add_country_holidays(country_name=<span style="color:#C3E88D;">'CN'</span>)
+        train = df_sku[[<span style="color:#C3E88D;">'date'</span>, <span style="color:#C3E88D;">'sales_qty'</span>]].rename(
+            columns={<span style="color:#C3E88D;">'date'</span>: <span style="color:#C3E88D;">'ds'</span>, <span style="color:#C3E88D;">'sales_qty'</span>: <span style="color:#C3E88D;">'y'</span>})
+        m.fit(train)
+        <span style="color:#89DDFF;">return</span> m
+
+    <span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">get_prophet_features</span>(self, sku_id: str, future_dates: pd.DataFrame) -> np.ndarray:
+        <span style="color:#C3E88D;">"""提取Prophet预测作为LightGBM特征"""</span>
+        model = self.prophet_models.get(sku_id)
+        <span style="color:#89DDFF;">if</span> model <span style="color:#89DDFF;">is None</span>:
+            <span style="color:#89DDFF;">return</span> np.zeros(len(future_dates))
+        forecast = model.predict(future_dates)
+        <span style="color:#89DDFF;">return</span> forecast[<span style="color:#C3E88D;">'yhat'</span>].clip(lower=<span style="color:#F78C6C;">0</span>).values
+
+    <span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">fit</span>(self, df: pd.DataFrame):
+        <span style="color:#C3E88D;">"""训练全部SKU的Prophet和集成LightGBM"""</span>
+        <span style="color:#546E7A;"># 1. 为每个SKU训练Prophet（批量，耗时约10分钟）</span>
+        <span style="color:#89DDFF;">for</span> sku_id, group <span style="color:#89DDFF;">in</span> df.groupby(<span style="color:#C3E88D;">'sku_id'</span>):
+            <span style="color:#89DDFF;">if</span> len(group) >= <span style="color:#F78C6C;">60</span>:  <span style="color:#546E7A;"># 至少60天历史才训练</span>
+                self.prophet_models[sku_id] = self._fit_prophet(group)
+
+        <span style="color:#546E7A;"># 2. 为LightGBM构建训练集（含Prophet预测作为特征）</span>
+        df[<span style="color:#C3E88D;">'prophet_pred'</span>] = df.apply(
+            <span style="color:#89DDFF;">lambda</span> r: self.prophet_models.get(r[<span style="color:#C3E88D;">'sku_id'</span>], <span style="color:#89DDFF;">None</span>), axis=<span style="color:#F78C6C;">1</span>
+        )  <span style="color:#546E7A;"># 简化示意，实际需逐SKU调用predict</span>
+
+        feature_cols = [<span style="color:#C3E88D;">'prophet_pred'</span>, <span style="color:#C3E88D;">'dayofweek'</span>, <span style="color:#C3E88D;">'month'</span>,
+                        <span style="color:#C3E88D;">'is_holiday'</span>, <span style="color:#C3E88D;">'promo_type'</span>, <span style="color:#C3E88D;">'price'</span>,
+                        <span style="color:#C3E88D;">'sales_lag_7'</span>, <span style="color:#C3E88D;">'sales_roll_mean_28'</span>]
+
+        self.lgb_model = lgb.LGBMRegressor(
+            n_estimators=<span style="color:#F78C6C;">500</span>, learning_rate=<span style="color:#F78C6C;">0.05</span>,
+            num_leaves=<span style="color:#F78C6C;">63</span>, objective=<span style="color:#C3E88D;">'mape'</span>
+        )
+        <span style="color:#89DDFF;">return</span> self</code></pre>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">效果评估</div>
+            <div class="case-grid">
+              <div class="case-metric"><div class="cm-val">18.3%</div><div class="cm-label">平均MAPE（7日预测）</div></div>
+              <div class="case-metric"><div class="cm-val">-12%</div><div class="cm-label">缺货率降低</div></div>
+              <div class="case-metric"><div class="cm-val">-9%</div><div class="cm-label">库存积压减少</div></div>
+              <div class="case-metric"><div class="cm-val">92%</div><div class="cm-label">SKU覆盖率</div></div>
+            </div>
+          </div>
+
+          <div class="ai-points">
+            <h4>🤖 AI协同要点</h4>
+            <ul>
+              <li>用AI生成Prophet的节假日特效参数配置（输入中国节假日列表）</li>
+              <li>让AI帮助设计新品冷启动的降级策略（按类目/品牌/价格段分层）</li>
+              <li>AI辅助诊断"线下MAPE低但线上差"的数据泄露问题</li>
+              <li>用AI生成集成权重的优化代码（基于验证集的动态权重调整）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 案例二：用户商品推荐 ─── -->
+    <section class="section" id="case2">
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-icon">🛍️</div>
+          <div>
+            <div class="case-num">案例二</div>
+            <h3>用户商品推荐系统</h3>
+            <div class="case-tags">
+              <span class="case-tag">协同过滤</span>
+              <span class="case-tag">向量召回</span>
+              <span class="case-tag">LightGBM精排</span>
+              <span class="case-tag">冷启动</span>
+            </div>
+          </div>
+        </div>
+        <div class="case-body">
+
+          <div class="case-section">
+            <div class="case-section-title">业务背景</div>
+            <p style="font-size:0.875rem;color:var(--medium);line-height:1.65;">飞凡平台首页推荐位点击率仅3.2%，行业均值约6-8%。用户停留时间短，二次访问率低。通过个性化推荐，提升用户体验和平台GMV，目标将推荐位CTR提升至5%以上。</p>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">问题定义</div>
+            <div class="case-meta-row">
+              <div class="cm-item"><strong>推荐目标</strong><span>最大化推荐点击率和购买转化</span></div>
+              <div class="cm-item"><strong>候选规模</strong><span>10万+ SKU</span></div>
+              <div class="cm-item"><strong>推荐数量</strong><span>每用户20个</span></div>
+              <div class="cm-item"><strong>延迟要求</strong><span>p99 &lt; 200ms</span></div>
+              <div class="cm-item"><strong>评估指标</strong><span>CTR / Hit Rate@20</span></div>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">算法选择与理由（两阶段架构）</div>
+            <div class="flow-diagram">
+              <div class="flow-row">
+                <div class="flow-box">用户请求</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box accent">向量召回<br><small>Faiss ANN检索</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box green">Top 500候选</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box blue">LightGBM精排</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box green">Top 20结果</div>
+              </div>
+            </div>
+            <ul style="font-size:0.875rem;color:var(--medium);margin-top:0.75rem;">
+              <li>🔍 <strong>召回层</strong>：用户向量和商品向量预先计算，在线用Faiss毫秒级检索，支持10万候选规模</li>
+              <li>⚖️ <strong>精排层</strong>：LightGBM引入丰富上下文特征（时间、渠道、用户实时行为），准确率更高</li>
+              <li>❄️ <strong>冷启动</strong>：新用户→热门商品兜底，新商品→基于内容相似度（类目+标签）召回</li>
+            </ul>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">关键代码实现</div>
+            <div class="code-example">
+              <div class="code-example-header">
+                <span class="code-example-lang">Python</span>
+                <span class="code-example-title">矩阵分解训练用户/商品向量</span>
+              </div>
+              <pre><code><span style="color:#89DDFF;">import</span> implicit
+<span style="color:#89DDFF;">import</span> faiss
+<span style="color:#89DDFF;">import</span> scipy.sparse <span style="color:#89DDFF;">as</span> sp
+<span style="color:#89DDFF;">import</span> numpy <span style="color:#89DDFF;">as</span> np
+
+<span style="color:#546E7A;"># ── 构建用户-商品交互矩阵 ──</span>
+<span style="color:#546E7A;"># 使用隐式反馈（浏览/点击/收藏/购买权重不同）</span>
+<span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">build_interaction_matrix</span>(events_df):
+    weights = {<span style="color:#C3E88D;">'view'</span>: <span style="color:#F78C6C;">1</span>, <span style="color:#C3E88D;">'click'</span>: <span style="color:#F78C6C;">3</span>, <span style="color:#C3E88D;">'cart'</span>: <span style="color:#F78C6C;">5</span>, <span style="color:#C3E88D;">'purchase'</span>: <span style="color:#F78C6C;">10</span>}
+    events_df[<span style="color:#C3E88D;">'weight'</span>] = events_df[<span style="color:#C3E88D;">'event_type'</span>].map(weights)
+    pivot = events_df.groupby([<span style="color:#C3E88D;">'user_idx'</span>, <span style="color:#C3E88D;">'item_idx'</span>])[<span style="color:#C3E88D;">'weight'</span>].sum().reset_index()
+    return sp.csr_matrix(
+        (pivot[<span style="color:#C3E88D;">'weight'</span>], (pivot[<span style="color:#C3E88D;">'user_idx'</span>], pivot[<span style="color:#C3E88D;">'item_idx'</span>]))
+    )
+
+<span style="color:#546E7A;"># ── 训练ALS矩阵分解 ──</span>
+model = implicit.als.AlternatingLeastSquares(
+    factors=<span style="color:#F78C6C;">64</span>, iterations=<span style="color:#F78C6C;">20</span>, regularization=<span style="color:#F78C6C;">0.01</span>
+)
+model.fit(interaction_matrix)
+
+user_factors = model.user_factors  <span style="color:#546E7A;"># shape: (n_users, 64)</span>
+item_factors = model.item_factors  <span style="color:#546E7A;"># shape: (n_items, 64)</span>
+
+<span style="color:#546E7A;"># ── 构建Faiss索引（近似最近邻检索）──</span>
+index = faiss.IndexFlatIP(item_factors.shape[<span style="color:#F78C6C;">1</span>])  <span style="color:#546E7A;"># 内积相似度</span>
+faiss.normalize_L2(item_factors)  <span style="color:#546E7A;"># 归一化 → IP等价于余弦相似度</span>
+index.add(item_factors)
+
+<span style="color:#546E7A;"># ── 在线召回（&lt;10ms）──</span>
+<span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">recall_for_user</span>(user_id: int, k: int = <span style="color:#F78C6C;">500</span>) -> np.ndarray:
+    user_vec = user_factors[user_id].reshape(<span style="color:#F78C6C;">1</span>, -<span style="color:#F78C6C;">1</span>)
+    faiss.normalize_L2(user_vec)
+    _, item_indices = index.search(user_vec, k)
+    <span style="color:#89DDFF;">return</span> item_indices[<span style="color:#F78C6C;">0</span>]  <span style="color:#546E7A;"># 返回Top-k商品ID</span></code></pre>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">效果评估</div>
+            <div class="case-grid">
+              <div class="case-metric"><div class="cm-val">5.8%</div><div class="cm-label">推荐CTR（提升81%）</div></div>
+              <div class="case-metric"><div class="cm-val">38%</div><div class="cm-label">Hit Rate@20</div></div>
+              <div class="case-metric"><div class="cm-val">+23%</div><div class="cm-label">人均GMV提升</div></div>
+              <div class="case-metric"><div class="cm-val">85ms</div><div class="cm-label">p99在线延迟</div></div>
+            </div>
+          </div>
+
+          <div class="ai-points">
+            <h4>🤖 AI协同要点</h4>
+            <ul>
+              <li>AI帮助设计隐式反馈的权重体系（不同用户行为的业务价值差异）</li>
+              <li>让AI生成精排特征工程代码（用户近期行为序列特征）</li>
+              <li>用AI辅助Faiss索引类型选择（Flat vs IVF vs HNSW的精度/速度权衡）</li>
+              <li>AI生成A/B测试方案设计（实验流量分配和显著性检验代码）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 案例三：购买意愿预测 ─── -->
+    <section class="section" id="case3">
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-icon">🎯</div>
+          <div>
+            <div class="case-num">案例三</div>
+            <h3>购买意愿预测与营销优化</h3>
+            <div class="case-tags">
+              <span class="case-tag">XGBoost</span>
+              <span class="case-tag">样本不均衡</span>
+              <span class="case-tag">SHAP解释</span>
+              <span class="case-tag">营销策略</span>
+            </div>
+          </div>
+        </div>
+        <div class="case-body">
+
+          <div class="case-section">
+            <div class="case-section-title">业务背景</div>
+            <p style="font-size:0.875rem;color:var(--medium);line-height:1.65;">营销短信和push通知的全量推送成本高、用户体验差（骚扰未兴趣用户导致卸载率上升）。通过预测用户对特定商品的购买概率，实现精准营销：只向高意愿用户发送优惠，同时节省营销预算。</p>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">问题定义与指标</div>
+            <div class="card card-accent-teal">
+              <strong>业务指标 vs 技术指标的对应关系</strong>
+              <div class="table-wrapper" style="margin-top:0.75rem;">
+                <table>
+                  <thead><tr><th>业务目标</th><th>技术指标</th><th>目标值</th></tr></thead>
+                  <tbody>
+                    <tr><td>不骚扰无兴趣用户</td><td>Precision</td><td>≥ 0.70</td></tr>
+                    <tr><td>覆盖足够多潜在买家</td><td>Recall</td><td>≥ 0.40</td></tr>
+                    <tr><td>整体模型区分能力</td><td>AUC-ROC</td><td>≥ 0.80</td></tr>
+                    <tr><td>营销ROI可量化</td><td>Lift@Top10%</td><td>≥ 3.0</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">关键代码实现</div>
+            <div class="code-example">
+              <div class="code-example-header">
+                <span class="code-example-lang">Python</span>
+                <span class="code-example-title">购买意愿预测 + SHAP解释 + 营销策略分层</span>
+              </div>
+              <pre><code><span style="color:#89DDFF;">import</span> xgboost <span style="color:#89DDFF;">as</span> xgb
+<span style="color:#89DDFF;">import</span> shap
+<span style="color:#89DDFF;">import</span> pandas <span style="color:#89DDFF;">as</span> pd
+<span style="color:#89DDFF;">import</span> numpy <span style="color:#89DDFF;">as</span> np
+
+<span style="color:#546E7A;"># ── 模型训练（处理1:9不均衡）──</span>
+model = xgb.XGBClassifier(
+    n_estimators=<span style="color:#F78C6C;">500</span>,
+    learning_rate=<span style="color:#F78C6C;">0.05</span>,
+    max_depth=<span style="color:#F78C6C;">6</span>,
+    scale_pos_weight=<span style="color:#F78C6C;">9</span>,   <span style="color:#546E7A;"># 正负比例倒数</span>
+    use_label_encoder=<span style="color:#89DDFF;">False</span>,
+    eval_metric=<span style="color:#C3E88D;">'auc'</span>
+)
+model.fit(X_train, y_train,
+          eval_set=[(X_val, y_val)],
+          early_stopping_rounds=<span style="color:#F78C6C;">50</span>, verbose=<span style="color:#89DDFF;">False</span>)
+
+<span style="color:#546E7A;"># ── SHAP全局特征解释 ──</span>
+explainer = shap.TreeExplainer(model)
+shap_values = explainer.shap_values(X_val)
+shap.summary_plot(shap_values, X_val, feature_names=feature_cols, show=<span style="color:#89DDFF;">False</span>)
+
+<span style="color:#546E7A;"># ── 营销策略分层矩阵 ──</span>
+probs = model.predict_proba(X_all)[:, <span style="color:#F78C6C;">1</span>]
+df_users = pd.DataFrame({
+    <span style="color:#C3E88D;">'user_id'</span>: user_ids,
+    <span style="color:#C3E88D;">'buy_prob'</span>: probs,
+    <span style="color:#C3E88D;">'is_vip'</span>: is_vip_flags,
+})
+
+<span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">get_marketing_strategy</span>(row):
+    <span style="color:#89DDFF;">if</span> row[<span style="color:#C3E88D;">'buy_prob'</span>] >= <span style="color:#F78C6C;">0.7</span>:
+        <span style="color:#89DDFF;">return</span> <span style="color:#C3E88D;">'高价值用户：小额优惠券（5元）'</span>
+    <span style="color:#89DDFF;">elif</span> row[<span style="color:#C3E88D;">'buy_prob'</span>] >= <span style="color:#F78C6C;">0.4</span>:
+        <span style="color:#89DDFF;">return</span> <span style="color:#C3E88D;">'中潜力用户：内容营销+提醒'</span>
+    <span style="color:#89DDFF;">elif</span> row[<span style="color:#C3E88D;">'buy_prob'</span>] >= <span style="color:#F78C6C;">0.2</span>:
+        <span style="color:#89DDFF;">return</span> <span style="color:#C3E88D;">'低潜力用户：品牌曝光'</span>
+    <span style="color:#89DDFF;">else</span>:
+        <span style="color:#89DDFF;">return</span> <span style="color:#C3E88D;">'不触达'</span>
+
+df_users[<span style="color:#C3E88D;">'strategy'</span>] = df_users.apply(get_marketing_strategy, axis=<span style="color:#F78C6C;">1</span>)
+<span style="color:#82AAFF;">print</span>(df_users[<span style="color:#C3E88D;">'strategy'</span>].value_counts())</code></pre>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">效果评估</div>
+            <div class="case-grid">
+              <div class="case-metric"><div class="cm-val">0.84</div><div class="cm-label">AUC-ROC</div></div>
+              <div class="case-metric"><div class="cm-val">72%</div><div class="cm-label">Precision@阈值0.6</div></div>
+              <div class="case-metric"><div class="cm-val">-35%</div><div class="cm-label">营销成本降低</div></div>
+              <div class="case-metric"><div class="cm-val">+18%</div><div class="cm-label">营销转化率提升</div></div>
+            </div>
+          </div>
+
+          <div class="ai-points">
+            <h4>🤖 AI协同要点</h4>
+            <ul>
+              <li>AI解读SHAP图：帮助将技术特征重要性翻译为业务含义</li>
+              <li>AI生成营销策略分层逻辑（根据业务目标和预算约束优化分层阈值）</li>
+              <li>让AI帮助设计不均衡处理实验（SMOTE vs class_weight vs 阈值调整的对比）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 案例四：IoT智能控制 ─── -->
+    <section class="section" id="case4">
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-icon">🌡️</div>
+          <div>
+            <div class="case-num">案例四</div>
+            <h3>IoT智能环境控制</h3>
+            <div class="case-tags">
+              <span class="case-tag">规则引擎</span>
+              <span class="case-tag">决策树</span>
+              <span class="case-tag">边缘端</span>
+              <span class="case-tag">实时控制</span>
+            </div>
+          </div>
+        </div>
+        <div class="case-body">
+
+          <div class="case-section">
+            <div class="case-section-title">业务背景</div>
+            <p style="font-size:0.875rem;color:var(--medium);line-height:1.65;">养殖场部署了温度、溶氧、pH、氨氮等多类传感器。当前靠人工经验调控增氧机、投料机等设备，响应慢、能耗高。需要在边缘端（树莓派/嵌入式设备，无GPU）实现实时自动控制，延迟要求&lt;500ms。</p>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">技术方案：分层控制架构</div>
+            <div class="flow-diagram">
+              <div class="flow-row">
+                <div class="flow-box">传感器数据<br><small>10s采样间隔</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box accent">安全规则引擎<br><small>硬约束（不可绕过）</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box blue">决策树控制器<br><small>软优化策略</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box green">设备控制指令</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">关键代码实现</div>
+            <div class="code-example">
+              <div class="code-example-header">
+                <span class="code-example-lang">Python</span>
+                <span class="code-example-title">规则引擎 + 决策树控制器</span>
+              </div>
+              <pre><code><span style="color:#89DDFF;">from</span> sklearn.tree <span style="color:#89DDFF;">import</span> DecisionTreeClassifier
+<span style="color:#89DDFF;">from</span> dataclasses <span style="color:#89DDFF;">import</span> dataclass
+<span style="color:#89DDFF;">from</span> typing <span style="color:#89DDFF;">import</span> Optional
+<span style="color:#89DDFF;">import</span> joblib
+
+<span style="color:#FFCB6B;">@dataclass</span>
+<span style="color:#89DDFF;">class</span> <span style="color:#FFCB6B;">SensorReading</span>:
+    temperature: float   <span style="color:#546E7A;"># 水温 °C</span>
+    dissolved_o2: float  <span style="color:#546E7A;"># 溶氧 mg/L</span>
+    ph: float            <span style="color:#546E7A;"># pH值</span>
+    ammonia: float       <span style="color:#546E7A;"># 氨氮 mg/L</span>
+
+<span style="color:#89DDFF;">class</span> <span style="color:#FFCB6B;">AquacultureController</span>:
+    <span style="color:#546E7A;"># 安全阈值（硬约束，不可绕过）</span>
+    SAFETY_RULES = {
+        <span style="color:#C3E88D;">'dissolved_o2_critical'</span>: <span style="color:#F78C6C;">4.0</span>,  <span style="color:#546E7A;"># 低于此值立即开最大增氧</span>
+        <span style="color:#C3E88D;">'temperature_max'</span>: <span style="color:#F78C6C;">32.0</span>,        <span style="color:#546E7A;"># 超过此温度停止投料</span>
+        <span style="color:#C3E88D;">'ph_low'</span>: <span style="color:#F78C6C;">6.5</span>,                  <span style="color:#546E7A;"># pH过低触发告警</span>
+        <span style="color:#C3E88D;">'ph_high'</span>: <span style="color:#F78C6C;">9.0</span>,
+    }
+
+    <span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">__init__</span>(self, dt_model_path: str):
+        self.dt_model = joblib.load(dt_model_path)
+
+    <span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">_safety_check</span>(self, reading: SensorReading) -> Optional[dict]:
+        <span style="color:#C3E88D;">"""安全规则优先级最高，有触发立即执行"""</span>
+        rules = self.SAFETY_RULES
+        <span style="color:#89DDFF;">if</span> reading.dissolved_o2 < rules[<span style="color:#C3E88D;">'dissolved_o2_critical'</span>]:
+            <span style="color:#89DDFF;">return</span> {<span style="color:#C3E88D;">'aerator'</span>: <span style="color:#C3E88D;">'MAX'</span>, <span style="color:#C3E88D;">'feeder'</span>: <span style="color:#C3E88D;">'STOP'</span>, <span style="color:#C3E88D;">'alert'</span>: <span style="color:#C3E88D;">'CRITICAL_DO'</span>}
+        <span style="color:#89DDFF;">if</span> reading.temperature > rules[<span style="color:#C3E88D;">'temperature_max'</span>]:
+            <span style="color:#89DDFF;">return</span> {<span style="color:#C3E88D;">'feeder'</span>: <span style="color:#C3E88D;">'STOP'</span>, <span style="color:#C3E88D;">'alert'</span>: <span style="color:#C3E88D;">'HIGH_TEMP'</span>}
+        <span style="color:#89DDFF;">return None</span>  <span style="color:#546E7A;"># 无安全问题，进入决策树优化</span>
+
+    <span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">decide</span>(self, reading: SensorReading) -> dict:
+        <span style="color:#C3E88D;">"""控制决策主入口"""</span>
+        safety_action = self._safety_check(reading)
+        <span style="color:#89DDFF;">if</span> safety_action:
+            <span style="color:#89DDFF;">return</span> safety_action  <span style="color:#546E7A;"># 安全规则优先</span>
+
+        <span style="color:#546E7A;"># 决策树优化控制（软策略）</span>
+        features = [[reading.temperature, reading.dissolved_o2,
+                     reading.ph, reading.ammonia]]
+        action_code = self.dt_model.predict(features)[<span style="color:#F78C6C;">0</span>]
+        return self._decode_action(action_code)
+
+    <span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">_decode_action</span>(self, code: int) -> dict:
+        actions = {
+            <span style="color:#F78C6C;">0</span>: {<span style="color:#C3E88D;">'aerator'</span>: <span style="color:#C3E88D;">'LOW'</span>,  <span style="color:#C3E88D;">'feeder'</span>: <span style="color:#C3E88D;">'NORMAL'</span>},
+            <span style="color:#F78C6C;">1</span>: {<span style="color:#C3E88D;">'aerator'</span>: <span style="color:#C3E88D;">'MED'</span>,  <span style="color:#C3E88D;">'feeder'</span>: <span style="color:#C3E88D;">'NORMAL'</span>},
+            <span style="color:#F78C6C;">2</span>: {<span style="color:#C3E88D;">'aerator'</span>: <span style="color:#C3E88D;">'HIGH'</span>, <span style="color:#C3E88D;">'feeder'</span>: <span style="color:#C3E88D;">'REDUCE'</span>},
+        }
+        <span style="color:#89DDFF;">return</span> actions.get(code, actions[<span style="color:#F78C6C;">1</span>])</code></pre>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">效果评估</div>
+            <div class="case-grid">
+              <div class="case-metric"><div class="cm-val">120ms</div><div class="cm-label">控制响应延迟</div></div>
+              <div class="case-metric"><div class="cm-val">-18%</div><div class="cm-label">电费成本降低</div></div>
+              <div class="case-metric"><div class="cm-val">0</div><div class="cm-label">严重缺氧事故（季度内）</div></div>
+              <div class="case-metric"><div class="cm-val">+12%</div><div class="cm-label">存活率提升</div></div>
+            </div>
+          </div>
+
+          <div class="ai-points">
+            <h4>🤖 AI协同要点</h4>
+            <ul>
+              <li>AI帮助设计传感器异常值过滤逻辑（区分真实异常vs传感器故障）</li>
+              <li>让AI生成决策树的训练数据标注方案（从专家经验到样本标签）</li>
+              <li>AI建议未来升级路径：积累6个月数据后如何设计强化学习仿真环境</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 案例五：水产养殖监控 ─── -->
+    <section class="section" id="case5">
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-icon">🐟</div>
+          <div>
+            <div class="case-num">案例五</div>
+            <h3>水产养殖智能监控</h3>
+            <div class="case-tags">
+              <span class="case-tag">YOLOv8</span>
+              <span class="case-tag">目标检测</span>
+              <span class="case-tag">迁移学习</span>
+              <span class="case-tag">行为分析</span>
+            </div>
+          </div>
+        </div>
+        <div class="case-body">
+
+          <div class="case-section">
+            <div class="case-section-title">业务背景</div>
+            <p style="font-size:0.875rem;color:var(--medium);line-height:1.65;">鱼类疾病和应激反应早期难以发现，通常在大量死亡后才被察觉。通过安装在水池上方的摄像头，实时分析鱼群游动模式、密度分布、个体行为，提前发现异常并告警，将发现疾病的时间提前24-48小时。</p>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">数据与标注策略</div>
+            <div class="card card-accent-teal">
+              <strong>📸 主动学习标注流程（节省80%标注成本）</strong>
+              <div class="steps" style="margin-top:0.75rem;">
+                <div class="step">
+                  <div class="step-num">1</div>
+                  <div class="step-content">
+                    <h4>初始标注200张</h4>
+                    <p>人工精标注200张高多样性样本（不同光线、水质、鱼密度），训练初始模型</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-num">2</div>
+                  <div class="step-content">
+                    <h4>模型不确定性筛选</h4>
+                    <p>用初始模型对未标注帧预测，筛选置信度0.3~0.7的"难样本"优先标注</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-num">3</div>
+                  <div class="step-content">
+                    <h4>迭代扩充到1000张</h4>
+                    <p>每轮标注100张，模型性能快速提升，最终1000张达到2000+随机标注效果</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">关键代码实现</div>
+            <div class="code-example">
+              <div class="code-example-header">
+                <span class="code-example-lang">Python</span>
+                <span class="code-example-title">YOLOv8鱼群检测 + 行为异常分析</span>
+              </div>
+              <pre><code><span style="color:#89DDFF;">from</span> ultralytics <span style="color:#89DDFF;">import</span> YOLO
+<span style="color:#89DDFF;">import</span> numpy <span style="color:#89DDFF;">as</span> np
+<span style="color:#89DDFF;">import</span> cv2
+<span style="color:#89DDFF;">from</span> collections <span style="color:#89DDFF;">import</span> deque
+
+<span style="color:#546E7A;"># ── 加载微调后的YOLOv8n模型 ──</span>
+model = YOLO(<span style="color:#C3E88D;">'yolov8n.pt'</span>)  <span style="color:#546E7A;"># 轻量版，适合边缘端</span>
+
+<span style="color:#546E7A;"># 微调训练命令（在标注数据上）：</span>
+<span style="color:#546E7A;"># model.train(data='fish_dataset.yaml', epochs=50, imgsz=640, batch=16)</span>
+
+<span style="color:#89DDFF;">class</span> <span style="color:#FFCB6B;">FishBehaviorMonitor</span>:
+    <span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">__init__</span>(self, model_path: str, window: int = <span style="color:#F78C6C;">30</span>):
+        self.model = YOLO(model_path)
+        self.history = deque(maxlen=window)  <span style="color:#546E7A;"># 30帧历史</span>
+        self.alert_threshold = <span style="color:#F78C6C;">2.5</span>  <span style="color:#546E7A;"># 密度标准差阈值</span>
+
+    <span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">process_frame</span>(self, frame: np.ndarray) -> dict:
+        results = self.model(frame, conf=<span style="color:#F78C6C;">0.45</span>, verbose=<span style="color:#89DDFF;">False</span>)[<span style="color:#F78C6C;">0</span>]
+        boxes = results.boxes
+
+        metrics = {
+            <span style="color:#C3E88D;">'fish_count'</span>: len(boxes),
+            <span style="color:#C3E88D;">'avg_confidence'</span>: float(boxes.conf.mean()) <span style="color:#89DDFF;">if</span> len(boxes) > <span style="color:#F78C6C;">0</span> <span style="color:#89DDFF;">else</span> <span style="color:#F78C6C;">0</span>,
+        }
+
+        <span style="color:#546E7A;"># 计算鱼群质心和密度分布</span>
+        <span style="color:#89DDFF;">if</span> len(boxes) > <span style="color:#F78C6C;">5</span>:
+            centers = boxes.xywh[:, :2].cpu().numpy()
+            metrics[<span style="color:#C3E88D;">'centroid_x'</span>] = centers[:, <span style="color:#F78C6C;">0</span>].mean()
+            metrics[<span style="color:#C3E88D;">'density_std'</span>] = centers.std()
+            self.history.append(metrics[<span style="color:#C3E88D;">'density_std'</span>])
+
+        <span style="color:#546E7A;"># 异常检测：密度标准差突变（鱼群聚集/逃散行为）</span>
+        metrics[<span style="color:#C3E88D;">'anomaly'</span>] = self._detect_anomaly(metrics)
+        <span style="color:#89DDFF;">return</span> metrics
+
+    <span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">_detect_anomaly</span>(self, metrics: dict) -> str:
+        <span style="color:#89DDFF;">if</span> len(self.history) < <span style="color:#F78C6C;">10</span>:
+            <span style="color:#89DDFF;">return</span> <span style="color:#C3E88D;">'NORMAL'</span>
+        recent_avg = np.mean(list(self.history)[-<span style="color:#F78C6C;">5</span>:])
+        hist_avg   = np.mean(list(self.history)[:-<span style="color:#F78C6C;">5</span>])
+        <span style="color:#89DDFF;">if</span> recent_avg > hist_avg * self.alert_threshold:
+            <span style="color:#89DDFF;">return</span> <span style="color:#C3E88D;">'ALERT_CROWDING'</span>
+        <span style="color:#89DDFF;">if</span> metrics.get(<span style="color:#C3E88D;">'fish_count'</span>, <span style="color:#F78C6C;">0</span>) < <span style="color:#F78C6C;">3</span>:
+            <span style="color:#89DDFF;">return</span> <span style="color:#C3E88D;">'ALERT_LOW_COUNT'</span>
+        <span style="color:#89DDFF;">return</span> <span style="color:#C3E88D;">'NORMAL'</span></code></pre>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-title">效果评估</div>
+            <div class="case-grid">
+              <div class="case-metric"><div class="cm-val">91.2%</div><div class="cm-label">鱼体检测mAP@0.5</div></div>
+              <div class="case-metric"><div class="cm-val">85%</div><div class="cm-label">异常行为召回率</div></div>
+              <div class="case-metric"><div class="cm-val">-32%</div><div class="cm-label">疾病死亡率降低</div></div>
+              <div class="case-metric"><div class="cm-val">24h</div><div class="cm-label">提前预警时间</div></div>
+            </div>
+          </div>
+
+          <div class="ai-points">
+            <h4>🤖 AI协同要点</h4>
+            <ul>
+              <li>AI生成数据增强策略（针对水下图像的亮度/对比度/模糊增强代码）</li>
+              <li>用AI辅助YOLO训练参数配置（超参选择和early stopping策略）</li>
+              <li>AI帮助设计夜间红外图像的预处理pipeline（直方图均衡化方案）</li>
+              <li>让AI生成ONNX模型导出和推理优化代码（用于边缘端部署加速）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 案例方法论 ─── -->
+    <section class="section" id="methodology">
+      <div class="section-header">
+        <div class="section-icon teal">📚</div>
+        <div>
+          <div class="section-title">案例学习方法论</div>
+          <div class="section-subtitle">如何从案例中提取可复用的经验</div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-teal">
+          <strong>🔑 每个案例的学习要点</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 理解"为什么选这个算法"而非"这个算法是什么"</li>
+            <li>• 关注数据处理和特征工程的细节</li>
+            <li>• 记录常见错误和解决方案</li>
+            <li>• 思考如何把代码迁移到类似问题</li>
+          </ul>
+        </div>
+        <div class="card card-accent-blue">
+          <strong>📋 实战练习建议</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 从飞凡真实数据中选一个案例复现</li>
+            <li>• 和AI结对编程完成一个完整pipeline</li>
+            <li>• 在团队内分享一个案例的学习笔记</li>
+            <li>• 尝试改进其中一个案例的某个环节</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="module3.html" class="btn-prev">← 模块三：AI协同开发</a>
+        <a href="module5.html" class="btn-next">模块五：项目全流程管理 →</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

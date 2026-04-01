@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块一：算法思维与业务分析框架 — 算法与AI协同培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .framework-box {
+      background: var(--algo-bg);
+      border: 1px solid var(--algo-border);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin: 1.5rem 0;
+    }
+    .framework-box h4 {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--algo-accent);
+      margin-bottom: 1.25rem;
+      text-align: center;
+    }
+    .fw-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .fw-step {
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      text-align: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    .fw-step .fw-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--algo-accent);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.75rem;
+    }
+    .fw-step h3 { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .fw-step p  { font-size: 0.82rem; color: var(--medium); line-height: 1.5; }
+
+    .problem-type-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .pt-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      border-left: 4px solid var(--algo-accent);
+    }
+    .pt-card .pt-icon { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+    .pt-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .pt-card .pt-desc { font-size: 0.82rem; color: var(--medium); line-height: 1.5; margin-bottom: 0.5rem; }
+    .pt-card .pt-algos { font-size: 0.75rem; color: var(--algo-accent); font-weight: 600; }
+    .pt-card .pt-case  { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+
+    .example-box {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 1.25rem 0;
+    }
+    .example-box .ex-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--algo-accent);
+      margin-bottom: 1rem;
+    }
+    .ex-row {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 0.5rem 1rem;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      align-items: start;
+    }
+    .ex-label { font-weight: 700; color: var(--dark); padding: 3px 0; }
+    .ex-val   { color: var(--medium); padding: 3px 0; }
+
+    .mistake-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .mistake-box { border-radius: var(--radius-md); padding: 1.25rem; }
+    .mistake-box.bad  { background: #FEF2F2; border: 1px solid #FECACA; }
+    .mistake-box.good { background: #F0FDF4; border: 1px solid #BBF7D0; }
+    .mistake-box .mb-header {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .bad  .mb-header { color: #991B1B; }
+    .good .mb-header { color: #166534; }
+    .mistake-box ul { list-style: none; font-size: 0.84rem; }
+    .bad  ul li::before { content: '✗ '; color: #DC2626; font-weight: 700; }
+    .good ul li::before { content: '✓ '; color: #16A34A; font-weight: 700; }
+    .mistake-box ul li { margin-bottom: 6px; color: var(--medium); }
+
+    @media (max-width: 768px) {
+      .fw-steps { grid-template-columns: 1fr; }
+      .mistake-grid { grid-template-columns: 1fr; }
+      .ex-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🧠 算法与AI协同培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html" class="active">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块一导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview"><span class="nav-num">1</span>模块概述</a></li>
+      <li><a href="#methodology"><span class="nav-num">2</span>业务分析方法论</a></li>
+      <li><a href="#taxonomy"><span class="nav-num">3</span>问题分类体系</a></li>
+      <li><a href="#translation"><span class="nav-num">4</span>转化思维</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块一</span>
+        基础框架
+      </div>
+      <h1>算法思维与<br>业务分析框架</h1>
+      <p class="hero-subtitle">建立从业务出发的算法思维，掌握系统化分析方法，学会把业务语言翻译成算法语言</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 4课时</div>
+        <div class="hero-meta-item">📊 3个分析框架</div>
+        <div class="hero-meta-item">🗂 7类问题分类</div>
+        <div class="hero-meta-item">💻 含代码模板</div>
+      </div>
+    </div>
+
+    <!-- ─── 模块概述 ─── -->
+    <section class="section" id="overview">
+      <div class="section-header">
+        <div class="section-icon teal">📋</div>
+        <div>
+          <div class="section-title">模块概述</div>
+          <div class="section-subtitle">为什么要先建立正确的算法思维</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">最常见的错误：从算法出发</div>
+          许多工程师在接到需求后，第一反应是"用神经网络来做"或"用随机森林吧"——这种从算法出发的思维方式，往往导致过度工程化、模型不可解释、落地困难等问题。正确做法是：<strong>从业务问题出发，再寻找最合适的算法</strong>。
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-teal">
+          <strong>🎯 本模块你将学会</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 用三步框架分析任何业务场景</li>
+            <li>• 识别并区分7类机器学习问题</li>
+            <li>• 从业务指标倒推算法目标函数</li>
+            <li>• 评估数据可用性和数据质量</li>
+            <li>• 识别业务约束对算法的影响</li>
+          </ul>
+        </div>
+        <div class="card card-accent-blue">
+          <strong>📈 本模块课时安排</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 课时1：算法思维导论（45min）</li>
+            <li>• 课时2：业务场景分析方法论（60min）</li>
+            <li>• 课时3：算法问题分类体系（60min）</li>
+            <li>• 课时4：转化思维实战演练（45min）</li>
+            <li>• 随堂练习 + 答疑（30min）</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 业务分析方法论 ─── -->
+    <section class="section" id="methodology">
+      <div class="section-header">
+        <div class="section-icon teal">🔍</div>
+        <div>
+          <div class="section-title">业务场景分析方法论</div>
+          <div class="section-subtitle">三步框架：目标定义 → 约束识别 → 数据评估</div>
+        </div>
+      </div>
+
+      <div class="framework-box">
+        <h4>三步业务分析框架</h4>
+        <div class="fw-steps">
+          <div class="fw-step">
+            <div class="fw-num">1</div>
+            <h3>目标定义</h3>
+            <p>明确业务目标是什么？成功的标准是什么？用数字可量化的指标表达。</p>
+          </div>
+          <div class="fw-step">
+            <div class="fw-num">2</div>
+            <h3>约束识别</h3>
+            <p>有哪些限制条件？响应时间、计算资源、可解释性需求、法规合规要求。</p>
+          </div>
+          <div class="fw-step">
+            <div class="fw-num">3</div>
+            <h3>数据评估</h3>
+            <p>有什么数据可用？数据质量如何？数据量是否足够？标注成本高不高？</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.5rem 0 1rem;">步骤一：目标定义详解</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>业务目标转化为ML目标</h4>
+            <p>业务目标通常是模糊的（"提升销量"），需要转化为可优化的ML目标（"预测未来7天销量，MAPE &lt; 15%"）。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>确定预测/决策对象</h4>
+            <p>每个样本代表什么？是一个订单、一个用户、一个SKU、还是一个时间段？粒度决定特征工程策略。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>确定评估指标</h4>
+            <p>预测类用RMSE/MAE/MAPE，分类类用Precision/Recall/F1/AUC，推荐类用Hit Rate/NDCG。与业务方确认最重要的指标。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>设定基线与目标值</h4>
+            <p>当前方案（规则或人工）的表现是基线。算法方案需要在基线上提升多少才有落地价值？</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.5rem 0 1rem;">步骤二：约束识别详解</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>约束类型</th>
+              <th>具体问题</th>
+              <th>对算法的影响</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>响应时间</td>
+              <td>需要实时预测还是离线批量？延迟上限是多少ms？</td>
+              <td>实时&lt;100ms → 避免复杂深度学习，优选轻量模型</td>
+            </tr>
+            <tr>
+              <td>计算资源</td>
+              <td>是否有GPU？内存限制？边缘设备还是云端？</td>
+              <td>边缘端 → 模型量化/剪枝，优选决策树类</td>
+            </tr>
+            <tr>
+              <td>可解释性</td>
+              <td>业务方是否需要理解模型决策？是否有审计需求？</td>
+              <td>高解释性需求 → 逻辑回归/决策树 over 深度学习</td>
+            </tr>
+            <tr>
+              <td>更新频率</td>
+              <td>模型需要多久更新一次？在线学习还是离线重训？</td>
+              <td>高频更新 → 选择训练速度快的算法</td>
+            </tr>
+            <tr>
+              <td>数据合规</td>
+              <td>数据是否涉及隐私？是否需要联邦学习？</td>
+              <td>隐私敏感 → 联邦学习/差分隐私或仅用聚合特征</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.5rem 0 1rem;">步骤三：数据评估框架（5W1H）</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-teal">
+          <strong>数据5W1H评估清单</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>📦 <strong>What</strong>：有哪些数据源？字段含义是什么？</li>
+            <li>📊 <strong>How Much</strong>：样本量多大？历史多久？</li>
+            <li>🎯 <strong>How Clean</strong>：缺失率？异常值比例？</li>
+            <li>⏱ <strong>When</strong>：数据时效性？能否实时获取？</li>
+            <li>🏷️ <strong>Label</strong>：有没有标签？标注成本如何？</li>
+            <li>⚖️ <strong>Bias</strong>：数据分布是否有偏？样本不均衡？</li>
+          </ul>
+        </div>
+        <div class="card card-accent-orange">
+          <strong>🚨 数据风险红线</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 样本量 &lt; 1000 → 优先规则/统计方法</li>
+            <li>• 标签缺失/噪声严重 → 数据清洗优先于建模</li>
+            <li>• 正负样本比 &gt; 50:1 → 需要采样策略</li>
+            <li>• 历史数据不足6个月 → 时序模型无法训练</li>
+            <li>• 特征时序泄露 → 会导致线下好线上差</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">📌 实战演练：以"商家销量预测"为例</h3>
+      <div class="example-box">
+        <div class="ex-title">框架应用示例 — 商家销量预测</div>
+        <div class="ex-row"><div class="ex-label">🎯 业务目标</div><div class="ex-val">帮助商家提前备货，减少缺货和积压，降低库存成本</div></div>
+        <div class="ex-row"><div class="ex-label">📐 ML目标</div><div class="ex-val">预测未来7天、SKU级别的日销售量，MAPE目标 &lt; 20%</div></div>
+        <div class="ex-row"><div class="ex-label">📏 评估指标</div><div class="ex-val">主指标：MAPE；辅助指标：MAE、偏差方向（高估vs低估影响不同）</div></div>
+        <div class="ex-row"><div class="ex-label">⏱ 响应约束</div><div class="ex-val">离线预测，每天凌晨3点批量运行，无实时延迟要求</div></div>
+        <div class="ex-row"><div class="ex-label">💻 计算约束</div><div class="ex-val">可用2核4G服务器，无GPU，预测结果写入MySQL</div></div>
+        <div class="ex-row"><div class="ex-label">🔍 可解释性</div><div class="ex-val">商家需要理解为什么预测偏高/偏低（节假日、促销影响）</div></div>
+        <div class="ex-row"><div class="ex-label">📦 数据概况</div><div class="ex-val">2年历史销售记录，SKU粒度，含商品属性、促销标记、节假日标记</div></div>
+        <div class="ex-row"><div class="ex-label">⚠️ 数据问题</div><div class="ex-val">新品（&lt;30天历史）约占15%，部分SKU数据稀疏，大促期间数据分布漂移</div></div>
+        <div class="ex-row"><div class="ex-label">✅ 算法方向</div><div class="ex-val">可解释时序模型（Prophet）+ 梯度提升（LightGBM）集成，分别处理趋势和特征交互</div></div>
+      </div>
+    </section>
+
+    <!-- ─── 问题分类体系 ─── -->
+    <section class="section" id="taxonomy">
+      <div class="section-header">
+        <div class="section-icon teal">🗂️</div>
+        <div>
+          <div class="section-title">算法问题分类体系</div>
+          <div class="section-subtitle">7类核心问题类型，覆盖飞凡所有业务场景</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          正确识别问题类型是算法选择的第一步。同一业务问题可以从多个角度定义，不同的问题定义会导致截然不同的算法选型。
+        </div>
+      </div>
+
+      <div class="problem-type-grid">
+        <div class="pt-card">
+          <span class="pt-icon">📈</span>
+          <h4>回归（Regression）</h4>
+          <div class="pt-desc">预测连续数值目标，如销售量、价格、温度。</div>
+          <div class="pt-algos">线性回归 · Ridge/Lasso · XGBoost · LightGBM · 神经网络</div>
+          <div class="pt-case">🏢 飞凡：商家销量预测、水温预测</div>
+        </div>
+        <div class="pt-card">
+          <span class="pt-icon">🏷️</span>
+          <h4>分类（Classification）</h4>
+          <div class="pt-desc">将输入归入预定义类别，如是否购买、是否异常。</div>
+          <div class="pt-algos">逻辑回归 · 决策树 · XGBoost · LightGBM · SVM</div>
+          <div class="pt-case">🏢 飞凡：购买意愿预测、异常行为检测</div>
+        </div>
+        <div class="pt-card">
+          <span class="pt-icon">🔵</span>
+          <h4>聚类（Clustering）</h4>
+          <div class="pt-desc">无监督发现数据中的自然分组，无需预先标注。</div>
+          <div class="pt-algos">K-Means · DBSCAN · 层次聚类 · 高斯混合模型</div>
+          <div class="pt-case">🏢 飞凡：用户分群、商品品类聚合</div>
+        </div>
+        <div class="pt-card">
+          <span class="pt-icon">🛍️</span>
+          <h4>推荐（Recommendation）</h4>
+          <div class="pt-desc">从大量候选中为用户匹配最相关的物品或内容。</div>
+          <div class="pt-algos">协同过滤 · Wide&amp;Deep · 矩阵分解 · 向量检索</div>
+          <div class="pt-case">🏢 飞凡：用户商品推荐系统</div>
+        </div>
+        <div class="pt-card">
+          <span class="pt-icon">📅</span>
+          <h4>时序预测（Time Series）</h4>
+          <div class="pt-desc">利用时间序列历史数据预测未来趋势和周期模式。</div>
+          <div class="pt-algos">SARIMA · Prophet · N-BEATS · Temporal Fusion Transformer</div>
+          <div class="pt-case">🏢 飞凡：销量预测、设备状态趋势预测</div>
+        </div>
+        <div class="pt-card">
+          <span class="pt-icon">🚨</span>
+          <h4>异常检测（Anomaly Detection）</h4>
+          <div class="pt-desc">识别数据中的罕见事件或异常样本，通常正样本极少。</div>
+          <div class="pt-algos">Isolation Forest · LOF · Autoencoder · 3σ规则</div>
+          <div class="pt-case">🏢 飞凡：水产异常行为识别、IoT传感器故障</div>
+        </div>
+        <div class="pt-card">
+          <span class="pt-icon">👁️</span>
+          <h4>计算机视觉（CV）</h4>
+          <div class="pt-desc">从图像或视频中提取信息，实现目标检测、分割、识别。</div>
+          <div class="pt-algos">YOLOv8 · ResNet · EfficientNet · SAM · 迁移学习</div>
+          <div class="pt-case">🏢 飞凡：水产养殖鱼群监控、设备状态图像识别</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">飞凡业务场景 × 问题类型映射</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>业务场景</th><th>主要问题类型</th><th>次要问题类型</th><th>关键挑战</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>商家销量预测</td><td><span class="badge badge-blue">时序预测</span></td><td><span class="badge badge-green">回归</span></td><td>节假日效应、新品冷启动</td></tr>
+            <tr><td>用户商品推荐</td><td><span class="badge badge-purple">推荐</span></td><td><span class="badge badge-blue">排序/分类</span></td><td>冷启动、曝光偏置</td></tr>
+            <tr><td>购买意愿预测</td><td><span class="badge badge-orange">分类</span></td><td><span class="badge badge-green">回归（概率）</span></td><td>样本不均衡、特征时效性</td></tr>
+            <tr><td>IoT智能控制</td><td><span class="badge badge-green">回归+规则</span></td><td><span class="badge badge-red">异常检测</span></td><td>实时性、边缘端资源限制</td></tr>
+            <tr><td>水产养殖监控</td><td><span class="badge badge-teal">计算机视觉</span></td><td><span class="badge badge-red">异常检测</span></td><td>小目标检测、夜间图像质量</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ─── 从业务到算法的转化思维 ─── -->
+    <section class="section" id="translation">
+      <div class="section-header">
+        <div class="section-icon teal">🔄</div>
+        <div>
+          <div class="section-title">从业务到算法的转化思维</div>
+          <div class="section-subtitle">4步转化流程 + 常见误区对照</div>
+        </div>
+      </div>
+
+      <div class="step-flow">
+        <div class="sf-item active">
+          <div class="sf-dot">💬</div>
+          <div class="sf-label">理解业务语言</div>
+          <div class="sf-sub">用户故事/KPI</div>
+        </div>
+        <div class="sf-item">
+          <div class="sf-dot">🔍</div>
+          <div class="sf-label">抽象问题本质</div>
+          <div class="sf-sub">预测/分类/推荐</div>
+        </div>
+        <div class="sf-item">
+          <div class="sf-dot">📐</div>
+          <div class="sf-label">定义目标函数</div>
+          <div class="sf-sub">损失函数/指标</div>
+        </div>
+        <div class="sf-item active">
+          <div class="sf-dot">⚙️</div>
+          <div class="sf-label">设计特征空间</div>
+          <div class="sf-sub">X → y 映射</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">常见误区 vs 正确做法</h3>
+      <div class="mistake-grid">
+        <div class="mistake-box bad">
+          <div class="mb-header">❌ 常见误区</div>
+          <ul>
+            <li>先选算法再找数据来支撑</li>
+            <li>盲目追求最新最复杂的模型</li>
+            <li>忽略业务约束（延迟/解释性）</li>
+            <li>用准确率作为唯一评价指标</li>
+            <li>把数据分析阶段跳过直接建模</li>
+            <li>不考虑模型上线后的维护成本</li>
+          </ul>
+        </div>
+        <div class="mistake-box good">
+          <div class="mb-header">✅ 正确做法</div>
+          <ul>
+            <li>先做业务分析，再确定算法方向</li>
+            <li>从最简单的可行方案开始迭代</li>
+            <li>在算法选型时就考虑部署约束</li>
+            <li>与业务方共同定义有意义的指标</li>
+            <li>用EDA充分理解数据再建模</li>
+            <li>评估模型整个生命周期的成本</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">Python示例：业务数据分析模板</h3>
+      <div class="code-example">
+        <div class="code-example-header">
+          <span class="code-example-lang">Python</span>
+          <span class="code-example-title">业务数据初探模板 — 商家销量预测场景</span>
+        </div>
+        <pre><code><span style="color:#546E7A;"># ============================================================
+# 业务数据分析模板 — 使用前请根据实际字段名修改
+# ============================================================</span>
+
+<span style="color:#89DDFF;">import</span> pandas <span style="color:#89DDFF;">as</span> pd
+<span style="color:#89DDFF;">import</span> numpy <span style="color:#89DDFF;">as</span> np
+<span style="color:#89DDFF;">import</span> matplotlib.pyplot <span style="color:#89DDFF;">as</span> plt
+
+<span style="color:#546E7A;"># ── Step 1: 加载数据，了解基本情况 ──</span>
+df = pd.read_csv(<span style="color:#C3E88D;">'sales_data.csv'</span>, parse_dates=[<span style="color:#C3E88D;">'date'</span>])
+<span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">"数据维度:"</span>, df.shape)
+<span style="color:#82AAFF;">print</span>(df.dtypes)
+<span style="color:#82AAFF;">print</span>(df.head())
+
+<span style="color:#546E7A;"># ── Step 2: 数据质量评估 ──</span>
+<span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">data_quality_report</span>(df):
+    report = pd.DataFrame({
+        <span style="color:#C3E88D;">'缺失值'</span>: df.isnull().sum(),
+        <span style="color:#C3E88D;">'缺失率'</span>: (df.isnull().sum() / len(df) * <span style="color:#F78C6C;">100</span>).round(<span style="color:#F78C6C;">2</span>),
+        <span style="color:#C3E88D;">'唯一值'</span>: df.nunique(),
+        <span style="color:#C3E88D;">'类型'</span>: df.dtypes
+    })
+    <span style="color:#89DDFF;">return</span> report
+
+<span style="color:#82AAFF;">print</span>(data_quality_report(df))
+
+<span style="color:#546E7A;"># ── Step 3: 目标变量分析（销量分布）──</span>
+target_col = <span style="color:#C3E88D;">'sales_qty'</span>
+<span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">f"销量基本统计:\n"</span>, df[target_col].describe())
+<span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">f"零销量比例: {(df[target_col]==0).mean():.2%}"</span>)
+<span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">f"偏度: {df[target_col].skew():.3f}"</span>)  <span style="color:#546E7A;"># 偏度>1说明需要对数变换</span>
+
+<span style="color:#546E7A;"># ── Step 4: 时序特征分析 ──</span>
+df[<span style="color:#C3E88D;">'date'</span>] = pd.to_datetime(df[<span style="color:#C3E88D;">'date'</span>])
+df[<span style="color:#C3E88D;">'dayofweek'</span>] = df[<span style="color:#C3E88D;">'date'</span>].dt.dayofweek
+df[<span style="color:#C3E88D;">'month'</span>] = df[<span style="color:#C3E88D;">'date'</span>].dt.month
+
+<span style="color:#546E7A;"># 分析周效应</span>
+weekly_avg = df.groupby(<span style="color:#C3E88D;">'dayofweek'</span>)[target_col].mean()
+<span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">"各星期销量均值:\n"</span>, weekly_avg)
+
+<span style="color:#546E7A;"># ── Step 5: 关键结论输出 ──</span>
+conclusions = {
+    <span style="color:#C3E88D;">'样本量'</span>: len(df),
+    <span style="color:#C3E88D;">'时间跨度'</span>: <span style="color:#C3E88D;">f"{df['date'].min()} 至 {df['date'].max()}"</span>,
+    <span style="color:#C3E88D;">'SKU数量'</span>: df[<span style="color:#C3E88D;">'sku_id'</span>].nunique(),
+    <span style="color:#C3E88D;">'问题类型'</span>: <span style="color:#C3E88D;">'时序回归（多SKU）'</span>,
+    <span style="color:#C3E88D;">'算法方向'</span>: <span style="color:#C3E88D;">'Prophet + LightGBM 集成'</span>
+}
+<span style="color:#89DDFF;">for</span> k, v <span style="color:#89DDFF;">in</span> conclusions.items():
+    <span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">f"{k}: {v}"</span>)</code></pre>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">模块一核心总结</div>
+          先分析业务，再选算法。三步框架（目标→约束→数据）是所有算法项目的起点。7类问题分类体系帮助你快速锁定解决方向。记住：最简单能解决问题的算法，就是最好的算法。
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="index.html" class="btn-prev">← 课程总览</a>
+        <a href="module2.html" class="btn-next">模块二：核心算法选择指南 →</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
