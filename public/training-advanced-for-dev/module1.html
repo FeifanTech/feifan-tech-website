@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 01：AI 原生架构设计范式 — AI 工程进阶培训 v2.0</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Architecture evolution stacked diagram */
+    .arch-evolution {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin: 1.25rem 0;
+    }
+    .arch-era {
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .arch-era-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .arch-era-label .era-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .era-traditional { background: #F9FAFB; }
+    .era-traditional .era-dot { background: #9CA3AF; }
+    .era-traditional .arch-era-label { color: #6B7280; }
+    .era-hybrid { background: #FFFBEB; }
+    .era-hybrid .era-dot { background: #D97706; }
+    .era-hybrid .arch-era-label { color: #92400E; }
+    .era-native { background: #F0F0FF; border-color: #C7D2FE; }
+    .era-native .era-dot { background: #6D28D9; }
+    .era-native .arch-era-label { color: #6D28D9; }
+
+    .arch-era .flow-diagram { margin: 0; }
+
+    /* Routing cards */
+    .routing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .routing-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .routing-card .rc-intent {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .routing-card .rc-models {
+      font-size: 0.85rem;
+      color: var(--medium);
+      margin-bottom: 0.25rem;
+    }
+    .routing-card .rc-trait {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .rc-low-cost .rc-intent { color: #16A34A; }
+    .rc-low-cost .rc-trait { background: #DCFCE7; color: #166534; }
+    .rc-high-quality .rc-intent { color: #6D28D9; }
+    .rc-high-quality .rc-trait { background: #EDE9FE; color: #6D28D9; }
+    .rc-specialized .rc-intent { color: #1E40AF; }
+    .rc-specialized .rc-trait { background: #DBEAFE; color: #1E40AF; }
+    .rc-low-latency .rc-intent { color: #D97706; }
+    .rc-low-latency .rc-trait { background: #FEF3C7; color: #92400E; }
+
+    /* Principle cards */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .principle-card {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+    .principle-card h4 {
+      color: #166534;
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+    }
+    .principle-card p {
+      color: #14532D;
+      font-size: 0.875rem;
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 768px) {
+      .routing-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🏗️</span>
+    <span>AI 工程进阶培训</span>
+    <span class="logo-badge">进阶版</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html" class="active">架构设计</a>
+    <a href="module2.html">Prompt工程</a>
+    <a href="module3.html">RAG实战</a>
+    <a href="module4.html">Agent编排</a>
+    <a href="module5.html">后端集成</a>
+    <a href="module6.html">前端集成</a>
+    <a href="module7.html">可观测性</a>
+    <a href="module8.html">安全合规</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块 01 目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#section-1-1" class="active">
+        <span class="nav-num">1.1</span> 架构演进路径
+      </a></li>
+      <li><a href="#section-1-2">
+        <span class="nav-num">1.2</span> 核心架构组件
+      </a></li>
+      <li><a href="#section-1-3">
+        <span class="nav-num">1.3</span> 关键设计决策
+      </a></li>
+      <li><a href="#section-1-4">
+        <span class="nav-num">1.4</span> 多模型路由策略
+      </a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem; border-top:1px solid var(--border); margin-top:auto;">
+      <a href="index.html" style="font-size:0.8rem;color:var(--muted);">← 返回总览</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">🏠 课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">模块 01：AI 原生架构设计范式</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">Module 01</span>
+        AI 工程进阶培训 v2.0
+      </div>
+      <h1>AI 原生架构设计范式</h1>
+      <p class="hero-subtitle">将 LLM 从"功能点"升级为"基础设施层"，构建可演进的 AI-Native 系统</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><span class="role-badge role-architect">架构师核心能力</span></span>
+        <span class="hero-meta-item">🏛️ 架构设计范式</span>
+        <span class="hero-meta-item">🔀 多模型路由</span>
+        <span class="hero-meta-item">🛡️ 降级与容错</span>
+      </div>
+    </div>
+
+    <!-- ── Section 1.1: 架构演进路径 ── -->
+    <div id="section-1-1" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">🏛️</div>
+        <div>
+          <div class="section-title">1.1 架构演进路径</div>
+          <div class="section-subtitle">传统架构 → 混合架构 → AI 原生架构</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 三代架构演进对比</div>
+
+      <div class="arch-evolution">
+        <!-- Traditional -->
+        <div class="arch-era era-traditional">
+          <div class="arch-era-label"><span class="era-dot"></span> 第一代：传统架构</div>
+          <div class="flow-diagram" style="padding:1rem;">
+            <div class="flow-row">
+              <div class="flow-box">📋 业务逻辑</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box">💾 数据访问层</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box">🗄️ 存储层</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hybrid -->
+        <div class="arch-era era-hybrid">
+          <div class="arch-era-label"><span class="era-dot"></span> 第二代：混合架构</div>
+          <div class="flow-diagram" style="padding:1rem;">
+            <div class="flow-row">
+              <div class="flow-box">📋 业务逻辑<br/><small style="color:#92400E">+ AI 功能模块</small></div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box">💾 数据访问层</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box">🗄️ 存储层</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Native -->
+        <div class="arch-era era-native">
+          <div class="arch-era-label"><span class="era-dot"></span> 第三代：AI 原生架构 ✨</div>
+          <div class="flow-diagram" style="padding:1rem;">
+            <div class="flow-row">
+              <div class="flow-box accent">🧠 意图理解层</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box purple">📎 上下文管理层</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box blue">🔧 工具编排层</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box green">📚 知识检索层</div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-box">💾 持久化&amp;缓存层</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <blockquote>
+        💡 <strong>核心差异：</strong>传统架构围绕数据流设计，AI 原生架构围绕<strong>意图流</strong>设计。LLM 不再是业务逻辑的"插件"，而是系统的"中枢神经"。
+      </blockquote>
+    </div>
+
+    <!-- ── Section 1.2: 核心架构组件 ── -->
+    <div id="section-1-2" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">⚙️</div>
+        <div>
+          <div class="section-title">1.2 核心架构组件</div>
+          <div class="section-subtitle">六层架构组件详解与技术选型</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> AI 原生架构组件一览</div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>层次</th>
+              <th>组件</th>
+              <th>职责</th>
+              <th>技术选型建议</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>入口层</strong></td>
+              <td>API Gateway</td>
+              <td>鉴权 / 限流 / 路由</td>
+              <td><code>Kong</code> / <code>APISIX</code></td>
+            </tr>
+            <tr>
+              <td><strong>意图层</strong></td>
+              <td>Intent Router</td>
+              <td>请求分类与调度</td>
+              <td>自定义 LLM 分类器</td>
+            </tr>
+            <tr>
+              <td><strong>编排层</strong></td>
+              <td>Agent Orchestrator</td>
+              <td>多步推理与工具调用</td>
+              <td><code>LangGraph</code> / <code>AutoGen</code></td>
+            </tr>
+            <tr>
+              <td><strong>知识层</strong></td>
+              <td>RAG Pipeline</td>
+              <td>语义检索与注入</td>
+              <td><code>Qdrant</code> + Embedding</td>
+            </tr>
+            <tr>
+              <td><strong>模型层</strong></td>
+              <td>LLM Gateway</td>
+              <td>多模型路由与降级</td>
+              <td><code>LiteLLM</code> / <code>Portkey</code></td>
+            </tr>
+            <tr>
+              <td><strong>观测层</strong></td>
+              <td>Observability</td>
+              <td>Trace / Metric / Log</td>
+              <td><code>LangFuse</code> + <code>Prometheus</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">选型原则</div>
+          <p style="font-size:0.875rem;color:var(--medium);margin:0;">每一层都应该可独立替换。不要让具体 LLM 厂商 API 侵入业务逻辑——通过 LLM Gateway 统一抽象，确保模型层可随时切换。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 1.3: 关键设计决策 ── -->
+    <div id="section-1-3" class="section">
+      <div class="section-header">
+        <div class="section-icon green">🛡️</div>
+        <div>
+          <div class="section-title">1.3 关键设计决策</div>
+          <div class="section-subtitle">三大核心原则 + 四大反模式</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 三大核心设计原则</div>
+
+      <div class="principles-grid">
+        <div class="principle-card">
+          <h4>🔒 原则一：语境隔离原则</h4>
+          <p>每个用户会话维护独立的上下文窗口，避免跨会话污染。上下文超限时采用<strong>滚动摘要</strong>而非截断，保留关键信息连贯性。</p>
+        </div>
+        <div class="principle-card">
+          <h4>✅ 原则二：确定性优先原则</h4>
+          <p>业务关键路径不依赖 LLM 输出，AI 仅用于辅助决策。所有 LLM 输出必须经过<strong>结构化解析</strong>和 <strong>Schema 验证</strong>，确保下游系统接收到确定性数据。</p>
+        </div>
+        <div class="principle-card">
+          <h4>🔄 原则三：优雅降级原则</h4>
+          <p>主模型不可用时自动切换备用模型；AI 功能不可用时回退到规则引擎。降级策略需纳入 <strong>SLA 承诺范围</strong>，确保业务连续性。</p>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 四大反模式与修正方案</div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>❌ 反模式</th>
+              <th>✅ 修正方案</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>同步等待超长 LLM 调用</td>
+              <td>改为<strong>流式响应 + 乐观 UI</strong></td>
+            </tr>
+            <tr>
+              <td>将 Prompt 硬编码于代码</td>
+              <td>迁移至 <strong>Prompt Registry</strong></td>
+            </tr>
+            <tr>
+              <td>忽略 Token 用量统计</td>
+              <td>接入 <strong>Cost Tracking</strong></td>
+            </tr>
+            <tr>
+              <td>LLM 直接访问生产数据库</td>
+              <td>通过<strong>工具函数代理访问</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <blockquote>
+        ⚠️ <strong>特别警示：</strong>让 LLM 直接生成并执行 SQL 查询生产数据库是最危险的反模式之一。务必通过经过鉴权和参数校验的工具函数进行间接访问。
+      </blockquote>
+    </div>
+
+    <!-- ── Section 1.4: 多模型路由策略 ── -->
+    <div id="section-1-4" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">🔀</div>
+        <div>
+          <div class="section-title">1.4 多模型路由策略</div>
+          <div class="section-subtitle">按意图分类实现智能路由，兼顾成本与质量</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 意图分类路由矩阵</div>
+
+      <div class="flow-diagram" style="padding:1.25rem;">
+        <div class="flow-row">
+          <div class="flow-box">🎯 用户请求</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box accent">🧠 意图分类器</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box purple">🔀 路由决策</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box green">🤖 目标模型</div>
+        </div>
+      </div>
+
+      <div class="routing-grid">
+        <div class="routing-card rc-low-cost">
+          <div class="rc-intent">💬 简单问答</div>
+          <div class="rc-models"><code>gpt-4o-mini</code> / <code>claude-haiku</code></div>
+          <span class="rc-trait">低成本</span>
+        </div>
+        <div class="routing-card rc-high-quality">
+          <div class="rc-intent">🧠 复杂推理</div>
+          <div class="rc-models"><code>claude-3-7-sonnet</code> / <code>gpt-4o</code></div>
+          <span class="rc-trait">高质量</span>
+        </div>
+        <div class="routing-card rc-specialized">
+          <div class="rc-intent">💻 代码生成</div>
+          <div class="rc-models"><code>claude-3-7-sonnet</code> / <code>deepseek</code></div>
+          <span class="rc-trait">专项优化</span>
+        </div>
+        <div class="routing-card rc-low-latency">
+          <div class="rc-intent">⚡ 实时对话</div>
+          <div class="rc-models"><code>gemini-flash</code> / <code>claude-haiku</code></div>
+          <span class="rc-trait">低延迟</span>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 路由配置示例（YAML）</div>
+
+      <div class="config-block"><span class="config-comment"># 多模型路由配置</span>
+<span class="config-key">routes</span>:
+  - <span class="config-key">name</span>: <span class="config-value">simple_qa</span>
+    <span class="config-key">matcher</span>:
+      <span class="config-key">token_budget</span>: <span class="config-value">"&lt;500"</span>
+      <span class="config-key">intent</span>: [<span class="config-value">"greeting"</span>, <span class="config-value">"faq"</span>, <span class="config-value">"lookup"</span>]
+    <span class="config-key">primary</span>: <span class="config-value">claude-haiku-3-5</span>
+    <span class="config-key">fallback</span>: <span class="config-value">gpt-4o-mini</span>
+    <span class="config-key">timeout_ms</span>: <span class="config-value">5000</span>
+
+  - <span class="config-key">name</span>: <span class="config-value">complex_reasoning</span>
+    <span class="config-key">matcher</span>:
+      <span class="config-key">token_budget</span>: <span class="config-value">"&gt;=500"</span>
+      <span class="config-key">intent</span>: [<span class="config-value">"analysis"</span>, <span class="config-value">"coding"</span>, <span class="config-value">"planning"</span>]
+    <span class="config-key">primary</span>: <span class="config-value">claude-3-7-sonnet</span>
+    <span class="config-key">fallback</span>: <span class="config-value">gpt-4o</span>
+    <span class="config-key">timeout_ms</span>: <span class="config-value">30000</span>
+
+<span class="config-key">cost_controls</span>:
+  <span class="config-key">daily_budget_usd</span>: <span class="config-value">500</span>
+  <span class="config-key">alert_threshold</span>: <span class="config-value">0.8</span>
+  <span class="config-key">hard_cap</span>: <span class="config-value">true</span></div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">成本控制要点</div>
+          <p style="font-size:0.875rem;color:var(--medium);margin:0;">始终设置 <code>daily_budget_usd</code> 硬上限和 <code>alert_threshold</code> 预警阈值。80% 的请求通常可以路由到低成本模型，仅将 20% 的复杂任务分配给高端模型，从而在质量和成本之间取得最佳平衡。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="index.html" class="page-nav-btn">← 返回总览</a>
+      <a href="module2.html" class="page-nav-btn">下一模块：Prompt 工程精要 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 06：前端集成 React/Vue/Node — AI 工程进阶培训 v2.0</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🏗️</span>
+    <span>AI 工程进阶培训</span>
+    <span class="logo-badge">进阶版</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">架构设计</a>
+    <a href="module2.html">Prompt工程</a>
+    <a href="module3.html">RAG实战</a>
+    <a href="module4.html">Agent编排</a>
+    <a href="module5.html">后端集成</a>
+    <a href="module6.html" class="active">前端集成</a>
+    <a href="module7.html">可观测性</a>
+    <a href="module8.html">安全合规</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块 06 目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#section-6-1" class="active">
+        <span class="nav-num">6.1</span> 流式输出 React Hook
+      </a></li>
+      <li><a href="#section-6-2">
+        <span class="nav-num">6.2</span> Vue 3 Composable
+      </a></li>
+      <li><a href="#section-6-3">
+        <span class="nav-num">6.3</span> 打字机效果组件
+      </a></li>
+      <li><a href="#section-6-4">
+        <span class="nav-num">6.4</span> Node.js BFF 层设计
+      </a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem; border-top:1px solid var(--border); margin-top:auto;">
+      <a href="index.html" style="font-size:0.8rem;color:var(--muted);">← 返回总览</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">🏠 课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">模块 06：前端集成 React/Vue/Node</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">Module 06</span>
+        AI 工程进阶培训 v2.0
+      </div>
+      <h1>前端集成：React / Vue / Node</h1>
+      <p class="hero-subtitle">构建流畅的 AI 交互界面，处理流式响应与状态管理</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><span class="role-badge role-frontend">前端工程师专项</span></span>
+        <span class="hero-meta-item">⚛️ React Hook</span>
+        <span class="hero-meta-item">💚 Vue Composable</span>
+        <span class="hero-meta-item">🟢 Node.js BFF</span>
+      </div>
+    </div>
+
+    <!-- ── Section 6.1: 流式输出 React Hook ── -->
+    <div id="section-6-1" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">⚛️</div>
+        <div>
+          <div class="section-title">6.1 流式输出 React Hook</div>
+          <div class="section-subtitle">useStreamChat — 生产级流式对话 Hook</div>
+        </div>
+      </div>
+
+      <pre>// ✅ useStreamChat - 生产级流式对话 Hook
+import { useState, useCallback, useRef } from 'react'
+
+interface Message {
+  role: 'user' | 'assistant'
+  content: string
+}
+
+interface UseStreamChatReturn {
+  messages: Message[]
+  isLoading: boolean
+  error: string | null
+  sendMessage: (content: string) =&gt; Promise&lt;void&gt;
+  abort: () =&gt; void
+}
+
+export function useStreamChat(endpoint: string): UseStreamChatReturn {
+  const [messages, setMessages] = useState&lt;Message[]&gt;([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState&lt;string | null&gt;(null)
+  const abortControllerRef = useRef&lt;AbortController | null&gt;(null)
+
+  const sendMessage = useCallback(async (content: string) =&gt; {
+    setIsLoading(true)
+    setError(null)
+
+    // 立即显示用户消息（乐观更新）
+    const userMessage: Message = { role: 'user', content }
+    setMessages(prev =&gt; [...prev, userMessage])
+
+    // 预分配 assistant 消息槽位
+    setMessages(prev =&gt; [...prev, { role: 'assistant', content: '' }])
+
+    abortControllerRef.current = new AbortController()
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: content }),
+        signal: abortControllerRef.current.signal,
+      })
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+
+      const reader = response.body!.getReader()
+      const decoder = new TextDecoder()
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        const chunk = decoder.decode(value, { stream: true })
+        const lines = chunk.split('\n').filter(line =&gt; line.startsWith('data: '))
+
+        for (const line of lines) {
+          const data = line.slice(6)
+          if (data === '[DONE]') break
+          
+          try {
+            const { text } = JSON.parse(data)
+            setMessages(prev =&gt; {
+              const updated = [...prev]
+              updated[updated.length - 1] = {
+                role: 'assistant',
+                content: updated[updated.length - 1].content + text,
+              }
+              return updated
+            })
+          } catch { /* 忽略解析错误 */ }
+        }
+      }
+    } catch (err) {
+      if ((err as Error).name !== 'AbortError') {
+        setError((err as Error).message)
+        setMessages(prev =&gt; prev.slice(0, -1))
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }, [endpoint])
+
+  const abort = useCallback(() =&gt; {
+    abortControllerRef.current?.abort()
+    setIsLoading(false)
+  }, [])
+
+  return { messages, isLoading, error, sendMessage, abort }
+}</pre>
+    </div>
+
+    <!-- ── Section 6.2: Vue 3 Composable ── -->
+    <div id="section-6-2" class="section">
+      <div class="section-header">
+        <div class="section-icon green">💚</div>
+        <div>
+          <div class="section-title">6.2 Vue 3 Composable</div>
+          <div class="section-subtitle">useAIChat — Vue 3 Composition API 流式对话</div>
+        </div>
+      </div>
+
+      <pre>// ✅ useAIChat.ts - Vue 3 Composition API
+import { ref, readonly } from 'vue'
+
+export function useAIChat(endpoint: string) {
+  const messages = ref&lt;Array&lt;{ role: string; content: string }&gt;&gt;([])
+  const isStreaming = ref(false)
+  const error = ref&lt;string | null&gt;(null)
+
+  async function send(userMessage: string) {
+    isStreaming.value = true
+    error.value = null
+    
+    messages.value.push({ role: 'user', content: userMessage })
+    messages.value.push({ role: 'assistant', content: '' })
+
+    const lastIdx = messages.value.length - 1
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage }),
+      })
+
+      const reader = res.body!.getReader()
+      const decoder = new TextDecoder()
+
+      for await (const chunk of streamAsyncIterator(reader)) {
+        const text = decoder.decode(chunk, { stream: true })
+        parseSSEChunk(text, (token) =&gt; {
+          messages.value[lastIdx].content += token
+        })
+      }
+    } catch (e) {
+      error.value = (e as Error).message
+    } finally {
+      isStreaming.value = false
+    }
+  }
+
+  return {
+    messages: readonly(messages),
+    isStreaming: readonly(isStreaming),
+    error: readonly(error),
+    send,
+  }
+}</pre>
+    </div>
+
+    <!-- ── Section 6.3: 打字机效果组件 ── -->
+    <div id="section-6-3" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">✨</div>
+        <div>
+          <div class="section-title">6.3 打字机效果组件</div>
+          <div class="section-subtitle">TypeWriter — 流式文本渐显效果组件</div>
+        </div>
+      </div>
+
+      <pre>// ✅ TypeWriter.tsx - 流式文本渐显效果
+import { useState, useEffect, useRef } from 'react'
+
+interface TypeWriterProps {
+  text: string           // 不断追加的文本
+  isStreaming: boolean   // 是否正在接收流
+  speed?: number         // 渲染节流（ms）
+}
+
+export function TypeWriter({ text, isStreaming, speed = 16 }: TypeWriterProps) {
+  const [displayText, setDisplayText] = useState('')
+  const targetRef = useRef(text)
+  const timerRef = useRef&lt;number&gt;()
+
+  useEffect(() =&gt; {
+    targetRef.current = text
+  }, [text])
+
+  useEffect(() =&gt; {
+    if (!isStreaming) {
+      setDisplayText(text)
+      return
+    }
+
+    // 节流渲染，避免频繁 re-render
+    timerRef.current = window.setInterval(() =&gt; {
+      setDisplayText(targetRef.current)
+    }, speed)
+
+    return () =&gt; clearInterval(timerRef.current)
+  }, [isStreaming, speed])
+
+  return (
+    &lt;span className="whitespace-pre-wrap"&gt;
+      {displayText}
+      {isStreaming &amp;&amp; (
+        &lt;span className="inline-block w-0.5 h-4 ml-0.5 bg-current animate-pulse" /&gt;
+      )}
+    &lt;/span&gt;
+  )
+}</pre>
+    </div>
+
+    <!-- ── Section 6.4: Node.js BFF 层设计 ── -->
+    <div id="section-6-4" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">🟢</div>
+        <div>
+          <div class="section-title">6.4 Node.js BFF 层设计</div>
+          <div class="section-subtitle">Backend for Frontend 代理层 — 隐藏 API Key + 会话管理</div>
+        </div>
+      </div>
+
+      <pre>// ✅ Node.js BFF (Backend for Frontend) 代理层
+import Anthropic from '@anthropic-ai/sdk'
+import { Router } from 'express'
+import { rateLimiter } from './middleware/rateLimiter.js'
+import { authMiddleware } from './middleware/auth.js'
+
+const router = Router()
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+
+router.post(
+  '/chat/stream',
+  authMiddleware,
+  rateLimiter({ windowMs: 60_000, max: 20 }),
+  async (req, res) =&gt; {
+    const { message, sessionId } = req.body
+    const userId = req.user.id
+
+    // 设置 SSE 头
+    res.setHeader('Content-Type', 'text/event-stream')
+    res.setHeader('Cache-Control', 'no-cache')
+    res.setHeader('Connection', 'keep-alive')
+    res.setHeader('X-Accel-Buffering', 'no')
+
+    try {
+      const history = await getSessionHistory(sessionId, userId)
+      
+      const stream = anthropic.messages.stream({
+        model: 'claude-3-5-haiku-20241022',
+        max_tokens: 2048,
+        system: await getSystemPrompt(req.user.role),
+        messages: [...history, { role: 'user', content: message }],
+      })
+
+      for await (const event of stream) {
+        if (event.type === 'content_block_delta') {
+          res.write(`data: ${JSON.stringify({ text: event.delta.text })}\n\n`)
+        }
+      }
+
+      const finalMessage = await stream.finalMessage()
+      
+      saveSession(sessionId, userId, message, finalMessage.content[0].text)
+        .catch(err =&gt; logger.error('Session save failed', { err }))
+
+      res.write('data: [DONE]\n\n')
+    } catch (error) {
+      res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`)
+    } finally {
+      res.end()
+    }
+  }
+)</pre>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">BFF 层的核心价值</div>
+          <p style="font-size:0.875rem;color:var(--medium);margin:0;">① 隐藏 API Key（前端永远不暴露密钥）② 管理会话历史（服务端持久化）③ 统一鉴权（基于用户角色控制 Prompt 权限）④ 速率限制（防止单用户滥用）</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="module5.html" class="page-nav-btn">← 上一模块：后端集成</a>
+      <a href="module7.html" class="page-nav-btn">下一模块：可观测性与评估 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

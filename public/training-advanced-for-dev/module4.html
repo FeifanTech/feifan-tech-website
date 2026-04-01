@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 04：Agent 与工具链编排 — AI 工程进阶培训 v2.0</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Stability cards styling */
+    .stability-card {
+      background: #F9FAFB;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .stability-card-num {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .stability-card-body {
+      flex: 1;
+    }
+    .stability-card-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--heading);
+      margin-bottom: 0.25rem;
+    }
+    .stability-card-desc {
+      font-size: 0.875rem;
+      color: var(--medium);
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🏗️</span>
+    <span>AI 工程进阶培训</span>
+    <span class="logo-badge">进阶版</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">架构设计</a>
+    <a href="module2.html">Prompt工程</a>
+    <a href="module3.html">RAG实战</a>
+    <a href="module4.html" class="active">Agent编排</a>
+    <a href="module5.html">后端集成</a>
+    <a href="module6.html">前端集成</a>
+    <a href="module7.html">可观测性</a>
+    <a href="module8.html">安全合规</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块 04 目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#section-4-1" class="active">
+        <span class="nav-num">4.1</span> Agent 执行模型
+      </a></li>
+      <li><a href="#section-4-2">
+        <span class="nav-num">4.2</span> 工具函数设计规范
+      </a></li>
+      <li><a href="#section-4-3">
+        <span class="nav-num">4.3</span> 工具安全设计
+      </a></li>
+      <li><a href="#section-4-4">
+        <span class="nav-num">4.4</span> 多 Agent 编排模式
+      </a></li>
+      <li><a href="#section-4-5">
+        <span class="nav-num">4.5</span> Agent 稳定性保障
+      </a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem; border-top:1px solid var(--border); margin-top:auto;">
+      <a href="index.html" style="font-size:0.8rem;color:var(--muted);">← 返回总览</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">🏠 课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">模块 04：Agent 与工具链编排</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">Module 04</span>
+        AI 工程进阶培训 v2.0
+      </div>
+      <h1>Agent 与工具链编排</h1>
+      <p class="hero-subtitle">构建可靠、可观测的多步骤 AI Agent 系统</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><span class="role-badge role-backend">后端·架构师重点</span></span>
+        <span class="hero-meta-item">🤖 ReAct 循环</span>
+        <span class="hero-meta-item">🔧 工具设计</span>
+        <span class="hero-meta-item">🛡️ 安全保障</span>
+      </div>
+    </div>
+
+    <!-- ── Section 4.1: Agent 执行模型 ── -->
+    <div id="section-4-1" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">🤖</div>
+        <div>
+          <div class="section-title">4.1 Agent 执行模型</div>
+          <div class="section-subtitle">ReAct（Reasoning + Acting）循环架构</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> ReAct 循环流程</div>
+
+      <div class="flow-diagram">
+        <div class="flow-row">
+          <div class="flow-box">📋 Task<br/><small>用户任务输入</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box blue">💭 Thought<br/><small>LLM 推理</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box accent">⚡ Action<br/><small>调用工具</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box green">👁️ Observation<br/><small>工具返回结果</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box purple">🔄 循环<br/><small>回到 Thought</small></div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> ReAct 循环三要素</div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>要素</th>
+              <th>角色</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Thought</strong></td>
+              <td>推理</td>
+              <td>LLM 推理当前状态和下一步计划</td>
+            </tr>
+            <tr>
+              <td><strong>Action</strong></td>
+              <td>执行</td>
+              <td>调用工具（函数）</td>
+            </tr>
+            <tr>
+              <td><strong>Observation</strong></td>
+              <td>观察</td>
+              <td>工具返回结果，注入上下文</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <blockquote>
+        💡 <strong>核心理念：</strong>Agent = LLM + 工具 + 循环。LLM 负责推理和决策，工具负责执行，循环直至任务完成或达到最大步数。
+      </blockquote>
+    </div>
+
+    <!-- ── Section 4.2: 工具函数设计规范 ── -->
+    <div id="section-4-2" class="section">
+      <div class="section-header">
+        <div class="section-icon green">🔧</div>
+        <div>
+          <div class="section-title">4.2 工具函数设计规范</div>
+          <div class="section-subtitle">标准工具函数定义与 Schema 设计</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 工具函数示例（Python + Pydantic）</div>
+
+      <pre>import json
+from typing import Annotated
+from pydantic import BaseModel, Field
+
+class SearchParams(BaseModel):
+    query: Annotated[str, Field(description="搜索关键词，支持自然语言")]
+    max_results: Annotated[int, Field(default=5, ge=1, le=20, description="最多返回结果数")]
+    date_range: Annotated[str | None, Field(
+        default=None, 
+        description="日期范围，格式: YYYY-MM-DD/YYYY-MM-DD"
+    )]
+
+async def search_knowledge_base(params: SearchParams) -&gt; dict:
+    """
+    在企业知识库中搜索相关文档。
+    
+    返回格式：
+    {"results": [{"title": str, "content": str, "score": float}], "total": int}
+    """
+    try:
+        results = await kb_retriever.search(
+            query=params.query,
+            limit=params.max_results,
+            date_filter=params.date_range,
+        )
+        return {
+            "results": [r.to_dict() for r in results],
+            "total": len(results),
+        }
+    except Exception as e:
+        # ⚠️ 工具必须处理异常，不能让错误传播到 Agent 循环外
+        return {"error": str(e), "results": [], "total": 0}</pre>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">工具函数设计三原则</div>
+          <p style="font-size:0.875rem;color:var(--medium);margin:0;">① 参数必须有明确的类型和描述（LLM 靠描述理解工具用途）② 返回值结构固定（Agent 需要稳定的解析）③ 内部异常必须捕获（防止循环崩溃）</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Section 4.3: 工具安全设计 ── -->
+    <div id="section-4-3" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">🛡️</div>
+        <div>
+          <div class="section-title">4.3 工具安全设计</div>
+          <div class="section-subtitle">五大安全风险与防御措施</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 五大安全风险对照表</div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>风险类型</th>
+              <th>场景</th>
+              <th>防御措施</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>命令注入</strong></td>
+              <td>工具执行 shell 命令</td>
+              <td>参数白名单 + 沙箱环境</td>
+            </tr>
+            <tr>
+              <td><strong>路径遍历</strong></td>
+              <td>工具读取文件</td>
+              <td>路径前缀校验</td>
+            </tr>
+            <tr>
+              <td><strong>权限越界</strong></td>
+              <td>工具访问数据库</td>
+              <td>只读账号 + 行级权限</td>
+            </tr>
+            <tr>
+              <td><strong>资源滥用</strong></td>
+              <td>工具发起外部请求</td>
+              <td>域名白名单 + 速率限制</td>
+            </tr>
+            <tr>
+              <td><strong>数据泄露</strong></td>
+              <td>工具返回敏感字段</td>
+              <td>输出脱敏处理</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <blockquote>
+        ⚠️ <strong>特别警示：</strong>永远不要让 Agent 拥有未经审核的写权限。所有修改数据的操作（DELETE、UPDATE、POST 到外部API）必须经过人工确认（HITL）机制。
+      </blockquote>
+    </div>
+
+    <!-- ── Section 4.4: 多 Agent 编排模式 ── -->
+    <div id="section-4-4" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">🔀</div>
+        <div>
+          <div class="section-title">4.4 多 Agent 编排模式</div>
+          <div class="section-subtitle">监督者模式（Supervisor Pattern）</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> Supervisor 编排流程</div>
+
+      <div class="flow-diagram">
+        <div class="flow-row">
+          <div class="flow-box accent">🧑‍💼 Supervisor<br/><small>任务分发与决策</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box blue">🔍 Research Worker<br/><small>信息检索</small></div>
+        </div>
+        <div class="flow-row" style="margin-top:0.5rem;">
+          <div class="flow-box accent">🧑‍💼 Supervisor<br/><small>任务分发与决策</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box green">✍️ Writer Worker<br/><small>内容撰写</small></div>
+        </div>
+        <div class="flow-row" style="margin-top:0.5rem;">
+          <div class="flow-box accent">🧑‍💼 Supervisor<br/><small>任务分发与决策</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box purple">📊 Analyst Worker<br/><small>数据分析</small></div>
+        </div>
+        <div class="flow-row" style="margin-top:0.5rem;">
+          <div class="flow-box">📤 Results<br/><small>汇总回 Supervisor</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box accent">✅ FINISH<br/><small>输出最终结果</small></div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> LangGraph 实现示例（Python）</div>
+
+      <pre>from langgraph.graph import StateGraph, END
+from typing import TypedDict, List
+
+class AgentState(TypedDict):
+    task: str
+    plan: List[str]
+    results: List[dict]
+    final_answer: str
+
+def supervisor_node(state: AgentState) -&gt; AgentState:
+    """监督者：分解任务，决定下一步调用哪个 Worker"""
+    response = llm.invoke(
+        supervisor_prompt.format(
+            task=state["task"],
+            completed=state["results"],
+        )
+    )
+    next_worker = parse_next_action(response)
+    return {**state, "next": next_worker}
+
+def researcher_node(state: AgentState) -&gt; AgentState:
+    """研究者 Worker：执行信息检索"""
+    ...
+
+def writer_node(state: AgentState) -&gt; AgentState:
+    """撰写者 Worker：生成最终内容"""
+    ...
+
+# 构建图
+workflow = StateGraph(AgentState)
+workflow.add_node("supervisor", supervisor_node)
+workflow.add_node("researcher", researcher_node)
+workflow.add_node("writer", writer_node)
+workflow.add_conditional_edges(
+    "supervisor",
+    lambda s: s["next"],
+    {"researcher": "researcher", "writer": "writer", "FINISH": END},
+)</pre>
+    </div>
+
+    <!-- ── Section 4.5: Agent 稳定性保障 ── -->
+    <div id="section-4-5" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">⚙️</div>
+        <div>
+          <div class="section-title">4.5 Agent 稳定性保障</div>
+          <div class="section-subtitle">五大稳定性措施确保 Agent 可靠运行</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 五大稳定性措施</div>
+
+      <div class="stability-card">
+        <div class="stability-card-num">1</div>
+        <div class="stability-card-body">
+          <div class="stability-card-title">超时控制</div>
+          <p class="stability-card-desc">每个工具调用设置独立超时（建议 10-30s）</p>
+        </div>
+      </div>
+
+      <div class="stability-card">
+        <div class="stability-card-num">2</div>
+        <div class="stability-card-body">
+          <div class="stability-card-title">重试策略</div>
+          <p class="stability-card-desc">指数退避重试（最多 3 次，避免无效循环）</p>
+        </div>
+      </div>
+
+      <div class="stability-card">
+        <div class="stability-card-num">3</div>
+        <div class="stability-card-body">
+          <div class="stability-card-title">最大步数限制</div>
+          <p class="stability-card-desc">防止 Agent 陷入无限循环（建议 max_steps=15）</p>
+        </div>
+      </div>
+
+      <div class="stability-card">
+        <div class="stability-card-num">4</div>
+        <div class="stability-card-body">
+          <div class="stability-card-title">检查点（Checkpoint）</div>
+          <p class="stability-card-desc">长任务每步持久化状态，支持断点续跑</p>
+        </div>
+      </div>
+
+      <div class="stability-card">
+        <div class="stability-card-num">5</div>
+        <div class="stability-card-body">
+          <div class="stability-card-title">人机协作（HITL）</div>
+          <p class="stability-card-desc">高风险操作（写操作/外部调用）需人工确认</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">生产环境安全阀</div>
+          <p style="font-size:0.875rem;color:var(--medium);margin:0;">生产环境中，Agent 最大步数和超时是最重要的两个安全阀。一个失控的 Agent 循环可以在几分钟内消耗数百美元的 Token。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="module3.html" class="page-nav-btn">← 上一模块：RAG 系统深度实战</a>
+      <a href="module5.html" class="page-nav-btn">下一模块：后端集成 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
