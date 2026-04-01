@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 04：AI 强化客户沟通——从被动应对到主动管理</title>
+  <link rel="stylesheet" href="../training/styles.css" />
+  <style>
+    .comm-scenario-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin: 1.25rem 0; }
+    .comm-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; }
+    .comm-card .cc-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .comm-card .cc-title { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .comm-card .cc-pain { font-size: 0.8rem; color: #C53030; margin-bottom: 8px; line-height: 1.5; }
+    .comm-card .cc-ai { font-size: 0.8rem; color: #276749; line-height: 1.5; }
+
+    .email-example {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
+      overflow: hidden; margin: 1.25rem 0;
+    }
+    .email-header { background: var(--warm); padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); }
+    .email-header .eh-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .email-header .eh-subject { font-size: 0.9rem; font-weight: 700; color: var(--dark); }
+    .email-body { padding: 1.25rem 1.5rem; font-size: 0.875rem; color: var(--medium); line-height: 1.9; }
+    .email-section { margin-bottom: 1rem; }
+    .email-section .es-title { font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .email-highlight { background: #F0FFF4; border-left: 3px solid #38A169; padding: 8px 12px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.85rem; color: #276749; font-weight: 600; }
+
+    .meeting-flow {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin: 1.25rem 0;
+    }
+    .mf-step { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem; text-align: center; }
+    .mf-step .ms-phase { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .mf-step .ms-icon { font-size: 1.75rem; margin-bottom: 6px; }
+    .mf-step .ms-title { font-size: 0.85rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .mf-step .ms-ai { font-size: 0.75rem; color: #38A169; }
+
+    .expectation-matrix {
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 1.5rem; margin: 1.25rem 0;
+    }
+    .em-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin-top: 1rem; }
+    .em-cell { background: #fff; border-radius: var(--radius-md); padding: 1.25rem; border: 1px solid var(--border); }
+    .em-cell .ec-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .em-concern { border-color: #FBD38D; }
+    .em-concern .ec-label { color: #B7791F; }
+    .em-response { border-color: #9AE6B4; }
+    .em-response .ec-label { color: #276749; }
+
+    @media (max-width: 768px) {
+      .comm-scenario-grid { grid-template-columns: 1fr; }
+      .meeting-flow { grid-template-columns: repeat(2,1fr); }
+      .em-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>🚀</span>
+    <span>AI 项目交付培训</span>
+    <span class="logo-badge">M4</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">认知重构</a>
+    <a href="module2.html">项目规划</a>
+    <a href="module3.html">团队协同</a>
+    <a href="module4.html" class="active">客户沟通</a>
+    <a href="module5.html">风险管理</a>
+    <a href="module6.html">质量交付</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#intro" class="active"><span class="nav-num">0</span> 模块简介</a></li>
+      <li><a href="#comm-scenarios"><span class="nav-num">1</span> 沟通场景分析</a></li>
+      <li><a href="#email-writing"><span class="nav-num">2</span> AI 辅助邮件写作</a></li>
+      <li><a href="#meeting-mgmt"><span class="nav-num">3</span> 智能会议管理</a></li>
+      <li><a href="#expectation"><span class="nav-num">4</span> 客户预期管理</a></li>
+      <li><a href="#report-gen"><span class="nav-num">5</span> AI 生成汇报材料</a></li>
+      <li><a href="#prompts"><span class="nav-num">6</span> Prompt 模板库</a></li>
+      <li><a href="#homework"><span class="nav-num">7</span> 课后作业</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div id="intro"></div>
+
+    <div class="session-header">
+      <div class="session-num">模块 04</div>
+      <h1 class="session-title">AI 强化客户沟通<br/>——从被动应对到主动管理</h1>
+      <p class="session-desc">客户沟通是 PM 最消耗精力的工作之一，每一封邮件、每一次汇报、每一次坏消息传达都需要精心措辞。本模块教你用 AI 将客户沟通从"临时应付"升级为"系统管理"。</p>
+      <div class="session-meta">
+        <span class="meta-item">⏱️ 2 小时</span>
+        <span class="meta-item">💬 信任构建</span>
+        <span class="meta-item">📦 产出：5 场景沟通模板</span>
+      </div>
+    </div>
+
+    <div id="comm-scenarios" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">💬</div>
+        <div>
+          <div class="section-title">客户沟通的六大高压场景</div>
+          <div class="section-subtitle">AI 如何帮你在每个场景中游刃有余</div>
+        </div>
+      </div>
+
+      <div class="comm-scenario-grid">
+        <div class="comm-card">
+          <div class="cc-icon">⚠️</div>
+          <div class="cc-title">坏消息传达</div>
+          <div class="cc-pain">痛点：延期/超预算如何说才不让客户崩溃</div>
+          <div class="cc-ai">AI 帮你：结构化坏消息 + 解决方案前置 + 情绪缓冲措辞</div>
+        </div>
+        <div class="comm-card">
+          <div class="cc-icon">📋</div>
+          <div class="cc-title">变更请求谈判</div>
+          <div class="cc-pain">痛点：客户频繁变更，如何说"不"又不伤感情</div>
+          <div class="cc-ai">AI 帮你：生成影响分析 + 专业的变更评估回复</div>
+        </div>
+        <div class="comm-card">
+          <div class="cc-icon">📊</div>
+          <div class="cc-title">进度汇报</div>
+          <div class="cc-pain">痛点：如何让客户感知到项目在高效推进</div>
+          <div class="cc-ai">AI 帮你：自动生成结构化状态更新，突出成果</div>
+        </div>
+        <div class="comm-card">
+          <div class="cc-icon">🔥</div>
+          <div class="cc-title">客户投诉应对</div>
+          <div class="cc-pain">痛点：客户情绪激动时，如何专业化解冲突</div>
+          <div class="cc-ai">AI 帮你：生成同理心回应 + 责任承担 + 改进承诺</div>
+        </div>
+        <div class="comm-card">
+          <div class="cc-icon">🎯</div>
+          <div class="cc-title">需求变更推动</div>
+          <div class="cc-pain">痛点：需要说服客户接受我方建议的方案变化</div>
+          <div class="cc-ai">AI 帮你：生成以客户价值为导向的说服材料</div>
+        </div>
+        <div class="comm-card">
+          <div class="cc-icon">🤝</div>
+          <div class="cc-title">合同/续约谈判</div>
+          <div class="cc-pain">痛点：如何体现项目价值，支撑续约或扩大合作</div>
+          <div class="cc-ai">AI 帮你：生成项目价值总结 + ROI 分析报告</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="email-writing" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">📧</div>
+        <div>
+          <div class="section-title">AI 辅助专业邮件写作</div>
+          <div class="section-subtitle">让每封邮件都精准传达意图，建立专业形象</div>
+        </div>
+      </div>
+
+      <div class="email-example">
+        <div class="email-header">
+          <div class="eh-label">AI 生成示例：项目延期通知邮件</div>
+          <div class="eh-subject">主题：[项目名称] 开发进度更新及里程碑调整说明</div>
+        </div>
+        <div class="email-body">
+          <div class="email-section">
+            <div class="es-title">王总，您好：</div>
+            <p>感谢您一如既往地对项目的关注与支持。本邮件就近期项目进展及里程碑调整事项向您做专项汇报。</p>
+          </div>
+          <div class="email-section">
+            <div class="es-title">📊 当前项目状态</div>
+            <p>截至本周，整体开发完成度约 72%，支付模块、商品管理、用户中心三大核心功能均已如期完成并通过内测。</p>
+          </div>
+          <div class="email-section">
+            <div class="es-title">⚠️ 需要说明的情况</div>
+            <p>接口联调阶段因第三方物流 API 接口文档更新，导致原定 12 月 15 日的 UAT 开始时间<strong>需延后 5 个工作日至 12 月 22 日</strong>。</p>
+          </div>
+          <div class="email-highlight">
+            ✅ 我们的应对方案：已安排额外资源并行处理接口适配，争取将最终上线时间（原计划 1 月 5 日）维持不变。
+          </div>
+          <div class="email-section" style="margin-top:1rem;">
+            <div class="es-title">📅 后续里程碑</div>
+            <p>UAT 开始：12 月 22 日 | UAT 结束：12 月 29 日 | 正式上线：1 月 5 日（维持不变）</p>
+          </div>
+          <p>如有任何疑问，欢迎随时沟通。我将在周五发送详细的进度报告。</p>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:1.5rem;">
+你是一名资深项目经理，擅长专业的客户沟通。
+
+请帮我起草一封关于[场景：项目延期/变更/问题]的客户邮件：
+背景：[描述情况]
+需要传达的核心信息：[要说什么]
+期望客户的反应/行动：[希望对方怎么做]
+客户背景：[描述客户性格/关注点，如：技术型/商务型/注重细节]
+
+要求：
+1. 结构：情况说明 → 原因分析 → 解决方案 → 后续行动
+2. 语气：专业、诚恳、有担当，避免推卸责任
+3. 强调解决方案，而非问题本身
+4. 结尾明确行动项（谁/做什么/何时完成）
+5. 长度控制在 300 字以内
+      </div>
+    </div>
+
+    <div id="meeting-mgmt" class="section">
+      <div class="section-header">
+        <div class="section-icon green">📅</div>
+        <div>
+          <div class="section-title">智能会议全流程管理</div>
+          <div class="section-subtitle">会前准备 → 会中记录 → 会后跟踪，AI 全程辅助</div>
+        </div>
+      </div>
+
+      <div class="meeting-flow">
+        <div class="mf-step">
+          <div class="ms-phase">会前 30 分钟</div>
+          <div class="ms-icon">📋</div>
+          <div class="ms-title">议程生成</div>
+          <div class="ms-ai">AI 基于上次纪要自动生成本次议程</div>
+        </div>
+        <div class="mf-step">
+          <div class="ms-phase">会中实时</div>
+          <div class="ms-icon">🎙️</div>
+          <div class="ms-title">关键点记录</div>
+          <div class="ms-ai">记录关键决策，AI 实时整理结构</div>
+        </div>
+        <div class="mf-step">
+          <div class="ms-phase">会后 15 分钟</div>
+          <div class="ms-icon">📝</div>
+          <div class="ms-title">纪要生成</div>
+          <div class="ms-ai">AI 生成标准纪要 + 行动项清单</div>
+        </div>
+        <div class="mf-step">
+          <div class="ms-phase">次日跟踪</div>
+          <div class="ms-icon">✅</div>
+          <div class="ms-title">行动项追踪</div>
+          <div class="ms-ai">AI 生成跟催提醒，确保 100% 闭环</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+请将以下会议记录整理为标准会议纪要：
+
+会议基本信息：
+- 日期/时间：[填写]
+- 参会人：[填写]
+- 会议主题：[填写]
+
+会议讨论记录（可以是流水账）：
+[粘贴会议记录、聊天记录或语音转文字内容]
+
+请输出：
+1. 会议摘要（3-5 句话，概括核心结论）
+2. 讨论决议（已确定的决定，加粗显示）
+3. 行动项清单（负责人 | 任务 | 截止日期）
+4. 待确认事项（需要进一步确认的问题）
+5. 下次会议议题建议
+      </div>
+    </div>
+
+    <div id="expectation" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">🎯</div>
+        <div>
+          <div class="section-title">AI 辅助客户预期管理</div>
+          <div class="section-subtitle">主动设定预期比被动处理不满效率高 10 倍</div>
+        </div>
+      </div>
+
+      <div class="expectation-matrix">
+        <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);">客户关注点 vs 你的应对策略</div>
+        <div class="em-grid">
+          <div class="em-cell em-concern">
+            <div class="ec-label">🔴 客户常见顾虑</div>
+            <ul style="font-size:0.82rem;color:var(--medium);padding-left:1rem;line-height:1.9;margin:0;">
+              <li>项目会不会延期？</li>
+              <li>预算是否会超支？</li>
+              <li>质量是否有保障？</li>
+              <li>遇到问题会不会被蒙在鼓里？</li>
+              <li>最终交付物是否符合预期？</li>
+            </ul>
+          </div>
+          <div class="em-cell em-response">
+            <div class="ec-label">🟢 AI 辅助的主动应对</div>
+            <ul style="font-size:0.82rem;color:var(--medium);padding-left:1rem;line-height:1.9;margin:0;">
+              <li>每周发送进度 Dashboard，数字说话</li>
+              <li>月度预算使用报告，偏差提前说明</li>
+              <li>AI 生成的质量指标报告，每 Sprint 更新</li>
+              <li>问题出现 24 小时内主动通报 + 方案</li>
+              <li>AI 辅助生成演示脚本，预先校准预期</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="background:#EBF8FF;border-color:#90CDF4;margin-top:1rem;">
+        <h3 style="margin-top:0;color:#2B6CB0;">💡 预期管理黄金法则</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem;">
+          <div style="text-align:center;">
+            <div style="font-size:2rem;margin-bottom:6px;">📢</div>
+            <div style="font-size:0.85rem;font-weight:700;color:var(--dark);margin-bottom:4px;">超前沟通</div>
+            <div style="font-size:0.78rem;color:var(--muted);">坏消息早说，不要等客户问</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:2rem;margin-bottom:6px;">📊</div>
+            <div style="font-size:0.85rem;font-weight:700;color:var(--dark);margin-bottom:4px;">数据说话</div>
+            <div style="font-size:0.78rem;color:var(--muted);">用指标代替模糊描述</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:2rem;margin-bottom:6px;">✅</div>
+            <div style="font-size:0.85rem;font-weight:700;color:var(--dark);margin-bottom:4px;">方案前置</div>
+            <div style="font-size:0.78rem;color:var(--muted);">带着方案来，不只带问题</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:1.5rem;">
+我需要向客户解释项目中出现的[问题/风险/变化]，请帮我：
+1. 起草一段开场白，先表达对客户关切的理解
+2. 用客户能听懂的语言解释情况
+3. 给出 2-3 个解决方案选项（含各自的优缺点）
+4. 明确我方的推荐方案及理由
+5. 说明需要客户提供的支持/决策
+
+背景信息：[描述情况]
+客户特点：[描述客户背景/偏好]
+      </div>
+    </div>
+
+    <div id="report-gen" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📊</div>
+        <div>
+          <div class="section-title">AI 生成客户汇报材料</div>
+          <div class="section-subtitle">从数据到故事，AI 帮你讲好项目价值</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-bottom:1.5rem;">
+        <div class="card">
+          <h4 style="margin-top:0;">📑 月度项目报告结构</h4>
+          <ol style="font-size:0.82rem;color:var(--medium);padding-left:1rem;line-height:1.9;">
+            <li><strong>执行摘要</strong>（1 页）：给决策者看</li>
+            <li><strong>进度概览</strong>：里程碑完成状态</li>
+            <li><strong>本月亮点</strong>：已交付价值</li>
+            <li><strong>风险与问题</strong>：现状 + 应对</li>
+            <li><strong>下月计划</strong>：目标 + 关键任务</li>
+            <li><strong>需要客户支持</strong>：清单</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;">🎯 阶段成果演示脚本</h4>
+          <ol style="font-size:0.82rem;color:var(--medium);padding-left:1rem;line-height:1.9;">
+            <li><strong>开场</strong>：回顾本阶段目标</li>
+            <li><strong>功能演示</strong>：以用户场景驱动</li>
+            <li><strong>数据验证</strong>：测试结果/性能指标</li>
+            <li><strong>问题说明</strong>：遗留问题及计划</li>
+            <li><strong>下阶段预告</strong>：让客户有期待</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="code-block">
+你是一名资深项目经理，需要为客户生成一份月度项目报告。
+
+项目数据：
+- 本月完成里程碑：[列举]
+- 进度完成率：[X]%（计划 [Y]%）
+- 本月交付功能：[列举]
+- 发现并修复 Bug：[X] 个
+- 风险情况：[描述]
+- 下月计划：[列举]
+
+要求：
+1. 首先生成执行摘要（3-4 句话，面向决策层）
+2. 再生成详细报告（按标准月报结构）
+3. 语言积极、专业，用数字支撑结论
+4. 明确列出需要客户支持/决策的事项
+      </div>
+    </div>
+
+    <div id="prompts" class="section">
+      <div class="section-header">
+        <div class="section-icon teal">📚</div>
+        <div>
+          <div class="section-title">客户沟通 Prompt 模板库</div>
+          <div class="section-subtitle">5 大场景 Prompt，覆盖 80% 的客户沟通需求</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;">
+        <div class="card">
+          <h4 style="margin-top:0;font-size:0.9rem;">📧 变更请求拒绝/协商邮件</h4>
+          <p style="font-size:0.8rem;color:var(--medium);">在拒绝客户变更时，既保持专业又维护关系的回复模板</p>
+          <a href="appendix.html#prompts-comm" style="font-size:0.8rem;color:var(--accent);">查看完整 Prompt →</a>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;font-size:0.9rem;">🔥 投诉危机应对话术</h4>
+          <p style="font-size:0.8rem;color:var(--medium);">客户强烈不满时，第一时间回应的标准化应对框架</p>
+          <a href="appendix.html#prompts-comm" style="font-size:0.8rem;color:var(--accent);">查看完整 Prompt →</a>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;font-size:0.9rem;">🎉 项目价值总结报告</h4>
+          <p style="font-size:0.8rem;color:var(--medium);">项目收尾时，AI 生成突出业务价值的项目总结报告</p>
+          <a href="appendix.html#prompts-comm" style="font-size:0.8rem;color:var(--accent);">查看完整 Prompt →</a>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;font-size:0.9rem;">🤝 续约 / 扩大合作提案</h4>
+          <p style="font-size:0.8rem;color:var(--medium);">基于项目成果，生成续约或扩大合作的商务提案框架</p>
+          <a href="appendix.html#prompts-comm" style="font-size:0.8rem;color:var(--accent);">查看完整 Prompt →</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="homework" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📚</div>
+        <div>
+          <div class="section-title">课后作业</div>
+          <div class="section-subtitle">本周完成，带到下次课程分享</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">📝 作业：建立你的客户沟通 Prompt 库</h3>
+        <ol style="font-size:0.875rem;color:var(--medium);padding-left:1.25rem;line-height:1.9;">
+          <li><strong>选择本周 3 封实际的客户邮件</strong>，用 AI 重写后对比效果</li>
+          <li><strong>实践会议纪要自动化</strong>：下次客户会议后，用 AI 生成纪要</li>
+          <li><strong>记录节省的时间</strong>：这两件事合计节省了多少分钟？</li>
+          <li><strong>沉淀个人 Prompt 库</strong>：保存最有效的 3 个沟通 Prompt</li>
+        </ol>
+        <div class="infobox infobox-tip" style="margin-top:1rem;">
+          <span class="infobox-icon">🎁</span>
+          <div><strong>产出物：</strong>完成本课后，你将拥有一套<strong>5 大场景客户沟通 Prompt 模板</strong>和<strong>会议纪要自动化工作流</strong>，下次会议结束 10 分钟内发出纪要。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="module3.html" class="page-nav-btn" style="background:var(--warm);color:var(--dark);border:1px solid var(--border);">← 模块三：团队协同</a>
+      <a href="module5.html" class="page-nav-btn">模块五：AI 风险识别与消除 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

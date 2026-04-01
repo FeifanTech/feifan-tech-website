@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 03：AI 赋能产研协同——让团队协作提速 2x</title>
+  <link rel="stylesheet" href="../training/styles.css" />
+  <style>
+    .collab-flow {
+      display: flex; align-items: stretch; gap: 0;
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 1.5rem; margin: 1.25rem 0; overflow-x: auto;
+    }
+    .cf-step {
+      flex: 1; min-width: 120px; background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 1rem; text-align: center; margin: 0 4px;
+    }
+    .cf-step .cs-icon { font-size: 1.75rem; margin-bottom: 6px; }
+    .cf-step .cs-title { font-size: 0.82rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .cf-step .cs-ai { font-size: 0.72rem; color: #38A169; font-weight: 600; }
+    .cf-arrow { display: flex; align-items: center; color: var(--border); font-size: 1.25rem; padding: 0 2px; flex-shrink: 0; }
+
+    .story-card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 1.5rem; margin-bottom: 1rem;
+    }
+    .story-card .sc-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .story-card .sc-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.75rem; }
+    .story-card .sc-field { display: flex; gap: 8px; margin-bottom: 6px; font-size: 0.85rem; }
+    .story-card .sc-field .sf-key { font-weight: 600; color: var(--dark); min-width: 80px; flex-shrink: 0; }
+    .story-card .sc-field .sf-val { color: var(--medium); }
+    .sc-ac { background: #F0FFF4; border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-top: 0.75rem; }
+    .sc-ac .ac-title { font-size: 0.78rem; font-weight: 700; color: #276749; margin-bottom: 6px; }
+    .sc-ac-item { font-size: 0.8rem; color: #276749; margin-bottom: 4px; display: flex; align-items: flex-start; gap: 6px; }
+    .sc-ac-item::before { content: '✓'; font-weight: 700; flex-shrink: 0; }
+
+    .review-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; margin: 1.25rem 0; }
+    .review-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; }
+    .review-card .rc-title { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+    .review-card .rc-list { list-style: none; }
+    .review-card .rc-list li { font-size: 0.82rem; color: var(--medium); margin-bottom: 6px; display: flex; align-items: flex-start; gap: 6px; line-height: 1.5; }
+    .review-card .rc-list li::before { content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    .sprint-board {
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 1.5rem; margin: 1.25rem 0;
+    }
+    .sprint-cols { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-top: 1rem; }
+    .sprint-col .scol-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; text-align: center; }
+    .sprint-task { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 10px; margin-bottom: 6px; font-size: 0.78rem; color: var(--medium); }
+    .sprint-task .st-tag { font-size: 0.65rem; font-weight: 600; padding: 1px 6px; border-radius: 999px; display: inline-block; margin-bottom: 3px; }
+
+    @media (max-width: 768px) {
+      .review-grid { grid-template-columns: 1fr; }
+      .sprint-cols { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>🚀</span>
+    <span>AI 项目交付培训</span>
+    <span class="logo-badge">M3</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">认知重构</a>
+    <a href="module2.html">项目规划</a>
+    <a href="module3.html" class="active">团队协同</a>
+    <a href="module4.html">客户沟通</a>
+    <a href="module5.html">风险管理</a>
+    <a href="module6.html">质量交付</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#intro" class="active"><span class="nav-num">0</span> 模块简介</a></li>
+      <li><a href="#collab-challenge"><span class="nav-num">1</span> 协同痛点分析</a></li>
+      <li><a href="#req-clarity"><span class="nav-num">2</span> AI 需求澄清</a></li>
+      <li><a href="#story-gen"><span class="nav-num">3</span> AI 生成 User Story</a></li>
+      <li><a href="#review"><span class="nav-num">4</span> AI 辅助评审</a></li>
+      <li><a href="#sprint"><span class="nav-num">5</span> AI 驱动敏捷迭代</a></li>
+      <li><a href="#prompts"><span class="nav-num">6</span> Prompt 模板库</a></li>
+      <li><a href="#homework"><span class="nav-num">7</span> 课后作业</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div id="intro"></div>
+
+    <div class="session-header">
+      <div class="session-num">模块 03</div>
+      <h1 class="session-title">AI 赋能产研协同<br/>——让团队协作提速 2x</h1>
+      <p class="session-desc">PM 与研发团队之间的摩擦，往往来自需求不清晰、任务拆解不到位、进度对齐低效。本模块教你用 AI 消除这些摩擦点，让 PM 成为团队最有效的"翻译官"和"加速器"。</p>
+      <div class="session-meta">
+        <span class="meta-item">⏱️ 2 小时</span>
+        <span class="meta-item">🤝 协同加速</span>
+        <span class="meta-item">📦 产出：User Story 模板库</span>
+      </div>
+    </div>
+
+    <div id="collab-challenge" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">😤</div>
+        <div>
+          <div class="section-title">PM 与研发协同的核心痛点</div>
+          <div class="section-subtitle">你是否经历过这些经典冲突场景？</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1.5rem;">
+        <div class="card" style="background:#FFF5F5;border-color:#FC8181;">
+          <h4 style="margin-top:0;color:#C53030;">😤 研发的抱怨</h4>
+          <ul style="font-size:0.875rem;color:var(--medium);padding-left:1rem;line-height:1.9;">
+            <li>"需求描述太模糊，我没法做"</li>
+            <li>"验收标准不明确，做完不知道算不算完"</li>
+            <li>"每天开 3 个进度会议，严重影响开发"</li>
+            <li>"PM 不懂技术，提的时间节点不现实"</li>
+          </ul>
+        </div>
+        <div class="card" style="background:#FFF5F5;border-color:#FC8181;">
+          <h4 style="margin-top:0;color:#C53030;">😤 PM 的抱怨</h4>
+          <ul style="font-size:0.875rem;color:var(--medium);padding-left:1rem;line-height:1.9;">
+            <li>"开发一句'在做了'，具体进度不透明"</li>
+            <li>"技术债和重构总是打乱我的计划"</li>
+            <li>"需求评审开了 2 小时，问题没讨论清楚"</li>
+            <li>"每次联调都出新问题，黑盒太多"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div><strong>AI 的解法：</strong>大部分协同摩擦的根本原因是<strong>信息不对称</strong>和<strong>表达不精准</strong>。AI 可以帮助 PM 生成更精确的需求描述、验收标准和技术问题清单，大幅减少双方来回的沟通成本。</div>
+      </div>
+
+      <div class="collab-flow">
+        <div class="cf-step">
+          <div class="cs-icon">📥</div>
+          <div class="cs-title">业务需求输入</div>
+          <div class="cs-ai">人类主导</div>
+        </div>
+        <div class="cf-arrow">→</div>
+        <div class="cf-step">
+          <div class="cs-icon">🔍</div>
+          <div class="cs-title">AI 澄清分析</div>
+          <div class="cs-ai">AI 主导</div>
+        </div>
+        <div class="cf-arrow">→</div>
+        <div class="cf-step">
+          <div class="cs-icon">📋</div>
+          <div class="cs-title">Story 生成</div>
+          <div class="cs-ai">AI 生成</div>
+        </div>
+        <div class="cf-arrow">→</div>
+        <div class="cf-step">
+          <div class="cs-icon">✅</div>
+          <div class="cs-title">验收标准</div>
+          <div class="cs-ai">AI 生成</div>
+        </div>
+        <div class="cf-arrow">→</div>
+        <div class="cf-step">
+          <div class="cs-icon">👁️</div>
+          <div class="cs-title">人工评审</div>
+          <div class="cs-ai">人类主导</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="req-clarity" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">🔍</div>
+        <div>
+          <div class="section-title">AI 辅助需求澄清</div>
+          <div class="section-subtitle">用 AI 发现需求中的模糊地带，提前消除歧义</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">🔍 需求澄清 AI 分析示例</h3>
+        <div style="background:var(--warm);border-radius:var(--radius-md);padding:1rem;margin-bottom:1rem;">
+          <div style="font-size:0.78rem;font-weight:700;color:var(--muted);margin-bottom:6px;">原始需求（模糊版本）</div>
+          <div style="font-size:0.875rem;color:var(--medium);">用户需要能够搜索商品，搜索结果要快，支持多种筛选条件，手机端也要好用。</div>
+        </div>
+        <div style="font-size:0.78rem;font-weight:700;color:#276749;margin-bottom:8px;">AI 识别的模糊点和澄清问题：</div>
+        <ul style="font-size:0.875rem;color:var(--medium);padding-left:1rem;line-height:1.9;">
+          <li>❓ "快"的标准是什么？期望响应时间 ≤ X 秒？</li>
+          <li>❓ "多种筛选条件"具体包括哪些维度（价格/类别/品牌/评分）？</li>
+          <li>❓ 搜索结果默认排序规则是什么？</li>
+          <li>❓ 是否需要搜索联想/自动补全功能？</li>
+          <li>❓ 移动端"好用"的定义：布局适配？还是独立的移动端交互体验？</li>
+          <li>❓ 商品数据量级是多少（影响技术选型）？</li>
+        </ul>
+      </div>
+
+      <div class="code-block" style="margin-top:1.5rem;">
+你是一名资深产品经理，擅长发现需求中的模糊和遗漏。
+
+请分析以下需求描述，列出：
+1. 5-10 个需要向业务方澄清的问题
+2. 可能存在的边界情况和异常场景
+3. 可能被遗漏的非功能性需求（性能/安全/兼容性）
+4. 这个需求与其他功能可能存在的依赖关系
+
+需求描述：[粘贴需求原文]
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1rem;">
+        <span class="infobox-icon">⚡</span>
+        <div><strong>实战技巧：</strong>在需求评审会之前，先用此 Prompt 让 AI 扫一遍需求文档，把 AI 生成的问题清单作为会议议题，可以将需求评审效率提升 50%，减少后期返工。</div>
+      </div>
+    </div>
+
+    <div id="story-gen" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📝</div>
+        <div>
+          <div class="section-title">AI 生成高质量 User Story</div>
+          <div class="section-subtitle">从业务需求到可执行开发任务，AI 一步完成</div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="sc-label">AI 生成的 User Story 示例</div>
+        <div class="sc-title">US-042：商品搜索与筛选功能</div>
+        <div class="sc-field">
+          <span class="sf-key">用户故事</span>
+          <span class="sf-val">作为一名<strong>购物用户</strong>，我希望能<strong>通过关键词搜索商品并使用筛选条件缩小范围</strong>，以便<strong>快速找到我想买的商品</strong>。</span>
+        </div>
+        <div class="sc-field">
+          <span class="sf-key">优先级</span>
+          <span class="sf-val"><span class="badge badge-red">P1 必须</span></span>
+        </div>
+        <div class="sc-field">
+          <span class="sf-key">故事点</span>
+          <span class="sf-val">8 点（建议拆分为 2 个 Story）</span>
+        </div>
+        <div class="sc-ac">
+          <div class="ac-title">✅ 验收标准（Acceptance Criteria）</div>
+          <div class="sc-ac-item">搜索响应时间 ≤ 1 秒（99th 百分位，商品库 &lt; 10 万件）</div>
+          <div class="sc-ac-item">支持按价格区间、商品分类、品牌、星级评分筛选</div>
+          <div class="sc-ac-item">搜索结果展示商品图片、名称、价格、评分和库存状态</div>
+          <div class="sc-ac-item">移动端搜索结果页适配 375px 最小宽度，筛选条件支持抽屉式展开</div>
+          <div class="sc-ac-item">无搜索结果时展示"暂无结果"提示和推荐商品</div>
+          <div class="sc-ac-item">搜索历史记录最近 10 条，支持清除</div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:1.5rem;">
+你是一名经验丰富的产品经理，精通敏捷开发和 User Story 写作。
+
+请根据以下需求，生成符合 INVEST 原则的 User Story：
+[粘贴需求描述]
+
+每个 User Story 需包含：
+1. 故事格式：作为[用户角色]，我希望[功能描述]，以便[业务价值]
+2. 验收标准（AC）：5-8 条，具体可测试，包含正常和异常场景
+3. 故事点估算：1/2/3/5/8/13，超过 8 建议拆分
+4. 技术备注：需要研发注意的技术依赖或约束
+
+如果需求较大，请自动拆分为多个独立的 User Story。
+      </div>
+    </div>
+
+    <div id="review" class="section">
+      <div class="section-header">
+        <div class="section-icon teal">🔎</div>
+        <div>
+          <div class="section-title">AI 辅助技术评审与进度同步</div>
+          <div class="section-subtitle">PM 参与技术对话，AI 充当专业翻译</div>
+        </div>
+      </div>
+
+      <div class="review-grid">
+        <div class="review-card">
+          <div class="rc-title">🏗️ 技术方案评审辅助</div>
+          <ul class="rc-list">
+            <li>将技术方案文档丢给 AI，生成非技术人员易理解的摘要</li>
+            <li>AI 帮助识别技术风险点，生成 PM 需要重点关注的问题清单</li>
+            <li>评估技术方案对时间线的影响，生成风险矩阵</li>
+          </ul>
+        </div>
+        <div class="review-card">
+          <div class="rc-title">📊 进度周会效率提升</div>
+          <ul class="rc-list">
+            <li>会前：AI 生成结构化会议议程（基于上次会议纪要）</li>
+            <li>会中：手机记录关键信息，实时让 AI 整理行动项</li>
+            <li>会后：10 分钟内发出 AI 生成的会议纪要和 TODO 清单</li>
+          </ul>
+        </div>
+        <div class="review-card">
+          <div class="rc-title">🚧 技术阻塞处理</div>
+          <ul class="rc-list">
+            <li>研发描述阻塞问题 → AI 帮助结构化问题描述</li>
+            <li>AI 建议可能的解决方向和需要协调的资源</li>
+            <li>生成上报给技术负责人的清晰问题摘要</li>
+          </ul>
+        </div>
+        <div class="review-card">
+          <div class="rc-title">⚡ 跨团队依赖管理</div>
+          <ul class="rc-list">
+            <li>AI 分析项目依赖图，识别潜在的跨团队阻塞点</li>
+            <li>生成依赖跟催邮件和消息模板</li>
+            <li>自动更新依赖状态矩阵</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="code-block">
+我是一名项目经理，需要参与一个关于[技术选型/架构设计]的技术评审会。
+研发团队提出的方案如下：[粘贴技术方案描述]
+
+请帮我：
+1. 用业务语言解释这个技术方案的核心逻辑
+2. 列出这个方案的主要技术风险（从 PM 视角）
+3. 生成 5 个我在评审会上应该问的关键问题
+4. 说明如果采用这个方案，对项目时间线和资源的影响
+      </div>
+    </div>
+
+    <div id="sprint" class="section">
+      <div class="section-header">
+        <div class="section-icon green">🔄</div>
+        <div>
+          <div class="section-title">AI 驱动敏捷迭代加速</div>
+          <div class="section-subtitle">Sprint 规划、回顾、燃尽图分析全面 AI 化</div>
+        </div>
+      </div>
+
+      <div class="sprint-board">
+        <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">AI 辅助 Sprint Board 示例</div>
+        <div class="sprint-cols">
+          <div class="sprint-col">
+            <div class="scol-title">📋 Backlog</div>
+            <div class="sprint-task"><span class="st-tag" style="background:#EBF8FF;color:#2B6CB0;">Story</span><br/>用户登录 SSO</div>
+            <div class="sprint-task"><span class="st-tag" style="background:#EBF8FF;color:#2B6CB0;">Story</span><br/>商品详情页优化</div>
+          </div>
+          <div class="sprint-col">
+            <div class="scol-title">🔧 In Progress</div>
+            <div class="sprint-task"><span class="st-tag" style="background:#FEFCBF;color:#744210;">Story</span><br/>搜索功能开发</div>
+            <div class="sprint-task"><span class="st-tag" style="background:#FEFCBF;color:#744210;">Bug</span><br/>购物车数量同步</div>
+          </div>
+          <div class="sprint-col">
+            <div class="scol-title">🔍 Review</div>
+            <div class="sprint-task"><span class="st-tag" style="background:#F3F0FF;color:#553C9A;">Story</span><br/>支付流程重构</div>
+          </div>
+          <div class="sprint-col">
+            <div class="scol-title">✅ Done</div>
+            <div class="sprint-task"><span class="st-tag" style="background:#F0FFF4;color:#276749;">Story</span><br/>首页改版上线</div>
+            <div class="sprint-task"><span class="st-tag" style="background:#F0FFF4;color:#276749;">Story</span><br/>商品列表分页</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-top:1.25rem;">
+        <div class="code-block" style="margin:0;">
+          <span style="display:block;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#68D391;margin-bottom:0.75rem;">Sprint 规划 Prompt</span>
+请根据以下产品待办项，帮我规划一个 2 周 Sprint：
+Sprint 目标：[描述本 Sprint 业务目标]
+团队速度：[历史平均故事点/Sprint]
+可用人天：[去掉假期后的实际人天]
+待办清单：[粘贴 Backlog 列表]
+
+请输出：Sprint 目标声明 + 推荐包含的 Story 列表
++ 容量分析 + 主要风险提示
+        </div>
+        <div class="code-block" style="margin:0;">
+          <span style="display:block;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#68D391;margin-bottom:0.75rem;">Sprint 回顾 Prompt</span>
+请根据以下 Sprint 回顾笔记，生成结构化复盘报告：
+Sprint 编号：[X]
+完成情况：[完成/未完成的 Story]
+团队反馈（做得好）：[原始笔记]
+团队反馈（需改进）：[原始笔记]
+
+请输出：改进建议 TOP3 + 下 Sprint 行动项
+        </div>
+      </div>
+    </div>
+
+    <div id="prompts" class="section">
+      <div class="section-header">
+        <div class="section-icon teal">📚</div>
+        <div>
+          <div class="section-title">协同管理 Prompt 模板库</div>
+          <div class="section-subtitle">本模块核心 Prompt 汇总，直接复用</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;">
+        <div class="card">
+          <h4 style="margin-top:0;font-size:0.9rem;">🗓️ 迭代计划会议议程</h4>
+          <p style="font-size:0.8rem;color:var(--medium);">基于上 Sprint 复盘和当前 Backlog，自动生成本次计划会议议程</p>
+          <a href="appendix.html#prompts-collab" style="font-size:0.8rem;color:var(--accent);">查看完整 Prompt →</a>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;font-size:0.9rem;">📧 技术阻塞上报邮件</h4>
+          <p style="font-size:0.8rem;color:var(--medium);">描述阻塞问题，AI 生成结构清晰、需要明确支持的上报邮件</p>
+          <a href="appendix.html#prompts-collab" style="font-size:0.8rem;color:var(--accent);">查看完整 Prompt →</a>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;font-size:0.9rem;">📋 需求变更影响分析</h4>
+          <p style="font-size:0.8rem;color:var(--medium);">描述新增/变更需求，AI 快速分析对时间线、资源和其他功能的影响</p>
+          <a href="appendix.html#prompts-collab" style="font-size:0.8rem;color:var(--accent);">查看完整 Prompt →</a>
+        </div>
+        <div class="card">
+          <h4 style="margin-top:0;font-size:0.9rem;">🎯 Epic 拆分助手</h4>
+          <p style="font-size:0.8rem;color:var(--medium);">输入大型 Epic，AI 自动拆分为多个独立 Story 并按优先级排序</p>
+          <a href="appendix.html#prompts-collab" style="font-size:0.8rem;color:var(--accent);">查看完整 Prompt →</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="homework" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📚</div>
+        <div>
+          <div class="section-title">课后作业</div>
+          <div class="section-subtitle">本周完成，带到下次课程分享</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">📝 作业：建立你的 User Story 模板库</h3>
+        <ol style="font-size:0.875rem;color:var(--medium);padding-left:1.25rem;line-height:1.9;">
+          <li><strong>选择手头项目中即将开发的 3 个功能</strong>，用 AI 生成 User Story</li>
+          <li><strong>与研发团队核对</strong>：AI 生成的 AC 是否足够准确？遗漏了什么？</li>
+          <li><strong>迭代优化 Prompt</strong>：根据研发反馈调整你的 Story 生成 Prompt</li>
+          <li><strong>建立模板库</strong>：将 3 个优化后的 Prompt 保存到你的 Prompt 库</li>
+        </ol>
+        <div class="infobox infobox-tip" style="margin-top:1rem;">
+          <span class="infobox-icon">🎁</span>
+          <div><strong>产出物：</strong>完成本课后，你将拥有一套<strong>个人 User Story 生成模板库</strong>和<strong>需求澄清 AI 问题清单</strong>，下次需求评审直接复用。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="module2.html" class="page-nav-btn" style="background:var(--warm);color:var(--dark);border:1px solid var(--border);">← 模块二：项目规划</a>
+      <a href="module4.html" class="page-nav-btn">模块四：AI 强化客户沟通 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 06：AI 交付质量管控——打造高质量收官体验</title>
+  <link rel="stylesheet" href="../training/styles.css" />
+  <style>
+    .quality-gate-flow {
+      display: flex; align-items: center; gap: 0;
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 1.5rem; margin: 1.25rem 0; overflow-x: auto;
+    }
+    .qg-step {
+      flex: 1; min-width: 110px; background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 1rem; text-align: center; margin: 0 3px;
+    }
+    .qg-step .qs-icon { font-size: 1.5rem; margin-bottom: 5px; }
+    .qg-step .qs-title { font-size: 0.8rem; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+    .qg-step .qs-ai { font-size: 0.7rem; color: #38A169; font-weight: 600; }
+    .qg-gate { display: flex; align-items: center; justify-content: center; width: 28px; flex-shrink: 0; }
+    .qg-gate .gate-icon { font-size: 1.1rem; color: var(--accent); }
+
+    .checklist-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1rem; }
+    .checklist-card .cc-category { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+    .checklist-card .cc-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; font-size: 0.85rem; color: var(--medium); }
+    .cc-checkbox { width: 16px; height: 16px; border: 2px solid var(--border); border-radius: 3px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; }
+    .cc-checked { background: #38A169; border-color: #38A169; color: #fff; }
+
+    .defect-analysis { background: var(--warm); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 1.5rem; margin: 1.25rem 0; }
+    .da-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 1rem; }
+    .da-cell { background: #fff; border-radius: var(--radius-md); padding: 1.25rem; border: 1px solid var(--border); }
+    .da-cell .dc-cat { font-size: 0.78rem; font-weight: 700; color: var(--muted); margin-bottom: 8px; }
+    .da-cell .dc-item { font-size: 0.82rem; color: var(--medium); margin-bottom: 5px; display: flex; gap: 6px; }
+    .da-cell .dc-item::before { content: '•'; color: var(--accent); }
+
+    .doc-types { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin: 1.25rem 0; }
+    .doc-type-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem; text-align: center; }
+    .doc-type-card .dtc-icon { font-size: 1.75rem; margin-bottom: 6px; }
+    .doc-type-card .dtc-title { font-size: 0.85rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .doc-type-card .dtc-ai { font-size: 0.75rem; color: #38A169; font-weight: 600; }
+
+    @media (max-width: 768px) {
+      .da-grid { grid-template-columns: 1fr 1fr; }
+      .doc-types { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .da-grid { grid-template-columns: 1fr; }
+      .doc-types { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>🚀</span>
+    <span>AI 项目交付培训</span>
+    <span class="logo-badge">M6</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">认知重构</a>
+    <a href="module2.html">项目规划</a>
+    <a href="module3.html">团队协同</a>
+    <a href="module4.html">客户沟通</a>
+    <a href="module5.html">风险管理</a>
+    <a href="module6.html" class="active">质量交付</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#intro" class="active"><span class="nav-num">0</span> 模块简介</a></li>
+      <li><a href="#quality-gates"><span class="nav-num">1</span> 质量关卡体系</a></li>
+      <li><a href="#uat-design"><span class="nav-num">2</span> AI 辅助 UAT 设计</a></li>
+      <li><a href="#defect-mgmt"><span class="nav-num">3</span> AI 驱动缺陷管理</a></li>
+      <li><a href="#doc-automation"><span class="nav-num">4</span> 交付文档自动化</a></li>
+      <li><a href="#go-live"><span class="nav-num">5</span> AI 辅助上线保障</a></li>
+      <li><a href="#closure"><span class="nav-num">6</span> AI 项目收尾</a></li>
+      <li><a href="#homework"><span class="nav-num">7</span> 课后作业</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div id="intro"></div>
+
+    <div class="session-header">
+      <div class="session-num">模块 06</div>
+      <h1 class="session-title">AI 交付质量管控<br/>——打造高质量收官体验</h1>
+      <p class="session-desc">交付阶段是项目成败的最后关口。本模块教你用 AI 构建系统化的质量管控体系，从 UAT 设计到上线保障，让每一次交付都让客户满意，让团队有信心。</p>
+      <div class="session-meta">
+        <span class="meta-item">⏱️ 2 小时</span>
+        <span class="meta-item">✅ 卓越收官</span>
+        <span class="meta-item">📦 产出：验收清单 + 文档工作流</span>
+      </div>
+    </div>
+
+    <div id="quality-gates" class="section">
+      <div class="section-header">
+        <div class="section-icon teal">🚦</div>
+        <div>
+          <div class="section-title">AI 驱动的质量关卡体系</div>
+          <div class="section-subtitle">在每个关键节点设置 AI 辅助的质量检查点</div>
+        </div>
+      </div>
+
+      <div class="quality-gate-flow">
+        <div class="qg-step">
+          <div class="qs-icon">📋</div>
+          <div class="qs-title">需求评审</div>
+          <div class="qs-ai">AI 检查需求完整性</div>
+        </div>
+        <div class="qg-gate"><div class="gate-icon">🔒</div></div>
+        <div class="qg-step">
+          <div class="qs-icon">🏗️</div>
+          <div class="qs-title">设计评审</div>
+          <div class="qs-ai">AI 评估技术方案</div>
+        </div>
+        <div class="qg-gate"><div class="gate-icon">🔒</div></div>
+        <div class="qg-step">
+          <div class="qs-icon">💻</div>
+          <div class="qs-title">代码完成</div>
+          <div class="qs-ai">AI 辅助 Code Review</div>
+        </div>
+        <div class="qg-gate"><div class="gate-icon">🔒</div></div>
+        <div class="qg-step">
+          <div class="qs-icon">🧪</div>
+          <div class="qs-title">集成测试</div>
+          <div class="qs-ai">AI 生成测试场景</div>
+        </div>
+        <div class="qg-gate"><div class="gate-icon">🔒</div></div>
+        <div class="qg-step">
+          <div class="qs-icon">👥</div>
+          <div class="qs-title">UAT 验收</div>
+          <div class="qs-ai">AI 设计验收脚本</div>
+        </div>
+        <div class="qg-gate"><div class="gate-icon">🔒</div></div>
+        <div class="qg-step">
+          <div class="qs-icon">🚀</div>
+          <div class="qs-title">上线发布</div>
+          <div class="qs-ai">AI 生成发布清单</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">🎯</span>
+        <div><strong>关键原则：</strong>每个质量关卡都需要有明确的<strong>通过标准</strong>，AI 帮你生成检查清单并标记哪些是必须通过的硬性条件（Hard Gate），哪些是期望达到的软性标准（Soft Gate）。</div>
+      </div>
+    </div>
+
+    <div id="uat-design" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">🧪</div>
+        <div>
+          <div class="section-title">AI 辅助 UAT 验收设计</div>
+          <div class="section-subtitle">从验收标准到测试脚本，AI 一键生成</div>
+        </div>
+      </div>
+
+      <div class="checklist-card">
+        <div class="cc-category" style="color:#2B6CB0;">📋 AI 生成的 UAT 验收清单示例（用户登录功能）</div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;">
+          <div>
+            <div style="font-size:0.78rem;font-weight:700;color:#276749;margin-bottom:8px;">✅ 功能验收</div>
+            <div class="cc-item"><div class="cc-checkbox cc-checked">✓</div>用户名密码登录成功，跳转到首页</div>
+            <div class="cc-item"><div class="cc-checkbox cc-checked">✓</div>错误密码输入3次后账号锁定</div>
+            <div class="cc-item"><div class="cc-checkbox cc-checked">✓</div>记住密码功能，7 天内免登录</div>
+            <div class="cc-item"><div class="cc-checkbox"></div>忘记密码邮件验证流程</div>
+            <div class="cc-item"><div class="cc-checkbox"></div>SSO 第三方登录（微信/企业微信）</div>
+          </div>
+          <div>
+            <div style="font-size:0.78rem;font-weight:700;color:#B7791F;margin-bottom:8px;">⚡ 非功能验收</div>
+            <div class="cc-item"><div class="cc-checkbox cc-checked">✓</div>登录响应时间 ≤ 2 秒（P99）</div>
+            <div class="cc-item"><div class="cc-checkbox cc-checked">✓</div>并发 100 用户同时登录无异常</div>
+            <div class="cc-item"><div class="cc-checkbox"></div>移动端 iOS/Android 登录体验</div>
+            <div class="cc-item"><div class="cc-checkbox"></div>安全验证：SQL 注入、XSS 防护</div>
+            <div class="cc-item"><div class="cc-checkbox"></div>日志记录：登录时间、IP 完整记录</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:1.5rem;">
+你是一名资深测试专家，请为以下功能设计 UAT 验收方案：
+
+功能名称：[填写功能名称]
+功能描述：[填写功能详细描述]
+用户角色：[填写会使用此功能的用户类型]
+业务规则：[填写关键业务规则和约束]
+
+请生成：
+1. 功能验收清单（正常场景 + 边界场景 + 异常场景）
+2. 非功能验收标准（性能/安全/兼容性）
+3. UAT 测试步骤（步骤描述 + 期望结果）
+4. 上线前必须通过的硬性标准（Hard Gate）
+5. 验收过程中常见问题的处理建议
+      </div>
+    </div>
+
+    <div id="defect-mgmt" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">🐛</div>
+        <div>
+          <div class="section-title">AI 驱动的缺陷管理加速</div>
+          <div class="section-subtitle">快速定位、分析缺陷，加速修复决策</div>
+        </div>
+      </div>
+
+      <div class="defect-analysis">
+        <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);">AI 辅助缺陷分类与处理策略</div>
+        <div class="da-grid">
+          <div class="da-cell">
+            <div class="dc-cat" style="color:#C53030;">🔴 阻断级 (P0)</div>
+            <div class="dc-item">核心流程无法使用</div>
+            <div class="dc-item">数据丢失或安全漏洞</div>
+            <div class="dc-item">系统崩溃</div>
+            <div style="margin-top:8px;font-size:0.75rem;font-weight:700;color:#C53030;">→ 必须上线前修复</div>
+          </div>
+          <div class="da-cell">
+            <div class="dc-cat" style="color:#D97706;">🟡 严重级 (P1)</div>
+            <div class="dc-item">主要功能有缺陷</div>
+            <div class="dc-item">有可替代路径</div>
+            <div class="dc-item">影响重要用户体验</div>
+            <div style="margin-top:8px;font-size:0.75rem;font-weight:700;color:#D97706;">→ 上线前修复或提供规避方案</div>
+          </div>
+          <div class="da-cell">
+            <div class="dc-cat" style="color:#2563EB;">🔵 一般级 (P2)</div>
+            <div class="dc-item">次要功能缺陷</div>
+            <div class="dc-item">UI/UX 体验问题</div>
+            <div class="dc-item">边缘场景异常</div>
+            <div style="margin-top:8px;font-size:0.75rem;font-weight:700;color:#2563EB;">→ 可在后续版本修复</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+发现了一个 Bug，请帮我分析：
+
+Bug 描述：[填写现象描述]
+重现步骤：[填写操作步骤]
+期望行为：[填写应该是什么结果]
+实际行为：[填写实际发生什么]
+环境信息：[填写浏览器/设备/版本等]
+
+请提供：
+1. Bug 严重级别判断（P0/P1/P2/P3）及理由
+2. 可能的根因分析（3 个方向）
+3. 建议的临时规避方案（如无法立即修复）
+4. 提供给开发的清晰 Bug 报告（含复现步骤和优先级）
+5. 是否影响上线决策，建议如何处理
+      </div>
+    </div>
+
+    <div id="doc-automation" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📄</div>
+        <div>
+          <div class="section-title">交付文档 AI 自动化生产</div>
+          <div class="section-subtitle">从"手工逐行写文档"到"AI 批量生成，人工审校"</div>
+        </div>
+      </div>
+
+      <div class="doc-types">
+        <div class="doc-type-card">
+          <div class="dtc-icon">📖</div>
+          <div class="dtc-title">用户操作手册</div>
+          <div class="dtc-ai">AI 生成结构 + 步骤描述</div>
+        </div>
+        <div class="doc-type-card">
+          <div class="dtc-icon">⚙️</div>
+          <div class="dtc-title">运维部署手册</div>
+          <div class="dtc-ai">AI 生成标准运维 SOP</div>
+        </div>
+        <div class="doc-type-card">
+          <div class="dtc-icon">🔌</div>
+          <div class="dtc-title">API 接口文档</div>
+          <div class="dtc-ai">AI 从代码生成文档</div>
+        </div>
+        <div class="doc-type-card">
+          <div class="dtc-icon">📊</div>
+          <div class="dtc-title">项目总结报告</div>
+          <div class="dtc-ai">AI 生成项目价值总结</div>
+        </div>
+        <div class="doc-type-card">
+          <div class="dtc-icon">🔄</div>
+          <div class="dtc-title">数据迁移方案</div>
+          <div class="dtc-ai">AI 生成迁移步骤与回滚</div>
+        </div>
+        <div class="doc-type-card">
+          <div class="dtc-icon">📋</div>
+          <div class="dtc-title">培训材料</div>
+          <div class="dtc-ai">AI 生成用户培训大纲</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+请帮我生成一份[文档类型：用户操作手册/运维手册/培训材料]：
+
+系统/功能描述：[填写系统名称和主要功能]
+目标读者：[填写读者的技术背景和使用场景]
+核心功能列表：[列举需要包含的功能]
+特殊注意事项：[填写用户常见误操作或注意事项]
+
+要求：
+1. 结构清晰，使用步骤编号和截图占位符
+2. 语言简洁，适合[技术/非技术]用户阅读
+3. 包含常见问题（FAQ）章节
+4. 包含故障排除基础步骤
+5. 每个操作步骤都有"期望结果"说明
+      </div>
+    </div>
+
+    <div id="go-live" class="section">
+      <div class="section-header">
+        <div class="section-icon red">🚀</div>
+        <div>
+          <div class="section-title">AI 辅助上线保障</div>
+          <div class="section-subtitle">发布前检查、监控方案和回滚计划，AI 一次生成</div>
+        </div>
+      </div>
+
+      <div class="card" style="background:#F0FFF4;border-color:#9AE6B4;">
+        <h3 style="margin-top:0;color:#276749;">✅ AI 生成的上线前检查清单（示例）</h3>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1rem;">
+          <div>
+            <div style="font-size:0.78rem;font-weight:700;color:#276749;margin-bottom:8px;">🔧 技术检查</div>
+            <div style="font-size:0.82rem;color:var(--medium);line-height:1.9;">
+              ☐ 生产环境配置文件已更新<br/>
+              ☐ 数据库迁移脚本已测试<br/>
+              ☐ CDN/缓存已清除<br/>
+              ☐ SSL 证书有效期检查<br/>
+              ☐ 性能测试达标（≤ 2s P99）<br/>
+              ☐ 安全扫描已完成（无高危漏洞）
+            </div>
+          </div>
+          <div>
+            <div style="font-size:0.78rem;font-weight:700;color:#276749;margin-bottom:8px;">📋 业务检查</div>
+            <div style="font-size:0.82rem;color:var(--medium);line-height:1.9;">
+              ☐ UAT 验收报告已签署<br/>
+              ☐ 数据迁移验证完成<br/>
+              ☐ 用户培训已完成<br/>
+              ☐ 客服/运营团队已通知<br/>
+              ☐ 上线公告已准备<br/>
+              ☐ 回滚方案已确认
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:1.5rem;">
+请为以下系统上线生成完整的发布保障方案：
+
+系统描述：[填写系统名称和主要功能]
+技术架构：[填写主要技术组件]
+上线时间：[填写计划上线时间]
+预期影响范围：[填写受影响的用户/业务]
+
+请生成：
+1. 上线前检查清单（技术 + 业务，共 20-30 项）
+2. 上线执行步骤（按时序排列，含负责人）
+3. 关键指标监控方案（上线后前 24 小时）
+4. 回滚触发条件和回滚步骤
+5. 上线后向客户发送的公告模板
+      </div>
+    </div>
+
+    <div id="closure" class="section">
+      <div class="section-header">
+        <div class="section-icon green">🎉</div>
+        <div>
+          <div class="section-title">AI 驱动的项目收尾</div>
+          <div class="section-subtitle">让每个项目都有完美的句号，为下一个项目铺路</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:1.5rem;">
+        <div class="card" style="text-align:center;">
+          <div style="font-size:2rem;margin-bottom:8px;">🏆</div>
+          <div style="font-size:0.9rem;font-weight:700;color:var(--dark);margin-bottom:6px;">项目价值总结</div>
+          <div style="font-size:0.8rem;color:var(--muted);">AI 生成突出业务 ROI 的项目成果报告</div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:2rem;margin-bottom:8px;">📚</div>
+          <div style="font-size:0.9rem;font-weight:700;color:var(--dark);margin-bottom:6px;">经验知识沉淀</div>
+          <div style="font-size:0.8rem;color:var(--muted);">AI 提取最佳实践，沉淀团队知识库</div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:2rem;margin-bottom:8px;">🤝</div>
+          <div style="font-size:0.9rem;font-weight:700;color:var(--dark);margin-bottom:6px;">续约/口碑铺垫</div>
+          <div style="font-size:0.8rem;color:var(--muted);">AI 生成续约提案和成功案例素材</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+项目已经交付，请帮我生成一份项目价值总结报告：
+
+项目背景：[填写项目背景]
+主要交付内容：[列举主要功能/成果]
+量化数据：[填写用户数、处理量、性能指标等]
+客户满意度：[填写客户反馈]
+团队贡献：[填写团队规模和工作量]
+
+请生成：
+1. 执行摘要（面向高管，3-5 句话）
+2. 业务价值总结（量化 ROI）
+3. 技术亮点（差异化能力）
+4. 项目过程亮点（克服的挑战）
+5. 经验总结（可复用的最佳实践）
+6. 后续合作建议（续约/扩大的机会点）
+      </div>
+
+      <div class="card card-accent-orange" style="margin-top:1.5rem;">
+        <h3 style="margin-top:0;">🎓 课程总结：你的 AI 交付提效路线图</h3>
+        <div class="progress-timeline" style="margin:1rem 0 0;">
+          <div class="timeline-item">
+            <div class="timeline-dot done">M1</div>
+            <div class="timeline-label">认知重构<br/><small>场景地图</small></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">M2</div>
+            <div class="timeline-label">项目规划<br/><small>计划自动化</small></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">M3</div>
+            <div class="timeline-label">团队协同<br/><small>Story 模板</small></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">M4</div>
+            <div class="timeline-label">客户沟通<br/><small>沟通模板</small></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">M5</div>
+            <div class="timeline-label">风险管理<br/><small>扫描清单</small></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">M6</div>
+            <div class="timeline-label">质量交付<br/><small>验收体系</small></div>
+          </div>
+        </div>
+        <div class="infobox infobox-tip" style="margin-top:1rem;">
+          <span class="infobox-icon">🏆</span>
+          <div><strong>恭喜完成全部 6 个模块！</strong>你已经建立起一套完整的 AI 辅助项目交付体系。将 6 个模块的产出物整合起来，就是你的<strong>个人 AI 交付工具箱</strong>，让每个新项目都能以更高效率、更高质量启动和交付。</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="homework" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📚</div>
+        <div>
+          <div class="section-title">最终作业</div>
+          <div class="section-subtitle">整合 6 个模块产出，建立你的 AI 交付体系</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">📝 最终作业：建立你的 AI 项目交付工具箱</h3>
+        <ol style="font-size:0.875rem;color:var(--medium);padding-left:1.25rem;line-height:1.9;">
+          <li><strong>整合 6 个模块的核心 Prompt</strong>，建立分场景的个人 Prompt 库</li>
+          <li><strong>为下一个项目</strong>完整使用本课程所有工具（从规划到交付）</li>
+          <li><strong>记录量化数据</strong>：每个工具节省了多少时间/提升了多少质量</li>
+          <li><strong>分享团队</strong>：将最有价值的 5 个 Prompt 分享给你的团队</li>
+          <li><strong>持续迭代</strong>：每月回顾一次 Prompt 库，优化不好用的部分</li>
+        </ol>
+        <div class="infobox infobox-tip" style="margin-top:1rem;">
+          <span class="infobox-icon">🎁</span>
+          <div><strong>最终产出物：</strong>完成全部课程后，你将拥有一套<strong>AI 项目交付完整工具箱</strong>，包含 50+ 个可复用 Prompt 模板和 6 个核心工作流，覆盖项目交付全生命周期。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="module5.html" class="page-nav-btn" style="background:var(--warm);color:var(--dark);border:1px solid var(--border);">← 模块五：风险管理</a>
+      <a href="appendix.html" class="page-nav-btn">附录：工具与 Prompt 模板库 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

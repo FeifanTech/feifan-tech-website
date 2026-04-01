@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 01：认知重构——AI 时代的项目交付变革</title>
+  <link rel="stylesheet" href="../training/styles.css" />
+  <style>
+    .mindset-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.25rem 0;
+    }
+    .mindset-card {
+      border-radius: var(--radius-lg); padding: 1.5rem; border: 1px solid var(--border);
+    }
+    .mc-old { background: #F9FAFB; }
+    .mc-old .mc-label { color: #6B7280; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .mc-new { background: #F0FFF4; border-color: #9AE6B4; }
+    .mc-new .mc-label { color: #276749; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .mc-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 0.875rem; }
+    .mc-old .mc-item::before { content: '✗'; color: #FC8181; font-weight: 700; flex-shrink: 0; }
+    .mc-new .mc-item::before { content: '✓'; color: #38A169; font-weight: 700; flex-shrink: 0; }
+
+    .value-map {
+      background: var(--warm); border: 1px solid var(--border); border-radius: var(--radius-xl);
+      padding: 2rem; margin: 1.25rem 0;
+    }
+    .vm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
+    .vm-cell {
+      background: #fff; border-radius: var(--radius-md); padding: 1.25rem;
+      border: 1px solid var(--border); text-align: center;
+    }
+    .vm-cell .vc-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .vm-cell .vc-title { font-size: 0.88rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .vm-cell .vc-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .vm-cell.vc-high { border-color: #9AE6B4; background: #F0FFF4; }
+    .vm-cell.vc-mid  { border-color: #FBD38D; background: #FFFFF0; }
+    .vm-cell.vc-low  { border-color: #D1D5DB; background: #F9FAFB; }
+
+    .impact-table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; }
+    .impact-table th { background: var(--warm); padding: 10px 14px; font-size: 0.82rem; font-weight: 700; text-align: left; border-bottom: 2px solid var(--border); color: var(--dark); }
+    .impact-table td { padding: 10px 14px; font-size: 0.85rem; color: var(--medium); border-bottom: 1px solid var(--border); vertical-align: top; }
+    .impact-table tr:last-child td { border-bottom: none; }
+    .impact-table tr:nth-child(even) td { background: var(--warm); }
+    .impact-dot-high { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #38A169; margin-right: 4px; }
+    .impact-dot-mid  { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #D69E2E; margin-right: 4px; }
+
+    .abc-framework {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin: 1.25rem 0;
+    }
+    .abc-card { border-radius: var(--radius-lg); padding: 1.5rem; text-align: center; }
+    .abc-a { background: #FFF5F5; border: 2px solid #FC8181; }
+    .abc-b { background: #FFFFF0; border: 2px solid #F6E05E; }
+    .abc-c { background: #F0FFF4; border: 2px solid #9AE6B4; }
+    .abc-letter { font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; }
+    .abc-a .abc-letter { color: #C53030; }
+    .abc-b .abc-letter { color: #B7791F; }
+    .abc-c .abc-letter { color: #276749; }
+    .abc-name { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .abc-desc { font-size: 0.8rem; color: var(--medium); line-height: 1.5; margin-bottom: 8px; }
+    .abc-examples { font-size: 0.75rem; color: var(--muted); line-height: 1.6; text-align: left; }
+
+    @media (max-width: 768px) {
+      .mindset-grid  { grid-template-columns: 1fr; }
+      .vm-grid       { grid-template-columns: 1fr 1fr; }
+      .abc-framework { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>🚀</span>
+    <span>AI 项目交付培训</span>
+    <span class="logo-badge">M1</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html" class="active">认知重构</a>
+    <a href="module2.html">项目规划</a>
+    <a href="module3.html">团队协同</a>
+    <a href="module4.html">客户沟通</a>
+    <a href="module5.html">风险管理</a>
+    <a href="module6.html">质量交付</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#intro" class="active"><span class="nav-num">0</span> 模块简介</a></li>
+      <li><a href="#current-pain"><span class="nav-num">1</span> 交付现状痛点</a></li>
+      <li><a href="#ai-impact"><span class="nav-num">2</span> AI 的本质冲击</a></li>
+      <li><a href="#mindset-shift"><span class="nav-num">3</span> 思维模型重构</a></li>
+      <li><a href="#value-map"><span class="nav-num">4</span> AI 价值场景图谱</a></li>
+      <li><a href="#abc-framework"><span class="nav-num">5</span> ABC 任务框架</a></li>
+      <li><a href="#exercise"><span class="nav-num">6</span> 现场实操</a></li>
+      <li><a href="#homework"><span class="nav-num">7</span> 课后作业</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div id="intro"></div>
+
+    <div class="session-header">
+      <div class="session-num">模块 01</div>
+      <h1 class="session-title">认知重构<br/>——AI 时代的项目交付变革</h1>
+      <p class="session-desc">在正式学习 AI 工具之前，我们首先需要解决一个根本问题：<strong>AI 对项目管理这个职业意味着什么？</strong>本模块帮助你从传统 PM 思维跃迁到 AI 优先的交付思维，建立正确的认知基础，找到最有价值的 AI 切入点。</p>
+      <div class="session-meta">
+        <span class="meta-item">⏱️ 2 小时</span>
+        <span class="meta-item">🎯 认知建立</span>
+        <span class="meta-item">📦 产出：AI 应用场景地图</span>
+      </div>
+    </div>
+
+    <div id="current-pain" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">😩</div>
+        <div>
+          <div class="section-title">交付现状：PM 的日常痛点</div>
+          <div class="section-subtitle">你是否每天都在这些事情上消耗大量精力？</div>
+        </div>
+      </div>
+
+      <div class="card" style="background:#FFF5F5;border-color:#FC8181;">
+        <h3 style="margin-top:0;color:#C53030;">😰 典型一天：项目经理的时间都去哪了？</h3>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1rem;">
+          <div>
+            <div style="font-size:0.82rem;font-weight:700;color:#C53030;margin-bottom:8px;">⏰ 上午</div>
+            <ul style="font-size:0.875rem;color:var(--medium);padding-left:1rem;line-height:1.8;">
+              <li>整理昨天的会议纪要（45 分钟）</li>
+              <li>更新项目状态报告（30 分钟）</li>
+              <li>回复各方邮件和消息（60 分钟）</li>
+              <li>需求变更评估会议（90 分钟）</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:0.82rem;font-weight:700;color:#C53030;margin-bottom:8px;">⏰ 下午</div>
+            <ul style="font-size:0.875rem;color:var(--medium);padding-left:1rem;line-height:1.8;">
+              <li>与研发团队对齐进度（60 分钟）</li>
+              <li>准备客户汇报材料（120 分钟）</li>
+              <li>处理突发问题和阻塞（不定）</li>
+              <li>整理风险和问题清单（30 分钟）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="infobox infobox-warning" style="margin-top:1rem;">
+          <span class="infobox-icon">⚠️</span>
+          <div><strong>结果：</strong>真正用于战略思考、关系建设和高价值决策的时间不足 20%，大量时间被低价值的信息整理、文档生产和状态同步所占据。</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1.5rem;">
+        <h3 style="margin-top:0;">📊 PM 工作时间分配调研</h3>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1rem;">
+          <div style="text-align:center;background:var(--warm);border-radius:var(--radius-md);padding:1rem;">
+            <div style="font-size:2rem;font-weight:900;color:#E53E3E;">35%</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">文档生产<br/>报告编写</div>
+          </div>
+          <div style="text-align:center;background:var(--warm);border-radius:var(--radius-md);padding:1rem;">
+            <div style="font-size:2rem;font-weight:900;color:#D69E2E;">25%</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">会议沟通<br/>信息同步</div>
+          </div>
+          <div style="text-align:center;background:var(--warm);border-radius:var(--radius-md);padding:1rem;">
+            <div style="font-size:2rem;font-weight:900;color:#3182CE;">20%</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">进度跟踪<br/>问题处理</div>
+          </div>
+          <div style="text-align:center;background:#F0FFF4;border-radius:var(--radius-md);padding:1rem;border:2px solid #9AE6B4;">
+            <div style="font-size:2rem;font-weight:900;color:#276749;">20%</div>
+            <div style="font-size:0.78rem;color:#276749;margin-top:4px;font-weight:600;">策略决策<br/>高价值输出</div>
+          </div>
+        </div>
+        <div class="infobox infobox-tip" style="margin-top:1rem;">
+          <span class="infobox-icon">💡</span>
+          <div><strong>AI 的承诺：</strong>将前三类低价值工作的 AI 自动化程度提升到 60-80%，让你的高价值时间从 20% 提升到 50% 以上。</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ai-impact" class="section">
+      <div class="section-header">
+        <div class="section-icon green">⚡</div>
+        <div>
+          <div class="section-title">AI 对项目管理的本质冲击</div>
+          <div class="section-subtitle">不是替代 PM，而是让 PM 进化为更高维度的角色</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">🔑</span>
+        <div><strong>核心观点：</strong>AI 不会取代项目经理，但<strong>会用 AI 的项目经理会取代不会用 AI 的项目经理</strong>。关键是理解 AI 能做什么、不能做什么。</div>
+      </div>
+
+      <div class="table-wrapper" style="margin-top:1.5rem;">
+        <table class="impact-table">
+          <thead>
+            <tr>
+              <th>项目管理职能</th>
+              <th>AI 能替代/增强的部分</th>
+              <th>仍需人类判断的部分</th>
+              <th>影响程度</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>文档生产</strong><br/><small>计划、报告、纪要</small></td>
+              <td>初稿生成、模板填充、格式排版、内容摘要</td>
+              <td>关键决策的准确性验证、敏感信息处理</td>
+              <td><span class="impact-dot-high"></span><strong style="color:#276749;">高 80%</strong></td>
+            </tr>
+            <tr>
+              <td><strong>进度管理</strong><br/><small>计划、跟踪、预警</small></td>
+              <td>计划生成、数据分析、偏差预警、趋势预测</td>
+              <td>复杂情境判断、资源调配决策、优先级权衡</td>
+              <td><span class="impact-dot-high"></span><strong style="color:#276749;">高 70%</strong></td>
+            </tr>
+            <tr>
+              <td><strong>风险管理</strong><br/><small>识别、评估、应对</small></td>
+              <td>风险清单生成、应对预案草拟、相似案例参考</td>
+              <td>风险概率判断、利益相关方博弈、战略权衡</td>
+              <td><span class="impact-dot-high"></span><strong style="color:#276749;">高 65%</strong></td>
+            </tr>
+            <tr>
+              <td><strong>客户沟通</strong><br/><small>邮件、汇报、谈判</small></td>
+              <td>邮件起草、汇报材料、FAQ 准备、话术优化</td>
+              <td>信任建立、情绪管理、关键谈判、冲突化解</td>
+              <td><span class="impact-dot-mid"></span><strong style="color:#B7791F;">中 50%</strong></td>
+            </tr>
+            <tr>
+              <td><strong>团队领导</strong><br/><small>激励、授权、培养</small></td>
+              <td>工作分配建议、个人发展路径规划辅助</td>
+              <td>情感连接、文化塑造、人才识别、信任建立</td>
+              <td><span class="impact-dot-mid"></span><strong style="color:#B7791F;">低 20%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="mindset-shift" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">🧠</div>
+        <div>
+          <div class="section-title">思维模型重构</div>
+          <div class="section-subtitle">从"用 AI 完成任务"到"AI 优先设计工作流"</div>
+        </div>
+      </div>
+
+      <div class="mindset-grid">
+        <div class="mindset-card mc-old">
+          <div class="mc-label">❌ 旧思维：工具视角</div>
+          <div class="mc-item">遇到任务先想"我怎么做"，再想"AI 能帮什么"</div>
+          <div class="mc-item">把 AI 当搜索引擎或文字加工工具</div>
+          <div class="mc-item">一次性用完，不积累复用资产</div>
+          <div class="mc-item">害怕 AI 出错，全程手工校验</div>
+          <div class="mc-item">AI 是加法，增加了我的工作</div>
+        </div>
+        <div class="mindset-card mc-new">
+          <div class="mc-label">✅ 新思维：AI 优先视角</div>
+          <div class="mc-item">遇到任务先问"AI 能不能搞定"，再想"我如何审核验收"</div>
+          <div class="mc-item">把 AI 当可训练的协作者，持续沉淀 Prompt 资产</div>
+          <div class="mc-item">每次使用都优化模板，形成团队级复用库</div>
+          <div class="mc-item">建立 AI 输出质量标准，高效抽样审核</div>
+          <div class="mc-item">AI 是乘法，释放我做高价值工作的时间</div>
+        </div>
+      </div>
+
+      <div class="card card-accent-orange" style="margin-top:1.5rem;">
+        <h3 style="margin-top:0;">🔄 PM 角色进化路径</h3>
+        <div class="progress-timeline" style="margin:1rem 0 0;">
+          <div class="timeline-item">
+            <div class="timeline-dot done">L1</div>
+            <div class="timeline-label">工具使用者<br/><small>偶尔用 AI</small></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">L2</div>
+            <div class="timeline-label">效率提升者<br/><small>固定场景提效</small></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">L3</div>
+            <div class="timeline-label">流程设计者<br/><small>系统化工作流</small></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot">L4</div>
+            <div class="timeline-label">AI 原生 PM<br/><small>AI 优先决策</small></div>
+          </div>
+        </div>
+        <p style="font-size:0.875rem;color:var(--medium);margin-top:1rem;">本课程目标：帮助你从 L1/L2 快速跃迁到 <strong>L3</strong>，并建立通往 L4 的路径。</p>
+      </div>
+    </div>
+
+    <div id="value-map" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">🗺️</div>
+        <div>
+          <div class="section-title">AI 价值场景图谱</div>
+          <div class="section-subtitle">项目交付全链路中的 AI 高价值场景分布</div>
+        </div>
+      </div>
+
+      <div class="value-map">
+        <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">按价值高低分层</div>
+        <div style="margin-bottom:0.5rem;font-size:0.8rem;font-weight:700;color:#276749;">🟢 高价值（AI 可自动化 60%+ 工作量）</div>
+        <div class="vm-grid" style="margin-top:0.5rem;">
+          <div class="vm-cell vc-high">
+            <div class="vc-icon">📝</div>
+            <div class="vc-title">项目文档生产</div>
+            <div class="vc-desc">项目章程、计划、报告、纪要全自动草稿</div>
+          </div>
+          <div class="vm-cell vc-high">
+            <div class="vc-icon">⚠️</div>
+            <div class="vc-title">风险清单生成</div>
+            <div class="vc-desc">基于项目描述快速生成风险清单与应对预案</div>
+          </div>
+          <div class="vm-cell vc-high">
+            <div class="vc-icon">📧</div>
+            <div class="vc-title">沟通内容起草</div>
+            <div class="vc-desc">客户邮件、汇报 PPT 大纲、状态更新模板</div>
+          </div>
+        </div>
+        <div style="margin-top:1.25rem;margin-bottom:0.5rem;font-size:0.8rem;font-weight:700;color:#B7791F;">🟡 中价值（AI 可增强 40-60% 工作质量）</div>
+        <div class="vm-grid" style="margin-top:0.5rem;">
+          <div class="vm-cell vc-mid">
+            <div class="vc-icon">📊</div>
+            <div class="vc-title">数据分析洞察</div>
+            <div class="vc-desc">项目数据解读、偏差原因分析、趋势预测</div>
+          </div>
+          <div class="vm-cell vc-mid">
+            <div class="vc-icon">🔍</div>
+            <div class="vc-title">需求分析澄清</div>
+            <div class="vc-desc">生成澄清问题清单、识别隐含需求和依赖</div>
+          </div>
+          <div class="vm-cell vc-mid">
+            <div class="vc-icon">🎯</div>
+            <div class="vc-title">问题诊断排查</div>
+            <div class="vc-desc">快速分析项目症状、提供结构化诊断框架</div>
+          </div>
+        </div>
+        <div style="margin-top:1.25rem;margin-bottom:0.5rem;font-size:0.8rem;font-weight:700;color:#6B7280;">⚪ 辅助价值（AI 作为思考伙伴）</div>
+        <div class="vm-grid" style="margin-top:0.5rem;">
+          <div class="vm-cell vc-low">
+            <div class="vc-icon">🤝</div>
+            <div class="vc-title">关系建设管理</div>
+            <div class="vc-desc">AI 提供话术建议，人类主导情感连接</div>
+          </div>
+          <div class="vm-cell vc-low">
+            <div class="vc-icon">⚖️</div>
+            <div class="vc-title">战略优先级决策</div>
+            <div class="vc-desc">AI 提供框架和选项，人类做最终判断</div>
+          </div>
+          <div class="vm-cell vc-low">
+            <div class="vc-icon">💡</div>
+            <div class="vc-title">创新方案构思</div>
+            <div class="vc-desc">AI 作为头脑风暴伙伴，激发创意灵感</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="abc-framework" class="section">
+      <div class="section-header">
+        <div class="section-icon teal">🗂️</div>
+        <div>
+          <div class="section-title">ABC 任务分类框架</div>
+          <div class="section-subtitle">判断每项工作 AI 介入程度的实用工具</div>
+        </div>
+      </div>
+
+      <div class="abc-framework">
+        <div class="abc-card abc-a">
+          <div class="abc-letter">A</div>
+          <div class="abc-name">AI 主导型</div>
+          <div class="abc-desc">AI 完成 80% 以上，人类审核验收</div>
+          <div class="abc-examples">
+            • 周报 / 月报起草<br/>
+            • 会议纪要整理<br/>
+            • 风险清单生成<br/>
+            • 标准邮件回复<br/>
+            • 项目计划初稿<br/>
+            • 验收清单生成
+          </div>
+        </div>
+        <div class="abc-card abc-b">
+          <div class="abc-letter">B</div>
+          <div class="abc-name">人机协作型</div>
+          <div class="abc-desc">AI 提供框架和内容，人类深度参与</div>
+          <div class="abc-examples">
+            • 客户汇报材料<br/>
+            • 需求评审分析<br/>
+            • 风险应对策略<br/>
+            • 项目复盘报告<br/>
+            • 变更影响评估<br/>
+            • 技术方案评审
+          </div>
+        </div>
+        <div class="abc-card abc-c">
+          <div class="abc-letter">C</div>
+          <div class="abc-name">人类主导型</div>
+          <div class="abc-desc">AI 仅作参考，人类主导决策</div>
+          <div class="abc-examples">
+            • 关键干系人管理<br/>
+            • 团队冲突化解<br/>
+            • 重大变更谈判<br/>
+            • 战略方向决策<br/>
+            • 危机公关处理<br/>
+            • 核心人才评估
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div><strong>使用方法：</strong>每周回顾你的任务清单，给每项任务打上 A/B/C 标签。争取将 A 类任务的 AI 自动化程度从 0% 提升到 80%，这将直接释放你 30-40% 的工作时间。</div>
+      </div>
+    </div>
+
+    <div id="exercise" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">⚡</div>
+        <div>
+          <div class="section-title">现场实操练习</div>
+          <div class="section-subtitle">15 分钟，完成你的第一个 AI 项目管理任务</div>
+        </div>
+      </div>
+
+      <div class="card" style="background:#F0FFF4;border-color:#9AE6B4;">
+        <h3 style="margin-top:0;color:#276749;">🎯 练习 1：绘制你的 AI 应用场景地图（10 分钟）</h3>
+        <ol style="font-size:0.875rem;color:var(--medium);padding-left:1.25rem;line-height:1.9;">
+          <li>打开 Claude 或 ChatGPT</li>
+          <li>输入以下 Prompt：</li>
+        </ol>
+        <div class="code-block" style="margin:1rem 0;">
+我是一名软件项目经理，负责管理 [项目类型，如：SaaS 产品研发] 项目，团队规模 [X] 人，项目周期通常 [X] 个月。
+
+请帮我梳理：
+1. 我日常工作中最耗时的 10 项任务
+2. 其中哪些 AI 可以直接自动化（A 类）
+3. 哪些需要人机协作（B 类）
+4. 哪些必须人类主导（C 类）
+
+并为每项 A 类任务提供一个具体的 AI 应用方式。
+        </div>
+        <p style="font-size:0.875rem;color:var(--medium);">把输出结果截图，这就是你的<strong>个人 AI 应用场景地图</strong>，今天就可以开始行动。</p>
+      </div>
+
+      <div class="card" style="margin-top:1.25rem;background:#EBF8FF;border-color:#90CDF4;">
+        <h3 style="margin-top:0;color:#2B6CB0;">🎯 练习 2：5 分钟改写一封项目邮件</h3>
+        <p style="font-size:0.875rem;color:var(--medium);">找一封你最近写的项目进度更新邮件，用以下 Prompt 让 AI 改写：</p>
+        <div class="code-block" style="margin:1rem 0;">
+请将以下项目进度邮件改写，要求：
+1. 结构更清晰（问题-进展-计划-需要支持）
+2. 语气更专业且积极
+3. 突出关键风险和行动项
+4. 控制在 300 字以内
+
+原始邮件：[粘贴你的邮件内容]
+        </div>
+        <p style="font-size:0.875rem;color:var(--medium);">对比改写前后的效果，感受 AI 对沟通效率的直接提升。</p>
+      </div>
+    </div>
+
+    <div id="homework" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">📚</div>
+        <div>
+          <div class="section-title">课后作业</div>
+          <div class="section-subtitle">本周完成，带到下次课程分享</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">📝 作业：建立你的 AI 工作切入清单</h3>
+        <ol style="font-size:0.875rem;color:var(--medium);padding-left:1.25rem;line-height:1.9;">
+          <li><strong>列出本周 15 项工作任务</strong>，用 ABC 框架标注类别</li>
+          <li><strong>选择 3 项 A 类任务</strong>，用 AI 完成并记录节省时间</li>
+          <li><strong>总结反思：</strong>AI 输出的质量如何？哪里需要调整 Prompt？</li>
+          <li><strong>分享成果：</strong>下次课程开场 5 分钟每人分享一个真实案例</li>
+        </ol>
+        <div class="infobox infobox-tip" style="margin-top:1rem;">
+          <span class="infobox-icon">🎁</span>
+          <div><strong>产出物：</strong>完成本课后，你将拥有一份<strong>个人 AI 工作切入清单</strong>，明确本周就能开始用 AI 提效的 3 个具体场景。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="index.html" class="page-nav-btn" style="background:var(--warm);color:var(--dark);border:1px solid var(--border);">← 课程总览</a>
+      <a href="module2.html" class="page-nav-btn">模块二：AI 驱动项目规划 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

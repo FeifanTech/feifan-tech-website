@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 驱动的项目交付卓越培训 — 课程总览</title>
+  <link rel="stylesheet" href="../training/styles.css" />
+  <style>
+    .cover-hero {
+      background: linear-gradient(135deg, #1A2035 0%, #2D3748 45%, #1E3A5F 100%);
+      border-radius: var(--radius-xl);
+      padding: 5rem 4rem;
+      margin-bottom: 3rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover-hero::before {
+      content: '';
+      position: absolute; right: -120px; top: -120px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(56,161,105,0.18) 0%, transparent 65%);
+    }
+    .cover-hero::after {
+      content: '';
+      position: absolute; left: -80px; bottom: -100px;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(49,130,206,0.15) 0%, transparent 65%);
+    }
+    .cover-content { position: relative; z-index: 1; }
+    .cover-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+    .eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: #68D391; }
+    .cover-eyebrow span { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; }
+    .cover-hero h1 { font-size: 3rem; font-weight: 900; line-height: 1.15; margin-bottom: 0.75rem; }
+    .cover-hero h1 em { font-style: normal; color: #68D391; }
+    .cover-tagline { font-size: 1.1rem; opacity: 0.8; max-width: 580px; line-height: 1.7; margin-bottom: 2.5rem; }
+    .cover-meta-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .cover-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 999px; padding: 6px 16px; font-size: 0.82rem; font-weight: 600;
+    }
+    .cover-stats {
+      display: flex; gap: 3rem; margin-top: 2rem; padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.15); flex-wrap: wrap;
+    }
+    .cs-item { text-align: center; }
+    .cs-num { font-size: 2.5rem; font-weight: 900; line-height: 1; }
+    .cs-label { font-size: 0.78rem; opacity: 0.6; margin-top: 4px; }
+
+    .role-badge-row { display: flex; gap: 1rem; margin: 1.5rem 0; flex-wrap: wrap; }
+    .role-badge {
+      flex: 1; min-width: 200px;
+      border-radius: var(--radius-lg); padding: 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .rb-pm   { background: #EBF8FF; border: 1px solid #90CDF4; }
+    .rb-del  { background: #F0FFF4; border: 1px solid #9AE6B4; }
+    .rb-icon { font-size: 2rem; flex-shrink: 0; }
+    .rb-title { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .rb-desc  { font-size: 0.82rem; color: var(--medium); line-height: 1.55; }
+
+    .sessions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
+
+    .design-flow {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 2rem; margin-bottom: 2.5rem; overflow-x: auto;
+    }
+    .df-item { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 110px; text-align: center; }
+    .df-icon {
+      width: 56px; height: 56px; border-radius: var(--radius-md); background: #fff;
+      border: 2px solid var(--border); display: flex; align-items: center;
+      justify-content: center; font-size: 1.5rem; box-shadow: var(--shadow-sm);
+    }
+    .df-title { font-size: 0.82rem; font-weight: 700; color: var(--dark); }
+    .df-sub   { font-size: 0.72rem; color: var(--muted); }
+    .df-arrow { font-size: 1.5rem; color: var(--border); flex-shrink: 0; margin: 0 0.1rem; padding-bottom: 28px; }
+
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .tool-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem 1.25rem; }
+    .tool-card .tc-cat { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .tool-card .tc-items { list-style: none; }
+    .tool-card .tc-items li { font-size: 0.82rem; color: var(--medium); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+    .tool-card .tc-items li::before { content: '✦'; font-size: 0.6rem; color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .sessions-grid { grid-template-columns: 1fr; }
+      .tools-grid    { grid-template-columns: 1fr 1fr; }
+      .cover-hero    { padding: 2.5rem 1.5rem; }
+      .cover-hero h1 { font-size: 2rem; }
+      .design-flow   { padding: 1.25rem; }
+      .df-item       { min-width: 85px; }
+    }
+    @media (max-width: 600px) {
+      .tools-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">
+    <span>🚀</span>
+    <span>AI 项目交付培训</span>
+    <span class="logo-badge">PM Edition</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html" class="active">课程总览</a>
+    <a href="module1.html">认知重构</a>
+    <a href="module2.html">项目规划</a>
+    <a href="module3.html">团队协同</a>
+    <a href="module4.html">客户沟通</a>
+    <a href="module5.html">风险管理</a>
+    <a href="module6.html">质量交付</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">课程导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview" class="active"><span class="nav-num">0</span> 课程总览</a></li>
+      <li><a href="#roles"><span class="nav-num">👥</span> 适用角色</a></li>
+      <li><a href="#design-logic"><span class="nav-num">→</span> 设计逻辑</a></li>
+      <li><a href="#modules"><span class="nav-num">6</span> 六大模块</a></li>
+      <li><a href="#outcomes"><span class="nav-num">📦</span> 产出物</a></li>
+      <li><a href="#tools"><span class="nav-num">🔧</span> 工具清单</a></li>
+      <li><a href="#other-courses"><span class="nav-num">🎓</span> 其他培训</a></li>
+    </ul>
+    <div style="padding:1.25rem;margin-top:1rem;border-top:1px solid var(--border);">
+      <div class="sidebar-title">模块入口</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <a href="module1.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#38A169;">●</span> M1 认知重构
+        </a>
+        <a href="module2.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#3182CE;">●</span> M2 项目规划
+        </a>
+        <a href="module3.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#805AD5;">●</span> M3 团队协同
+        </a>
+        <a href="module4.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#D69E2E;">●</span> M4 客户沟通
+        </a>
+        <a href="module5.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#E53E3E;">●</span> M5 风险管理
+        </a>
+        <a href="module6.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#2C7A7B;">●</span> M6 质量交付
+        </a>
+        <a href="appendix.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:var(--muted);">●</span> 附录 工具与Prompt
+        </a>
+      </div>
+      <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px dashed var(--border);">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">其他培训</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <a href="../training/" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+            <span style="color:var(--accent);">●</span> 基础：办公实战培训
+          </a>
+          <a href="../training-advanced/" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+            <span style="color:#E07A5F;">●</span> 进阶：PM × QA
+          </a>
+          <a href="../training-advanced-for-dev/" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+            <span style="color:#6D28D9;">●</span> 进阶：工程师培训
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div id="overview"></div>
+
+    <div class="cover-hero">
+      <div class="cover-content">
+        <div class="cover-eyebrow">
+          <div class="eyebrow-dot"></div>
+          <span>AI-Powered Project Delivery Excellence</span>
+        </div>
+        <h1>AI 驱动的项目交付<br/><em>卓越之道</em></h1>
+        <p class="cover-tagline">
+          专为 <strong>项目经理</strong> 与 <strong>交付专家</strong> 设计的 AI 能力升级培训。
+          从规划到交收，用 AI 全面提升项目效率、质量与团队协同，打造 AI Native 的交付体系。
+        </p>
+        <div class="cover-meta-row">
+          <span class="cover-tag">🎯 项目经理</span>
+          <span class="cover-tag">🚀 交付专家</span>
+          <span class="cover-tag">⏱️ 约 12 小时</span>
+          <span class="cover-tag">📦 6 个产出物</span>
+        </div>
+        <div class="cover-stats">
+          <div class="cs-item"><div class="cs-num">6</div><div class="cs-label">核心模块</div></div>
+          <div class="cs-item"><div class="cs-num">30+</div><div class="cs-label">实操练习</div></div>
+          <div class="cs-item"><div class="cs-num">50+</div><div class="cs-label">Prompt 模板</div></div>
+          <div class="cs-item"><div class="cs-num">2x</div><div class="cs-label">交付效率提升目标</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="roles" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">👥</div>
+        <div>
+          <div class="section-title">适用角色</div>
+          <div class="section-subtitle">本课程专为项目交付核心岗位量身设计</div>
+        </div>
+      </div>
+      <div class="role-badge-row">
+        <div class="role-badge rb-pm">
+          <div class="rb-icon">📋</div>
+          <div>
+            <div class="rb-title">项目经理 (PM)</div>
+            <div class="rb-desc">负责项目全生命周期管理，包括计划制定、进度跟踪、风险管控、客户沟通与团队协调。学习用 AI 将以上工作系统提效。</div>
+          </div>
+        </div>
+        <div class="role-badge rb-del">
+          <div class="rb-icon">🚀</div>
+          <div>
+            <div class="rb-title">交付专家 (Delivery Expert)</div>
+            <div class="rb-desc">负责交付质量把控、验收管理、上线保障与客户满意度。学习用 AI 构建高质量、可预期的交付体系，从容应对复杂交付挑战。</div>
+          </div>
+        </div>
+      </div>
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div><strong>前置要求：</strong>已完成 AI 办公实战基础培训（第一至四期），对 AI 工具有基本认知，能与 Claude/ChatGPT 等进行有效对话。</div>
+      </div>
+    </div>
+
+    <div id="design-logic" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">🧭</div>
+        <div>
+          <div class="section-title">课程设计逻辑</div>
+          <div class="section-subtitle">六大模块，覆盖项目交付全生命周期</div>
+        </div>
+      </div>
+
+      <div class="design-flow">
+        <div class="df-item">
+          <div class="df-icon">🧠</div>
+          <div class="df-title">M1</div>
+          <div class="df-sub">认知重构</div>
+          <div class="badge badge-green" style="margin-top:4px;">破局思维</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">📅</div>
+          <div class="df-title">M2</div>
+          <div class="df-sub">项目规划</div>
+          <div class="badge badge-blue" style="margin-top:4px;">智能提效</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">🤝</div>
+          <div class="df-title">M3</div>
+          <div class="df-sub">团队协同</div>
+          <div class="badge badge-purple" style="margin-top:4px;">协作加速</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">💬</div>
+          <div class="df-title">M4</div>
+          <div class="df-sub">客户沟通</div>
+          <div class="badge badge-gray" style="margin-top:4px;background:#FEFCBF;color:#744210;">信任构建</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">🛡️</div>
+          <div class="df-title">M5</div>
+          <div class="df-sub">风险管理</div>
+          <div class="badge badge-red" style="margin-top:4px;">主动防控</div>
+        </div>
+        <div class="df-arrow">→</div>
+        <div class="df-item">
+          <div class="df-icon">✅</div>
+          <div class="df-title">M6</div>
+          <div class="df-sub">质量交付</div>
+          <div class="badge badge-gray" style="margin-top:4px;background:#E6FFFA;color:#234E52;">卓越收官</div>
+        </div>
+      </div>
+
+      <div class="card card-accent-orange">
+        <h3 style="margin-top:0;">📐 每模块固定结构</h3>
+        <div class="progress-timeline" style="margin:1rem 0 0;">
+          <div class="timeline-item">
+            <div class="timeline-dot done">25%</div>
+            <div class="timeline-label">场景痛点<br/>现状分析</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">50%</div>
+            <div class="timeline-label">AI 方案<br/>实操演练</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">15%</div>
+            <div class="timeline-label">Prompt 模板<br/>拿来即用</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot done">10%</div>
+            <div class="timeline-label">课后作业<br/>实战验证</div>
+          </div>
+        </div>
+        <div class="infobox infobox-tip" style="margin-top:1rem;">
+          <span class="infobox-icon">🎯</span>
+          <div><strong>核心原则：</strong>每个模块聚焦真实工作场景，学员带走可即用的 AI Prompt 模板与操作清单，当天就能在项目中应用。</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modules" class="section">
+      <div class="section-header">
+        <div class="section-icon green">📚</div>
+        <div>
+          <div class="section-title">六大模块详细介绍</div>
+          <div class="section-subtitle">点击进入每个模块的完整讲义</div>
+        </div>
+      </div>
+
+      <div class="sessions-grid">
+        <div class="session-overview-card">
+          <div class="soc-num" style="background:linear-gradient(135deg,#38A169,#276749);">M1</div>
+          <div class="soc-badge"><span class="badge badge-green">认知基础</span> <span class="badge badge-gray">2 小时</span></div>
+          <div class="soc-title">认知重构<br/>——AI 时代的项目交付变革</div>
+          <div class="soc-desc">重新理解 AI 对项目管理的本质冲击，建立 AI 优先的交付思维模型。绘制个人 AI 应用场景图谱，识别高价值切入点，破除"AI 只是工具"的认知局限。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">🧠 思维模型</span>
+            <span class="badge badge-gray">🗺️ 场景图谱</span>
+            <span class="badge badge-gray">💡 价值识别</span>
+          </div>
+          <a href="module1.html" class="soc-link" style="color:#38A169;">进入模块一 →</a>
+        </div>
+
+        <div class="session-overview-card">
+          <div class="soc-num" style="background:linear-gradient(135deg,#3182CE,#2C5282);">M2</div>
+          <div class="soc-badge"><span class="badge badge-blue">规划提效</span> <span class="badge badge-gray">2 小时</span></div>
+          <div class="soc-title">AI 驱动项目规划<br/>——智能计划与进度管理</div>
+          <div class="soc-desc">用 AI 快速生成项目计划、WBS 分解、里程碑设定与资源估算。搭建 AI 驱动的进度预警体系，自动生成周报、状态报告与项目 Dashboard。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">📅 智能计划</span>
+            <span class="badge badge-gray">📊 进度预警</span>
+            <span class="badge badge-gray">📝 自动报告</span>
+          </div>
+          <a href="module2.html" class="soc-link" style="color:#3182CE;">进入模块二 →</a>
+        </div>
+
+        <div class="session-overview-card">
+          <div class="soc-num" style="background:linear-gradient(135deg,#805AD5,#553C9A);">M3</div>
+          <div class="soc-badge"><span class="badge badge-purple">协同加速</span> <span class="badge badge-gray">2 小时</span></div>
+          <div class="soc-title">AI 赋能产研协同<br/>——让团队协作提速 2x</div>
+          <div class="soc-desc">AI 辅助需求澄清与任务拆解，智能化 Story 生成与验收标准编写。掌握 AI 驱动的技术评审协助、研发进度跟催与敏捷迭代加速技巧。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">📋 需求澄清</span>
+            <span class="badge badge-gray">🔄 敏捷加速</span>
+            <span class="badge badge-gray">🤝 跨团队协同</span>
+          </div>
+          <a href="module3.html" class="soc-link" style="color:#805AD5;">进入模块三 →</a>
+        </div>
+
+        <div class="session-overview-card">
+          <div class="soc-num" style="background:linear-gradient(135deg,#D69E2E,#B7791F);">M4</div>
+          <div class="soc-badge"><span class="badge badge-gray" style="background:#FEFCBF;color:#744210;">客户管理</span> <span class="badge badge-gray">2 小时</span></div>
+          <div class="soc-title">AI 强化客户沟通<br/>——从被动应对到主动管理</div>
+          <div class="soc-desc">AI 辅助客户邮件起草与汇报材料生成，智能会议纪要与行动项跟踪。掌握 AI 辅助的客户预期管理、变更沟通与满意度提升策略。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">📧 邮件起草</span>
+            <span class="badge badge-gray">📑 汇报材料</span>
+            <span class="badge badge-gray">🤝 预期管理</span>
+          </div>
+          <a href="module4.html" class="soc-link" style="color:#B7791F;">进入模块四 →</a>
+        </div>
+
+        <div class="session-overview-card">
+          <div class="soc-num" style="background:linear-gradient(135deg,#E53E3E,#C53030);">M5</div>
+          <div class="soc-badge"><span class="badge badge-red">风险防控</span> <span class="badge badge-gray">2 小时</span></div>
+          <div class="soc-title">AI 风险识别与消除<br/>——从响应式到预防式</div>
+          <div class="soc-desc">利用 AI 构建系统化风险扫描清单，实现风险早期预警和智能优先级排序。掌握 AI 辅助的风险应对预案生成、危机处理与项目复盘技巧。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">🔍 风险扫描</span>
+            <span class="badge badge-gray">⚡ 预警体系</span>
+            <span class="badge badge-gray">🔄 应对预案</span>
+          </div>
+          <a href="module5.html" class="soc-link" style="color:#C53030;">进入模块五 →</a>
+        </div>
+
+        <div class="session-overview-card">
+          <div class="soc-num" style="background:linear-gradient(135deg,#2C7A7B,#1F5F60);">M6</div>
+          <div class="soc-badge"><span class="badge badge-gray" style="background:#E6FFFA;color:#234E52;">质量交付</span> <span class="badge badge-gray">2 小时</span></div>
+          <div class="soc-title">AI 交付质量管控<br/>——打造高质量收官体验</div>
+          <div class="soc-desc">AI 辅助验收测试设计与智能质量检查清单生成。掌握 AI 加速问题排查、缺陷分析与修复方案生成，以及 AI 驱动的交付文档自动化生产。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">✅ 验收设计</span>
+            <span class="badge badge-gray">🐛 缺陷分析</span>
+            <span class="badge badge-gray">📄 文档自动化</span>
+          </div>
+          <a href="module6.html" class="soc-link" style="color:#2C7A7B;">进入模块六 →</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="outcomes" class="section">
+      <div class="section-header">
+        <div class="section-icon green">📦</div>
+        <div>
+          <div class="section-title">六大模块产出物汇总</div>
+          <div class="section-subtitle">每个模块结束时学员带走的可用成果</div>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>模块</th><th>主题</th><th>产出物</th><th>即用价值</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge badge-green">M1</span></td>
+              <td>认知重构</td>
+              <td>个人 AI 应用场景地图 + AI 工作切入清单</td>
+              <td>本周就能找到最优先的 AI 落地点</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">M2</span></td>
+              <td>项目规划</td>
+              <td>AI 辅助生成的项目计划初稿 + 周报自动生成 Prompt</td>
+              <td>下个项目启动时直接复用</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-purple">M3</span></td>
+              <td>团队协同</td>
+              <td>User Story 生成模板库 + 需求澄清 AI 问题清单</td>
+              <td>下次需求评审即可上手使用</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-gray" style="background:#FEFCBF;color:#744210;">M4</span></td>
+              <td>客户沟通</td>
+              <td>客户沟通 Prompt 模板（5 场景）+ 会议纪要自动化流程</td>
+              <td>下次客户会议结束后 10 分钟出纪要</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-red">M5</span></td>
+              <td>风险管理</td>
+              <td>项目风险扫描清单（可复用）+ 风险应对预案 Prompt</td>
+              <td>每次项目启动时运行风险扫描</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-gray" style="background:#E6FFFA;color:#234E52;">M6</span></td>
+              <td>质量交付</td>
+              <td>验收检查清单模板 + 交付文档自动化工作流</td>
+              <td>交付期间质量管控有据可依</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="tools" class="section">
+      <div class="section-header">
+        <div class="section-icon teal">🔧</div>
+        <div>
+          <div class="section-title">推荐工具清单</div>
+          <div class="section-subtitle">项目交付全链路 AI 工具生态</div>
+        </div>
+      </div>
+
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tc-cat">💬 核心 AI 助手</div>
+          <ul class="tc-items">
+            <li>Claude（长文档、策略分析）</li>
+            <li>ChatGPT / GPT-4o（通用问答）</li>
+            <li>Gemini（多模态、Google 生态）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">📋 项目管理增强</div>
+          <ul class="tc-items">
+            <li>Jira + AI 插件（任务智能拆解）</li>
+            <li>Linear AI（轻量 PM 工具）</li>
+            <li>Notion AI（项目知识库）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">📝 文档与协作</div>
+          <ul class="tc-items">
+            <li>飞书 AI（会议纪要、文档）</li>
+            <li>Confluence + AI（知识沉淀）</li>
+            <li>Gamma（AI 汇报 PPT 生成）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">🔄 自动化工作流</div>
+          <ul class="tc-items">
+            <li>Dify（AI 工作流编排）</li>
+            <li>n8n（跨系统自动化）</li>
+            <li>Make / Zapier（低代码自动化）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">📊 数据分析与报告</div>
+          <ul class="tc-items">
+            <li>Claude + CSV（数据洞察）</li>
+            <li>ChatGPT Advanced Analysis</li>
+            <li>Power BI Copilot（报表）</li>
+          </ul>
+        </div>
+        <div class="tool-card">
+          <div class="tc-cat">🎙️ 会议与沟通</div>
+          <ul class="tc-items">
+            <li>飞书妙记（实时转录 + 纪要）</li>
+            <li>Otter.ai（英文会议转录）</li>
+            <li>Fireflies.ai（会议洞察）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="other-courses" class="section">
+      <div class="section-header">
+        <div class="section-icon purple">🎓</div>
+        <div>
+          <div class="section-title">其他培训课程</div>
+          <div class="section-subtitle">飞帆科技 AI 能力提升全系列培训</div>
+        </div>
+      </div>
+
+      <div class="sessions-grid">
+        <div class="session-overview-card">
+          <div class="soc-num" style="background:linear-gradient(135deg,#E07A5F,#C85A3E);">基础</div>
+          <div class="soc-badge"><span class="badge badge-red">全员基础</span> <span class="badge badge-gray">工程师 / 交付</span></div>
+          <div class="soc-title">AI 办公实战培训<br/>——从入门到 AI Native</div>
+          <div class="soc-desc">四期递进课程，建立 AI 优先工作方式。涵盖工具入门、提示词工程、RAG 知识库、MCP 协议等核心内容，适合所有岗位。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">🧠 认知建立</span>
+            <span class="badge badge-gray">⚙️ 工具实操</span>
+            <span class="badge badge-gray">🤖 AI Native</span>
+          </div>
+          <a href="../training/" class="soc-link">进入基础培训 →</a>
+        </div>
+        <div class="session-overview-card">
+          <div class="soc-num" style="background:linear-gradient(135deg,#6D28D9,#4C1D95);">Dev</div>
+          <div class="soc-badge"><span class="badge badge-purple">工程进阶</span> <span class="badge badge-gray">架构师 × 开发</span></div>
+          <div class="soc-title">AI 工程进阶培训<br/>——架构师 × 开发工程师</div>
+          <div class="soc-desc">深入讲解 AI 驱动架构设计、高级 Prompt 工程、RAG 实战、Agent 编排、后端/前端 AI 集成、可观测性与安全合规等。</div>
+          <div class="soc-metas">
+            <span class="badge badge-gray">🏗️ 架构设计</span>
+            <span class="badge badge-gray">💻 高级编程</span>
+            <span class="badge badge-gray">🔒 安全合规</span>
+          </div>
+          <a href="../training-advanced-for-dev/" class="soc-link" style="color:#6D28D9;">进入工程师培训 →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="../training/" class="page-nav-btn" style="background:var(--warm);color:var(--dark);border:1px solid var(--border);">← 返回培训首页</a>
+      <a href="module1.html" class="page-nav-btn">开始模块一：认知重构 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
