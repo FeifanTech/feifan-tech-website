@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 05：后端集成 Java/Python/Go — AI 工程进阶培训 v2.0</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🏗️</span>
+    <span>AI 工程进阶培训</span>
+    <span class="logo-badge">进阶版</span>
+  </div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">架构设计</a>
+    <a href="module2.html">Prompt工程</a>
+    <a href="module3.html">RAG实战</a>
+    <a href="module4.html">Agent编排</a>
+    <a href="module5.html" class="active">后端集成</a>
+    <a href="module6.html">前端集成</a>
+    <a href="module7.html">可观测性</a>
+    <a href="module8.html">安全合规</a>
+    <a href="appendix.html">附录</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块 05 目录</div>
+    <ul class="sidebar-nav">
+      <li><a href="#section-5-1" class="active">
+        <span class="nav-num">5.1</span> Java 集成（Spring Boot）
+      </a></li>
+      <li><a href="#section-5-2">
+        <span class="nav-num">5.2</span> Python 集成（FastAPI）
+      </a></li>
+      <li><a href="#section-5-3">
+        <span class="nav-num">5.3</span> Go 集成
+      </a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem; border-top:1px solid var(--border); margin-top:auto;">
+      <a href="index.html" style="font-size:0.8rem;color:var(--muted);">← 返回总览</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">🏠 课程总览</a>
+      <span class="sep">/</span>
+      <span class="current">模块 05：后端集成 Java/Python/Go</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">Module 05</span>
+        AI 工程进阶培训 v2.0
+      </div>
+      <h1>后端集成：Java / Python / Go</h1>
+      <p class="hero-subtitle">各语言生态下 LLM 集成的最佳实践与工程规范</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><span class="role-badge role-backend">后端工程师专项</span></span>
+        <span class="hero-meta-item">☕ Java/Spring</span>
+        <span class="hero-meta-item">🐍 Python/FastAPI</span>
+        <span class="hero-meta-item">🐹 Go</span>
+      </div>
+    </div>
+
+    <!-- ── Section 5.1: Java 集成（Spring Boot） ── -->
+    <div id="section-5-1" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">☕</div>
+        <div>
+          <div class="section-title">5.1 Java 集成（Spring Boot）</div>
+          <div class="section-subtitle">LangChain4j + Spring Boot 企业级集成</div>
+        </div>
+      </div>
+
+      <div class="module-badge"><span class="dot"></span> 依赖配置（Maven）</div>
+
+      <pre>&lt;!-- pom.xml --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;dev.langchain4j&lt;/groupId&gt;
+    &lt;artifactId&gt;langchain4j-open-ai&lt;/artifactId&gt;
+    &lt;version&gt;0.35.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;dev.langchain4j&lt;/groupId&gt;
+    &lt;artifactId&gt;langchain4j-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;0.35.0&lt;/version&gt;
+&lt;/dependency&gt;</pre>
+
+      <div class="module-badge"><span class="dot"></span> 核心服务实现</div>
+
+      <pre>// ✅ 企业级 LLM 服务封装
+@Service
+@Slf4j
+public class LlmService {
+
+    private final ChatLanguageModel chatModel;
+    private final MeterRegistry meterRegistry;
+
+    public LlmService(
+        @Value("${llm.api-key}") String apiKey,
+        MeterRegistry meterRegistry
+    ) {
+        this.chatModel = OpenAiChatModel.builder()
+            .apiKey(apiKey)
+            .modelName("gpt-4o-mini")
+            .maxTokens(2048)
+            .temperature(0.3)
+            .timeout(Duration.ofSeconds(30))
+            .maxRetries(3)
+            .build();
+        this.meterRegistry = meterRegistry;
+    }
+
+    public CompletableFuture&lt;String&gt; chat(String systemPrompt, String userMessage) {
+        return CompletableFuture.supplyAsync(() -&gt; {
+            Timer.Sample sample = Timer.start(meterRegistry);
+            try {
+                UserMessage user = UserMessage.from(userMessage);
+                SystemMessage system = SystemMessage.from(systemPrompt);
+                Response&lt;AiMessage&gt; response = chatModel.generate(system, user);
+                
+                // 记录 Token 用量
+                TokenUsage usage = response.tokenUsage();
+                meterRegistry.counter("llm.tokens.input",
+                    "model", "gpt-4o-mini").increment(usage.inputTokenCount());
+                meterRegistry.counter("llm.tokens.output",
+                    "model", "gpt-4o-mini").increment(usage.outputTokenCount());
+                
+                return response.content().text();
+            } finally {
+                sample.stop(meterRegistry.timer("llm.latency", "model", "gpt-4o-mini"));
+            }
+        });
+    }
+}</pre>
+
+      <div class="module-badge"><span class="dot"></span> 流式响应（SSE）</div>
+
+      <pre>// ✅ Spring WebFlux SSE 流式输出
+@RestController
+@RequestMapping("/api/chat")
+public class ChatController {
+
+    @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux&lt;ServerSentEvent&lt;String&gt;&gt; streamChat(
+        @RequestParam String message,
+        @RequestParam(required = false) String sessionId
+    ) {
+        return Flux.create(sink -&gt; {
+            streamingChatModel.generate(
+                buildMessages(message, sessionId),
+                new StreamingResponseHandler&lt;AiMessage&gt;() {
+                    @Override
+                    public void onNext(String token) {
+                        sink.next(ServerSentEvent.&lt;String&gt;builder()
+                            .data(token)
+                            .build());
+                    }
+
+                    @Override
+                    public void onComplete(Response&lt;AiMessage&gt; response) {
+                        sink.next(ServerSentEvent.&lt;String&gt;builder()
+                            .event("done")
+                            .data("[DONE]")
+                            .build());
+                        sink.complete();
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+                        log.error("Streaming error", error);
+                        sink.error(error);
+                    }
+                }
+            );
+        });
+    }
+}</pre>
+    </div>
+
+    <!-- ── Section 5.2: Python 集成（FastAPI） ── -->
+    <div id="section-5-2" class="section">
+      <div class="section-header">
+        <div class="section-icon green">🐍</div>
+        <div>
+          <div class="section-title">5.2 Python 集成（FastAPI）</div>
+          <div class="section-subtitle">FastAPI + Anthropic SDK 生产级集成</div>
+        </div>
+      </div>
+
+      <pre># ✅ 生产级 FastAPI + Anthropic 集成
+import asyncio
+from typing import AsyncIterator
+import anthropic
+from fastapi import FastAPI, HTTPException, Depends
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
+import structlog
+
+logger = structlog.get_logger()
+client = anthropic.AsyncAnthropic()
+
+class ChatRequest(BaseModel):
+    message: str
+    session_id: str | None = None
+    stream: bool = False
+
+@app.post("/chat")
+async def chat(request: ChatRequest, user=Depends(get_current_user)):
+    """非流式对话接口"""
+    try:
+        message = await client.messages.create(
+            model="claude-3-5-haiku-20241022",
+            max_tokens=2048,
+            system=await get_system_prompt(user.role),
+            messages=await build_history(request.session_id) + [
+                {"role": "user", "content": request.message}
+            ],
+        )
+        
+        asyncio.create_task(track_usage(
+            user_id=user.id,
+            input_tokens=message.usage.input_tokens,
+            output_tokens=message.usage.output_tokens,
+        ))
+        
+        return {"reply": message.content[0].text}
+    
+    except anthropic.RateLimitError:
+        raise HTTPException(status_code=429, detail="请求过于频繁，请稍后重试")
+    except anthropic.APITimeoutError:
+        raise HTTPException(status_code=504, detail="AI 服务响应超时")
+
+@app.post("/chat/stream")
+async def chat_stream(request: ChatRequest, user=Depends(get_current_user)):
+    """流式对话接口（SSE）"""
+    async def generate() -&gt; AsyncIterator[str]:
+        async with client.messages.stream(
+            model="claude-3-5-haiku-20241022",
+            max_tokens=2048,
+            messages=[{"role": "user", "content": request.message}],
+        ) as stream:
+            async for text in stream.text_stream:
+                yield f"data: {json.dumps({'text': text})}\n\n"
+        yield "data: [DONE]\n\n"
+    
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={"X-Accel-Buffering": "no"},
+    )</pre>
+    </div>
+
+    <!-- ── Section 5.3: Go 集成 ── -->
+    <div id="section-5-3" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">🐹</div>
+        <div>
+          <div class="section-title">5.3 Go 集成</div>
+          <div class="section-subtitle">Go 语言 LLM 客户端封装与流式处理</div>
+        </div>
+      </div>
+
+      <pre>// ✅ 生产级 Go LLM 客户端封装
+package llm
+
+import (
+    "context"
+    "time"
+    
+    openai "github.com/sashabaranov/go-openai"
+    "go.uber.org/zap"
+)
+
+type Client struct {
+    ai      *openai.Client
+    logger  *zap.Logger
+    model   string
+    timeout time.Duration
+}
+
+func NewClient(apiKey, model string, timeout time.Duration, logger *zap.Logger) *Client {
+    cfg := openai.DefaultConfig(apiKey)
+    cfg.HTTPClient = &amp;http.Client{Timeout: timeout}
+    
+    return &amp;Client{
+        ai:      openai.NewClientWithConfig(cfg),
+        logger:  logger,
+        model:   model,
+        timeout: timeout,
+    }
+}
+
+// Chat 非流式对话
+func (c *Client) Chat(ctx context.Context, system, user string) (string, error) {
+    ctx, cancel := context.WithTimeout(ctx, c.timeout)
+    defer cancel()
+    
+    resp, err := c.ai.CreateChatCompletion(ctx, openai.ChatCompletionRequest{
+        Model: c.model,
+        Messages: []openai.ChatCompletionMessage{
+            {Role: openai.ChatMessageRoleSystem, Content: system},
+            {Role: openai.ChatMessageRoleUser, Content: user},
+        },
+        MaxTokens:   2048,
+        Temperature: 0.3,
+    })
+    if err != nil {
+        c.logger.Error("LLM chat failed", zap.Error(err))
+        return "", fmt.Errorf("llm chat: %w", err)
+    }
+    
+    return resp.Choices[0].Message.Content, nil
+}
+
+// StreamChat 流式对话
+func (c *Client) StreamChat(ctx context.Context, system, user string) (&lt;-chan string, &lt;-chan error) {
+    tokenCh := make(chan string, 100)
+    errCh := make(chan error, 1)
+    
+    go func() {
+        defer close(tokenCh)
+        defer close(errCh)
+        
+        stream, err := c.ai.CreateChatCompletionStream(ctx, openai.ChatCompletionRequest{
+            Model:  c.model,
+            Stream: true,
+            Messages: []openai.ChatCompletionMessage{
+                {Role: openai.ChatMessageRoleSystem, Content: system},
+                {Role: openai.ChatMessageRoleUser, Content: user},
+            },
+        })
+        if err != nil {
+            errCh &lt;- err
+            return
+        }
+        defer stream.Close()
+        
+        for {
+            resp, err := stream.Recv()
+            if errors.Is(err, io.EOF) {
+                return
+            }
+            if err != nil {
+                errCh &lt;- err
+                return
+            }
+            tokenCh &lt;- resp.Choices[0].Delta.Content
+        }
+    }()
+    
+    return tokenCh, errCh
+}</pre>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">语言选型建议</div>
+          <p style="font-size:0.875rem;color:var(--medium);margin:0;">Java 适合已有 Spring 生态的企业；Python 适合快速原型和 AI/ML 密集场景；Go 适合高并发、低延迟的 API 网关和代理层。三种语言可以在微服务架构中共存。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="module4.html" class="page-nav-btn">← 上一模块：Agent 编排</a>
+      <a href="module6.html" class="page-nav-btn">下一模块：前端集成 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
