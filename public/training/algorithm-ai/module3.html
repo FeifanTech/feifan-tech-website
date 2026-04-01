@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块三：AI协同开发实战 — 算法与AI协同培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .ai-capability-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .ai-can {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .ai-cannot {
+      background: #FFF7ED;
+      border: 1px solid #FED7AA;
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .ai-can h4    { color: #166534; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .ai-cannot h4 { color: #9A3412; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .ai-can ul, .ai-cannot ul { list-style: none; font-size: 0.84rem; }
+    .ai-can ul li { color: #166534; margin-bottom: 4px; }
+    .ai-can ul li::before { content: '✓ '; font-weight: 700; }
+    .ai-cannot ul li { color: #9A3412; margin-bottom: 4px; }
+    .ai-cannot ul li::before { content: '⚠ '; font-weight: 700; }
+
+    .chat-demo {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin: 1.25rem 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .chat-header {
+      background: var(--algo-bg);
+      border-bottom: 1px solid var(--algo-border);
+      padding: 0.75rem 1.25rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--algo-accent-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chat-body { padding: 1.25rem; }
+    .chat-msg {
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .chat-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0; margin-top: 2px;
+    }
+    .avatar-user { background: var(--algo-bg); border: 1px solid var(--algo-border); }
+    .avatar-ai   { background: var(--warm); border: 1px solid var(--border); }
+    .chat-bubble {
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      line-height: 1.65;
+      max-width: 85%;
+    }
+    .bubble-user { background: var(--algo-bg); color: var(--algo-accent-dark); border: 1px solid var(--algo-border); }
+    .bubble-ai   { background: var(--warm); color: var(--dark); border: 1px solid var(--border); }
+
+    .prompt-template-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .pt-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.25rem;
+      background: var(--warm);
+      border-bottom: 1px solid var(--border);
+    }
+    .pt-num {
+      width: 28px; height: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--algo-accent);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.85rem; flex-shrink: 0;
+    }
+    .pt-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); }
+    .pt-scene { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+    .pt-body { padding: 1.25rem; }
+
+    .prompt-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 0.75rem 0;
+    }
+    .pc-bad, .pc-good {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .pc-label {
+      padding: 6px 12px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .pc-bad .pc-label  { background: #FEE2E2; color: #991B1B; }
+    .pc-good .pc-label { background: #DCFCE7; color: #166534; }
+    .pc-content {
+      font-size: 0.82rem;
+      padding: 0.75rem 1rem;
+      line-height: 1.65;
+      background: var(--warm);
+      color: var(--medium);
+    }
+
+    @media (max-width: 768px) {
+      .ai-capability-grid { grid-template-columns: 1fr; }
+      .prompt-compare { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🧠 算法与AI协同培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html" class="active">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块三导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview"><span class="nav-num">1</span>AI协同概述</a></li>
+      <li><a href="#data-fe"><span class="nav-num">2</span>数据与特征工程</a></li>
+      <li><a href="#model-tuning"><span class="nav-num">3</span>模型开发调优</a></li>
+      <li><a href="#prompts"><span class="nav-num">4</span>Prompt工程</a></li>
+      <li><a href="#debug"><span class="nav-num">5</span>调试与优化</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块三</span>
+        AI协同
+      </div>
+      <h1>AI协同开发<br>实战</h1>
+      <p class="hero-subtitle">将AI工具融入算法开发每个环节，用正确的Prompt模式将开发效率提升2倍以上</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 4课时</div>
+        <div class="hero-meta-item">🤖 6类Prompt模板</div>
+        <div class="hero-meta-item">💬 完整对话示例</div>
+        <div class="hero-meta-item">⚡ 效率提升策略</div>
+      </div>
+    </div>
+
+    <!-- ─── AI协同概述 ─── -->
+    <section class="section" id="overview">
+      <div class="section-header">
+        <div class="section-icon teal">🤖</div>
+        <div>
+          <div class="section-title">AI协同开发概述</div>
+          <div class="section-subtitle">AI能帮什么，不能帮什么</div>
+        </div>
+      </div>
+
+      <div class="ai-capability-grid">
+        <div class="ai-can">
+          <h4>✅ AI擅长做的事</h4>
+          <ul>
+            <li>快速生成数据探索代码</li>
+            <li>建议特征工程方案</li>
+            <li>解释算法原理和适用场景</li>
+            <li>生成调参代码（Optuna/GridSearch）</li>
+            <li>Code review和性能优化建议</li>
+            <li>将模型评估结果转化为业务语言</li>
+            <li>快速生成Baseline代码框架</li>
+            <li>排查错误信息和堆栈溢出</li>
+          </ul>
+        </div>
+        <div class="ai-cannot">
+          <h4>⚠️ AI的局限（需人工判断）</h4>
+          <ul>
+            <li>不了解你的具体业务上下文</li>
+            <li>生成的代码可能有逻辑错误需验证</li>
+            <li>无法判断数据质量问题</li>
+            <li>不能替代业务方需求澄清</li>
+            <li>算法调参建议可能不适合你的数据</li>
+            <li>生成的特征可能存在数据泄露</li>
+            <li>代码性能优化建议需要实测验证</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-flow">
+        <div class="sf-item active">
+          <div class="sf-dot">📊</div>
+          <div class="sf-label">数据探索</div>
+          <div class="sf-sub">AI生成EDA代码</div>
+        </div>
+        <div class="sf-item active">
+          <div class="sf-dot">⚙️</div>
+          <div class="sf-label">特征工程</div>
+          <div class="sf-sub">AI建议特征方案</div>
+        </div>
+        <div class="sf-item active">
+          <div class="sf-dot">🤖</div>
+          <div class="sf-label">模型选择</div>
+          <div class="sf-sub">AI推荐算法</div>
+        </div>
+        <div class="sf-item active">
+          <div class="sf-dot">🎛️</div>
+          <div class="sf-label">超参调优</div>
+          <div class="sf-sub">AI生成调参代码</div>
+        </div>
+        <div class="sf-item active">
+          <div class="sf-dot">🔍</div>
+          <div class="sf-label">调试优化</div>
+          <div class="sf-sub">AI排查性能瓶颈</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI协同的正确心态</div>
+          把AI当作一个聪明但不了解你业务的初级工程师。你需要给它足够的上下文，检验它的输出，并做最终决策。AI能帮你省去大量搜索和样板代码时间，但领域判断仍需你来完成。
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 数据分析与特征工程 ─── -->
+    <section class="section" id="data-fe">
+      <div class="section-header">
+        <div class="section-icon teal">📊</div>
+        <div>
+          <div class="section-title">AI辅助数据分析与特征工程</div>
+          <div class="section-subtitle">用正确的Prompt让AI生成高质量分析代码</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:1rem;">示例对话：用AI探索销量预测数据</h3>
+      <div class="chat-demo">
+        <div class="chat-header">💬 AI对话示例 — 数据探索场景</div>
+        <div class="chat-body">
+          <div class="chat-msg">
+            <div class="chat-avatar avatar-user">👤</div>
+            <div class="chat-bubble bubble-user">
+              我有一份电商销量预测数据集，包含字段：sku_id, date, sales_qty, price, category, merchant_id, is_holiday, promo_type。数据有18个月的历史，约50万行，SKU数量3000个。<br><br>请帮我生成一份全面的探索性数据分析(EDA)代码，重点关注：①销量分布特征 ②时序模式（周/月/节假日效应）③影响销量的关键特征相关性 ④数据质量问题（缺失/异常值）
+            </div>
+          </div>
+          <div class="chat-msg">
+            <div class="chat-avatar avatar-ai">🤖</div>
+            <div class="chat-bubble bubble-ai">
+              好的，我为你生成一份针对销量预测的完整EDA代码，分四个部分：
+              <br><br>
+              <strong>第一部分：基础数据质量检查</strong><br>
+              包括缺失值统计、数据类型校验、重复行检测<br><br>
+              <strong>第二部分：目标变量（sales_qty）分析</strong><br>
+              分布直方图、零销售占比、对数正态性检验、偏度分析<br><br>
+              <strong>第三部分：时序模式分析</strong><br>
+              周效应（dayofweek）、月效应、节假日Lift计算、促销期间的销量对比<br><br>
+              <strong>第四部分：特征相关性热力图</strong><br>
+              数值特征Pearson相关系数 + 分类特征ANOVA分析<br><br>
+              [以下为完整代码...]
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.5rem 0 1rem;">AI辅助特征工程 — 销量预测场景实战</h3>
+      <div class="code-example">
+        <div class="code-example-header">
+          <span class="code-example-lang">Python</span>
+          <span class="code-example-title">销量预测特征工程 — AI协助生成并人工校验版</span>
+        </div>
+        <pre><code><span style="color:#89DDFF;">import</span> pandas <span style="color:#89DDFF;">as</span> pd
+<span style="color:#89DDFF;">import</span> numpy <span style="color:#89DDFF;">as</span> np
+
+<span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">build_sales_features</span>(df: pd.DataFrame) -> pd.DataFrame:
+    <span style="color:#C3E88D;">"""
+    销量预测特征工程
+    注意：所有特征基于历史数据计算，避免时序泄露
+    df 必须按 (sku_id, date) 排序
+    """</span>
+    df = df.sort_values([<span style="color:#C3E88D;">'sku_id'</span>, <span style="color:#C3E88D;">'date'</span>]).copy()
+
+    <span style="color:#546E7A;"># ── 1. 时间特征（无泄露） ──</span>
+    df[<span style="color:#C3E88D;">'dayofweek'</span>]   = df[<span style="color:#C3E88D;">'date'</span>].dt.dayofweek
+    df[<span style="color:#C3E88D;">'month'</span>]       = df[<span style="color:#C3E88D;">'date'</span>].dt.month
+    df[<span style="color:#C3E88D;">'day_of_year'</span>] = df[<span style="color:#C3E88D;">'date'</span>].dt.dayofyear
+    df[<span style="color:#C3E88D;">'is_weekend'</span>]  = df[<span style="color:#C3E88D;">'dayofweek'</span>].isin([<span style="color:#F78C6C;">5</span>, <span style="color:#F78C6C;">6</span>]).astype(int)
+    df[<span style="color:#C3E88D;">'week_of_year'</span>] = df[<span style="color:#C3E88D;">'date'</span>].dt.isocalendar().week
+
+    <span style="color:#546E7A;"># ── 2. 滞后特征（关键：避免泄露，使用shift） ──</span>
+    lags = [<span style="color:#F78C6C;">1</span>, <span style="color:#F78C6C;">7</span>, <span style="color:#F78C6C;">14</span>, <span style="color:#F78C6C;">28</span>, <span style="color:#F78C6C;">365</span>]
+    <span style="color:#89DDFF;">for</span> lag <span style="color:#89DDFF;">in</span> lags:
+        df[<span style="color:#C3E88D;">f'sales_lag_{lag}'</span>] = (
+            df.groupby(<span style="color:#C3E88D;">'sku_id'</span>)[<span style="color:#C3E88D;">'sales_qty'</span>]
+              .shift(lag)  <span style="color:#546E7A;"># ⚠️ shift避免泄露</span>
+        )
+
+    <span style="color:#546E7A;"># ── 3. 滚动统计特征 ──</span>
+    windows = [<span style="color:#F78C6C;">7</span>, <span style="color:#F78C6C;">14</span>, <span style="color:#F78C6C;">28</span>]
+    <span style="color:#89DDFF;">for</span> w <span style="color:#89DDFF;">in</span> windows:
+        rolling = (
+            df.groupby(<span style="color:#C3E88D;">'sku_id'</span>)[<span style="color:#C3E88D;">'sales_qty'</span>]
+              .transform(<span style="color:#89DDFF;">lambda</span> x: x.shift(<span style="color:#F78C6C;">1</span>).rolling(w, min_periods=<span style="color:#F78C6C;">1</span>).mean())
+        )
+        df[<span style="color:#C3E88D;">f'sales_roll_mean_{w}'</span>] = rolling
+
+    <span style="color:#546E7A;"># ── 4. 促销/节假日增益特征 ──</span>
+    df[<span style="color:#C3E88D;">'promo_x_holiday'</span>] = df[<span style="color:#C3E88D;">'promo_type'</span>].notna().astype(int) * df[<span style="color:#C3E88D;">'is_holiday'</span>]
+
+    <span style="color:#546E7A;"># ── 5. SKU生命周期特征 ──</span>
+    df[<span style="color:#C3E88D;">'sku_age_days'</span>] = (
+        df.groupby(<span style="color:#C3E88D;">'sku_id'</span>)[<span style="color:#C3E88D;">'date'</span>]
+          .transform(<span style="color:#89DDFF;">lambda</span> x: (x - x.min()).dt.days)
+    )
+    df[<span style="color:#C3E88D;">'is_new_sku'</span>] = (df[<span style="color:#C3E88D;">'sku_age_days'</span>] < <span style="color:#F78C6C;">30</span>).astype(int)
+
+    feature_cols = [c <span style="color:#89DDFF;">for</span> c <span style="color:#89DDFF;">in</span> df.columns <span style="color:#89DDFF;">if</span> c <span style="color:#89DDFF;">not in</span> [<span style="color:#C3E88D;">'date'</span>, <span style="color:#C3E88D;">'sales_qty'</span>]]
+    <span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">f"生成特征数量: {len(feature_cols)}"</span>)
+    <span style="color:#89DDFF;">return</span> df</code></pre>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">时序泄露是最常见的致命错误</div>
+          AI生成的特征工程代码有时会忘记使用 <code>shift(1)</code>，导致用到未来数据（数据泄露）。结果是线下AUC超高（0.99+）但线上效果极差。务必检查所有滚动/聚合特征是否正确使用了shift。
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 模型选择与超参调优 ─── -->
+    <section class="section" id="model-tuning">
+      <div class="section-header">
+        <div class="section-icon teal">🎛️</div>
+        <div>
+          <div class="section-title">AI辅助模型选择与超参调优</div>
+          <div class="section-subtitle">让AI帮你生成Optuna调参代码，事半功倍</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:1rem;">完整对话示例：让AI推荐算法并生成调参代码</h3>
+      <div class="chat-demo">
+        <div class="chat-header">💬 AI对话示例 — 算法推荐 + 超参调优</div>
+        <div class="chat-body">
+          <div class="chat-msg">
+            <div class="chat-avatar avatar-user">👤</div>
+            <div class="chat-bubble bubble-user">
+              我在做用户购买意愿预测（二分类），数据特点：<br>
+              • 训练集：15万样本，正负比例约1:9<br>
+              • 特征：用户行为特征（点击/收藏/浏览时长）、商品特征（类目/价格）、上下文（时间/渠道），共80个特征<br>
+              • 业务要求：Precision >= 0.7（不希望骚扰太多不感兴趣的用户）<br>
+              • 推理延迟：批量离线，无实时要求<br><br>
+              请推荐最合适的算法，并生成Optuna超参调优代码。
+            </div>
+          </div>
+          <div class="chat-msg">
+            <div class="chat-avatar avatar-ai">🤖</div>
+            <div class="chat-bubble bubble-ai">
+              根据你的场景，推荐 <strong>LightGBM + 阈值优化</strong>，理由：<br>
+              ①样本量15万适合Boosting类算法 ②1:9不均衡可用scale_pos_weight处理 ③批量场景无延迟压力 ④Precision要求高需调整分类阈值<br><br>
+              下面是Optuna调参代码，目标函数针对Precision优化：<br>
+              [以下为完整Optuna代码...]
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-example">
+        <div class="code-example-header">
+          <span class="code-example-lang">Python</span>
+          <span class="code-example-title">Optuna超参调优 — LightGBM购买意愿预测</span>
+        </div>
+        <pre><code><span style="color:#89DDFF;">import</span> optuna
+<span style="color:#89DDFF;">import</span> lightgbm <span style="color:#89DDFF;">as</span> lgb
+<span style="color:#89DDFF;">from</span> sklearn.model_selection <span style="color:#89DDFF;">import</span> StratifiedKFold
+<span style="color:#89DDFF;">from</span> sklearn.metrics <span style="color:#89DDFF;">import</span> precision_score, roc_auc_score
+<span style="color:#89DDFF;">import</span> numpy <span style="color:#89DDFF;">as</span> np
+optuna.logging.set_verbosity(optuna.logging.WARNING)
+
+<span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">objective</span>(trial):
+    params = {
+        <span style="color:#C3E88D;">'objective'</span>: <span style="color:#C3E88D;">'binary'</span>,
+        <span style="color:#C3E88D;">'metric'</span>: <span style="color:#C3E88D;">'auc'</span>,
+        <span style="color:#C3E88D;">'verbosity'</span>: -<span style="color:#F78C6C;">1</span>,
+        <span style="color:#546E7A;"># 不均衡处理：正负样本比约1:9</span>
+        <span style="color:#C3E88D;">'scale_pos_weight'</span>: <span style="color:#F78C6C;">9</span>,
+        <span style="color:#546E7A;"># Optuna建议的超参空间</span>
+        <span style="color:#C3E88D;">'n_estimators'</span>: trial.suggest_int(<span style="color:#C3E88D;">'n_estimators'</span>, <span style="color:#F78C6C;">100</span>, <span style="color:#F78C6C;">1000</span>),
+        <span style="color:#C3E88D;">'learning_rate'</span>: trial.suggest_float(<span style="color:#C3E88D;">'learning_rate'</span>, <span style="color:#F78C6C;">0.01</span>, <span style="color:#F78C6C;">0.3</span>, log=<span style="color:#89DDFF;">True</span>),
+        <span style="color:#C3E88D;">'max_depth'</span>: trial.suggest_int(<span style="color:#C3E88D;">'max_depth'</span>, <span style="color:#F78C6C;">3</span>, <span style="color:#F78C6C;">10</span>),
+        <span style="color:#C3E88D;">'num_leaves'</span>: trial.suggest_int(<span style="color:#C3E88D;">'num_leaves'</span>, <span style="color:#F78C6C;">20</span>, <span style="color:#F78C6C;">200</span>),
+        <span style="color:#C3E88D;">'min_child_samples'</span>: trial.suggest_int(<span style="color:#C3E88D;">'min_child_samples'</span>, <span style="color:#F78C6C;">10</span>, <span style="color:#F78C6C;">100</span>),
+        <span style="color:#C3E88D;">'subsample'</span>: trial.suggest_float(<span style="color:#C3E88D;">'subsample'</span>, <span style="color:#F78C6C;">0.6</span>, <span style="color:#F78C6C;">1.0</span>),
+        <span style="color:#C3E88D;">'colsample_bytree'</span>: trial.suggest_float(<span style="color:#C3E88D;">'colsample_bytree'</span>, <span style="color:#F78C6C;">0.6</span>, <span style="color:#F78C6C;">1.0</span>),
+        <span style="color:#C3E88D;">'reg_alpha'</span>: trial.suggest_float(<span style="color:#C3E88D;">'reg_alpha'</span>, <span style="color:#F78C6C;">1e-8</span>, <span style="color:#F78C6C;">10.0</span>, log=<span style="color:#89DDFF;">True</span>),
+        <span style="color:#C3E88D;">'reg_lambda'</span>: trial.suggest_float(<span style="color:#C3E88D;">'reg_lambda'</span>, <span style="color:#F78C6C;">1e-8</span>, <span style="color:#F78C6C;">10.0</span>, log=<span style="color:#89DDFF;">True</span>),
+    }
+
+    cv = StratifiedKFold(n_splits=<span style="color:#F78C6C;">5</span>, shuffle=<span style="color:#89DDFF;">True</span>, random_state=<span style="color:#F78C6C;">42</span>)
+    aucs = []
+    <span style="color:#89DDFF;">for</span> train_idx, val_idx <span style="color:#89DDFF;">in</span> cv.split(X, y):
+        model = lgb.LGBMClassifier(**params)
+        model.fit(X[train_idx], y[train_idx],
+                  eval_set=[(X[val_idx], y[val_idx])],
+                  callbacks=[lgb.early_stopping(<span style="color:#F78C6C;">50</span>, verbose=<span style="color:#89DDFF;">False</span>)])
+        preds = model.predict_proba(X[val_idx])[:, <span style="color:#F78C6C;">1</span>]
+        aucs.append(roc_auc_score(y[val_idx], preds))
+    <span style="color:#89DDFF;">return</span> np.mean(aucs)
+
+<span style="color:#546E7A;"># 运行100次试验</span>
+study = optuna.create_study(direction=<span style="color:#C3E88D;">'maximize'</span>)
+study.optimize(objective, n_trials=<span style="color:#F78C6C;">100</span>, n_jobs=<span style="color:#F78C6C;">4</span>)
+
+<span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">f"最优AUC: {study.best_value:.4f}"</span>)
+<span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">f"最优参数: {study.best_params}"</span>)
+
+<span style="color:#546E7A;"># ── 阈值优化：满足Precision >= 0.7 ──</span>
+<span style="color:#89DDFF;">from</span> sklearn.metrics <span style="color:#89DDFF;">import</span> precision_recall_curve
+
+probs = best_model.predict_proba(X_val)[:, <span style="color:#F78C6C;">1</span>]
+precisions, recalls, thresholds = precision_recall_curve(y_val, probs)
+
+<span style="color:#546E7A;"># 找到Precision >= 0.7 的最低阈值（最大化Recall）</span>
+mask = precisions >= <span style="color:#F78C6C;">0.7</span>
+optimal_threshold = thresholds[mask][-<span style="color:#F78C6C;">1</span>] <span style="color:#89DDFF;">if</span> mask.any() <span style="color:#89DDFF;">else</span> <span style="color:#F78C6C;">0.5</span>
+<span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">f"最优阈值: {optimal_threshold:.3f}"</span>)</code></pre>
+      </div>
+    </section>
+
+    <!-- ─── Prompt工程最佳实践 ─── -->
+    <section class="section" id="prompts">
+      <div class="section-header">
+        <div class="section-icon teal">✍️</div>
+        <div>
+          <div class="section-title">Prompt Engineering最佳实践</div>
+          <div class="section-subtitle">算法开发专用的6类Prompt模板</div>
+        </div>
+      </div>
+
+      <div class="prompt-template-card">
+        <div class="pt-header">
+          <div class="pt-num">1</div>
+          <div class="pt-title">数据探索与分析</div>
+          <div class="pt-scene">EDA场景</div>
+        </div>
+        <div class="pt-body">
+          <div class="prompt-compare">
+            <div class="pc-bad">
+              <div class="pc-label">❌ 低效Prompt</div>
+              <div class="pc-content">帮我分析这个销售数据集</div>
+            </div>
+            <div class="pc-good">
+              <div class="pc-label">✅ 高效Prompt</div>
+              <div class="pc-content">我有一份电商销量数据（字段：sku_id, date, sales_qty, price, category），18个月历史，50万行。请生成EDA代码，重点：①销量分布与异常值 ②周/月/节假日时序模式 ③价格与销量的相关性 ④新SKU（&lt;30天）vs 成熟SKU的销量差异对比</div>
+            </div>
+          </div>
+          <div class="prompt-box" style="margin-top:0.75rem;">
+            <div class="prompt-label">📋 通用数据探索模板</div>
+            <div class="prompt-text">我有一份<span class="prompt-var">[数据描述：行数/列数/字段]</span>的<span class="prompt-var">[业务场景]</span>数据集。
+
+请生成完整的EDA Python代码，分析：
+1. 数据质量（缺失值/异常值/重复行）
+2. 目标变量<span class="prompt-var">[目标列名]</span>的分布特征
+3. <span class="prompt-var">[关键业务维度]</span>的分组统计
+4. 主要特征与目标变量的相关性
+
+要求：使用matplotlib可视化，代码包含注释，遇到异常情况给出处理建议。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-template-card">
+        <div class="pt-header">
+          <div class="pt-num">2</div>
+          <div class="pt-title">特征工程设计</div>
+          <div class="pt-scene">特征工程场景</div>
+        </div>
+        <div class="pt-body">
+          <div class="prompt-box">
+            <div class="prompt-label">📋 特征工程Prompt模板</div>
+            <div class="prompt-text">我在做<span class="prompt-var">[问题类型：时序预测/分类/推荐]</span>任务，目标是<span class="prompt-var">[具体目标]</span>。
+
+原始特征：<span class="prompt-var">[列出原始字段]</span>
+
+请建议5-10个高价值的衍生特征，要求：
+1. 说明每个特征的业务含义和为什么有效
+2. 给出Python实现代码（pandas）
+3. 指出是否有数据泄露风险
+4. 评估各特征计算的时间复杂度</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-template-card">
+        <div class="pt-header">
+          <div class="pt-num">3</div>
+          <div class="pt-title">算法选型咨询</div>
+          <div class="pt-scene">算法决策场景</div>
+        </div>
+        <div class="pt-body">
+          <div class="prompt-box">
+            <div class="prompt-label">📋 算法选型Prompt模板</div>
+            <div class="prompt-text">我的ML任务信息：
+- 问题类型：<span class="prompt-var">[分类/回归/推荐/时序]</span>
+- 样本量：<span class="prompt-var">[N]</span>，特征数：<span class="prompt-var">[M]</span>
+- 数据特点：<span class="prompt-var">[不均衡/稀疏/时序/图像等]</span>
+- 精度要求：<span class="prompt-var">[指标和目标值]</span>
+- 推理延迟：<span class="prompt-var">[实时/近实时/批量，延迟上限]</span>
+- 可解释性：<span class="prompt-var">[高/中/低需求]</span>
+- 计算资源：<span class="prompt-var">[CPU/GPU，内存上限]</span>
+
+请推荐3个候选算法，按优先级排列，每个说明：选择理由、主要风险点、关键超参数。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-template-card">
+        <div class="pt-header">
+          <div class="pt-num">4</div>
+          <div class="pt-title">超参调优方案</div>
+          <div class="pt-scene">调参场景</div>
+        </div>
+        <div class="pt-body">
+          <div class="prompt-box">
+            <div class="prompt-label">📋 超参调优Prompt模板</div>
+            <div class="prompt-text">我在使用<span class="prompt-var">[算法名称]</span>进行<span class="prompt-var">[任务描述]</span>，数据规模<span class="prompt-var">[样本量]</span>。
+
+请生成Optuna超参调优代码，要求：
+1. 定义合理的超参搜索空间（附上参数范围选择理由）
+2. 使用<span class="prompt-var">[5折/时序滚动]</span>交叉验证
+3. 目标指标优化<span class="prompt-var">[AUC/MAPE/NDCG]</span>
+4. 添加early_stopping避免过拟合
+5. 输出最优参数和验证集表现对比</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-template-card">
+        <div class="pt-header">
+          <div class="pt-num">5</div>
+          <div class="pt-title">模型评估解读</div>
+          <div class="pt-scene">结果分析场景</div>
+        </div>
+        <div class="pt-body">
+          <div class="prompt-box">
+            <div class="prompt-label">📋 评估结果解读Prompt模板</div>
+            <div class="prompt-text">我的模型评估结果如下：
+- 训练集AUC: <span class="prompt-var">[值]</span>，验证集AUC: <span class="prompt-var">[值]</span>
+- Precision: <span class="prompt-var">[值]</span>，Recall: <span class="prompt-var">[值]</span>，F1: <span class="prompt-var">[值]</span>
+- 混淆矩阵：<span class="prompt-var">[TP/FP/TN/FN]</span>
+- 业务背景：<span class="prompt-var">[假正例vs假负例的业务代价]</span>
+
+请分析：①模型是否过拟合？②当前指标对业务的意义？③如何进一步提升？④建议的阈值策略？</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-template-card">
+        <div class="pt-header">
+          <div class="pt-num">6</div>
+          <div class="pt-title">代码Review与优化</div>
+          <div class="pt-scene">代码质量场景</div>
+        </div>
+        <div class="pt-body">
+          <div class="prompt-box">
+            <div class="prompt-label">📋 代码Review Prompt模板</div>
+            <div class="prompt-text">请对以下Python机器学习代码进行review，重点检查：
+1. 是否存在数据泄露风险（训练/测试集分离是否正确）
+2. 是否有性能瓶颈（大数据量下的内存和速度问题）
+3. 代码是否可维护（函数职责是否单一）
+4. 是否有潜在的数值稳定性问题
+5. 特征工程是否能正确处理边界情况（NaN/空列表/新类别）
+
+[代码粘贴在此]
+
+输出格式：按优先级列出问题，每个问题给出修改建议和示例代码。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── AI辅助代码调试与优化 ─── -->
+    <section class="section" id="debug">
+      <div class="section-header">
+        <div class="section-icon teal">🔧</div>
+        <div>
+          <div class="section-title">AI辅助代码调试与性能优化</div>
+          <div class="section-subtitle">让AI帮你发现性能瓶颈和逻辑错误</div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-teal">
+          <strong>🐛 常见错误快速排查</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• <code>MemoryError</code> → 问AI如何分批处理</li>
+            <li>• <code>ValueError: shape mismatch</code> → 让AI检查特征对齐</li>
+            <li>• 线下好线上差 → 让AI检查数据泄露</li>
+            <li>• 训练极慢 → 让AI推荐并行/向量化方案</li>
+            <li>• 推理慢 → 问AI模型压缩/缓存方案</li>
+          </ul>
+        </div>
+        <div class="card card-accent-blue">
+          <strong>⚡ 性能优化策略</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 用 <code>pandas</code> 向量化替代for循环</li>
+            <li>• 特征工程用 <code>groupby.transform</code></li>
+            <li>• LightGBM使用 <code>n_jobs=-1</code> 并行</li>
+            <li>• 大数据用 <code>Dask/Polars</code> 替代pandas</li>
+            <li>• 推理用 <code>ONNX</code> 加速模型部署</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-success">
+        <div class="infobox-icon">🏆</div>
+        <div class="infobox-body">
+          <div class="infobox-title">模块三核心总结</div>
+          AI工具让算法开发变得更快，但不能替代你的判断。关键是：给AI足够的上下文 → 理解AI的输出 → 验证结果正确性 → 根据业务调整。掌握6类Prompt模板后，你将在EDA、特征工程、调参、code review等环节各节省30%~60%的时间。
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="module2.html" class="btn-prev">← 模块二：算法选择指南</a>
+        <a href="module4.html" class="btn-next">模块四：实战案例库 →</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

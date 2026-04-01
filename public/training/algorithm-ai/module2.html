@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块二：核心算法选择指南 — 算法与AI协同培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .dim-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .dim-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--algo-bg);
+      border: 1px solid var(--algo-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .dim-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.25rem; }
+    .dim-card p  { font-size: 0.84rem; color: var(--medium); line-height: 1.55; }
+    .dim-card .dim-tip { font-size: 0.78rem; color: var(--algo-accent); margin-top: 6px; font-weight: 600; }
+
+    .scenario-algo-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .sa-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      background: var(--algo-bg);
+      border-bottom: 1px solid var(--algo-border);
+    }
+    .sa-header .sa-icon { font-size: 1.5rem; }
+    .sa-header h4 { font-size: 1rem; font-weight: 700; color: var(--algo-accent-dark); }
+    .sa-body { padding: 1.25rem 1.5rem; }
+    .sa-algo-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 0.5rem 1rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+    }
+    .sa-tier { font-weight: 700; color: var(--dark); }
+    .sa-algos { color: var(--medium); }
+    .sa-note { font-size: 0.82rem; color: var(--muted); margin-top: 0.25rem; font-style: italic; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🧠 算法与AI协同培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html" class="active">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块二导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#framework"><span class="nav-num">1</span>选择框架</a></li>
+      <li><a href="#decision-tree"><span class="nav-num">2</span>决策流程</a></li>
+      <li><a href="#comparison"><span class="nav-num">3</span>算法对比</a></li>
+      <li><a href="#scenarios"><span class="nav-num">4</span>飞凡案例</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块二</span>
+        算法选型
+      </div>
+      <h1>核心算法<br>选择指南</h1>
+      <p class="hero-subtitle">5维度选型框架 + 可视化决策树 + 飞凡业务场景算法方案全解析</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 4课时</div>
+        <div class="hero-meta-item">⚖️ 5维度框架</div>
+        <div class="hero-meta-item">🌳 算法决策树</div>
+        <div class="hero-meta-item">💡 5个业务方案</div>
+      </div>
+    </div>
+
+    <!-- ─── 算法选择框架 ─── -->
+    <section class="section" id="framework">
+      <div class="section-header">
+        <div class="section-icon teal">⚖️</div>
+        <div>
+          <div class="section-title">算法选择框架</div>
+          <div class="section-subtitle">5个核心维度，系统化评估每个算法方案</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📐</div>
+        <div class="infobox-body">
+          算法选择没有银弹。同一个问题，不同的业务场景、资源约束和数据情况，最优算法可能截然不同。5维度框架帮助你在这些因素中做出有理有据的权衡。
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="dim-card" style="margin-bottom:0.75rem;">
+          <div class="dim-icon">🗂️</div>
+          <div>
+            <h4>维度① 问题类型</h4>
+            <p>首先确定问题属于哪类ML任务：监督/无监督/强化学习？回归/分类/推荐/时序/CV？不同问题类型对应完全不同的算法家族。</p>
+            <div class="dim-tip">💡 关键问题：目标变量是连续值、离散类别还是排序？</div>
+          </div>
+        </div>
+        <div class="dim-card" style="margin-bottom:0.75rem;">
+          <div class="dim-icon">📊</div>
+          <div>
+            <h4>维度② 数据规模</h4>
+            <p>样本量决定可选算法范围。&lt;1万样本适合传统ML；1万~100万样本传统ML和轻量深度学习均可；&gt;100万样本深度学习优势开始显现。特征维度高时需要注意维度诅咒。</p>
+            <div class="dim-tip">💡 经验法则：神经网络需要的数据量通常是传统ML的10倍以上</div>
+          </div>
+        </div>
+        <div class="dim-card" style="margin-bottom:0.75rem;">
+          <div class="dim-icon">🎯</div>
+          <div>
+            <h4>维度③ 精度要求</h4>
+            <p>高精度需求（如医疗诊断、金融风控）优先考虑集成方法或深度学习；中等精度场景可接受简单模型换取可维护性；精度与其他维度需要权衡，不要一味追求精度。</p>
+            <div class="dim-tip">💡 精度提升10%，工程复杂度可能增加100%</div>
+          </div>
+        </div>
+        <div class="dim-card" style="margin-bottom:0.75rem;">
+          <div class="dim-icon">⚡</div>
+          <div>
+            <h4>维度④ 延迟约束</h4>
+            <p>在线推理延迟要求直接限制模型复杂度。实时场景（&lt;10ms）只能用简单模型或预计算；近实时（10ms~100ms）可用轻量级神经网络；离线批量无延迟约束，可用复杂模型。</p>
+            <div class="dim-tip">💡 深度学习模型通常需要GPU才能达到实时推理要求</div>
+          </div>
+        </div>
+        <div class="dim-card" style="margin-bottom:0.75rem;">
+          <div class="dim-icon">🔍</div>
+          <div>
+            <h4>维度⑤ 可解释性</h4>
+            <p>业务方需要理解模型决策依据时，优先选择可解释模型（线性模型、决策树）。使用黑盒模型时，需配合SHAP/LIME等解释工具。金融、医疗领域通常有强制性的可解释性要求。</p>
+            <div class="dim-tip">💡 SHAP可以为任何树模型提供特征贡献度解释</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">5维度评分矩阵 — 主流算法对比</h3>
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>算法</th>
+              <th>问题类型</th>
+              <th>数据需求</th>
+              <th>精度</th>
+              <th>推理速度</th>
+              <th>可解释性</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>逻辑回归</td>
+              <td>分类</td>
+              <td>小~中</td>
+              <td class="mid">中</td>
+              <td class="tick">极快</td>
+              <td class="tick">高</td>
+            </tr>
+            <tr>
+              <td>决策树</td>
+              <td>分类/回归</td>
+              <td>小~中</td>
+              <td class="mid">中</td>
+              <td class="tick">极快</td>
+              <td class="tick">高</td>
+            </tr>
+            <tr>
+              <td>随机森林</td>
+              <td>分类/回归</td>
+              <td>中</td>
+              <td class="tick">较高</td>
+              <td class="mid">中</td>
+              <td class="mid">中</td>
+            </tr>
+            <tr>
+              <td>XGBoost/LightGBM</td>
+              <td>分类/回归</td>
+              <td>中</td>
+              <td class="tick">高</td>
+              <td class="tick">快</td>
+              <td class="mid">中（+SHAP）</td>
+            </tr>
+            <tr>
+              <td>深度神经网络</td>
+              <td>多类型</td>
+              <td>大</td>
+              <td class="tick">很高</td>
+              <td class="mid">中（需GPU）</td>
+              <td class="cross">低</td>
+            </tr>
+            <tr>
+              <td>Prophet</td>
+              <td>时序预测</td>
+              <td>中</td>
+              <td class="mid">中高</td>
+              <td class="tick">快</td>
+              <td class="tick">高（组件可分解）</td>
+            </tr>
+            <tr>
+              <td>协同过滤</td>
+              <td>推荐</td>
+              <td>中大</td>
+              <td class="mid">中</td>
+              <td class="mid">中（预计算）</td>
+              <td class="mid">中</td>
+            </tr>
+            <tr>
+              <td>YOLOv8</td>
+              <td>目标检测</td>
+              <td>大</td>
+              <td class="tick">高</td>
+              <td class="mid">中（需GPU）</td>
+              <td class="cross">低</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ─── 算法选择决策树 ─── -->
+    <section class="section" id="decision-tree">
+      <div class="section-header">
+        <div class="section-icon teal">🌳</div>
+        <div>
+          <div class="section-title">算法选择决策树</div>
+          <div class="section-subtitle">从数据特征出发，逐步缩小算法范围</div>
+        </div>
+      </div>
+
+      <div class="decision-tree">
+        <div class="dt-row">
+          <div class="dt-node start">开始：有数据集</div>
+        </div>
+        <div class="dt-row">
+          <div class="dt-arrow">↓</div>
+        </div>
+        <div class="dt-row">
+          <div class="dt-node decision">有标签数据？</div>
+        </div>
+        <div class="dt-row">
+          <div style="display:flex;gap:4rem;align-items:flex-start;">
+            <div style="text-align:center;">
+              <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">✅ 有标签</div>
+              <div class="dt-node decision">目标变量类型？</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">❌ 无标签</div>
+              <div class="dt-node result-alt">聚类 / 降维<br>K-Means / PCA</div>
+            </div>
+          </div>
+        </div>
+        <div class="dt-row" style="gap:2rem;align-items:flex-start;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">连续数值</div>
+            <div class="dt-node decision">时序数据？</div>
+            <div style="display:flex;gap:1rem;margin-top:8px;flex-wrap:wrap;justify-content:center;">
+              <div style="text-align:center;">
+                <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">是</div>
+                <div class="dt-node result">Prophet / SARIMA<br>LightGBM+时序特征</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">否</div>
+                <div class="dt-node result">XGBoost / LightGBM<br>线性回归 / NN</div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">离散类别</div>
+            <div class="dt-node decision">类别数量？</div>
+            <div style="display:flex;gap:1rem;margin-top:8px;flex-wrap:wrap;justify-content:center;">
+              <div style="text-align:center;">
+                <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">二分类</div>
+                <div class="dt-node result">LightGBM / LR<br>XGBoost</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">多分类</div>
+                <div class="dt-node result">Softmax NN<br>多类LightGBM</div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">图像/视频</div>
+            <div class="dt-node decision">任务类型？</div>
+            <div style="display:flex;gap:1rem;margin-top:8px;flex-wrap:wrap;justify-content:center;">
+              <div style="text-align:center;">
+                <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">检测</div>
+                <div class="dt-node result-green">YOLOv8<br>DETR</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">分类</div>
+                <div class="dt-node result-green">ResNet<br>EfficientNet</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">🌳</div>
+        <div class="infobox-body">
+          <div class="infobox-title">决策树使用提示</div>
+          决策树给出的是候选算法范围，不是最终答案。在候选范围内，还需要结合维度②~⑤（数据规模/精度/延迟/解释性）做进一步权衡。通常建议从最简单的可行方案开始实验。
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 传统ML vs 深度学习 vs 强化学习 ─── -->
+    <section class="section" id="comparison">
+      <div class="section-header">
+        <div class="section-icon teal">⚗️</div>
+        <div>
+          <div class="section-title">传统ML vs 深度学习 vs 强化学习</div>
+          <div class="section-subtitle">三大技术路线的核心差异与适用边界</div>
+        </div>
+      </div>
+
+      <div class="abc-grid">
+        <div class="abc-card abc-a">
+          <div class="abc-letter">ML</div>
+          <h3>传统机器学习</h3>
+          <ul>
+            <li>数据量：千~百万级</li>
+            <li>特征：需人工设计</li>
+            <li>训练速度：快（分钟级）</li>
+            <li>可解释性：强</li>
+            <li>部署成本：低</li>
+            <li>代表算法：XGBoost、LightGBM、随机森林、逻辑回归</li>
+          </ul>
+        </div>
+        <div class="abc-card abc-b">
+          <div class="abc-letter">DL</div>
+          <h3>深度学习</h3>
+          <ul>
+            <li>数据量：百万级以上</li>
+            <li>特征：自动提取</li>
+            <li>训练速度：慢（小时~天）</li>
+            <li>可解释性：弱</li>
+            <li>部署成本：高（需GPU）</li>
+            <li>代表算法：BERT、ResNet、Transformer、LSTM</li>
+          </ul>
+        </div>
+        <div class="abc-card abc-c">
+          <div class="abc-letter">RL</div>
+          <h3>强化学习</h3>
+          <ul>
+            <li>数据：通过交互产生</li>
+            <li>目标：最大化长期奖励</li>
+            <li>训练周期：长</li>
+            <li>可解释性：弱</li>
+            <li>适用：序列决策、控制问题</li>
+            <li>代表算法：DQN、PPO、SAC、A3C</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>对比维度</th>
+              <th>传统ML（XGBoost等）</th>
+              <th>深度学习</th>
+              <th>强化学习</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>最小数据量</td>
+              <td>1,000+ 样本</td>
+              <td>10,000+ 样本</td>
+              <td>依赖模拟器/环境</td>
+            </tr>
+            <tr>
+              <td>特征工程</td>
+              <td>需要大量人工设计</td>
+              <td>可端到端自动提取</td>
+              <td>状态空间设计</td>
+            </tr>
+            <tr>
+              <td>训练时间</td>
+              <td>分钟~小时</td>
+              <td>小时~天（GPU）</td>
+              <td>天~周</td>
+            </tr>
+            <tr>
+              <td>推理延迟</td>
+              <td class="tick">&lt;1ms（CPU可用）</td>
+              <td class="mid">5ms~100ms（依赖GPU）</td>
+              <td class="tick">&lt;1ms（策略网络小）</td>
+            </tr>
+            <tr>
+              <td>可解释性</td>
+              <td class="tick">高（SHAP支持好）</td>
+              <td class="cross">低（需LIME/GradCAM）</td>
+              <td class="cross">低</td>
+            </tr>
+            <tr>
+              <td>过拟合风险</td>
+              <td class="mid">中（需正则化）</td>
+              <td class="mid">高（需大量数据/Dropout）</td>
+              <td class="mid">中（探索与利用平衡）</td>
+            </tr>
+            <tr>
+              <td>飞凡适用场景</td>
+              <td>销量预测、购买预测</td>
+              <td>商品推荐、水产视觉</td>
+              <td>IoT控制优化（未来）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">飞凡当前阶段建议</div>
+          在算法团队建立初期，建议以<strong>传统ML（特别是LightGBM/XGBoost）</strong>为主力。这类算法工程成本低、效果稳定、可解释性好，适合快速验证业务价值。深度学习应在数据积累充足、业务价值充分验证后再逐步引入。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">Python示例：使用sklearn进行快速算法对比</h3>
+      <div class="code-example">
+        <div class="code-example-header">
+          <span class="code-example-lang">Python</span>
+          <span class="code-example-title">多算法快速基准对比</span>
+        </div>
+        <pre><code><span style="color:#89DDFF;">from</span> sklearn.model_selection <span style="color:#89DDFF;">import</span> cross_val_score, StratifiedKFold
+<span style="color:#89DDFF;">from</span> sklearn.preprocessing <span style="color:#89DDFF;">import</span> StandardScaler
+<span style="color:#89DDFF;">from</span> sklearn.linear_model <span style="color:#89DDFF;">import</span> LogisticRegression
+<span style="color:#89DDFF;">from</span> sklearn.ensemble <span style="color:#89DDFF;">import</span> RandomForestClassifier, GradientBoostingClassifier
+<span style="color:#89DDFF;">from</span> sklearn.tree <span style="color:#89DDFF;">import</span> DecisionTreeClassifier
+<span style="color:#89DDFF;">import</span> lightgbm <span style="color:#89DDFF;">as</span> lgb
+<span style="color:#89DDFF;">import</span> pandas <span style="color:#89DDFF;">as</span> pd
+<span style="color:#89DDFF;">import</span> numpy <span style="color:#89DDFF;">as</span> np
+
+<span style="color:#546E7A;"># ── 准备候选算法列表 ──</span>
+candidates = {
+    <span style="color:#C3E88D;">'逻辑回归 (基线)'</span>: LogisticRegression(max_iter=<span style="color:#F78C6C;">500</span>),
+    <span style="color:#C3E88D;">'决策树'</span>: DecisionTreeClassifier(max_depth=<span style="color:#F78C6C;">8</span>),
+    <span style="color:#C3E88D;">'随机森林'</span>: RandomForestClassifier(n_estimators=<span style="color:#F78C6C;">100</span>),
+    <span style="color:#C3E88D;">'梯度提升'</span>: GradientBoostingClassifier(),
+    <span style="color:#C3E88D;">'LightGBM'</span>: lgb.LGBMClassifier(verbose=<span style="color:#F78C6C;">-1</span>),
+}
+
+<span style="color:#546E7A;"># ── 5折交叉验证评估 ──</span>
+cv = StratifiedKFold(n_splits=<span style="color:#F78C6C;">5</span>, shuffle=<span style="color:#89DDFF;">True</span>, random_state=<span style="color:#F78C6C;">42</span>)
+results = {}
+
+<span style="color:#89DDFF;">for</span> name, model <span style="color:#89DDFF;">in</span> candidates.items():
+    scores = cross_val_score(model, X_train, y_train, cv=cv, scoring=<span style="color:#C3E88D;">'roc_auc'</span>)
+    results[name] = {
+        <span style="color:#C3E88D;">'AUC均值'</span>: scores.mean(),
+        <span style="color:#C3E88D;">'AUC标准差'</span>: scores.std(),
+    }
+
+<span style="color:#546E7A;"># ── 输出对比报告 ──</span>
+result_df = pd.DataFrame(results).T.sort_values(<span style="color:#C3E88D;">'AUC均值'</span>, ascending=<span style="color:#89DDFF;">False</span>)
+<span style="color:#82AAFF;">print</span>(result_df.to_string(float_format=<span style="color:#C3E88D;">'{:.4f}'.format</span>))
+
+<span style="color:#546E7A;"># ── 根据结果做选型决策 ──</span>
+best_model = result_df.index[<span style="color:#F78C6C;">0</span>]
+best_auc = result_df.iloc[<span style="color:#F78C6C;">0</span>][<span style="color:#C3E88D;">'AUC均值'</span>]
+baseline_auc = results[<span style="color:#C3E88D;">'逻辑回归 (基线)'</span>][<span style="color:#C3E88D;">'AUC均值'</span>]
+improvement = (best_auc - baseline_auc) / baseline_auc * <span style="color:#F78C6C;">100</span>
+
+<span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">f"\n最优算法: {best_model}, AUC={best_auc:.4f}"</span>)
+<span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">f"相比基线提升: {improvement:.1f}%"</span>)
+<span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">f"{'值得工程化部署' if improvement > 5 else '提升有限，考虑坚持使用基线'}"</span>)</code></pre>
+      </div>
+    </section>
+
+    <!-- ─── 飞凡业务场景算法方案 ─── -->
+    <section class="section" id="scenarios">
+      <div class="section-header">
+        <div class="section-icon teal">🏢</div>
+        <div>
+          <div class="section-title">飞凡业务场景 × 算法方案</div>
+          <div class="section-subtitle">5个核心场景的推荐算法路线与选型理由</div>
+        </div>
+      </div>
+
+      <div class="scenario-algo-card">
+        <div class="sa-header">
+          <div class="sa-icon">📈</div>
+          <div>
+            <h4>场景①：商家销量预测</h4>
+            <div style="font-size:0.8rem;color:var(--muted);">时序预测 | 离线批量 | 需要可解释</div>
+          </div>
+        </div>
+        <div class="sa-body">
+          <div class="sa-algo-row">
+            <div class="sa-tier">🥇 推荐方案</div>
+            <div class="sa-algos"><strong>Prophet + LightGBM 集成</strong>：Prophet捕捉趋势和节假日效应，LightGBM处理促销、天气等外生特征交互</div>
+          </div>
+          <div class="sa-algo-row">
+            <div class="sa-tier">🥈 备选方案</div>
+            <div class="sa-algos">SARIMA（数据稀疏的SKU）、N-BEATS（数据充足且精度优先）</div>
+          </div>
+          <div class="sa-note">选型理由：可解释性强（趋势/节假日组件可分解），工程成本低，对中小数据量友好；新品用全局均值降级</div>
+        </div>
+      </div>
+
+      <div class="scenario-algo-card">
+        <div class="sa-header">
+          <div class="sa-icon">🛍️</div>
+          <div>
+            <h4>场景②：用户商品推荐</h4>
+            <div style="font-size:0.8rem;color:var(--muted);">推荐 | 近实时 | 冷启动挑战</div>
+          </div>
+        </div>
+        <div class="sa-body">
+          <div class="sa-algo-row">
+            <div class="sa-tier">🥇 推荐方案</div>
+            <div class="sa-algos"><strong>两阶段：向量召回 + LightGBM精排</strong>：Faiss向量检索做召回（快），LightGBM做精排（准）</div>
+          </div>
+          <div class="sa-algo-row">
+            <div class="sa-tier">🥈 备选方案</div>
+            <div class="sa-algos">协同过滤（数据少时）、Wide&amp;Deep（数据充足、特征丰富时）</div>
+          </div>
+          <div class="sa-note">冷启动策略：新用户用热门商品兜底，新商品用内容相似度召回（基于商品标签/类目）</div>
+        </div>
+      </div>
+
+      <div class="scenario-algo-card">
+        <div class="sa-header">
+          <div class="sa-icon">🎯</div>
+          <div>
+            <h4>场景③：购买意愿预测</h4>
+            <div style="font-size:0.8rem;color:var(--muted);">二分类 | 批量离线 | 样本不均衡</div>
+          </div>
+        </div>
+        <div class="sa-body">
+          <div class="sa-algo-row">
+            <div class="sa-tier">🥇 推荐方案</div>
+            <div class="sa-algos"><strong>LightGBM + 阈值优化</strong>：LightGBM输出购买概率，根据业务成本矩阵调整分类阈值</div>
+          </div>
+          <div class="sa-algo-row">
+            <div class="sa-tier">🥈 备选方案</div>
+            <div class="sa-algos">XGBoost（效果相近）、逻辑回归（基线对比 + 可解释性审计）</div>
+          </div>
+          <div class="sa-note">不均衡处理：class_weight='balanced' + 过采样SMOTE（少数类）；评估指标用AUC-ROC和业务转化收益</div>
+        </div>
+      </div>
+
+      <div class="scenario-algo-card">
+        <div class="sa-header">
+          <div class="sa-icon">🌡️</div>
+          <div>
+            <h4>场景④：IoT智能环境控制</h4>
+            <div style="font-size:0.8rem;color:var(--muted);">实时控制 | 边缘端 | 强约束</div>
+          </div>
+        </div>
+        <div class="sa-body">
+          <div class="sa-algo-row">
+            <div class="sa-tier">🥇 推荐方案</div>
+            <div class="sa-algos"><strong>规则引擎 + 决策树分层</strong>：规则保障安全边界，决策树优化边界内的控制策略</div>
+          </div>
+          <div class="sa-algo-row">
+            <div class="sa-tier">📅 长期方案</div>
+            <div class="sa-algos">PPO强化学习（数据积累6个月以上后，构建仿真环境训练）</div>
+          </div>
+          <div class="sa-note">选型理由：边缘端资源有限（无GPU），安全优先，规则+决策树可在嵌入式系统运行，延迟&lt;5ms</div>
+        </div>
+      </div>
+
+      <div class="scenario-algo-card">
+        <div class="sa-header">
+          <div class="sa-icon">🐟</div>
+          <div>
+            <h4>场景⑤：水产养殖智能监控</h4>
+            <div style="font-size:0.8rem;color:var(--muted);">目标检测 | 视频流 | 需要GPU</div>
+          </div>
+        </div>
+        <div class="sa-body">
+          <div class="sa-algo-row">
+            <div class="sa-tier">🥇 推荐方案</div>
+            <div class="sa-algos"><strong>YOLOv8n（轻量版） + 行为追踪</strong>：YOLOv8检测鱼群位置，ByteTrack多目标追踪，异常行为规则触发告警</div>
+          </div>
+          <div class="sa-algo-row">
+            <div class="sa-tier">🥈 备选方案</div>
+            <div class="sa-algos">EfficientDet（精度优先）、MobileNetV3（资源极度受限时）</div>
+          </div>
+          <div class="sa-note">数据策略：先标注200张高质量样本做迁移学习，再通过主动学习扩充标注；夜间红外图像需单独处理</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-success">
+        <div class="infobox-icon">✅</div>
+        <div class="infobox-body">
+          <div class="infobox-title">算法选型备忘录</div>
+          ①先从最简单的可行方案开始 ②用交叉验证而非单次拆分评估 ③与业务方确认最重要的评估指标 ④预留20%精力在工程化和监控上 ⑤任何算法方案都需要数据版本管理
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="module1.html" class="btn-prev">← 模块一：算法思维</a>
+        <a href="module3.html" class="btn-next">模块三：AI协同开发 →</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

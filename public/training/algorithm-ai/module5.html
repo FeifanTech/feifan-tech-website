@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块五：算法项目全流程管理 — 算法与AI协同培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .lifecycle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .lc-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 0.75rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    .lc-item.highlight {
+      border-color: var(--algo-border);
+      background: var(--algo-bg);
+    }
+    .lc-icon { font-size: 1.5rem; display: block; margin-bottom: 6px; }
+    .lc-name { font-size: 0.82rem; font-weight: 700; color: var(--dark); }
+    .lc-week { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+    .lc-num {
+      position: absolute;
+      top: -8px; left: -8px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--algo-accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .metric-category {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .mc-header {
+      padding: 0.875rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--algo-bg);
+      border-bottom: 1px solid var(--algo-border);
+    }
+    .mc-icon { font-size: 1.25rem; }
+    .mc-title { font-size: 0.95rem; font-weight: 700; color: var(--algo-accent-dark); }
+    .mc-body { padding: 1.25rem; }
+    .metric-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 100px;
+      gap: 0.5rem 1rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+      align-items: start;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--beige);
+    }
+    .metric-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .metric-name { font-weight: 700; color: var(--dark); }
+    .metric-desc { color: var(--medium); line-height: 1.55; }
+    .metric-when { font-size: 0.78rem; color: var(--muted); }
+
+    .deploy-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .deploy-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.75rem; }
+    .deploy-card .dc-pros, .deploy-card .dc-cons {
+      font-size: 0.82rem;
+      margin-bottom: 0.5rem;
+    }
+    .dc-pros strong { color: #166534; }
+    .dc-cons strong { color: #9A3412; }
+
+    .checklist-item {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--beige);
+      font-size: 0.875rem;
+    }
+    .checklist-item:last-child { border-bottom: none; }
+    .ci-check {
+      width: 20px; height: 20px;
+      border-radius: 4px;
+      border: 2px solid var(--algo-border);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .ci-text { color: var(--medium); line-height: 1.5; }
+    .ci-tag {
+      margin-left: auto;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ci-tag.must { background: #FEE2E2; color: #991B1B; }
+    .ci-tag.should { background: #FEF3C7; color: #92400E; }
+    .ci-tag.nice { background: #DCFCE7; color: #166534; }
+
+    @media (max-width: 768px) {
+      .lifecycle-grid { grid-template-columns: repeat(3, 1fr); }
+      .metric-row { grid-template-columns: 1fr 1fr; }
+      .metric-row .metric-when { grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🧠 算法与AI协同培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html" class="active">模块五</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块五导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#lifecycle"><span class="nav-num">1</span>项目全流程</a></li>
+      <li><a href="#requirements"><span class="nav-num">2</span>需求分析</a></li>
+      <li><a href="#evaluation"><span class="nav-num">3</span>模型评估</a></li>
+      <li><a href="#deployment"><span class="nav-num">4</span>上线部署</a></li>
+      <li><a href="#optimization"><span class="nav-num">5</span>持续优化</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块五</span>
+        项目管理
+      </div>
+      <h1>算法项目<br>全流程管理</h1>
+      <p class="hero-subtitle">从需求分析到生产上线的完整生命周期：需求文档、评估体系、部署方案、持续优化</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 3课时</div>
+        <div class="hero-meta-item">📋 需求模板</div>
+        <div class="hero-meta-item">📊 评估体系</div>
+        <div class="hero-meta-item">🚀 部署方案</div>
+      </div>
+    </div>
+
+    <!-- ─── 算法项目生命周期 ─── -->
+    <section class="section" id="lifecycle">
+      <div class="section-header">
+        <div class="section-icon teal">🔄</div>
+        <div>
+          <div class="section-title">算法项目生命周期</div>
+          <div class="section-subtitle">从需求提出到持续迭代的8个关键阶段</div>
+        </div>
+      </div>
+
+      <div class="lifecycle-grid">
+        <div class="lc-item highlight">
+          <div class="lc-num">1</div>
+          <span class="lc-icon">💬</span>
+          <div class="lc-name">需求分析</div>
+          <div class="lc-week">W1~W2</div>
+        </div>
+        <div class="lc-item">
+          <div class="lc-num">2</div>
+          <span class="lc-icon">📊</span>
+          <div class="lc-name">数据准备</div>
+          <div class="lc-week">W2~W4</div>
+        </div>
+        <div class="lc-item">
+          <div class="lc-num">3</div>
+          <span class="lc-icon">🔬</span>
+          <div class="lc-name">探索实验</div>
+          <div class="lc-week">W3~W5</div>
+        </div>
+        <div class="lc-item">
+          <div class="lc-num">4</div>
+          <span class="lc-icon">⚙️</span>
+          <div class="lc-name">模型开发</div>
+          <div class="lc-week">W4~W7</div>
+        </div>
+        <div class="lc-item">
+          <div class="lc-num">5</div>
+          <span class="lc-icon">📏</span>
+          <div class="lc-name">模型评估</div>
+          <div class="lc-week">W6~W8</div>
+        </div>
+        <div class="lc-item">
+          <div class="lc-num">6</div>
+          <span class="lc-icon">🧪</span>
+          <div class="lc-name">A/B测试</div>
+          <div class="lc-week">W8~W10</div>
+        </div>
+        <div class="lc-item highlight">
+          <div class="lc-num">7</div>
+          <span class="lc-icon">🚀</span>
+          <div class="lc-name">上线部署</div>
+          <div class="lc-week">W10</div>
+        </div>
+        <div class="lc-item">
+          <div class="lc-num">8</div>
+          <span class="lc-icon">📡</span>
+          <div class="lc-name">监控迭代</div>
+          <div class="lc-week">持续</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">算法项目的特殊性</div>
+          算法项目不同于普通软件开发——存在大量不确定性（数据质量未知、算法效果难以预测）。项目管理需要留出充足的探索时间，设置合理的里程碑决策点（继续/暂停/转向），并提前规划降级方案（算法不达标时用规则兜底）。
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-teal">
+          <strong>✅ 算法项目管理要点</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 前期做好数据可行性评估（3天探索数据比1周建模更值钱）</li>
+            <li>• 设置明确的停止条件（数据不满足时及时止损）</li>
+            <li>• 所有实验用MLflow/wandb记录，可复现</li>
+            <li>• 和业务方保持每周同步（避免技术与业务脱节）</li>
+            <li>• 上线前必须有降级方案</li>
+          </ul>
+        </div>
+        <div class="card card-accent-orange">
+          <strong>⚠️ 常见项目风险</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 数据准备低估工时（通常占全程40%）</li>
+            <li>• 线下好线上差（数据泄露/分布偏移）</li>
+            <li>• 没有建立模型监控就上线</li>
+            <li>• 算法方案无法在生产环境复现</li>
+            <li>• 忽略模型推理延迟和内存占用</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 需求分析与范围定义 ─── -->
+    <section class="section" id="requirements">
+      <div class="section-header">
+        <div class="section-icon teal">📋</div>
+        <div>
+          <div class="section-title">需求分析与范围定义</div>
+          <div class="section-subtitle">标准化需求文档让算法项目有据可依</div>
+        </div>
+      </div>
+
+      <div class="card card-lg" style="background:var(--algo-bg);border-color:var(--algo-border);">
+        <strong style="color:var(--algo-accent-dark);font-size:1rem;">📄 算法需求文档模板（PRD for ML）</strong>
+        <div class="table-wrapper" style="margin-top:1rem;">
+          <table>
+            <thead><tr><th>章节</th><th>内容要点</th><th>负责人</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>1. 背景与目标</td>
+                <td>业务背景、现状痛点、期望改善的量化指标（如：缺货率从15%降至8%）</td>
+                <td>产品/业务</td>
+              </tr>
+              <tr>
+                <td>2. 功能范围</td>
+                <td>预测对象（用户/SKU/时间粒度）、输出形式（概率/绝对值/排序）、接入方式</td>
+                <td>算法+产品</td>
+              </tr>
+              <tr>
+                <td>3. 技术指标</td>
+                <td>主要技术指标及目标值、评估方法（离线/在线）、数据集划分方式</td>
+                <td>算法</td>
+              </tr>
+              <tr>
+                <td>4. 数据需求</td>
+                <td>数据源清单、字段定义、历史深度要求、更新频率、标注方案（如需）</td>
+                <td>数据</td>
+              </tr>
+              <tr>
+                <td>5. 工程约束</td>
+                <td>推理延迟上限、模型大小限制、部署环境（CPU/GPU/边缘）、更新频率</td>
+                <td>工程</td>
+              </tr>
+              <tr>
+                <td>6. 里程碑</td>
+                <td>数据就绪日期、基线完成日期、算法上线日期、效果评估日期</td>
+                <td>PM</td>
+              </tr>
+              <tr>
+                <td>7. 降级方案</td>
+                <td>若算法不达标或出现故障，降级到什么规则/人工方案</td>
+                <td>算法+产品</td>
+              </tr>
+              <tr>
+                <td>8. 验收标准</td>
+                <td>算法上线的验收条件（技术指标+业务指标+稳定性测试）</td>
+                <td>所有相关方</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">里程碑决策框架</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">W2</div>
+          <div class="step-content">
+            <h4>数据可行性决策点</h4>
+            <p>数据探索报告完成后，评估数据质量和可用性。决策：继续建模 / 补充数据 / 降低目标 / 项目暂停。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">W6</div>
+          <div class="step-content">
+            <h4>基线效果决策点</h4>
+            <p>简单基线模型评估完成。决策：是否值得继续投入更复杂的方案？当前效果能否满足最低业务需求？</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">W9</div>
+          <div class="step-content">
+            <h4>上线前决策点</h4>
+            <p>A/B测试结果分析。决策：算法是否显著优于对照组？线上效果是否符合预期？是否准备好监控方案？</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 模型评估体系 ─── -->
+    <section class="section" id="evaluation">
+      <div class="section-header">
+        <div class="section-icon teal">📊</div>
+        <div>
+          <div class="section-title">模型评估体系</div>
+          <div class="section-subtitle">技术指标 + 业务指标的双层评估框架</div>
+        </div>
+      </div>
+
+      <div class="metric-category">
+        <div class="mc-header">
+          <div class="mc-icon">📈</div>
+          <div class="mc-title">回归/时序预测指标</div>
+        </div>
+        <div class="mc-body">
+          <div class="metric-row">
+            <div class="metric-name">MAE</div>
+            <div class="metric-desc">平均绝对误差。最直观，与目标量纲一致，受异常值影响小。</div>
+            <div class="metric-when">均可</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">RMSE</div>
+            <div class="metric-desc">均方根误差。对大误差惩罚更重，适合不能容忍极端误差的场景。</div>
+            <div class="metric-when">强调极值</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">MAPE</div>
+            <div class="metric-desc">平均绝对百分比误差。相对误差，方便跨SKU比较，但零值时分母为0。</div>
+            <div class="metric-when">销量预测首选</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">SMAPE</div>
+            <div class="metric-desc">对称MAPE，解决了MAPE在零附近不对称的问题。</div>
+            <div class="metric-when">有零值场景</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-category">
+        <div class="mc-header">
+          <div class="mc-icon">🏷️</div>
+          <div class="mc-title">分类预测指标</div>
+        </div>
+        <div class="mc-body">
+          <div class="metric-row">
+            <div class="metric-name">AUC-ROC</div>
+            <div class="metric-desc">衡量模型整体区分能力，不受阈值影响，适合不均衡数据。</div>
+            <div class="metric-when">模型比较</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">Precision</div>
+            <div class="metric-desc">预测为正例中真正例的比例。关注误报代价高的场景（如：不要骚扰无意愿用户）。</div>
+            <div class="metric-when">误报代价高</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">Recall</div>
+            <div class="metric-desc">真正例中被预测为正例的比例。关注漏报代价高的场景（如：不要漏掉潜在买家）。</div>
+            <div class="metric-when">漏报代价高</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">F1 Score</div>
+            <div class="metric-desc">Precision和Recall的调和均值，两者兼顾时使用。</div>
+            <div class="metric-when">均衡场景</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">Lift</div>
+            <div class="metric-desc">相对于随机策略的提升倍数。Lift@Top10%=3.0意味着top10%用户购买率是随机的3倍。</div>
+            <div class="metric-when">营销场景</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-category">
+        <div class="mc-header">
+          <div class="mc-icon">🛍️</div>
+          <div class="mc-title">推荐系统指标</div>
+        </div>
+        <div class="mc-body">
+          <div class="metric-row">
+            <div class="metric-name">Hit Rate@K</div>
+            <div class="metric-desc">Top-K推荐结果中，命中用户实际购买商品的比例。</div>
+            <div class="metric-when">离线评估</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">NDCG@K</div>
+            <div class="metric-desc">归一化折扣累积增益，考虑推荐位置，越靠前的命中贡献越大。</div>
+            <div class="metric-when">排序质量</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">CTR</div>
+            <div class="metric-desc">点击率，在线评估核心指标。最终看能否提升GMV而非仅CTR。</div>
+            <div class="metric-when">在线评估</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">上线前评估Checklist</h3>
+      <div class="card card-lg">
+        <strong style="color:var(--dark);">模型上线必须通过的检查项</strong>
+        <div style="margin-top:1rem;">
+          <div class="checklist-item">
+            <div class="ci-check"></div>
+            <div class="ci-text">离线指标达到预定目标值（如MAPE &lt; 20%）</div>
+            <div class="ci-tag must">必须</div>
+          </div>
+          <div class="checklist-item">
+            <div class="ci-check"></div>
+            <div class="ci-text">在不同时间段/分组（新品/老品/大促/平日）分别评估，无严重偏差</div>
+            <div class="ci-tag must">必须</div>
+          </div>
+          <div class="checklist-item">
+            <div class="ci-check"></div>
+            <div class="ci-text">推理延迟在生产环境压测满足要求（p99延迟 &lt; 上限）</div>
+            <div class="ci-tag must">必须</div>
+          </div>
+          <div class="checklist-item">
+            <div class="ci-check"></div>
+            <div class="ci-text">降级方案已测试并可随时切换</div>
+            <div class="ci-tag must">必须</div>
+          </div>
+          <div class="checklist-item">
+            <div class="ci-check"></div>
+            <div class="ci-text">模型监控仪表板已部署（输入数据分布、预测分布、指标趋势）</div>
+            <div class="ci-tag must">必须</div>
+          </div>
+          <div class="checklist-item">
+            <div class="ci-check"></div>
+            <div class="ci-text">特征工程无数据泄露（时序验证/测试集严格未来数据隔离）</div>
+            <div class="ci-tag must">必须</div>
+          </div>
+          <div class="checklist-item">
+            <div class="ci-check"></div>
+            <div class="ci-text">模型版本和训练数据已记录，可复现</div>
+            <div class="ci-tag should">建议</div>
+          </div>
+          <div class="checklist-item">
+            <div class="ci-check"></div>
+            <div class="ci-text">SHAP重要性分析或模型解释文档（面向业务方）</div>
+            <div class="ci-tag should">建议</div>
+          </div>
+          <div class="checklist-item">
+            <div class="ci-check"></div>
+            <div class="ci-text">A/B测试方案和流量分配计划已与产品确认</div>
+            <div class="ci-tag should">建议</div>
+          </div>
+          <div class="checklist-item">
+            <div class="ci-check"></div>
+            <div class="ci-text">模型再训练计划（何时触发重训、触发条件）</div>
+            <div class="ci-tag nice">加分</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 模型上线部署 ─── -->
+    <section class="section" id="deployment">
+      <div class="section-header">
+        <div class="section-icon teal">🚀</div>
+        <div>
+          <div class="section-title">模型上线部署</div>
+          <div class="section-subtitle">三种部署模式对比与飞凡适用场景</div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-3">
+        <div class="deploy-card">
+          <h4>📦 批量离线推理</h4>
+          <div class="dc-pros"><strong>✅ 适用：</strong>销量预测、营销打分</div>
+          <div class="dc-cons"><strong>⚠️ 不适用：</strong>实时个性化推荐</div>
+          <ul style="list-style:none;font-size:0.82rem;color:var(--medium);margin-top:0.75rem;">
+            <li>• 定时任务（Cron/Airflow）</li>
+            <li>• 结果写入MySQL/Redis</li>
+            <li>• 工程复杂度：低</li>
+            <li>• 实时性：延迟数小时</li>
+          </ul>
+        </div>
+        <div class="deploy-card" style="border-top-color:var(--algo-accent);">
+          <h4>⚡ 实时在线推理</h4>
+          <div class="dc-pros"><strong>✅ 适用：</strong>实时推荐、购买意愿实时打分</div>
+          <div class="dc-cons"><strong>⚠️ 挑战：</strong>延迟、高并发、模型热更新</div>
+          <ul style="list-style:none;font-size:0.82rem;color:var(--medium);margin-top:0.75rem;">
+            <li>• FastAPI/Flask封装推理服务</li>
+            <li>• ONNX/TensorRT模型加速</li>
+            <li>• 工程复杂度：高</li>
+            <li>• 实时性：毫秒级</li>
+          </ul>
+        </div>
+        <div class="deploy-card">
+          <h4>📡 边缘端部署</h4>
+          <div class="dc-pros"><strong>✅ 适用：</strong>IoT控制、水产监控摄像头</div>
+          <div class="dc-cons"><strong>⚠️ 挑战：</strong>资源受限、模型压缩</div>
+          <ul style="list-style:none;font-size:0.82rem;color:var(--medium);margin-top:0.75rem;">
+            <li>• ONNX Runtime轻量推理</li>
+            <li>• 模型量化（INT8）压缩</li>
+            <li>• 工程复杂度：较高</li>
+            <li>• 实时性：超低延迟</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">FastAPI在线推理服务示例</h3>
+      <div class="code-example">
+        <div class="code-example-header">
+          <span class="code-example-lang">Python</span>
+          <span class="code-example-title">LightGBM模型在线推理服务（FastAPI）</span>
+        </div>
+        <pre><code><span style="color:#89DDFF;">from</span> fastapi <span style="color:#89DDFF;">import</span> FastAPI, HTTPException
+<span style="color:#89DDFF;">from</span> pydantic <span style="color:#89DDFF;">import</span> BaseModel
+<span style="color:#89DDFF;">import</span> lightgbm <span style="color:#89DDFF;">as</span> lgb
+<span style="color:#89DDFF;">import</span> numpy <span style="color:#89DDFF;">as</span> np
+<span style="color:#89DDFF;">import</span> joblib
+<span style="color:#89DDFF;">from</span> typing <span style="color:#89DDFF;">import</span> List
+
+app = FastAPI(title=<span style="color:#C3E88D;">"购买意愿预测服务"</span>)
+
+<span style="color:#546E7A;"># 启动时加载模型（单次加载，避免每次推理重新加载）</span>
+<span style="color:#89DDFF;">@app</span>.on_event(<span style="color:#C3E88D;">"startup"</span>)
+<span style="color:#89DDFF;">async def</span> <span style="color:#82AAFF;">load_model</span>():
+    app.state.model = joblib.load(<span style="color:#C3E88D;">"models/purchase_intent_v2.pkl"</span>)
+    app.state.feature_names = joblib.load(<span style="color:#C3E88D;">"models/feature_names.pkl"</span>)
+    <span style="color:#82AAFF;">print</span>(<span style="color:#C3E88D;">"模型加载完成"</span>)
+
+<span style="color:#89DDFF;">class</span> <span style="color:#FFCB6B;">PredictRequest</span>(BaseModel):
+    user_id: str
+    sku_id: str
+    features: List[float]
+
+<span style="color:#89DDFF;">class</span> <span style="color:#FFCB6B;">PredictResponse</span>(BaseModel):
+    user_id: str
+    sku_id: str
+    buy_probability: float
+    strategy: str
+
+<span style="color:#89DDFF;">@app</span>.post(<span style="color:#C3E88D;">"/predict"</span>, response_model=PredictResponse)
+<span style="color:#89DDFF;">async def</span> <span style="color:#82AAFF;">predict</span>(request: PredictRequest):
+    <span style="color:#89DDFF;">try</span>:
+        features = np.array(request.features).reshape(<span style="color:#F78C6C;">1</span>, -<span style="color:#F78C6C;">1</span>)
+        prob = app.state.model.predict_proba(features)[<span style="color:#F78C6C;">0</span>][<span style="color:#F78C6C;">1</span>]
+
+        <span style="color:#546E7A;"># 业务策略分层</span>
+        <span style="color:#89DDFF;">if</span> prob >= <span style="color:#F78C6C;">0.7</span>:   strategy = <span style="color:#C3E88D;">"优惠券"</span>
+        <span style="color:#89DDFF;">elif</span> prob >= <span style="color:#F78C6C;">0.4</span>: strategy = <span style="color:#C3E88D;">"内容触达"</span>
+        <span style="color:#89DDFF;">elif</span> prob >= <span style="color:#F78C6C;">0.2</span>: strategy = <span style="color:#C3E88D;">"品牌曝光"</span>
+        <span style="color:#89DDFF;">else</span>:             strategy = <span style="color:#C3E88D;">"不触达"</span>
+
+        <span style="color:#89DDFF;">return</span> PredictResponse(
+            user_id=request.user_id,
+            sku_id=request.sku_id,
+            buy_probability=round(float(prob), <span style="color:#F78C6C;">4</span>),
+            strategy=strategy
+        )
+    <span style="color:#89DDFF;">except</span> Exception <span style="color:#89DDFF;">as</span> e:
+        <span style="color:#89DDFF;">raise</span> HTTPException(status_code=<span style="color:#F78C6C;">500</span>, detail=str(e))
+
+<span style="color:#89DDFF;">@app</span>.get(<span style="color:#C3E88D;">"/health"</span>)
+<span style="color:#89DDFF;">async def</span> <span style="color:#82AAFF;">health_check</span>():
+    <span style="color:#89DDFF;">return</span> {<span style="color:#C3E88D;">"status"</span>: <span style="color:#C3E88D;">"ok"</span>, <span style="color:#C3E88D;">"model_loaded"</span>: hasattr(app.state, <span style="color:#C3E88D;">'model'</span>)}</code></pre>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">监控方案：必须监控的3类指标</h3>
+      <div class="card-grid card-grid-3">
+        <div class="card card-accent-teal">
+          <strong>📥 输入数据监控</strong>
+          <ul style="list-style:none;font-size:0.84rem;color:var(--medium);margin-top:0.75rem;">
+            <li>• 特征缺失率变化</li>
+            <li>• 数值特征均值/标准差漂移</li>
+            <li>• 类别特征分布变化</li>
+            <li>• 新类别值出现</li>
+          </ul>
+        </div>
+        <div class="card card-accent-blue">
+          <strong>📤 输出预测监控</strong>
+          <ul style="list-style:none;font-size:0.84rem;color:var(--medium);margin-top:0.75rem;">
+            <li>• 预测值分布变化</li>
+            <li>• 极端预测值比例</li>
+            <li>• 模型推理延迟p99</li>
+            <li>• 服务请求成功率</li>
+          </ul>
+        </div>
+        <div class="card card-accent-green">
+          <strong>📊 业务效果监控</strong>
+          <ul style="list-style:none;font-size:0.84rem;color:var(--medium);margin-top:0.75rem;">
+            <li>• 核心技术指标趋势</li>
+            <li>• 业务KPI（转化率等）</li>
+            <li>• 与基线对比的增量</li>
+            <li>• 用户负向反馈率</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 持续优化策略 ─── -->
+    <section class="section" id="optimization">
+      <div class="section-header">
+        <div class="section-icon teal">🔄</div>
+        <div>
+          <div class="section-title">持续优化策略</div>
+          <div class="section-subtitle">数据漂移检测、模型迭代与A/B测试方法</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:1rem;">数据漂移检测</h3>
+      <div class="code-example">
+        <div class="code-example-header">
+          <span class="code-example-lang">Python</span>
+          <span class="code-example-title">特征分布漂移检测（PSI — 群体稳定性指标）</span>
+        </div>
+        <pre><code><span style="color:#89DDFF;">import</span> numpy <span style="color:#89DDFF;">as</span> np
+<span style="color:#89DDFF;">import</span> pandas <span style="color:#89DDFF;">as</span> pd
+
+<span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">calculate_psi</span>(expected: np.ndarray, actual: np.ndarray, buckets: int = <span style="color:#F78C6C;">10</span>) -> float:
+    <span style="color:#C3E88D;">"""
+    计算PSI（Population Stability Index）
+    PSI < 0.1: 无明显漂移
+    PSI 0.1~0.2: 轻微漂移，建议关注
+    PSI > 0.2: 严重漂移，需要重训模型
+    """</span>
+    breakpoints = np.percentile(expected, np.linspace(<span style="color:#F78C6C;">0</span>, <span style="color:#F78C6C;">100</span>, buckets + <span style="color:#F78C6C;">1</span>))
+    breakpoints = np.unique(breakpoints)
+
+    expected_pct = np.histogram(expected, bins=breakpoints)[<span style="color:#F78C6C;">0</span>] / len(expected)
+    actual_pct   = np.histogram(actual, bins=breakpoints)[<span style="color:#F78C6C;">0</span>] / len(actual)
+
+    <span style="color:#546E7A;"># 避免除零</span>
+    expected_pct = np.where(expected_pct == <span style="color:#F78C6C;">0</span>, <span style="color:#F78C6C;">0.0001</span>, expected_pct)
+    actual_pct   = np.where(actual_pct == <span style="color:#F78C6C;">0</span>, <span style="color:#F78C6C;">0.0001</span>, actual_pct)
+
+    psi = np.sum((actual_pct - expected_pct) * np.log(actual_pct / expected_pct))
+    <span style="color:#89DDFF;">return</span> psi
+
+<span style="color:#546E7A;"># 对所有特征批量检测漂移</span>
+<span style="color:#89DDFF;">def</span> <span style="color:#82AAFF;">drift_report</span>(train_df: pd.DataFrame, prod_df: pd.DataFrame) -> pd.DataFrame:
+    results = []
+    <span style="color:#89DDFF;">for</span> col <span style="color:#89DDFF;">in</span> train_df.select_dtypes(include=[<span style="color:#C3E88D;">'number'</span>]).columns:
+        psi = calculate_psi(train_df[col].dropna(), prod_df[col].dropna())
+        status = <span style="color:#C3E88D;">'⚠️漂移'</span> <span style="color:#89DDFF;">if</span> psi > <span style="color:#F78C6C;">0.2</span> <span style="color:#89DDFF;">else</span> (<span style="color:#C3E88D;">'🔍关注'</span> <span style="color:#89DDFF;">if</span> psi > <span style="color:#F78C6C;">0.1</span> <span style="color:#89DDFF;">else</span> <span style="color:#C3E88D;">'✅正常'</span>)
+        results.append({<span style="color:#C3E88D;">'特征'</span>: col, <span style="color:#C3E88D;">'PSI'</span>: round(psi, <span style="color:#F78C6C;">4</span>), <span style="color:#C3E88D;">'状态'</span>: status})
+    <span style="color:#89DDFF;">return</span> pd.DataFrame(results).sort_values(<span style="color:#C3E88D;">'PSI'</span>, ascending=<span style="color:#89DDFF;">False</span>)</code></pre>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">模型迭代决策流程</h3>
+      <div class="decision-tree">
+        <div class="dt-row">
+          <div class="dt-node start">每周监控报告</div>
+        </div>
+        <div class="dt-row"><div class="dt-arrow">↓</div></div>
+        <div class="dt-row">
+          <div class="dt-node decision">PSI > 0.2 或 指标下降 > 5%？</div>
+        </div>
+        <div class="dt-row">
+          <div style="display:flex;gap:4rem;align-items:flex-start;justify-content:center;flex-wrap:wrap;">
+            <div style="text-align:center;">
+              <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">✅ 正常</div>
+              <div class="dt-node result">继续监控<br>下周再检查</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">⚠️ 异常</div>
+              <div class="dt-node decision">是数据问题<br>还是漂移？</div>
+              <div style="display:flex;gap:1rem;margin-top:8px;justify-content:center;flex-wrap:wrap;">
+                <div style="text-align:center;">
+                  <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">数据问题</div>
+                  <div class="dt-node result-alt">修复数据<br>pipeline</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">漂移</div>
+                  <div class="dt-node result-green">触发重训<br>增量数据</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;margin:1.75rem 0 1rem;">A/B测试最佳实践</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-teal">
+          <strong>🧪 A/B测试设计要点</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 实验前用功效分析计算最小样本量</li>
+            <li>• 用户维度随机分组（避免跨会话污染）</li>
+            <li>• 新模型先5%流量，稳定后扩至50%</li>
+            <li>• 运行至少7天（覆盖完整周效应）</li>
+            <li>• 同时看主指标和护栏指标</li>
+          </ul>
+        </div>
+        <div class="card card-accent-blue">
+          <strong>📊 统计显著性检验</strong>
+          <ul style="list-style:none;margin-top:0.75rem;font-size:0.875rem;color:var(--medium);">
+            <li>• 比例指标（CTR）→ Z检验</li>
+            <li>• 连续指标（GMV/时长）→ T检验</li>
+            <li>• 显著性水平 α=0.05，功效 β=0.80</li>
+            <li>• 避免"偷看"：实验结束前不做决策</li>
+            <li>• 记录实验全程日志，便于事后复盘</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-success">
+        <div class="infobox-icon">🏆</div>
+        <div class="infobox-body">
+          <div class="infobox-title">课程总结</div>
+          恭喜你完成全部5个模块！掌握了算法思维、算法选型、AI协同、实战案例和项目管理的完整知识体系。下一步：选择飞凡某个真实业务场景，用本课程学到的方法，独立完成一个端到端的算法项目，这是最好的学以致用方式。
+        </div>
+      </div>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块五作业：项目管理文档</h2>
+        </div>
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <div>选择飞凡5个业务场景之一，完整填写算法需求文档（PRD for ML），包含8个章节</div>
+            <div class="hw-deliverable">交付物：需求文档（Markdown/Word）</div>
+          </div>
+        </div>
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <div>为所选场景设计模型评估体系：明确技术指标和业务指标，以及它们之间的关系</div>
+            <div class="hw-deliverable">交付物：评估指标矩阵</div>
+          </div>
+        </div>
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <div>设计一个A/B测试方案：包括实验组/对照组设计、样本量计算、指标选择</div>
+            <div class="hw-deliverable">交付物：A/B测试设计文档</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="module4.html" class="btn-prev">← 模块四：实战案例库</a>
+        <a href="index.html" class="btn-next">返回课程总览 →</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
