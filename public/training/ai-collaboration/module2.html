@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块二：总结的艺术 — AI 协作技巧培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── 3层框架卡片 ── */
+    .layer-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .layer-card {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .layer-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .layer-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 4px;
+    }
+    .layer-card:nth-child(1)::before { background: #3B82F6; }
+    .layer-card:nth-child(2)::before { background: #F59E0B; }
+    .layer-card:nth-child(3)::before { background: #10B981; }
+    .layer-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: 0.04em;
+    }
+    .layer-card:nth-child(1) .layer-badge { background: #3B82F6; }
+    .layer-card:nth-child(2) .layer-badge { background: #F59E0B; }
+    .layer-card:nth-child(3) .layer-badge { background: #10B981; }
+    .layer-body h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; }
+    .layer-body .layer-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+    }
+    .layer-card:nth-child(1) .layer-tag { background: #EFF6FF; color: #2563EB; }
+    .layer-card:nth-child(2) .layer-tag { background: #FFFBEB; color: #D97706; }
+    .layer-card:nth-child(3) .layer-tag { background: #ECFDF5; color: #059669; }
+    .layer-body p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin-bottom: 0.5rem; }
+    .layer-body .layer-example {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .layer-body .layer-example strong { color: var(--collab-accent); }
+
+    /* ── 场景模板卡片 ── */
+    .scenario-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .scenario-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .scenario-card .scenario-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .scenario-card .scenario-emoji {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    .scenario-card .scenario-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .scenario-card .scenario-desc {
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+    .scenario-card .scenario-body {
+      font-size: 0.875rem;
+      color: var(--medium);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    /* ── 质量检查表格 ── */
+    .checklist-table th { background: var(--collab-bg); color: var(--collab-accent-dark); }
+    .checklist-table td:first-child { font-weight: 700; white-space: nowrap; color: var(--dark); }
+    .checklist-table .check-icon { font-size: 1.1rem; }
+
+    /* ── 质量评分卡 ── */
+    .quality-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .quality-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+    .quality-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #16A34A;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .quality-item strong { color: #166534; }
+    .quality-item p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin: 0; }
+
+    @media (max-width: 768px) {
+      .layer-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🤝 AI 协作技巧培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html" class="active">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块二导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#why"><span class="nav-num">1</span>为什么总结很重要</a></li>
+      <li><a href="#framework"><span class="nav-num">2</span>3 层总结框架</a></li>
+      <li><a href="#scenarios"><span class="nav-num">3</span>6 大场景模板</a></li>
+      <li><a href="#checklist"><span class="nav-num">4</span>质量检查清单</a></li>
+      <li><a href="#practice"><span class="nav-num">5</span>课后练习</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">MODULE 02</span>
+        总结的艺术
+      </div>
+      <h1>📝 总结的艺术<br>让 AI 帮你提炼价值</h1>
+      <p class="hero-subtitle">掌握结构化总结方法论，学会用 3 层框架和 6 大场景模板，将海量信息转化为可行动的洞察。从信息的搬运工升级为价值的提炼者。</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 3 课时</div>
+        <div class="hero-meta-item">📋 6 个场景模板</div>
+        <div class="hero-meta-item">💎 提炼能力</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 1 · 为什么总结能力如此重要
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="why">
+      <div class="section-header">
+        <div class="section-icon purple">🧠</div>
+        <div>
+          <div class="section-title">为什么总结能力如此重要</div>
+          <div class="section-subtitle">在 AI 时代，总结不只是提取，而是价值创造</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">设计理念：从信息搬运到价值提炼</div>
+          信息爆炸的时代，我们每天面对的数据量已经远超人脑的处理极限。一位知识工作者平均每天要处理 <strong>120 封邮件</strong>、参加 <strong>3-5 场会议</strong>、阅读 <strong>数十篇文档和报告</strong>。在这样的环境下，总结能力不再是"锦上添花"的软技能，而是决定你工作效率和决策质量的<strong>核心硬能力</strong>。AI 的出现让总结从"体力活"变成了"脑力活"——你不再需要逐字阅读和手动摘抄，而是要学会<strong>指挥 AI 帮你提炼价值</strong>。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔄 总结能力的三大核心维度</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        优秀的总结不是简单的"缩写"或"删减"，而是一种创造性的信息处理过程。它包含三个递进的核心维度，每个维度都代表着更深层次的信息处理能力。
+      </p>
+
+      <div class="card-grid card-grid-3">
+        <div class="card card-accent-blue">
+          <strong>🗜️ 信息压缩</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            从 10000 字的原始信息中，提取出最关键的 <strong>500 字</strong>核心内容。这不是随意删减，而是有策略地筛选——保留关键事实、核心数据和重要结论，去除冗余描述、重复内容和无关细节。好的信息压缩就像酿酒：去掉水分，留下精华。
+          </p>
+          <div style="margin-top:0.75rem;padding:0.6rem 0.8rem;background:#EFF6FF;border-radius:var(--radius-sm);font-size:0.8rem;color:#1D4ED8;">
+            <strong>关键能力：</strong>识别核心信息 vs 噪音信息的判断力
+          </div>
+        </div>
+        <div class="card card-accent-green">
+          <strong>🏗️ 结构重组</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            原始信息往往是无序的、碎片化的——会议讨论东一句西一句，文档段落之间缺乏逻辑衔接。结构重组就是将这些散乱的信息按照<strong>清晰的逻辑框架</strong>重新组织：按时间线排列、按优先级分类、按因果关系串联。重组后的信息不仅更易理解，还能揭示出原始信息中隐藏的模式和规律。
+          </p>
+          <div style="margin-top:0.75rem;padding:0.6rem 0.8rem;background:#ECFDF5;border-radius:var(--radius-sm);font-size:0.8rem;color:#059669;">
+            <strong>关键能力：</strong>选择合适的逻辑框架来组织信息
+          </div>
+        </div>
+        <div class="card card-accent-purple">
+          <strong>💡 洞察提炼</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            最高级的总结不仅仅是"说了什么"，更是"意味着什么"。洞察提炼要求在事实基础上进行<strong>推理和判断</strong>——发现趋势、识别风险、提出建议。这是从"信息搬运工"到"价值创造者"的质变。当你能从一堆会议记录中提炼出"团队的核心分歧在于技术路线选择，建议用 PoC 验证来推动决策"时，你的总结就具备了真正的价值。
+          </p>
+          <div style="margin-top:0.75rem;padding:0.6rem 0.8rem;background:#F5F3FF;border-radius:var(--radius-sm);font-size:0.8rem;color:#7C3AED;">
+            <strong>关键能力：</strong>基于事实进行推理，得出可行动的结论
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📊 传统总结 vs AI 辅助总结</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        AI 不会取代你的思考，但它能极大地加速你的信息处理过程。以下是两种工作方式的对比：
+      </p>
+
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 传统手工总结</div>
+          <ul>
+            <li>逐字逐句阅读全部原始材料</li>
+            <li>手动标注重点，容易遗漏关键信息</li>
+            <li>凭个人理解组织结构，缺乏系统方法</li>
+            <li>耗时长：一份会议纪要需要 30-60 分钟</li>
+            <li>质量不稳定，受精力和情绪影响大</li>
+            <li>难以从不同角度同时分析同一份材料</li>
+            <li>格式不统一，每次总结风格不同</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ AI 辅助总结</div>
+          <ul>
+            <li>AI 快速扫描全文，人工聚焦关键判断</li>
+            <li>结构化模板确保不遗漏重要维度</li>
+            <li>预设框架自动组织信息，逻辑清晰</li>
+            <li>效率极高：同样的会议纪要仅需 5-10 分钟</li>
+            <li>输出质量稳定，不受个人状态影响</li>
+            <li>可以快速切换视角，多维度分析</li>
+            <li>模板统一，团队协作更高效</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">核心观点：AI 是你的"信息提炼引擎"</div>
+          不要把 AI 当成简单的"文章缩写器"。它真正的价值在于：<strong>你提供原始材料和提炼框架，AI 帮你执行提炼过程</strong>。你的核心工作是定义"什么是重要的"和"用什么框架来组织"——这些是 AI 无法替代的<strong>判断力</strong>和<strong>业务理解</strong>。掌握了总结的框架和模板，你就掌握了驾驭 AI 的提炼引擎的方向盘。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🎯 总结能力的业务价值</h3>
+      <div class="card-grid card-grid-3">
+        <div class="card">
+          <strong>⏱️ 效率提升 5-10 倍</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            传统会议纪要需要 30-60 分钟，AI 辅助总结只需 5-10 分钟。一年下来，仅会议总结一项就能节省数百小时的工作时间。这些时间可以用于更有价值的创造性工作。
+          </p>
+        </div>
+        <div class="card">
+          <strong>📋 决策质量显著提高</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            结构化的总结能帮助决策者在 3 分钟内掌握全貌，而不是花 30 分钟翻阅原始材料。信息密度越高，决策效率越高。好的总结是高效决策的基础设施。
+          </p>
+        </div>
+        <div class="card">
+          <strong>🤝 团队协作更顺畅</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            统一的总结模板让团队共享同一种信息语言。会议结论不再"各说各话"，项目进展不再"信息不对称"。每个人都能快速获取自己需要的信息，减少沟通成本。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 2 · 3 层总结框架
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="framework">
+      <div class="section-header">
+        <div class="section-icon blue">📐</div>
+        <div>
+          <div class="section-title">3 层总结框架</div>
+          <div class="section-subtitle">要点提取 → 结构化整理 → 洞察与建议</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">为什么需要分层？</div>
+          就像建筑有地基、框架和装修三个阶段一样，总结也需要分层递进。第一层确保你<strong>不遗漏关键信息</strong>，第二层让信息<strong>有序可读</strong>，第三层赋予总结<strong>决策价值</strong>。这三层的关系是层层递进的：没有准确的要点提取，结构化整理就是空中楼阁；没有合理的结构，洞察提炼就缺乏依据。每一层都为下一层奠定基础。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔽 三层递进详解</h3>
+
+      <div class="layer-grid">
+        <!-- Layer 1 -->
+        <div class="layer-card">
+          <div class="layer-badge">L1</div>
+          <div class="layer-body">
+            <h4>Layer 1：要点提取 — 从海量信息中提取关键事实</h4>
+            <span class="layer-tag">基础层 · 确保信息完整</span>
+            <p>要点提取是总结的地基。这一层的目标是从原始材料中找出所有<strong>关键事实、核心数据和重要结论</strong>，不做任何推理和评价，只做客观的信息筛选。好的要点提取像淘金——从大量沙砾中筛出所有的金子，一颗都不能遗漏。</p>
+            <p><strong>核心原则：</strong>全面性 > 简洁性。宁可多提取一些，也不要遗漏关键信息。这一层的"准"和"全"决定了后续两层的质量。</p>
+            <div class="layer-example">
+              <strong>适用场景：</strong>会议记录中的所有决议和待办、技术文档中的核心参数和限制条件、客户反馈中的具体问题和需求。<br>
+              <strong>提取技巧：</strong>关注数字、时间、人名、决定、问题——这些是最容易被忽略但最重要的要素。
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer 2 -->
+        <div class="layer-card">
+          <div class="layer-badge">L2</div>
+          <div class="layer-body">
+            <h4>Layer 2：结构化整理 — 按逻辑框架重组信息</h4>
+            <span class="layer-tag">组织层 · 让信息有序可读</span>
+            <p>结构化整理是给提取出的要点"排兵布阵"。根据信息的性质，选择合适的逻辑框架来组织：<strong>时间线</strong>（事件演进）、<strong>优先级</strong>（重要程度排序）、<strong>因果关系</strong>（原因→结果→影响）、<strong>分类归组</strong>（按主题/维度分组）。框架的选择取决于读者的需求和信息的特点。</p>
+            <p><strong>核心原则：</strong>清晰性 > 完整性。在这一层，你需要做出取舍——将次要信息降级为附注或脚注，让主线逻辑一目了然。</p>
+            <div class="layer-example">
+              <strong>常用逻辑框架：</strong><br>
+              · <strong>时间线框架：</strong>适合项目进展、事件报告——按时间顺序排列关键节点<br>
+              · <strong>优先级框架：</strong>适合任务清单、问题列表——按重要紧急程度 P0→P3 排序<br>
+              · <strong>因果框架：</strong>适合分析报告、问题诊断——从原因到结果再到影响<br>
+              · <strong>矩阵框架：</strong>适合对比分析、技术选型——多维度交叉比较
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer 3 -->
+        <div class="layer-card">
+          <div class="layer-badge">L3</div>
+          <div class="layer-body">
+            <h4>Layer 3：洞察与建议 — 基于事实得出结论</h4>
+            <span class="layer-tag">价值层 · 产出可行动的建议</span>
+            <p>这是总结价值最高的一层——从"说了什么"上升到"<strong>意味着什么</strong>"和"<strong>应该怎么做</strong>"。在前两层的基础上，进行推理和判断：发现数据背后的趋势、识别潜在的风险和机会、提出具体可执行的建议。这一层是总结者的<strong>专业判断</strong>和<strong>业务理解</strong>的集中体现。</p>
+            <p><strong>核心原则：</strong>可行动性 > 全面性。建议必须是具体的、可执行的、有明确负责人和时间线的。泛泛的"加强管理"不如"建议王总在下周五前完成 A 系统的压力测试"。</p>
+            <div class="layer-example">
+              <strong>洞察类型：</strong><br>
+              · <strong>趋势洞察：</strong>"连续三个月客户投诉量上升 20%，主要集中在支付环节"<br>
+              · <strong>风险预警：</strong>"如果不在 Q3 前完成数据库迁移，Q4 大促期间很可能出现性能瓶颈"<br>
+              · <strong>机会识别：</strong>"竞品 X 尚未覆盖的企业用户细分市场，是我们的差异化机会"<br>
+              · <strong>行动建议：</strong>"建议立即成立专项小组，在 2 周内完成支付流程优化 PoC"
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 3 层框架 Prompt 模板</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下是将 3 层框架应用于实际场景的 Prompt 模板。你可以根据具体需求调整每一层的侧重点。
+      </p>
+
+      <div class="prompt-template">
+        <span class="pt-label">Layer 1 · 要点提取 Prompt</span>
+请阅读以下<span class="placeholder">[会议记录/文档/报告]</span>，提取所有关键信息：
+
+1. 核心事实和数据（数字、时间、金额等）
+2. 重要的决定和结论
+3. 提到的所有人名及其职责/观点
+4. 明确提出的问题和待解决事项
+5. 任何被强调或重复提及的要点
+
+要求：不做任何推理和评价，只做客观提取。
+宁可多提取，也不要遗漏。
+
+<span class="placeholder">[粘贴原始内容]</span>
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">Layer 2 · 结构化整理 Prompt</span>
+基于以下提取的要点，按照<span class="placeholder">[时间线/优先级/因果关系]</span>框架重新组织：
+
+1. 用清晰的层级标题组织信息
+2. 主要信息作为主条目，次要信息作为子条目
+3. 相关联的信息归为同一组
+4. 用序号或项目符号确保层次分明
+5. 为每个分组添加简短的概括性标题
+
+输出格式：Markdown，不超过<span class="placeholder">[800]</span>字。
+
+<span class="placeholder">[粘贴 Layer 1 提取结果]</span>
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">Layer 3 · 洞察与建议 Prompt</span>
+基于以下结构化总结，请给出你的分析和建议：
+
+1. 趋势判断：从数据和事实中你观察到什么趋势？
+2. 风险识别：有哪些潜在的风险需要关注？
+3. 机会发现：有哪些可以抓住的机会？
+4. 行动建议：给出 3-5 条具体可执行的建议
+   - 每条建议需明确：做什么、谁负责、何时完成
+5. 关键结论：用 1-2 句话总结最核心的发现
+
+<span class="placeholder">[粘贴 Layer 2 整理结果]</span>
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">3 层一体化 · 会议总结综合模板</span>
+请阅读以下<span class="placeholder">[会议记录]</span>，按照以下结构总结：
+
+1. 核心决议（不超过 3 条）
+2. 待办事项（负责人 + 截止日期）
+3. 分歧点及后续计划
+4. 关键数据和事实（会议中提及的重要数字）
+5. 风险提示（如果有的话）
+6. 下次会议建议议题
+
+总结要求：
+- 语言简洁，每条不超过 2 句话
+- 待办事项必须明确到人和时间
+- 分歧点需列出各方立场
+- 总字数控制在 500 字以内
+
+<span class="placeholder">[粘贴会议记录]</span>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">🚀</div>
+        <div class="infobox-body">
+          <div class="infobox-title">实战技巧：何时用分层，何时用一体化</div>
+          <strong>分层使用：</strong>当原始材料特别长（5000 字以上）或内容特别复杂时，建议分三步执行，每一层都检查和调整后再进入下一层。这样能确保最终输出的质量。<br>
+          <strong>一体化使用：</strong>当原始材料较短（2000 字以内）或场景比较常规（如日常会议纪要）时，可以用综合模板一步到位，节省时间。<br>
+          <strong>经验法则：</strong>如果你对某个领域很熟悉，用一体化模板；如果是不熟悉的领域，用分层方式逐步深入。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 3 · 6 大场景总结模板
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="scenarios">
+      <div class="section-header">
+        <div class="section-icon green">📋</div>
+        <div>
+          <div class="section-title">6 大场景总结模板</div>
+          <div class="section-subtitle">覆盖日常工作中最常见的总结需求</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">🎯</div>
+        <div class="infobox-body">
+          <div class="infobox-title">场景化模板的优势</div>
+          通用的总结提示往往产出泛泛的结果。针对具体场景定制的模板，能确保你的总结<strong>不遗漏行业特有的关键要素</strong>。例如，会议纪要需要"决议+待办"，竞品分析需要"维度对比+差异化建议"。以下 6 个模板覆盖了日常工作中 <strong>90% 以上</strong>的总结场景，你可以直接使用或根据需求微调。
+        </div>
+      </div>
+
+      <div class="card-grid" style="grid-template-columns: 1fr; gap: 1.5rem;">
+
+        <!-- 场景 1：会议纪要 -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div class="scenario-emoji">📋</div>
+            <div>
+              <div class="scenario-title">场景一：会议纪要总结</div>
+              <div class="scenario-desc">快速将冗长的会议记录提炼为结构化纪要</div>
+            </div>
+          </div>
+          <div class="scenario-body">
+            <p>会议是职场最大的时间消耗之一。一场 60 分钟的会议，往往只有 10-15 分钟的内容是真正重要的。AI 可以帮你从会议记录（文字转录、手动记录等）中快速提炼出<strong>核心决议、行动项和分歧点</strong>，让每位参会者都能在 2 分钟内回顾会议要点。</p>
+          </div>
+          <div class="prompt-template">
+            <span class="pt-label">📋 会议纪要总结模板</span>
+你是一位经验丰富的项目管理专家。
+请将以下会议记录整理为标准会议纪要，包含：
+
+<strong>一、会议基本信息</strong>
+- 会议主题 / 日期 / 时长 / 参会人
+
+<strong>二、核心决议</strong>（不超过 5 条，每条一句话概括）
+
+<strong>三、待办事项清单</strong>
+| 序号 | 待办事项 | 负责人 | 截止日期 | 优先级 |
+|------|---------|--------|---------|--------|
+
+<strong>四、讨论要点</strong>
+- 每个议题的核心讨论内容（不超过 3 句话）
+- 各方主要观点
+
+<strong>五、分歧与悬而未决事项</strong>
+- 列出分歧点，标注各方立场
+- 标注后续解决方案或计划
+
+<strong>六、下次会议建议</strong>
+- 建议议题
+- 需要提前准备的材料
+
+要求：
+- 语言简洁专业，避免口语化表述
+- 人名必须准确，不确定处标注 [待确认]
+- 总字数不超过 800 字
+
+<span class="placeholder">[粘贴会议记录]</span>
+          </div>
+        </div>
+
+        <!-- 场景 2：竞品分析 -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div class="scenario-emoji">📊</div>
+            <div>
+              <div class="scenario-title">场景二：竞品分析总结</div>
+              <div class="scenario-desc">多维度对比竞品，提炼差异化洞察</div>
+            </div>
+          </div>
+          <div class="scenario-body">
+            <p>竞品分析是产品决策的重要输入。但原始的竞品调研材料往往散乱、冗长、缺乏结构。AI 可以帮你将零散的竞品信息整理为<strong>结构化的多维度对比分析</strong>，并提炼出差异化策略建议，让你的竞品分析报告从"信息堆砌"升级为"策略指导"。</p>
+          </div>
+          <div class="prompt-template">
+            <span class="pt-label">📊 竞品分析总结模板</span>
+你是一位资深产品分析师。
+请基于以下竞品调研资料，生成结构化的竞品分析报告：
+
+<strong>一、竞品概览</strong>
+| 维度 | 我方产品 | 竞品A | 竞品B |
+|------|---------|-------|-------|
+| 定位 |         |       |       |
+| 目标用户 |     |       |       |
+| 核心功能 |     |       |       |
+| 定价策略 |     |       |       |
+
+<strong>二、功能对比矩阵</strong>
+- 列出 10-15 个关键功能点
+- 用 ✅ ⚠️ ❌ 标注支持程度
+- 突出差异化功能
+
+<strong>三、优劣势分析</strong>
+- 我方产品的竞争优势（3-5 条）
+- 我方产品的劣势/差距（3-5 条）
+- 各竞品的核心优势
+
+<strong>四、市场洞察</strong>
+- 行业趋势对竞争格局的影响
+- 用户需求变化趋势
+- 潜在的市场机会
+
+<strong>五、策略建议</strong>
+- 短期（1-3 个月）：快速补齐的差距
+- 中期（3-6 个月）：需要建设的优势
+- 长期（6-12 个月）：差异化战略方向
+
+<span class="placeholder">[粘贴竞品调研资料]</span>
+          </div>
+        </div>
+
+        <!-- 场景 3：周报/月报 -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div class="scenario-emoji">📈</div>
+            <div>
+              <div class="scenario-title">场景三：周报 / 月报生成</div>
+              <div class="scenario-desc">高效生成结构清晰、重点突出的工作报告</div>
+            </div>
+          </div>
+          <div class="scenario-body">
+            <p>写周报月报是许多人最头疼的日常任务——不是不知道做了什么，而是不知道如何组织和呈现。AI 可以帮你将日常工作记录（任务清单、项目进展、沟通记录）快速整理为<strong>逻辑清晰、重点突出</strong>的报告。关键是提供足够的原始素材，让 AI 帮你提炼亮点和梳理逻辑。</p>
+          </div>
+          <div class="prompt-template">
+            <span class="pt-label">📈 周报 / 月报生成模板</span>
+你是一位高效的项目管理助手。
+请根据以下工作记录，生成本<span class="placeholder">[周/月]</span>工作报告：
+
+<strong>一、本期概要</strong>（3-5 句话总结核心进展和成果）
+
+<strong>二、重点工作完成情况</strong>
+| 项目/任务 | 计划 | 实际完成 | 完成度 | 备注 |
+|-----------|------|---------|--------|------|
+
+<strong>三、关键成果与亮点</strong>
+- 本期最重要的 3 个成果
+- 量化的业绩指标（如有）
+
+<strong>四、遇到的问题与解决方案</strong>
+- 问题描述 + 解决方式 + 当前状态
+
+<strong>五、下期工作计划</strong>
+| 优先级 | 任务 | 预计完成时间 | 依赖项 |
+|--------|------|-------------|--------|
+
+<strong>六、需要的支持和协助</strong>
+- 需要谁提供什么支持
+
+要求：
+- 语言精炼，避免流水账
+- 突出成果和价值，而不仅仅是活动
+- 用数据说话：时间节省、效率提升、问题解决数量等
+- 总字数控制在 <span class="placeholder">[500-800]</span> 字
+
+<span class="placeholder">[粘贴工作记录/任务清单]</span>
+          </div>
+        </div>
+
+        <!-- 场景 4：技术文档摘要 -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div class="scenario-emoji">📖</div>
+            <div>
+              <div class="scenario-title">场景四：技术文档摘要</div>
+              <div class="scenario-desc">快速理解长篇技术文档的核心内容</div>
+            </div>
+          </div>
+          <div class="scenario-body">
+            <p>技术文档（RFC、架构设计、API 文档、开源项目 README）通常又长又密。AI 可以帮你快速提取<strong>核心设计思想、关键技术细节和使用注意事项</strong>，让你在 5 分钟内掌握一份需要 1 小时才能读完的技术文档的精髓。特别适合技术选型、学习新技术和 code review 场景。</p>
+          </div>
+          <div class="prompt-template">
+            <span class="pt-label">📖 技术文档摘要模板</span>
+你是一位资深技术架构师。
+请将以下技术文档提炼为简明摘要：
+
+<strong>一、文档概述</strong>
+- 文档主题和目标（1-2 句话）
+- 适用场景和目标读者
+
+<strong>二、核心设计 / 技术要点</strong>
+- 列出 3-5 个最核心的技术点
+- 每个技术点用 2-3 句话解释
+
+<strong>三、架构 / 流程概览</strong>
+- 用文字描述核心架构或流程
+- 标注关键组件和它们的交互关系
+
+<strong>四、关键参数和限制</strong>
+| 参数/指标 | 值/范围 | 说明 |
+|-----------|--------|------|
+
+<strong>五、使用注意事项</strong>
+- 常见的坑和注意点
+- 最佳实践建议
+
+<strong>六、与类似技术的对比</strong>
+- 与同类方案的核心差异
+- 适用场景对比
+
+<strong>七、一句话总结</strong>
+- 用最简洁的语言概括这份文档的核心价值
+
+<span class="placeholder">[粘贴技术文档内容]</span>
+          </div>
+        </div>
+
+        <!-- 场景 5：客户反馈汇总 -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div class="scenario-emoji">💬</div>
+            <div>
+              <div class="scenario-title">场景五：客户反馈汇总</div>
+              <div class="scenario-desc">从海量客户声音中提炼产品改进方向</div>
+            </div>
+          </div>
+          <div class="scenario-body">
+            <p>客户反馈是产品改进最宝贵的输入，但原始反馈往往零散、重复、情绪化。AI 可以帮你对大量反馈进行<strong>分类、聚合和趋势分析</strong>，从"100 条客户吐槽"中提炼出"3 个需要优先解决的核心问题"。这对产品经理、客户成功团队和运营团队都极其有价值。</p>
+          </div>
+          <div class="prompt-template">
+            <span class="pt-label">💬 客户反馈汇总模板</span>
+你是一位用户研究专家和产品分析师。
+请分析以下客户反馈数据，生成汇总报告：
+
+<strong>一、反馈概览</strong>
+- 反馈数量、时间范围、来源渠道
+- 整体满意度/情绪分布（正面/中性/负面占比）
+
+<strong>二、问题分类统计</strong>
+| 问题类别 | 反馈数量 | 占比 | 典型反馈原文 | 严重程度 |
+|---------|---------|------|------------|---------|
+
+<strong>三、TOP 5 高频问题详析</strong>
+每个问题包含：
+- 问题描述（1-2 句话概括）
+- 影响范围和严重程度
+- 用户原文举例（2-3 条代表性反馈）
+- 初步根因分析
+
+<strong>四、正面反馈亮点</strong>
+- 用户最认可的 3-5 个产品优势
+- 代表性好评原文
+
+<strong>五、趋势观察</strong>
+- 与上一周期对比的变化趋势
+- 新出现的问题类别
+- 改善/恶化的领域
+
+<strong>六、改进建议</strong>
+| 优先级 | 改进方向 | 预期影响 | 建议负责团队 |
+|--------|---------|---------|------------|
+
+<span class="placeholder">[粘贴客户反馈数据]</span>
+          </div>
+        </div>
+
+        <!-- 场景 6：行业资讯速递 -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div class="scenario-emoji">📰</div>
+            <div>
+              <div class="scenario-title">场景六：行业资讯速递</div>
+              <div class="scenario-desc">从多来源资讯中生成简明行业快报</div>
+            </div>
+          </div>
+          <div class="scenario-body">
+            <p>保持对行业动态的敏感是每个专业人士的必修课，但每天花 1-2 小时浏览各种资讯既低效又容易遗漏重点。AI 可以帮你将多来源的行业信息整理为<strong>简明的行业快报</strong>，抓住最重要的动态和趋势，让你用 5 分钟掌握行业一周的关键信息。</p>
+          </div>
+          <div class="prompt-template">
+            <span class="pt-label">📰 行业资讯速递模板</span>
+你是一位资深行业分析师。
+请将以下<span class="placeholder">[行业/领域]</span>资讯整理为简明快报：
+
+<strong>一、本期要闻 TOP 3</strong>
+每条包含：
+- 📌 标题（一句话概括）
+- 核心内容（2-3 句话说明"发生了什么"和"为什么重要"）
+- 影响评估：对我们的影响程度（高/中/低）
+
+<strong>二、行业动态速览</strong>
+| 类别 | 事件 | 关键信息 | 重要度 |
+|------|------|---------|--------|
+| 政策法规 | | | |
+| 竞品动态 | | | |
+| 技术趋势 | | | |
+| 融资并购 | | | |
+| 市场数据 | | | |
+
+<strong>三、技术趋势观察</strong>
+- 本期值得关注的技术方向（2-3 个）
+- 每个方向的关键进展和应用前景
+
+<strong>四、对我们的启示</strong>
+- 需要关注的机会（1-2 条）
+- 需要警惕的威胁（1-2 条）
+- 建议的行动项
+
+<strong>五、推荐深度阅读</strong>
+- 本期最值得花时间阅读的 2-3 篇文章/报告
+
+<span class="placeholder">[粘贴收集的行业资讯]</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">模板使用技巧</div>
+          <strong>1. 灵活调整：</strong>这些模板是起点而非终点。根据你的实际需求，可以增减条目、调整格式、改变侧重点。<br>
+          <strong>2. 建立专属模板库：</strong>随着使用经验积累，将调整后的模板保存下来，形成你个人或团队的专属模板库。<br>
+          <strong>3. 迭代优化：</strong>每次使用后，检查 AI 输出是否有遗漏或多余的部分，据此微调模板。好的模板是"用"出来的。<br>
+          <strong>4. 组合使用：</strong>复杂的总结任务可以组合多个模板。例如，季度总结 = 月报模板 + 竞品分析模板 + 客户反馈模板。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 4 · 总结质量检查清单
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="checklist">
+      <div class="section-header">
+        <div class="section-icon orange">✅</div>
+        <div>
+          <div class="section-title">总结质量检查清单</div>
+          <div class="section-subtitle">5 个维度评估你的总结质量</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI 生成的总结也需要质量检查</div>
+          AI 能快速生成结构化的总结，但并不意味着你可以直接使用而不检查。AI 可能<strong>遗漏关键细节</strong>、<strong>曲解原意</strong>或<strong>编造不存在的信息</strong>（幻觉）。使用以下质量检查清单，确保你的总结达到专业标准。养成"AI 生成 → 人工检查 → 修正发布"的习惯。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📋 5 维度质量检查标准</h3>
+
+      <div class="quality-list">
+        <div class="quality-item">
+          <div class="quality-num">1</div>
+          <div>
+            <p><strong>完整性：是否覆盖了所有关键信息？</strong></p>
+            <p>对照原始材料，检查是否有重要的事实、数据、决定被遗漏。特别关注数字、日期、人名、金额等关键要素。如果原文提到了 5 个待办事项，总结中是否完整列出了全部 5 个？遗漏关键信息比写长一点更糟糕。</p>
+            <div style="margin-top:0.5rem;padding:0.6rem 0.8rem;background:#EFF6FF;border-radius:var(--radius-sm);font-size:0.8rem;color:#1D4ED8;">
+              <strong>检查方法：</strong>将总结与原文逐段对照，用清单逐项核实关键信息是否被覆盖。
+            </div>
+          </div>
+        </div>
+
+        <div class="quality-item">
+          <div class="quality-num">2</div>
+          <div>
+            <p><strong>准确性：事实和数据是否正确？</strong></p>
+            <p>AI 可能在总结过程中"微调"数字或"改写"结论，导致与原文不一致。务必核实：数据是否与原文完全一致？人名和职责是否正确？因果关系是否被保持？不要假设 AI 的输出一定准确——<strong>核实是总结者的责任</strong>。</p>
+            <div style="margin-top:0.5rem;padding:0.6rem 0.8rem;background:#EFF6FF;border-radius:var(--radius-sm);font-size:0.8rem;color:#1D4ED8;">
+              <strong>检查方法：</strong>重点核实所有数字、日期、专有名词和引用内容。如有疑问，回溯原文确认。
+            </div>
+          </div>
+        </div>
+
+        <div class="quality-item">
+          <div class="quality-num">3</div>
+          <div>
+            <p><strong>结构性：逻辑是否清晰，层次是否分明？</strong></p>
+            <p>好的总结应该让读者一眼就能看清"先讲什么、再讲什么、最后讲什么"。检查：标题是否概括了段落核心？段落之间是否有逻辑递进？同类信息是否归在一起？避免"想到哪写到哪"的碎片化结构。</p>
+            <div style="margin-top:0.5rem;padding:0.6rem 0.8rem;background:#EFF6FF;border-radius:var(--radius-sm);font-size:0.8rem;color:#1D4ED8;">
+              <strong>检查方法：</strong>只看标题和首句，是否能理解 80% 的内容？如果不能，结构需要优化。
+            </div>
+          </div>
+        </div>
+
+        <div class="quality-item">
+          <div class="quality-num">4</div>
+          <div>
+            <p><strong>可操作性：是否包含明确的后续步骤？</strong></p>
+            <p>一份好的总结不应只是"回顾过去"，还要"指向未来"。待办事项是否有明确的负责人和截止日期？建议是否具体到可以直接执行？"加强沟通"不是可操作的建议，"每周三 14:00 举行 15 分钟站会"才是。</p>
+            <div style="margin-top:0.5rem;padding:0.6rem 0.8rem;background:#EFF6FF;border-radius:var(--radius-sm);font-size:0.8rem;color:#1D4ED8;">
+              <strong>检查方法：</strong>对每条建议和待办问自己："谁，做什么，在什么时候之前？"如果答不出来，需要补充。
+            </div>
+          </div>
+        </div>
+
+        <div class="quality-item">
+          <div class="quality-num">5</div>
+          <div>
+            <p><strong>简洁性：是否去除了冗余信息？</strong></p>
+            <p>总结的价值在于"用更少的字传递同等的信息量"。检查是否有重复表述、无关细节、过度解释。好的总结像好的代码——每一行都有存在的理由，删掉任何一句话都会造成信息缺失。目标：<strong>信息密度最大化</strong>。</p>
+            <div style="margin-top:0.5rem;padding:0.6rem 0.8rem;background:#EFF6FF;border-radius:var(--radius-sm);font-size:0.8rem;color:#1D4ED8;">
+              <strong>检查方法：</strong>逐句审视——"删掉这句话，读者是否会少知道一些重要信息？"如果不会，就删掉。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔍 好总结 vs 差总结：对比案例</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        通过以下对比，直观感受质量检查标准的应用效果。两份总结来自同一份会议记录原文。
+      </p>
+
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 差总结示例</div>
+          <ul>
+            <li><strong>会议概要：</strong>今天开了个会，大家讨论了项目的进展情况，有些问题需要解决。</li>
+            <li><strong>讨论内容：</strong>谈了很多，包括开发进度、测试情况、还有一些其他的事情。有人提了一些意见。</li>
+            <li><strong>后续安排：</strong>大家继续加油做各自的工作，有问题随时沟通。</li>
+          </ul>
+          <p style="font-size:0.8rem;color:#991B1B;margin-top:0.5rem;font-style:italic;">
+            ❌ 完整性：关键信息几乎全部缺失<br>
+            ❌ 准确性：没有任何具体数据和事实<br>
+            ❌ 结构性：没有逻辑层次，像流水账<br>
+            ❌ 可操作性：没有明确的待办和负责人<br>
+            ❌ 简洁性：看似简洁，实则"无效简洁"——信息量为零
+          </p>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 好总结示例</div>
+          <ul>
+            <li><strong>核心决议：</strong>① 数据库迁移方案采用灰度切流方式，计划 3 月 15 日上线；② API v2 接口冻结，不再接受新需求；③ 新增自动化测试覆盖率目标：核心模块 80%。</li>
+            <li><strong>待办事项：</strong>① 张三 — 3/8 前完成迁移脚本开发并提交 code review；② 李四 — 3/10 前输出压力测试报告，验证灰度方案可行性；③ 王五 — 3/12 前与客户确认 API v2 兼容性。</li>
+            <li><strong>分歧点：</strong>灰度切流比例存在分歧（张三主张 10%→30%→100%，李四主张 5%→20%→50%→100%），决定基于压测结果再定。</li>
+            <li><strong>风险提示：</strong>若压测发现性能瓶颈，上线时间可能延后至 3 月底。</li>
+          </ul>
+          <p style="font-size:0.8rem;color:#166534;margin-top:0.5rem;font-style:italic;">
+            ✅ 完整性：覆盖决议、待办、分歧、风险<br>
+            ✅ 准确性：包含具体日期、人名、数据<br>
+            ✅ 结构性：按决议→待办→分歧→风险排列<br>
+            ✅ 可操作性：每项待办有人、有时间、有交付物<br>
+            ✅ 简洁性：信息密度高，无冗余
+          </p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📊 总结质量评分表</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        使用以下评分表量化评估你的总结质量。目标是每个维度至少达到 4 分（满分 5 分）。
+      </p>
+
+      <div class="table-wrapper">
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th style="width:15%">维度</th>
+              <th style="width:8%">权重</th>
+              <th style="width:22%">5 分标准</th>
+              <th style="width:22%">3 分标准</th>
+              <th style="width:22%">1 分标准</th>
+              <th style="width:11%">你的评分</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>完整性</strong></td>
+              <td>25%</td>
+              <td>100% 关键信息被覆盖，无遗漏</td>
+              <td>主要信息覆盖，个别细节遗漏</td>
+              <td>大量关键信息缺失</td>
+              <td class="check-icon">☐ / 5</td>
+            </tr>
+            <tr>
+              <td><strong>准确性</strong></td>
+              <td>25%</td>
+              <td>所有数据、事实与原文完全一致</td>
+              <td>基本准确，个别细节有偏差</td>
+              <td>存在明显错误或曲解</td>
+              <td class="check-icon">☐ / 5</td>
+            </tr>
+            <tr>
+              <td><strong>结构性</strong></td>
+              <td>20%</td>
+              <td>逻辑严谨，层次分明，一目了然</td>
+              <td>有基本结构，部分逻辑不够清晰</td>
+              <td>结构混乱，缺乏组织</td>
+              <td class="check-icon">☐ / 5</td>
+            </tr>
+            <tr>
+              <td><strong>可操作性</strong></td>
+              <td>20%</td>
+              <td>所有待办/建议均可直接执行</td>
+              <td>部分建议较模糊，需进一步明确</td>
+              <td>缺乏具体行动指向</td>
+              <td class="check-icon">☐ / 5</td>
+            </tr>
+            <tr>
+              <td><strong>简洁性</strong></td>
+              <td>10%</td>
+              <td>零冗余，每句话都有信息增量</td>
+              <td>偶有重复或无关内容</td>
+              <td>冗余严重，信息密度低</td>
+              <td class="check-icon">☐ / 5</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">质量检查的快速方法</div>
+          如果时间紧迫，至少做以下 3 项快速检查：<br>
+          <strong>1. 数字核对：</strong>核实总结中出现的所有数字是否与原文一致（耗时 1 分钟）<br>
+          <strong>2. 完整性扫描：</strong>用原文的每个小节标题作为清单，检查是否每个主题都被覆盖（耗时 2 分钟）<br>
+          <strong>3. 行动项检查：</strong>确保每个待办/建议都有"谁做、做什么、何时完成"三要素（耗时 1 分钟）
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔧 用 AI 自查总结质量</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        你还可以让 AI 帮你检查总结的质量。以下是一个自查 Prompt 模板：
+      </p>
+
+      <div class="prompt-template">
+        <span class="pt-label">总结质量自查 Prompt</span>
+请对比以下【原文】和【总结】，从 5 个维度评估总结质量：
+
+1. <strong>完整性</strong>（25%）：总结是否覆盖了原文的所有关键信息？列出遗漏的要点。
+2. <strong>准确性</strong>（25%）：总结中的数据和事实是否与原文一致？指出不一致之处。
+3. <strong>结构性</strong>（20%）：总结的逻辑和层次是否清晰？给出改进建议。
+4. <strong>可操作性</strong>（20%）：待办和建议是否具体可执行？指出模糊的部分。
+5. <strong>简洁性</strong>（10%）：是否有冗余信息可以删除？
+
+每个维度打分（1-5 分），给出总分和改进建议。
+
+【原文】
+<span class="placeholder">[粘贴原始材料]</span>
+
+【总结】
+<span class="placeholder">[粘贴你的总结]</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 5 · 课后练习
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon orange">🏆</div>
+        <div>
+          <div class="section-title">课后练习</div>
+          <div class="section-subtitle">3 道实战练习，巩固总结技能</div>
+        </div>
+      </div>
+
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下 3 道练习题涵盖了本模块的核心知识点。请在你最常用的 AI 工具中实际操作，体验 3 层框架和场景模板带来的总结质量提升。
+      </p>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块二 · 课后练习</h2>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <strong>3 层框架实战：总结一篇技术博客</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选择一篇你最近阅读的技术博客文章（建议 2000 字以上），分别使用 3 层框架的 Layer 1、Layer 2、Layer 3 Prompt 进行总结：<br>
+              · <strong>Step 1：</strong>使用 Layer 1 模板提取所有关键要点<br>
+              · <strong>Step 2：</strong>使用 Layer 2 模板将要点按逻辑框架重组<br>
+              · <strong>Step 3：</strong>使用 Layer 3 模板提炼洞察和建议<br>
+              · <strong>Step 4：</strong>对比 3 层分步总结与一体化总结的质量差异<br><br>
+              <strong>评估标准：</strong>使用质量检查清单的 5 个维度为自己的总结打分，目标每个维度不低于 4 分。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：3 层 Prompt + AI 输出 + 质量评分</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <strong>会议纪要实战：用 AI 生成结构化总结</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              将一次真实的会议录音或手动记录的会议纪要（可以是最近参加的任何会议），使用"会议纪要总结模板"让 AI 生成结构化总结：<br>
+              · <strong>Step 1：</strong>准备原始会议记录（录音转文字或手动记录）<br>
+              · <strong>Step 2：</strong>使用会议纪要模板让 AI 生成初版总结<br>
+              · <strong>Step 3：</strong>使用 5 维度质量检查清单逐项检查<br>
+              · <strong>Step 4：</strong>根据检查结果修正总结，记录修正了哪些问题<br><br>
+              <strong>重点关注：</strong>AI 的初版总结有哪些遗漏或不准确之处？你是如何发现并修正的？
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：原始记录 + AI 初版 + 修正版 + 质检报告</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <strong>竞品分析实战：用模板对比两个竞争产品</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选择你工作中关注的两个竞争产品（或两个你熟悉的同类产品），使用"竞品分析总结模板"生成一份完整的竞品分析报告：<br>
+              · <strong>Step 1：</strong>收集两个产品的公开信息（官网、文档、评测等）<br>
+              · <strong>Step 2：</strong>将信息提供给 AI，使用竞品分析模板生成报告<br>
+              · <strong>Step 3：</strong>基于 AI 输出，补充你自己的专业判断和洞察<br>
+              · <strong>Step 4：</strong>产出一份可以在团队内分享的竞品分析报告<br><br>
+              <strong>进阶挑战：</strong>尝试用"行业资讯速递模板"补充行业背景，让竞品分析更有战略高度。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：竞品分析报告 + 个人洞察补充</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:2rem;">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">模块二核心总结</div>
+          总结不只是"缩写"，而是<strong>价值创造</strong>——信息压缩、结构重组、洞察提炼三位一体。
+          使用 <strong>3 层总结框架</strong>（要点提取 → 结构化整理 → 洞察与建议）来处理任何总结需求。
+          掌握 <strong>6 大场景模板</strong>（会议纪要、竞品分析、周报月报、技术文档、客户反馈、行业资讯），覆盖日常 90% 的总结场景。
+          养成 <strong>5 维度质量检查</strong>的习惯：完整性、准确性、结构性、可操作性、简洁性。
+          记住：AI 是你的"提炼引擎"，但<strong>判断力和业务理解</strong>永远是你不可替代的价值。
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="module1.html" class="btn-prev">← 模块一：提问的艺术</a>
+        <a href="module3.html" class="btn-next">模块三 →</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

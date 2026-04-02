@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 协作技巧培训 — 课程总览</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .modules-grid .module-card:nth-child(5),
+    .modules-grid .module-card:nth-child(6) {
+      grid-column: auto;
+    }
+
+    .path-flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2rem 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+    .pf-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 100px;
+      text-align: center;
+    }
+    .pf-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-md);
+      background: #fff;
+      border: 2px solid var(--collab-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      z-index: 1;
+    }
+    .pf-item.active .pf-icon {
+      background: var(--collab-accent);
+      border-color: var(--collab-accent-dark);
+    }
+    .pf-title { font-size: 0.8rem; font-weight: 700; color: var(--dark); }
+    .pf-sub   { font-size: 0.7rem; color: var(--muted); }
+    .pf-arrow { font-size: 1.5rem; color: var(--collab-border); flex-shrink: 0; padding-bottom: 28px; }
+
+    .goal-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+    }
+    .goal-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: var(--collab-bg);
+      border: 1px solid var(--collab-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .goal-card h3 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .goal-card p  { font-size: 0.875rem; color: var(--medium); line-height: 1.6; }
+    .goal-card ul {
+      list-style: none;
+      margin-top: 0.5rem;
+      font-size: 0.84rem;
+      color: var(--medium);
+    }
+    .goal-card ul li::before { content: '✓ '; color: var(--collab-accent); font-weight: 700; }
+    .goal-card ul li { margin-bottom: 3px; }
+
+    @media (max-width: 768px) {
+      .modules-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🤝 AI 协作技巧培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html" class="active">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview"><span class="nav-num">①</span>课程概览</a></li>
+      <li><a href="#goals"><span class="nav-num">②</span>学习目标</a></li>
+      <li><a href="#modules"><span class="nav-num">③</span>课程模块</a></li>
+      <li><a href="#path"><span class="nav-num">④</span>学习路径</a></li>
+      <li><a href="#tools"><span class="nav-num">⑤</span>工具清单</a></li>
+    </ul>
+    <div style="padding: 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border);">
+      <div class="sidebar-title">快速入口</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <a href="module1.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+          <span style="color:var(--collab-accent);">●</span> 模块一：提问的艺术
+        </a>
+        <a href="module2.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#3182CE;">●</span> 模块二：总结的艺术
+        </a>
+        <a href="module3.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#38A169;">●</span> 模块三：引导的艺术
+        </a>
+        <a href="module4.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#D69E2E;">●</span> 模块四：反馈与迭代
+        </a>
+        <a href="module5.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#E07A5F;">●</span> 模块五：场景化协作
+        </a>
+        <a href="module6.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#805AD5;">●</span> 模块六：评估与精进
+        </a>
+      </div>
+      <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--border);">
+        <a href="../index.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--collab-bg);border:1px solid var(--collab-border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--collab-accent);font-weight:600;">
+          ← 返回培训主页
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="collab-hero">
+      <div class="collab-hero-content">
+        <div class="collab-badge" style="margin-bottom:1rem;">
+          <span class="dot"></span> 飞凡科技全员内训课程
+        </div>
+        <h1>AI <span>协作技巧</span><br>实战培训</h1>
+        <p class="hero-desc">
+          系统掌握与 AI 高效协作的核心技能，从提问、总结、引导到反馈迭代，
+          全面提升人机协作效率，让每一次对话都产出最大价值。
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">6<span>个</span></div>
+            <div class="stat-label">课程模块</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">18<span>h</span></div>
+            <div class="stat-label">课时总量</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">30<span>+</span></div>
+            <div class="stat-label">Prompt 模板</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3<span>x</span></div>
+            <div class="stat-label">协作效率提升</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 课程概览 ─── -->
+    <section class="section" id="overview">
+      <div class="section-header">
+        <div class="section-icon purple">🧩</div>
+        <div>
+          <div class="section-title">课程概览</div>
+          <div class="section-subtitle">为什么你需要掌握 AI 协作技巧</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">课程设计理念</div>
+          AI 协作不是简单地"向 AI 提问"，而是一套系统化的沟通方法论。本课程从认知重构出发，教会你如何像指导一位天才实习生一样与 AI 协作，让每一次交互都精准、高效、可复用。
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-3">
+        <div class="card card-accent-purple">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🎯</div>
+          <strong>精准提问</strong>
+          <p style="font-size:0.875rem;color:var(--medium);margin-top:0.4rem;">掌握 RACE 框架和 5 级提问模型，让 AI 一次就给出你想要的答案。</p>
+        </div>
+        <div class="card card-accent-blue">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🔄</div>
+          <strong>迭代思维</strong>
+          <p style="font-size:0.875rem;color:var(--medium);margin-top:0.4rem;">学会反馈与迭代技术，从"一锤子买卖"进化到"持续优化"。</p>
+        </div>
+        <div class="card card-accent-green">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">💼</div>
+          <strong>场景落地</strong>
+          <p style="font-size:0.875rem;color:var(--medium);margin-top:0.4rem;">覆盖产品设计、代码编写、文案策划等 6 大工作场景的实战模板。</p>
+        </div>
+      </div>
+
+      <div class="card card-lg" style="background:var(--collab-bg);border-color:var(--collab-border);">
+        <strong style="color:var(--collab-accent-dark);">📋 适合人群</strong>
+        <div class="card-grid" style="margin-top:1rem;margin-bottom:0;">
+          <div>
+            <div style="font-weight:700;margin-bottom:4px;">✅ 最适合</div>
+            <ul style="list-style:none;font-size:0.875rem;color:var(--medium);">
+              <li>• 日常工作中使用 ChatGPT / Claude / 文心一言等 AI 工具的全体员工</li>
+              <li>• 希望提升 AI 协作效率的产品经理、设计师、运营人员</li>
+              <li>• 想要从"偶尔使用"进阶到"深度协作"的团队成员</li>
+              <li>• 负责制定团队 AI 使用规范的管理者</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-weight:700;margin-bottom:4px;">⚠️ 前置要求</div>
+            <ul style="list-style:none;font-size:0.875rem;color:var(--medium);">
+              <li>• 使用过至少一款 AI 对话工具</li>
+              <li>• 了解 AI 的基本概念（无需技术背景）</li>
+              <li>• 有实际工作场景需要 AI 辅助</li>
+              <li>• 开放心态，愿意改变传统工作方式</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 学习目标 ─── -->
+    <section class="section" id="goals">
+      <div class="section-header">
+        <div class="section-icon blue">🎯</div>
+        <div>
+          <div class="section-title">学习目标</div>
+          <div class="section-subtitle">完成本课程后，你将获得这些能力</div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-2">
+        <div class="goal-card">
+          <div class="goal-icon-wrap">🗣️</div>
+          <div>
+            <h3>精准表达需求</h3>
+            <ul>
+              <li>使用 RACE 框架构建高质量提问</li>
+              <li>掌握 5 级提问模型逐步进阶</li>
+              <li>避免常见的 10 大提问反模式</li>
+            </ul>
+          </div>
+        </div>
+        <div class="goal-card">
+          <div class="goal-icon-wrap">📝</div>
+          <div>
+            <h3>高效总结提炼</h3>
+            <ul>
+              <li>运用 3 层总结框架提炼要点</li>
+              <li>掌握不同场景的总结模板</li>
+              <li>学会让 AI 帮你做结构化输出</li>
+            </ul>
+          </div>
+        </div>
+        <div class="goal-card">
+          <div class="goal-icon-wrap">🧭</div>
+          <div>
+            <h3>引导 AI 深度思考</h3>
+            <ul>
+              <li>使用苏格拉底式追问引导分析</li>
+              <li>掌握 Chain of Thought 引导技巧</li>
+              <li>学会角色扮演和约束设置</li>
+            </ul>
+          </div>
+        </div>
+        <div class="goal-card">
+          <div class="goal-icon-wrap">🔄</div>
+          <div>
+            <h3>持续迭代优化</h3>
+            <ul>
+              <li>运用 STAR 反馈模型精准调整</li>
+              <li>掌握对话管理和上下文控制</li>
+              <li>建立个人 Prompt 资产库</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 课程模块 ─── -->
+    <section class="section" id="modules">
+      <div class="section-header">
+        <div class="section-icon purple">📚</div>
+        <div>
+          <div class="section-title">课程模块</div>
+          <div class="section-subtitle">6 大模块，循序渐进，从入门到精通</div>
+        </div>
+      </div>
+
+      <div class="modules-grid">
+        <div class="module-card">
+          <div class="mc-num">MODULE 01</div>
+          <h3>🎯 提问的艺术<br>——让 AI 一次听懂你的需求</h3>
+          <p>掌握 RACE 提问框架（角色-行动-上下文-期望），学习 5 级提问进阶模型，避免 10 大反模式，实现精准高效的人机沟通。</p>
+          <div class="mc-meta">
+            <span>⏱️ 3 课时</span>
+            <span>📝 8 个 Prompt 模板</span>
+            <span>🎯 核心基础</span>
+          </div>
+          <a href="module1.html" class="mc-link">进入模块一 →</a>
+        </div>
+
+        <div class="module-card">
+          <div class="mc-num">MODULE 02</div>
+          <h3>📝 总结的艺术<br>——让 AI 帮你提炼价值</h3>
+          <p>学习 3 层总结框架（要点-结构-洞察），掌握会议纪要、竞品分析、周报月报等场景的总结模板，让信息处理效率翻倍。</p>
+          <div class="mc-meta">
+            <span>⏱️ 3 课时</span>
+            <span>📝 6 个场景模板</span>
+            <span>📊 提炼能力</span>
+          </div>
+          <a href="module2.html" class="mc-link">进入模块二 →</a>
+        </div>
+
+        <div class="module-card">
+          <div class="mc-num">MODULE 03</div>
+          <h3>🧭 引导的艺术<br>——让 AI 深度思考</h3>
+          <p>掌握苏格拉底式追问、Chain of Thought 引导、角色扮演策略和约束条件设置，引导 AI 产出更深入、更可靠的分析结果。</p>
+          <div class="mc-meta">
+            <span>⏱️ 3 课时</span>
+            <span>📝 5 个引导策略</span>
+            <span>🧠 思维深度</span>
+          </div>
+          <a href="module3.html" class="mc-link">进入模块三 →</a>
+        </div>
+
+        <div class="module-card">
+          <div class="mc-num">MODULE 04</div>
+          <h3>🔄 反馈与迭代<br>——让结果持续变好</h3>
+          <p>学习 STAR 反馈模型（情境-任务-行动-结果），掌握迭代指令、对话分支管理、上下文窗口优化等高级对话管理技术。</p>
+          <div class="mc-meta">
+            <span>⏱️ 3 课时</span>
+            <span>📝 4 个迭代策略</span>
+            <span>🔄 持续优化</span>
+          </div>
+          <a href="module4.html" class="mc-link">进入模块四 →</a>
+        </div>
+
+        <div class="module-card">
+          <div class="mc-num">MODULE 05</div>
+          <h3>💼 场景化协作实战<br>——6 大工作场景全覆盖</h3>
+          <p>深入产品需求文档、代码 Review、营销文案、数据分析、客户沟通、项目管理六大高频工作场景，提供完整 Prompt 模板和实操流程。</p>
+          <div class="mc-meta">
+            <span>⏱️ 3 课时</span>
+            <span>📝 6 个完整案例</span>
+            <span>💼 实战应用</span>
+          </div>
+          <a href="module5.html" class="mc-link">进入模块五 →</a>
+        </div>
+
+        <div class="module-card">
+          <div class="mc-num">MODULE 06</div>
+          <h3>📊 评估与持续精进<br>——建立个人 AI 能力体系</h3>
+          <p>学习 5 级 AI 协作成熟度模型，掌握自我评估方法和学习路径规划，建立个人 Prompt 资产库，实现持续提升。</p>
+          <div class="mc-meta">
+            <span>⏱️ 3 课时</span>
+            <span>📝 评估工具包</span>
+            <span>📈 长期成长</span>
+          </div>
+          <a href="module6.html" class="mc-link">进入模块六 →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 学习路径 ─── -->
+    <section class="section" id="path">
+      <div class="section-header">
+        <div class="section-icon green">🗺️</div>
+        <div>
+          <div class="section-title">学习路径</div>
+          <div class="section-subtitle">建议按顺序学习，逐步进阶</div>
+        </div>
+      </div>
+
+      <div class="path-flow">
+        <div class="pf-item active">
+          <div class="pf-icon">🎯</div>
+          <div class="pf-title">提问基础</div>
+          <div class="pf-sub">模块一</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-item">
+          <div class="pf-icon">📝</div>
+          <div class="pf-title">总结提炼</div>
+          <div class="pf-sub">模块二</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-item">
+          <div class="pf-icon">🧭</div>
+          <div class="pf-title">深度引导</div>
+          <div class="pf-sub">模块三</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-item">
+          <div class="pf-icon">🔄</div>
+          <div class="pf-title">反馈迭代</div>
+          <div class="pf-sub">模块四</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-item">
+          <div class="pf-icon">💼</div>
+          <div class="pf-title">场景实战</div>
+          <div class="pf-sub">模块五</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-item">
+          <div class="pf-icon">📊</div>
+          <div class="pf-title">评估精进</div>
+          <div class="pf-sub">模块六</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">学习建议</div>
+          建议按模块顺序学习。模块一至三为基础技能，模块四为进阶能力，模块五为实战应用，模块六为自我评估。每个模块建议安排 3 个课时，配合课后练习巩固。已有 AI 使用经验的同事可以快速浏览前三模块，重点学习模块四至六。
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 工具清单 ─── -->
+    <section class="section" id="tools">
+      <div class="section-header">
+        <div class="section-icon orange">🔧</div>
+        <div>
+          <div class="section-title">工具清单</div>
+          <div class="section-subtitle">课程中涉及的 AI 工具</div>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>工具</th>
+              <th>类型</th>
+              <th>主要用途</th>
+              <th>涉及模块</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Claude</td>
+              <td>对话 AI</td>
+              <td>长文档分析、逻辑推理、代码生成</td>
+              <td>全部模块</td>
+            </tr>
+            <tr>
+              <td>ChatGPT</td>
+              <td>对话 AI</td>
+              <td>创意写作、方案探索、多轮对话</td>
+              <td>全部模块</td>
+            </tr>
+            <tr>
+              <td>GitHub Copilot</td>
+              <td>代码助手</td>
+              <td>代码补全、代码审查、单测生成</td>
+              <td>模块五</td>
+            </tr>
+            <tr>
+              <td>文心一言</td>
+              <td>对话 AI</td>
+              <td>中文场景、本地化需求</td>
+              <td>模块一~四</td>
+            </tr>
+            <tr>
+              <td>Notion AI</td>
+              <td>文档助手</td>
+              <td>文档总结、模板生成、知识管理</td>
+              <td>模块二、五</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="../index.html" class="page-nav-btn">← 返回培训主页</a>
+      <a href="module1.html" class="page-nav-btn">开始模块一 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
