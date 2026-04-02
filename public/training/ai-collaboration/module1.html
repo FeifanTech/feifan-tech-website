@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块一：提问的艺术 — AI 协作技巧培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── RACE 框架卡片 ── */
+    .race-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .race-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .race-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .race-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .race-card.race-r::before { background: #EF4444; }
+    .race-card.race-a::before { background: #F59E0B; }
+    .race-card.race-c::before { background: #3B82F6; }
+    .race-card.race-e::before { background: #10B981; }
+    .race-letter {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .race-r .race-letter { background: #EF4444; }
+    .race-a .race-letter { background: #F59E0B; }
+    .race-c .race-letter { background: #3B82F6; }
+    .race-e .race-letter { background: #10B981; }
+    .race-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .race-card .race-en { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .race-card p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; }
+    .race-card ul { list-style: none; margin-top: 0.5rem; font-size: 0.84rem; color: var(--medium); }
+    .race-card ul li { margin-bottom: 4px; padding-left: 0; }
+    .race-card ul li::before { content: '▸ '; color: var(--collab-accent); font-weight: 700; }
+
+    /* ── 提问等级卡 ── */
+    .level-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .level-card {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .level-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .level-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: 0.04em;
+    }
+    .level-card:nth-child(1) .level-badge { background: #94A3B8; }
+    .level-card:nth-child(2) .level-badge { background: #60A5FA; }
+    .level-card:nth-child(3) .level-badge { background: #34D399; }
+    .level-card:nth-child(4) .level-badge { background: #F59E0B; }
+    .level-card:nth-child(5) .level-badge { background: #EF4444; }
+    .level-body h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; }
+    .level-body .level-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+    }
+    .level-card:nth-child(1) .level-tag { background: #F1F5F9; color: #64748B; }
+    .level-card:nth-child(2) .level-tag { background: #EFF6FF; color: #2563EB; }
+    .level-card:nth-child(3) .level-tag { background: #ECFDF5; color: #059669; }
+    .level-card:nth-child(4) .level-tag { background: #FFFBEB; color: #D97706; }
+    .level-card:nth-child(5) .level-tag { background: #FEF2F2; color: #DC2626; }
+    .level-body p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin-bottom: 0.5rem; }
+    .level-body .level-example {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .level-body .level-example strong { color: var(--collab-accent); }
+    .level-body .level-tip {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    /* ── 反模式表格增强 ── */
+    .antipattern-table th { background: var(--collab-bg); color: var(--collab-accent-dark); }
+    .antipattern-table td:first-child { font-weight: 700; white-space: nowrap; color: var(--dark); }
+    .antipattern-table .bad-example { color: #DC2626; }
+    .antipattern-table .good-example { color: #16A34A; }
+
+    /* ── 黄金法则卡 ── */
+    .rule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+    .rule-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #16A34A;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .rule-item strong { color: #166534; }
+    .rule-item p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin: 0; }
+
+    @media (max-width: 768px) {
+      .race-grid { grid-template-columns: 1fr; }
+      .level-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🤝 AI 协作技巧培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html" class="active">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块一导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#mindset"><span class="nav-num">1</span>核心认知重构</a></li>
+      <li><a href="#race"><span class="nav-num">2</span>RACE 提问框架</a></li>
+      <li><a href="#levels"><span class="nav-num">3</span>5 级提问进阶</a></li>
+      <li><a href="#antipatterns"><span class="nav-num">4</span>10 大反模式</a></li>
+      <li><a href="#practice"><span class="nav-num">5</span>黄金法则与练习</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块一</span>
+        提问的艺术
+      </div>
+      <h1>🎯 提问的艺术<br>让 AI 一次听懂你的需求</h1>
+      <p class="hero-subtitle">掌握结构化提问方法论，学会用 RACE 框架构建高质量 Prompt，从根源上提升 AI 协作效率。不再反复沟通、不再答非所问。</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 3 课时</div>
+        <div class="hero-meta-item">📐 RACE 框架</div>
+        <div class="hero-meta-item">📊 5 级进阶模型</div>
+        <div class="hero-meta-item">🚫 10 大反模式</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 1 · 核心认知重构
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="mindset">
+      <div class="section-header">
+        <div class="section-icon purple">🧠</div>
+        <div>
+          <div class="section-title">核心认知重构</div>
+          <div class="section-subtitle">AI 不是搜索引擎，而是"天才实习生"</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">最常见的误解：把 AI 当搜索引擎用</div>
+          超过 70% 的初学者在使用 AI 时，仍然保持着"搜索引擎思维"——输入关键词，期望获得现成答案。这种思维方式会极大限制 AI 的能力发挥。AI 不是一个存储答案的数据库，而是一个<strong>具有推理能力的协作伙伴</strong>。你需要像给一位天才实习生下达工作指令一样，清晰、具体、有上下文地与 AI 沟通。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔄 心智模型对比</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        要真正发挥 AI 的潜力，第一步是纠正你的心智模型。下面的对比将帮助你理解两种截然不同的使用思维，以及为什么"天才实习生"模型更加有效。
+      </p>
+
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 旧心智：搜索引擎模式</div>
+          <ul>
+            <li>输入关键词，期望精确匹配的答案</li>
+            <li>一次性获取信息，不追问、不反馈</li>
+            <li>认为 AI 只能回答"它知道的东西"</li>
+            <li>用错了就换关键词，缺乏系统方法</li>
+            <li>不提供背景信息，认为 AI "应该知道"</li>
+            <li>只关心"答案对不对"，不关心"过程好不好"</li>
+            <li>把 AI 当工具：用完即弃</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 新心智：天才实习生模式</div>
+          <ul>
+            <li>下达清晰指令，提供足够上下文</li>
+            <li>持续对话，逐步深入，不断迭代优化</li>
+            <li>AI 可以推理、创造、举一反三</li>
+            <li>用结构化方法引导 AI，系统地改进提问</li>
+            <li>主动提供项目背景、约束条件、期望标准</li>
+            <li>关注整体协作过程和输出质量</li>
+            <li>把 AI 当伙伴：建立长期协作模式</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">核心类比：天才实习生</div>
+          想象你新招了一位清华毕业的天才实习生：知识面极广、学习能力极强、执行力爆表——但 TA 完全不了解你的项目背景、团队文化和具体需求。如果你只说"帮我写个方案"，TA 会很努力但大概率写偏。但如果你说"帮我写一个关于会员积分系统改版的需求文档，包含用户故事和验收标准，参考我们之前XX项目的格式"，TA 就能精准交付。<strong>AI 就是这位天才实习生</strong>。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📌 三个关键认知转变</h3>
+      <div class="card-grid card-grid-3">
+        <div class="card card-accent-blue">
+          <strong>🎯 从"找答案"到"给指令"</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            搜索引擎帮你找到已有的答案，AI 帮你<strong>生成</strong>新的内容。你的提问不应该是"XX是什么"，而应该是"请帮我做XX，按照YY标准，输出ZZ格式"。
+          </p>
+        </div>
+        <div class="card card-accent-green">
+          <strong>🔄 从"一次性"到"多轮迭代"</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            优秀的 AI 协作很少一轮就完成。真正的高手会通过 3-5 轮持续对话，逐步细化需求、调整方向、打磨输出。这就像和实习生的日常沟通——不断 review 和反馈。
+          </p>
+        </div>
+        <div class="card card-accent-purple">
+          <strong>📋 从"随意"到"结构化"</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            随意提问得到随意的回答。结构化提问得到高质量的输出。掌握提问框架（如 RACE）能让你的每一次 AI 交互都产出最大价值，效率提升 3 倍以上。
+          </p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🎭 AI 能做什么 vs 不能做什么</h3>
+      <div class="compare-panels">
+        <div class="compare-panel good">
+          <div class="cp-header">✅ AI 擅长的领域</div>
+          <ul>
+            <li>文本生成：文案、报告、邮件、文档撰写</li>
+            <li>代码编写：函数实现、调试、代码审查</li>
+            <li>信息整理：总结、对比分析、结构化输出</li>
+            <li>创意发散：头脑风暴、方案构思、多角度分析</li>
+            <li>格式转换：表格、Markdown、JSON、XML</li>
+            <li>翻译润色：多语言翻译、文本优化</li>
+            <li>学习辅导：概念解释、知识串联、出题练习</li>
+          </ul>
+        </div>
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ AI 的局限性</div>
+          <ul>
+            <li>实时数据：无法获取最新新闻、股价等</li>
+            <li>个人隐私：不了解你的具体项目和上下文</li>
+            <li>精确计算：复杂数学运算可能出错</li>
+            <li>事实核查：可能产生"幻觉"，生成看似正确实则错误的信息</li>
+            <li>情感决策：无法替你做价值判断和人际决策</li>
+            <li>专有知识：不了解你公司的内部系统和流程</li>
+            <li>执行操作：无法直接操作你的电脑或系统</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 2 · RACE 提问框架
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="race">
+      <div class="section-header">
+        <div class="section-icon blue">📐</div>
+        <div>
+          <div class="section-title">RACE 提问框架</div>
+          <div class="section-subtitle">Role 角色 + Action 行动 + Context 上下文 + Expectation 期望</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">为什么需要框架？</div>
+          就像写代码有设计模式一样，提问也有最佳实践。RACE 框架是经过大量实践验证的结构化提问方法论，它确保你的每一个 Prompt 都包含了让 AI 精准执行所需的全部要素。使用 RACE 框架后，Prompt 的有效性平均提升 <strong>60%</strong>，迭代次数减少 <strong>50%</strong>。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📊 RACE 四要素详解</h3>
+
+      <div class="race-grid">
+        <div class="race-card race-r">
+          <div class="race-letter">R</div>
+          <h4>Role · 角色设定</h4>
+          <div class="race-en">告诉 AI 它应该扮演什么角色</div>
+          <p>通过角色设定，你为 AI 提供了一个专业视角和知识框架。不同的角色会激活不同的"思维模式"，让输出更专业、更聚焦。</p>
+          <ul>
+            <li>资深产品经理 → 用户视角、需求文档</li>
+            <li>数据库专家 (DBA) → 性能优化、架构设计</li>
+            <li>前端架构师 → 组件设计、用户体验</li>
+            <li>技术面试官 → 考察深度、评分标准</li>
+            <li>安全顾问 → 风险评估、防护措施</li>
+          </ul>
+        </div>
+
+        <div class="race-card race-a">
+          <div class="race-letter">A</div>
+          <h4>Action · 行动指令</h4>
+          <div class="race-en">明确告诉 AI 需要执行什么任务</div>
+          <p>行动指令是 Prompt 的核心。使用精确的动词，避免模糊表述。一个好的行动指令是具体的、可执行的、有明确边界的。</p>
+          <ul>
+            <li>撰写 → "撰写一份需求分析报告"</li>
+            <li>对比分析 → "对比分析 A 和 B 方案的优劣"</li>
+            <li>重构 → "重构这段代码，提升可读性"</li>
+            <li>设计 → "设计一套数据库表结构"</li>
+            <li>审查 → "审查这份代码并指出问题"</li>
+          </ul>
+        </div>
+
+        <div class="race-card race-c">
+          <div class="race-letter">C</div>
+          <h4>Context · 上下文信息</h4>
+          <div class="race-en">为 AI 提供充分的背景和约束条件</div>
+          <p>上下文是提问质量的分水岭。好的上下文包括项目背景、技术栈、团队情况、已有资源和约束条件。上下文越丰富，AI 的输出越精准。</p>
+          <ul>
+            <li>项目背景：电商平台、B2B SaaS、社交应用</li>
+            <li>技术约束：Java Spring Boot、Vue 3、MySQL 8</li>
+            <li>规模指标：日活 100w、QPS 5000、数据量 10TB</li>
+            <li>团队情况：5人开发团队、2个月工期</li>
+            <li>已有资源：现有 API 文档、数据库 ER 图</li>
+          </ul>
+        </div>
+
+        <div class="race-card race-e">
+          <div class="race-letter">E</div>
+          <h4>Expectation · 期望输出</h4>
+          <div class="race-en">明确告诉 AI 你希望得到什么样的结果</div>
+          <p>期望设定决定了输出的形式和质量标准。包括格式要求、详细程度、语言风格、评判标准等。不设定期望就像不验收的项目——结果不可控。</p>
+          <ul>
+            <li>格式：表格、Markdown、代码、列表、思维导图</li>
+            <li>长度：500字以内、3-5个要点、详细分析</li>
+            <li>风格：专业严谨、通俗易懂、简洁明了</li>
+            <li>标准：包含示例、有数据支撑、可直接执行</li>
+            <li>附加：给出优缺点、标注风险点、提供备选方案</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 RACE 框架 Prompt 模板</h3>
+
+      <div class="prompt-template">
+        <span class="pt-label">RACE 标准模板</span>
+你是一位<span class="placeholder">[资深产品经理]</span>，            ← Role 角色
+请帮我<span class="placeholder">[撰写一份需求文档]</span>，          ← Action 行动
+项目背景：<span class="placeholder">[电商平台会员积分系统改版]</span>，← Context 上下文
+要求输出：<span class="placeholder">[包含用户故事、验收标准、       ← Expectation 期望
+优先级排序的标准PRD格式]</span>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔍 实战案例对比</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        下面通过三组真实场景，对比使用 RACE 框架前后的提问质量差异。注意每个改进是如何让 AI 更精准地理解和执行你的需求的。
+      </p>
+
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num" style="background:var(--collab-accent);">1</div>
+          <div>
+            <div class="technique-title">案例一：需求文档撰写</div>
+            <div class="technique-en">From vague to precise with RACE</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <div class="compare-panels">
+            <div class="compare-panel bad">
+              <div class="cp-header">❌ 不使用 RACE</div>
+              <ul>
+                <li>帮我写个需求文档</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#991B1B;margin-top:0.5rem;font-style:italic;">→ AI 不知道写什么项目、什么格式、给谁看，只能生成泛泛的模板。</p>
+            </div>
+            <div class="compare-panel good">
+              <div class="cp-header">✅ 使用 RACE</div>
+              <ul>
+                <li><strong>R:</strong> 你是一位有5年经验的产品经理</li>
+                <li><strong>A:</strong> 帮我撰写一份PRD需求文档</li>
+                <li><strong>C:</strong> 电商平台的会员积分系统改版，需要支持积分兑换、等级升降、过期清零</li>
+                <li><strong>E:</strong> 包含用户故事、验收标准、优先级P0-P3，使用标准PRD模板</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#166534;margin-top:0.5rem;font-style:italic;">→ AI 能精准理解需求边界，输出可直接使用的文档。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num" style="background:var(--collab-accent);">2</div>
+          <div>
+            <div class="technique-title">案例二：技术方案选型</div>
+            <div class="technique-en">Adding context changes everything</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <div class="compare-panels">
+            <div class="compare-panel bad">
+              <div class="cp-header">❌ 不使用 RACE</div>
+              <ul>
+                <li>Redis 和 Memcached 哪个好？</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#991B1B;margin-top:0.5rem;font-style:italic;">→ 没有场景约束，AI 只能给出教科书式的对比，缺乏针对性建议。</p>
+            </div>
+            <div class="compare-panel good">
+              <div class="cp-header">✅ 使用 RACE</div>
+              <ul>
+                <li><strong>R:</strong> 你是一位高并发系统架构师</li>
+                <li><strong>A:</strong> 帮我对比分析 Redis 和 Memcached，并给出选型建议</li>
+                <li><strong>C:</strong> 电商秒杀系统，峰值QPS 50000，数据量约2GB，需要支持分布式锁和排行榜</li>
+                <li><strong>E:</strong> 用表格对比性能、功能、运维成本，给出最终推荐并说明理由</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#166534;margin-top:0.5rem;font-style:italic;">→ AI 基于具体场景给出 Redis 的推荐，理由充分、可直接用于方案评审。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num" style="background:var(--collab-accent);">3</div>
+          <div>
+            <div class="technique-title">案例三：代码审查</div>
+            <div class="technique-en">Setting expectations for actionable output</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <div class="compare-panels">
+            <div class="compare-panel bad">
+              <div class="cp-header">❌ 不使用 RACE</div>
+              <ul>
+                <li>帮我看看这段代码有没有问题</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#991B1B;margin-top:0.5rem;font-style:italic;">→ AI 可能泛泛而谈，缺乏重点，遗漏关键问题。</p>
+            </div>
+            <div class="compare-panel good">
+              <div class="cp-header">✅ 使用 RACE</div>
+              <ul>
+                <li><strong>R:</strong> 你是一位资深 Java 开发专家和代码审查员</li>
+                <li><strong>A:</strong> 审查以下代码，重点关注安全漏洞和性能问题</li>
+                <li><strong>C:</strong> 这是一个处理用户支付的 Spring Boot 接口，线上并发约 3000 QPS</li>
+                <li><strong>E:</strong> 按严重程度排序，每个问题给出位置、原因和修复建议代码</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#166534;margin-top:0.5rem;font-style:italic;">→ AI 聚焦安全和性能，输出可操作的代码修复建议。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🧩 更多 RACE 模板</h3>
+
+      <div class="prompt-template">
+        <span class="pt-label">技术方案模板</span>
+你是一位<span class="placeholder">[云架构师]</span>，
+请帮我<span class="placeholder">[设计一套微服务架构方案]</span>，
+背景：<span class="placeholder">[现有单体应用需要拆分，团队8人，
+使用 Java + Spring Cloud 技术栈，
+服务间通信量较大，需要考虑灰度发布]</span>，
+输出要求：<span class="placeholder">[包含服务拆分策略、通信方式选择、
+部署架构图描述、技术选型表格、
+实施路线图（分3个阶段）]</span>
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">数据分析模板</span>
+你是一位<span class="placeholder">[数据分析师]</span>，
+请帮我<span class="placeholder">[分析以下销售数据并给出运营建议]</span>，
+数据概况：<span class="placeholder">[电商平台最近3个月的销售数据，
+包含商品类目、客单价、复购率、退货率，
+核心问题是Q3营收同比下降15%]</span>，
+期望输出：<span class="placeholder">[
+1. 数据异常点分析（用表格展示）
+2. 下降原因的3-5个假设
+3. 每个假设的验证方法
+4. 可立即执行的3条改进建议
+]</span>
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">代码重构模板</span>
+你是一位<span class="placeholder">[代码重构专家]</span>，
+请帮我<span class="placeholder">[重构以下 Python 函数]</span>，
+现状：<span class="placeholder">[这个函数有300行，包含了数据校验、
+业务逻辑、数据库操作和日志记录，
+违反了单一职责原则，测试覆盖率为0]</span>，
+要求：<span class="placeholder">[
+1. 拆分为多个小函数，每个不超过30行
+2. 添加类型注解和 docstring
+3. 给出重构前后的对比说明
+4. 提供对应的单元测试代码
+]</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 3 · 5 级提问进阶模型
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="levels">
+      <div class="section-header">
+        <div class="section-icon green">📈</div>
+        <div>
+          <div class="section-title">5 级提问进阶模型</div>
+          <div class="section-subtitle">从新手到专家，评估并提升你的提问能力</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">🎯</div>
+        <div class="infobox-body">
+          <div class="infobox-title">提问的五个段位</div>
+          大多数人停留在 L1-L2 阶段，能够到达 L3 就已经超越 80% 的用户。掌握 L4-L5 的提问技巧，你将能够让 AI 发挥出 <strong>10 倍以上</strong>的价值。下面是从基础到专家的五个提问段位，以及每个段位的核心特征和示例。
+        </div>
+      </div>
+
+      <div class="level-list">
+        <!-- L1 -->
+        <div class="level-card">
+          <div class="level-badge">L1</div>
+          <div class="level-body">
+            <h4>简单问答 — 基础信息检索</h4>
+            <span class="level-tag">入门级 · 大多数人的起点</span>
+            <p>最基本的提问方式，类似搜索引擎查询。只提出一个简单问题，期望获得一个直接答案。这种方式能获得基础信息，但无法发挥 AI 的推理和创造能力。</p>
+            <div class="level-example">
+              <strong>示例：</strong>"什么是微服务？"<br>
+              <strong>AI 反应：</strong>给出微服务的定义和基本概念，类似百科词条。<br>
+              <strong>局限性：</strong>你得到的只是一个通用定义，与你的实际需求没有关联。
+            </div>
+            <p class="level-tip">💡 适用场景：快速了解一个新概念的基本定义。但如果你需要深入理解或实际应用，请升级到更高等级。</p>
+          </div>
+        </div>
+
+        <!-- L2 -->
+        <div class="level-card">
+          <div class="level-badge">L2</div>
+          <div class="level-body">
+            <h4>任务执行 — 明确的单一指令</h4>
+            <span class="level-tag">初级 · 开始有具体产出</span>
+            <p>从"问问题"升级到"下达任务"。给 AI 一个明确的执行指令，期望得到可用的产出物。这一级别已经开始利用 AI 的生成能力，但仍缺乏上下文和质量控制。</p>
+            <div class="level-example">
+              <strong>示例：</strong>"帮我写一个 Python 函数计算斐波那契数列"<br>
+              <strong>AI 反应：</strong>生成一个能运行的斐波那契函数代码。<br>
+              <strong>进步点：</strong>有了明确的任务目标，产出可直接使用。<br>
+              <strong>不足：</strong>没有指定实现方式（递归？迭代？记忆化？）、性能要求、编码规范等。
+            </div>
+            <p class="level-tip">💡 进阶方向：尝试加入更多约束条件，比如"用迭代方式实现，支持大数运算，添加类型注解"。</p>
+          </div>
+        </div>
+
+        <!-- L3 -->
+        <div class="level-card">
+          <div class="level-badge">L3</div>
+          <div class="level-body">
+            <h4>结构化输出 — 指定格式与维度</h4>
+            <span class="level-tag">中级 · 超越 80% 的用户</span>
+            <p>不仅告诉 AI 做什么，还明确指定输出的<strong>格式</strong>和<strong>对比维度</strong>。这一级别的提问已经能产出结构化的、可直接用于工作汇报或决策的内容。</p>
+            <div class="level-example">
+              <strong>示例：</strong>"用表格对比 MySQL 和 PostgreSQL 在以下维度的差异：并发处理能力、水平扩展性、生态系统丰富度、JSON支持、全文搜索、学习曲线、社区活跃度"<br>
+              <strong>AI 反应：</strong>输出一个结构清晰的对比表格，每个维度都有具体分析。<br>
+              <strong>核心提升：</strong>通过指定格式（表格）和维度（7个对比项），让输出直接可用于技术选型文档。
+            </div>
+            <p class="level-tip">💡 高级技巧：可以进一步要求"每个维度用★评分，并在表格下方给出总结推荐"。</p>
+          </div>
+        </div>
+
+        <!-- L4 -->
+        <div class="level-card">
+          <div class="level-badge">L4</div>
+          <div class="level-body">
+            <h4>角色 + 约束 — 专家级精准输出</h4>
+            <span class="level-tag">高级 · 专业场景深度应用</span>
+            <p>综合运用角色设定和多维约束，让 AI 以特定专家的视角来解决具体问题。这一级别的提问能产出专业级的分析和建议，可直接用于技术决策。</p>
+            <div class="level-example">
+              <strong>示例：</strong>"你是一位有10年经验的 DBA 专家，为一个日活 100 万用户的电商平台推荐数据库方案。要求：考虑读写分离、分库分表策略，预算不超过每月 5 万元，需要支持跨地域部署。给出主要方案和备选方案，每个方案列出优缺点和适用阶段。"<br>
+              <strong>核心要素：</strong>角色（DBA专家）+ 场景（电商平台）+ 约束（预算、地域）+ 格式（方案对比）。<br>
+              <strong>产出质量：</strong>接近真实技术顾问的咨询报告水平。
+            </div>
+            <p class="level-tip">💡 关键点：约束条件越具体，AI 的输出越有针对性。模糊的约束 = 模糊的答案。</p>
+          </div>
+        </div>
+
+        <!-- L5 -->
+        <div class="level-card">
+          <div class="level-badge">L5</div>
+          <div class="level-body">
+            <h4>系统协作 — AI 驱动的完整工作流</h4>
+            <span class="level-tag">专家级 · 最大化 AI 价值</span>
+            <p>最高段位的提问不是单一的问答，而是建立一套<strong>人机协作的工作流</strong>。你和 AI 共同完成一个复杂项目，AI 在你的引导下承担大部分执行工作，你负责决策和质量把控。</p>
+            <div class="level-example">
+              <strong>示例：</strong>"我需要你扮演技术架构师的角色，我们一起来完成一个在线教育平台的系统设计。请按照以下流程一步步帮我完成：<br>
+              Step 1: 先梳理核心业务场景和用户角色<br>
+              Step 2: 设计系统架构图（描述主要组件和交互）<br>
+              Step 3: 设计核心数据模型<br>
+              Step 4: 给出技术选型方案<br>
+              Step 5: 制定开发阶段规划<br>
+              先从 Step 1 开始，等我确认后再进入下一步。"<br>
+              <strong>核心特征：</strong>多轮对话 + 分步执行 + 人工 review + 持续迭代。<br>
+              <strong>价值体现：</strong>一个人 + AI = 一个小团队的产出效率。
+            </div>
+            <p class="level-tip">💡 L5 的关键是"分步"和"确认"。不要试图一次让 AI 完成所有事情，而是建立一个有节奏的协作流程。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">🚀</div>
+        <div class="infobox-body">
+          <div class="infobox-title">快速提升段位的秘诀</div>
+          <strong>从 L1 到 L3：</strong>学会在提问中加入"格式要求"和"对比维度"，这是最快的提升路径。<br>
+          <strong>从 L3 到 L4：</strong>养成"先给角色"的习惯，每次提问开头就设定角色。<br>
+          <strong>从 L4 到 L5：</strong>学会拆解复杂任务，建立"分步执行 → 确认 → 下一步"的工作流。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 4 · 10 大提问反模式
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="antipatterns">
+      <div class="section-header">
+        <div class="section-icon red">🚫</div>
+        <div>
+          <div class="section-title">10 大提问反模式</div>
+          <div class="section-subtitle">避免这些常见错误，让你的提问质量翻倍</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">为什么要学反模式？</div>
+          知道"不该怎么做"往往比"该怎么做"更重要。以下是我们在培训中观察到的 10 种最常见的提问错误，每种都附有具体的修正方法。如果你能避免这些反模式，你的 AI 使用效率将立刻提升 50% 以上。
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="antipattern-table">
+          <thead>
+            <tr>
+              <th style="width:5%">#</th>
+              <th style="width:13%">反模式</th>
+              <th style="width:12%">问题描述</th>
+              <th style="width:25%">❌ 错误示例</th>
+              <th style="width:25%">✅ 正确示例</th>
+              <th style="width:20%">修正要点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><strong>🌫 过于模糊</strong></td>
+              <td>提问太宽泛，缺乏具体指向</td>
+              <td class="bad-example">"帮我写个方案"</td>
+              <td class="good-example">"帮我写一个关于会员积分系统改版的技术方案，包含架构设计、数据模型、API 设计和排期计划"</td>
+              <td>明确主题、范围和交付物</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><strong>📦 信息过载</strong></td>
+              <td>一次提供过多无关信息，淹没核心需求</td>
+              <td class="bad-example">"我们公司成立于2015年，CEO是张总，办公在北京朝阳区... (500字背景) ...帮我优化一个SQL查询"</td>
+              <td class="good-example">"请帮我优化以下SQL查询，当前执行时间 3s，目标优化到 200ms 以内。表数据量约 500 万行。[附SQL代码]"</td>
+              <td>只提供与任务直接相关的上下文</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><strong>🎭 预设答案</strong></td>
+              <td>提问时暗示期望的答案，限制 AI 客观分析</td>
+              <td class="bad-example">"你觉得 React 比 Vue 好对吧？"</td>
+              <td class="good-example">"请客观对比 React 和 Vue 在大型项目中的优劣，考虑团队学习成本、生态成熟度和长期维护性"</td>
+              <td>保持开放式提问，不预设立场</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><strong>🕳 缺乏上下文</strong></td>
+              <td>跳过背景直接提问，AI 缺少关键信息</td>
+              <td class="bad-example">"这个bug怎么修？"</td>
+              <td class="good-example">"Spring Boot 项目中，使用 @Transactional 注解的方法在嵌套调用时事务不生效。环境：Spring Boot 2.7 + MyBatis。请分析原因并给出修复方案"</td>
+              <td>提供技术栈、环境信息和错误现象</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><strong>📋 格式不明</strong></td>
+              <td>没有说明期望的输出格式，结果难以使用</td>
+              <td class="bad-example">"对比一下几种消息队列"</td>
+              <td class="good-example">"用 Markdown 表格对比 Kafka、RabbitMQ、RocketMQ 在吞吐量、延迟、可靠性、运维难度方面的差异，每项用★评分"</td>
+              <td>指定格式（表格/列表/代码）和结构</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><strong>🍔 贪心模式</strong></td>
+              <td>一次提问包含过多不相关的任务</td>
+              <td class="bad-example">"帮我写个登录页面，顺便设计数据库，再写个部署脚本"</td>
+              <td class="good-example">"帮我设计一个登录页面的 React 组件。要求：支持手机号+验证码登录，响应式布局，使用 Ant Design 组件库"</td>
+              <td>一次一事，复杂任务分步进行</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td><strong>🔁 重复提问</strong></td>
+              <td>对不满意的回答不做调整，反复用同样的方式提问</td>
+              <td class="bad-example">"帮我写个方案"（第3次，同样的提问）</td>
+              <td class="good-example">"上次的方案缺少成本预算部分，请补充以下内容：服务器成本、人力成本、时间成本，用表格列出"</td>
+              <td>基于上次输出给出具体的改进方向</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td><strong>🤖 机械依赖</strong></td>
+              <td>完全不验证 AI 输出，直接使用</td>
+              <td class="bad-example">（直接复制粘贴 AI 生成的代码到生产环境）</td>
+              <td class="good-example">"请帮我审查这段代码，重点检查：空指针风险、SQL注入漏洞、并发安全问题。对每个问题给出修复代码"</td>
+              <td>始终保持批判性思维，验证关键输出</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td><strong>🌊 语义含混</strong></td>
+              <td>使用模糊词汇，可能被多种理解</td>
+              <td class="bad-example">"帮我优化一下这个系统"</td>
+              <td class="good-example">"帮我优化这个API接口的响应时间，当前P99延迟 800ms，目标降到 200ms，主要瓶颈在数据库查询"</td>
+              <td>用可量化的指标替代模糊表述</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td><strong>🚫 消极否定</strong></td>
+              <td>只说"不要什么"，不说"要什么"</td>
+              <td class="bad-example">"不要写得太长，不要太专业，不要用英文"</td>
+              <td class="good-example">"请用通俗易懂的中文，控制在 500 字以内，面向非技术人员解释微服务的核心概念"</td>
+              <td>用正向描述替代否定限制</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔍 反模式速查：快速自检清单</h3>
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📋</div>
+        <div class="infobox-body">
+          <div class="infobox-title">发送 Prompt 前的 5 秒检查</div>
+          在按下回车键之前，快速检查以下几点：<br>
+          <strong>1. 角色：</strong>有没有告诉 AI 它是谁？<br>
+          <strong>2. 任务：</strong>有没有明确说要做什么？<br>
+          <strong>3. 上下文：</strong>有没有提供足够的背景信息？<br>
+          <strong>4. 格式：</strong>有没有指定输出格式？<br>
+          <strong>5. 单一性：</strong>是不是只包含一个核心任务？
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 5 · 黄金法则与实操练习
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon orange">🏆</div>
+        <div>
+          <div class="section-title">黄金法则与实操练习</div>
+          <div class="section-subtitle">5 条核心法则 + 3 道实战练习</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">⭐ 5 条黄金法则</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        无论你使用什么 AI 工具，这 5 条法则都是提问的核心准则。把它们内化为习惯，你的每一次 AI 交互都将高效且有价值。
+      </p>
+
+      <div class="rule-list">
+        <div class="rule-item">
+          <div class="rule-num">1</div>
+          <div>
+            <p><strong>一次一事：每次提问只包含一个核心任务</strong></p>
+            <p>多个任务混在一起会让 AI 分心，每个任务的质量都会下降。把复杂需求拆解为多个独立的提问，每次聚焦一件事。如果任务之间有依赖关系，按顺序逐步推进。</p>
+            <div class="level-example" style="margin-top:0.5rem;">
+              <strong>反例：</strong>"帮我写注册页面、设计数据库、部署到服务器"<br>
+              <strong>正例：</strong>"第一步：帮我设计用户注册的数据库表结构，需要支持手机号、邮箱、第三方登录"
+            </div>
+          </div>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-num">2</div>
+          <div>
+            <p><strong>先给角色：开头就明确 AI 应该扮演的角色</strong></p>
+            <p>角色设定是最被低估的提问技巧。一个好的角色设定能让 AI 的输出质量提升 30-50%。不同的角色对应不同的知识体系、语言风格和思维方式。</p>
+            <div class="level-example" style="margin-top:0.5rem;">
+              <strong>反例：</strong>"怎么做性能优化？"<br>
+              <strong>正例：</strong>"你是一位有10年经验的性能优化专家，请帮我分析..."
+            </div>
+          </div>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-num">3</div>
+          <div>
+            <p><strong>提供示例：给出期望输出的样例</strong></p>
+            <p>"说100句不如给1个例子"。当你很难用文字描述期望的输出格式时，直接给 AI 一个示例是最有效的方式。AI 能从示例中准确推断出你想要的格式、风格和详细程度。</p>
+            <div class="level-example" style="margin-top:0.5rem;">
+              <strong>反例：</strong>"帮我写一些产品描述"<br>
+              <strong>正例：</strong>"参照以下示例格式，帮我写5个类似的产品描述：<br>【示例】产品名：智能手表Pro | 核心卖点：48小时续航 | 目标人群：运动爱好者 | 一句话文案：让每一次心跳都被记录"
+            </div>
+          </div>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-num">4</div>
+          <div>
+            <p><strong>明确约束：字数、格式、语言、风格</strong></p>
+            <p>约束条件是质量控制的抓手。没有约束的提问就像没有验收标准的项目——你很难判断结果是否合格。至少指定以下约束中的 2-3 项：输出长度、使用语言、格式要求、专业程度。</p>
+            <div class="level-example" style="margin-top:0.5rem;">
+              <strong>反例：</strong>"解释一下分布式事务"<br>
+              <strong>正例：</strong>"用中文，500字以内，面向有3年经验的后端开发者，用类比的方式解释分布式事务的核心概念，附一个电商下单场景的例子"
+            </div>
+          </div>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-num">5</div>
+          <div>
+            <p><strong>给出评判标准：告诉 AI 什么是好的结果</strong></p>
+            <p>这是从"好"到"卓越"的最后一步。当你告诉 AI 评判标准时，它会自我校准输出质量。好的评判标准是具体的、可衡量的、与业务目标对齐的。</p>
+            <div class="level-example" style="margin-top:0.5rem;">
+              <strong>反例：</strong>"帮我写一份好的技术方案"<br>
+              <strong>正例：</strong>"一份好的技术方案应该包含：1）清晰的问题定义；2）至少2种备选方案对比；3）推荐方案的详细设计；4）风险评估和应对措施；5）分阶段实施计划。请按照这些标准来撰写"
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:2rem 0 0.75rem;">🧠 黄金法则速记口诀</h3>
+      <div class="prompt-template">
+        <span class="pt-label">速记口诀</span>
+<span class="placeholder">一事一问</span>，不贪不杂；      ← 法则1：一次一事
+<span class="placeholder">角色先行</span>，开门见山；      ← 法则2：先给角色
+<span class="placeholder">示例为王</span>，胜过千言；      ← 法则3：提供示例
+<span class="placeholder">约束明确</span>，边界清晰；      ← 法则4：明确约束
+<span class="placeholder">标准前置</span>，结果可控。      ← 法则5：给出评判标准
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:2rem 0 0.75rem;">✏️ 实操练习</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下 3 道练习题涵盖了本模块的核心知识点。请在你最常用的 AI 工具中实际操作，体验 RACE 框架和黄金法则带来的差异。
+      </p>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块一 · 课后练习</h2>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <strong>RACE 框架实战：技术调研报告</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              场景：你的团队正在考虑将现有的 RESTful API 迁移到 GraphQL。
+              请使用完整的 RACE 框架，写一个 Prompt 让 AI 帮你生成一份技术调研报告。
+              要求报告包含：技术对比、迁移风险、实施步骤和成本估算。<br>
+              <strong>提交物：</strong>你撰写的 RACE Prompt + AI 生成的报告（标注每个 RACE 要素）。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：Prompt + 报告</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <strong>提问升级练习：从 L1 到 L4</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选择以下任一主题，分别写出 L1、L2、L3、L4 四个等级的 Prompt，并在 AI 中实际测试，对比输出质量差异：<br>
+              · 主题A：数据库索引优化<br>
+              · 主题B：前端性能优化<br>
+              · 主题C：微服务拆分策略<br>
+              <strong>提交物：</strong>4 个不同等级的 Prompt + 对应 AI 输出的截图 + 你的质量对比分析（200字以上）。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：4 级 Prompt 对比</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <strong>反模式纠错：找出并修复问题</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              以下是一个包含多种反模式的 Prompt，请识别出所有问题，并重写一个符合黄金法则的优质版本：<br><br>
+              <em style="background:rgba(255,255,255,0.1);padding:6px 10px;border-radius:6px;display:block;margin:0.5rem 0;">
+                "我们公司去年营收3亿，今年目标5亿，CEO说要做数字化转型，我们用的是Java和MySQL，你觉得微服务好对吧？帮我写个方案，不要太长，不要太技术，顺便帮我想个项目名字。"
+              </em>
+              <strong>提交物：</strong>标注原文中的所有反模式（编号对应本模块的10大反模式）+ 你重写后的 Prompt。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：反模式标注 + 重写 Prompt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:2rem;">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">模块一核心总结</div>
+          AI 是你的"天才实习生"，而不是搜索引擎。使用 <strong>RACE 框架</strong>（角色 + 行动 + 上下文 + 期望）来构建每一个 Prompt。
+          提问有 <strong>5 个段位</strong>，目标是至少达到 L3（结构化输出），向 L5（系统协作）进阶。
+          牢记 <strong>5 条黄金法则</strong>：一次一事、先给角色、提供示例、明确约束、给出标准。
+          避免 <strong>10 大反模式</strong>，在每次提问前做 5 秒自检。
+          持续练习，提问是一种可以训练的技能——越练越强。
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="index.html" class="btn-prev">← 课程总览</a>
+        <a href="module2.html" class="btn-next">模块二：总结的艺术 →</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块六：评估与持续精进 — AI 协作技巧培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── 成熟度等级卡片 ── */
+    .maturity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .maturity-card {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .maturity-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .maturity-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 4px;
+    }
+    .maturity-card:nth-child(1)::before { background: #94A3B8; }
+    .maturity-card:nth-child(2)::before { background: #60A5FA; }
+    .maturity-card:nth-child(3)::before { background: #34D399; }
+    .maturity-card:nth-child(4)::before { background: #F59E0B; }
+    .maturity-card:nth-child(5)::before { background: #EF4444; }
+    .maturity-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: 0.04em;
+    }
+    .maturity-card:nth-child(1) .maturity-badge { background: #94A3B8; }
+    .maturity-card:nth-child(2) .maturity-badge { background: #60A5FA; }
+    .maturity-card:nth-child(3) .maturity-badge { background: #34D399; }
+    .maturity-card:nth-child(4) .maturity-badge { background: #F59E0B; }
+    .maturity-card:nth-child(5) .maturity-badge { background: #EF4444; }
+    .maturity-body h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; }
+    .maturity-body .maturity-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+    }
+    .maturity-card:nth-child(1) .maturity-tag { background: #F1F5F9; color: #64748B; }
+    .maturity-card:nth-child(2) .maturity-tag { background: #EFF6FF; color: #2563EB; }
+    .maturity-card:nth-child(3) .maturity-tag { background: #ECFDF5; color: #059669; }
+    .maturity-card:nth-child(4) .maturity-tag { background: #FFFBEB; color: #D97706; }
+    .maturity-card:nth-child(5) .maturity-tag { background: #FEF2F2; color: #DC2626; }
+    .maturity-body p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin-bottom: 0.5rem; }
+    .maturity-body .maturity-example {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .maturity-body .maturity-example strong { color: var(--collab-accent); }
+    .maturity-body .maturity-tip {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    /* ── 评估维度网格 ── */
+    .assess-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .assess-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .assess-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .assess-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .assess-card:nth-child(1)::before { background: #3B82F6; }
+    .assess-card:nth-child(2)::before { background: #10B981; }
+    .assess-card:nth-child(3)::before { background: #F59E0B; }
+    .assess-card:nth-child(4)::before { background: #8B5CF6; }
+    .assess-card .ac-emoji { font-size: 1.6rem; margin-bottom: 0.5rem; display: block; }
+    .assess-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .assess-card p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; }
+    .assess-card .ac-scale {
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      color: var(--dark);
+    }
+    .assess-card .ac-scale div {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .assess-card .ac-scale div:last-child { border-bottom: none; }
+    .assess-card .ac-scale span:first-child { font-weight: 600; }
+
+    /* ── 资产库卡片 ── */
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .asset-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .asset-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .asset-card .as-emoji { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+    .asset-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .asset-card p { font-size: 0.84rem; color: var(--medium); line-height: 1.5; }
+
+    /* ── 学习路径卡 ── */
+    .path-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .path-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .path-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .path-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .path-card:nth-child(1)::before { background: #3B82F6; }
+    .path-card:nth-child(2)::before { background: #F59E0B; }
+    .path-card:nth-child(3)::before { background: #10B981; }
+    .path-card .pc-phase {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .path-card:nth-child(1) .pc-phase { color: #2563EB; }
+    .path-card:nth-child(2) .pc-phase { color: #D97706; }
+    .path-card:nth-child(3) .pc-phase { color: #059669; }
+    .path-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .path-card p { font-size: 0.84rem; color: var(--medium); line-height: 1.5; margin-bottom: 0.5rem; }
+    .path-card ul { list-style: none; font-size: 0.82rem; color: var(--medium); }
+    .path-card ul li { margin-bottom: 3px; }
+    .path-card ul li::before { content: '✓ '; color: var(--collab-accent); font-weight: 700; }
+
+    /* ── 迭代要点卡 ── */
+    .rule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+    .rule-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #16A34A;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .rule-item strong { color: #166534; }
+    .rule-item p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin: 0; }
+
+    @media (max-width: 768px) {
+      .assess-grid { grid-template-columns: 1fr; }
+      .asset-grid { grid-template-columns: 1fr; }
+      .path-grid { grid-template-columns: 1fr; }
+      .maturity-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🤝 AI 协作技巧培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html" class="active">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块六导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#why"><span class="nav-num">1</span>为什么需要评估体系</a></li>
+      <li><a href="#maturity"><span class="nav-num">2</span>5 级成熟度模型</a></li>
+      <li><a href="#assessment"><span class="nav-num">3</span>自我评估方法</a></li>
+      <li><a href="#library"><span class="nav-num">4</span>个人 Prompt 资产库</a></li>
+      <li><a href="#path"><span class="nav-num">5</span>学习路径规划</a></li>
+      <li><a href="#practice"><span class="nav-num">6</span>课程总结与练习</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">MODULE 06</span>
+        评估与持续精进
+      </div>
+      <h1>📊 评估与持续精进<br>建立个人 AI 能力体系</h1>
+      <p class="hero-subtitle">学习 5 级 AI 协作成熟度模型，掌握自我评估方法和学习路径规划，建立个人 Prompt 资产库，从"会用 AI"到"精通 AI 协作"的系统化进阶。</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 3 课时</div>
+        <div class="hero-meta-item">📊 5 级成熟度模型</div>
+        <div class="hero-meta-item">📝 评估工具包</div>
+        <div class="hero-meta-item">📈 长期成长路径</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 1 · 为什么需要评估体系
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="why">
+      <div class="section-header">
+        <div class="section-icon purple">🧠</div>
+        <div>
+          <div class="section-title">为什么需要评估体系</div>
+          <div class="section-subtitle">没有评估的学习，就像没有里程碑的项目</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">核心观点：AI 能力需要系统化管理</div>
+          很多人学完 AI 使用技巧后，会陷入"学了很多但不知道自己到底在什么水平"的困惑。就像学编程需要从 junior 到 senior 的职级体系一样，AI 协作能力也需要一个<strong>清晰的等级框架</strong>来帮助你定位当前水平、明确进阶方向。本模块将帮你建立一个可量化、可跟踪的 <strong>AI 能力成长体系</strong>，确保你的 AI 协作能力持续精进而非停滞不前。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔄 有评估 vs 无评估的对比</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        有体系化评估的学习者和没有评估的学习者，在 6 个月后的能力差距将非常显著。
+      </p>
+
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 无评估的学习</div>
+          <ul>
+            <li>学完课程后凭感觉使用，没有标准衡量</li>
+            <li>遇到问题不知道是哪个环节出了错</li>
+            <li>好的 Prompt 用完就忘，无法复用</li>
+            <li>能力提升靠运气，缺乏系统方法</li>
+            <li>3个月后退回到原来的使用习惯</li>
+            <li>无法向团队证明 AI 带来的价值</li>
+            <li>学习投入与实际产出不成比例</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 有评估的精进</div>
+          <ul>
+            <li>清楚知道自己在 5 级模型中的位置</li>
+            <li>能精确定位薄弱环节并针对性提升</li>
+            <li>建立个人 Prompt 资产库，持续积累复用</li>
+            <li>每月自我评估，跟踪能力成长曲线</li>
+            <li>6 个月后达到 L4 甚至 L5 的水准</li>
+            <li>用数据证明 AI 带来的效率提升</li>
+            <li>成为团队中的 AI 协作标杆和教练</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📌 评估体系的三大支柱</h3>
+
+      <div class="card-grid card-grid-3">
+        <div class="card card-accent-blue">
+          <strong>📊 成熟度模型</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            5 级成熟度模型提供了一个<strong>客观的能力标尺</strong>。从 L1（被动使用者）到 L5（AI 战略家），每个等级都有明确的能力特征和行为标准，让你精准定位自己的当前水平。
+          </p>
+        </div>
+        <div class="card card-accent-green">
+          <strong>📝 自我评估工具</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            4 个评估维度 × 5 级评分标准 = <strong>20 项能力检查点</strong>。每月花 15 分钟进行自我评估，记录能力成长轨迹，识别需要重点提升的领域。
+          </p>
+        </div>
+        <div class="card card-accent-purple">
+          <strong>📚 Prompt 资产库</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            将你积累的优质 Prompt 按场景、行业、功能分类管理，形成<strong>个人知识资产</strong>。好的 Prompt 不是用完就丢的消耗品，而是可以持续优化和复用的生产工具。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 2 · 5 级 AI 协作成熟度模型
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="maturity">
+      <div class="section-header">
+        <div class="section-icon blue">📈</div>
+        <div>
+          <div class="section-title">5 级 AI 协作成熟度模型</div>
+          <div class="section-subtitle">从被动使用者到 AI 战略家的进阶之路</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">🎯</div>
+        <div class="infobox-body">
+          <div class="infobox-title">成熟度模型概述</div>
+          这个 5 级模型参考了 CMMI 能力成熟度模型的理念，结合 AI 协作的实际场景设计而成。大多数完成本课程的学员应该能从 L1-L2 提升到 <strong>L3-L4</strong>。L5 是长期目标，通常需要 6-12 个月的持续实践才能达到。每个等级不是简单的技能堆叠，而是代表着<strong>思维模式</strong>的根本转变。
+        </div>
+      </div>
+
+      <div class="maturity-list">
+        <!-- L1 -->
+        <div class="maturity-card">
+          <div class="maturity-badge">L1</div>
+          <div class="maturity-body">
+            <h4>被动使用者 — 搜索引擎替代</h4>
+            <span class="maturity-tag">入门级 · 大多数人的起点</span>
+            <p>把 AI 当作更聪明的搜索引擎使用。只会提简单的问题，期望获得直接的答案。不了解 Prompt 工程，不使用角色设定、上下文提供等技巧。通常只进行单轮对话，对不满意的结果选择放弃或重新提问。</p>
+            <div class="maturity-example">
+              <strong>典型行为：</strong>"什么是微服务？" "帮我写个函数" "Redis怎么用？"<br>
+              <strong>核心局限：</strong>没有意识到 AI 的能力远不止"回答问题"，大量 AI 潜力被浪费。<br>
+              <strong>产出质量：</strong>获得基础信息，但无法直接用于工作交付。
+            </div>
+            <p class="maturity-tip">💡 升级方向：学习 RACE 框架，开始在提问中加入角色和上下文。</p>
+          </div>
+        </div>
+
+        <!-- L2 -->
+        <div class="maturity-card">
+          <div class="maturity-badge">L2</div>
+          <div class="maturity-body">
+            <h4>主动提问者 — 结构化 Prompt</h4>
+            <span class="maturity-tag">初级 · 开始有意识地构建 Prompt</span>
+            <p>开始使用结构化的方式与 AI 交互。知道要给角色、提供上下文、指定输出格式。能够构建出比较有效的 Prompt，产出可以直接使用或稍作修改的内容。但还停留在单次交互，缺少迭代优化的意识。</p>
+            <div class="maturity-example">
+              <strong>典型行为：</strong>使用 RACE 框架构建 Prompt，指定输出格式和要求。<br>
+              <strong>核心能力：</strong>结构化提问、角色设定、格式要求、基本的上下文提供。<br>
+              <strong>产出质量：</strong>初版输出即可达到 70-80% 的可用度。
+            </div>
+            <p class="maturity-tip">💡 升级方向：学习引导技巧（CoT/苏格拉底式追问）和 STAR 反馈迭代。</p>
+          </div>
+        </div>
+
+        <!-- L3 -->
+        <div class="maturity-card">
+          <div class="maturity-badge">L3</div>
+          <div class="maturity-body">
+            <h4>深度协作者 — 引导 + 迭代</h4>
+            <span class="maturity-tag">中级 · 超越 80% 的用户</span>
+            <p>不仅会提问，还会引导 AI 深度思考和持续迭代。熟练使用苏格拉底式追问、CoT 思维链、角色扮演等引导技巧。能够通过 3-5 轮对话将 AI 输出从"还行"提升到"优秀"。建立了基本的 Prompt 复用习惯，有自己的模板库。</p>
+            <div class="maturity-example">
+              <strong>典型行为：</strong>多轮对话、STAR 反馈迭代、引导 AI 深入分析、Prompt 模板积累。<br>
+              <strong>核心能力：</strong>引导技巧、迭代优化、上下文管理、基本的场景化应用。<br>
+              <strong>产出质量：</strong>经过迭代后的输出达到专业级水准，可直接用于工作交付。
+            </div>
+            <p class="maturity-tip">💡 升级方向：将 AI 融入完整工作流，建立系统化的 Prompt 资产库。</p>
+          </div>
+        </div>
+
+        <!-- L4 -->
+        <div class="maturity-card">
+          <div class="maturity-badge">L4</div>
+          <div class="maturity-body">
+            <h4>工作流整合者 — AI 融入日常</h4>
+            <span class="maturity-tag">高级 · AI 成为工作的"第二大脑"</span>
+            <p>AI 已经成为日常工作不可或缺的一部分。不是在"需要时使用 AI"，而是在工作流的每个环节自然地与 AI 协作。拥有完善的 Prompt 资产库，覆盖日常工作的主要场景。能够根据不同任务灵活选择最合适的 AI 工具和协作策略。开始指导他人使用 AI。</p>
+            <div class="maturity-example">
+              <strong>典型行为：</strong>AI 融入日常工作流、Prompt 资产库完善、指导团队成员、效率提升可量化。<br>
+              <strong>核心能力：</strong>工作流设计、多工具协同、知识管理、团队赋能。<br>
+              <strong>产出质量：</strong>个人效率提升 3-5 倍，团队整体 AI 使用水平提升。
+            </div>
+            <p class="maturity-tip">💡 升级方向：从个人效率到组织效率，制定团队 AI 策略。</p>
+          </div>
+        </div>
+
+        <!-- L5 -->
+        <div class="maturity-card">
+          <div class="maturity-badge">L5</div>
+          <div class="maturity-body">
+            <h4>AI 战略家 — 组织级 AI 赋能</h4>
+            <span class="maturity-tag">专家级 · 引领组织 AI 转型</span>
+            <p>从个人使用者升级为组织级的 AI 策略制定者。能够设计团队的 AI 工作流标准、制定 AI 使用规范和培训体系、评估新 AI 工具的价值并推动落地。关注 AI 技术发展趋势，持续优化组织的 AI 协作策略。成为团队中公认的 AI 协作专家和布道者。</p>
+            <div class="maturity-example">
+              <strong>典型行为：</strong>制定组织 AI 策略、设计团队 AI 工作流、培训和赋能他人、持续跟踪 AI 趋势。<br>
+              <strong>核心能力：</strong>策略规划、流程设计、培训体系、技术前瞻。<br>
+              <strong>产出质量：</strong>推动组织级的效率提升，建立可复制的 AI 协作最佳实践。
+            </div>
+            <p class="maturity-tip">💡 持续精进：关注 AI 行业动态，参与社区分享，持续更新组织 AI 策略。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">🚀</div>
+        <div class="infobox-body">
+          <div class="infobox-title">快速定位你的等级</div>
+          <strong>L1 → L2：</strong>你开始使用 RACE 框架了吗？有没有在提问中加入角色设定？<br>
+          <strong>L2 → L3：</strong>你会用追问引导 AI 深入思考吗？有没有进行多轮迭代？<br>
+          <strong>L3 → L4：</strong>AI 是你的"偶尔工具"还是"日常伙伴"？你有 Prompt 资产库吗？<br>
+          <strong>L4 → L5：</strong>你有没有帮助团队提升 AI 协作能力？有没有制定团队 AI 策略？
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 3 · 自我评估方法
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="assessment">
+      <div class="section-header">
+        <div class="section-icon green">📝</div>
+        <div>
+          <div class="section-title">自我评估方法</div>
+          <div class="section-subtitle">4 个维度 × 5 级评分，精准定位你的能力水平</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📋</div>
+        <div class="infobox-body">
+          <div class="infobox-title">评估使用指南</div>
+          建议每月进行一次自我评估，每个维度独立打分（1-5 分）。用雷达图记录各维度得分的变化趋势。评估时要<strong>诚实客观</strong>——高估自己的水平会阻碍进步。找一位同事互相评估也是一个很好的方式。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📊 四大评估维度</h3>
+
+      <div class="assess-grid">
+        <div class="assess-card">
+          <span class="ac-emoji">🎯</span>
+          <h4>维度一：Prompt 质量</h4>
+          <p>评估你构建 Prompt 的结构化程度和有效性。好的 Prompt 应该包含角色、行动、上下文和期望，能让 AI 一次理解你的需求。</p>
+          <div class="ac-scale">
+            <div><span>1 分</span><span>简单关键词式提问</span></div>
+            <div><span>2 分</span><span>有基本任务描述</span></div>
+            <div><span>3 分</span><span>使用 RACE 框架</span></div>
+            <div><span>4 分</span><span>RACE + 示例 + 约束</span></div>
+            <div><span>5 分</span><span>系统化 Prompt 工程</span></div>
+          </div>
+        </div>
+        <div class="assess-card">
+          <span class="ac-emoji">🧭</span>
+          <h4>维度二：引导深度</h4>
+          <p>评估你引导 AI 深度思考的能力。包括追问技巧、CoT 引导、角色扮演和多角度分析等高级引导策略。</p>
+          <div class="ac-scale">
+            <div><span>1 分</span><span>只进行单轮对话</span></div>
+            <div><span>2 分</span><span>会简单追问</span></div>
+            <div><span>3 分</span><span>使用 CoT 和追问</span></div>
+            <div><span>4 分</span><span>多策略灵活运用</span></div>
+            <div><span>5 分</span><span>设计完整思维引导流</span></div>
+          </div>
+        </div>
+        <div class="assess-card">
+          <span class="ac-emoji">🔄</span>
+          <h4>维度三：迭代效率</h4>
+          <p>评估你通过反馈持续优化 AI 输出的能力。包括 STAR 反馈、多种迭代策略和上下文管理等。</p>
+          <div class="ac-scale">
+            <div><span>1 分</span><span>接受第一次输出</span></div>
+            <div><span>2 分</span><span>会要求"改进"</span></div>
+            <div><span>3 分</span><span>使用 STAR 精准反馈</span></div>
+            <div><span>4 分</span><span>4 种迭代策略灵活运用</span></div>
+            <div><span>5 分</span><span>建立完整迭代工作流</span></div>
+          </div>
+        </div>
+        <div class="assess-card">
+          <span class="ac-emoji">💼</span>
+          <h4>维度四：场景应用</h4>
+          <p>评估你将 AI 协作技巧应用到实际工作场景中的广度和深度。不只是"会用"，而是"用得好、用得巧"。</p>
+          <div class="ac-scale">
+            <div><span>1 分</span><span>偶尔用 AI 查资料</span></div>
+            <div><span>2 分</span><span>1-2 个场景使用</span></div>
+            <div><span>3 分</span><span>3-4 个场景熟练</span></div>
+            <div><span>4 分</span><span>全场景覆盖 + 模板库</span></div>
+            <div><span>5 分</span><span>设计团队 AI 工作流</span></div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 评估结果解读</h3>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:15%">总分</th>
+              <th style="width:15%">对应等级</th>
+              <th style="width:35%">能力描述</th>
+              <th style="width:35%">进阶建议</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>4-8 分</strong></td>
+              <td>L1 被动使用者</td>
+              <td>基本不使用结构化方法，AI 使用停留在搜索替代</td>
+              <td>重点学习模块一 RACE 框架，养成结构化提问的习惯</td>
+            </tr>
+            <tr>
+              <td><strong>9-12 分</strong></td>
+              <td>L2 主动提问者</td>
+              <td>掌握基本的结构化提问，但缺少引导和迭代能力</td>
+              <td>深入学习模块三引导技巧和模块四迭代策略</td>
+            </tr>
+            <tr>
+              <td><strong>13-16 分</strong></td>
+              <td>L3 深度协作者</td>
+              <td>能够引导 AI 深度思考并持续迭代，但场景应用不够广</td>
+              <td>扩展应用场景，建立个人 Prompt 资产库</td>
+            </tr>
+            <tr>
+              <td><strong>17-18 分</strong></td>
+              <td>L4 工作流整合者</td>
+              <td>AI 融入日常工作，拥有完善的模板库和复用体系</td>
+              <td>开始赋能团队，制定团队 AI 使用标准和流程</td>
+            </tr>
+            <tr>
+              <td><strong>19-20 分</strong></td>
+              <td>L5 AI 战略家</td>
+              <td>引领组织 AI 转型，拥有系统化的 AI 协作方法论</td>
+              <td>持续跟踪 AI 发展趋势，更新和优化组织策略</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">评估小技巧</div>
+          <strong>1. 记录得分趋势：</strong>用电子表格记录每月的 4 维得分，用折线图观察进步趋势。<br>
+          <strong>2. 找出短板：</strong>4 个维度中得分最低的就是你的短板，集中精力提升它的投入产出比最高。<br>
+          <strong>3. 同伴互评：</strong>找一位同事互相评估，他人视角往往能发现自己忽略的问题。<br>
+          <strong>4. 结合实际产出：</strong>不要只看主观评分，也看看你最近的 AI 协作成果是否真正高质量。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 4 · 个人 Prompt 资产库
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="library">
+      <div class="section-header">
+        <div class="section-icon orange">📚</div>
+        <div>
+          <div class="section-title">个人 Prompt 资产库</div>
+          <div class="section-subtitle">让每一个好 Prompt 成为可复用的生产力工具</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">核心理念：Prompt 是资产，不是消耗品</div>
+          你花 30 分钟迭代出一个完美的 PRD 生成 Prompt，如果用完就扔掉，下次还得重新花 30 分钟。但如果你把它存入资产库，下次只需<strong>复用 + 微调 = 3 分钟</strong>搞定。一个经过验证的高质量 Prompt 就像一段经过测试的代码函数——它是你的<strong>知识资产</strong>，随着使用和优化，价值会越来越高。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📂 资产库分类体系</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        一个好的 Prompt 资产库需要清晰的分类体系，让你在需要时能快速找到对应的模板。推荐以下三层分类：
+      </p>
+
+      <div class="asset-grid">
+        <div class="asset-card">
+          <span class="as-emoji">📁</span>
+          <h4>按场景分类</h4>
+          <p>PRD撰写、代码审查、营销文案、数据分析、客户沟通、项目管理等。每个场景文件夹下存放该场景的所有 Prompt 模板和优化版本。</p>
+        </div>
+        <div class="asset-card">
+          <span class="as-emoji">🏷️</span>
+          <h4>按行业标签</h4>
+          <p>电商、金融、教育、医疗、SaaS等行业标签。同一个场景在不同行业有不同的行业术语和惯例，标签化管理让你快速找到行业适配版本。</p>
+        </div>
+        <div class="asset-card">
+          <span class="as-emoji">⭐</span>
+          <h4>按质量评级</h4>
+          <p>★ 初版（可用但需优化）、★★ 验证版（经过至少 3 次使用验证）、★★★ 精品版（经过 10+ 次使用和迭代，效果稳定）。只有精品版才推荐给团队。</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 Prompt 资产卡片模板</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        每个 Prompt 存入资产库时，应该包含以下元信息，方便后续检索和复用：
+      </p>
+
+      <div class="prompt-template">
+        <span class="pt-label">Prompt 资产卡模板</span>
+<span class="placeholder">📌 名称：</span>PRD 需求文档生成 - 电商版
+<span class="placeholder">🏷️ 标签：</span>场景:PRD | 行业:电商 | 评级:★★★
+<span class="placeholder">📅 创建：</span>2024-03-15 | 最后更新：2024-06-20
+<span class="placeholder">📊 使用次数：</span>12 次 | 平均满意度：4.5/5
+<span class="placeholder">📝 Prompt 正文：</span>
+你是一位有5年经验的产品经理，请帮我撰写一份PRD...
+<span class="placeholder">📌 使用说明：</span>
+1. 替换 [项目名称] 和 [功能描述] 部分
+2. 根据项目规模调整验收标准的数量
+3. 建议配合 STAR 反馈进行 2-3 轮迭代
+<span class="placeholder">📋 优化记录：</span>
+v1: 初版，缺少非功能需求
+v2: 增加性能和安全要求
+v3: 优化用户故事格式为 Given-When-Then
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🛠 推荐管理工具</h3>
+
+      <div class="card-grid card-grid-3">
+        <div class="card card-accent-blue">
+          <strong>📝 Notion / 飞书文档</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            用数据库视图管理 Prompt 资产，支持多维度筛选和标签分类。推荐创建一个专门的 Prompt 数据库，每条记录包含名称、场景、行业、评级、正文和使用说明。
+          </p>
+        </div>
+        <div class="card card-accent-green">
+          <strong>📋 GitHub / GitLab</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            用 Git 管理 Prompt 的版本历史，支持团队协作和代码审查流程。每个 Prompt 用 Markdown 文件管理，文件夹按场景分类。适合技术团队。
+          </p>
+        </div>
+        <div class="card card-accent-purple">
+          <strong>🗂️ 个人笔记工具</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            Obsidian、LogSeq 等个人知识管理工具，支持双向链接和标签系统。适合个人使用，可以将 Prompt 资产与其他工作笔记关联，形成知识网络。
+          </p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">资产库管理 Pro Tips</div>
+          <strong>1. 从今天开始积累：</strong>每次得到满意的 AI 输出，就把对应的 Prompt 存入资产库，不要拖延。<br>
+          <strong>2. 定期清理和升级：</strong>每月花 30 分钟审查资产库，淘汰低效的 Prompt，升级高频使用的模板。<br>
+          <strong>3. 团队共享：</strong>将个人的精品 Prompt 分享给团队，建立团队级 Prompt 资产库。<br>
+          <strong>4. 记录优化日志：</strong>每次优化 Prompt 都记录原因和效果，形成可追溯的优化历程。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 5 · 学习路径规划
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="path">
+      <div class="section-header">
+        <div class="section-icon blue">🗺️</div>
+        <div>
+          <div class="section-title">学习路径规划</div>
+          <div class="section-subtitle">从课程结束到持续精进的 3 阶段行动计划</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">课程结束才是真正的开始</div>
+          完成这 6 个模块的学习只是打下了基础。真正的 AI 协作能力来自于<strong>持续的实践和优化</strong>。以下 3 阶段行动计划将帮你在课程结束后继续保持进步节奏，避免"学完就忘"的陷阱。关键是建立<strong>习惯</strong>——让 AI 协作成为你的工作本能，而非刻意行为。
+        </div>
+      </div>
+
+      <div class="path-grid">
+        <div class="path-card">
+          <div class="pc-phase">第一阶段 · 第 1-2 周</div>
+          <h4>🎯 巩固基础 + 建立习惯</h4>
+          <p>重点是将课程中学到的方法论内化为日常习惯。</p>
+          <ul>
+            <li>每天至少用 RACE 框架构建 3 个 Prompt</li>
+            <li>完成模块一到四的所有课后练习</li>
+            <li>建立个人 Prompt 资产库（至少 10 个模板）</li>
+            <li>进行第一次 4 维度自我评估</li>
+            <li>选择 2 个最相关的工作场景深入练习</li>
+          </ul>
+        </div>
+        <div class="path-card">
+          <div class="pc-phase">第二阶段 · 第 3-8 周</div>
+          <h4>📈 扩展场景 + 迭代优化</h4>
+          <p>从 2 个核心场景扩展到 4-6 个场景，提升迭代效率。</p>
+          <ul>
+            <li>将 AI 协作扩展到日常工作的各个环节</li>
+            <li>Prompt 资产库扩展到 30+ 个验证过的模板</li>
+            <li>每周记录 1 个"AI 协作最佳实践"案例</li>
+            <li>月度自我评估，关注薄弱维度提升</li>
+            <li>开始向 1-2 位同事分享 AI 使用技巧</li>
+          </ul>
+        </div>
+        <div class="path-card">
+          <div class="pc-phase">第三阶段 · 第 9 周起</div>
+          <h4>🚀 团队赋能 + 持续精进</h4>
+          <p>从个人精进到团队赋能，建立持续学习机制。</p>
+          <ul>
+            <li>组织团队 AI 协作分享会（月度）</li>
+            <li>建立团队 Prompt 资产库和标准流程</li>
+            <li>跟踪 AI 工具新功能和行业最佳实践</li>
+            <li>季度评估：用数据证明 AI 带来的效率提升</li>
+            <li>目标：个人达到 L4，团队平均达到 L3</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">常见的学习陷阱</div>
+          <strong>陷阱一：学完不练。</strong>课程结束后如果不立即实践，两周后就会退回原来的使用习惯。<br>
+          <strong>陷阱二：追求完美。</strong>不要等 Prompt 完美才开始使用，"先用起来，再优化"是最好的策略。<br>
+          <strong>陷阱三：工具焦虑。</strong>不要花太多时间比较不同 AI 工具，专注于提升你的协作方法论。工具会变，方法论不变。<br>
+          <strong>陷阱四：独自进步。</strong>和团队一起学习进步的速度是独自学习的 3 倍。建立学习小组，互相分享和督促。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 6 · 课程总结与练习
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon orange">🏆</div>
+        <div>
+          <div class="section-title">课程总结与练习</div>
+          <div class="section-subtitle">回顾 6 个模块的核心精华，开启持续精进之旅</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">⭐ 全课程六大核心要点</h3>
+
+      <div class="rule-list">
+        <div class="rule-item">
+          <div class="rule-num">1</div>
+          <div>
+            <p><strong>模块一 · 提问的艺术：用 RACE 框架构建每一个 Prompt</strong></p>
+            <p>角色（Role）+ 行动（Action）+ 上下文（Context）+ 期望（Expectation）。结构化提问是一切 AI 协作的基础，牢记"一次一事、先给角色、提供示例、明确约束、给出标准"五条黄金法则。</p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">2</div>
+          <div>
+            <p><strong>模块二 · 总结的艺术：用 3 层框架提炼信息价值</strong></p>
+            <p>要点提取 → 结构化整理 → 洞察与建议。掌握 6 大场景模板，用 5 维度质量检查确保总结的完整性、准确性、结构性、可操作性和简洁性。</p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">3</div>
+          <div>
+            <p><strong>模块三 · 引导的艺术：用苏格拉底式追问和 CoT 激活深度思考</strong></p>
+            <p>6 种追问类型（澄清、假设、证据、视角、推论、元认知）+ CoT 思维链引导 + 角色扮演策略。让 AI 不只回答表面问题，而是进行系统性分析。</p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">4</div>
+          <div>
+            <p><strong>模块四 · 反馈与迭代：用 STAR 模型和 4 大策略持续优化</strong></p>
+            <p>STAR（情境 + 任务 + 行动 + 结果）精准反馈 + 聚焦/方向/格式/深度 4 种迭代策略 + 上下文管理技巧。好结果是迭代出来的。</p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">5</div>
+          <div>
+            <p><strong>模块五 · 场景化实战：6 大场景覆盖日常工作核心需求</strong></p>
+            <p>PRD 撰写、代码审查、营销文案、数据分析、客户沟通、项目管理。每个场景的核心公式：RACE 定义上下文 + 引导提升深度 + STAR 迭代优化质量。</p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">6</div>
+          <div>
+            <p><strong>模块六 · 评估与精进：5 级成熟度模型 + 资产库 + 持续学习</strong></p>
+            <p>用 4 维度评估定位能力水平，建立个人 Prompt 资产库积累知识资产，按 3 阶段路径持续精进。从"会用"到"精通"到"赋能他人"。</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:2rem 0 0.75rem;">✏️ 实操练习</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下 3 道练习是整个课程的综合性评估。完成这些练习，你将拥有一个完整的个人 AI 能力提升计划。
+      </p>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块六 · 课程总结练习</h2>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <strong>自我评估：完成 4 维度能力评估</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              使用本模块的 4 维度评估框架，对自己当前的 AI 协作能力进行一次全面评估：<br>
+              · <strong>Step 1：</strong>分别为 Prompt 质量、引导深度、迭代效率、场景应用 4 个维度打分（1-5 分）<br>
+              · <strong>Step 2：</strong>为每个分数提供至少 1 个支持证据（你最近的 AI 使用案例）<br>
+              · <strong>Step 3：</strong>确定你当前的成熟度等级（L1-L5）<br>
+              · <strong>Step 4：</strong>识别得分最低的维度，制定一个具体的提升计划<br><br>
+              <strong>提交物：</strong>评估得分卡 + 证据说明 + 短板提升计划（200 字以上）。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：评估得分卡 + 短板提升计划</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <strong>Prompt 资产库：建立个人初始资产库</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              回顾课程中所有的 Prompt 模板和你自己的练习成果，建立个人的初始 Prompt 资产库：<br>
+              · <strong>Step 1：</strong>选择一个管理工具（Notion/飞书/GitHub 等）<br>
+              · <strong>Step 2：</strong>按照"场景/行业/评级"三层分类体系组织资产库<br>
+              · <strong>Step 3：</strong>收录至少 10 个 Prompt 模板（覆盖至少 3 个场景）<br>
+              · <strong>Step 4：</strong>为每个 Prompt 填写完整的资产卡（名称、标签、使用说明、优化记录）<br><br>
+              <strong>提交物：</strong>Prompt 资产库链接或截图 + 资产卡示例。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：10+ Prompt 资产库 + 资产卡</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <strong>行动计划：制定 30 天 AI 精进计划</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              基于自我评估结果，制定一个具体的 30 天 AI 协作能力提升计划：<br>
+              · <strong>Week 1：</strong>每天用 RACE 框架构建 3 个 Prompt，重点练习你的薄弱维度<br>
+              · <strong>Week 2：</strong>选择 1 个新场景深入练习，积累 5+ 个高质量 Prompt<br>
+              · <strong>Week 3：</strong>完成一个完整的工作项目（PRD/代码审查/分析报告等）全程使用 AI 协作<br>
+              · <strong>Week 4：</strong>进行第二次自我评估，对比 30 天前后的成长；分享你的经验给 1 位同事<br><br>
+              <strong>评估标准：</strong>30 天后各维度得分是否有提升？Prompt 资产库是否扩展到 20+ 个？是否成功向他人分享了你的经验？
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：30 天行动计划 + 每周自检记录</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-success" style="margin-top:2rem;">
+        <div class="infobox-icon">🎉</div>
+        <div class="infobox-body">
+          <div class="infobox-title">恭喜你完成全部课程！</div>
+          你已经系统学习了 AI 协作的 <strong>6 大核心模块</strong>——从提问的基础框架到深度引导、从反馈迭代到场景实战、再到能力评估和持续精进。
+          记住，AI 协作是一项<strong>可以持续提升的技能</strong>。今天的你已经拥有了比 90% 的 AI 用户更系统的方法论。
+          接下来要做的就是<strong>实践、积累、分享</strong>——用 AI 协作的力量改变你和团队的工作方式。🚀
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1rem;">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">模块六核心总结</div>
+          AI 协作能力需要<strong>系统化管理</strong>：5 级成熟度模型帮你定位当前水平，4 维度评估帮你识别短板。
+          建立<strong>个人 Prompt 资产库</strong>：按场景/行业/评级分类，让好 Prompt 成为可复用的生产力工具。
+          制定<strong>持续精进计划</strong>：3 阶段（巩固基础 → 扩展场景 → 团队赋能），从 L1 向 L5 持续进阶。
+          记住：课程结束才是真正的开始。<strong>坚持实践 + 持续积累 + 分享赋能</strong>，你的 AI 协作能力将持续增长。
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="module5.html" class="btn-prev">← 模块五：场景化协作实战</a>
+        <a href="index.html" class="btn-next">返回课程总览 →</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块五：场景化协作实战 — AI 协作技巧培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── 场景卡片网格 ── */
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .scenario-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+      text-align: center;
+    }
+    .scenario-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .scenario-card .sc-emoji { font-size: 2.2rem; margin-bottom: 0.5rem; display: block; }
+    .scenario-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; }
+    .scenario-card .sc-skills {
+      font-size: 0.75rem;
+      color: var(--collab-accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .scenario-card p { font-size: 0.84rem; color: var(--medium); line-height: 1.5; }
+
+    /* ── 工作流步骤 ── */
+    .workflow-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .wf-step {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .wf-step:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .wf-step::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 4px;
+    }
+    .wf-step:nth-child(1)::before { background: #3B82F6; }
+    .wf-step:nth-child(2)::before { background: #F59E0B; }
+    .wf-step:nth-child(3)::before { background: #10B981; }
+    .wf-step:nth-child(4)::before { background: #8B5CF6; }
+    .wf-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .wf-step:nth-child(1) .wf-num { background: #3B82F6; }
+    .wf-step:nth-child(2) .wf-num { background: #F59E0B; }
+    .wf-step:nth-child(3) .wf-num { background: #10B981; }
+    .wf-step:nth-child(4) .wf-num { background: #8B5CF6; }
+    .wf-body h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.25rem; }
+    .wf-body .wf-module { font-size: 0.72rem; font-weight: 700; color: var(--collab-accent); margin-bottom: 0.4rem; }
+    .wf-body p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin: 0; }
+
+    /* ── 审查焦点卡 ── */
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .review-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .review-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .review-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .review-card:nth-child(1)::before { background: #EF4444; }
+    .review-card:nth-child(2)::before { background: #F59E0B; }
+    .review-card:nth-child(3)::before { background: #3B82F6; }
+    .review-card:nth-child(4)::before { background: #10B981; }
+    .review-card .rv-emoji { font-size: 1.6rem; margin-bottom: 0.5rem; display: block; }
+    .review-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .review-card p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; }
+    .review-card ul { list-style: none; margin-top: 0.5rem; font-size: 0.84rem; color: var(--medium); }
+    .review-card ul li { margin-bottom: 4px; }
+    .review-card ul li::before { content: '▸ '; color: var(--collab-accent); font-weight: 700; }
+
+    /* ── 文案类型卡 ── */
+    .copy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .copy-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .copy-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .copy-card .cc-emoji { font-size: 1.6rem; margin-bottom: 0.5rem; display: block; }
+    .copy-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .copy-card p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; }
+
+    /* ── 迭代要点卡 ── */
+    .rule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+    .rule-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #16A34A;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .rule-item strong { color: #166534; }
+    .rule-item p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin: 0; }
+
+    @media (max-width: 768px) {
+      .scenario-grid { grid-template-columns: 1fr; }
+      .review-grid { grid-template-columns: 1fr; }
+      .copy-grid { grid-template-columns: 1fr; }
+      .wf-step { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🤝 AI 协作技巧培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html" class="active">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块五导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview"><span class="nav-num">1</span>场景实战总览</a></li>
+      <li><a href="#prd"><span class="nav-num">2</span>场景一：PRD 撰写</a></li>
+      <li><a href="#code"><span class="nav-num">3</span>场景二：代码审查</a></li>
+      <li><a href="#marketing"><span class="nav-num">4</span>场景三：营销文案</a></li>
+      <li><a href="#data"><span class="nav-num">5</span>场景四：数据分析</a></li>
+      <li><a href="#communication"><span class="nav-num">6</span>场景五六：沟通管理</a></li>
+      <li><a href="#practice"><span class="nav-num">7</span>综合练习</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">MODULE 05</span>
+        场景化协作实战
+      </div>
+      <h1>💼 场景化协作实战<br>6 大工作场景全覆盖</h1>
+      <p class="hero-subtitle">将前 4 个模块的方法论应用到真实工作场景中。覆盖 PRD 撰写、代码审查、营销文案、数据分析、客户沟通、项目管理 6 大核心场景，每个场景配有完整的 Prompt 模板和实战案例。</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 3 课时</div>
+        <div class="hero-meta-item">💼 6 大实战场景</div>
+        <div class="hero-meta-item">📋 完整 Prompt 模板</div>
+        <div class="hero-meta-item">🛠 即学即用</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 1 · 场景实战总览
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="overview">
+      <div class="section-header">
+        <div class="section-icon purple">🗺️</div>
+        <div>
+          <div class="section-title">场景实战总览</div>
+          <div class="section-subtitle">从方法论到实战，检验真正的协作能力</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">设计理念：方法论落地的关键一步</div>
+          前 4 个模块分别教会你<strong>如何提问</strong>（RACE 框架）、<strong>如何总结</strong>（3 层框架）、<strong>如何引导</strong>（苏格拉底式追问 + CoT）、<strong>如何迭代</strong>（STAR 反馈）。但真正的能力检验，在于你能否将这些方法论<strong>无缝融入日常工作</strong>。本模块精选了 6 个最高频的工作场景，每个场景都提供了完整的 Prompt 模板、工作流程和实战案例，让你学完就能用。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">💼 六大实战场景一览</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        每个场景都综合运用了前 4 个模块的核心技能。点击各场景对应的侧边栏链接可快速跳转到详细内容。
+      </p>
+
+      <div class="scenario-grid">
+        <div class="scenario-card">
+          <span class="sc-emoji">📝</span>
+          <h4>PRD 需求文档</h4>
+          <div class="sc-skills">RACE + 总结 + 迭代</div>
+          <p>快速生成专业级产品需求文档，包含用户故事、验收标准和优先级排序。</p>
+        </div>
+        <div class="scenario-card">
+          <span class="sc-emoji">🔍</span>
+          <h4>代码审查</h4>
+          <div class="sc-skills">RACE + 引导 + 迭代</div>
+          <p>让 AI 担任代码审查搭档，检测安全漏洞、性能问题和代码规范。</p>
+        </div>
+        <div class="scenario-card">
+          <span class="sc-emoji">✍️</span>
+          <h4>营销文案</h4>
+          <div class="sc-skills">RACE + 引导 + 迭代</div>
+          <p>批量生成品牌故事、产品描述和社交媒体内容，提升文案效率 5 倍。</p>
+        </div>
+        <div class="scenario-card">
+          <span class="sc-emoji">📊</span>
+          <h4>数据分析</h4>
+          <div class="sc-skills">RACE + 总结 + CoT</div>
+          <p>用 AI 加速数据解读，设计分析框架，提炼可行动的商业洞察。</p>
+        </div>
+        <div class="scenario-card">
+          <span class="sc-emoji">💬</span>
+          <h4>客户沟通</h4>
+          <div class="sc-skills">RACE + 角色扮演</div>
+          <p>撰写专业邮件、处理客户异议、生成商务提案。</p>
+        </div>
+        <div class="scenario-card">
+          <span class="sc-emoji">📋</span>
+          <h4>项目管理</h4>
+          <div class="sc-skills">RACE + 总结 + 迭代</div>
+          <p>生成项目计划、风险矩阵和进度汇报，提升项目管理效率。</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">学习建议</div>
+          建议先通读所有场景的概述，然后选择与你日常工作最相关的 2-3 个场景深入学习和练习。每个场景的 Prompt 模板可以直接复制使用，也可以根据你的实际需求进行调整。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 2 · 场景一：PRD 需求文档撰写
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="prd">
+      <div class="section-header">
+        <div class="section-icon blue">📝</div>
+        <div>
+          <div class="section-title">场景一：PRD 需求文档撰写</div>
+          <div class="section-subtitle">用 AI 快速生成专业级产品需求文档</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">场景背景</div>
+          你是一位产品经理，需要为电商平台的会员积分系统改版撰写一份完整的 PRD。传统方式需要 2-3 天，使用 AI 协作可以将时间压缩到 <strong>2-3 小时</strong>，同时保持专业品质。关键不是让 AI 替你做决策，而是让 AI 帮你<strong>高效组织和表达</strong>你的产品想法。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📋 四步工作流</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        PRD 撰写的 AI 协作流程分为四个阶段，每个阶段运用不同模块的核心技能。
+      </p>
+
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">1</div>
+          <div class="wf-body">
+            <h4>需求背景描述</h4>
+            <div class="wf-module">运用模块一 RACE 框架</div>
+            <p>使用 RACE 框架为 AI 提供完整的项目上下文：角色（产品经理）、行动（撰写 PRD）、上下文（项目背景、技术栈、用户规模）、期望（文档结构和质量标准）。上下文越丰富，AI 生成的 PRD 越贴合实际需求。</p>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">2</div>
+          <div class="wf-body">
+            <h4>用户故事生成</h4>
+            <div class="wf-module">运用模块三 引导技巧</div>
+            <p>用苏格拉底式追问引导 AI 生成完整的用户故事。追问"还有哪些边界场景？""如果用户在操作中途退出会怎样？"让 AI 深入思考覆盖更多场景，确保用户故事的完整性。</p>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">3</div>
+          <div class="wf-body">
+            <h4>验收标准定义</h4>
+            <div class="wf-module">运用模块二 总结框架</div>
+            <p>让 AI 帮你为每个功能定义可测试的验收标准。使用 3 层框架：先提取核心功能点（要点层），再按模块组织（结构层），最后补充边界条件和异常处理（洞察层）。</p>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">4</div>
+          <div class="wf-body">
+            <h4>迭代优化</h4>
+            <div class="wf-module">运用模块四 STAR 反馈</div>
+            <p>用 STAR 模型对初版 PRD 给出精准反馈："情境：验收标准部分；任务：增加异常场景覆盖；行动：为每个 P0 功能补充 3 个异常场景的验收标准；结果：确保 QA 团队可直接用于测试用例编写"。</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 PRD 生成 Prompt 模板</h3>
+
+      <div class="prompt-template">
+        <span class="pt-label">PRD 生成模板</span>
+你是一位<span class="placeholder">[有5年经验的产品经理]</span>，
+请帮我<span class="placeholder">[撰写一份PRD需求文档]</span>，
+项目背景：<span class="placeholder">[电商平台会员积分系统改版，
+  需要支持积分兑换、等级升降、过期清零，
+  目标用户：500万注册会员，日活30万]</span>，
+要求包含：<span class="placeholder">[
+  1. 需求背景与目标（200字以内）
+  2. 用户故事（至少5个，使用 As a...I want...So that 格式）
+  3. 功能列表（按P0/P1/P2优先级分类）
+  4. 验收标准（每个P0功能至少3条）
+  5. 非功能需求（性能、安全、可用性）
+]</span>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔍 对比：模糊需求 vs 结构化 PRD</h3>
+
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 模糊需求描述</div>
+          <ul>
+            <li>帮我写个会员积分系统的需求文档</li>
+            <li>没有说明项目背景和用户规模</li>
+            <li>没有指定文档结构和格式</li>
+            <li>没有明确优先级和验收标准</li>
+            <li>AI 只能给出泛泛的模板，缺乏针对性</li>
+            <li>产出无法直接用于开发评审</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 结构化 PRD 输出</div>
+          <ul>
+            <li>明确角色、行动、上下文和期望输出</li>
+            <li>提供用户规模、技术约束等关键信息</li>
+            <li>指定文档包含 5 个核心章节</li>
+            <li>要求 P0/P1/P2 优先级分类</li>
+            <li>AI 输出可直接用于技术评审</li>
+            <li>迭代 2 轮后即可达到可交付水准</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">PRD 写作 Pro Tips</div>
+          <strong>1. 先生成框架再填充细节：</strong>让 AI 先生成 PRD 的目录结构，确认后再逐章节展开。<br>
+          <strong>2. 用户故事要追问：</strong>初版用户故事通常只覆盖正常流程，追问"异常场景""边界条件"能让文档更完整。<br>
+          <strong>3. 验收标准可测试化：</strong>要求 AI 用"Given-When-Then"格式编写验收标准，QA 团队可直接转化为测试用例。<br>
+          <strong>4. 非功能需求量化：</strong>要求具体指标而非模糊描述，如"P99 响应时间 &lt; 200ms"而非"响应要快"。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 3 · 场景二：AI 辅助代码审查
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="code">
+      <div class="section-header">
+        <div class="section-icon green">🔍</div>
+        <div>
+          <div class="section-title">场景二：AI 辅助代码审查</div>
+          <div class="section-subtitle">让 AI 成为你的代码审查搭档</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">为什么代码审查是 AI 的最佳应用场景之一</div>
+          代码审查需要关注安全性、性能、可读性、规范性等多个维度，人工审查容易遗漏。AI 可以在 <strong>30 秒内完成人类需要 30 分钟的审查</strong>，且能同时覆盖所有维度。但 AI 不能替代人类的<strong>业务逻辑判断</strong>和<strong>架构设计决策</strong>——最佳实践是 AI 做技术细节审查，人类做架构和业务审查。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔎 四大审查焦点</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        根据代码审查的不同目标，可以让 AI 聚焦于以下四个核心维度。每个维度都有特定的 Prompt 要点。
+      </p>
+
+      <div class="review-grid">
+        <div class="review-card">
+          <span class="rv-emoji">🔒</span>
+          <h4>安全漏洞检测</h4>
+          <p>检测代码中的安全隐患，包括但不限于常见的 Web 攻击面和数据泄露风险。</p>
+          <ul>
+            <li>SQL 注入与参数化查询</li>
+            <li>XSS 跨站脚本攻击</li>
+            <li>权限绕过与越权访问</li>
+            <li>敏感信息硬编码</li>
+            <li>不安全的反序列化</li>
+          </ul>
+        </div>
+        <div class="review-card">
+          <span class="rv-emoji">⚡</span>
+          <h4>性能问题分析</h4>
+          <p>识别可能导致系统性能瓶颈的代码模式和架构问题。</p>
+          <ul>
+            <li>N+1 查询问题</li>
+            <li>内存泄漏风险</li>
+            <li>死锁和竞态条件</li>
+            <li>不合理的缓存策略</li>
+            <li>大对象频繁创建</li>
+          </ul>
+        </div>
+        <div class="review-card">
+          <span class="rv-emoji">📐</span>
+          <h4>代码规范检查</h4>
+          <p>确保代码符合团队约定的编码规范和最佳实践。</p>
+          <ul>
+            <li>命名规范（变量、函数、类）</li>
+            <li>代码复杂度过高</li>
+            <li>注释缺失或过时</li>
+            <li>异常处理不规范</li>
+            <li>Magic Number 和硬编码</li>
+          </ul>
+        </div>
+        <div class="review-card">
+          <span class="rv-emoji">🔧</span>
+          <h4>重构建议</h4>
+          <p>识别代码中的设计问题并提供改进方向。</p>
+          <ul>
+            <li>设计模式的合理应用</li>
+            <li>模块解耦和职责分离</li>
+            <li>测试覆盖率提升</li>
+            <li>接口设计优化</li>
+            <li>代码复用机会</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 代码审查 Prompt 模板</h3>
+
+      <div class="prompt-template">
+        <span class="pt-label">代码审查模板</span>
+你是一位<span class="placeholder">[资深 Java 开发专家和代码审查员]</span>，
+请帮我<span class="placeholder">[审查以下代码]</span>，
+重点关注：<span class="placeholder">[安全漏洞和性能问题]</span>，
+代码背景：<span class="placeholder">[这是一个处理用户支付的 Spring Boot 接口，
+  线上并发约 3000 QPS，使用 MySQL + Redis]</span>，
+输出要求：<span class="placeholder">[
+  1. 按严重程度排序（Critical / Major / Minor）
+  2. 每个问题给出：位置、原因、修复建议代码
+  3. 总体安全评分（1-10分）
+  4. 建议的重构优先级
+]</span>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔍 基础审查 vs RACE 增强审查</h3>
+
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 基础代码审查</div>
+          <ul>
+            <li>"帮我看看这段代码有什么问题"</li>
+            <li>没有指定审查重点和维度</li>
+            <li>没有提供代码的运行环境和上下文</li>
+            <li>AI 泛泛而谈，遗漏关键问题</li>
+            <li>输出格式不一致，难以跟踪</li>
+            <li>缺乏可操作的修复建议</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ RACE 增强审查</div>
+          <ul>
+            <li>明确角色：资深开发专家 + 安全审查员</li>
+            <li>指定焦点：安全漏洞、性能问题</li>
+            <li>提供上下文：并发量、技术栈、业务场景</li>
+            <li>AI 聚焦关键问题，按严重程度排序</li>
+            <li>每个问题附带修复代码</li>
+            <li>产出可直接用于代码修复和技术债务跟踪</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">代码审查 Pro Tips</div>
+          <strong>1. 分模块审查：</strong>大段代码一次性丢给 AI 效果不好，建议按函数或模块分批审查。<br>
+          <strong>2. 追问具体问题：</strong>对 AI 发现的每个问题追问"这个问题在高并发下会导致什么后果？"以评估真实影响。<br>
+          <strong>3. 要求修复代码：</strong>不只要问题列表，还要求 AI 给出完整的修复代码示例。<br>
+          <strong>4. 结合 GitHub Copilot：</strong>用 Copilot 生成代码，用 Claude/ChatGPT 审查代码，形成"生成-审查"闭环。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 4 · 场景三：营销文案创作
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="marketing">
+      <div class="section-header">
+        <div class="section-icon orange">✍️</div>
+        <div>
+          <div class="section-title">场景三：营销文案创作</div>
+          <div class="section-subtitle">用 AI 批量生成高转化率文案</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI 文案创作的核心原则</div>
+          AI 生成文案的关键不是"让 AI 自由发挥"，而是<strong>精准定义目标受众、品牌调性和转化目标</strong>。一个好的文案 Prompt 必须包含三要素：<strong>产品卖点</strong>（核心差异化）、<strong>目标人群</strong>（痛点和欲望）、<strong>平台调性</strong>（小红书种草 vs 微信公众号专业）。给 AI 越精准的"创作简报"，产出的文案越能一次命中目标。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 四种核心文案类型</h3>
+
+      <div class="copy-grid">
+        <div class="copy-card">
+          <span class="cc-emoji">📖</span>
+          <h4>品牌故事</h4>
+          <p>用情感共鸣打动用户，建立品牌与用户之间的情感连接。关键在于找到品牌价值观与用户痛点的交叉点，用故事化的叙事方式传递品牌理念。适合官网"关于我们"、品牌宣传片脚本等场景。</p>
+        </div>
+        <div class="copy-card">
+          <span class="cc-emoji">🏷️</span>
+          <h4>产品描述</h4>
+          <p>用利益驱动的语言突出产品核心卖点。不是罗列参数，而是将功能转化为用户可感知的好处。"72小时续航"不如"充一次电，陪你跑完整个马拉松赛季"。适合电商详情页、产品手册。</p>
+        </div>
+        <div class="copy-card">
+          <span class="cc-emoji">📱</span>
+          <h4>社交媒体内容</h4>
+          <p>针对不同平台的调性定制内容。小红书要种草感和 emoji，微信要专业深度，抖音要口语化和节奏感。同一个产品在不同平台应该有不同的表达方式，AI 可以快速生成多平台适配版本。</p>
+        </div>
+        <div class="copy-card">
+          <span class="cc-emoji">🧪</span>
+          <h4>A/B 测试文案</h4>
+          <p>让 AI 为同一产品生成多个不同角度的文案变体，用于 A/B 测试。通常从"功能卖点""情感共鸣""社交证明""紧迫感"等不同切入角度分别创作，通过数据验证哪种方式最有效。</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 营销文案 Prompt 模板</h3>
+
+      <div class="prompt-template">
+        <span class="pt-label">营销文案模板</span>
+你是一位<span class="placeholder">[有10年经验的品牌策划专家]</span>，
+请帮我<span class="placeholder">[撰写产品推广文案]</span>，
+产品信息：<span class="placeholder">[智能健身手环Pro，
+  核心卖点：72小时续航、血氧监测、AI运动建议，
+  目标人群：25-35岁的都市白领，关注健康但忙于工作]</span>，
+输出要求：<span class="placeholder">[
+  1. 品牌故事（300字，情感共鸣型）
+  2. 产品描述（150字，卖点突出型）
+  3. 小红书种草文案（200字，含emoji和话题标签）
+  4. 朋友圈转发文案（50字以内，制造好奇心）
+]</span>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔍 通用文案 vs 精准文案</h3>
+
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 通用文案请求</div>
+          <ul>
+            <li>"帮我写个智能手环的推广文案"</li>
+            <li>没有指定目标受众和痛点</li>
+            <li>没有说明品牌调性和平台</li>
+            <li>输出的文案千篇一律，缺乏差异化</li>
+            <li>无法直接用于投放，需要大量修改</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 精准文案输出</div>
+          <ul>
+            <li>明确产品核心卖点和差异化特征</li>
+            <li>定义目标人群画像和核心痛点</li>
+            <li>指定各平台的文案风格和字数限制</li>
+            <li>一次生成 4 种不同类型的文案</li>
+            <li>产出经微调后可直接用于投放</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">文案创作 Pro Tips</div>
+          <strong>1. 提供竞品参考：</strong>告诉 AI "参考戴森的高端感调性"或"借鉴小米的性价比叙事"，能让文案调性更精准。<br>
+          <strong>2. 用角色扮演增加真实感：</strong>让 AI "扮演一位刚购买产品的用户撰写使用感受"，种草文案更加真实可信。<br>
+          <strong>3. 批量生成变体：</strong>要求 AI "用不同的情感切入点生成 5 个版本"，用于 A/B 测试择优。<br>
+          <strong>4. 关注合规性：</strong>提醒 AI "避免使用绝对化用语（最好、第一）和虚假宣传"，减少合规风险。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 5 · 场景四：数据分析与洞察
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="data">
+      <div class="section-header">
+        <div class="section-icon blue">📊</div>
+        <div>
+          <div class="section-title">场景四：数据分析与洞察</div>
+          <div class="section-subtitle">用 AI 加速数据解读，发现隐藏趋势</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI 在数据分析中的角色</div>
+          AI 不能直接操作你的数据库或 BI 工具，但它擅长三件事：<strong>设计分析框架</strong>（帮你明确该分析什么维度）、<strong>解读数据现象</strong>（帮你找到数据变化的可能原因）、<strong>提炼行动建议</strong>（从数据洞察转化为可执行的策略）。最有效的用法是把数据结论给 AI，让 AI 帮你"思考数据背后的故事"。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📋 数据分析四步法</h3>
+
+      <div class="card-grid card-grid-3" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="card card-accent-blue">
+          <strong>🧹 数据清洗指导</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            让 AI 帮你设计数据清洗策略：识别异常值的规则、缺失值的处理方式、数据标准化方法。提供数据字段列表和样本数据，AI 能给出完整的清洗方案。
+          </p>
+        </div>
+        <div class="card card-accent-green">
+          <strong>📐 分析框架设计</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            先让 AI 设计分析的维度和指标体系，再执行分析。好的分析框架能避免"数据汪洋中迷失方向"。让 AI 用 MECE 原则帮你穷举分析维度。
+          </p>
+        </div>
+        <div class="card card-accent-purple">
+          <strong>📈 可视化建议</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            告诉 AI 你的分析目标和受众，让 AI 推荐合适的图表类型。趋势分析用折线图、构成分析用饼图、对比分析用柱状图——AI 能根据数据特征给出最佳可视化建议。
+          </p>
+        </div>
+        <div class="card card-accent-orange">
+          <strong>💡 洞察提炼</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            将数据结果给 AI，让 AI 用 CoT 思维链逐步推理数据背后的原因，并给出可行动的建议。从"数据说了什么"到"我们应该做什么"的关键一步。
+          </p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 数据分析 Prompt 模板</h3>
+
+      <div class="prompt-template">
+        <span class="pt-label">数据分析模板</span>
+你是一位<span class="placeholder">[数据分析师]</span>，
+请帮我<span class="placeholder">[分析以下销售数据并给出运营建议]</span>，
+数据概况：<span class="placeholder">[电商平台最近3个月销售数据，
+  包含：商品类目、客单价、复购率、退货率，
+  核心问题：Q3营收同比下降15%]</span>，
+期望输出：<span class="placeholder">[
+  1. 数据异常点分析（用表格展示）
+  2. 下降原因的3-5个假设
+  3. 每个假设的验证方法
+  4. 可立即执行的3条改进建议
+  5. 建议跟踪的核心指标（North Star Metric）
+]</span>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">数据分析 Pro Tips</div>
+          <strong>1. 先给结论再问原因：</strong>"Q3 营收下降 15%，主要体现在 3C 品类客单价降低和复购率下滑"——给出事实，让 AI 推理原因。<br>
+          <strong>2. 用 CoT 深入推理：</strong>要求 AI "一步步分析可能的原因链"，而不是直接给结论。<br>
+          <strong>3. 要求验证方法：</strong>让 AI 不仅给出假设，还要说明如何验证每个假设，增加分析的严谨性。<br>
+          <strong>4. 注意数据隐私：</strong>不要将原始敏感数据直接发送给 AI，使用脱敏数据或汇总统计数据。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 6 · 场景五六：客户沟通与项目管理
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="communication">
+      <div class="section-header">
+        <div class="section-icon orange">💬</div>
+        <div>
+          <div class="section-title">场景五六：客户沟通与项目管理</div>
+          <div class="section-subtitle">用 AI 优化客户互动和项目执行效率</div>
+        </div>
+      </div>
+
+      <!-- ── 客户沟通 ── -->
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">💬 场景五：客户沟通</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        客户沟通的核心挑战是<strong>用恰当的语气传递准确的信息</strong>。AI 可以帮你在几秒内生成专业、得体的沟通内容，无论是正式邮件、异议回复还是商务提案。
+      </p>
+
+      <div class="card-grid card-grid-3">
+        <div class="card card-accent-blue">
+          <strong>📧 专业邮件撰写</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            根据沟通目的和收件人关系，生成不同语气的邮件。对上级汇报用正式简洁的语气，对客户用专业温和的语气，对团队用轻松直接的语气。让 AI 同时生成中英文版本，提升国际化沟通效率。
+          </p>
+        </div>
+        <div class="card card-accent-green">
+          <strong>🤝 异议处理话术</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            客户提出异议时，AI 可以帮你快速准备回应方案。使用角色扮演让 AI "扮演不满的客户"，提前演练各种异议场景，准备对应的话术。关键是先共情后解决："我理解您的担忧…让我们来看看…"。
+          </p>
+        </div>
+        <div class="card card-accent-purple">
+          <strong>📑 商务提案生成</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            输入客户需求和我方优势，让 AI 生成结构化的商务提案框架。包含：项目理解、解决方案、实施计划、报价策略、风险控制、成功案例。提供行业背景和客户痛点，让提案更加针对性。
+          </p>
+        </div>
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">客户邮件模板</span>
+你是一位<span class="placeholder">[专业的客户成功经理]</span>，
+请帮我<span class="placeholder">[撰写一封回复客户投诉的邮件]</span>，
+背景信息：<span class="placeholder">[客户反映我们的SaaS平台在上周五出现了
+  2小时的服务中断，影响了客户的业务运营，
+  客户要求赔偿并质疑平台的稳定性]</span>，
+要求：<span class="placeholder">[
+  1. 语气：诚恳、专业、不卑不亢
+  2. 结构：致歉→原因说明→补偿方案→预防措施
+  3. 长度：300字以内
+  4. 附带一个后续跟进计划
+]</span>
+      </div>
+
+      <!-- ── 项目管理 ── -->
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:2rem 0 0.75rem;">📋 场景六：项目管理</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        项目管理的核心是<strong>计划、跟踪和沟通</strong>。AI 可以帮你快速生成项目计划、识别风险、编写进度汇报，让你把时间花在更有价值的决策和协调上。
+      </p>
+
+      <div class="card-grid card-grid-3">
+        <div class="card card-accent-blue">
+          <strong>📋 项目计划生成</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            输入项目目标、资源和时间约束，让 AI 生成 WBS（工作分解结构）和甘特图描述。要求 AI 按阶段划分，每个阶段包含具体任务、负责人、时间估算和依赖关系。特别有效的是让 AI 帮你识别关键路径。
+          </p>
+        </div>
+        <div class="card card-accent-green">
+          <strong>⚠️ 风险评估矩阵</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            让 AI 基于项目信息生成风险矩阵：按"发生概率"和"影响程度"两个维度评估每个风险。要求 AI 不仅识别风险，还要给出缓解措施和触发指标，当风险真正发生时知道如何应对。
+          </p>
+        </div>
+        <div class="card card-accent-purple">
+          <strong>📊 进度汇报模板</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            每周/每月的进度汇报是 PM 的高频工作。让 AI 根据你的项目数据生成结构化汇报：本周完成、下周计划、风险预警、资源需求。针对不同汇报对象（CEO/VP/团队），调整汇报的详细程度和关注重点。
+          </p>
+        </div>
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">项目计划模板</span>
+你是一位<span class="placeholder">[资深项目经理（PMP认证）]</span>，
+请帮我<span class="placeholder">[制定一个软件开发项目的详细计划]</span>，
+项目信息：<span class="placeholder">[在线教育平台MVP开发，
+  团队：5名开发 + 1名设计 + 1名QA，
+  工期：3个月，预算：80万]</span>，
+输出要求：<span class="placeholder">[
+  1. WBS 工作分解（3层，用缩进表示层级）
+  2. 里程碑节点（至少4个）
+  3. 风险矩阵（top 5风险，含概率、影响、缓解措施）
+  4. 资源分配表（按周）
+  5. 关键路径标注
+]</span>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">沟通与管理 Pro Tips</div>
+          <strong>1. 邮件分层写：</strong>先让 AI 写正式版，再要求生成简短版和口语版，选择最合适的版本发送。<br>
+          <strong>2. 异议提前演练：</strong>让 AI "扮演最难缠的客户"提出异议，你来练习回应，比临场发挥效果好 10 倍。<br>
+          <strong>3. 项目计划要留 Buffer：</strong>告诉 AI "按照经验，实际工期通常是估算的 1.3 倍，请在计划中预留缓冲"。<br>
+          <strong>4. 汇报要分受众：</strong>给 CEO 看战略进展和ROI，给技术VP看架构决策和风险，给团队看具体任务和进度。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 7 · 综合实战练习
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon orange">🏆</div>
+        <div>
+          <div class="section-title">综合实战练习</div>
+          <div class="section-subtitle">综合运用所有技能，完成真实工作挑战</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">⭐ 六大场景核心要点回顾</h3>
+
+      <div class="rule-list">
+        <div class="rule-item">
+          <div class="rule-num">1</div>
+          <div>
+            <p><strong>PRD 撰写：先框架后细节，用 RACE 提供完整上下文</strong></p>
+            <p>让 AI 先生成文档结构，确认后再逐章展开。用户故事要追问边界场景，验收标准要可测试化。迭代 2-3 轮即可达到可交付水准。</p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">2</div>
+          <div>
+            <p><strong>代码审查：分模块审查，按严重程度排序</strong></p>
+            <p>指定审查焦点和代码上下文，要求按 Critical/Major/Minor 排序。对每个问题追问影响范围，并要求附带修复代码。</p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">3</div>
+          <div>
+            <p><strong>营销文案：产品卖点 + 目标人群 + 平台调性，三者缺一不可</strong></p>
+            <p>同一产品在不同平台应有不同的表达方式。批量生成多个版本用于 A/B 测试，注意合规用语。</p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">4</div>
+          <div>
+            <p><strong>数据分析：先给结论再问原因，用 CoT 深入推理</strong></p>
+            <p>让 AI 设计分析框架和指标体系，给数据让 AI 推理原因链。要求验证方法，注意数据隐私。</p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">5</div>
+          <div>
+            <p><strong>客户沟通：语气要匹配关系和场景，先共情后解决</strong></p>
+            <p>用角色扮演提前演练异议处理，准备多种语气版本的邮件，选择最合适的发送。</p>
+          </div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-num">6</div>
+          <div>
+            <p><strong>项目管理：计划要留 Buffer，汇报要分受众</strong></p>
+            <p>让 AI 识别关键路径和 top 风险。不同汇报对象关注不同维度：战略、技术、执行。</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:2rem 0 0.75rem;">✏️ 实操练习</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下 3 道练习覆盖了本模块最核心的实战场景。选择与你工作最相关的练习深入实操。
+      </p>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块五 · 综合实战练习</h2>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <strong>PRD 实战：为真实项目功能撰写完整 PRD</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选择你正在或即将负责的一个产品功能，使用本模块的 4 步工作流和 Prompt 模板，与 AI 协作完成一份完整的 PRD：<br>
+              · <strong>Step 1：</strong>使用 RACE 框架向 AI 描述项目背景和需求<br>
+              · <strong>Step 2：</strong>用苏格拉底式追问引导 AI 补充用户故事和边界场景<br>
+              · <strong>Step 3：</strong>让 AI 为每个 P0 功能生成 Given-When-Then 格式的验收标准<br>
+              · <strong>Step 4：</strong>使用 STAR 反馈进行至少 2 轮迭代优化<br><br>
+              <strong>提交物：</strong>最终 PRD 文档 + 完整的 AI 对话记录（标注每一步使用了哪个模块的技巧）。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：PRD 文档 + 标注后的对话记录</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <strong>代码审查实战：AI 辅助审查真实代码</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选择你最近编写或 Review 的一段代码（50-200行），使用代码审查模板让 AI 进行全面审查：<br>
+              · <strong>Step 1：</strong>使用 RACE 框架提供代码背景（技术栈、并发量、业务场景）<br>
+              · <strong>Step 2：</strong>要求 AI 从安全、性能、规范、重构 4 个维度审查<br>
+              · <strong>Step 3：</strong>对 AI 发现的每个 Critical/Major 问题追问具体影响和修复方案<br>
+              · <strong>Step 4：</strong>将 AI 的修复建议应用到代码中，让 AI 再次审查修复后的版本<br><br>
+              <strong>提交物：</strong>原始代码 + AI 审查报告 + 修复后代码 + 二次审查对比。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：审查报告 + 修复前后代码对比</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <strong>综合场景挑战：完整迭代从初稿到终稿</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              从以下场景中选择一个，完成从"初始 Prompt"到"最终成果"的完整迭代过程：<br>
+              · <strong>选项A：营销文案</strong>— 为一个真实产品生成多平台文案套件（品牌故事 + 产品描述 + 社媒内容）<br>
+              · <strong>选项B：数据分析</strong>— 分析一份真实业务数据，产出完整的分析报告和行动建议<br>
+              · <strong>选项C：客户沟通</strong>— 为一个复杂的客户场景准备完整的沟通方案（邮件 + 异议处理 + 后续跟进计划）<br><br>
+              <strong>评估标准：</strong>至少经过 3 轮迭代；每轮迭代有明确的改进目标；最终产出达到可直接使用的标准。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：完整迭代记录 + 最终成果 + 迭代对比分析</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:2rem;">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">模块五核心总结</div>
+          方法论的价值在于<strong>落地实践</strong>。6 大场景覆盖了日常工作中最高频的 AI 协作需求。
+          每个场景的核心公式：<strong>RACE 框架（定义上下文）+ 引导/追问（提升深度）+ STAR 迭代（优化质量）</strong>。
+          关键是<strong>先掌握 2-3 个最相关的场景</strong>，形成肌肉记忆后再扩展到其他场景。
+          记住：Prompt 模板是起点而非终点，根据你的实际需求不断调整和优化，才能发挥最大价值。
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="module4.html" class="btn-prev">← 模块四：反馈与迭代</a>
+        <a href="module6.html" class="btn-next">模块六：评估与持续精进 →</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

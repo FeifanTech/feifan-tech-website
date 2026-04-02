@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块四：反馈与迭代 — AI 协作技巧培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── STAR 框架卡片 ── */
+    .star-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .star-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .star-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .star-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .star-card.star-s::before { background: #3B82F6; }
+    .star-card.star-t::before { background: #F59E0B; }
+    .star-card.star-a::before { background: #10B981; }
+    .star-card.star-r::before { background: #8B5CF6; }
+    .star-letter {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .star-s .star-letter { background: #3B82F6; }
+    .star-t .star-letter { background: #F59E0B; }
+    .star-a .star-letter { background: #10B981; }
+    .star-r .star-letter { background: #8B5CF6; }
+    .star-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .star-card .star-en { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .star-card p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; }
+    .star-card ul { list-style: none; margin-top: 0.5rem; font-size: 0.84rem; color: var(--medium); }
+    .star-card ul li { margin-bottom: 4px; padding-left: 0; }
+    .star-card ul li::before { content: '▸ '; color: var(--collab-accent); font-weight: 700; }
+    .star-card .star-example {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      color: var(--dark);
+      line-height: 1.6;
+      margin-top: 0.75rem;
+    }
+    .star-card .star-example strong { color: var(--collab-accent); }
+
+    /* ── 迭代策略卡片 ── */
+    .strategy-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .strategy-card {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .strategy-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .strategy-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 4px;
+    }
+    .strategy-card:nth-child(1)::before { background: #EF4444; }
+    .strategy-card:nth-child(2)::before { background: #3B82F6; }
+    .strategy-card:nth-child(3)::before { background: #F59E0B; }
+    .strategy-card:nth-child(4)::before { background: #10B981; }
+    .strategy-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: 0.04em;
+    }
+    .strategy-card:nth-child(1) .strategy-badge { background: #EF4444; }
+    .strategy-card:nth-child(2) .strategy-badge { background: #3B82F6; }
+    .strategy-card:nth-child(3) .strategy-badge { background: #F59E0B; }
+    .strategy-card:nth-child(4) .strategy-badge { background: #10B981; }
+    .strategy-body h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; }
+    .strategy-body .strategy-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+    }
+    .strategy-card:nth-child(1) .strategy-tag { background: #FEF2F2; color: #DC2626; }
+    .strategy-card:nth-child(2) .strategy-tag { background: #EFF6FF; color: #2563EB; }
+    .strategy-card:nth-child(3) .strategy-tag { background: #FFFBEB; color: #D97706; }
+    .strategy-card:nth-child(4) .strategy-tag { background: #ECFDF5; color: #059669; }
+    .strategy-body p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin-bottom: 0.5rem; }
+    .strategy-body .strategy-example {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .strategy-body .strategy-example strong { color: var(--collab-accent); }
+    .strategy-body .strategy-tip {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    /* ── 上下文管理卡片 ── */
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .context-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .context-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .context-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .context-card:nth-child(1)::before { background: #3B82F6; }
+    .context-card:nth-child(2)::before { background: #F59E0B; }
+    .context-card:nth-child(3)::before { background: #10B981; }
+    .context-card:nth-child(4)::before { background: #8B5CF6; }
+    .context-card .context-emoji { font-size: 1.8rem; margin-bottom: 0.5rem; display: block; }
+    .context-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .context-card .context-en { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .context-card p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; }
+    .context-card .context-example {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      color: var(--dark);
+      line-height: 1.6;
+      margin-top: 0.75rem;
+    }
+    .context-card .context-example strong { color: var(--collab-accent); }
+
+    /* ── 满意度可视化 ── */
+    .satisfaction-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .satisfaction-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .satisfaction-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .satisfaction-card .sat-rounds {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .satisfaction-card .sat-bar {
+      height: 12px;
+      border-radius: 999px;
+      margin: 0.75rem auto;
+      max-width: 80%;
+    }
+    .satisfaction-card:nth-child(1) .sat-bar { background: #FBBF24; width: 60%; }
+    .satisfaction-card:nth-child(2) .sat-bar { background: #60A5FA; width: 85%; }
+    .satisfaction-card:nth-child(3) .sat-bar { background: #34D399; width: 95%; }
+    .satisfaction-card .sat-pct {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 0.25rem;
+    }
+    .satisfaction-card:nth-child(1) .sat-pct { color: #D97706; }
+    .satisfaction-card:nth-child(2) .sat-pct { color: #2563EB; }
+    .satisfaction-card:nth-child(3) .sat-pct { color: #059669; }
+    .satisfaction-card .sat-label {
+      font-size: 0.84rem;
+      color: var(--medium);
+    }
+
+    /* ── 分支决策表格 ── */
+    .branch-table th { background: var(--collab-bg); color: var(--collab-accent-dark); }
+    .branch-table td:first-child { font-weight: 700; white-space: nowrap; color: var(--dark); }
+
+    /* ── 迭代要点卡 ── */
+    .rule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+    .rule-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #16A34A;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .rule-item strong { color: #166534; }
+    .rule-item p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin: 0; }
+
+    @media (max-width: 768px) {
+      .star-grid { grid-template-columns: 1fr; }
+      .context-grid { grid-template-columns: 1fr; }
+      .satisfaction-grid { grid-template-columns: 1fr; }
+      .strategy-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🤝 AI 协作技巧培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html" class="active">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块四导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#why"><span class="nav-num">1</span>为什么反馈如此重要</a></li>
+      <li><a href="#star"><span class="nav-num">2</span>STAR 反馈模型</a></li>
+      <li><a href="#strategies"><span class="nav-num">3</span>4 大迭代策略</a></li>
+      <li><a href="#context"><span class="nav-num">4</span>对话分支与上下文</a></li>
+      <li><a href="#practice"><span class="nav-num">5</span>要点与练习</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">MODULE 04</span>
+        反馈与迭代
+      </div>
+      <h1>🔄 反馈与迭代<br>让结果持续变好</h1>
+      <p class="hero-subtitle">掌握 STAR 反馈模型和迭代优化策略，学会通过多轮对话持续提升 AI 输出质量。从"一次性交互"升级为"持续优化的协作循环"。</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 3 课时</div>
+        <div class="hero-meta-item">⭐ STAR 反馈模型</div>
+        <div class="hero-meta-item">🔄 4 大迭代策略</div>
+        <div class="hero-meta-item">📐 上下文优化</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 1 · 为什么反馈与迭代如此重要
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="why">
+      <div class="section-header">
+        <div class="section-icon purple">🧠</div>
+        <div>
+          <div class="section-title">为什么反馈与迭代如此重要</div>
+          <div class="section-subtitle">AI 协作的核心秘密：好结果是"迭代"出来的</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">核心认知：90% 的高质量 AI 输出来自多轮迭代</div>
+          绝大多数人与 AI 的交互停留在"一次性对话"——提出问题，接受答案，结束对话。然而数据表明，<strong>90% 的高质量 AI 输出来自多轮迭代，而非单次提问</strong>。新手与专家之间的差距不在于第一轮提问的质量，而在于<strong>他们如何给出反馈、如何引导 AI 持续改进</strong>。一轮对话获得的通常是"还行"的结果，但三轮迭代后，结果会变成"优秀"；五轮精炼后，结果往往能达到"专业级"水准。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔄 思维模式对比</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        要从 AI 中获得真正有价值的输出，首先需要从"一次性交互思维"转变为"迭代优化思维"。下面的对比将帮你理解这两种截然不同的协作方式。
+      </p>
+
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 一次性交互思维</div>
+          <ul>
+            <li>提一个问题，接受第一个答案就结束</li>
+            <li>对不满意的输出直接放弃或重新开一个对话</li>
+            <li>认为好的 Prompt 应该"一次到位"</li>
+            <li>把 AI 输出当成最终结果而非初稿</li>
+            <li>不愿花时间给 AI 反馈，觉得是浪费</li>
+            <li>对 AI 输出的问题只有"不好"的模糊感觉</li>
+            <li>每次都从零开始，不复用之前的对话成果</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 迭代优化思维</div>
+          <ul>
+            <li>把第一轮输出当作"初稿"，持续迭代优化</li>
+            <li>针对不满意的部分给出具体、可执行的反馈</li>
+            <li>理解好结果需要 3-5 轮对话来逐步完善</li>
+            <li>在每轮迭代中明确指出保留什么、修改什么</li>
+            <li>把迭代时间视为"投资"，每轮都在提升质量</li>
+            <li>能精确描述 AI 输出的问题和改进方向</li>
+            <li>善于利用对话上下文，让 AI 在已有基础上优化</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📌 迭代优化的三大核心价值</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        多轮迭代不是"浪费时间"，而是获得专业级输出的必经之路。以下三个维度解释了为什么迭代如此重要。
+      </p>
+
+      <div class="card-grid card-grid-3">
+        <div class="card card-accent-blue">
+          <strong>🎯 输出精准度提升</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            第一轮 AI 输出通常是基于"最可能"的理解生成的。通过反馈，你可以纠正 AI 的理解偏差，精准定位你的需求。每一轮反馈都在缩小 AI 理解与你真实意图之间的差距——就像校准仪器一样，每次调整都让输出更加精准。
+          </p>
+          <div style="margin-top:0.75rem;padding:0.6rem 0.8rem;background:#EFF6FF;border-radius:var(--radius-sm);font-size:0.8rem;color:#1D4ED8;">
+            <strong>关键指标：</strong>3 轮迭代后，输出与需求的匹配度平均提升 40%
+          </div>
+        </div>
+        <div class="card card-accent-green">
+          <strong>⚡ 效率倍增</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            看似"多花时间"的迭代，实际上比"重新开始"效率高 3-5 倍。在已有基础上迭代优化，AI 保留了之前的上下文和理解，只需要针对性地修改；而重新开始意味着所有上下文都要重新传递，所有好的部分也会丢失。
+          </p>
+          <div style="margin-top:0.75rem;padding:0.6rem 0.8rem;background:#ECFDF5;border-radius:var(--radius-sm);font-size:0.8rem;color:#059669;">
+            <strong>关键指标：</strong>迭代优化比重新对话节省 60% 的时间
+          </div>
+        </div>
+        <div class="card card-accent-purple">
+          <strong>📈 能力持续进化</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            每次迭代都在锻炼你的"反馈能力"——你会越来越擅长识别 AI 输出中的问题，也越来越擅长给出有效的改进指令。这种能力是可迁移的：不论你使用哪个 AI 工具、处理什么类型的任务，出色的反馈能力都会让你获得更好的结果。
+          </p>
+          <div style="margin-top:0.75rem;padding:0.6rem 0.8rem;background:#F5F3FF;border-radius:var(--radius-sm);font-size:0.8rem;color:#7C3AED;">
+            <strong>关键指标：</strong>持续练习反馈技巧 2 周，AI 协作效率提升 2 倍
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📊 迭代轮次与满意度数据</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下数据来自对 1000+ 组 AI 协作对话的分析，展示了迭代轮次与输出满意度之间的正相关关系。
+      </p>
+
+      <div class="satisfaction-grid">
+        <div class="satisfaction-card">
+          <div class="sat-rounds">1 轮对话</div>
+          <div class="sat-pct">60%</div>
+          <div class="sat-bar"></div>
+          <div class="sat-label">满意度一般 — "能用但不够好"</div>
+        </div>
+        <div class="satisfaction-card">
+          <div class="sat-rounds">3 轮迭代</div>
+          <div class="sat-pct">85%</div>
+          <div class="sat-bar"></div>
+          <div class="sat-label">满意度良好 — "相当不错了"</div>
+        </div>
+        <div class="satisfaction-card">
+          <div class="sat-rounds">5 轮精炼</div>
+          <div class="sat-pct">95%</div>
+          <div class="sat-bar"></div>
+          <div class="sat-label">满意度优秀 — "专业级水准"</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">核心观点：反馈是可训练的技能</div>
+          很多人以为"给 AI 反馈"就是说"不好，重新来"——这是最低效的反馈方式。高效的反馈需要具备三个要素：<strong>具体性（指出哪里不好）、方向性（说明怎么改）、标准性（明确什么算好）</strong>。接下来我们将学习 STAR 反馈模型，帮你掌握系统化的反馈方法。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 2 · STAR 反馈模型
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="star">
+      <div class="section-header">
+        <div class="section-icon blue">⭐</div>
+        <div>
+          <div class="section-title">STAR 反馈模型</div>
+          <div class="section-subtitle">Situation 情境 + Task 任务 + Action 行动 + Result 结果</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">什么是 STAR 反馈模型？</div>
+          STAR 模型源自人力资源领域的经典方法论，我们将其适配为 AI 反馈的结构化框架。它由四个步骤组成：<strong>Situation（情境）</strong>— 告诉 AI 当前的情境和问题，<strong>Task（任务）</strong>— 明确本次迭代的具体任务，<strong>Action（行动）</strong>— 给出具体的行动指令，<strong>Result（结果）</strong>— 说明期望的改进结果。使用 STAR 模型，你的每一次反馈都会清晰、具体、可执行，让 AI 精准地理解你的改进需求。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">⭐ STAR 四步反馈法</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        掌握 STAR 的四个步骤，你就拥有了一套结构化的反馈"公式"。无论面对什么类型的 AI 输出，都能快速组织出有效的改进反馈。
+      </p>
+
+      <div class="star-grid">
+        <div class="star-card star-s">
+          <div class="star-letter">S</div>
+          <h4>Situation 情境</h4>
+          <div class="star-en">告诉 AI 当前的情境和问题 — 让 AI 知道"发生了什么"</div>
+          <p>在给出反馈之前，先简要描述当前的情境：你看到了什么？哪里不符合预期？这一步帮助 AI 精准定位需要修改的部分，避免 AI 误解你的反馈对象。</p>
+          <ul>
+            <li>引用 AI 上一轮输出的具体内容</li>
+            <li>指出与预期不符的具体部分</li>
+            <li>说明当前输出在什么场景下不适用</li>
+          </ul>
+          <div class="star-example">
+            <strong>示例：</strong>"你上次给出的方案中，成本估算部分只列出了硬件成本，但漏掉了人力成本和运维成本，这对我们的预算评审来说不够完整。"
+          </div>
+        </div>
+
+        <div class="star-card star-t">
+          <div class="star-letter">T</div>
+          <h4>Task 任务</h4>
+          <div class="star-en">明确本次迭代的具体任务 — 让 AI 知道"要改什么"</div>
+          <p>明确告诉 AI 本次迭代需要完成的具体任务。不要笼统地说"改一下"，而是精确描述需要修改的范围、新增的内容或需要调整的方向。</p>
+          <ul>
+            <li>明确需要修改的内容范围</li>
+            <li>指定新增的分析维度或数据</li>
+            <li>说明需要考虑的新增因素</li>
+          </ul>
+          <div class="star-example">
+            <strong>示例：</strong>"请重新计算总成本，这次需要考虑以下新增因素：1）3名全职运维工程师的年薪成本，2）云服务年度订阅费，3）培训和迁移期间的效率损失。"
+          </div>
+        </div>
+
+        <div class="star-card star-a">
+          <div class="star-letter">A</div>
+          <h4>Action 行动</h4>
+          <div class="star-en">给出具体的行动指令 — 让 AI 知道"怎么做"</div>
+          <p>告诉 AI 具体的执行方式：用什么格式呈现、按什么结构组织、需要包含哪些要素。行动指令越具体，AI 的执行越精准，减少反复修改的次数。</p>
+          <ul>
+            <li>指定输出格式（表格、列表、段落等）</li>
+            <li>设定组织结构（按时间线、按优先级等）</li>
+            <li>要求包含特定要素（对比数据、备选方案等）</li>
+          </ul>
+          <div class="star-example">
+            <strong>示例：</strong>"请用表格重新呈现成本明细，列出：成本类别、年度费用、3年总费用。同时增加一列'备选低成本方案'，为每个成本类别提供一个降本建议。"
+          </div>
+        </div>
+
+        <div class="star-card star-r">
+          <div class="star-letter">R</div>
+          <h4>Result 结果</h4>
+          <div class="star-en">说明期望的改进结果 — 让 AI 知道"做到什么程度"</div>
+          <p>描述最终输出应该达到的标准或效果。这一步让 AI 理解质量的"及格线"在哪里，避免改了但改不到位的情况。好的结果描述应该包含使用场景和质量标准。</p>
+          <ul>
+            <li>说明输出的使用场景和受众</li>
+            <li>设定具体的质量标准</li>
+            <li>描述"什么算好"的评判依据</li>
+          </ul>
+          <div class="star-example">
+            <strong>示例：</strong>"最终版本应该能直接用于向 CEO 汇报——数据要准确、结论要清晰、建议要可执行。CEO 关注的是总投入和 ROI，请在开头放一个 3 句话的执行摘要。"
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 STAR 完整反馈模板</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        将 STAR 四个步骤组合成一个完整的反馈 Prompt，可以直接在与 AI 的对话中使用。
+      </p>
+
+      <div class="prompt-template">
+        <span class="pt-label">STAR 反馈模板</span>
+【情境 S】<span class="placeholder">你上一轮给出的 [具体内容] 中，[具体部分] 存在 [具体问题]...</span>
+
+【任务 T】<span class="placeholder">请针对以上问题进行修改，需要 [具体的修改范围和新增要求]...</span>
+
+【行动 A】<span class="placeholder">请用 [指定格式] 重新组织，包含 [具体要素]，按照 [组织逻辑] 排列...</span>
+
+【结果 R】<span class="placeholder">修改后的版本应该能 [使用场景]，确保 [质量标准]，[受众] 能直接 [使用方式]...</span>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔍 STAR 实战案例</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下三个场景展示了如何在实际工作中运用 STAR 模型进行有效反馈。注意对比"模糊反馈"和"STAR 反馈"的差异。
+      </p>
+
+      <!-- 案例 1 -->
+      <h4 style="font-size:0.95rem;font-weight:700;color:var(--dark);margin:1.25rem 0 0.75rem;">案例 1：改进技术方案文档</h4>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 模糊反馈</div>
+          <ul>
+            <li>"技术方案写得不够好，请改一下"</li>
+            <li>"成本部分不对，请重新算"</li>
+            <li>"格式不好看，重新排版"</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ STAR 反馈</div>
+          <ul>
+            <li>S：方案中的成本估算漏掉了运维人力成本</li>
+            <li>T：请补充 3 名运维工程师的成本并重算总额</li>
+            <li>A：用表格呈现，增加备选低成本方案列</li>
+            <li>R：确保能直接用于 CEO 预算评审会</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 案例 2 -->
+      <h4 style="font-size:0.95rem;font-weight:700;color:var(--dark);margin:1.25rem 0 0.75rem;">案例 2：优化市场分析报告</h4>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 模糊反馈</div>
+          <ul>
+            <li>"分析太浅了，请深入一些"</li>
+            <li>"数据不够，加点数据"</li>
+            <li>"结论太弱，请加强"</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ STAR 反馈</div>
+          <ul>
+            <li>S：竞品分析部分只列了功能对比，缺乏市场份额和增长趋势数据</li>
+            <li>T：请补充前 5 名竞品的市场份额和近 3 年增长率</li>
+            <li>A：用柱状图 + 趋势线的描述方式呈现</li>
+            <li>R：产品经理能据此判断我们的市场定位和差异化策略</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 案例 3 -->
+      <h4 style="font-size:0.95rem;font-weight:700;color:var(--dark);margin:1.25rem 0 0.75rem;">案例 3：改进代码 Review 意见</h4>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 模糊反馈</div>
+          <ul>
+            <li>"Review 意见太笼统了"</li>
+            <li>"多给点建设性的建议"</li>
+            <li>"说得具体一些"</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ STAR 反馈</div>
+          <ul>
+            <li>S：你给出的 Review 意见过于泛化，如"建议优化性能"缺乏可执行性</li>
+            <li>T：请针对每个问题提供具体的修改代码示例</li>
+            <li>A：每条意见按"问题描述 → 修改前代码 → 修改后代码 → 改进说明"格式</li>
+            <li>R：开发者能直接复制修改后的代码应用，无需猜测你的意图</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">STAR 模型的高级用法</div>
+          STAR 不一定每次都要完整使用四个步骤。当问题很明确时，可以省略 S（情境），直接从 T（任务）开始。当格式不需要调整时，可以省略 A（行动）。但 <strong>R（结果）永远不要省略</strong>——它是避免反复返工的关键。没有明确的结果标准，AI 只能"猜"你想要什么，每次"猜"的方向可能都不同。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 3 · 4 大迭代优化策略
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="strategies">
+      <div class="section-header">
+        <div class="section-icon green">🔧</div>
+        <div>
+          <div class="section-title">4 大迭代优化策略</div>
+          <div class="section-subtitle">系统性地提升每一轮 AI 输出的质量</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">为什么需要不同的迭代策略？</div>
+          AI 输出的问题类型各不相同——有时候是内容不够聚焦，有时候是分析角度不对，有时候是格式不合适，有时候是深度不够。<strong>不同类型的问题需要不同的迭代策略</strong>。掌握这 4 种策略，你就能像一位经验丰富的编辑一样，精准地诊断 AI 输出的问题，并给出最有效的改进方向。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🧩 4 种迭代策略详解</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        每种策略都有其特定的适用场景和使用方法。实际操作中，往往需要组合使用多种策略来获得最佳结果。
+      </p>
+
+      <div class="strategy-grid">
+        <div class="strategy-card">
+          <div class="strategy-badge">🎯</div>
+          <div class="strategy-body">
+            <h4>策略一：聚焦式迭代</h4>
+            <div class="strategy-tag">Focus Iteration — 缩小范围，精确打击</div>
+            <p>当 AI 的输出整体方向正确，但某个部分需要更详细或更精确时，使用聚焦式迭代。核心思路是<strong>先肯定整体，再定位到具体需要改进的部分</strong>，让 AI 保持已有的好内容，只针对性地优化特定区域。</p>
+            <p><strong>适用场景：</strong>方案的某个章节需要细化、数据分析的某个维度需要深入、文档的某个部分需要补充细节。</p>
+            <div class="strategy-example">
+              <strong>示例 Prompt：</strong><br>
+              "上面的方案整体逻辑很清晰，我对第1、2、4部分很满意。但<strong>第3点的技术选型部分需要更详细</strong>——请针对这部分：<br>
+              1）列出 3 种备选技术方案的详细对比（包含性能、成本、学习曲线）<br>
+              2）给出每种方案的适用场景<br>
+              3）给出你的最终推荐和理由<br>
+              其他部分保持不变。"
+            </div>
+            <div class="strategy-tip">💡 技巧：明确告诉 AI "其他部分保持不变"，避免 AI 把已经满意的内容也重写了。</div>
+          </div>
+        </div>
+
+        <div class="strategy-card">
+          <div class="strategy-badge">🔀</div>
+          <div class="strategy-body">
+            <h4>策略二：方向式迭代</h4>
+            <div class="strategy-tag">Direction Iteration — 切换角度，换个视角</div>
+            <p>当 AI 的分析角度或思路方向不符合你的需求时，使用方向式迭代。核心思路是<strong>保留已有的分析基础，但切换分析的角度、维度或立场</strong>。这不是否定之前的输出，而是让 AI 从不同方向重新审视同一个问题。</p>
+            <p><strong>适用场景：</strong>需要从技术视角切换到商业视角、从内部视角切换到用户视角、从短期影响切换到长期影响。</p>
+            <div class="strategy-example">
+              <strong>示例 Prompt：</strong><br>
+              "这个分析从技术角度做得很好，<strong>现在请从商业价值角度重新分析同一个方案</strong>：<br>
+              1）投资回报率（ROI）预测，包含 1 年和 3 年的数据<br>
+              2）对客户体验的改善量化评估<br>
+              3）竞争优势分析——这个方案如何帮我们领先竞品<br>
+              4）风险成本——如果不做这个方案，我们会损失什么<br>
+              请保持与之前技术分析相同的项目背景。"
+            </div>
+            <div class="strategy-tip">💡 技巧：用"保持相同的背景"来确保 AI 不会偏离原来的项目上下文。</div>
+          </div>
+        </div>
+
+        <div class="strategy-card">
+          <div class="strategy-badge">📐</div>
+          <div class="strategy-body">
+            <h4>策略三：格式式迭代</h4>
+            <div class="strategy-tag">Format Iteration — 调整形式，优化呈现</div>
+            <p>当 AI 的内容质量不错但呈现方式不符合需求时，使用格式式迭代。核心思路是<strong>保留核心内容不变，只调整输出的格式、结构和呈现方式</strong>。不同的使用场景需要不同的输出格式——给领导的用 PPT 大纲，给团队的用详细文档，给自己的用要点清单。</p>
+            <p><strong>适用场景：</strong>需要将长文本转为 PPT 大纲、将散乱的要点整理成结构化表格、将技术文档改写为非技术人员能理解的版本。</p>
+            <div class="strategy-example">
+              <strong>示例 Prompt：</strong><br>
+              "<strong>内容很好，但请转换成 PPT 大纲格式</strong>，要求如下：<br>
+              1）每页 PPT 不超过 5 个要点<br>
+              2）每个要点用一句话概括，不超过 20 字<br>
+              3）在每页底部增加一个"说明"部分，放详细数据和论据<br>
+              4）总页数控制在 10-12 页<br>
+              5）第一页是执行摘要，最后一页是行动计划"
+            </div>
+            <div class="strategy-tip">💡 技巧：格式式迭代是最"安全"的迭代——内容不变，只改形式，不会丢失已有的好内容。</div>
+          </div>
+        </div>
+
+        <div class="strategy-card">
+          <div class="strategy-badge">🔍</div>
+          <div class="strategy-body">
+            <h4>策略四：深度式迭代</h4>
+            <div class="strategy-tag">Depth Iteration — 纵向挖掘，深入本质</div>
+            <p>当 AI 的输出覆盖面足够但深度不够时，使用深度式迭代。核心思路是<strong>选择一个关键点，要求 AI 进行纵深分析</strong>——从表层现象挖掘到底层原因，从定性描述深入到定量分析。这种策略尤其适合技术决策和复杂问题分析场景。</p>
+            <p><strong>适用场景：</strong>需要深入分析某个技术方案的性能瓶颈、需要对某个市场趋势进行根因分析、需要对某个决策的风险进行深度评估。</p>
+            <div class="strategy-example">
+              <strong>示例 Prompt：</strong><br>
+              "整体方案我已经认可了。<strong>关于性能优化部分，请再深入分析</strong>：<br>
+              1）列出影响性能的 Top 5 因素，按影响程度排序<br>
+              2）每个因素给出具体的 benchmark 数据或行业参考值<br>
+              3）针对每个因素提供 2 种优化方案（快速见效 vs 长期最优）<br>
+              4）给出优化后的预期性能提升百分比<br>
+              5）标注每个优化措施的实施难度和所需资源"
+            </div>
+            <div class="strategy-tip">💡 技巧：要求 AI 提供"定量数据"是激活深度分析的有效触发器——AI 会被迫进行更严谨的推理。</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🧠 策略选择速查表</h3>
+      <div class="prompt-template">
+        <span class="pt-label">策略速查</span>
+<span class="placeholder">内容好但某部分不够详细</span>     → 🎯 聚焦式迭代 — 定位 + 深化特定部分
+<span class="placeholder">分析角度不对或不完整</span>       → 🔀 方向式迭代 — 切换视角 + 保留基础
+<span class="placeholder">内容好但格式不适合使用场景</span> → 📐 格式式迭代 — 转换格式 + 保留内容
+<span class="placeholder">覆盖面够但深度不足</span>         → 🔍 深度式迭代 — 纵向挖掘 + 定量分析
+<span class="placeholder">多个问题同时存在</span>           → 组合策略 — 分轮次依次处理
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">避免"全面重写"陷阱</div>
+          迭代的关键是<strong>增量改进，而非全面推翻</strong>。每次迭代只应该聚焦 1-2 个改进点。如果你发现需要改的地方太多（超过 3 个主要方面），说明初始 Prompt 就存在严重不足——这时候应该回到模块一的 RACE 框架重新设计 Prompt，而不是在错误的基础上反复迭代。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 4 · 对话分支与上下文管理
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="context">
+      <div class="section-header">
+        <div class="section-icon orange">🌳</div>
+        <div>
+          <div class="section-title">对话分支与上下文管理</div>
+          <div class="section-subtitle">掌握 AI 对话的"版本控制"</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">为什么上下文管理是高级 AI 用户的必备技能？</div>
+          每个 AI 模型都有"上下文窗口"限制——它能记住的对话内容是有限的。当对话超过一定长度时，AI 会开始"遗忘"早期的信息，导致后续回答质量下降。<strong>高效的上下文管理不是技巧，而是策略</strong>——知道什么时候该继续对话、什么时候该开新分支、如何压缩历史上下文、如何锚定关键信息，是避免"AI 越聊越笨"的关键。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🧩 4 大上下文管理技巧</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        掌握这 4 种技巧，你就能像管理 Git 仓库一样管理 AI 对话——清晰、高效、可追溯。
+      </p>
+
+      <div class="context-grid">
+        <div class="context-card">
+          <div class="context-emoji">🪟</div>
+          <h4>上下文窗口原理</h4>
+          <div class="context-en">Context Window — 理解 AI 的"记忆"边界</div>
+          <p>AI 的上下文窗口就像一块固定大小的白板——新内容不断被写上去，旧内容逐渐被擦掉。理解这个机制，你就能更有策略地管理对话长度。</p>
+          <div class="context-example">
+            <strong>核心要点：</strong><br>
+            · GPT-4 上下文窗口约 128K tokens（约 10 万字）<br>
+            · Claude 上下文窗口约 200K tokens（约 15 万字）<br>
+            · <strong>实际有效窗口通常是标称值的 60-70%</strong><br>
+            · 超过有效窗口后，AI 开始"选择性遗忘"<br>
+            · 最前面和最后面的内容记忆最清晰（首因效应 + 近因效应）
+          </div>
+        </div>
+
+        <div class="context-card">
+          <div class="context-emoji">🌿</div>
+          <h4>对话分支策略</h4>
+          <div class="context-en">Branching Strategy — 知道何时"新建分支"</div>
+          <p>就像代码开发中的 Git 分支一样，AI 对话也需要"分支策略"。不同主题的讨论应该在不同的对话中进行，避免单个对话承载过多上下文导致混乱。</p>
+          <div class="context-example">
+            <strong>分支原则：</strong><br>
+            · <strong>同一主题的迭代</strong>：保持在同一对话中<br>
+            · <strong>切换到新主题</strong>：开启新的对话<br>
+            · <strong>需要全新视角</strong>：开启新对话，避免之前的思路影响<br>
+            · <strong>对话超过 20 轮</strong>：考虑压缩后开启新对话<br>
+            · <strong>AI 开始重复或遗忘</strong>：立即压缩上下文开新对话
+          </div>
+        </div>
+
+        <div class="context-card">
+          <div class="context-emoji">🗜️</div>
+          <h4>上下文压缩技巧</h4>
+          <div class="context-en">Context Compression — 把长对话"打包"带走</div>
+          <p>当你需要把一个长对话的成果带到新对话中时，不要复制粘贴全部历史——而是请 AI 帮你"压缩"。上下文压缩就是把 20 轮对话的精华浓缩成 1-2 段总结。</p>
+          <div class="context-example">
+            <strong>压缩 Prompt 模板：</strong><br>
+            · "请总结我们到目前为止的讨论要点，包括：1）已确定的结论，2）待解决的问题，3）你需要记住的关键约束。<strong>用不超过 300 字完成</strong>。"<br>
+            · 将压缩后的总结粘贴到新对话的开头<br>
+            · 在新对话中说明："以下是我们之前的讨论总结，请基于此继续。"
+          </div>
+        </div>
+
+        <div class="context-card">
+          <div class="context-emoji">📌</div>
+          <h4>关键信息锚定</h4>
+          <div class="context-en">Key Info Anchoring — 让 AI 不忘重要内容</div>
+          <p>在长对话中，某些关键信息（如项目约束、输出标准、角色设定）可能随着对话推进而被 AI 逐渐淡化。关键信息锚定就是定期"提醒" AI 这些核心信息。</p>
+          <div class="context-example">
+            <strong>锚定技巧：</strong><br>
+            · <strong>开头锚定</strong>：在对话开始时设定关键约束<br>
+            · <strong>定期重申</strong>：每 5-8 轮提醒一次核心要求<br>
+            · <strong>格式标记</strong>：用【重要约束】【核心要求】等标记突出关键信息<br>
+            · <strong>检查确认</strong>："请先重述一下你理解的我的核心需求，然后再继续"
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📋 继续对话 vs 开启新对话：决策参考</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下表格帮助你快速判断在不同场景下应该继续当前对话还是开启新的对话。
+      </p>
+
+      <div style="overflow-x:auto;">
+        <table class="branch-table" style="width:100%;border-collapse:collapse;font-size:0.84rem;">
+          <thead>
+            <tr>
+              <th style="padding:10px 14px;text-align:left;border:1px solid var(--border);">场景</th>
+              <th style="padding:10px 14px;text-align:center;border:1px solid var(--border);">继续当前对话</th>
+              <th style="padding:10px 14px;text-align:center;border:1px solid var(--border);">开启新对话</th>
+              <th style="padding:10px 14px;text-align:left;border:1px solid var(--border);">原因</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:10px 14px;border:1px solid var(--border);">对当前输出不满意</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">✅</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">—</td>
+              <td style="padding:10px 14px;border:1px solid var(--border);">AI 已有上下文，用 STAR 反馈迭代更高效</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 14px;border:1px solid var(--border);">切换到完全不同的任务</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">—</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">✅</td>
+              <td style="padding:10px 14px;border:1px solid var(--border);">旧上下文会干扰新任务的输出质量</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 14px;border:1px solid var(--border);">对话已超过 15 轮</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">—</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">✅</td>
+              <td style="padding:10px 14px;border:1px solid var(--border);">上下文压缩后开新对话，避免记忆衰减</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 14px;border:1px solid var(--border);">AI 开始重复之前的内容</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">—</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">✅</td>
+              <td style="padding:10px 14px;border:1px solid var(--border);">这是上下文溢出的信号，需要重新开始</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 14px;border:1px solid var(--border);">需要不受之前思路影响的新方案</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">—</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">✅</td>
+              <td style="padding:10px 14px;border:1px solid var(--border);">旧对话中的分析会"锚定" AI 的思维方向</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 14px;border:1px solid var(--border);">在同一方案上深化某个细节</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">✅</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">—</td>
+              <td style="padding:10px 14px;border:1px solid var(--border);">上下文中已有方案全貌，聚焦式迭代最有效</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 14px;border:1px solid var(--border);">需要从多个角度分析同一问题</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">✅</td>
+              <td style="padding:10px 14px;text-align:center;border:1px solid var(--border);">—</td>
+              <td style="padding:10px 14px;border:1px solid var(--border);">方向式迭代在已有上下文中效果最佳</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">上下文管理的黄金法则</div>
+          <strong>"宁可多开新对话，也不要在一个过长的对话里硬撑。"</strong>当你感觉 AI 的回答质量开始下降、开始重复之前的内容、或者偏离了你的需求方向时，这通常是上下文溢出的信号。正确的做法是：让 AI 总结当前的关键信息，然后将总结带到新的对话中继续。这比在混乱的上下文中挣扎高效得多。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 5 · 反馈迭代要点与实操练习
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon orange">🏆</div>
+        <div>
+          <div class="section-title">反馈迭代要点与实操练习</div>
+          <div class="section-subtitle">4 大策略让你的 AI 输出从"还行"变为"出色"</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📌 4 大核心迭代策略速记</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        掌握以下 4 个迭代策略，并在每次 AI 协作中灵活运用，你的输出质量将产生质的飞跃。
+      </p>
+
+      <div class="rule-list">
+        <div class="rule-item">
+          <div class="rule-num">1</div>
+          <div>
+            <p><strong>聚焦式迭代：锁定目标，精确打击</strong></p>
+            <p>先肯定整体满意的部分，再指向需要优化的特定区域。明确告诉 AI 哪些保留、哪些修改。用"第X部分需要…"的句式精准定位。这是最常用的迭代策略，适合绝大多数场景。</p>
+          </div>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-num">2</div>
+          <div>
+            <p><strong>方向式迭代：切换视角，多维分析</strong></p>
+            <p>保留已有分析的基础和背景，要求 AI 从新的角度重新审视。技术→商业、内部→外部、短期→长期——不同视角组合产出全面的分析。记得用"保持相同背景"来锚定上下文。</p>
+          </div>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-num">3</div>
+          <div>
+            <p><strong>格式式迭代：内容不变，优化呈现</strong></p>
+            <p>当内容质量满意但形式不对时使用。长文→PPT 大纲、散点→结构表格、技术→通俗。这是最"安全"的迭代——不会丢失内容，只优化表达形式。不同受众需要不同的呈现格式。</p>
+          </div>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-num">4</div>
+          <div>
+            <p><strong>深度式迭代：纵向挖掘，量化分析</strong></p>
+            <p>选择关键点要求 AI 深入。要求定量数据、benchmark 对比、多方案评估。"列出 Top 5 因素"、"给出具体数据"是激活深度分析的有效触发器。深度式迭代让分析从"还行"变成"专业"。</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🧠 反馈迭代组合速查</h3>
+      <div class="prompt-template">
+        <span class="pt-label">迭代组合速查</span>
+<span class="placeholder">初稿方向正确但细节不足</span>  → STAR 反馈 + 🎯 聚焦式迭代
+<span class="placeholder">分析角度单一需要全面性</span>  → STAR 反馈 + 🔀 方向式迭代
+<span class="placeholder">内容不错但需要给领导汇报</span> → STAR 反馈 + 📐 格式式迭代
+<span class="placeholder">方案表面可行但缺乏深度</span>  → STAR 反馈 + 🔍 深度式迭代
+<span class="placeholder">对话过长AI开始遗忘</span>      → 上下文压缩 + 开新对话
+<span class="placeholder">需要全新方向不受旧思路影响</span> → 开新对话 + 重新 RACE 构建
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:2rem 0 0.75rem;">✏️ 实操练习</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下 3 道练习题涵盖了本模块的核心知识点。请在你最常用的 AI 工具中实际操作，体验反馈与迭代带来的质量飞跃。
+      </p>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块四 · 课后练习</h2>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <strong>STAR 反馈实战：3 轮迭代改进文档</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选择一个 AI 生成的不满意的文档（技术方案、分析报告、或任何工作文档），使用 STAR 模型进行 3 轮迭代改进：<br>
+              · <strong>第 1 轮：</strong>用完整的 STAR 框架给出第一次反馈，关注内容准确性<br>
+              · <strong>第 2 轮：</strong>在第 1 轮改进的基础上，用 STAR 继续优化结构和深度<br>
+              · <strong>第 3 轮：</strong>用 STAR 进行最后的格式优化和细节打磨<br><br>
+              <strong>提交物：</strong>3 轮 STAR 反馈 Prompt + 对应的 AI 输出 + 你的质量对比分析（对比第 1 轮和第 3 轮的差异，200 字以上）。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：3 轮 STAR 反馈 + 输出 + 对比分析</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <strong>迭代策略练习：4 种策略优化同一方案</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选择一个技术方案或业务分析，让 AI 先生成一个初始版本，然后分别用 4 种迭代策略进行优化：<br>
+              · <strong>Step 1：</strong>生成初始方案<br>
+              · <strong>Step 2：</strong>使用聚焦式迭代，优化方案中的技术选型部分<br>
+              · <strong>Step 3：</strong>使用方向式迭代，从商业价值角度重新分析<br>
+              · <strong>Step 4：</strong>使用格式式迭代，转换为 PPT 汇报大纲<br>
+              · <strong>Step 5：</strong>使用深度式迭代，深入分析核心风险<br><br>
+              <strong>提交物：</strong>4 轮迭代的 Prompt + AI 输出 + 你对每种策略效果的评价（各 100 字以上）。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：4 种策略 Prompt + 输出 + 效果评价</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <strong>上下文管理练习：长对话压缩与迁移</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              在一个长对话中（至少 10 轮）练习上下文管理技巧：<br>
+              · <strong>Step 1：</strong>与 AI 进行一个 10+ 轮的深度讨论（任何技术或业务话题）<br>
+              · <strong>Step 2：</strong>在第 10 轮后，要求 AI 压缩总结所有讨论要点<br>
+              · <strong>Step 3：</strong>将压缩总结带到新对话中，继续深入讨论<br>
+              · <strong>Step 4：</strong>对比新旧对话中 AI 的回答质量，验证压缩效果<br>
+              · <strong>Step 5：</strong>在新对话中练习关键信息锚定（每 5 轮重申一次核心需求）<br><br>
+              <strong>评估标准：</strong>压缩后的总结是否保留了所有关键信息？新对话中 AI 是否能无缝衔接？锚定后 AI 的回答是否更聚焦？
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：长对话记录 + 压缩总结 + 新对话记录 + 质量评估</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:2rem;">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">模块四核心总结</div>
+          好结果是"迭代"出来的——90% 的高质量 AI 输出来自多轮迭代。使用 <strong>STAR 反馈模型</strong>（情境 + 任务 + 行动 + 结果）让每次反馈都精准有效。
+          掌握 <strong>4 大迭代策略</strong>：聚焦式（精确定位）、方向式（切换视角）、格式式（优化呈现）、深度式（纵向挖掘），根据问题类型灵活选用。
+          善用<strong>上下文管理</strong>：理解窗口限制、适时分支对话、压缩历史上下文、锚定关键信息。
+          记住：迭代不是浪费时间，而是<strong>从"还行"到"出色"的唯一路径</strong>。
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="module3.html" class="btn-prev">← 模块三：引导的艺术</a>
+        <a href="module5.html" class="btn-next">模块五：场景化协作实战 →</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
