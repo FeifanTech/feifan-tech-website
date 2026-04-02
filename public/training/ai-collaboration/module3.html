@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块三：引导的艺术 — AI 协作技巧培训</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── 苏格拉底提问卡片 ── */
+    .socratic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .socratic-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .socratic-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .socratic-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .socratic-card:nth-child(1)::before { background: #3B82F6; }
+    .socratic-card:nth-child(2)::before { background: #F59E0B; }
+    .socratic-card:nth-child(3)::before { background: #10B981; }
+    .socratic-card:nth-child(4)::before { background: #8B5CF6; }
+    .socratic-card:nth-child(5)::before { background: #EF4444; }
+    .socratic-card:nth-child(6)::before { background: #06B6D4; }
+    .socratic-num {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .socratic-card:nth-child(1) .socratic-num { background: #3B82F6; }
+    .socratic-card:nth-child(2) .socratic-num { background: #F59E0B; }
+    .socratic-card:nth-child(3) .socratic-num { background: #10B981; }
+    .socratic-card:nth-child(4) .socratic-num { background: #8B5CF6; }
+    .socratic-card:nth-child(5) .socratic-num { background: #EF4444; }
+    .socratic-card:nth-child(6) .socratic-num { background: #06B6D4; }
+    .socratic-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .socratic-card .socratic-en { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .socratic-card p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; }
+    .socratic-card .socratic-example {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      color: var(--dark);
+      line-height: 1.6;
+      margin-top: 0.75rem;
+    }
+    .socratic-card .socratic-example strong { color: var(--collab-accent); }
+
+    /* ── CoT 技巧卡片 ── */
+    .cot-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .cot-card {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .cot-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .cot-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: 0.04em;
+    }
+    .cot-card:nth-child(1) .cot-badge { background: #3B82F6; }
+    .cot-card:nth-child(2) .cot-badge { background: #F59E0B; }
+    .cot-card:nth-child(3) .cot-badge { background: #8B5CF6; }
+    .cot-card:nth-child(4) .cot-badge { background: #10B981; }
+    .cot-body h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; }
+    .cot-body .cot-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+    }
+    .cot-card:nth-child(1) .cot-tag { background: #EFF6FF; color: #2563EB; }
+    .cot-card:nth-child(2) .cot-tag { background: #FFFBEB; color: #D97706; }
+    .cot-card:nth-child(3) .cot-tag { background: #F5F3FF; color: #7C3AED; }
+    .cot-card:nth-child(4) .cot-tag { background: #ECFDF5; color: #059669; }
+    .cot-body p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin-bottom: 0.5rem; }
+    .cot-body .cot-example {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .cot-body .cot-example strong { color: var(--collab-accent); }
+
+    /* ── 角色扮演卡片 ── */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .role-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .role-card:hover {
+      box-shadow: var(--collab-shadow);
+      transform: translateY(-2px);
+    }
+    .role-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 4px;
+    }
+    .role-card:nth-child(1)::before { background: #EF4444; }
+    .role-card:nth-child(2)::before { background: #3B82F6; }
+    .role-card:nth-child(3)::before { background: #F59E0B; }
+    .role-card:nth-child(4)::before { background: #10B981; }
+    .role-card .role-emoji { font-size: 1.8rem; margin-bottom: 0.5rem; display: block; }
+    .role-card h4 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .role-card .role-en { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .role-card p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; }
+    .role-card .role-example {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      color: var(--dark);
+      line-height: 1.6;
+      margin-top: 0.75rem;
+    }
+    .role-card .role-example strong { color: var(--collab-accent); }
+
+    /* ── 约束设定表格 ── */
+    .constraint-table th { background: var(--collab-bg); color: var(--collab-accent-dark); }
+    .constraint-table td:first-child { font-weight: 700; white-space: nowrap; color: var(--dark); }
+
+    /* ── 引导策略要点 ── */
+    .rule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+    }
+    .rule-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #16A34A;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .rule-item strong { color: #166534; }
+    .rule-item p { font-size: 0.875rem; color: var(--medium); line-height: 1.6; margin: 0; }
+
+    @media (max-width: 768px) {
+      .socratic-grid { grid-template-columns: 1fr; }
+      .cot-grid { grid-template-columns: 1fr; }
+      .role-grid { grid-template-columns: 1fr; }
+      .cot-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🤝 AI 协作技巧培训 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html" class="active">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-title">模块三导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#why"><span class="nav-num">1</span>为什么需要引导</a></li>
+      <li><a href="#socratic"><span class="nav-num">2</span>苏格拉底式提问法</a></li>
+      <li><a href="#cot"><span class="nav-num">3</span>思维链引导</a></li>
+      <li><a href="#roleplay"><span class="nav-num">4</span>角色扮演与约束</a></li>
+      <li><a href="#practice"><span class="nav-num">5</span>要点与练习</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ─── Hero ─── -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">MODULE 03</span>
+        引导的艺术
+      </div>
+      <h1>🧭 引导的艺术<br>让 AI 深度思考</h1>
+      <p class="hero-subtitle">掌握苏格拉底式提问、思维链引导和角色扮演等高级引导策略，让 AI 不只回答表面问题，而是进行深度思考和系统分析。从"被动回答"升级为"主动推理"。</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 3 课时</div>
+        <div class="hero-meta-item">🧠 5 大引导策略</div>
+        <div class="hero-meta-item">🎭 角色扮演技巧</div>
+        <div class="hero-meta-item">⛓ 思维链引导</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 1 · 为什么需要引导 AI 深度思考
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="why">
+      <div class="section-header">
+        <div class="section-icon purple">🧠</div>
+        <div>
+          <div class="section-title">为什么需要引导 AI 深度思考</div>
+          <div class="section-subtitle">从"一问一答"到"引导推理"的质变</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">设计理念：AI 的深度推理需要你来激活</div>
+          绝大多数人只能从 AI 获得表面回答，这不是 AI 能力的问题，而是<strong>引导方式的问题</strong>。AI 拥有强大的推理和分析能力，但就像一位专家需要被好的问题激发灵感一样，AI 也需要结构化的引导才能激活深度思考模式。没有引导的 AI 就像一位在闲聊中被随意提问的教授——它会给出一个"差不多"的答案，但远达不到它的最佳水平。学会引导，就是学会<strong>释放 AI 100% 的潜能</strong>。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔄 表面提问 vs 深度引导</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        引导的本质是通过结构化提问，让 AI 从"快速回答模式"切换到"深度推理模式"。下面的对比将帮你直观感受两种方式的巨大差距。
+      </p>
+
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 表面提问</div>
+          <ul>
+            <li>直接问结论："微服务好还是单体好？"</li>
+            <li>只接受第一个答案，不追问</li>
+            <li>问题过于宽泛，缺乏方向性</li>
+            <li>不要求 AI 展示推理过程</li>
+            <li>忽略反面论据和潜在风险</li>
+            <li>满足于"标准答案"式的回答</li>
+            <li>不设定思考的边界和约束</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 深度引导</div>
+          <ul>
+            <li>引导分析："在我们的场景下，请分析微服务和单体的利弊"</li>
+            <li>持续追问，逐层深入，直到触及核心</li>
+            <li>设定明确的分析方向和维度</li>
+            <li>要求 AI 一步步展示推理过程</li>
+            <li>主动要求 AI 提出反对意见和风险</li>
+            <li>追求"为什么"和"怎么做"的深度分析</li>
+            <li>用约束激发更精准的思考</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📌 引导 AI 深度思考的三大核心能力</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        引导不是一种单一技巧，而是由三种相互配合的核心能力构成。掌握这三种能力，你就能在任何场景下引导 AI 产出深度、精准、有洞察力的分析。
+      </p>
+
+      <div class="card-grid card-grid-3">
+        <div class="card card-accent-blue">
+          <strong>🔍 深度分析能力</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            通过苏格拉底式追问，引导 AI 不停留在表面，而是层层深入。每一次追问都像在矿井中更深一层地挖掘——直到触及问题的根因和核心矛盾。好的追问能让 AI 从"给出答案"变成"探索答案"。
+          </p>
+          <div style="margin-top:0.75rem;padding:0.6rem 0.8rem;background:#EFF6FF;border-radius:var(--radius-sm);font-size:0.8rem;color:#1D4ED8;">
+            <strong>核心方法：</strong>苏格拉底式提问 — 用6种追问类型逐层深入
+          </div>
+        </div>
+        <div class="card card-accent-green">
+          <strong>🧩 系统思维激活</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            通过思维链（CoT）引导，让 AI 展示完整的推理过程，而不是直接跳到结论。这就像让专家"思考出声"——不仅能获得更准确的结论，还能发现推理中的漏洞，及时纠正方向。
+          </p>
+          <div style="margin-top:0.75rem;padding:0.6rem 0.8rem;background:#ECFDF5;border-radius:var(--radius-sm);font-size:0.8rem;color:#059669;">
+            <strong>核心方法：</strong>思维链引导 — 让 AI 一步步展示推理过程
+          </div>
+        </div>
+        <div class="card card-accent-purple">
+          <strong>💡 创造性解决方案</strong>
+          <p style="font-size:0.84rem;color:var(--medium);line-height:1.6;margin-top:0.5rem;">
+            通过角色扮演和约束设定，激活 AI 的多视角分析能力。当 AI 同时扮演"支持者"和"反对者"时，它会产生更全面、更有创造性的解决方案——这种"思想碰撞"是单一视角无法实现的。
+          </p>
+          <div style="margin-top:0.75rem;padding:0.6rem 0.8rem;background:#F5F3FF;border-radius:var(--radius-sm);font-size:0.8rem;color:#7C3AED;">
+            <strong>核心方法：</strong>角色扮演 — 用多重视角激发创造性思维
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">核心观点：引导是一种可训练的技能</div>
+          引导 AI 深度思考的能力不是天赋，而是可以通过刻意练习掌握的技能。关键在于培养一种习惯：<strong>每当 AI 给出第一个答案时，不要立即接受，而是思考"还能从什么角度分析？""这个结论的前提是什么？""有没有反面论据？"</strong>。这种反射性的追问习惯，会让你与 AI 的协作从"一问一答"升级为"深度对话"。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 2 · 苏格拉底式提问法
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="socratic">
+      <div class="section-header">
+        <div class="section-icon blue">💬</div>
+        <div>
+          <div class="section-title">苏格拉底式提问法</div>
+          <div class="section-subtitle">用追问引导 AI 逐层深入</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">什么是苏格拉底式提问？</div>
+          苏格拉底式提问（Socratic Questioning）源自古希腊哲学家苏格拉底的教学方法——通过一系列精心设计的追问，引导对方自我发现答案。应用到 AI 协作中，这种方法让你不是直接问 AI 要答案，而是<strong>通过追问引导 AI 层层深入分析</strong>。每一个追问都在推动 AI 从不同角度审视问题，最终产出远比直接提问更深刻、更全面的分析。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🧩 6 种苏格拉底式追问类型</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        掌握这 6 种追问类型，你就拥有了一套完整的"思维手术刀"，可以精准地切入任何问题的核心。每种追问都有特定的目的和适用场景。
+      </p>
+
+      <div class="socratic-grid">
+        <div class="socratic-card">
+          <div class="socratic-num">1</div>
+          <h4>澄清型提问</h4>
+          <div class="socratic-en">Clarification Questions — 让概念从模糊变精确</div>
+          <p>当 AI 使用了模糊的概念或笼统的表述时，用澄清型提问让它给出精确的定义和具体的解释。这能消除歧义，确保你和 AI 在讨论同一件事情。</p>
+          <div class="socratic-example">
+            <strong>追问模板：</strong><br>
+            · "你说的'高性能'具体指什么？能给出量化指标吗？"<br>
+            · "你提到'最佳实践'，具体是指哪些实践？在什么条件下它们是'最佳'的？"<br>
+            · "请给出一个具体的定义，避免使用含糊的形容词。"
+          </div>
+        </div>
+
+        <div class="socratic-card">
+          <div class="socratic-num">2</div>
+          <h4>假设型提问</h4>
+          <div class="socratic-en">Assumption Questions — 挖掘隐藏的前提条件</div>
+          <p>每个结论背后都有一组隐含的假设。通过假设型提问，你能让 AI 暴露这些前提条件，然后逐一检验它们是否成立。这是发现推理漏洞的最有效方式。</p>
+          <div class="socratic-example">
+            <strong>追问模板：</strong><br>
+            · "这个结论基于什么假设？如果这些假设不成立呢？"<br>
+            · "你假设用户会这样操作，但如果他们的行为完全不同呢？"<br>
+            · "这个方案成立的前提条件是什么？列出至少 3 个。"
+          </div>
+        </div>
+
+        <div class="socratic-card">
+          <div class="socratic-num">3</div>
+          <h4>证据型提问</h4>
+          <div class="socratic-en">Evidence Questions — 用事实支撑观点</div>
+          <p>AI 有时会给出看似合理但缺乏依据的结论。证据型提问要求 AI 提供具体的数据、案例或研究来支撑它的观点，帮你区分"真知灼见"和"似是而非"。</p>
+          <div class="socratic-example">
+            <strong>追问模板：</strong><br>
+            · "有什么数据或案例可以支持这个观点？"<br>
+            · "能举出 2-3 个实际项目中验证过这一结论的例子吗？"<br>
+            · "这个建议在哪些行业或场景中被验证过有效？"
+          </div>
+        </div>
+
+        <div class="socratic-card">
+          <div class="socratic-num">4</div>
+          <h4>视角型提问</h4>
+          <div class="socratic-en">Perspective Questions — 从对立面看问题</div>
+          <p>好的分析需要多元视角。视角型提问要求 AI 站在不同立场审视问题——反对者、用户、竞争对手、不同部门。这能让你获得更全面、更平衡的分析，避免单一视角的盲区。</p>
+          <div class="socratic-example">
+            <strong>追问模板：</strong><br>
+            · "从反对者的角度看，这个方案最大的漏洞是什么？"<br>
+            · "如果我是竞争对手，我会如何攻击这个策略的弱点？"<br>
+            · "运维团队和开发团队对这个架构选择会有什么不同看法？"
+          </div>
+        </div>
+
+        <div class="socratic-card">
+          <div class="socratic-num">5</div>
+          <h4>推论型提问</h4>
+          <div class="socratic-en">Implication Questions — 探索因果链和连锁反应</div>
+          <p>推论型提问要求 AI 思考"然后呢？"——如果按照某个建议执行，会产生什么直接和间接的后果？这种推演能帮你在决策前看到更远的影响，避免短视的选择。</p>
+          <div class="socratic-example">
+            <strong>追问模板：</strong><br>
+            · "如果按你的建议执行，短期和长期分别会产生什么影响？"<br>
+            · "这个改动会对上下游系统产生什么连锁反应？"<br>
+            · "最好的情况和最坏的情况分别是什么？发生概率各多大？"
+          </div>
+        </div>
+
+        <div class="socratic-card">
+          <div class="socratic-num">6</div>
+          <h4>元认知提问</h4>
+          <div class="socratic-en">Meta-cognitive Questions — 让 AI 审视自己的回答</div>
+          <p>元认知提问要求 AI 对自己的回答进行反思和评估——哪些部分确信度高，哪些部分可能不准确。这是获得高质量输出的终极武器，能让 AI 从"自信回答"变为"谨慎判断"。</p>
+          <div class="socratic-example">
+            <strong>追问模板：</strong><br>
+            · "你对这个回答有多大把握？哪些部分可能不准确？"<br>
+            · "如果让你重新回答，你会修改哪些观点？为什么？"<br>
+            · "在你的分析中，哪些是确定性很高的事实，哪些是你的推测？"
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 苏格拉底式对话流程 Prompt 模板</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下模板展示了如何将 6 种追问类型串联成一个完整的对话流程。你可以在实际使用中根据 AI 的回答灵活选择追问方向。
+      </p>
+
+      <div class="prompt-template">
+        <span class="pt-label">苏格拉底式追问流程模板</span>
+我正在评估<span class="placeholder">[是否应该将单体应用拆分为微服务]</span>。
+
+<strong>第一轮 — 基础分析：</strong>
+请从技术架构的角度，分析<span class="placeholder">[微服务拆分]</span>的利弊。
+
+<strong>第二轮 — 假设检验（收到回答后追问）：</strong>
+你的分析基于什么前提假设？
+如果我们的团队只有 5 人，这些结论还成立吗？
+
+<strong>第三轮 — 视角切换：</strong>
+从运维团队的角度看，微服务化会带来什么新的挑战？
+从业务团队的角度看，这对迭代速度有什么影响？
+
+<strong>第四轮 — 推论探索：</strong>
+如果我们选择了微服务，6 个月后最可能遇到的 top 3 问题是什么？
+最坏的情况下会发生什么？我们如何提前规避？
+
+<strong>第五轮 — 元认知反思：</strong>
+回顾你之前的所有分析，你最不确定的部分是什么？
+如果重新分析一次，你会改变哪个观点？
+      </div>
+
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num" style="background:var(--collab-accent);">实</div>
+          <div>
+            <div class="technique-title">实战案例：用追问深挖技术决策</div>
+            <div class="technique-en">Socratic questioning in a real tech decision</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <div class="compare-panels">
+            <div class="compare-panel bad">
+              <div class="cp-header">❌ 普通提问</div>
+              <ul>
+                <li>"我该用 Redis 还是 Kafka 做消息队列？"</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#991B1B;margin-top:0.5rem;font-style:italic;">→ AI 给出教科书式的对比表格，缺乏针对性，无法直接做决策。</p>
+            </div>
+            <div class="compare-panel good">
+              <div class="cp-header">✅ 苏格拉底式追问</div>
+              <ul>
+                <li><strong>问1：</strong>在电商秒杀场景下，Redis Stream 和 Kafka 作为消息队列各有什么优劣？</li>
+                <li><strong>问2：</strong>你假设了什么消息量级？如果峰值达到10万QPS呢？</li>
+                <li><strong>问3：</strong>从运维复杂度看，小团队维护 Kafka 集群的成本有多高？</li>
+                <li><strong>问4：</strong>选错了方案，6个月后最大的代价是什么？</li>
+                <li><strong>问5：</strong>你对以上分析有多大把握？哪个判断最不确定？</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#166534;margin-top:0.5rem;font-style:italic;">→ AI 给出针对场景的深度分析，包含风险评估和不确定性标注，可直接支撑决策。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">关键洞察：追问的深度决定思考的深度</div>
+          苏格拉底式提问的核心不在于问了多少个问题，而在于<strong>每个追问是否真正推动了思考的深入</strong>。一个好的追问应该让 AI 不得不"重新审视"自己的答案。经验法则：如果 AI 的回答和追问前没有本质区别，说明你的追问还不够尖锐——试着从更出人意料的角度提问。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 3 · 思维链 (Chain of Thought) 引导
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="cot">
+      <div class="section-header">
+        <div class="section-icon green">⛓</div>
+        <div>
+          <div class="section-title">思维链 (Chain of Thought) 引导</div>
+          <div class="section-subtitle">让 AI 展示推理过程，而不仅仅是给出结论</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">什么是思维链引导？</div>
+          思维链（Chain of Thought, CoT）是一种让 AI <strong>展示逐步推理过程</strong>的引导技巧。研究表明，当你要求 AI "一步步思考"时，它在复杂推理任务上的准确率可以提升 <strong>20-40%</strong>。原因很简单：直接跳到结论容易"跳过"关键的推理步骤，而分步推理迫使 AI 在每一步都进行充分的分析，减少逻辑跳跃和"幻觉"。CoT 不仅提升了 AI 输出的质量，还让你能<strong>看到推理过程，发现逻辑漏洞</strong>。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔧 4 种核心 CoT 技巧</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下 4 种 CoT 技巧从简单到高级，覆盖了不同复杂度的推理场景。建议从"分步推理"开始练习，逐步掌握更高级的技巧。
+      </p>
+
+      <div class="cot-grid">
+        <div class="cot-card">
+          <div class="cot-badge">C1</div>
+          <div class="cot-body">
+            <h4>分步推理</h4>
+            <span class="cot-tag">基础 · 最常用</span>
+            <p>最简单也最有效的 CoT 技巧：直接要求 AI 一步一步分析。这个简单的指令能显著提升 AI 在逻辑推理、数学计算和方案设计中的表现。关键是明确告诉 AI 不要跳步。</p>
+            <div class="cot-example">
+              <strong>触发短语：</strong><br>
+              · "请一步步分析这个问题"<br>
+              · "Let's think step by step"<br>
+              · "在给出结论前，先列出你的推理步骤"<br>
+              · "请分成 N 个步骤来解决这个问题"
+            </div>
+          </div>
+        </div>
+
+        <div class="cot-card">
+          <div class="cot-badge">C2</div>
+          <div class="cot-body">
+            <h4>先分析再结论</h4>
+            <span class="cot-tag">进阶 · 决策场景</span>
+            <p>强制 AI 先穷举所有相关因素，再做出判断。这能避免 AI 因为"过早收敛"而忽略重要的考量因素。特别适合技术选型、方案评审等需要权衡多个因素的场景。</p>
+            <div class="cot-example">
+              <strong>触发短语：</strong><br>
+              · "先列出所有相关因素，再给出你的判断"<br>
+              · "在做推荐之前，先完成全面的利弊分析"<br>
+              · "请先不要给结论，先把所有需要考虑的维度列出来"
+            </div>
+          </div>
+        </div>
+
+        <div class="cot-card">
+          <div class="cot-badge">C3</div>
+          <div class="cot-body">
+            <h4>自我质疑</h4>
+            <span class="cot-tag">高级 · 提升准确性</span>
+            <p>要求 AI 在给出最终答案前，先对自己的推理进行质疑和检验。这是一种"内置的Code Review"——让 AI 同时扮演"提出者"和"审查者"，自我发现推理中的漏洞和偏差。</p>
+            <div class="cot-example">
+              <strong>触发短语：</strong><br>
+              · "在给出最终答案前，请先列出可能的反对意见"<br>
+              · "请先写出你的答案，然后自己找出其中的 3 个漏洞"<br>
+              · "请用'红队思维'审查你自己的方案"
+            </div>
+          </div>
+        </div>
+
+        <div class="cot-card">
+          <div class="cot-badge">C4</div>
+          <div class="cot-body">
+            <h4>多路径推理</h4>
+            <span class="cot-tag">高级 · 创新场景</span>
+            <p>要求 AI 从多个不同角度同时分析同一个问题，然后综合各路径的结果。这种方法能突破单一思维模式的局限，产生更具创造性和全面性的分析结果。</p>
+            <div class="cot-example">
+              <strong>触发短语：</strong><br>
+              · "请从至少 3 个不同角度分析这个问题"<br>
+              · "分别从技术、业务和用户体验的角度进行分析"<br>
+              · "用 3 种不同的方法论来评估这个方案"
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📊 CoT 前后效果对比</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下两组对比展示了使用 CoT 引导前后，AI 输出质量的巨大差异。注意观察推理深度和结论可靠性的变化。
+      </p>
+
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num" style="background:var(--collab-accent);">1</div>
+          <div>
+            <div class="technique-title">案例一：技术选型决策</div>
+            <div class="technique-en">Technology selection with and without CoT</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <div class="compare-panels">
+            <div class="compare-panel bad">
+              <div class="cp-header">❌ 不使用 CoT</div>
+              <ul>
+                <li>"我们应该用 MySQL 还是 PostgreSQL？"</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#991B1B;margin-top:0.5rem;font-style:italic;">→ AI 给出泛泛的功能对比，缺乏场景针对性，结论模糊："各有优劣，取决于需求"。</p>
+            </div>
+            <div class="compare-panel good">
+              <div class="cp-header">✅ 使用 CoT</div>
+              <ul>
+                <li>"我们在做一个金融交易系统，请一步步分析 MySQL 和 PostgreSQL 的选择："</li>
+                <li>Step 1：列出金融系统对数据库的核心需求</li>
+                <li>Step 2：逐项对比两者在这些需求上的表现</li>
+                <li>Step 3：考虑团队技术栈和运维能力</li>
+                <li>Step 4：综合以上分析给出推荐，并说明理由</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#166534;margin-top:0.5rem;font-style:italic;">→ AI 针对金融场景逐步分析，结论清晰："推荐 PostgreSQL，因为其事务一致性更强"，并附具体理由。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="technique-card">
+        <div class="technique-header">
+          <div class="technique-num" style="background:var(--collab-accent);">2</div>
+          <div>
+            <div class="technique-title">案例二：故障排查分析</div>
+            <div class="technique-en">Root cause analysis with CoT self-questioning</div>
+          </div>
+        </div>
+        <div class="technique-body">
+          <div class="compare-panels">
+            <div class="compare-panel bad">
+              <div class="cp-header">❌ 不使用 CoT</div>
+              <ul>
+                <li>"我们的 API 响应变慢了，怎么办？"</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#991B1B;margin-top:0.5rem;font-style:italic;">→ AI 给出一堆通用建议（加缓存、优化查询、扩容...），没有优先级，不知道从哪里开始。</p>
+            </div>
+            <div class="compare-panel good">
+              <div class="cp-header">✅ 使用 CoT + 自我质疑</div>
+              <ul>
+                <li>"API 响应时间从 200ms 升至 2s，请分步排查："</li>
+                <li>Step 1：列出所有可能的原因（网络/数据库/代码/资源）</li>
+                <li>Step 2：按可能性从高到低排序，说明理由</li>
+                <li>Step 3：为每个原因设计验证方法</li>
+                <li>Step 4：质疑自己——是否遗漏了不常见但致命的原因？</li>
+              </ul>
+              <p style="font-size:0.8rem;color:#166534;margin-top:0.5rem;font-style:italic;">→ AI 系统化排查，优先级明确，附带验证脚本，还自我补充了"是否有最近的代码变更"等容易遗漏的排查项。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 CoT Prompt 实用模板</h3>
+
+      <div class="prompt-template">
+        <span class="pt-label">分步推理模板</span>
+请对<span class="placeholder">[具体问题描述]</span>进行分步分析：
+
+<strong>Step 1 — 问题定义：</strong>明确我们要解决的核心问题是什么
+<strong>Step 2 — 信息收集：</strong>列出所有已知条件和约束
+<strong>Step 3 — 方案列举：</strong>提出至少 3 种可能的解决方案
+<strong>Step 4 — 逐项评估：</strong>对每个方案进行利弊分析
+<strong>Step 5 — 综合判断：</strong>基于以上分析给出推荐方案
+
+要求：每一步都要展示完整的思考过程，不要跳步。
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">自我质疑模板</span>
+请分析<span class="placeholder">[问题/方案描述]</span>：
+
+<strong>阶段一 — 正面分析：</strong>
+给出你认为最好的方案，详细说明理由。
+
+<strong>阶段二 — 自我质疑：</strong>
+现在请切换为"审查者"角色，对你刚才的方案提出至少 3 个尖锐的反对意见。
+
+<strong>阶段三 — 修正与综合：</strong>
+基于你自己的质疑，修正你的方案。
+标注哪些部分你依然有信心，哪些部分存在不确定性。
+      </div>
+
+      <div class="infobox infobox-success">
+        <div class="infobox-icon">✅</div>
+        <div class="infobox-body">
+          <div class="infobox-title">CoT 的黄金法则：越复杂的问题，越需要分步</div>
+          简单的事实查询不需要 CoT（"Python 的 list 和 tuple 有什么区别？"）。但任何涉及<strong>判断、权衡、推理、创造</strong>的任务，都应该使用 CoT。经验法则：如果你自己回答这个问题也需要"想一想"，那就应该让 AI 也"想一想"——一步步来。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 4 · 角色扮演与约束设定
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="roleplay">
+      <div class="section-header">
+        <div class="section-icon orange">🎭</div>
+        <div>
+          <div class="section-title">角色扮演与约束设定</div>
+          <div class="section-subtitle">通过角色和规则激活 AI 的专业模式</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📘</div>
+        <div class="infobox-body">
+          <div class="infobox-title">超越简单角色设定：高级角色扮演策略</div>
+          在模块一中，我们学会了用 RACE 框架中的 Role 来给 AI 设定一个角色。但那只是角色扮演的入门。高级的角色扮演技巧能让你利用<strong>复合角色、对抗角色和多角色讨论</strong>来激活 AI 更深层次的分析能力。配合约束设定，你可以精确控制 AI 的思考方向和输出形式，让每一次交互都产出高质量的深度分析。
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🎭 4 种高级角色扮演技巧</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        每种技巧适用于不同的场景，掌握它们能让你在需要多维度分析、风险评估和创意发散时如虎添翼。
+      </p>
+
+      <div class="role-grid">
+        <div class="role-card">
+          <span class="role-emoji">🧬</span>
+          <h4>复合角色</h4>
+          <div class="role-en">Composite Roles — 融合多领域专业视角</div>
+          <p>当一个问题涉及多个专业领域时，让 AI 同时扮演多个角色。比如评估一个技术方案的商业可行性，需要同时具备技术专家和商业分析师的视角。复合角色让 AI 自然地在多个维度间切换，产出更全面的分析。</p>
+          <div class="role-example">
+            <strong>示例 Prompt：</strong><br>
+            "你同时是一位<strong>资深后端架构师</strong>和<strong>技术产品经理</strong>。请从技术可行性和产品价值两个角度，分析将我们的核心系统从 Java 迁移到 Go 的利弊。对于每个分析点，同时给出技术评估和业务影响。"
+          </div>
+        </div>
+
+        <div class="role-card">
+          <span class="role-emoji">⚔️</span>
+          <h4>对抗角色</h4>
+          <div class="role-en">Adversarial Roles — 用魔鬼代言人思维找漏洞</div>
+          <p>让 AI 扮演"魔鬼代言人"（Devil's Advocate），专门找你方案的漏洞和弱点。这是消除盲点最有效的方法——因为人类天然倾向于确认自己已有的想法，而对抗角色能强制进行反面思考。</p>
+          <div class="role-example">
+            <strong>示例 Prompt：</strong><br>
+            "以下是我的技术方案：[方案描述]。现在请你扮演一位<strong>严苛的技术评审专家</strong>，你的目标是找出这个方案中所有可能的问题和风险。不要客气，直接指出最致命的 5 个漏洞，并说明为什么它们可能导致项目失败。"
+          </div>
+        </div>
+
+        <div class="role-card">
+          <span class="role-emoji">🎤</span>
+          <h4>模拟面试</h4>
+          <div class="role-en">Simulated Interviews — 通过问答深化理解</div>
+          <p>让 AI 扮演面试官或提问者，通过一来一回的问答来深化对某个主题的理解。这种方式特别适合学习新技术、准备技术面试或审查自己对某个概念的理解深度。</p>
+          <div class="role-example">
+            <strong>示例 Prompt：</strong><br>
+            "你是一位有 10 年经验的<strong>分布式系统面试官</strong>。请对我进行一场关于'分布式一致性'的深度面试。从基础概念开始，根据我的回答逐步加深难度。每个问题后给出评价和正确答案的补充。"
+          </div>
+        </div>
+
+        <div class="role-card">
+          <span class="role-emoji">👥</span>
+          <h4>专家团讨论</h4>
+          <div class="role-en">Expert Panel — 模拟多方观点碰撞</div>
+          <p>这是角色扮演的最高级形式：让 AI 同时模拟多位不同背景的专家，以圆桌讨论的形式分析同一个问题。每位"专家"从自己的专业角度发表观点，相互补充甚至辩论，最终形成多维度的综合分析。</p>
+          <div class="role-example">
+            <strong>示例 Prompt：</strong><br>
+            "请模拟一场关于'AI 是否会取代程序员'的专家圆桌讨论，参与者包括：<br>
+            · <strong>CTO 视角：</strong>关注团队效率和技术战略<br>
+            · <strong>资深开发者视角：</strong>关注日常工作变化和技能转型<br>
+            · <strong>HR 视角：</strong>关注人才市场和招聘策略变化<br>
+            每位专家发言 2-3 段，最后给出一个综合结论。"
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🔒 约束设定技巧</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        约束不是限制 AI 的能力，而是<strong>聚焦 AI 的能力</strong>。好的约束像放大镜——让 AI 把所有能量集中在你最需要的方向上。以下是 4 类常用约束及其应用场景。
+      </p>
+
+      <div style="overflow-x:auto;margin:1.25rem 0;">
+        <table class="constraint-table" style="width:100%;border-collapse:collapse;font-size:0.875rem;">
+          <thead>
+            <tr>
+              <th style="padding:0.75rem 1rem;text-align:left;border-bottom:2px solid var(--border);">约束类型</th>
+              <th style="padding:0.75rem 1rem;text-align:left;border-bottom:2px solid var(--border);">说明</th>
+              <th style="padding:0.75rem 1rem;text-align:left;border-bottom:2px solid var(--border);">示例</th>
+              <th style="padding:0.75rem 1rem;text-align:left;border-bottom:2px solid var(--border);">效果</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">📏 字数约束</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">限制输出长度，迫使 AI 提炼核心信息</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">"用 100 字以内回答""每个要点不超过 2 句话"</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">信息密度更高，去除冗余</td>
+            </tr>
+            <tr>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">📋 格式约束</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">指定输出格式，让结果更结构化</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">"用表格对比""用 Markdown 列表""输出 JSON 格式"</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">结构清晰，便于后续使用</td>
+            </tr>
+            <tr>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">🧠 思考约束</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">限定思考方向或方法论</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">"只用第一性原理分析""从用户心理学角度解释"</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">避免泛泛而谈，聚焦特定维度</td>
+            </tr>
+            <tr>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">📚 知识约束</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">限定 AI 使用的知识范围</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">"只基于 Java 17 的特性""假设你只了解 2023 年前的技术"</td>
+              <td style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);">避免过时建议或超出项目范围的方案</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📝 角色扮演 + 约束 Prompt 组合模板</h3>
+
+      <div class="prompt-template">
+        <span class="pt-label">对抗角色 + 约束模板</span>
+<strong>角色：</strong>你是一位<span class="placeholder">[严苛的安全审计专家]</span>，
+有 15 年的<span class="placeholder">[金融系统安全]</span>经验。
+
+<strong>任务：</strong>审查以下<span class="placeholder">[支付接口设计方案]</span>，
+找出所有安全风险。
+
+<strong>约束：</strong>
+- 按严重程度 P0-P3 排序
+- 每个风险点说明攻击方式和修复建议
+- 至少涵盖 OWASP Top 10 中的相关项
+- 不要给出"总体还可以"这样的客套话，直接指出问题
+
+<span class="placeholder">[粘贴方案内容]</span>
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">专家团讨论模板</span>
+请模拟一场关于<span class="placeholder">[是否采用 AI 自动化测试替代部分手工测试]</span>的专家圆桌讨论。
+
+<strong>参与专家：</strong>
+1. <span class="placeholder">[测试主管]</span>：关注测试覆盖率和质量保障
+2. <span class="placeholder">[开发负责人]</span>：关注开发效率和维护成本
+3. <span class="placeholder">[项目经理]</span>：关注项目进度和预算
+
+<strong>讨论规则：</strong>
+- 每位专家发言 2-3 段，表达自己的立场
+- 至少有一位专家持反对或谨慎态度
+- 专家之间需要互相回应和辩论
+- 最后给出会议结论和行动建议
+
+<strong>约束：</strong>
+- 观点必须基于实际工程经验，不要空谈理论
+- 涉及数字时给出具体估算（如 ROI、时间节省比例等）
+- 总字数控制在 1000 字以内
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">角色扮演的常见陷阱</div>
+          <strong>陷阱1 — 角色太泛：</strong>"你是一位专家"不如"你是一位有 10 年 Java 微服务架构经验的架构师"。角色越具体，AI 的回答越专业。<br>
+          <strong>陷阱2 — 缺乏约束：</strong>只设角色不设约束，AI 可能会"跑题"或给出过长的回答。角色 + 约束才是完整的组合。<br>
+          <strong>陷阱3 — 角色冲突：</strong>在复合角色中，两个角色的立场可能互相矛盾。这时要明确告诉 AI 如何处理冲突——是分别分析还是寻找折中。
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Section 5 · 引导策略要点与实操练习
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon orange">🏆</div>
+        <div>
+          <div class="section-title">引导策略要点与实操练习</div>
+          <div class="section-subtitle">掌握 5 大引导策略，让 AI 成为你的深度思考伙伴</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">📌 5 大引导策略速记</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下 5 条策略是本模块的精华总结。牢记它们，在每次与 AI 深度协作前做一次快速回顾。
+      </p>
+
+      <div class="rule-list">
+        <div class="rule-item">
+          <div class="rule-num">1</div>
+          <div>
+            <p><strong>苏格拉底式追问：不接受第一个答案</strong></p>
+            <p>永远不要满足于 AI 的第一个回答。用澄清、假设、证据、视角、推论、元认知 6 种追问类型，引导 AI 从表面分析走向深度推理。经验法则：至少追问 3 轮，才能触及问题的核心。</p>
+          </div>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-num">2</div>
+          <div>
+            <p><strong>思维链引导：让 AI 展示推理过程</strong></p>
+            <p>对于任何需要判断和权衡的问题，要求 AI "一步步分析"。分步推理不仅提升准确率 20-40%，还让你能检查每一步的逻辑是否正确。遇到复杂问题，先拆解再逐步解决。</p>
+          </div>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-num">3</div>
+          <div>
+            <p><strong>自我质疑：让 AI 审查自己的回答</strong></p>
+            <p>在获得 AI 的分析后，追加一个"自我质疑"的步骤："请找出你这个方案的 3 个最大漏洞"。这能有效减少 AI 的"自信偏差"，产出更可靠的分析结果。</p>
+          </div>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-num">4</div>
+          <div>
+            <p><strong>角色扮演：用多重视角看问题</strong></p>
+            <p>复合角色融合多领域视角，对抗角色找漏洞，专家团讨论产出全面分析。角色越具体（经验年限、行业背景、关注重点），AI 的回答越专业、越有针对性。</p>
+          </div>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-num">5</div>
+          <div>
+            <p><strong>约束设定：用限制激发精准</strong></p>
+            <p>字数约束提升信息密度，格式约束保证结构清晰，思考约束聚焦分析方向，知识约束控制方案边界。约束不是限制，而是聚焦——好的约束让 AI 的输出精准命中你的需求。</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:1.5rem 0 0.75rem;">🧠 引导策略组合速查</h3>
+      <div class="prompt-template">
+        <span class="pt-label">策略组合速查</span>
+<span class="placeholder">简单事实查询</span>   → 无需引导，直接提问
+<span class="placeholder">分析判断类问题</span> → CoT 分步推理 + 先分析再结论
+<span class="placeholder">技术决策问题</span>   → 苏格拉底追问 + 多路径推理
+<span class="placeholder">方案审查问题</span>   → 对抗角色 + 自我质疑
+<span class="placeholder">综合复杂问题</span>   → 专家团讨论 + 约束设定
+<span class="placeholder">学习深化问题</span>   → 模拟面试 + 元认知提问
+      </div>
+
+      <h3 style="font-size:1.05rem;font-weight:700;color:var(--dark);margin:2rem 0 0.75rem;">✏️ 实操练习</h3>
+      <p style="font-size:0.875rem;color:var(--medium);line-height:1.6;margin-bottom:1rem;">
+        以下 3 道练习题涵盖了本模块的核心知识点。请在你最常用的 AI 工具中实际操作，体验引导策略带来的深度提升。
+      </p>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块三 · 课后练习</h2>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <strong>苏格拉底式追问练习：深挖技术决策</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选择一个你正在面临（或最近遇到过）的技术决策问题，使用苏格拉底式 6 种追问类型，引导 AI 进行至少 5 轮深度对话：<br>
+              · <strong>Step 1：</strong>提出初始问题，获得 AI 的第一个回答<br>
+              · <strong>Step 2：</strong>用澄清型提问追问模糊概念<br>
+              · <strong>Step 3：</strong>用假设型提问检验隐含前提<br>
+              · <strong>Step 4：</strong>用视角型提问切换不同立场<br>
+              · <strong>Step 5：</strong>用元认知提问让 AI 审视自己的分析<br><br>
+              <strong>提交物：</strong>完整的 5 轮对话记录 + 你的分析总结（对比第一轮和最后一轮回答的深度差异，200字以上）。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：5 轮对话 + 深度对比分析</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <strong>CoT 引导练习：分步分析复杂业务问题</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选择以下任一主题，使用"分步推理 + 自我质疑"的 CoT 组合技巧让 AI 进行深度分析：<br>
+              · 主题A：评估你的团队是否应该引入 Kubernetes<br>
+              · 主题B：设计一个高并发秒杀系统的技术方案<br>
+              · 主题C：分析一个线上性能问题的根因<br><br>
+              · <strong>Step 1：</strong>使用分步推理模板，让 AI 展示完整推理过程<br>
+              · <strong>Step 2：</strong>使用自我质疑模板，让 AI 审查自己的分析<br>
+              · <strong>Step 3：</strong>对比 Step 1 和 Step 2 的结果，标注 AI 自我修正了哪些观点<br><br>
+              <strong>提交物：</strong>分步推理 Prompt + AI 输出 + 自我质疑 Prompt + AI 输出 + 你的对比总结。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：CoT Prompt + 输出 + 对比总结</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <strong>角色扮演练习：专家团圆桌讨论</strong><br>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              设计一个"专家团讨论"场景，让 AI 从至少 3 个不同角色的角度分析同一个问题：<br>
+              · <strong>Step 1：</strong>选择一个有争议的技术或业务话题（如"是否应该全面采用 AI 编程助手"）<br>
+              · <strong>Step 2：</strong>设计 3 个角色，确保角色之间有不同甚至对立的立场<br>
+              · <strong>Step 3：</strong>使用专家团讨论模板，设定讨论规则和约束<br>
+              · <strong>Step 4：</strong>让 AI 生成圆桌讨论，检查各角色观点是否具有真正的差异性<br><br>
+              <strong>评估标准：</strong>各角色是否真的有不同观点？讨论是否产生了新的洞察？约束是否有效控制了输出质量？
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：角色设计 + 讨论 Prompt + AI 输出 + 质量评价</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:2rem;">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">模块三核心总结</div>
+          引导是释放 AI 深度思考能力的关键。使用<strong>苏格拉底式 6 种追问</strong>（澄清、假设、证据、视角、推论、元认知）引导 AI 逐层深入。
+          掌握 <strong>4 种 CoT 技巧</strong>（分步推理、先分析再结论、自我质疑、多路径推理），让 AI 展示推理过程。
+          运用<strong>高级角色扮演</strong>（复合角色、对抗角色、模拟面试、专家团讨论）激活多视角分析。
+          配合<strong>约束设定</strong>（字数、格式、思考、知识），让 AI 的输出精准命中需求。
+          记住：AI 不缺能力，缺的是好的引导——而你就是那个引导者。
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <a href="module2.html" class="btn-prev">← 模块二：总结的艺术</a>
+        <a href="module4.html" class="btn-next">模块四：反馈与迭代 →</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
