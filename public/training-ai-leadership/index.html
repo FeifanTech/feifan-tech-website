@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 战略落地领导力课程 — 课程总览</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Index page specific */
+    .index-hero {
+      background: linear-gradient(135deg, var(--exec-dark) 0%, var(--exec-primary) 50%, var(--exec-secondary) 100%);
+      border-radius: var(--radius-xl);
+      padding: 4rem 3.5rem;
+      margin-bottom: 3rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .index-hero::before {
+      content: '';
+      position: absolute;
+      right: -100px;
+      top: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.25) 0%, transparent 70%);
+    }
+    .index-hero::after {
+      content: '';
+      position: absolute;
+      left: -50px;
+      bottom: -80px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,80,144,0.2) 0%, transparent 70%);
+    }
+    .index-hero-content { position: relative; z-index: 1; }
+    .index-hero h1 { font-size: 2.6rem; font-weight: 900; margin-bottom: 0.75rem; line-height: 1.25; }
+    .index-hero h1 span { color: var(--exec-accent-light); }
+    .index-hero .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,0.82); max-width: 620px; line-height: 1.7; margin-bottom: 2rem; }
+    .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1; }
+    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+    .design-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      background: var(--exec-warm);
+      border: 1px solid var(--exec-border);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      overflow-x: auto;
+    }
+
+    .sessions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem; }
+
+    .module-overview-card {
+      background: #fff;
+      border: 1px solid var(--exec-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .module-overview-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .moc-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+    .moc-badge { margin-bottom: 0.75rem; }
+    .moc-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--exec-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    .moc-desc {
+      font-size: 0.85rem;
+      color: var(--medium);
+      margin-bottom: 1rem;
+      line-height: 1.65;
+    }
+    .moc-metas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 1rem;
+    }
+    .moc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--exec-secondary);
+    }
+    .moc-link:hover { color: var(--exec-primary); }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0 2.5rem;
+    }
+    .audience-card {
+      background: #fff;
+      border: 1px solid var(--exec-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .audience-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .audience-role { font-size: 0.88rem; font-weight: 700; color: var(--exec-primary); margin-bottom: 0.25rem; }
+    .audience-desc { font-size: 0.78rem; color: var(--exec-muted); line-height: 1.5; }
+
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .outcome-card {
+      background: #fff;
+      border: 1px solid var(--exec-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .outcome-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .outcome-title { font-size: 0.88rem; font-weight: 700; color: var(--exec-primary); margin-bottom: 2px; }
+    .outcome-desc { font-size: 0.8rem; color: var(--exec-muted); line-height: 1.5; }
+
+    @media (max-width: 768px) {
+      .sessions-grid { grid-template-columns: 1fr; }
+      .audience-grid { grid-template-columns: 1fr; }
+      .outcome-grid { grid-template-columns: 1fr; }
+      .index-hero { padding: 2.5rem 1.5rem; }
+      .index-hero h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-logo">
+    🏛️ AI 战略落地领导力课程
+    <span class="logo-badge" style="background: var(--exec-primary);">Executive</span>
+  </div>
+  <nav class="header-nav">
+    <a href="../training/">基础培训</a>
+    <a href="./" class="active">战略领导力</a>
+    <a href="../training-advanced/">PM×QA</a>
+    <a href="../training-advanced-for-dev/">工程师</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">课程导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview" class="active">
+        <span class="nav-num">0</span> 课程总览
+      </a></li>
+      <li><a href="#design-logic">
+        <span class="nav-num">→</span> 课程理念
+      </a></li>
+      <li><a href="#audience">
+        <span class="nav-num">👥</span> 适用对象
+      </a></li>
+      <li><a href="#modules">
+        <span class="nav-num">3</span> 模块概览
+      </a></li>
+      <li><a href="#outcomes">
+        <span class="nav-num">📦</span> 课程产出
+      </a></li>
+      <li><a href="#methodology">
+        <span class="nav-num">⚡</span> 教学方法
+      </a></li>
+    </ul>
+    <div style="padding: 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border);">
+      <div class="sidebar-title">课程模块</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <a href="module1.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+          <span style="color:var(--exec-accent);">●</span> 模块一：AI战略规划
+        </a>
+        <a href="module2.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+          <span style="color:var(--exec-secondary);">●</span> 模块二：项目管理与治理
+        </a>
+        <a href="module3.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+          <span style="color:var(--exec-success);">●</span> 模块三：场景识别与路线图
+        </a>
+      </div>
+      <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--border);">
+        <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px;">更多课程</div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <a href="../training/" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+            <span style="color:var(--accent);">●</span> AI 办公实战培训
+          </a>
+          <a href="../training-advanced/" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+            <span style="color:#E07A5F;">●</span> 进阶：PM × QA
+          </a>
+          <a href="../training-advanced-for-dev/" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+            <span style="color:#6D28D9;">●</span> 进阶：工程师培训
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div id="overview"></div>
+
+    <!-- Hero -->
+    <div class="index-hero">
+      <div class="index-hero-content">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,0.2);padding:5px 16px;border-radius:999px;font-size:0.78rem;font-weight:600;color:var(--exec-accent-light);margin-bottom:1.25rem;">
+          🏛️ 适用对象：CXO / VP / 总监 / 事业部负责人
+        </div>
+        <h1>AI 战略落地<br/><span>领导力课程</span></h1>
+        <p class="hero-desc">
+          帮助企业管理层建立 <strong>AI 战略认知</strong>，掌握 <strong>AI 落地方法论</strong>，
+          从战略规划到项目治理、从场景识别到路线图输出，系统性推动企业 AI 转型。
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">3</div>
+            <div class="stat-label">核心模块</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">12h</div>
+            <div class="stat-label">总课时</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6</div>
+            <div class="stat-label">决策工具包</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">1</div>
+            <div class="stat-label">企业AI路线图</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Design Logic -->
+    <div id="design-logic" class="section-block">
+      <div class="section-header" style="margin-bottom: 1.5rem;">
+        <div class="section-icon" style="background: linear-gradient(135deg, var(--exec-accent), #B8903F);">→</div>
+        <div>
+          <div class="section-title">课程设计理念</div>
+          <div class="section-subtitle">从认知到落地的三阶递进体系</div>
+        </div>
+      </div>
+
+      <div class="design-flow">
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color: var(--exec-accent);">🎯</div>
+          <div class="pf-label">战略认知</div>
+          <div class="pf-sub">看清方向</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color: var(--exec-secondary);">🏗️</div>
+          <div class="pf-label">治理落地</div>
+          <div class="pf-sub">建立体系</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color: var(--exec-success);">🔍</div>
+          <div class="pf-label">场景驱动</div>
+          <div class="pf-sub">精准落子</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color: #805AD5;">📊</div>
+          <div class="pf-label">路线输出</div>
+          <div class="pf-sub">系统推进</div>
+        </div>
+      </div>
+
+      <div class="exec-quote">
+        <p>AI 不是一个 IT 项目，而是一场组织能力的升级。管理者不需要写代码，但需要能看清 AI 的战略价值，做出正确的优先级判断，并构建让 AI 持续落地的组织机制。</p>
+        <span class="quote-source">— 课程设计理念</span>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--exec-border);border-radius:var(--radius-lg);padding:1.5rem;margin-top:1.25rem;">
+        <div style="font-size:0.78rem;font-weight:700;color:var(--exec-primary);margin-bottom:0.75rem;">📐 课程结构设计</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+          <div style="text-align:center;padding:1rem;background:var(--exec-warm);border-radius:var(--radius-md);">
+            <div style="font-size:1.5rem;margin-bottom:0.25rem;">30%</div>
+            <div style="font-size:0.78rem;font-weight:600;color:var(--exec-primary);">框架与方法论</div>
+            <div style="font-size:0.72rem;color:var(--exec-muted);">可复用的决策工具</div>
+          </div>
+          <div style="text-align:center;padding:1rem;background:var(--exec-warm);border-radius:var(--radius-md);">
+            <div style="font-size:1.5rem;margin-bottom:0.25rem;">40%</div>
+            <div style="font-size:0.78rem;font-weight:600;color:var(--exec-primary);">案例研讨与沙盘</div>
+            <div style="font-size:0.72rem;color:var(--exec-muted);">真实企业场景演练</div>
+          </div>
+          <div style="text-align:center;padding:1rem;background:var(--exec-warm);border-radius:var(--radius-md);">
+            <div style="font-size:1.5rem;margin-bottom:0.25rem;">30%</div>
+            <div style="font-size:0.78rem;font-weight:600;color:var(--exec-primary);">工作坊与输出</div>
+            <div style="font-size:0.72rem;color:var(--exec-muted);">可带走的决策文档</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audience -->
+    <div id="audience" class="section-block">
+      <div class="section-header" style="margin-bottom: 1.5rem;">
+        <div class="section-icon" style="background: linear-gradient(135deg, var(--exec-secondary), #1B365D);">👥</div>
+        <div>
+          <div class="section-title">适用对象</div>
+          <div class="section-subtitle">为企业决策层量身定制</div>
+        </div>
+      </div>
+
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="audience-icon">👔</div>
+          <div class="audience-role">CEO / CTO / CIO</div>
+          <div class="audience-desc">需要为企业AI战略定方向、做决策的最高管理层</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">📊</div>
+          <div class="audience-role">VP / 事业部总经理</div>
+          <div class="audience-desc">负责业务单元运营、需要识别AI赋能场景的业务领导者</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🎯</div>
+          <div class="audience-role">总监 / 高级经理</div>
+          <div class="audience-desc">AI项目的直接推动者、需要掌握管理方法论的中高层</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module Cards -->
+    <div id="modules" class="section-block">
+      <div class="section-header" style="margin-bottom: 1.5rem;">
+        <div class="section-icon" style="background: linear-gradient(135deg, var(--exec-accent), var(--exec-primary));">3</div>
+        <div>
+          <div class="section-title">三大核心模块</div>
+          <div class="section-subtitle">从战略到执行的完整闭环</div>
+        </div>
+      </div>
+
+      <div class="sessions-grid">
+        <!-- Module 1 -->
+        <div class="module-overview-card">
+          <div class="moc-num" style="background: linear-gradient(135deg, var(--exec-accent), #B8903F);">M1</div>
+          <div class="moc-badge">
+            <span class="exec-badge exec-badge-gold">战略规划</span>
+            <span class="badge badge-gray">4课时</span>
+          </div>
+          <div class="moc-title">企业AI战略规划</div>
+          <div class="moc-desc">掌握AI落地优先级评估方法、ROI测算框架、技术选型决策矩阵，建立系统化的AI战略思维。</div>
+          <div class="moc-metas">
+            <span class="badge badge-gray">🎯 优先级评估</span>
+            <span class="badge badge-gray">💰 ROI测算</span>
+            <span class="badge badge-gray">🧭 选型决策</span>
+          </div>
+          <a href="module1.html" class="moc-link">进入模块一 →</a>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="module-overview-card">
+          <div class="moc-num" style="background: linear-gradient(135deg, var(--exec-secondary), #1B365D);">M2</div>
+          <div class="moc-badge">
+            <span class="exec-badge exec-badge-blue">项目治理</span>
+            <span class="badge badge-gray">4课时</span>
+          </div>
+          <div class="moc-title">AI项目管理与治理</div>
+          <div class="moc-desc">建立AI项目的立项标准、里程碑管理、风险管控机制和验收体系，确保AI项目可控可度量。</div>
+          <div class="moc-metas">
+            <span class="badge badge-gray">🏗️ 项目立项</span>
+            <span class="badge badge-gray">🛡️ 风险管控</span>
+            <span class="badge badge-gray">✅ 验收标准</span>
+          </div>
+          <a href="module2.html" class="moc-link">进入模块二 →</a>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="module-overview-card">
+          <div class="moc-num" style="background: linear-gradient(135deg, var(--exec-success), #1E6B3F);">M3</div>
+          <div class="moc-badge">
+            <span class="exec-badge" style="background:rgba(45,134,89,0.12);color:var(--exec-success);">场景落地</span>
+            <span class="badge badge-gray">4课时</span>
+          </div>
+          <div class="moc-title">AI应用场景识别</div>
+          <div class="moc-desc">结合行业特点识别高价值AI落地场景，运用系统化方法输出企业AI路线图和实施计划。</div>
+          <div class="moc-metas">
+            <span class="badge badge-gray">🔍 场景识别</span>
+            <span class="badge badge-gray">🗺️ 路线图</span>
+            <span class="badge badge-gray">📋 实施计划</span>
+          </div>
+          <a href="module3.html" class="moc-link" style="color:var(--exec-success);">进入模块三 →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Outcomes -->
+    <div id="outcomes" class="section-block">
+      <div class="section-header" style="margin-bottom: 1.5rem;">
+        <div class="section-icon" style="background: linear-gradient(135deg, #805AD5, #5B21B6);">📦</div>
+        <div>
+          <div class="section-title">课程产出物</div>
+          <div class="section-subtitle">每个模块均有可直接用于实际工作的交付物</div>
+        </div>
+      </div>
+
+      <div class="outcome-grid">
+        <div class="outcome-card">
+          <div class="outcome-icon" style="background:rgba(201,168,76,0.12);">🎯</div>
+          <div>
+            <div class="outcome-title">AI战略优先级矩阵</div>
+            <div class="outcome-desc">基于业务影响力×实施可行性的AI机会评估工具</div>
+          </div>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-icon" style="background:rgba(46,80,144,0.12);">💰</div>
+          <div>
+            <div class="outcome-title">AI投资ROI测算模型</div>
+            <div class="outcome-desc">包含成本、收益、风险因子的量化决策工具</div>
+          </div>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-icon" style="background:rgba(45,134,89,0.12);">🛡️</div>
+          <div>
+            <div class="outcome-title">AI项目风险管控清单</div>
+            <div class="outcome-desc">覆盖技术、数据、组织、合规四维度的风险检查表</div>
+          </div>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-icon" style="background:rgba(128,90,213,0.12);">📐</div>
+          <div>
+            <div class="outcome-title">AI项目验收标准模板</div>
+            <div class="outcome-desc">分阶段、可量化的AI项目验收评价体系</div>
+          </div>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-icon" style="background:rgba(44,122,123,0.12);">🔍</div>
+          <div>
+            <div class="outcome-title">AI场景价值评估画布</div>
+            <div class="outcome-desc">系统识别并评估AI应用场景的结构化工具</div>
+          </div>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-icon" style="background:rgba(220,38,38,0.12);">🗺️</div>
+          <div>
+            <div class="outcome-title">企业AI路线图</div>
+            <div class="outcome-desc">含阶段目标、资源配置、里程碑的12个月实施路线</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Methodology -->
+    <div id="methodology" class="section-block">
+      <div class="section-header" style="margin-bottom: 1.5rem;">
+        <div class="section-icon" style="background: linear-gradient(135deg, #2C7A7B, #1F5F60);">⚡</div>
+        <div>
+          <div class="section-title">教学方法论</div>
+          <div class="section-subtitle">专为管理层设计的高效学习体验</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1.5rem;">
+        <div class="strategy-card">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(201,168,76,0.12);">🎓</div>
+            <div class="strategy-card-title">高管沙盘推演</div>
+          </div>
+          <div class="strategy-card-desc">基于真实企业案例的AI战略推演，在模拟决策环境中练习战略判断力，零风险试错。</div>
+        </div>
+        <div class="strategy-card">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(46,80,144,0.12);">💼</div>
+            <div class="strategy-card-title">行业案例研讨</div>
+          </div>
+          <div class="strategy-card-desc">涵盖制造、零售、金融、医疗等多行业AI落地案例，提炼共通的方法论和避坑指南。</div>
+        </div>
+        <div class="strategy-card">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(45,134,89,0.12);">🛠️</div>
+            <div class="strategy-card-title">工具包工作坊</div>
+          </div>
+          <div class="strategy-card-desc">现场使用决策工具完成企业自身的AI评估，课后即可投入实际使用，确保学以致用。</div>
+        </div>
+        <div class="strategy-card">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(128,90,213,0.12);">🤝</div>
+            <div class="strategy-card-title">跨部门共识构建</div>
+          </div>
+          <div class="strategy-card-desc">引导管理团队达成AI战略共识，建立统一的AI认知语言和决策框架，减少落地阻力。</div>
+        </div>
+      </div>
+
+      <div class="exec-summary">
+        <div class="exec-summary-title">💡 课程承诺</div>
+        <p>完成全部三个模块后，您的管理团队将具备：① 清晰的AI战略认知和决策能力；② 一套经过验证的AI项目治理体系；③ 一份可执行的企业AI路线图。所有产出物均可直接应用于实际业务场景。</p>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="../training/" class="page-nav-btn">← 返回培训首页</a>
+      <a href="module1.html" class="page-nav-btn">开始模块一：AI战略规划 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  // Active sidebar link on scroll
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
