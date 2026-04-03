@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 02：AI项目管理与治理 — AI 战略落地领导力课程</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-logo">
+    🏛️ AI 战略落地领导力课程
+    <span class="logo-badge" style="background: var(--exec-primary);">Executive</span>
+  </div>
+  <nav class="header-nav">
+    <a href="./">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html" class="active">模块二</a>
+    <a href="module3.html">模块三</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块二 · 导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview" class="active">
+        <span class="nav-num">0</span> 模块概览
+      </a></li>
+      <li><a href="#project-init">
+        <span class="nav-num">1</span> AI项目立项
+      </a></li>
+      <li><a href="#milestone">
+        <span class="nav-num">2</span> 里程碑管理
+      </a></li>
+      <li><a href="#risk">
+        <span class="nav-num">3</span> 风险管控
+      </a></li>
+      <li><a href="#acceptance">
+        <span class="nav-num">4</span> 验收标准设计
+      </a></li>
+      <li><a href="#pitfalls">
+        <span class="nav-num">5</span> 常见陷阱与避坑
+      </a></li>
+      <li><a href="#data-governance">
+        <span class="nav-num">6</span> 数据与合规治理
+      </a></li>
+      <li><a href="#workshop2">
+        <span class="nav-num">⚡</span> 实战工作坊
+      </a></li>
+    </ul>
+    <div style="padding: 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border);">
+      <div class="sidebar-title">课程模块</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <a href="module1.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:var(--exec-accent);">●</span> 模块一：AI战略规划
+        </a>
+        <a href="module2.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--beige);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--accent);font-weight:600;">
+          <span style="color:var(--exec-secondary);">●</span> 模块二：项目管理与治理
+        </a>
+        <a href="module3.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:var(--exec-success);">●</span> 模块三：场景识别与路线图
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div id="overview"></div>
+
+    <!-- Hero -->
+    <div class="session-hero" style="background: linear-gradient(135deg, var(--exec-dark) 0%, var(--exec-secondary) 60%, #3D6098 100%);">
+      <div class="hero-content" style="position:relative;z-index:1;">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(46,80,144,0.3);padding:5px 16px;border-radius:999px;font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.85);margin-bottom:1rem;">
+          模块 02 · 项目治理 · 4课时
+        </div>
+        <h1 style="font-size:2.2rem;font-weight:900;color:#fff;margin-bottom:0.5rem;line-height:1.25;">AI 项目管理与治理</h1>
+        <p style="font-size:1rem;color:rgba(255,255,255,0.8);max-width:560px;line-height:1.65;">
+          AI 项目立项标准、里程碑管理、风险管控机制、验收标准设计——建立让 AI 项目可控、可度量、可持续的治理体系。
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 1: Project Initiation -->
+    <div id="project-init" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, var(--exec-accent), #B8903F);">1</div>
+        <div>
+          <div class="section-title">AI 项目立项标准</div>
+          <div class="section-subtitle">什么样的AI项目值得启动？如何写好AI项目提案？</div>
+        </div>
+      </div>
+
+      <h3>1.1 AI项目立项 "五要素" 检查</h3>
+      <p>AI项目不同于传统IT项目，立项时需要额外关注以下五个AI特有要素：</p>
+
+      <div class="kpi-grid" style="grid-template-columns: repeat(5, 1fr);">
+        <div class="kpi-card" style="border-top:3px solid var(--exec-accent);">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">📋</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">问题定义</div>
+          <div class="kpi-label">业务问题是否<br/>适合用AI解决</div>
+        </div>
+        <div class="kpi-card" style="border-top:3px solid var(--exec-secondary);">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">💾</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">数据可用性</div>
+          <div class="kpi-label">所需数据是否<br/>可获取、可使用</div>
+        </div>
+        <div class="kpi-card" style="border-top:3px solid var(--exec-success);">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">📏</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">成功标准</div>
+          <div class="kpi-label">如何定义和衡量<br/>"AI做得好"</div>
+        </div>
+        <div class="kpi-card" style="border-top:3px solid #805AD5;">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">👥</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">团队能力</div>
+          <div class="kpi-label">是否具备必要的<br/>技术和业务人才</div>
+        </div>
+        <div class="kpi-card" style="border-top:3px solid #2C7A7B;">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">⚖️</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">伦理合规</div>
+          <div class="kpi-label">是否存在伦理<br/>法律合规风险</div>
+        </div>
+      </div>
+
+      <h3>1.2 AI项目提案模板</h3>
+      <p>一份好的AI项目提案需要回答管理层最关心的8个问题：</p>
+
+      <table class="decision-matrix">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>核心问题</th>
+            <th>回答要点</th>
+            <th>常见错误</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>解决什么业务问题？</td>
+            <td>量化当前痛点，明确改善目标</td>
+            <td>描述过于技术化，缺乏业务语言</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>为什么需要AI？</td>
+            <td>解释为何传统方案无法满足</td>
+            <td>为了用AI而用AI，缺乏必要性论证</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>预期投入多少？</td>
+            <td>分阶段估算，含隐性成本</td>
+            <td>低估数据准备和运维成本</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td>预期回报多少？</td>
+            <td>三层收益模型（直接/间接/战略）</td>
+            <td>只算直接收益，忽略能力积累价值</td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td>数据从哪里来？</td>
+            <td>数据源、质量现状、治理计划</td>
+            <td>假设数据已就绪，未评估数据缺口</td>
+          </tr>
+          <tr>
+            <td><strong>6</strong></td>
+            <td>怎么衡量成功？</td>
+            <td>可度量的KPI和基准线</td>
+            <td>目标模糊如"提升效率"，无法验证</td>
+          </tr>
+          <tr>
+            <td><strong>7</strong></td>
+            <td>有哪些风险？</td>
+            <td>技术、数据、组织、合规四维度</td>
+            <td>过于乐观，未识别关键假设</td>
+          </tr>
+          <tr>
+            <td><strong>8</strong></td>
+            <td>退出策略是什么？</td>
+            <td>明确止损条件和备选方案</td>
+            <td>缺少"如果AI不work怎么办"的Plan B</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="infobox infobox-tip">
+        <strong>🎯 立项建议：</strong>首个AI项目建议选择"高可行性×中等价值"的场景，而非"最高价值"的场景。目的是快速验证和积累经验，建立组织对AI的信心，为后续大项目奠定基础。
+      </div>
+    </div>
+
+    <!-- Section 2: Milestones -->
+    <div id="milestone" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, var(--exec-secondary), #1B365D);">2</div>
+        <div>
+          <div class="section-title">AI 项目里程碑管理</div>
+          <div class="section-subtitle">AI项目的阶段划分与关键检查点</div>
+        </div>
+      </div>
+
+      <h3>2.1 AI项目五阶段模型</h3>
+      <p>AI项目需要采用与传统软件不同的阶段管理方式，特别是在PoC和迭代优化阶段需要更多的灵活性：</p>
+
+      <div class="process-flow">
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color:var(--exec-accent);">💡</div>
+          <div class="pf-label">场景定义</div>
+          <div class="pf-sub">1-2周</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color:var(--exec-secondary);">🧪</div>
+          <div class="pf-label">PoC验证</div>
+          <div class="pf-sub">2-4周</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color:var(--exec-success);">🏗️</div>
+          <div class="pf-label">MVP开发</div>
+          <div class="pf-sub">4-8周</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color:#805AD5;">🚀</div>
+          <div class="pf-label">试点推广</div>
+          <div class="pf-sub">4-6周</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color:#2C7A7B;">📈</div>
+          <div class="pf-label">规模化</div>
+          <div class="pf-sub">持续</div>
+        </div>
+      </div>
+
+      <h3>2.2 阶段Gate Review检查清单</h3>
+      <p>每个阶段结束时，管理者需要通过Gate Review来决定项目是否继续推进：</p>
+
+      <table class="decision-matrix">
+        <thead>
+          <tr>
+            <th>阶段</th>
+            <th>Gate Review 关键问题</th>
+            <th>通过条件</th>
+            <th>终止信号</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>场景定义→PoC</strong></td>
+            <td>问题定义清晰？数据可获取？</td>
+            <td>有明确的成功标准和可用数据</td>
+            <td>数据完全不可用或问题定义模糊</td>
+          </tr>
+          <tr>
+            <td><strong>PoC→MVP</strong></td>
+            <td>技术可行性验证通过？效果达标？</td>
+            <td>PoC效果达到设定阈值的80%+</td>
+            <td>核心假设被推翻，效果远低于预期</td>
+          </tr>
+          <tr>
+            <td><strong>MVP→试点</strong></td>
+            <td>用户接受度如何？系统稳定性？</td>
+            <td>用户反馈正面，系统达到SLA要求</td>
+            <td>用户强烈抵触或系统频繁故障</td>
+          </tr>
+          <tr>
+            <td><strong>试点→规模化</strong></td>
+            <td>ROI达到预期？可复制到其他场景？</td>
+            <td>ROI验证通过，运维流程成熟</td>
+            <td>成本远超预期或无法泛化到新场景</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="exec-quote">
+        <p>AI项目最大的管理误区是按传统瀑布模式推进——花半年做完才发现方向错了。正确做法是快速迭代：两周出PoC，一个月出MVP，用最低成本验证最关键的假设。</p>
+        <span class="quote-source">— AI项目敏捷管理原则</span>
+      </div>
+    </div>
+
+    <!-- Section 3: Risk Management -->
+    <div id="risk" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, #DC2626, #991B1B);">3</div>
+        <div>
+          <div class="section-title">AI 项目风险管控</div>
+          <div class="section-subtitle">识别、评估和管控AI项目的特有风险</div>
+        </div>
+      </div>
+
+      <h3>3.1 AI项目四维风险地图</h3>
+      <p>AI项目面临的风险可以分为四个维度，管理者需要为每个维度建立监控和应对机制：</p>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.25rem 0;">
+        <div class="strategy-card" style="border-left:4px solid #DC2626;">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(220,38,38,0.1);">⚙️</div>
+            <div class="strategy-card-title">技术风险</div>
+          </div>
+          <div class="strategy-card-desc">
+            • 模型效果不达预期（准确率/幻觉问题）<br/>
+            • 模型性能无法满足生产级需求<br/>
+            • 技术方案与现有架构不兼容<br/>
+            • 供应商API稳定性和持续性不确定<br/><br/>
+            <strong style="color:#DC2626;">应对：</strong>PoC阶段即做性能基准测试，设置最低可接受标准
+          </div>
+        </div>
+        <div class="strategy-card" style="border-left:4px solid #D69E2E;">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(214,158,46,0.1);">💾</div>
+            <div class="strategy-card-title">数据风险</div>
+          </div>
+          <div class="strategy-card-desc">
+            • 数据质量差（缺失、不一致、过时）<br/>
+            • 数据量不足以支撑模型训练/微调<br/>
+            • 数据获取涉及隐私或合规问题<br/>
+            • 数据偏差导致模型输出不公平<br/><br/>
+            <strong style="color:#D69E2E;">应对：</strong>立项前做数据审计，评估数据就绪度
+          </div>
+        </div>
+        <div class="strategy-card" style="border-left:4px solid var(--exec-secondary);">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(46,80,144,0.1);">👥</div>
+            <div class="strategy-card-title">组织风险</div>
+          </div>
+          <div class="strategy-card-desc">
+            • 业务部门抵触变革（"AI会取代我"）<br/>
+            • 缺乏AI与业务的"翻译官"角色<br/>
+            • 管理层期望过高导致失望循环<br/>
+            • 跨部门协作难以推进<br/><br/>
+            <strong style="color:var(--exec-secondary);">应对：</strong>早期纳入业务负责人参与，设定合理预期
+          </div>
+        </div>
+        <div class="strategy-card" style="border-left:4px solid #805AD5;">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(128,90,213,0.1);">⚖️</div>
+            <div class="strategy-card-title">合规风险</div>
+          </div>
+          <div class="strategy-card-desc">
+            • 生成内容涉及知识产权争议<br/>
+            • 自动化决策的可解释性不足<br/>
+            • 数据跨境传输合规限制<br/>
+            • 行业监管政策变化风险<br/><br/>
+            <strong style="color:#805AD5;">应对：</strong>提前评估法律合规要求，建立AI伦理审查机制
+          </div>
+        </div>
+      </div>
+
+      <h3>3.2 风险评估热力图</h3>
+      <p>按"发生概率 × 影响程度"评估每个风险，确定优先应对的风险项：</p>
+
+      <div style="background:#fff;border:1px solid var(--exec-border);border-radius:var(--radius-lg);padding:2rem;margin:1.25rem 0;">
+        <div style="display:grid;grid-template-columns:auto 1fr 1fr 1fr;grid-template-rows:auto 1fr 1fr 1fr;gap:6px;text-align:center;font-size:0.82rem;">
+          <div style="writing-mode:vertical-lr;transform:rotate(180deg);font-weight:700;color:var(--exec-primary);display:flex;align-items:center;justify-content:center;grid-row:2/5;padding-right:8px;">影 响 程 度 ⬆</div>
+          <div></div>
+          <div style="font-weight:600;color:var(--exec-muted);padding:6px;">概率低</div>
+          <div style="font-weight:600;color:var(--exec-muted);padding:6px;">概率中</div>
+          <div style="font-weight:600;color:var(--exec-muted);padding:6px;">概率高</div>
+          <!-- High impact -->
+          <div style="font-weight:600;color:var(--exec-muted);padding:6px;display:flex;align-items:center;">影响高</div>
+          <div class="risk-cell risk-medium" style="padding:0.75rem;">
+            <div class="risk-cell-title">关注</div>
+            <div class="risk-cell-desc">制定应急预案</div>
+          </div>
+          <div class="risk-cell risk-high" style="padding:0.75rem;">
+            <div class="risk-cell-title">严重</div>
+            <div class="risk-cell-desc">主动消除根因</div>
+          </div>
+          <div class="risk-cell risk-high" style="padding:0.75rem;">
+            <div class="risk-cell-title">致命</div>
+            <div class="risk-cell-desc">立即处理或终止</div>
+          </div>
+          <!-- Medium impact -->
+          <div style="font-weight:600;color:var(--exec-muted);padding:6px;display:flex;align-items:center;">影响中</div>
+          <div class="risk-cell risk-low" style="padding:0.75rem;">
+            <div class="risk-cell-title">接受</div>
+            <div class="risk-cell-desc">定期监控即可</div>
+          </div>
+          <div class="risk-cell risk-medium" style="padding:0.75rem;">
+            <div class="risk-cell-title">关注</div>
+            <div class="risk-cell-desc">分配责任人跟踪</div>
+          </div>
+          <div class="risk-cell risk-high" style="padding:0.75rem;">
+            <div class="risk-cell-title">严重</div>
+            <div class="risk-cell-desc">升级处理方案</div>
+          </div>
+          <!-- Low impact -->
+          <div style="font-weight:600;color:var(--exec-muted);padding:6px;display:flex;align-items:center;">影响低</div>
+          <div class="risk-cell risk-low" style="padding:0.75rem;">
+            <div class="risk-cell-title">忽略</div>
+            <div class="risk-cell-desc">无需特别关注</div>
+          </div>
+          <div class="risk-cell risk-low" style="padding:0.75rem;">
+            <div class="risk-cell-title">接受</div>
+            <div class="risk-cell-desc">记录但不处理</div>
+          </div>
+          <div class="risk-cell risk-medium" style="padding:0.75rem;">
+            <div class="risk-cell-title">关注</div>
+            <div class="risk-cell-desc">评估是否升级</div>
+          </div>
+        </div>
+        <div style="text-align:center;font-size:0.75rem;font-weight:600;color:var(--exec-muted);margin-top:12px;">发 生 概 率 ➡</div>
+      </div>
+    </div>
+
+    <!-- Section 4: Acceptance Criteria -->
+    <div id="acceptance" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, var(--exec-success), #1E6B3F);">4</div>
+        <div>
+          <div class="section-title">AI 项目验收标准设计</div>
+          <div class="section-subtitle">如何科学地评价AI项目的成功与否</div>
+        </div>
+      </div>
+
+      <h3>4.1 AI项目三层验收体系</h3>
+      <p>AI项目的验收不能只看技术指标，需要从技术层、业务层、价值层三个维度进行全面评价：</p>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.25rem 0;">
+        <div class="strategy-card" style="border-top:3px solid var(--exec-accent);text-align:center;">
+          <div style="font-size:2rem;margin-bottom:0.5rem;">🔧</div>
+          <div class="strategy-card-title" style="text-align:center;">技术验收</div>
+          <div class="strategy-card-desc" style="text-align:left;margin-top:0.75rem;">
+            <strong>核心指标：</strong><br/>
+            • 模型准确率 / 召回率<br/>
+            • 响应延迟 &lt; 阈值<br/>
+            • 系统可用性 ≥ 99.5%<br/>
+            • 并发处理能力<br/>
+            • 安全与隐私合规
+          </div>
+        </div>
+        <div class="strategy-card" style="border-top:3px solid var(--exec-secondary);text-align:center;">
+          <div style="font-size:2rem;margin-bottom:0.5rem;">📊</div>
+          <div class="strategy-card-title" style="text-align:center;">业务验收</div>
+          <div class="strategy-card-desc" style="text-align:left;margin-top:0.75rem;">
+            <strong>核心指标：</strong><br/>
+            • 处理效率提升比例<br/>
+            • 用户采纳率 ≥ 目标<br/>
+            • 业务流程覆盖率<br/>
+            • 人工干预频率下降<br/>
+            • 用户满意度评分
+          </div>
+        </div>
+        <div class="strategy-card" style="border-top:3px solid var(--exec-success);text-align:center;">
+          <div style="font-size:2rem;margin-bottom:0.5rem;">💰</div>
+          <div class="strategy-card-title" style="text-align:center;">价值验收</div>
+          <div class="strategy-card-desc" style="text-align:left;margin-top:0.75rem;">
+            <strong>核心指标：</strong><br/>
+            • ROI达到预期水平<br/>
+            • 人力成本节省实现<br/>
+            • 收入/利润影响<br/>
+            • 客户体验改善（NPS）<br/>
+            • 能力沉淀与复用度
+          </div>
+        </div>
+      </div>
+
+      <h3>4.2 验收标准设定原则</h3>
+
+      <div class="exec-summary">
+        <div class="exec-summary-title">📐 SMART-AI 原则</div>
+        <p>AI项目验收标准应遵循 SMART-AI 原则：<strong>S</strong>pecific（具体可操作）、<strong>M</strong>easurable（可量化度量）、<strong>A</strong>chievable（务实可达成）、<strong>R</strong>elevant（与业务目标对齐）、<strong>T</strong>ime-bound（有明确时间节点）、<strong>A</strong>daptive（允许迭代调整）、<strong>I</strong>nterpretable（结果可解释）。</p>
+      </div>
+
+      <h3>4.3 分阶段验收节奏</h3>
+      <table class="decision-matrix">
+        <thead>
+          <tr>
+            <th>阶段</th>
+            <th>验收重点</th>
+            <th>通过标准示例</th>
+            <th>验收方式</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>PoC</strong></td>
+            <td>技术可行性</td>
+            <td>目标场景准确率 ≥ 75%</td>
+            <td>技术评审会</td>
+          </tr>
+          <tr>
+            <td><strong>MVP</strong></td>
+            <td>业务可用性</td>
+            <td>用户试用满意度 ≥ 7/10</td>
+            <td>用户验收测试</td>
+          </tr>
+          <tr>
+            <td><strong>试点</strong></td>
+            <td>规模化可行性</td>
+            <td>效率提升 ≥ 30%，采纳率 ≥ 60%</td>
+            <td>试点报告评审</td>
+          </tr>
+          <tr>
+            <td><strong>正式上线</strong></td>
+            <td>全面价值实现</td>
+            <td>ROI ≥ 100%，系统SLA达标</td>
+            <td>项目总结评审</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 5: Common Pitfalls -->
+    <div id="pitfalls" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, #D69E2E, #92400E);">5</div>
+        <div>
+          <div class="section-title">AI项目常见陷阱与避坑指南</div>
+          <div class="section-subtitle">从失败案例中提炼的管理者必知教训</div>
+        </div>
+      </div>
+
+      <h3>5.1 AI项目十大常见陷阱</h3>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.25rem 0;">
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:var(--radius-md);padding:1.25rem;">
+          <div style="font-size:0.82rem;font-weight:700;color:#991B1B;margin-bottom:0.5rem;">❌ 陷阱 1：技术驱动而非业务驱动</div>
+          <div style="font-size:0.8rem;color:#7F1D1D;line-height:1.6;">因为有了新技术就去找问题，而非从业务痛点出发寻找AI解决方案。</div>
+          <div style="font-size:0.78rem;color:var(--exec-success);font-weight:600;margin-top:0.5rem;">✅ 正确做法：先明确业务问题，再评估AI是否是最佳解法。</div>
+        </div>
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:var(--radius-md);padding:1.25rem;">
+          <div style="font-size:0.82rem;font-weight:700;color:#991B1B;margin-bottom:0.5rem;">❌ 陷阱 2：过度追求完美模型</div>
+          <div style="font-size:0.8rem;color:#7F1D1D;line-height:1.6;">花大量时间追求99%准确率，而80%已能产生显著业务价值。</div>
+          <div style="font-size:0.78rem;color:var(--exec-success);font-weight:600;margin-top:0.5rem;">✅ 正确做法：设定"够用"标准，快速上线迭代优化。</div>
+        </div>
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:var(--radius-md);padding:1.25rem;">
+          <div style="font-size:0.82rem;font-weight:700;color:#991B1B;margin-bottom:0.5rem;">❌ 陷阱 3：忽视数据质量投入</div>
+          <div style="font-size:0.8rem;color:#7F1D1D;line-height:1.6;">"Garbage in, garbage out"——数据质量决定AI效果上限。</div>
+          <div style="font-size:0.78rem;color:var(--exec-success);font-weight:600;margin-top:0.5rem;">✅ 正确做法：将30%以上预算分配给数据治理。</div>
+        </div>
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:var(--radius-md);padding:1.25rem;">
+          <div style="font-size:0.82rem;font-weight:700;color:#991B1B;margin-bottom:0.5rem;">❌ 陷阱 4：缺少"最后一公里"设计</div>
+          <div style="font-size:0.8rem;color:#7F1D1D;line-height:1.6;">模型做好了但没有融入业务流程，用户不知道怎么用。</div>
+          <div style="font-size:0.78rem;color:var(--exec-success);font-weight:600;margin-top:0.5rem;">✅ 正确做法：从Day 1就让业务人员参与UX设计。</div>
+        </div>
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:var(--radius-md);padding:1.25rem;">
+          <div style="font-size:0.82rem;font-weight:700;color:#991B1B;margin-bottom:0.5rem;">❌ 陷阱 5：低估组织变革难度</div>
+          <div style="font-size:0.8rem;color:#7F1D1D;line-height:1.6;">技术部署了但员工不愿用，变革管理不到位导致AI搁浅。</div>
+          <div style="font-size:0.78rem;color:var(--exec-success);font-weight:600;margin-top:0.5rem;">✅ 正确做法：配套培训、激励和变革管理计划。</div>
+        </div>
+        <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:var(--radius-md);padding:1.25rem;">
+          <div style="font-size:0.82rem;font-weight:700;color:#991B1B;margin-bottom:0.5rem;">❌ 陷阱 6：没有止损机制</div>
+          <div style="font-size:0.8rem;color:#7F1D1D;line-height:1.6;">项目已偏离预期但因沉没成本心理继续投入。</div>
+          <div style="font-size:0.78rem;color:var(--exec-success);font-weight:600;margin-top:0.5rem;">✅ 正确做法：设定明确Gate Review和终止条件。</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <strong>⚠️ 管理者警示：</strong>据统计，约70%的企业AI项目未能达到预期效果。其中技术问题仅占20%，其余80%失败原因来自：需求定义不清、数据准备不足、组织变革缺失、缺乏持续运维。这些都是管理层可以预防的问题。
+      </div>
+    </div>
+
+    <!-- Section 6: Data & Compliance Governance -->
+    <div id="data-governance" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, #805AD5, #5B21B6);">6</div>
+        <div>
+          <div class="section-title">数据治理与合规框架</div>
+          <div class="section-subtitle">构建负责任的AI使用体系</div>
+        </div>
+      </div>
+
+      <h3>6.1 AI数据治理要求</h3>
+      <p>AI项目对数据的要求远高于传统数据分析，管理者需要建立更严格的数据治理标准：</p>
+
+      <table class="decision-matrix">
+        <thead>
+          <tr>
+            <th>治理维度</th>
+            <th>核心要求</th>
+            <th>管理者职责</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>数据质量</strong></td>
+            <td>准确性、完整性、时效性、一致性</td>
+            <td>建立数据质量KPI，纳入部门考核</td>
+          </tr>
+          <tr>
+            <td><strong>数据安全</strong></td>
+            <td>分级分类管理、加密存储、访问控制</td>
+            <td>制定AI数据安全策略，定期审计</td>
+          </tr>
+          <tr>
+            <td><strong>隐私保护</strong></td>
+            <td>符合GDPR/个人信息保护法等法规</td>
+            <td>确保数据收集和使用获得合法授权</td>
+          </tr>
+          <tr>
+            <td><strong>数据资产化</strong></td>
+            <td>元数据管理、数据目录、血缘追溯</td>
+            <td>推动数据作为战略资产的组织认知</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>6.2 AI伦理与合规框架</h3>
+      <p>负责任的AI使用需要管理层建立清晰的伦理准则和合规机制：</p>
+
+      <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="kpi-card" style="border-top:3px solid var(--exec-accent);">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">🔍</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">可解释性</div>
+          <div class="kpi-label">AI决策过程可追溯<br/>结果可向利益方解释</div>
+        </div>
+        <div class="kpi-card" style="border-top:3px solid var(--exec-secondary);">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">⚖️</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">公平性</div>
+          <div class="kpi-label">避免算法偏见<br/>定期进行公平性审计</div>
+        </div>
+        <div class="kpi-card" style="border-top:3px solid var(--exec-success);">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">🛡️</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">安全性</div>
+          <div class="kpi-label">防止对抗攻击<br/>建立安全响应机制</div>
+        </div>
+        <div class="kpi-card" style="border-top:3px solid #805AD5;">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">👤</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">人类监督</div>
+          <div class="kpi-label">关键决策保留<br/>人类审核和干预权</div>
+        </div>
+      </div>
+
+      <div class="exec-summary">
+        <div class="exec-summary-title">💡 合规建设建议</div>
+        <p>建议在企业内部建立"AI伦理委员会"或"AI治理小组"，由业务、技术、法务三方组成，在AI项目立项和上线前进行合规审查。同时制定《企业AI使用准则》，为全员AI使用提供明确的行为规范。</p>
+      </div>
+    </div>
+
+    <!-- Workshop -->
+    <div id="workshop2" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, var(--exec-secondary), var(--exec-primary));">⚡</div>
+        <div>
+          <div class="section-title">实战工作坊：AI项目治理沙盘</div>
+          <div class="section-subtitle">90分钟 · 模拟一个AI项目的全生命周期管理</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-teacher">
+        <strong>🎓 工作坊目标：</strong>管理团队以小组形式，模拟推进一个AI项目从立项到验收的全过程，识别关键风险和决策点，输出《AI项目治理手册》。
+      </div>
+
+      <h3>沙盘推演流程</h3>
+      <div class="roadmap">
+        <div class="roadmap-item">
+          <div class="roadmap-phase">STEP 1 · 15分钟</div>
+          <div class="roadmap-title">场景选择与立项提案</div>
+          <div class="roadmap-desc">从预设的3个AI项目场景中选择一个，使用立项模板撰写项目提案，回答"8个核心问题"。</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">STEP 2 · 20分钟</div>
+          <div class="roadmap-title">风险识别与评估</div>
+          <div class="roadmap-desc">使用四维风险地图识别项目风险，在热力图中标注优先级，制定Top 3风险的应对方案。</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">STEP 3 · 20分钟</div>
+          <div class="roadmap-title">里程碑规划与Gate Review设计</div>
+          <div class="roadmap-desc">制定项目的五阶段推进计划，设计每个Gate Review的通过/终止条件。</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">STEP 4 · 15分钟</div>
+          <div class="roadmap-title">验收标准设定</div>
+          <div class="roadmap-desc">使用SMART-AI原则，设计技术层、业务层、价值层的验收标准和验收节奏。</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">STEP 5 · 20分钟</div>
+          <div class="roadmap-title">成果汇报与评审</div>
+          <div class="roadmap-desc">各组展示《AI项目治理手册》，其他组扮演"挑战者"角色提出质疑和改进建议。</div>
+        </div>
+      </div>
+
+      <div class="exec-summary">
+        <div class="exec-summary-title">📦 模块产出物</div>
+        <p>① AI项目提案模板（可复用）；② AI项目风险管控清单（四维度）；③ 分阶段验收标准模板（SMART-AI）；④ AI项目治理手册（含Gate Review流程）。</p>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="module1.html" class="page-nav-btn">← 模块一：AI战略规划</a>
+      <a href="module3.html" class="page-nav-btn">模块三：AI应用场景识别 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

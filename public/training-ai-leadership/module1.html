@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块 01：企业AI战略规划 — AI 战略落地领导力课程</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-logo">
+    🏛️ AI 战略落地领导力课程
+    <span class="logo-badge" style="background: var(--exec-primary);">Executive</span>
+  </div>
+  <nav class="header-nav">
+    <a href="./">课程总览</a>
+    <a href="module1.html" class="active">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块一 · 导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview" class="active">
+        <span class="nav-num">0</span> 模块概览
+      </a></li>
+      <li><a href="#ai-landscape">
+        <span class="nav-num">1</span> AI技术全景
+      </a></li>
+      <li><a href="#priority">
+        <span class="nav-num">2</span> 优先级评估
+      </a></li>
+      <li><a href="#roi">
+        <span class="nav-num">3</span> ROI测算方法
+      </a></li>
+      <li><a href="#selection">
+        <span class="nav-num">4</span> 选型决策框架
+      </a></li>
+      <li><a href="#org-readiness">
+        <span class="nav-num">5</span> 组织准备度
+      </a></li>
+      <li><a href="#workshop1">
+        <span class="nav-num">⚡</span> 实战工作坊
+      </a></li>
+    </ul>
+    <div style="padding: 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border);">
+      <div class="sidebar-title">课程模块</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <a href="module1.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--beige);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--accent);font-weight:600;">
+          <span style="color:var(--exec-accent);">●</span> 模块一：AI战略规划
+        </a>
+        <a href="module2.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:var(--exec-secondary);">●</span> 模块二：项目管理与治理
+        </a>
+        <a href="module3.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:var(--exec-success);">●</span> 模块三：场景识别与路线图
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div id="overview"></div>
+
+    <!-- Hero -->
+    <div class="session-hero" style="background: linear-gradient(135deg, var(--exec-dark) 0%, var(--exec-primary) 60%, var(--exec-accent) 100%);">
+      <div class="hero-content" style="position:relative;z-index:1;">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,0.2);padding:5px 16px;border-radius:999px;font-size:0.78rem;font-weight:600;color:var(--exec-accent-light);margin-bottom:1rem;">
+          模块 01 · 战略规划 · 4课时
+        </div>
+        <h1 style="font-size:2.2rem;font-weight:900;color:#fff;margin-bottom:0.5rem;line-height:1.25;">企业AI战略规划</h1>
+        <p style="font-size:1rem;color:rgba(255,255,255,0.8);max-width:560px;line-height:1.65;">
+          AI 落地优先级评估、ROI 测算方法、技术选型决策框架——帮助管理层建立系统化的 AI 战略思维，做出有据可依的 AI 投资决策。
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 1: AI Technology Landscape -->
+    <div id="ai-landscape" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, var(--exec-accent), #B8903F);">1</div>
+        <div>
+          <div class="section-title">AI 技术全景与管理者认知</div>
+          <div class="section-subtitle">不需要懂技术细节，但需要看清技术能力边界</div>
+        </div>
+      </div>
+
+      <div class="exec-quote">
+        <p>管理者的AI认知不在于能否训练模型，而在于能否判断：这个业务问题，AI能解决到什么程度？需要投入多少资源？回报周期是多长？</p>
+        <span class="quote-source">— 管理者 AI 认知模型</span>
+      </div>
+
+      <h3>1.1 AI 能力图谱：管理者视角</h3>
+      <p>作为管理者，您需要理解AI技术的四个核心能力层次，以及每个层次能为企业带来的价值：</p>
+
+      <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="kpi-card" style="border-top: 3px solid var(--exec-accent);">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🗣️</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">感知智能</div>
+          <div class="kpi-label">语音识别、图像识别、OCR<br/>文档解析、视频分析</div>
+        </div>
+        <div class="kpi-card" style="border-top: 3px solid var(--exec-secondary);">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🧠</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">认知智能</div>
+          <div class="kpi-label">自然语言理解、知识推理<br/>文本生成、语义搜索</div>
+        </div>
+        <div class="kpi-card" style="border-top: 3px solid var(--exec-success);">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">📊</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">决策智能</div>
+          <div class="kpi-label">预测分析、推荐系统<br/>风控模型、智能调度</div>
+        </div>
+        <div class="kpi-card" style="border-top: 3px solid #805AD5;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🤖</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">自主智能</div>
+          <div class="kpi-label">AI Agent、自动化工作流<br/>多Agent协作、自主决策</div>
+        </div>
+      </div>
+
+      <h3>1.2 大模型时代的关键变化</h3>
+      <p>2023年以来，AI领域经历了范式级的变革，管理者需要理解这些变化对企业AI战略的深远影响：</p>
+
+      <div class="compare-cols">
+        <div class="compare-col compare-col-before">
+          <h4>❌ 传统AI模式</h4>
+          <ul>
+            <li>📌 每个场景需独立建模</li>
+            <li>📌 需要大量标注数据</li>
+            <li>📌 开发周期长（月级）</li>
+            <li>📌 维护成本高，模型漂移</li>
+            <li>📌 需要专业AI团队</li>
+          </ul>
+        </div>
+        <div class="compare-col compare-col-after">
+          <h4>✅ 大模型AI模式</h4>
+          <ul>
+            <li>✨ 通用模型 + 提示词/微调</li>
+            <li>✨ 少样本甚至零样本学习</li>
+            <li>✨ 快速验证（天级/时级）</li>
+            <li>✨ 平台化，持续迭代</li>
+            <li>✨ 业务人员可直接参与</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exec-summary">
+        <div class="exec-summary-title">💡 管理者认知要点</div>
+        <p>大模型降低了AI落地的技术门槛，但提升了战略判断的重要性。过去的AI竞争是"谁有数据和算法团队"，现在的AI竞争是"谁能更快识别高价值场景并系统化落地"——这正是管理者要做的事。</p>
+      </div>
+    </div>
+
+    <!-- Section 2: Priority Assessment -->
+    <div id="priority" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, var(--exec-secondary), #1B365D);">2</div>
+        <div>
+          <div class="section-title">AI 落地优先级评估</div>
+          <div class="section-subtitle">如何判断哪些场景应该优先投入AI</div>
+        </div>
+      </div>
+
+      <h3>2.1 VIFA 优先级评估模型</h3>
+      <p>我们为管理者设计了 <strong>VIFA</strong>（Value-Impact-Feasibility-Alignment）四维评估模型，用于系统化评估AI落地机会：</p>
+
+      <div class="process-flow">
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color:var(--exec-accent);">V</div>
+          <div class="pf-label">Value 价值</div>
+          <div class="pf-sub">业务价值有多大</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color:var(--exec-secondary);">I</div>
+          <div class="pf-label">Impact 影响</div>
+          <div class="pf-sub">影响范围多广</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color:var(--exec-success);">F</div>
+          <div class="pf-label">Feasibility 可行</div>
+          <div class="pf-sub">落地难度多高</div>
+        </div>
+        <div class="pf-arrow">→</div>
+        <div class="pf-step">
+          <div class="pf-icon" style="border-color:#805AD5;">A</div>
+          <div class="pf-label">Alignment 对齐</div>
+          <div class="pf-sub">战略匹配度</div>
+        </div>
+      </div>
+
+      <h3>2.2 优先级评估矩阵</h3>
+      <p>将识别到的AI机会映射到"业务价值 × 实施可行性"矩阵中，划分行动策略：</p>
+
+      <div style="background:#fff;border:1px solid var(--exec-border);border-radius:var(--radius-lg);padding:2rem;margin:1.25rem 0;">
+        <div style="display:grid;grid-template-columns:auto 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:0;text-align:center;">
+          <!-- Y axis label -->
+          <div style="writing-mode:vertical-lr;transform:rotate(180deg);font-size:0.78rem;font-weight:700;color:var(--exec-primary);display:flex;align-items:center;justify-content:center;padding-right:12px;grid-row:2/4;">
+            业 务 价 值 ⬆
+          </div>
+          <!-- Header row -->
+          <div></div>
+          <div style="font-size:0.75rem;font-weight:600;color:var(--exec-muted);padding:8px;">可行性低</div>
+          <div style="font-size:0.75rem;font-weight:600;color:var(--exec-muted);padding:8px;">可行性高</div>
+          <!-- High value row -->
+          <div style="font-size:0.75rem;font-weight:600;color:var(--exec-muted);padding:8px;display:flex;align-items:center;">价值高</div>
+          <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:var(--radius-md);padding:1.25rem;margin:4px;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">🔬</div>
+            <div style="font-size:0.82rem;font-weight:700;color:#92400E;">战略储备</div>
+            <div style="font-size:0.72rem;color:#92400E;margin-top:4px;">加大研究投入<br/>待条件成熟推进</div>
+          </div>
+          <div style="background:#F0FDF4;border:2px solid #86EFAC;border-radius:var(--radius-md);padding:1.25rem;margin:4px;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">🚀</div>
+            <div style="font-size:0.82rem;font-weight:700;color:#166534;">立即行动</div>
+            <div style="font-size:0.72rem;color:#166534;margin-top:4px;">最高优先级<br/>快速启动落地</div>
+          </div>
+          <!-- Low value row -->
+          <div style="font-size:0.75rem;font-weight:600;color:var(--exec-muted);padding:8px;display:flex;align-items:center;">价值低</div>
+          <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:var(--radius-md);padding:1.25rem;margin:4px;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">⏸️</div>
+            <div style="font-size:0.82rem;font-weight:700;color:#991B1B;">暂不考虑</div>
+            <div style="font-size:0.72rem;color:#991B1B;margin-top:4px;">资源有限<br/>不建议当前投入</div>
+          </div>
+          <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:var(--radius-md);padding:1.25rem;margin:4px;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">⚡</div>
+            <div style="font-size:0.82rem;font-weight:700;color:#1E40AF;">快速试点</div>
+            <div style="font-size:0.72rem;color:#1E40AF;margin-top:4px;">低投入快速验证<br/>积累经验和信心</div>
+          </div>
+        </div>
+        <div style="text-align:center;font-size:0.75rem;font-weight:600;color:var(--exec-muted);margin-top:12px;">实 施 可 行 性 ➡</div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <strong>🎯 实操建议：</strong>建议管理团队在工作坊中对已识别的 10-15 个AI机会进行集体评估，通过投票和讨论形成共识，避免个人偏见影响优先级判断。
+      </div>
+    </div>
+
+    <!-- Section 3: ROI -->
+    <div id="roi" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, var(--exec-success), #1E6B3F);">3</div>
+        <div>
+          <div class="section-title">AI 投资 ROI 测算方法</div>
+          <div class="section-subtitle">量化AI投资回报，支撑理性决策</div>
+        </div>
+      </div>
+
+      <h3>3.1 AI 投资成本结构</h3>
+      <p>AI项目的成本结构与传统IT项目有显著差异，管理者需要理解其独特的成本构成：</p>
+
+      <table class="decision-matrix">
+        <thead>
+          <tr>
+            <th>成本类型</th>
+            <th>具体内容</th>
+            <th>占比范围</th>
+            <th>关键考量</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>模型与算力</strong></td>
+            <td>API调用费、GPU算力、模型授权</td>
+            <td>15-30%</td>
+            <td>大模型API按量付费，可渐进投入</td>
+          </tr>
+          <tr>
+            <td><strong>数据准备</strong></td>
+            <td>数据清洗、标注、整合、治理</td>
+            <td>20-35%</td>
+            <td>常被低估，是最大隐性成本</td>
+          </tr>
+          <tr>
+            <td><strong>开发集成</strong></td>
+            <td>应用开发、系统集成、部署上线</td>
+            <td>20-30%</td>
+            <td>低代码平台可降低此项成本</td>
+          </tr>
+          <tr>
+            <td><strong>人员能力</strong></td>
+            <td>团队培训、顾问咨询、组织变革</td>
+            <td>10-20%</td>
+            <td>长期投资，边际成本递减</td>
+          </tr>
+          <tr>
+            <td><strong>持续运维</strong></td>
+            <td>模型监控、效果优化、合规审计</td>
+            <td>10-15%</td>
+            <td>不可忽视的长期运营成本</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>3.2 ROI 测算框架</h3>
+      <p>AI项目的价值不仅体现在直接成本节省上，还包括效率提升、体验改善和战略收益。建议用以下三层模型进行测算：</p>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.25rem 0;">
+        <div class="strategy-card" style="border-top:3px solid var(--exec-accent);">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(201,168,76,0.12);">💰</div>
+            <div class="strategy-card-title">直接收益</div>
+          </div>
+          <div class="strategy-card-desc">
+            <strong>可量化指标：</strong><br/>
+            • 人力成本节省（FTE释放）<br/>
+            • 处理效率提升（时间缩短）<br/>
+            • 错误率降低（质量改善）<br/>
+            • 营收增长（转化率提升）
+          </div>
+        </div>
+        <div class="strategy-card" style="border-top:3px solid var(--exec-secondary);">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(46,80,144,0.12);">📈</div>
+            <div class="strategy-card-title">间接收益</div>
+          </div>
+          <div class="strategy-card-desc">
+            <strong>难量化但有价值：</strong><br/>
+            • 员工满意度提升<br/>
+            • 客户体验改善（NPS）<br/>
+            • 决策速度加快<br/>
+            • 知识沉淀与复用
+          </div>
+        </div>
+        <div class="strategy-card" style="border-top:3px solid #805AD5;">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(128,90,213,0.12);">🏆</div>
+            <div class="strategy-card-title">战略价值</div>
+          </div>
+          <div class="strategy-card-desc">
+            <strong>长期竞争优势：</strong><br/>
+            • 新业务模式创造<br/>
+            • 行业壁垒建立<br/>
+            • 组织AI能力积累<br/>
+            • 数据资产增值
+          </div>
+        </div>
+      </div>
+
+      <h3>3.3 ROI 速算模板</h3>
+      <div style="background:#fff;border:1px solid var(--exec-border);border-radius:var(--radius-lg);padding:1.5rem;margin:1.25rem 0;">
+        <div style="font-size:0.82rem;color:var(--medium);line-height:1.8;font-family:'JetBrains Mono',monospace;">
+          <div style="margin-bottom:1rem;">
+            <strong style="color:var(--exec-primary);">📊 年化ROI计算公式</strong>
+          </div>
+          <div style="background:var(--exec-warm);padding:1rem;border-radius:var(--radius-md);margin-bottom:1rem;">
+            年化ROI = (年化总收益 - 年化总成本) ÷ 年化总成本 × 100%
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div>
+              <strong style="color:var(--exec-success);">年化总收益 =</strong><br/>
+              &nbsp;&nbsp;人力成本节省<br/>
+              + 效率提升价值<br/>
+              + 质量改善价值<br/>
+              + 新增营收
+            </div>
+            <div>
+              <strong style="color:#DC2626;">年化总成本 =</strong><br/>
+              &nbsp;&nbsp;模型/算力费用<br/>
+              + 开发集成费用<br/>
+              + 数据准备费用<br/>
+              + 运维培训费用
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <strong>📐 经验基准：</strong>成熟AI项目的ROI通常在 150%-400% 之间。首个AI项目建议设定保守目标（100%-150%），重点积累经验和团队能力，而非追求极致回报。
+      </div>
+    </div>
+
+    <!-- Section 4: Technology Selection -->
+    <div id="selection" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, #805AD5, #5B21B6);">4</div>
+        <div>
+          <div class="section-title">AI 技术选型决策框架</div>
+          <div class="section-subtitle">Build vs Buy vs Partner — 不同策略的适用条件</div>
+        </div>
+      </div>
+
+      <h3>4.1 三种落地路径对比</h3>
+      <p>管理者需要根据企业自身能力和场景特征，选择最合适的AI落地路径：</p>
+
+      <table class="decision-matrix">
+        <thead>
+          <tr>
+            <th>维度</th>
+            <th>🏗️ 自建 Build</th>
+            <th>🛒 采购 Buy</th>
+            <th>🤝 合作 Partner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>适用场景</strong></td>
+            <td>核心竞争力场景、高度定制需求</td>
+            <td>通用场景、成熟解决方案可覆盖</td>
+            <td>战略级场景、需要深度行业Know-How</td>
+          </tr>
+          <tr>
+            <td><strong>投入成本</strong></td>
+            <td>高（需AI团队+基础设施）</td>
+            <td>中（授权费/订阅费）</td>
+            <td>中高（项目费+知识转移）</td>
+          </tr>
+          <tr>
+            <td><strong>上线周期</strong></td>
+            <td>6-18个月</td>
+            <td>1-3个月</td>
+            <td>3-9个月</td>
+          </tr>
+          <tr>
+            <td><strong>控制力</strong></td>
+            <td>完全自主，数据安全可控</td>
+            <td>依赖供应商，定制空间有限</td>
+            <td>合作共建，需管理知识产权</td>
+          </tr>
+          <tr>
+            <td><strong>能力沉淀</strong></td>
+            <td>内部能力积累强</td>
+            <td>能力依赖外部</td>
+            <td>可通过合作逐步内化</td>
+          </tr>
+          <tr>
+            <td><strong>推荐比例</strong></td>
+            <td>20-30% 核心场景</td>
+            <td>40-50% 通用场景</td>
+            <td>20-30% 战略场景</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>4.2 选型决策树</h3>
+      <p>通过以下决策流程，帮助管理团队快速判断某个AI场景应该采取哪种落地路径：</p>
+
+      <div style="background:#fff;border:1px solid var(--exec-border);border-radius:var(--radius-lg);padding:2rem;margin:1.25rem 0;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;line-height:2.2;color:var(--exec-primary);">
+          <div style="text-align:center;margin-bottom:1rem;">
+            <span style="background:var(--exec-primary);color:#fff;padding:6px 16px;border-radius:var(--radius-sm);font-weight:700;">🧭 AI落地路径决策树</span>
+          </div>
+          <div style="padding-left:1rem;">
+            Q1. 该场景是否涉及核心竞争力？<br/>
+            <span style="padding-left:2rem;color:var(--exec-success);">├── 是 → Q2. 市场有成熟方案可参考？</span><br/>
+            <span style="padding-left:4rem;color:var(--exec-success);">├── 是 → 🤝 <strong>合作共建</strong>（借鉴方案+内化能力）</span><br/>
+            <span style="padding-left:4rem;color:#DC2626;">└── 否 → 🏗️ <strong>自研自建</strong>（构建独特竞争壁垒）</span><br/>
+            <span style="padding-left:2rem;color:var(--exec-secondary);">└── 否 → Q3. 是否有标准化SaaS可用？</span><br/>
+            <span style="padding-left:4rem;color:var(--exec-success);">├── 是 → 🛒 <strong>直接采购</strong>（快速上线，降低成本）</span><br/>
+            <span style="padding-left:4rem;color:#D69E2E;">└── 否 → Q4. 需要深度定制？</span><br/>
+            <span style="padding-left:6rem;color:var(--exec-success);">├── 是 → 🤝 <strong>合作定制</strong></span><br/>
+            <span style="padding-left:6rem;color:var(--exec-secondary);">└── 否 → 🛒 <strong>采购+配置</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <h3>4.3 大模型选型参考</h3>
+      <p>针对大语言模型的选型，管理者需要在性能、成本、安全性之间做出平衡：</p>
+
+      <table class="decision-matrix">
+        <thead>
+          <tr>
+            <th>选型维度</th>
+            <th>关键问题</th>
+            <th>决策要点</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>部署方式</strong></td>
+            <td>公有云API vs 私有化部署？</td>
+            <td>敏感数据选私有化，非敏感用API降本</td>
+          </tr>
+          <tr>
+            <td><strong>模型能力</strong></td>
+            <td>通用大模型 vs 行业垂直模型？</td>
+            <td>先用通用模型验证，再决定是否需要垂直化</td>
+          </tr>
+          <tr>
+            <td><strong>生态兼容</strong></td>
+            <td>是否与现有技术栈兼容？</td>
+            <td>优先选择开放API、支持MCP等标准协议的方案</td>
+          </tr>
+          <tr>
+            <td><strong>供应商锁定</strong></td>
+            <td>切换成本有多高？</td>
+            <td>建议采用抽象层设计，避免深度绑定单一供应商</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 5: Org Readiness -->
+    <div id="org-readiness" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, #2C7A7B, #1F5F60);">5</div>
+        <div>
+          <div class="section-title">组织AI准备度评估</div>
+          <div class="section-subtitle">AI成功落地80%取决于组织准备，20%取决于技术</div>
+        </div>
+      </div>
+
+      <h3>5.1 AI 准备度五维雷达</h3>
+      <p>在制定AI战略前，管理者需要诚实评估企业在以下五个维度的准备程度：</p>
+
+      <div class="kpi-grid" style="grid-template-columns: repeat(5, 1fr);">
+        <div class="kpi-card">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">🎯</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">战略清晰度</div>
+          <div class="kpi-label">AI战略与业务战略<br/>的对齐程度</div>
+        </div>
+        <div class="kpi-card">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">📊</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">数据成熟度</div>
+          <div class="kpi-label">数据质量、治理水平<br/>和可用程度</div>
+        </div>
+        <div class="kpi-card">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">👥</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">人才储备</div>
+          <div class="kpi-label">AI技术人才和<br/>业务转译人才</div>
+        </div>
+        <div class="kpi-card">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">🏛️</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">组织文化</div>
+          <div class="kpi-label">创新包容度<br/>变革接受度</div>
+        </div>
+        <div class="kpi-card">
+          <div style="font-size:1.3rem;margin-bottom:0.35rem;">⚙️</div>
+          <div class="kpi-label" style="font-weight:700;color:var(--exec-primary);margin-bottom:4px;">技术基础</div>
+          <div class="kpi-label">基础设施和<br/>系统集成能力</div>
+        </div>
+      </div>
+
+      <h3>5.2 AI治理组织设计</h3>
+      <p>成功的AI落地需要清晰的组织架构支撑。推荐以下三种常见的AI组织模式：</p>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.25rem 0;">
+        <div class="strategy-card" style="border-left:4px solid var(--exec-accent);">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(201,168,76,0.12);">🏢</div>
+            <div class="strategy-card-title">集中式 CoE</div>
+          </div>
+          <div class="strategy-card-desc">
+            建立AI卓越中心（Center of Excellence），统一管理AI能力、工具和标准。<br/><br/>
+            <strong>适用：</strong>AI起步期，需要集中资源快速突破。
+          </div>
+        </div>
+        <div class="strategy-card" style="border-left:4px solid var(--exec-secondary);">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(46,80,144,0.12);">🌐</div>
+            <div class="strategy-card-title">联邦式嵌入</div>
+          </div>
+          <div class="strategy-card-desc">
+            AI人才嵌入各业务线，CoE提供平台和标准支持。兼顾专业性和业务贴合度。<br/><br/>
+            <strong>适用：</strong>AI成长期，多个业务线并行落地。
+          </div>
+        </div>
+        <div class="strategy-card" style="border-left:4px solid var(--exec-success);">
+          <div class="strategy-card-header">
+            <div class="strategy-card-icon" style="background:rgba(45,134,89,0.12);">🔄</div>
+            <div class="strategy-card-title">全民AI化</div>
+          </div>
+          <div class="strategy-card-desc">
+            AI能力融入全员日常工作，AI工具成为基础生产力。CoE转为治理和创新孵化角色。<br/><br/>
+            <strong>适用：</strong>AI成熟期，已形成AI文化。
+          </div>
+        </div>
+      </div>
+
+      <div class="exec-summary">
+        <div class="exec-summary-title">💡 组织建设建议</div>
+        <p>大多数企业建议从"集中式CoE"起步，在6-12个月内积累经验和案例后，逐步过渡到"联邦式嵌入"模式。切忌跳过集中式阶段直接分散——没有统一标准和平台，各业务线容易重复建设、各自为战。</p>
+      </div>
+    </div>
+
+    <!-- Workshop -->
+    <div id="workshop1" class="section-block">
+      <div class="section-header">
+        <div class="section-icon" style="background: linear-gradient(135deg, var(--exec-accent), var(--exec-primary));">⚡</div>
+        <div>
+          <div class="section-title">实战工作坊：AI战略画布</div>
+          <div class="section-subtitle">90分钟 · 管理团队共同完成企业AI战略评估</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-teacher">
+        <strong>🎓 工作坊目标：</strong>管理团队在讲师引导下，使用本模块的工具和框架，完成企业自身的AI战略初步评估，输出《AI战略评估画布》。
+      </div>
+
+      <h3>工作坊流程</h3>
+      <div class="roadmap">
+        <div class="roadmap-item">
+          <div class="roadmap-phase">STEP 1 · 15分钟</div>
+          <div class="roadmap-title">AI机会头脑风暴</div>
+          <div class="roadmap-desc">每位管理者列出所负责领域内3-5个潜在的AI应用场景，不做评判，追求数量。</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">STEP 2 · 20分钟</div>
+          <div class="roadmap-title">VIFA四维评估</div>
+          <div class="roadmap-desc">对汇总的AI机会逐一用VIFA模型评分（1-5分），形成量化评估结果。</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">STEP 3 · 20分钟</div>
+          <div class="roadmap-title">优先级矩阵映射</div>
+          <div class="roadmap-desc">将评估结果映射到"价值×可行性"矩阵，讨论并确定Top 3优先AI项目。</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">STEP 4 · 20分钟</div>
+          <div class="roadmap-title">ROI速算与路径选择</div>
+          <div class="roadmap-desc">对Top 3项目进行ROI速算，并用决策树确定Build/Buy/Partner路径。</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">STEP 5 · 15分钟</div>
+          <div class="roadmap-title">AI战略画布汇报</div>
+          <div class="roadmap-desc">各组展示《AI战略评估画布》成果，讲师点评和建议，形成初步行动计划。</div>
+        </div>
+      </div>
+
+      <div class="exec-summary">
+        <div class="exec-summary-title">📦 模块产出物</div>
+        <p>① AI战略优先级矩阵（已填写的评估结果）；② AI投资ROI速算表（Top 3项目）；③ 技术选型决策记录（Build/Buy/Partner决定）；④ AI组织准备度雷达图。</p>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="./" class="page-nav-btn">← 返回课程总览</a>
+      <a href="module2.html" class="page-nav-btn">模块二：AI项目管理与治理 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
