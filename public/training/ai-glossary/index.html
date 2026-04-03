@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 工程术语总表 — AI 概念 × 软件工程类比</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <span class="logo-icon">📖</span>
+      <span class="logo-text">AI 术语总表</span>
+      <span class="logo-badge">Glossary</span>
+    </a>
+    <nav class="header-nav">
+      <a href="../index.html">培训主页</a>
+      <a href="#overview" class="active">总览</a>
+      <a href="#visual-cards">可视化卡片</a>
+      <a href="#lifecycle">生命周期</a>
+      <a href="#full-table">完整术语表</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-wrapper">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview">
+        <span class="nav-num">①</span> 术语总览
+      </a></li>
+      <li><a href="#quick-ref">
+        <span class="nav-num">⚡</span> 速查对照
+      </a></li>
+      <li><a href="#visual-cards">
+        <span class="nav-num">②</span> 可视化卡片
+      </a></li>
+      <li><a href="#lifecycle">
+        <span class="nav-num">③</span> 生命周期类比
+      </a></li>
+      <li><a href="#full-table">
+        <span class="nav-num">④</span> 完整术语表
+      </a></li>
+    </ul>
+
+    <div style="padding: 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border);">
+      <div class="sidebar-title">相关课程</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <a href="../session4.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+          <span style="color:#805AD5;">●</span> 第四期：MCP + AI Native
+        </a>
+        <a href="../ai-collaboration/" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+          <span style="color:#4F46E5;">●</span> 专项：AI 协作技巧
+        </a>
+        <a href="../../training-advanced-for-dev/" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+          <span style="color:#6D28D9;">●</span> 进阶：工程师培训
+        </a>
+        <a href="../algorithm-ai/" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+          <span style="color:#2C7A7B;">●</span> 专项：算法与AI协同
+        </a>
+      </div>
+      <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--border);">
+        <a href="../index.html" style="display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--muted);padding:6px 0;">
+          ← 返回培训主页
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div id="overview"></div>
+
+    <!-- Hero -->
+    <div class="glossary-hero">
+      <div class="hero-inner">
+        <div class="hero-badge">
+          <span class="hero-session-num">参考手册</span>
+          全员适用
+        </div>
+        <h1>AI 工程术语<span>总表</span></h1>
+        <p class="hero-desc">
+          AI 工程领域不断涌现新概念——Tools Use、MCP、Skills、Harness、Computer Use、Browse Use……<br/>
+          其实它们都能在<strong>传统软件工程</strong>中找到对应的"老朋友"。本手册帮你<strong>一眼看懂</strong>。
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">16</div>
+            <div class="stat-label">核心术语</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5</div>
+            <div class="stat-label">分类维度</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">1:1</div>
+            <div class="stat-label">AI ↔ SE 映射</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intro infobox -->
+    <div class="infobox infobox-teacher">
+      <span class="infobox-icon">👨‍🏫</span>
+      <div>
+        <div class="infobox-title">培训师引导建议</div>
+        <p style="font-size:0.875rem;margin-top:4px;line-height:1.6;">
+          开课前先让学员浏览"速查对照"板块，建立直觉映射；进入深度讲解时再展开"可视化卡片"，
+          逐个解读 AI 术语背后的软件工程本质。最后用"生命周期类比"图将所有概念串联成一张完整图景。
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick Reference -->
+    <section class="section" id="quick-ref">
+      <div class="section-header">
+        <div class="section-icon" style="background: var(--glossary-bg); color: var(--glossary-accent);">⚡</div>
+        <div>
+          <div class="section-title">速查对照</div>
+          <div class="section-subtitle">AI 术语 → 软件工程老朋友，一眼找到对应</div>
+        </div>
+      </div>
+
+      <div class="quick-ref">
+        <div class="qr-item"><span class="qr-ai">Tools Use</span><span class="qr-eq">≈</span><span class="qr-se">SDK / 函数调用</span></div>
+        <div class="qr-item"><span class="qr-ai">MCP</span><span class="qr-eq">≈</span><span class="qr-se">REST API 规范</span></div>
+        <div class="qr-item"><span class="qr-ai">Skills</span><span class="qr-eq">≈</span><span class="qr-se">插件 / Plugin</span></div>
+        <div class="qr-item"><span class="qr-ai">Harness</span><span class="qr-eq">≈</span><span class="qr-se">运行时框架</span></div>
+        <div class="qr-item"><span class="qr-ai">Computer Use</span><span class="qr-eq">≈</span><span class="qr-se">RPA / 桌面自动化</span></div>
+        <div class="qr-item"><span class="qr-ai">Browse Use</span><span class="qr-eq">≈</span><span class="qr-se">Selenium 爬虫</span></div>
+        <div class="qr-item"><span class="qr-ai">Agent</span><span class="qr-eq">≈</span><span class="qr-se">微服务 / 守护进程</span></div>
+        <div class="qr-item"><span class="qr-ai">RAG</span><span class="qr-eq">≈</span><span class="qr-se">DB 查询 + 模板引擎</span></div>
+        <div class="qr-item"><span class="qr-ai">Prompt</span><span class="qr-eq">≈</span><span class="qr-se">需求规格 / SRS</span></div>
+        <div class="qr-item"><span class="qr-ai">Context Window</span><span class="qr-eq">≈</span><span class="qr-se">工作内存 / RAM</span></div>
+        <div class="qr-item"><span class="qr-ai">Fine-tuning</span><span class="qr-eq">≈</span><span class="qr-se">二次开发 / 定制</span></div>
+        <div class="qr-item"><span class="qr-ai">Embedding</span><span class="qr-eq">≈</span><span class="qr-se">索引 / 倒排索引</span></div>
+        <div class="qr-item"><span class="qr-ai">Token</span><span class="qr-eq">≈</span><span class="qr-se">字节 / 数据单元</span></div>
+        <div class="qr-item"><span class="qr-ai">Hallucination</span><span class="qr-eq">≈</span><span class="qr-se">Bug / 数据错误</span></div>
+        <div class="qr-item"><span class="qr-ai">Chain of Thought</span><span class="qr-eq">≈</span><span class="qr-se">分步调试 / Trace</span></div>
+        <div class="qr-item"><span class="qr-ai">Workflow</span><span class="qr-eq">≈</span><span class="qr-se">CI/CD Pipeline</span></div>
+      </div>
+    </section>
+
+    <!-- Visual Cards -->
+    <section class="section" id="visual-cards">
+      <div class="section-header">
+        <div class="section-icon blue">🃏</div>
+        <div>
+          <div class="section-title">可视化术语卡片</div>
+          <div class="section-subtitle">按分类展开，理解每个 AI 概念在软件工程中的对应物</div>
+        </div>
+      </div>
+
+      <!-- Category: 接口与协议层 -->
+      <h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 0.75rem;color:var(--dark);">🔌 接口与协议层</h3>
+      <div class="analogy-grid">
+
+        <!-- Tools Use -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-interface">接口与协议</span>
+          <div class="ac-ai-term"><span class="ac-icon">🔧</span> Tools Use</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">SDK / 函数调用 (Function Call)</div>
+          <div class="ac-desc">
+            AI 模型调用外部工具（搜索、计算、API），就像程序调用 SDK 中的函数。
+            模型决定"调哪个函数、传什么参数"，运行时负责执行并返回结果。
+          </div>
+        </div>
+
+        <!-- MCP -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-interface">接口与协议</span>
+          <div class="ac-ai-term"><span class="ac-icon">🔗</span> MCP</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">REST API / OpenAPI 规范</div>
+          <div class="ac-desc">
+            Model Context Protocol 是让 AI 连接外部系统的<strong>标准接口协议</strong>。
+            类比 REST / OpenAPI：定义了请求格式、端点、认证方式，让不同服务可以互联互通。
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-interface">接口与协议</span>
+          <div class="ac-ai-term"><span class="ac-icon">🧩</span> Skills</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">插件 / Plugin</div>
+          <div class="ac-desc">
+            Skills 是 AI 平台上可插拔的能力模块（如"翻译"、"代码审查"），
+            相当于 IDE 插件或 WordPress 插件——即装即用，按需组合。
+          </div>
+        </div>
+      </div>
+
+      <!-- Category: 执行与运行层 -->
+      <h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 0.75rem;color:var(--dark);">⚙️ 执行与运行层</h3>
+      <div class="analogy-grid">
+
+        <!-- Harness -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-execution">执行与运行</span>
+          <div class="ac-ai-term"><span class="ac-icon">🏗️</span> Harness</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">运行时框架 / Runtime Framework</div>
+          <div class="ac-desc">
+            Harness 是承载 AI Agent 运行的底层框架（调度、编排、生命周期管理），
+            类似 Spring Boot / Express.js 之于 Web 服务——提供脚手架，让开发者专注业务。
+          </div>
+        </div>
+
+        <!-- Computer Use -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-execution">执行与运行</span>
+          <div class="ac-ai-term"><span class="ac-icon">🖥️</span> Computer Use</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">RPA / 桌面自动化</div>
+          <div class="ac-desc">
+            AI 直接操控鼠标键盘来使用桌面应用程序，就像 RPA（机器人流程自动化）工具一样——
+            看着屏幕、点击按钮、输入数据，模拟人类操作。
+          </div>
+        </div>
+
+        <!-- Browse Use -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-execution">执行与运行</span>
+          <div class="ac-ai-term"><span class="ac-icon">🌐</span> Browse Use</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">Selenium / Playwright 浏览器自动化</div>
+          <div class="ac-desc">
+            AI 自动打开浏览器、浏览网页、点击链接、提取内容，
+            就像 QA 工程师用 Selenium 写的自动化测试脚本，只不过"脚本"由 AI 实时决策生成。
+          </div>
+        </div>
+
+        <!-- Agent -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-execution">执行与运行</span>
+          <div class="ac-ai-term"><span class="ac-icon">🤖</span> Agent</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">微服务 / 守护进程 (Daemon)</div>
+          <div class="ac-desc">
+            Agent 是能自主规划、执行多步任务的 AI 实体。
+            类似微服务架构中的自治服务——有自己的职责边界，能独立决策，通过消息与其他组件协作。
+          </div>
+        </div>
+
+        <!-- Workflow -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-execution">执行与运行</span>
+          <div class="ac-ai-term"><span class="ac-icon">🔄</span> Workflow</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">CI/CD Pipeline / 流水线</div>
+          <div class="ac-desc">
+            AI Workflow 将多个步骤（提取→分析→生成→审核）串联成自动化流程。
+            就像 Jenkins / GitHub Actions 的 Pipeline——定义阶段、条件分支、自动触发。
+          </div>
+        </div>
+      </div>
+
+      <!-- Category: 数据与知识层 -->
+      <h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 0.75rem;color:var(--dark);">📊 数据与知识层</h3>
+      <div class="analogy-grid">
+
+        <!-- RAG -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-data">数据与知识</span>
+          <div class="ac-ai-term"><span class="ac-icon">📚</span> RAG</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">数据库查询 + 模板引擎</div>
+          <div class="ac-desc">
+            Retrieval-Augmented Generation = 先检索（SELECT）相关资料，再基于资料生成回答。
+            类比：先查数据库拿到数据，再用模板引擎（如 Mustache）渲染成最终页面。
+          </div>
+        </div>
+
+        <!-- Embedding -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-data">数据与知识</span>
+          <div class="ac-ai-term"><span class="ac-icon">🧬</span> Embedding</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">索引 / 倒排索引 (Inverted Index)</div>
+          <div class="ac-desc">
+            Embedding 将文本转化为高维向量，让语义相似的内容靠近。
+            类似 Elasticsearch 的倒排索引——目的都是让"搜索"变得快速且准确。
+          </div>
+        </div>
+
+        <!-- Context Window -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-data">数据与知识</span>
+          <div class="ac-ai-term"><span class="ac-icon">📦</span> Context Window</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">工作内存 / RAM</div>
+          <div class="ac-desc">
+            模型一次对话能"看到"的信息上限。超出窗口的内容就会"遗忘"。
+            就像程序的可用内存——内存不够就需要分页加载或外部存储。
+          </div>
+        </div>
+
+        <!-- Token -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-data">数据与知识</span>
+          <div class="ac-ai-term"><span class="ac-icon">🔢</span> Token</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">字节 (Byte) / 数据单元</div>
+          <div class="ac-desc">
+            Token 是 AI 模型处理文本的最小单位（大约 ¾ 个英文单词）。
+            类比字节是计算机存储的基本单位——计费、限制都按这个来算。
+          </div>
+        </div>
+      </div>
+
+      <!-- Category: 质量与可靠性 -->
+      <h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 0.75rem;color:var(--dark);">🛡️ 质量与可靠性</h3>
+      <div class="analogy-grid">
+
+        <!-- Hallucination -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-quality">质量与可靠性</span>
+          <div class="ac-ai-term"><span class="ac-icon">👻</span> Hallucination</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">Bug / 数据错误</div>
+          <div class="ac-desc">
+            AI "一本正经地胡说八道"，生成看似合理但事实错误的内容。
+            就像软件 Bug——程序运行了、有输出了，但结果是错的。需要测试和验证机制来防范。
+          </div>
+        </div>
+
+        <!-- Chain of Thought -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-quality">质量与可靠性</span>
+          <div class="ac-ai-term"><span class="ac-icon">🧠</span> Chain of Thought</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">分步调试 / Debug Trace</div>
+          <div class="ac-desc">
+            让 AI "展示思考过程"，一步步推理而非直接给答案。
+            就像开发者用 debugger 逐行执行、打印变量——过程可见，更容易定位问题。
+          </div>
+        </div>
+      </div>
+
+      <!-- Category: 架构与工程化 -->
+      <h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 0.75rem;color:var(--dark);">🏛️ 架构与工程化</h3>
+      <div class="analogy-grid">
+
+        <!-- Prompt Engineering -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-arch">架构与工程化</span>
+          <div class="ac-ai-term"><span class="ac-icon">✍️</span> Prompt Engineering</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">需求规格说明书 / SRS</div>
+          <div class="ac-desc">
+            精心设计 Prompt 就像写 SRS（软件需求规格说明）——
+            你描述得越清晰、越结构化，AI 交付的结果就越接近预期。"Garbage in, garbage out" 同样适用。
+          </div>
+        </div>
+
+        <!-- Fine-tuning -->
+        <div class="analogy-card">
+          <span class="ac-category ac-cat-arch">架构与工程化</span>
+          <div class="ac-ai-term"><span class="ac-icon">🔨</span> Fine-tuning</div>
+          <div class="ac-arrow">AI 世界 → 软件工程</div>
+          <div class="ac-se-term">二次开发 / 定制化开发</div>
+          <div class="ac-desc">
+            在通用模型基础上用专属数据再训练，使其适配特定场景。
+            类似在开源框架上做二次开发——底层能力不变，上层行为按需定制。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lifecycle Analogy -->
+    <section class="section" id="lifecycle">
+      <div class="section-header">
+        <div class="section-icon green">🔄</div>
+        <div>
+          <div class="section-title">生命周期类比</div>
+          <div class="section-subtitle">AI 应用的完整链路 ↔ 传统软件开发的等效环节</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <span class="infobox-icon">ℹ️</span>
+        <div>
+          <div class="infobox-title">如何阅读此图</div>
+          <p style="font-size:0.85rem;margin-top:2px;">
+            从左到右是一个完整的 AI 应用构建流程。每个节点上方是 AI 术语，下方是软件工程中的等效概念。
+          </p>
+        </div>
+      </div>
+
+      <div class="card-lg" style="background: linear-gradient(180deg, var(--glossary-bg) 0%, #fff 100%); margin-bottom: 2rem;">
+        <div class="lifecycle-flow">
+          <div class="lf-item" style="background: #DBEAFE;">
+            <div class="lf-icon">✍️</div>
+            <div class="lf-ai">Prompt</div>
+            <div class="lf-se">需求文档</div>
+          </div>
+          <div class="lf-arrow">→</div>
+          <div class="lf-item" style="background: #D1FAE5;">
+            <div class="lf-icon">🧬</div>
+            <div class="lf-ai">Embedding</div>
+            <div class="lf-se">建索引</div>
+          </div>
+          <div class="lf-arrow">→</div>
+          <div class="lf-item" style="background: #FEF3C7;">
+            <div class="lf-icon">📚</div>
+            <div class="lf-ai">RAG</div>
+            <div class="lf-se">查库 + 渲染</div>
+          </div>
+          <div class="lf-arrow">→</div>
+          <div class="lf-item" style="background: #EDE9FE;">
+            <div class="lf-icon">🔧</div>
+            <div class="lf-ai">Tools Use</div>
+            <div class="lf-se">调 SDK</div>
+          </div>
+          <div class="lf-arrow">→</div>
+          <div class="lf-item" style="background: #FCE7F3;">
+            <div class="lf-icon">🤖</div>
+            <div class="lf-ai">Agent</div>
+            <div class="lf-se">微服务</div>
+          </div>
+          <div class="lf-arrow">→</div>
+          <div class="lf-item" style="background: #ECFEFF;">
+            <div class="lf-icon">🔄</div>
+            <div class="lf-ai">Workflow</div>
+            <div class="lf-se">CI/CD</div>
+          </div>
+          <div class="lf-arrow">→</div>
+          <div class="lf-item" style="background: #FEE2E2;">
+            <div class="lf-icon">🛡️</div>
+            <div class="lf-ai">Guardrails</div>
+            <div class="lf-se">质量门禁</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <span class="infobox-icon">💡</span>
+        <div>
+          <div class="infobox-title">类比核心洞察</div>
+          <p style="font-size:0.85rem;margin-top:2px;line-height:1.6;">
+            软件工程的核心概念——<strong>接口标准化</strong>（MCP ↔ REST）、<strong>模块化</strong>（Skills ↔ Plugin）、
+            <strong>流程自动化</strong>（Workflow ↔ CI/CD）——在 AI 时代并没有消失，只是换了一种表达形式。
+            掌握软件工程基本功的人，理解 AI 新概念会快得多。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Full Reference Table -->
+    <section class="section" id="full-table">
+      <div class="section-header">
+        <div class="section-icon orange">📋</div>
+        <div>
+          <div class="section-title">完整术语对照表</div>
+          <div class="section-subtitle">16 个核心概念的系统化对比，含分类、一句话解释和类比说明</div>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="glossary-table">
+          <thead>
+            <tr>
+              <th>分类</th>
+              <th>AI 术语</th>
+              <th>软件工程对应</th>
+              <th>一句话类比</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 接口与协议层 -->
+            <tr>
+              <td><span class="badge badge-blue">接口协议</span></td>
+              <td class="term-ai">Tools Use</td>
+              <td class="term-se">SDK / Function Call</td>
+              <td>模型调工具 = 程序调函数</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">接口协议</span></td>
+              <td class="term-ai">MCP</td>
+              <td class="term-se">REST API / OpenAPI</td>
+              <td>AI 连外部系统的"USB-C 接口"</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">接口协议</span></td>
+              <td class="term-ai">Skills</td>
+              <td class="term-se">Plugin / 插件</td>
+              <td>即装即用的能力模块</td>
+            </tr>
+            <!-- 执行与运行层 -->
+            <tr>
+              <td><span class="badge badge-green">执行运行</span></td>
+              <td class="term-ai">Harness</td>
+              <td class="term-se">Runtime Framework</td>
+              <td>Agent 的 Spring Boot</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-green">执行运行</span></td>
+              <td class="term-ai">Computer Use</td>
+              <td class="term-se">RPA / 桌面自动化</td>
+              <td>AI 接管鼠标键盘干活</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-green">执行运行</span></td>
+              <td class="term-ai">Browse Use</td>
+              <td class="term-se">Selenium / Playwright</td>
+              <td>AI 写的浏览器自动化脚本</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-green">执行运行</span></td>
+              <td class="term-ai">Agent</td>
+              <td class="term-se">微服务 / Daemon</td>
+              <td>自主决策的自治服务</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-green">执行运行</span></td>
+              <td class="term-ai">Workflow</td>
+              <td class="term-se">CI/CD Pipeline</td>
+              <td>多步骤自动化流水线</td>
+            </tr>
+            <!-- 数据与知识层 -->
+            <tr>
+              <td><span class="badge badge-orange">数据知识</span></td>
+              <td class="term-ai">RAG</td>
+              <td class="term-se">DB Query + Template</td>
+              <td>先查数据库再渲染页面</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-orange">数据知识</span></td>
+              <td class="term-ai">Embedding</td>
+              <td class="term-se">Inverted Index</td>
+              <td>把文字变成可搜索的索引</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-orange">数据知识</span></td>
+              <td class="term-ai">Context Window</td>
+              <td class="term-se">RAM / 工作内存</td>
+              <td>模型的"短期记忆"容量</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-orange">数据知识</span></td>
+              <td class="term-ai">Token</td>
+              <td class="term-se">Byte / 数据单元</td>
+              <td>AI 世界的"计量单位"</td>
+            </tr>
+            <!-- 质量与可靠性 -->
+            <tr>
+              <td><span class="badge badge-red">质量可靠</span></td>
+              <td class="term-ai">Hallucination</td>
+              <td class="term-se">Bug / 数据错误</td>
+              <td>输出看着对，其实是错的</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-red">质量可靠</span></td>
+              <td class="term-ai">Chain of Thought</td>
+              <td class="term-se">Debug Trace</td>
+              <td>让 AI 展示"调试过程"</td>
+            </tr>
+            <!-- 架构与工程化 -->
+            <tr>
+              <td><span class="badge badge-purple">架构工程</span></td>
+              <td class="term-ai">Prompt Engineering</td>
+              <td class="term-se">SRS / 需求规格</td>
+              <td>写好需求才能交付好软件</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-purple">架构工程</span></td>
+              <td class="term-ai">Fine-tuning</td>
+              <td class="term-se">二次开发 / 定制</td>
+              <td>在通用框架上做专属适配</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Bottom navigation -->
+    <div class="infobox infobox-success" style="margin-top:2rem;">
+      <span class="infobox-icon">✓</span>
+      <div>
+        <div class="infobox-title">记忆口诀</div>
+        <p style="font-size:0.85rem;margin-top:2px;line-height:1.7;">
+          <strong>Tools 调函数，MCP 定接口；Skills 是插件，Harness 搭框架。</strong><br/>
+          <strong>Computer 抢鼠标，Browse 开浏览器；Agent 像微服务，Workflow 跑流水线。</strong><br/>
+          <strong>RAG 先查后答，Embedding 建索引；Prompt 写需求，Fine-tune 二开发。</strong>
+        </p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="../index.html" class="page-nav-btn">← 返回培训主页</a>
+      <a href="../session4.html" class="page-nav-btn">MCP + AI Native 课程 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  // Active sidebar link on scroll
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
