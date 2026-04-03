@@ -1,0 +1,426 @@
+/* AI 战略落地领导力课程 — 样式
+   面向 CXO/总监级管理层
+   复用基础培训样式体系，增加高管专属视觉风格 */
+@import url('../training/styles.css');
+
+/* ── 高管课程配色覆盖 ── */
+:root {
+  --exec-primary:    #1B365D;
+  --exec-secondary:  #2E5090;
+  --exec-accent:     #C9A84C;
+  --exec-accent-light: #E8D48B;
+  --exec-dark:       #0F1B2D;
+  --exec-warm:       #F7F5F0;
+  --exec-border:     #D4CFC5;
+  --exec-success:    #2D8659;
+  --exec-muted:      #6B7A8D;
+}
+
+/* ── 高管风格元素 ── */
+
+/* Executive badge */
+.exec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.exec-badge-gold { background: rgba(201,168,76,0.15); color: var(--exec-accent); }
+.exec-badge-blue { background: rgba(46,80,144,0.12); color: var(--exec-secondary); }
+.exec-badge-dark { background: rgba(27,54,93,0.10); color: var(--exec-primary); }
+
+/* Strategic framework cards */
+.strategy-card {
+  background: #fff;
+  border: 1px solid var(--exec-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s, transform .2s;
+}
+.strategy-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.strategy-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+.strategy-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+.strategy-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--exec-primary);
+  line-height: 1.3;
+}
+.strategy-card-desc {
+  font-size: 0.88rem;
+  color: var(--medium);
+  line-height: 1.7;
+}
+
+/* Decision matrix */
+.decision-matrix {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin: 1.25rem 0;
+  box-shadow: var(--shadow-sm);
+}
+.decision-matrix th {
+  background: var(--exec-primary);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: left;
+  letter-spacing: 0.03em;
+}
+.decision-matrix td {
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  color: var(--medium);
+  border-bottom: 1px solid var(--exec-border);
+  background: #fff;
+}
+.decision-matrix tr:last-child td {
+  border-bottom: none;
+}
+.decision-matrix tr:hover td {
+  background: var(--exec-warm);
+}
+
+/* KPI dashboard style */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.kpi-card {
+  background: #fff;
+  border: 1px solid var(--exec-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.kpi-value {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--exec-primary);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.kpi-label {
+  font-size: 0.75rem;
+  color: var(--exec-muted);
+  font-weight: 500;
+}
+.kpi-trend {
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-top: 6px;
+}
+.kpi-trend.up { color: var(--exec-success); }
+.kpi-trend.down { color: #DC2626; }
+
+/* Process flow (horizontal pipeline) */
+.process-flow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--exec-warm);
+  border: 1px solid var(--exec-border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 2rem;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+}
+.pf-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 110px;
+  text-align: center;
+}
+.pf-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-md);
+  background: #fff;
+  border: 2px solid var(--exec-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-sm);
+}
+.pf-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--exec-primary);
+}
+.pf-sub {
+  font-size: 0.68rem;
+  color: var(--exec-muted);
+}
+.pf-arrow {
+  font-size: 1.3rem;
+  color: var(--exec-border);
+  flex-shrink: 0;
+  margin: 0 0.25rem;
+  padding-bottom: 22px;
+}
+
+/* Executive quote block */
+.exec-quote {
+  background: linear-gradient(135deg, var(--exec-primary) 0%, var(--exec-secondary) 100%);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
+  margin: 1.5rem 0;
+  color: #fff;
+  position: relative;
+}
+.exec-quote::before {
+  content: '"';
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  font-size: 3rem;
+  color: rgba(255,255,255,0.15);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+.exec-quote p {
+  position: relative;
+  z-index: 1;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  font-style: italic;
+}
+.exec-quote .quote-source {
+  font-style: normal;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.7);
+  margin-top: 8px;
+  display: block;
+}
+
+/* Roadmap timeline */
+.roadmap {
+  position: relative;
+  padding-left: 28px;
+  margin: 1.5rem 0;
+}
+.roadmap::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--exec-accent), var(--exec-secondary));
+}
+.roadmap-item {
+  position: relative;
+  padding: 0.75rem 0 1.5rem 1.5rem;
+}
+.roadmap-item::before {
+  content: '';
+  position: absolute;
+  left: -22px;
+  top: 18px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--exec-accent);
+  border: 2px solid #fff;
+  box-shadow: var(--shadow-sm);
+}
+.roadmap-item:last-child { padding-bottom: 0; }
+.roadmap-phase {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--exec-accent);
+  margin-bottom: 4px;
+}
+.roadmap-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--exec-primary);
+  margin-bottom: 4px;
+}
+.roadmap-desc {
+  font-size: 0.85rem;
+  color: var(--medium);
+  line-height: 1.6;
+}
+
+/* Risk matrix (heat-map style) */
+.risk-matrix {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+.risk-cell {
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+}
+.risk-cell-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.risk-cell-desc {
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+.risk-high { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
+.risk-medium { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
+.risk-low { background: #F0FDF4; color: #166534; border: 1px solid #BBF7D0; }
+
+/* Scenario card for use-case identification */
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.scenario-card {
+  background: #fff;
+  border: 1px solid var(--exec-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s;
+}
+.scenario-card:hover {
+  box-shadow: var(--shadow-md);
+}
+.scenario-card-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+.scenario-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--exec-primary);
+  margin-bottom: 0.5rem;
+}
+.scenario-card p {
+  font-size: 0.82rem;
+  color: var(--medium);
+  line-height: 1.65;
+}
+.scenario-card .impact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--exec-success);
+}
+
+/* Comparison columns */
+.compare-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin: 1.25rem 0;
+}
+.compare-col {
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--exec-border);
+}
+.compare-col-before { background: #FEF2F2; border-color: #FECACA; }
+.compare-col-after { background: #F0FDF4; border-color: #BBF7D0; }
+.compare-col h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+.compare-col-before h4 { color: #991B1B; }
+.compare-col-after h4 { color: #166534; }
+.compare-col ul {
+  list-style: none;
+  padding: 0;
+}
+.compare-col li {
+  font-size: 0.82rem;
+  padding: 5px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+}
+.compare-col-before li { color: #7F1D1D; }
+.compare-col-after li { color: #14532D; }
+
+/* Executive summary box */
+.exec-summary {
+  background: linear-gradient(135deg, #F8F6F1 0%, #F0EDE5 100%);
+  border: 1px solid var(--exec-border);
+  border-left: 4px solid var(--exec-accent);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  margin: 1.25rem 0;
+}
+.exec-summary-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--exec-accent);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.exec-summary p {
+  font-size: 0.88rem;
+  color: var(--medium);
+  line-height: 1.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .strategy-card { padding: 1.25rem; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .scenario-grid { grid-template-columns: 1fr; }
+  .compare-cols { grid-template-columns: 1fr; }
+  .risk-matrix { grid-template-columns: 1fr; }
+  .process-flow { padding: 1rem; }
+  .pf-step { min-width: 90px; }
+}
