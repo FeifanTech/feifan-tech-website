@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块三：AI辅助游戏策划与关卡设计 — AI × 游戏开发实战</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🎮 AI × 游戏开发实战 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html" class="active">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块三导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#level-design"><span class="nav-num">1</span>AI辅助关卡生成</a></li>
+      <li><a href="#numerical"><span class="nav-num">2</span>数值设计与平衡</a></li>
+      <li><a href="#quest"><span class="nav-num">3</span>任务系统与叙事</a></li>
+      <li><a href="#economy"><span class="nav-num">4</span>游戏经济系统</a></li>
+      <li><a href="#document"><span class="nav-num">5</span>策划文档编写</a></li>
+      <li><a href="#practice"><span class="nav-num">6</span>课后练习</a></li>
+    </ul>
+
+    <div class="sidebar-title" style="margin-top:1.5rem;">快速跳转</div>
+    <ul class="sidebar-nav">
+      <li><a href="module2.html">← 模块二</a></li>
+      <li><a href="index.html">← 课程总览</a></li>
+      <li><a href="module4.html">模块四 →</a></li>
+      <li><a href="../index.html">← 返回培训主页</a></li>
+    </ul>
+  </aside>
+
+  <!-- ===== Main Content ===== -->
+  <main class="main-content">
+
+    <!-- Session Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块三</span>
+        AI辅助游戏策划与关卡设计
+      </div>
+      <h1>🗺️ AI辅助游戏策划与关卡设计<br><span>从关卡布局到数值平衡的全方位AI赋能</span></h1>
+      <p class="hero-subtitle">
+        深入学习如何利用AI工具辅助游戏策划的核心工作：关卡设计、数值平衡、任务系统、经济模拟与策划文档编写，
+        掌握AI驱动的系统化策划方法论，将数周的策划工作压缩到数天内完成。
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 5 课时</div>
+        <div class="hero-meta-item">📖 策划 + 系统设计</div>
+        <div class="hero-meta-item">🎯 策划 / 数值 / 关卡适用</div>
+        <div class="hero-meta-item">🔧 6种AI策划工作流</div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Section 1: AI辅助关卡生成与布局 -->
+    <!-- ============================================ -->
+    <section class="section" id="level-design">
+      <div class="section-header">
+        <div class="section-icon blue">🗺️</div>
+        <div>
+          <div class="section-title">AI辅助关卡生成与布局：让每一关都引人入胜</div>
+          <div class="section-subtitle">利用AI快速生成关卡布局、敌人配置、解谜设计和Boss战方案</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🏗️ 关卡设计是游戏体验的核心骨架</h4>
+        <p>关卡设计（Level Design）是游戏开发中最耗时也最考验设计功力的环节之一。一个优秀的关卡不仅需要在空间布局上引导玩家的移动路径，还需要在节奏控制上精心安排战斗、探索、解谜和叙事的交替，在难度曲线上确保玩家始终处于"心流"状态——既不觉得无聊，也不会感到挫败。</p>
+        <p>传统关卡设计依赖设计师的经验和反复的灰盒测试（Greybox），一个中等复杂度的关卡从概念到可玩通常需要<strong>1-3周</strong>的迭代。AI的介入可以从多个维度加速这一过程：<strong>快速生成关卡布局方案、自动配置敌人分布和难度梯度、设计解谜逻辑和机关联动、生成环境叙事元素</strong>。设计师在AI产出的基础上进行筛选和调优，效率可提升3-5倍。</p>
+        <p>需要注意的是，AI生成的关卡方案需要设计师用专业的关卡设计理论来评估——包括视线引导（Sight Lines）、关键路径（Critical Path）、秘密区域（Secret Areas）以及节奏曲线（Pacing Curve）等维度。AI是强大的"方案生成器"，但<strong>最终的体验品质把控</strong>必须由经验丰富的关卡设计师来完成。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">关卡生成 Prompt 模板</h4>
+      <div class="prompt-template">
+        <span class="pt-label">关卡设计 Prompt</span>
+你是一位资深游戏关卡设计师，拥有15年3A级关卡设计经验。请为以下游戏生成一个完整的关卡设计方案。
+
+🎮 游戏类型：<span class="placeholder">[游戏类型，如2D平台跳跃、3D动作冒险、俯视角Roguelike]</span>
+🎯 难度级别：<span class="placeholder">[难度级别，如新手引导关/中期挑战关/终盘高难关]</span>
+🌟 关卡主题：<span class="placeholder">[关卡主题，如"被遗忘的地下神殿"或"机械工厂废墟"]</span>
+⏰ 预计游玩时长：<span class="placeholder">[时长，如"15-20分钟"]</span>
+🔧 核心机制：<span class="placeholder">[本关卡重点使用的游戏机制，如"重力翻转"或"时间暂停"]</span>
+
+请输出以下关卡设计内容：
+1. 关卡概述（200字，核心体验和设计意图）
+2. 空间布局描述（包含主路径、支路和秘密区域的文字地图）
+3. 区域划分（3-5个功能区域，每个区域的主题和挑战类型）
+4. 敌人配置表（每个区域的敌人类型、数量、行为模式）
+5. 解谜/机关设计（至少2个与核心机制相关的谜题）
+6. 节奏曲线（紧张度随关卡进度的变化描述）
+7. 环境叙事要素（通过场景讲述的故事片段）
+8. Boss/精英战设计（如有，包含阶段和机制）
+      </div>
+
+      <h4 style="margin-top:1.5rem;">四种AI关卡设计工作流</h4>
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <span class="wf-icon">🗺️</span>
+          <h4>2D关卡布局</h4>
+          <p>利用AI快速生成2D横版/俯视角关卡的空间布局和路径规划。</p>
+          <ul>
+            <li>让AI用ASCII字符绘制简易关卡地图</li>
+            <li>指定平台、障碍物和收集品的分布规则</li>
+            <li>案例：银河城（Metroidvania）的区域连接图</li>
+            <li>关键：确保路径之间有"锁钥"逻辑</li>
+          </ul>
+        </div>
+        <div class="workflow-card">
+          <span class="wf-icon">🏔️</span>
+          <h4>3D场景流程</h4>
+          <p>为3D游戏关卡设计空间流线和垂直层次结构。</p>
+          <ul>
+            <li>描述关卡的高度差和垂直探索路径</li>
+            <li>AI规划视线引导和地标系统</li>
+            <li>案例：魂系游戏的立体捷径网络</li>
+            <li>关键：利用垂直空间创造探索惊喜</li>
+          </ul>
+        </div>
+        <div class="workflow-card">
+          <span class="wf-icon">🧩</span>
+          <h4>解谜关卡设计</h4>
+          <p>利用AI设计环环相扣的谜题逻辑和机关联动系统。</p>
+          <ul>
+            <li>定义可用的交互元素和物理规则</li>
+            <li>AI设计多步骤谜题的解法路径</li>
+            <li>案例：《塞尔达》式的神殿解谜结构</li>
+            <li>关键：谜题难度要有渐进式引导</li>
+          </ul>
+        </div>
+        <div class="workflow-card">
+          <span class="wf-icon">👹</span>
+          <h4>Boss战设计</h4>
+          <p>设计多阶段Boss战的机制和节奏编排。</p>
+          <ul>
+            <li>定义Boss的核心技能和行为模式</li>
+            <li>AI设计多阶段转换的触发条件</li>
+            <li>案例：三阶段Boss战的渐进难度曲线</li>
+            <li>关键：每个阶段需要不同的应对策略</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-demo" style="margin-top:1.5rem;">
+        <div class="infobox-icon">🎮</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI生成关卡示例：「沉默的钟塔」</div>
+          <p><strong>关卡概述：</strong>一座被时间遗忘的古老钟塔，内部时间流速异常——每一层的时间流速不同。玩家需要利用"时间感知"能力，在快时间层快速通过陷阱区域，在慢时间层仔细观察解谜线索。塔顶的巨型钟摆是最终Boss的核心机制。</p>
+          <p><strong>区域划分：</strong>① 钟塔底层（教学区，引入时间感知机制）→ ② 齿轮走廊（战斗+平台跳跃，快时间区域）→ ③ 钟表匠工坊（探索+解谜，慢时间区域，隐藏钟表匠的日记）→ ④ 钟摆大厅（Boss战，需要利用时间差躲避钟摆攻击）。支线路径：从齿轮走廊可进入隐藏的维修通道，获取强化道具。</p>
+          <p><strong>环境叙事：</strong>散落的钟表匠笔记揭示——钟塔的时间异常并非故障，而是钟表匠刻意为之，他试图用时间差保护塔内封印的某样东西。Boss战后，玩家发现被封印的是钟表匠自己的记忆。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 2: AI驱动的数值设计与平衡 -->
+    <!-- ============================================ -->
+    <section class="section" id="numerical">
+      <div class="section-header">
+        <div class="section-icon orange">⚖️</div>
+        <div>
+          <div class="section-title">AI驱动的数值设计与平衡：让游戏"手感"恰到好处</div>
+          <div class="section-subtitle">利用AI进行伤害、生命值、经济、成长曲线等核心数值的设计与调优</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>📊 数值设计：看不见的游戏体验设计师</h4>
+        <p>数值设计（Numerical Design）是游戏策划中最"隐形"但影响最深远的工作。玩家可能不会注意到一个敌人的HP从500调整到了480，但他们会直观感受到"这场战斗变得更流畅了"。伤害公式、成长曲线、经济循环、概率分布——这些数字共同构成了游戏的"手感"和"节奏"，是区分优秀游戏和平庸游戏的关键因素之一。</p>
+        <p>传统数值策划的工作流是<strong>高度依赖Excel电子表格</strong>的——策划师在无数个表格之间手动维护数据关系，通过公式推算数值，然后在游戏中反复测试微调。这个过程不仅耗时，而且容易出现"改了A忘了B"的连锁问题。一套完整的RPG战斗数值体系，从设计到初步平衡通常需要<strong>2-4周</strong>。</p>
+        <p>AI可以在数值策划的多个环节提供强力支持：<strong>自动生成初版数值表、分析数值间的关联关系、模拟不同数值方案下的战斗结果、识别潜在的平衡问题和极端情况</strong>。特别是在需要处理大量数据关联的复杂数值体系中，AI的系统性分析能力远超人类的直觉判断。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">数值设计维度与AI辅助方式</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>数值维度</th>
+              <th>设计内容</th>
+              <th>AI辅助方式</th>
+              <th>关键注意点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>战斗数值</strong></td>
+              <td>攻击力、防御力、暴击率、命中率、技能倍率</td>
+              <td>AI生成基础公式+模拟千次战斗结果分布</td>
+              <td>避免"数值膨胀"，保持数字的直观可感知性</td>
+            </tr>
+            <tr>
+              <td><strong>角色成长</strong></td>
+              <td>等级经验曲线、属性成长率、技能解锁节奏</td>
+              <td>AI对比多种曲线模型（线性/指数/S型）的体验差异</td>
+              <td>成长曲线要匹配内容解锁节奏，避免数值瓶颈</td>
+            </tr>
+            <tr>
+              <td><strong>装备系统</strong></td>
+              <td>装备属性区间、品质分级、套装效果、强化公式</td>
+              <td>AI生成装备属性模板+计算不同品质的数值差距</td>
+              <td>确保"好装备"有明显但不碾压的数值优势</td>
+            </tr>
+            <tr>
+              <td><strong>经济数值</strong></td>
+              <td>金币产出/消耗、道具定价、体力恢复速率</td>
+              <td>AI模拟不同玩家类型的经济循环，预测通胀风险</td>
+              <td>关注"免费玩家"与"付费玩家"的体验差距</td>
+            </tr>
+            <tr>
+              <td><strong>概率系统</strong></td>
+              <td>掉落概率、抽卡概率、暴击概率、事件触发率</td>
+              <td>AI用蒙特卡洛模拟计算期望体验和极端情况</td>
+              <td>需要保底机制，避免"非酋"玩家的糟糕体验</td>
+            </tr>
+            <tr>
+              <td><strong>难度曲线</strong></td>
+              <td>关卡难度递增、怪物强度分配、Boss数值设计</td>
+              <td>AI分析玩家能力成长节奏，自动匹配怪物数值</td>
+              <td>提供多种难度选项或动态难度调整（DDA）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">数值平衡分析 Prompt 模板</h4>
+      <div class="prompt-template">
+        <span class="pt-label">数值平衡 Prompt</span>
+你是一位专业的游戏数值策划师，精通各类数值建模和游戏平衡理论。请为以下战斗系统进行数值设计和平衡分析。
+
+🎮 游戏类型：<span class="placeholder">[游戏类型，如回合制RPG / 即时动作 / 策略卡牌]</span>
+⚔️ 战斗模式：<span class="placeholder">[战斗模式描述，如"4v4回合制，每方4个角色轮流行动"]</span>
+👤 角色数量：<span class="placeholder">[可用角色/职业数量，如"6个基础职业"]</span>
+📈 等级范围：<span class="placeholder">[等级范围，如"1-60级"]</span>
+🎯 平衡目标：<span class="placeholder">[平衡目标，如"无绝对强势职业，鼓励组合搭配"]</span>
+
+请输出以下数值设计内容：
+1. 核心伤害公式（含防御减免计算）
+2. 各职业基础属性表（1级和满级数值）
+3. 属性成长曲线（推荐公式和关键节点数值）
+4. 技能倍率设计规范（普攻/小技能/大招/终极技能）
+5. 战斗时长预期（不同场景下的平均战斗回合数）
+6. 潜在平衡风险分析（可能出现的极端情况和应对方案）
+      </div>
+
+      <h4 style="margin-top:1.5rem;">对比：传统电子表格平衡 vs AI辅助平衡</h4>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 传统电子表格平衡</div>
+          <ul>
+            <li><strong>工作方式：</strong>策划在Excel中手动填写数百行数值</li>
+            <li><strong>公式验证：</strong>通过手动代入样本数据检查公式正确性</li>
+            <li><strong>平衡测试：</strong>靠策划凭经验"肉眼判断"或亲自玩测</li>
+            <li><strong>迭代周期：</strong>每次修改需手动更新所有关联表格</li>
+            <li><strong>风险：</strong>容易遗漏极端情况，数据关联出错不易察觉</li>
+            <li><strong>耗时：</strong>完整平衡一个RPG战斗系统通常需要2-4周</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ AI辅助数值平衡</div>
+          <ul>
+            <li><strong>工作方式：</strong>AI根据设计意图自动生成完整数值表框架</li>
+            <li><strong>公式验证：</strong>AI模拟数千场战斗，统计输出伤害/生存时间分布</li>
+            <li><strong>平衡测试：</strong>AI自动测试所有职业两两对决的胜率矩阵</li>
+            <li><strong>迭代周期：</strong>修改一个参数，AI秒级重新计算所有关联数值</li>
+            <li><strong>风险：</strong>AI主动标记极端组合和潜在的平衡漏洞</li>
+            <li><strong>耗时：</strong>初版数值+基础平衡可在2-3天内完成</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn" style="margin-top:1.5rem;">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">警惕：AI数值不能替代玩家测试</div>
+          <p>AI在数值设计中的辅助是强大的，但有一个核心限制必须牢记：<strong>AI无法替代真实玩家测试</strong>。数值的"体验感"——一刀砍下去的爽快感、升级时的成就感、获得稀有装备时的满足感——这些都是AI无法量化的"手感"维度。AI可以帮你快速达到80%的数值平衡，但最后20%的精调必须依赖真实的玩家反馈和游戏测试。<strong>永远不要在没有进行实际游戏测试的情况下就宣布数值"已平衡"</strong>。建议的流程是：AI生成初版 → 内部粗测 → AI根据反馈调整 → 小规模玩家测试 → 最终微调。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 3: AI生成任务系统与叙事设计 -->
+    <!-- ============================================ -->
+    <section class="section" id="quest">
+      <div class="section-header">
+        <div class="section-icon purple">📜</div>
+        <div>
+          <div class="section-title">AI生成任务系统与叙事设计：编织引人入胜的冒险之旅</div>
+          <div class="section-subtitle">利用AI设计任务链、分支叙事、对话树和奖励系统</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>📖 任务系统：游戏世界的"故事发动机"</h4>
+        <p>任务系统（Quest System）是大多数游戏中驱动玩家前进的核心引擎。一个设计精良的任务系统不仅为玩家提供明确的目标和方向感，更通过叙事包装赋予每一次行动以意义感。从《巫师3》的每个支线任务都是一个完整的短篇故事，到《原神》用任务串联起庞大的世界观——<strong>任务设计的质量直接决定了玩家对游戏世界的情感投入程度</strong>。</p>
+        <p>然而，任务设计也是游戏开发中工作量最大的内容生产环节之一。一个中型RPG通常需要<strong>100-300个任务</strong>，每个任务包含目标设计、对话文本、分支逻辑、奖励配置等多个维度。传统的纯人工任务设计不仅耗时巨大，还容易在大量任务中出现"任务疲劳"——即后期设计的任务质量明显下降。</p>
+        <p>AI在任务设计中的价值是革命性的：<strong>它可以批量生成任务框架、设计分支叙事逻辑、编写NPC对话、计算奖励合理性</strong>，让设计师将精力集中在"打磨最核心的高光时刻"上。AI生成的任务草案相当于一个经验丰富但"不知疲倦"的初级策划，为高级策划提供大量可筛选的素材。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">任务生成 Prompt 模板</h4>
+      <div class="prompt-template">
+        <span class="pt-label">任务设计 Prompt</span>
+你是一位经验丰富的游戏叙事设计师，擅长设计有情感深度和多样选择的任务系统。请为以下游戏设计一个完整的任务链。
+
+🎮 游戏项目：<span class="placeholder">[游戏名称和类型，如"《灵核纪元》开放世界RPG"]</span>
+🌍 世界观背景：<span class="placeholder">[简要世界观，如"灵魂能量可被交易的末日世界"]</span>
+📜 任务类型：<span class="placeholder">[主线/支线/日常/隐藏/事件任务]</span>
+👤 关键NPC：<span class="placeholder">[涉及的核心NPC，如"铁匠老王，曾是灵核猎人"]</span>
+🎯 设计目标：<span class="placeholder">[任务的设计意图，如"揭示世界观秘密"或"引导玩家探索新区域"]</span>
+⏰ 预计时长：<span class="placeholder">[玩家完成任务的预计时间]</span>
+
+请按以下格式输出任务设计：
+1. 任务链名称和主题概述
+2. 每个任务的详细设计（目标、步骤、对话关键内容）
+3. 分支选择点设计（至少2个有意义的选择及其后果）
+4. NPC对话样本（关键对话场景的完整文本）
+5. 奖励设计（经验值、物品、声望、剧情解锁）
+6. 任务间的连接逻辑（前置条件和触发机制）
+      </div>
+
+      <h4 style="margin-top:1.5rem;">任务设计流程（AI辅助）</h4>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <div class="phase-num">1</div>
+          <div class="phase-body">
+            <h4>🎯 主题设定</h4>
+            <p>确定任务链的核心主题和情感基调。这是任务设计的"灵魂"，决定了整个任务链要传递给玩家的核心情感和信息。</p>
+            <ul>
+              <li>明确任务链要探索的核心主题（如复仇、救赎、成长）</li>
+              <li>定义任务的情感曲线——从哪里开始，到哪里结束</li>
+              <li>AI可以帮助分析不同主题的叙事潜力和受众共鸣度</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">2</div>
+          <div class="phase-body">
+            <h4>📋 任务结构</h4>
+            <p>设计任务链的整体骨架，包括任务数量、每个任务的核心目标和类型（收集、战斗、护送、调查、对话等）。</p>
+            <ul>
+              <li>AI生成任务链的结构大纲和目标序列</li>
+              <li>确保任务类型多样化，避免连续重复同类型目标</li>
+              <li>设计"惊喜点"——在玩家预期之外的转折节点</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">3</div>
+          <div class="phase-body">
+            <h4>🔀 分支设计</h4>
+            <p>为任务链设计有意义的分支选择，让玩家的决定真正影响后续发展。好的分支不是"好人/坏人"的二元选择，而是两难困境。</p>
+            <ul>
+              <li>AI生成多条分支路径和对应的后果链</li>
+              <li>确保每个选择都有合理性，没有"明显正确答案"</li>
+              <li>分支后果应在后续任务中有所体现，而非一次性消耗</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">4</div>
+          <div class="phase-body">
+            <h4>💬 对话编写</h4>
+            <p>为每个NPC编写有个性的对话文本，包括任务交付对话、过程对话和完成对话。</p>
+            <ul>
+              <li>AI根据NPC性格档案生成符合人设的对话风格</li>
+              <li>编写"选择反馈"对话——NPC对玩家选择的即时反应</li>
+              <li>加入环境对话和闲聊内容，增加NPC的真实感</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">5</div>
+          <div class="phase-body">
+            <h4>🎁 奖励设计</h4>
+            <p>设计合理的任务奖励，确保玩家的投入获得等值回报，同时引导玩家体验更多内容。</p>
+            <ul>
+              <li>AI计算任务难度/时长与奖励价值的匹配度</li>
+              <li>分支选择不同应导致不同但等值的奖励类型</li>
+              <li>隐藏任务的奖励应具有独特性（如专属外观、特殊称号）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">五类核心任务设计要点</h4>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <span class="skill-icon">⚔️</span>
+          <h4>主线任务</h4>
+          <p>驱动核心叙事发展的关键任务序列，承载游戏最重要的故事高潮和Boss战。主线任务应确保每一步都有"必做感"——让玩家觉得不完成就无法推进世界命运。AI可以帮助设计宏大的叙事弧线和阶段性高潮点。</p>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">🗺️</span>
+          <h4>支线任务</h4>
+          <p>拓展世界观深度和角色厚度的非必要任务。最好的支线任务是"让世界因为你的选择而改变"——《巫师3》的"血腥男爵"支线正是典范。AI擅长批量生成有深度的支线任务框架，设计师筛选并打磨精品。</p>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">🔄</span>
+          <h4>日常任务</h4>
+          <p>可重复完成的轻量级任务，为玩家提供稳定的日常目标和资源获取途径。日常任务的核心是"每天有事做但不觉得是负担"。AI可以设计多个任务池并按概率随机组合，避免每日任务的重复感。</p>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">🔍</span>
+          <h4>隐藏任务</h4>
+          <p>需要特定条件触发的秘密任务，给予探索型玩家额外的惊喜。隐藏任务的触发条件本身就是一种谜题——可以是特定时间到达特定地点、与NPC进行特殊对话、或收集分散在世界各处的线索碎片。AI擅长设计复杂的触发逻辑链。</p>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">⚡</span>
+          <h4>事件任务</h4>
+          <p>限时或由世界事件触发的临时任务，为游戏世界注入动态变化感。如随机入侵事件、节日庆典活动、突发天灾等。AI可以根据世界时间线和势力状态自动生成合理的动态事件任务。</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">维护叙事连贯性：AI任务设计的核心挑战</div>
+          <p>当使用AI批量生成任务时，最容易出现的问题是<strong>叙事连贯性断裂</strong>——单独看每个任务都不错，但放在一起时出现前后矛盾、NPC人设不一致、奖励逻辑冲突等问题。解决方法是在AI生成任务前，先建立一份完整的<strong>"叙事约束文档"</strong>，包含世界观要点、时间线、NPC关系网、已完成的任务清单和当前势力状态。将这份文档作为AI每次任务生成的"上下文前缀"，可以显著提升AI输出的连贯性。同时，每生成5-10个任务后，做一次"一致性审查"，及时修正偏差。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 4: AI模拟游戏经济系统 -->
+    <!-- ============================================ -->
+    <section class="section" id="economy">
+      <div class="section-header">
+        <div class="section-icon green">💰</div>
+        <div>
+          <div class="section-title">AI模拟游戏经济系统：打造健康的虚拟经济</div>
+          <div class="section-subtitle">利用AI设计、模拟和压力测试游戏内经济系统</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🏦 游戏经济：虚拟世界的"看不见的手"</h4>
+        <p>游戏经济系统是维持长线运营游戏生命力的关键基础设施。一个健康的游戏经济能够持续给予玩家"有价值的目标"去追求，同时确保新老玩家之间的体验差距在可接受范围内。反之，一个失控的经济系统——无论是通胀（物价飞涨导致新手无法生存）还是通缩（资源过剩导致奖励失去吸引力）——都会迅速瓦解玩家的游戏动力。</p>
+        <p>游戏经济设计的难度在于其<strong>复杂的系统耦合性</strong>：货币产出与消耗的平衡、道具掉落率与市场供需的关系、免费玩家与付费玩家的经济差距、长期玩家的资源积累与新内容消耗的匹配——每一个环节的变动都会对其他环节产生连锁反应。传统的经济设计依赖策划的经验和直觉，往往需要在上线后经历多次紧急修复才能逐步趋于稳定。</p>
+        <p>AI为游戏经济设计带来了"先模拟后上线"的新范式：<strong>通过模拟不同类型玩家在数月甚至数年时间跨度内的经济行为，AI可以在游戏上线前就发现潜在的经济隐患</strong>，大幅降低上线后需要紧急调整的风险。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">游戏经济核心要素对比</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>经济要素</th>
+              <th>设计目标</th>
+              <th>常见问题</th>
+              <th>AI辅助方案</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>货币系统</strong></td>
+              <td>提供稳定的价值度量和交易媒介</td>
+              <td>多币种换算混乱、通货膨胀失控</td>
+              <td>AI模拟长期货币供需，预测通胀时间节点</td>
+            </tr>
+            <tr>
+              <td><strong>商店系统</strong></td>
+              <td>消耗玩家货币，控制核心道具获取节奏</td>
+              <td>定价不合理、商品吸引力不足或过强</td>
+              <td>AI分析道具价值与玩家购买力的匹配度</td>
+            </tr>
+            <tr>
+              <td><strong>掉落系统</strong></td>
+              <td>通过概率驱动的奖励激励玩家重复游玩</td>
+              <td>概率过低导致挫败、过高导致贬值</td>
+              <td>AI蒙特卡洛模拟计算不同概率下的获取期望</td>
+            </tr>
+            <tr>
+              <td><strong>制作系统</strong></td>
+              <td>为材料提供消耗出口，鼓励资源收集</td>
+              <td>配方材料获取难度不匹配、产出价值失衡</td>
+              <td>AI验证材料产出-消耗链的完整性和合理性</td>
+            </tr>
+            <tr>
+              <td><strong>交易市场</strong></td>
+              <td>允许玩家间资源流通，形成自由市场</td>
+              <td>炒价、工作室刷币、市场操控</td>
+              <td>AI模拟多种极端场景下的市场行为和价格波动</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">经济系统模拟 Prompt 模板</h4>
+      <div class="prompt-template">
+        <span class="pt-label">经济模拟 Prompt</span>
+你是一位精通游戏经济学和行为经济学的游戏系统设计师。请为以下游戏设计并分析经济系统。
+
+🎮 游戏类型：<span class="placeholder">[游戏类型，如MMORPG / 生存建造 / 模拟经营]</span>
+👥 玩家规模：<span class="placeholder">[预期同时在线人数和总注册量]</span>
+💰 货币类型：<span class="placeholder">[已设计的货币种类，如"金币（基础货币）、钻石（付费货币）"]</span>
+📅 运营周期：<span class="placeholder">[需要模拟的时间跨度，如"首年运营"]</span>
+🎯 营收模式：<span class="placeholder">[商业化模式，如"免费+内购"或"买断制"]</span>
+
+请输出以下经济分析内容：
+1. 经济循环图（货币/资源的产出和消耗闭环）
+2. 三类玩家经济画像（零氪/微氪/重氪玩家的日均资源收支）
+3. 关键经济指标及健康阈值（日产金、周消耗率、月通胀率）
+4. 经济风险预警（可能出现的经济问题及时间窗口预测）
+5. 反作弊/反刷建议（防止极端经济行为的机制设计）
+6. 调控工具设计（运营团队可用的经济调节手段）
+      </div>
+
+      <div class="card card-lg" style="margin-top:1.5rem;">
+        <h4>🧪 AI经济压力测试：上线前的"经济沙盘"</h4>
+        <p>经济压力测试是利用AI模拟极端场景下的经济系统表现，提前发现潜在崩溃点。这是传统经济设计中最难做到、但又最有价值的环节。一次有效的压力测试可以帮助团队避免上线后数百万的紧急修复成本。</p>
+        <p><strong>典型的压力测试场景包括：</strong></p>
+        <ul>
+          <li><strong>极端玩家行为：</strong>模拟"效率党"玩家每天游戏16小时、专注于最优经济路径的资源积累速度。如果这类玩家在两周内就能"毕业"，说明经济消耗设计不足。</li>
+          <li><strong>大量新玩家涌入：</strong>模拟突然增加10倍新玩家（如大版本更新或营销活动后）对市场供需的冲击。新玩家的低等级材料大量涌入市场是否会导致老玩家囤积的同类材料大幅贬值？</li>
+          <li><strong>长期运营通胀：</strong>模拟运营6个月后的经济总量。随着玩家等级提升和内容消耗殆尽，货币的"消耗出口"是否足够？是否需要在特定时间节点引入新的高消耗内容？</li>
+          <li><strong>付费道具冲击：</strong>模拟商城推出高性价比道具后对游戏内经济的影响。该道具是否会破坏现有的"努力-回报"循环？是否会让特定的游戏内获取途径失去意义？</li>
+        </ul>
+        <p>建议为每个压力测试场景设计"绿线"（健康值）、"黄线"（预警值）和"红线"（必须干预值），并提前准备好对应的经济调节方案。</p>
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1.5rem;">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">游戏经济设计的常见陷阱</div>
+          <p>在使用AI辅助设计经济系统时，需要格外注意以下高频陷阱：<strong>① 货币种类过多</strong>——每增加一种货币就增加一层复杂度，超过3种基础货币会让玩家困惑；<strong>② 只设计了"赚"没有设计"花"</strong>——如果消耗出口不足，再精确的产出控制也会导致通胀；<strong>③ 忽略了"时间"本身的价值</strong>——限时活动、每日限购等时间锁定机制是控制经济节奏的重要工具；<strong>④ 低估了玩家的"优化"能力</strong>——玩家会找到你没想到的最优路径来获取资源，你的经济模型应该基于"最聪明的玩家"而非"平均玩家"来设计。用AI模拟时一定要加入"极端优化"的玩家画像。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 5: AI加速策划文档编写 -->
+    <!-- ============================================ -->
+    <section class="section" id="document">
+      <div class="section-header">
+        <div class="section-icon teal">📋</div>
+        <div>
+          <div class="section-title">AI加速策划文档编写：从构思到文档的效率革命</div>
+          <div class="section-subtitle">利用AI快速生成GDD、系统设计文档、关卡文档和数值文档</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>📝 策划文档：连接创意与执行的桥梁</h4>
+        <p>策划文档（Game Design Document, GDD）是游戏开发中将"想法"转化为"可执行方案"的关键媒介。它是策划团队与美术、程序、QA等各部门之间的"统一语言"。一份优秀的GDD不仅描述"做什么"，更要清晰地传达"为什么这样做"和"具体怎么做"，减少执行过程中的信息损失和理解偏差。</p>
+        <p>然而，编写高质量的策划文档是一项耗时且考验表达能力的工作。一份完整的GDD总览可能有<strong>50-100页</strong>，而每个子系统的详细设计文档通常还有<strong>10-30页</strong>。再加上文档需要随着项目迭代不断更新，文档维护的工作量往往被严重低估。许多团队因为文档滞后或不完整，导致执行偏差和返工。</p>
+        <p>AI在策划文档编写中的价值体现在三个层面：<strong>① 快速生成文档初稿框架</strong>，将策划的口头描述转化为结构化文档；<strong>② 补全文档细节</strong>，基于核心设计自动推导边界情况和异常处理逻辑；<strong>③ 提升文档表达质量</strong>，让文档更清晰、更易读、减少歧义。从实践效果来看，AI可以将策划文档编写的效率提升<strong>3-8倍</strong>。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">四类核心策划文档及AI辅助工作流</h4>
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <span class="wf-icon">📖</span>
+          <h4>GDD总览</h4>
+          <p>游戏的"全局蓝图"，描述核心玩法、目标受众、视觉风格和项目范围。</p>
+          <ul>
+            <li>AI根据游戏概念自动生成GDD目录框架</li>
+            <li>逐章节让AI扩写详细内容</li>
+            <li>AI检查章节间的逻辑一致性和概念引用</li>
+            <li>最终由主策划审核并注入团队共识</li>
+          </ul>
+        </div>
+        <div class="workflow-card">
+          <span class="wf-icon">⚙️</span>
+          <h4>系统设计文档</h4>
+          <p>某一个游戏系统的完整技术+设计规格文档，面向程序开发团队。</p>
+          <ul>
+            <li>描述核心需求后，AI生成功能列表和状态机</li>
+            <li>AI自动补全异常处理和边界情况</li>
+            <li>生成流程图描述和数据结构建议</li>
+            <li>AI检查需求描述是否有歧义或遗漏</li>
+          </ul>
+        </div>
+        <div class="workflow-card">
+          <span class="wf-icon">🗺️</span>
+          <h4>关卡设计文档</h4>
+          <p>单个关卡的完整设计规格，供关卡美术和关卡程序执行。</p>
+          <ul>
+            <li>AI根据关卡概念生成标准化文档模板</li>
+            <li>自动填充敌人配置、道具分布、触发器列表</li>
+            <li>AI生成关卡俯视图的文字描述（配合美术绘制）</li>
+            <li>检查关卡设计是否符合整体难度曲线</li>
+          </ul>
+        </div>
+        <div class="workflow-card">
+          <span class="wf-icon">📊</span>
+          <h4>数值设计文档</h4>
+          <p>游戏数值体系的完整说明，包含公式、数据表和设计理由。</p>
+          <ul>
+            <li>AI根据设计意图生成公式推导和数据表</li>
+            <li>自动生成公式的可视化说明和示例计算</li>
+            <li>AI验证数值表间的引用关系是否正确</li>
+            <li>生成数值调整的影响范围分析</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">GDD章节生成 Prompt 模板</h4>
+      <div class="prompt-template">
+        <span class="pt-label">GDD 生成 Prompt</span>
+你是一位资深游戏制作人和策划文档专家。请为以下游戏项目编写GDD中指定章节的完整内容。
+
+🎮 游戏名称：<span class="placeholder">[游戏名称]</span>
+📝 需要编写的章节：<span class="placeholder">[章节名称，如"核心玩法循环"或"角色能力系统"]</span>
+🎯 面向读者：<span class="placeholder">[文档的目标读者，如"程序团队"或"全团队"]</span>
+📋 已有的相关设计决策：<span class="placeholder">[在之前的章节或讨论中已确定的设计内容]</span>
+
+请按以下标准编写：
+1. 概述（200字以内，该章节的核心要点）
+2. 详细设计（逻辑清晰、层次分明的完整描述）
+3. 规则与约束（需要遵守的设计规则和边界条件）
+4. 边界情况和异常处理（覆盖特殊场景的处理方案）
+5. 与其他系统的交互说明（本系统如何影响/被影响于其他系统）
+6. 验收标准（如何判断该系统"做对了"）
+7. 参考案例（1-2个类似游戏的对标分析）
+      </div>
+
+      <h4 style="margin-top:1.5rem;">对比：纯手工文档编写 vs AI辅助文档编写</h4>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 纯手工文档编写</div>
+          <ul>
+            <li><strong>GDD总览（50页）：</strong>主策划独自编写，耗时2-3周</li>
+            <li><strong>系统设计文档：</strong>每个系统1-2周，容易遗漏边界情况</li>
+            <li><strong>文档更新：</strong>设计变更后手动逐页修改，经常遗忘关联章节</li>
+            <li><strong>表达质量：</strong>取决于策划的写作能力，风格不统一</li>
+            <li><strong>完整性检查：</strong>依靠评审会议人工逐条审查</li>
+            <li><strong>总计耗时：</strong>一个中型项目的完整文档约需1-2个月</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ AI辅助文档编写</div>
+          <ul>
+            <li><strong>GDD总览（50页）：</strong>AI生成初稿框架+内容，策划审核修改，3-5天</li>
+            <li><strong>系统设计文档：</strong>AI秒级生成初稿，策划专注于关键决策点的精修</li>
+            <li><strong>文档更新：</strong>将变更描述告诉AI，自动标记受影响的章节</li>
+            <li><strong>表达质量：</strong>AI统一文档风格和术语，减少歧义表述</li>
+            <li><strong>完整性检查：</strong>AI自动扫描文档中的未定义引用和逻辑矛盾</li>
+            <li><strong>总计耗时：</strong>同等规模文档压缩至1-2周完成</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">文档编写的"审核-迭代"循环</div>
+          <p>AI生成的文档初稿绝不应该直接作为正式文档使用。正确的流程是：<strong>AI生成初稿 → 策划逐节审核 → 标注需要修改的部分 → 让AI根据反馈重新生成 → 策划最终确认</strong>。特别需要注意的是：① AI可能会"自信地编造"一些听起来合理但实际上不符合项目需求的内容，必须仔细验证每一条设计描述；② 文档中涉及具体数值的部分需要与数值策划交叉确认；③ 与程序相关的技术描述应让技术团队审核可行性。好的策划文档是"会呼吸的"——它应该随着项目迭代持续更新，而不是写完就扔在一边。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 6: 课后练习 -->
+    <!-- ============================================ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon orange">📝</div>
+        <div>
+          <div class="section-title">课后练习：AI策划实战演练</div>
+          <div class="section-subtitle">通过完整的实操任务，将本模块的策划方法论转化为可复用的工作技能</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>📌 练习说明</h4>
+        <p>本模块的练习聚焦于游戏策划的三大核心技能——关卡设计、数值平衡和任务编写。三个练习可以独立完成，也可以基于同一个游戏项目（推荐使用模块二练习中创建的游戏概念）进行串联，形成一份完整的策划方案。每个练习都要求你使用AI工具辅助完成，并记录你对AI输出的修改和优化过程。</p>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>🏆 练习一：AI关卡设计 — 完整关卡方案</h4>
+        <p><strong>任务描述：</strong>使用本模块学到的AI关卡设计方法，为你的游戏项目生成一个完整的关卡设计方案。</p>
+        <p><strong>具体要求：</strong></p>
+        <ul>
+          <li>使用关卡生成Prompt模板，生成至少一个中等复杂度的关卡方案</li>
+          <li>关卡方案需包含：空间布局描述、区域划分（至少3个区域）、敌人配置表、至少1个解谜设计</li>
+          <li>为关卡绘制简易俯视图（手绘草图或ASCII地图均可）</li>
+          <li>撰写关卡的节奏曲线分析（紧张度随进度变化的描述，200字以上）</li>
+          <li>标注你对AI原始输出的修改之处，并说明修改理由</li>
+        </ul>
+        <p><strong>交付物：</strong>一份完整的关卡设计文档（含布局图、配置表和节奏分析）</p>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>🏆 练习二：AI数值平衡 — 战斗系统数值表</h4>
+        <p><strong>任务描述：</strong>使用AI辅助设计一套游戏战斗系统的数值框架，包含伤害公式、角色属性表和基础平衡验证。</p>
+        <p><strong>具体要求：</strong></p>
+        <ul>
+          <li>设计一个包含至少4个职业/角色类型的战斗数值体系</li>
+          <li>输出完整的伤害计算公式（含防御减免）和设计理由</li>
+          <li>制作各职业1级和满级的属性对照表</li>
+          <li>让AI模拟各职业两两对决的胜率矩阵（或文字分析），评估平衡性</li>
+          <li>识别并记录至少2个潜在的平衡问题及解决方案</li>
+        </ul>
+        <p><strong>交付物：</strong>一份战斗数值设计文档（含公式、数据表、平衡分析和优化建议）</p>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>🏆 练习三：AI任务链设计 — 5个连续任务</h4>
+        <p><strong>任务描述：</strong>使用AI辅助设计一条包含5个相互关联任务的完整任务链，体现叙事深度和玩家选择。</p>
+        <p><strong>具体要求：</strong></p>
+        <ul>
+          <li>任务链围绕一个统一的主题（如"寻找失踪的工匠"或"揭开古代遗迹的秘密"）</li>
+          <li>5个任务之间有清晰的因果关系和难度递进</li>
+          <li>至少包含1个分支选择点，不同选择导致不同的任务走向</li>
+          <li>为关键NPC编写至少3段对话文本（每段5句以上）</li>
+          <li>设计每个任务的奖励，确保奖励与任务难度和故事重要性匹配</li>
+          <li>附上任务流程图（标明分支和合并节点）</li>
+        </ul>
+        <p><strong>交付物：</strong>一份任务链设计文档（含任务详情、对话文本、奖励表和流程图）</p>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">🎯</div>
+        <div class="infobox-body">
+          <div class="infobox-title">完成练习的小贴士</div>
+          <p>这三个练习覆盖了游戏策划最核心的三个技能领域。完成时请注意：<strong>① 不要直接复制AI的输出作为最终结果</strong>——练习的核心价值在于你对AI输出的"评判和改造"过程；<strong>② 尝试与AI进行多轮对话迭代</strong>，每一轮追加更具体的约束和要求；<strong>③ 记录你的思考过程</strong>——为什么接受AI的某些建议？为什么拒绝另一些？这些反思是你成长为"AI原生策划师"的关键。完成全部练习后，你将拥有一份展示你AI策划能力的完整作品集。加油！🚀</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <a href="module2.html" class="btn-prev">← 模块二：AI驱动的游戏创意与概念设计</a>
+      <a href="module4.html" class="btn-next">模块四 →</a>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
