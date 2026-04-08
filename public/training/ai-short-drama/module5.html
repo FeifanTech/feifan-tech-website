@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块五：AI后期制作与合成 — AI 短剧制作实战</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🎬 AI 短剧制作实战 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html" class="active">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">本模块导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#editing"><span class="nav-num">①</span>AI辅助视频剪辑</a></li>
+      <li><a href="#color"><span class="nav-num">②</span>AI调色与画面统一</a></li>
+      <li><a href="#subtitle"><span class="nav-num">③</span>AI字幕生成与处理</a></li>
+      <li><a href="#vfx"><span class="nav-num">④</span>AI特效与转场</a></li>
+      <li><a href="#assembly"><span class="nav-num">⑤</span>素材组装与精剪流程</a></li>
+      <li><a href="#practice"><span class="nav-num">⑥</span>课后练习</a></li>
+    </ul>
+
+    <div class="sidebar-title" style="margin-top:1.5rem;">快速跳转</div>
+    <ul class="sidebar-nav">
+      <li><a href="index.html">← 课程总览</a></li>
+      <li><a href="module4.html">← 模块四</a></li>
+      <li><a href="module6.html">模块六 →</a></li>
+      <li><a href="../">← 返回培训主页</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ===== Hero ===== -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块五</span>
+        AI后期制作与合成
+      </div>
+      <h1>🎞️ AI后期制作与合成<br><span>从散乱素材到完整成片</span></h1>
+      <p class="hero-subtitle">
+        后期制作是将AI生成的视频、音频、特效素材整合为成品的关键环节。本模块将系统讲解AI辅助剪辑、调色、
+        字幕、特效以及最终组装的完整流程。影视从业者的剪辑直觉和后期经验将在这一环节发挥决定性作用。
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 4 课时</div>
+        <div class="hero-meta-item">🎞️ 剪辑 + 调色 + 特效 + 合成</div>
+        <div class="hero-meta-item">🎯 影视专业人士适用</div>
+        <div class="hero-meta-item">🔧 10+ 款后期工具</div>
+      </div>
+    </div>
+
+    <!-- ===== Section 1: AI辅助视频剪辑 ===== -->
+    <section class="section" id="editing">
+      <div class="section-header">
+        <div class="section-icon orange">✂️</div>
+        <div>
+          <div class="section-title">AI辅助视频剪辑</div>
+          <div class="section-subtitle">让AI加速剪辑流程，释放创意精力</div>
+        </div>
+      </div>
+
+      <p>
+        现代非线性编辑工具已大量集成AI功能，从自动场景检测到智能剪辑建议，AI正在深刻改变剪辑工作流。
+        对于AI短剧制作而言，由于素材本身就是AI生成的，剪辑师需要用专业眼光从大量生成素材中筛选最佳片段，
+        并通过精准的剪辑节奏将它们组合成流畅的叙事。
+      </p>
+
+      <h3>主流AI剪辑工具对比</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>工具</th>
+              <th>AI功能</th>
+              <th>优势</th>
+              <th>适用场景</th>
+              <th>学习曲线</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>剪映专业版</strong></td>
+              <td>智能剪辑、自动字幕、模板套用、AI抠图</td>
+              <td>上手快、模板丰富、中文生态完善</td>
+              <td>短视频平台快速制作、批量产出</td>
+              <td>⭐ 低</td>
+            </tr>
+            <tr>
+              <td><strong>DaVinci Resolve</strong></td>
+              <td>AI场景检测、智能重构、面部识别、AI调色</td>
+              <td>免费版功能强大、专业级调色面板</td>
+              <td>专业级短剧制作、调色密集型项目</td>
+              <td>⭐⭐⭐ 中高</td>
+            </tr>
+            <tr>
+              <td><strong>Premiere Pro + AI插件</strong></td>
+              <td>语音转文字、自动重构、AI驱动的场景编辑检测</td>
+              <td>行业标准、插件生态丰富、协作方便</td>
+              <td>团队协作项目、与After Effects联动</td>
+              <td>⭐⭐⭐ 中高</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>AI剪辑核心功能</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>🤖 智能剪辑</h4>
+          <p>
+            AI根据画面内容、音频节奏自动标记关键帧和建议剪切点。
+            剪辑师可以在AI建议的基础上快速微调，大幅缩短粗剪时间。
+            尤其适合从大量AI生成素材中快速筛选可用片段。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🎵 自动节拍匹配</h4>
+          <p>
+            AI分析背景音乐的节拍和节奏结构，自动将视频剪切点对齐到音乐节拍。
+            在短剧的片头、预告片和高潮段落中，节拍对齐能显著提升观感冲击力。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🎬 场景检测</h4>
+          <p>
+            AI自动识别视频中的场景切换点，将长片段智能分割成独立场景。
+            这对于处理AI生成的长视频尤为实用——可以快速将可用片段从整体素材中提取出来。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🗣️ 语音识别剪辑</h4>
+          <p>
+            AI将对白转为文字，剪辑师直接在文字稿上标记剪辑点。
+            删除口误、重复或无用段落变得像编辑文档一样简单，特别适合对白密集的短剧场景。
+          </p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">剪辑是AI短剧质量的关键一环</div>
+          <p>
+            AI生成的素材需要专业的剪辑眼光来组合。每一个剪切点的选择、每一段节奏的把控，
+            都直接决定了最终成片的观感。AI可以加速素材整理和粗剪，
+            但最终的叙事节奏和情感表达仍然依赖剪辑师的专业判断。
+            这正是影视从业者不可替代的核心价值。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 2: AI调色与画面统一 ===== -->
+    <section class="section" id="color">
+      <div class="section-header">
+        <div class="section-icon purple">🎨</div>
+        <div>
+          <div class="section-title">AI调色与画面统一</div>
+          <div class="section-subtitle">消除AI素材的色彩差异，打造统一视觉风格</div>
+        </div>
+      </div>
+
+      <p>
+        AI生成的视频素材往往来自不同批次、不同工具甚至不同模型，每个片段的色温、对比度、饱和度都可能存在差异。
+        如果直接拼接，观众会明显感到画面"跳跃"和不协调。专业的调色处理是将这些散乱素材统一为电影感成片的核心步骤。
+      </p>
+
+      <h3>AI调色工具与方案</h3>
+      <div class="card-grid card-grid-3">
+        <div class="card">
+          <h4>🎛️ DaVinci Resolve Color</h4>
+          <p>
+            行业顶级调色工具，内置AI色彩匹配和面部追踪调色功能。
+            支持节点式调色流程，可以精确控制每一个色彩参数。
+            免费版即包含完整的调色面板。
+          </p>
+        </div>
+        <div class="card">
+          <h4>📱 剪映滤镜系统</h4>
+          <p>
+            内置大量预设滤镜和LUT，一键套用即可获得统一色调。
+            适合快速制作和短视频平台发布，
+            对于追求效率的批量短剧产出是不错的选择。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🤖 AI自动调色</h4>
+          <p>
+            部分工具支持AI一键匹配参考画面的色彩风格。
+            上传一张目标色彩参考图，AI自动将所有素材调整为相似色调，
+            大幅缩短调色周期。
+          </p>
+        </div>
+      </div>
+
+      <h3>AI短剧调色工作流</h3>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <div class="phase-num">1</div>
+          <div class="phase-body">
+            <h4>建立基准LUT</h4>
+            <p>
+              选择或创建一个LUT（Look-Up Table）作为全剧的色彩基准。
+              所有素材首先通过基准LUT统一基础色调，消除不同AI工具之间的色彩差异。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">2</div>
+          <div class="phase-body">
+            <h4>统一色温与白平衡</h4>
+            <p>
+              逐段调整色温和白平衡，确保肤色、天空、室内光线等关键元素在不同镜头间保持一致。
+              AI生成素材中最常见的问题就是色温飘忽不定。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">3</div>
+          <div class="phase-body">
+            <h4>场景氛围调色</h4>
+            <p>
+              根据剧情氛围进行二级调色：温馨场景偏暖色调、紧张场景偏冷色调、
+              回忆场景可加入褪色或胶片感。这一步是从"画面正确"提升到"画面有情绪"。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">4</div>
+          <div class="phase-body">
+            <h4>最终输出检查</h4>
+            <p>
+              在不同设备（手机、电脑、电视）上预览调色结果，确保色彩在各种屏幕上表现一致。
+              检查暗部细节是否丢失、高光是否过曝，确保导出质量达标。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h3>调色前后对比</h3>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 色调不统一的拼接</div>
+          <ul>
+            <li>相邻镜头色温差异明显（忽冷忽暖）</li>
+            <li>角色肤色在不同镜头中变化不定</li>
+            <li>室内外场景的光线过渡生硬</li>
+            <li>对比度和饱和度参差不齐</li>
+            <li>画面"一看就是AI拼凑的"</li>
+            <li>缺乏整体视觉风格，像PPT拼图</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 色调和谐的成片</div>
+          <ul>
+            <li>全片色调统一，视觉流畅自然</li>
+            <li>角色肤色稳定一致，跨镜头无违和感</li>
+            <li>场景过渡平滑，光线变化合理</li>
+            <li>对比度和饱和度协调统一</li>
+            <li>画面具有"电影感"，看不出AI痕迹</li>
+            <li>色彩服务于叙事，氛围感强烈</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">调色经验是核心竞争力</div>
+          <p>
+            如果您有调色经验，这是将AI拼凑感变成电影感的关键步骤。
+            AI可以辅助色彩匹配和基础调整，但对色彩情绪的把控、对画面氛围的设计，
+            仍然需要专业调色师的审美眼光。
+            一部调色精良的AI短剧，观感可以媲美传统拍摄的作品。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 3: AI字幕生成与处理 ===== -->
+    <section class="section" id="subtitle">
+      <div class="section-header">
+        <div class="section-icon blue">💬</div>
+        <div>
+          <div class="section-title">AI字幕生成与处理</div>
+          <div class="section-subtitle">高效生成精准字幕，提升观看体验</div>
+        </div>
+      </div>
+
+      <p>
+        字幕是短剧不可或缺的组成部分，尤其在移动端观看场景中，大量用户习惯静音浏览。
+        AI语音识别技术（ASR）可以自动将对白转为文字，极大缩短字幕制作周期。
+        但自动生成的字幕仍需人工校对和样式调整，才能达到专业水准。
+      </p>
+
+      <h3>AI字幕工具对比</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>工具</th>
+              <th>识别准确率</th>
+              <th>中文支持</th>
+              <th>特色功能</th>
+              <th>价格</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>剪映自动字幕</strong></td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>原生中文优化</td>
+              <td>一键生成、样式丰富、与剪辑无缝衔接</td>
+              <td>免费</td>
+            </tr>
+            <tr>
+              <td><strong>Whisper（OpenAI）</strong></td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>多语言支持（含中文）</td>
+              <td>开源、高精度、支持时间戳、可本地运行</td>
+              <td>免费/开源</td>
+            </tr>
+            <tr>
+              <td><strong>必剪</strong></td>
+              <td>⭐⭐⭐⭐</td>
+              <td>原生中文优化</td>
+              <td>B站生态联动、二次元风格字幕模板</td>
+              <td>免费</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>短剧字幕类型</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>🗣️ 对白字幕</h4>
+          <p>
+            角色说话时显示的字幕，是短剧中最基础的字幕类型。
+            要求与对白精确同步，字体清晰易读，位置通常在画面下方居中。
+            不同角色可以用不同颜色加以区分。
+          </p>
+        </div>
+        <div class="card">
+          <h4>📖 旁白字幕</h4>
+          <p>
+            叙述性旁白的文字呈现，通常用于交代背景、时间跳转或内心独白。
+            字体风格与对白字幕区分开来（如使用斜体或不同颜色），
+            位置可灵活调整。
+          </p>
+        </div>
+        <div class="card">
+          <h4>✨ 特效字幕</h4>
+          <p>
+            带有动画效果的装饰性字幕，用于强调关键信息或营造氛围。
+            如抖动、缩放、逐字显示等效果。
+            短剧中常用于标题、转折点和情绪高潮处。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🌐 多语言字幕</h4>
+          <p>
+            针对海外发行或多语种观众群体的翻译字幕。
+            AI翻译工具可快速生成初稿，但仍需人工审校确保翻译质量。
+            多语言字幕是短剧出海的重要支撑。
+          </p>
+        </div>
+      </div>
+
+      <h3>字幕制作最佳实践</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>🔤 字体选择</h4>
+          <p>
+            优先选择笔画清晰、辨识度高的无衬线字体（如思源黑体、阿里巴巴普惠体）。
+            避免过于花哨的艺术字体影响阅读效率。字号要足够大，确保手机竖屏观看时清晰可读。
+          </p>
+        </div>
+        <div class="card">
+          <h4>📍 位置与布局</h4>
+          <p>
+            对白字幕通常居中于画面底部1/5处，避免遮挡角色面部和关键画面信息。
+            每行不超过15个汉字，超出时合理换行。
+            双语字幕采用上下排列，主语言在上。
+          </p>
+        </div>
+        <div class="card">
+          <h4>⏱️ 时间轴精度</h4>
+          <p>
+            字幕出现时间应比对白提前100-200毫秒，消失时间在对白结束后延迟200-300毫秒。
+            确保观众有足够的阅读时间。每条字幕最短显示时间不低于1秒。
+          </p>
+        </div>
+        <div class="card">
+          <h4>💥 强调效果</h4>
+          <p>
+            关键台词可通过加粗、变色、放大或添加动画来强调。
+            但特效不宜过度——频繁使用反而会分散观众注意力。
+            只在真正需要突出的情感转折点使用强调效果。
+          </p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">短剧字幕的黄金法则</div>
+          <p>
+            短剧字幕的核心原则是"快速阅读、不干扰画面"。移动端用户的注意力极其有限，
+            字幕过长会让观众分神，过短又传递不了信息。
+            建议每条字幕控制在8-12个字，配合适当的显示节奏。
+            同时务必在AI自动生成后逐句校对——同音字错误和断句不当是最常见的问题。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 4: AI特效与转场 ===== -->
+    <section class="section" id="vfx">
+      <div class="section-header">
+        <div class="section-icon green">🌟</div>
+        <div>
+          <div class="section-title">AI特效与转场</div>
+          <div class="section-subtitle">用特效增强画面表现力，用转场串联叙事节奏</div>
+        </div>
+      </div>
+
+      <p>
+        AI特效可以为AI生成的画面增添视觉冲击力，从简单的转场过渡到复杂的粒子效果，
+        都能通过AI工具快速实现。但需要特别注意的是：特效应服务于叙事，而非炫技。
+        对于AI生成的素材，恰当的特效能掩盖瑕疵、提升质感，过度使用则会适得其反。
+      </p>
+
+      <h3>AI特效分类</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>🔄 转场特效</h4>
+          <p>
+            连接两个镜头之间的视觉过渡效果。短剧中常用的转场包括：
+            淡入淡出、交叉溶解、推拉缩放、旋转过渡、遮罩转场等。
+            好的转场应该自然流畅，让观众几乎察觉不到场景切换。
+          </p>
+        </div>
+        <div class="card">
+          <h4>✨ 粒子效果</h4>
+          <p>
+            光斑、火花、烟雾、灰尘等粒子效果可以增添画面层次感。
+            在AI短剧中，粒子效果常用于魔幻题材、情绪高潮或营造梦幻氛围。
+            注意控制粒子密度和透明度，避免喧宾夺主。
+          </p>
+        </div>
+        <div class="card">
+          <h4>⚡ 速度变化</h4>
+          <p>
+            慢动作（Slow Motion）和快进（Speed Ramp）可以强化戏剧张力。
+            AI补帧技术使得低帧率素材也能生成流畅的慢动作效果。
+            关键动作的速度曲线设计能显著提升镜头的感染力。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🔍 画面增强（超分辨率/补帧）</h4>
+          <p>
+            AI超分辨率技术可将低分辨率AI生成视频提升至高清甚至4K。
+            AI补帧可将低帧率素材插值到60fps，使运动更加流畅。
+            这是AI短剧后期最实用的画质提升手段。
+          </p>
+        </div>
+      </div>
+
+      <h3>AI特效工具</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>工具</th>
+              <th>核心功能</th>
+              <th>优势</th>
+              <th>适用场景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>剪映特效</strong></td>
+              <td>海量预设转场和特效模板、一键套用</td>
+              <td>操作简单、模板丰富、实时预览</td>
+              <td>快速制作、批量短剧生产</td>
+            </tr>
+            <tr>
+              <td><strong>After Effects + AI插件</strong></td>
+              <td>高级合成、运动跟踪、粒子系统、AI辅助抠像</td>
+              <td>功能最强大、可定制性极高</td>
+              <td>复杂特效场景、精品短剧制作</td>
+            </tr>
+            <tr>
+              <td><strong>Topaz Video AI</strong></td>
+              <td>AI超分辨率、AI补帧、去噪、画面稳定</td>
+              <td>画质提升效果显著、批处理支持</td>
+              <td>AI视频画质增强、低分辨率素材修复</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>AI视频画质增强实战</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card card-lg">
+          <h4>📐 超分辨率提升</h4>
+          <p>
+            许多AI视频生成工具输出的分辨率有限（如720p或更低），通过Topaz Video AI等工具可以：
+          </p>
+          <ul>
+            <li>将720p素材提升至1080p甚至4K，同时保持画面细节</li>
+            <li>减少AI生成视频中的模糊和噪点</li>
+            <li>增强边缘清晰度和纹理细节</li>
+            <li>批量处理大量素材，节省逐个修复的时间</li>
+          </ul>
+        </div>
+        <div class="card card-lg">
+          <h4>🎞️ 帧率插值（补帧）</h4>
+          <p>
+            AI生成视频的帧率往往偏低（如8-24fps），通过AI补帧可以：
+          </p>
+          <ul>
+            <li>将低帧率视频平滑插值到30fps或60fps</li>
+            <li>消除画面卡顿和抖动，使运动更自然</li>
+            <li>为慢动作效果提供足够的帧数支撑</li>
+            <li>提升整体观感的流畅度和专业感</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">特效使用的克制原则</div>
+          <p>
+            过多特效会暴露AI生成的痕迹。Less is more——保持克制。
+            每一个特效都应该有明确的叙事目的：是为了转场更流畅？是为了强化情绪？还是为了掩盖瑕疵？
+            如果答案都不是，那就不要加。堆砌花哨特效只会让成片看起来像"素材炫技"，
+            而非一部有完整叙事的短剧作品。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 5: 素材组装与精剪流程 ===== -->
+    <section class="section" id="assembly">
+      <div class="section-header">
+        <div class="section-icon teal">🧩</div>
+        <div>
+          <div class="section-title">素材组装与精剪流程</div>
+          <div class="section-subtitle">从粗剪到成片的完整后期制作管线</div>
+        </div>
+      </div>
+
+      <p>
+        素材组装是将前面所有模块的产出——AI生成视频、配音音轨、配乐、音效、字幕——
+        整合到一条时间线上的最终环节。一个科学、有序的组装流程能显著提高制作效率，
+        减少返工。以下是经过实践验证的七步精剪流程。
+      </p>
+
+      <h3>七步精剪流程</h3>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <div class="phase-num">1</div>
+          <div class="phase-body">
+            <h4>粗剪：按分镜表排列视频片段</h4>
+            <p>
+              按照模块二制作的分镜表，将AI生成的视频素材按场次和镜号顺序排列到时间线上。
+              此阶段不必追求精确，重点是建立完整的叙事结构。
+              如有多个候选素材，先选最接近分镜描述的版本。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">2</div>
+          <div class="phase-body">
+            <h4>配音对齐：同步对白和唇形</h4>
+            <p>
+              将模块四生成的AI配音音轨放入时间线，与画面中角色的口型和动作对齐。
+              由于AI生成的视频口型不一定与配音完全匹配，需要通过微调音频时间、
+              适当剪裁画面或利用景别切换来掩盖不同步的问题。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">3</div>
+          <div class="phase-body">
+            <h4>音频铺设：添加配乐和音效</h4>
+            <p>
+              在对白轨道下方铺设背景配乐（BGM）轨道和音效轨道。
+              按照模块四讲解的混音原则设置各轨道音量比例——
+              对白优先，配乐铺底，音效点缀。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">4</div>
+          <div class="phase-body">
+            <h4>精剪：调整节奏和过渡</h4>
+            <p>
+              逐场逐镜精修剪辑点，调整镜头时长和切换节奏。
+              添加转场效果，确保场景间过渡自然。
+              反复回看，检查叙事节奏是否流畅、情绪起伏是否到位。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">5</div>
+          <div class="phase-body">
+            <h4>调色统一：确保画面风格一致</h4>
+            <p>
+              按照本模块"AI调色与画面统一"章节的工作流，对全片进行调色处理。
+              建立基准LUT、统一色温、进行氛围调色，
+              确保不同AI工具生成的素材在视觉上浑然一体。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">6</div>
+          <div class="phase-body">
+            <h4>字幕添加：生成并校对字幕</h4>
+            <p>
+              使用AI字幕工具自动生成字幕，然后逐句校对文字准确性和时间轴精度。
+              设置统一的字幕样式（字体、大小、颜色、描边），
+              在关键台词处添加适当的强调效果。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">7</div>
+          <div class="phase-body">
+            <h4>导出设置：分辨率、帧率、编码选择</h4>
+            <p>
+              根据目标发布平台选择合适的导出参数。
+              不同平台对分辨率、帧率、码率和文件格式有不同要求。
+              导出前做最后一次全片通览检查。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h3>不同平台导出设置参考</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>平台</th>
+              <th>分辨率</th>
+              <th>帧率</th>
+              <th>码率</th>
+              <th>格式</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>抖音/快手</strong></td>
+              <td>1080×1920（竖屏）</td>
+              <td>30fps</td>
+              <td>8-12 Mbps</td>
+              <td>MP4 (H.264)</td>
+            </tr>
+            <tr>
+              <td><strong>微信视频号</strong></td>
+              <td>1080×1920（竖屏）</td>
+              <td>30fps</td>
+              <td>6-10 Mbps</td>
+              <td>MP4 (H.264)</td>
+            </tr>
+            <tr>
+              <td><strong>B站</strong></td>
+              <td>1920×1080（横屏）</td>
+              <td>30/60fps</td>
+              <td>10-16 Mbps</td>
+              <td>MP4 (H.264/H.265)</td>
+            </tr>
+            <tr>
+              <td><strong>YouTube</strong></td>
+              <td>1920×1080 / 3840×2160</td>
+              <td>30/60fps</td>
+              <td>12-20 Mbps (1080p)</td>
+              <td>MP4 (H.264/H.265)</td>
+            </tr>
+            <tr>
+              <td><strong>存档/母版</strong></td>
+              <td>最高可用分辨率</td>
+              <td>原始帧率</td>
+              <td>50+ Mbps</td>
+              <td>MOV (ProRes) / MP4 (H.265)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">导出设置建议</div>
+          <p>
+            建议始终保留一份高码率母版文件作为存档，后续可根据不同平台需求转码。
+            竖屏短剧（9:16）是当前短视频平台的主流格式，但如果计划在B站或YouTube等平台发布横屏版本，
+            建议在制作初期就规划好构图，预留横竖屏裁切空间。
+            编码优先选择H.264以保证最大兼容性，H.265在同等画质下文件更小但部分旧设备不支持。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 6: 课后练习 ===== -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon red">📝</div>
+        <div>
+          <div class="section-title">课后练习</div>
+          <div class="section-subtitle">动手实践，完成从素材到成片的全流程</div>
+        </div>
+      </div>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块五 · 课后练习</h2>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <strong>将模块三生成的视频片段按分镜表组装成一个30秒的预告片</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              回顾模块二的分镜表和模块三生成的AI视频素材，选取最佳片段按叙事顺序排列到时间线上。
+              完成粗剪和精剪，确保镜头衔接流畅、节奏紧凑，形成一个完整的30秒预告片。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：30秒预告片视频文件（MP4）+ 时间线截图</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <strong>为预告片添加配音和背景音乐</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              将模块四生成的配音和配乐素材导入预告片项目，完成多轨音频对齐和混音。
+              确保对白清晰可辨，背景配乐衬托氛围，音效点缀到位。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：含音频的预告片（MP4）+ 多轨音频截图</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <strong>完成调色统一处理</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              对预告片中的所有镜头进行调色处理，建立统一的色彩风格。
+              确保不同AI工具生成的素材在色温、对比度和饱和度上保持一致。
+              根据场景情绪进行氛围调色。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：调色前后对比截图 + 调色后的预告片（MP4）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">4</div>
+          <div>
+            <strong>添加字幕并导出成品</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              使用AI字幕工具为预告片生成字幕，完成校对和样式设置。
+              按目标平台要求选择导出参数，输出最终成品文件。
+              同时保留一份高码率母版作为存档。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：含字幕的最终成品（MP4）+ 母版文件 + 字幕文件（SRT）</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Bottom Navigation ===== -->
+    <div class="bottom-nav">
+      <a href="module4.html" class="btn-prev">← 模块四：AI配音、音效与配乐</a>
+      <a href="module6.html" class="btn-next">模块六：发布运营与变现 →</a>
+    </div>
+
+    <a href="#" class="back-top" title="返回顶部">↑</a>
+
+  </main>
+</div>
+
+<!-- Scroll Spy -->
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
