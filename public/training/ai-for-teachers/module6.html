@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块六：AI教育伦理与安全规范 — AI赋能中小学教师</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🏫 AI 赋能中小学教师 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html" class="active">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块六导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#ethics"><span class="nav-num">1</span>AI教育伦理原则</a></li>
+      <li><a href="#privacy"><span class="nav-num">2</span>学生隐私保护</a></li>
+      <li><a href="#accuracy"><span class="nav-num">3</span>AI输出验证</a></li>
+      <li><a href="#boundaries"><span class="nav-num">4</span>AI使用边界</a></li>
+      <li><a href="#guidelines"><span class="nav-num">5</span>学校AI使用规范</a></li>
+      <li><a href="#action"><span class="nav-num">6</span>行动承诺</a></li>
+    </ul>
+    <div style="padding: 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border);">
+      <div class="sidebar-title">快速入口</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <a href="module1.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);transition:all .15s;">
+          <span style="color:var(--teacher-accent);">●</span> 模块一：AI认知与工具入门
+        </a>
+        <a href="module2.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#3182CE;">●</span> 模块二：AI辅助备课
+        </a>
+        <a href="module3.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#D69E2E;">●</span> 模块三：作业批改与评价
+        </a>
+        <a href="module4.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#E07A5F;">●</span> 模块四：班级管理与家校沟通
+        </a>
+        <a href="module5.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#805AD5;">●</span> 模块五：教研与专业发展
+        </a>
+        <a href="module6.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#2C7A7B;">●</span> 模块六：AI教育伦理
+        </a>
+      </div>
+      <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--border);">
+        <a href="index.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--teacher-bg);border:1px solid var(--teacher-border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--teacher-accent);font-weight:600;">
+          ← 返回课程总览
+        </a>
+        <a href="../index.html" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--warm);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);margin-top:6px;">
+          ← 返回培训主页
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== Main Content ===== -->
+  <main class="main-content">
+
+    <!-- Session Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块六</span>
+        AI教育伦理与安全规范
+      </div>
+      <h1>⚖️ AI教育伦理与安全规范<br>负责任地使用AI——守护教育的温度与底线</h1>
+      <p class="hero-subtitle">
+        AI 是强大的工具，但权力越大，责任越大。
+        在教育场景中使用AI，我们面临着学生隐私保护、AI输出准确性、使用边界界定等一系列伦理和安全问题。
+        本模块是整个课程的"安全底线"，帮助每位教师建立负责任使用AI的意识和能力，
+        确保AI真正服务于教育，而不是损害教育。
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 3小时</div>
+        <div class="hero-meta-item">📝 合规清单</div>
+        <div class="hero-meta-item">🎯 全体教师（必修）</div>
+        <div class="hero-meta-item">⚖️ 伦理准则</div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Section 1: AI教育伦理四大原则 -->
+    <!-- ============================================ -->
+    <section class="section" id="ethics">
+      <div class="section-header">
+        <div class="section-icon purple">⚖️</div>
+        <div>
+          <div class="section-title">AI教育伦理四大原则</div>
+          <div class="section-subtitle">构建AI教育应用的伦理基石</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🏛️ 为什么教育领域的AI伦理尤为重要？</h4>
+        <p>教育关乎每一个孩子的成长和未来。与其他行业相比，教育领域使用AI面临更高的伦理要求——
+        学生是未成年人，缺乏自我保护意识；教师的决策直接影响学生发展；
+        教育数据涉及敏感个人信息。因此，每一位使用AI的教师都必须深刻理解并践行AI教育伦理。</p>
+      </div>
+
+      <!-- 四大原则 -->
+      <h4 style="margin-top:1.5rem;">📜 AI教育伦理四大原则</h4>
+      <div class="card-grid-2" style="margin-top:1rem;">
+        <div class="card card-lg" style="border-left:4px solid var(--teacher-accent);">
+          <h4>🧑‍🏫 原则一：以人为本</h4>
+          <p style="font-weight:600;color:var(--teacher-accent);margin-bottom:0.5rem;">教师是教育的主体，AI是辅助工具</p>
+          <ul>
+            <li>AI 提供建议和参考，但教育决策权始终在教师手中</li>
+            <li>不能用AI替代教师对学生的关爱、引导和情感交流</li>
+            <li>教学的核心是"人的发展"，技术服务于人，而非人服从技术</li>
+            <li>当AI建议与教师专业判断冲突时，以教师判断为准</li>
+          </ul>
+          <div class="infobox infobox-info" style="margin-top:0.75rem;">
+            <div class="infobox-icon">💬</div>
+            <div class="infobox-body">
+              <p><strong>课堂示例：</strong>AI分析建议某学生应该分到"学困生"小组，但您了解到该学生只是因为家庭变故暂时成绩下滑，
+              TA内心渴望被认可。这时候应该听从您的专业判断，给予学生更多鼓励而非"贴标签"。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-lg" style="border-left:4px solid #3182CE;">
+          <h4>⚖️ 原则二：公平公正</h4>
+          <p style="font-weight:600;color:#3182CE;margin-bottom:0.5rem;">避免AI偏见影响教育公平</p>
+          <ul>
+            <li>AI模型可能包含性别、地域、民族等方面的偏见</li>
+            <li>AI生成的评价不应对任何学生群体产生歧视</li>
+            <li>使用AI不应加剧教育资源分配的不均衡</li>
+            <li>城乡学校应有平等使用AI教育工具的机会</li>
+          </ul>
+          <div class="infobox infobox-info" style="margin-top:0.75rem;">
+            <div class="infobox-icon">💬</div>
+            <div class="infobox-body">
+              <p><strong>课堂示例：</strong>AI生成的作文范文可能默认描写城市生活场景，忽视农村学生的生活经验。
+              教师需要注意检查并调整AI输出，确保内容对所有学生都有代入感和包容性。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-lg" style="border-left:4px solid #D69E2E;">
+          <h4>🔍 原则三：透明可解释</h4>
+          <p style="font-weight:600;color:#D69E2E;margin-bottom:0.5rem;">AI辅助决策需要可解释</p>
+          <ul>
+            <li>教师应清楚了解AI工具的工作原理和局限性</li>
+            <li>当使用AI辅助教学决策时，应能向学生和家长解释决策依据</li>
+            <li>不能将AI的"黑箱"输出直接作为评价学生的依据</li>
+            <li>AI辅助的评分、分组、推荐等必须有教师的审核和解释</li>
+          </ul>
+          <div class="infobox infobox-info" style="margin-top:0.75rem;">
+            <div class="infobox-icon">💬</div>
+            <div class="infobox-body">
+              <p><strong>课堂示例：</strong>如果您使用AI辅助批改作文并给出了评语，家长询问"这个评价是怎么得出的"时，
+              您应该能说明：AI帮助分析了结构和用词，但最终评价由您根据教学要求综合判定。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-lg" style="border-left:4px solid #E53E3E;">
+          <h4>🔒 原则四：隐私保护</h4>
+          <p style="font-weight:600;color:#E53E3E;margin-bottom:0.5rem;">学生数据安全第一</p>
+          <ul>
+            <li>学生的个人信息是受法律保护的敏感数据</li>
+            <li>未经授权不得将学生信息输入任何AI工具</li>
+            <li>使用AI前必须对学生数据进行脱敏处理</li>
+            <li>遵守《中华人民共和国个人信息保护法》和《未成年人保护法》相关规定</li>
+          </ul>
+          <div class="infobox infobox-info" style="margin-top:0.75rem;">
+            <div class="infobox-icon">💬</div>
+            <div class="infobox-body">
+              <p><strong>课堂示例：</strong>想用AI分析班级成绩时，不能输入"张三 95分，李四 62分"，
+              而应该用"学生A 95分，学生B 62分"的匿名方式。详细的脱敏方法将在下一节学习。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 政策指引 -->
+      <div class="infobox infobox-teacher" style="margin-top:1.5rem;">
+        <div class="infobox-icon">📋</div>
+        <div class="infobox-body">
+          <div class="infobox-title">教育部相关政策精神要点</div>
+          <p>教育部多次强调在教育领域推进人工智能应用的同时，必须坚持正确方向：</p>
+          <ul>
+            <li>📌 <strong>坚持育人为本：</strong>人工智能应用应始终服务于立德树人根本任务</li>
+            <li>📌 <strong>促进公平包容：</strong>推动优质教育资源共享，缩小教育差距</li>
+            <li>📌 <strong>确保安全可靠：</strong>建立健全安全保障机制，防范技术风险</li>
+            <li>📌 <strong>坚持教师主导：</strong>AI赋能教师而非替代教师，增强教师专业能力</li>
+            <li>📌 <strong>规范有序发展：</strong>完善管理制度和标准规范，引导有序推进</li>
+          </ul>
+          <p style="margin-top:0.5rem;font-size:0.85rem;color:var(--muted);">
+            参考：《教育部关于推进教育新型基础设施建设的指导意见》《生成式人工智能服务管理暂行办法》等文件精神
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 2: 学生隐私保护实操 -->
+    <!-- ============================================ -->
+    <section class="section" id="privacy">
+      <div class="section-header">
+        <div class="section-icon red">🔒</div>
+        <div>
+          <div class="section-title">学生隐私保护实操</div>
+          <div class="section-subtitle">守住底线——学生信息安全的操作指南</div>
+        </div>
+      </div>
+
+      <!-- 严重警告 -->
+      <div class="infobox infobox-warn" style="margin-top:0.5rem;">
+        <div class="infobox-icon">🚨</div>
+        <div class="infobox-body">
+          <div class="infobox-title">严禁将学生个人信息直接输入任何AI工具！</div>
+          <p>这不仅是职业道德要求，更是法律红线。根据《中华人民共和国个人信息保护法》和《未成年人保护法》，
+          未经监护人明确同意，不得收集、使用、泄露未成年人个人信息。
+          将学生信息输入商业AI工具，意味着这些数据可能被存储、用于模型训练，存在严重的泄露风险。</p>
+        </div>
+      </div>
+
+      <!-- 禁止输入清单 -->
+      <h4 style="margin-top:1.5rem;">🚫 绝对不能输入AI的学生信息</h4>
+      <div class="card-grid-3" style="margin-top:1rem;">
+        <div class="card" style="border-top:3px solid #E53E3E;">
+          <h4 style="color:#E53E3E;">❌ 身份信息</h4>
+          <ul>
+            <li>学生真实姓名</li>
+            <li>身份证号码</li>
+            <li>学籍号</li>
+            <li>照片或视频</li>
+            <li>家长姓名和联系方式</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:3px solid #E53E3E;">
+          <h4 style="color:#E53E3E;">❌ 家庭信息</h4>
+          <ul>
+            <li>家庭住址</li>
+            <li>家庭经济状况</li>
+            <li>父母职业和单位</li>
+            <li>家庭成员构成</li>
+            <li>特殊家庭背景（离异、单亲、留守等）</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:3px solid #E53E3E;">
+          <h4 style="color:#E53E3E;">❌ 敏感信息</h4>
+          <ul>
+            <li>心理咨询记录</li>
+            <li>健康/疾病信息</li>
+            <li>违纪处分记录</li>
+            <li>成绩排名（含姓名）</li>
+            <li>个别谈话内容</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 脱敏方法 -->
+      <h4 style="margin-top:2rem;">🛡️ 数据脱敏方法一览</h4>
+      <div class="table-wrapper" style="margin-top:1rem;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:18%;">数据类型</th>
+              <th style="width:12%;">可否输入AI</th>
+              <th style="width:35%;">脱敏方法</th>
+              <th style="width:35%;">示例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>学生姓名</strong></td>
+              <td><span class="badge badge-red">禁止</span></td>
+              <td>用编号或代号替代</td>
+              <td>"张三" → "学生A" 或 "S01"</td>
+            </tr>
+            <tr>
+              <td><strong>成绩数据</strong></td>
+              <td><span class="badge badge-orange">脱敏后可</span></td>
+              <td>去除姓名，只保留匿名编号和分数</td>
+              <td>"张三95分" → "S01: 95分"</td>
+            </tr>
+            <tr>
+              <td><strong>班级整体数据</strong></td>
+              <td><span class="badge badge-green">可以</span></td>
+              <td>使用统计数据（平均分、分数段人数）</td>
+              <td>"全班平均分82，90分以上8人"</td>
+            </tr>
+            <tr>
+              <td><strong>学生行为描述</strong></td>
+              <td><span class="badge badge-orange">脱敏后可</span></td>
+              <td>去除可识别信息，泛化描述</td>
+              <td>"某初二男生，近期上课注意力下降"</td>
+            </tr>
+            <tr>
+              <td><strong>家庭情况</strong></td>
+              <td><span class="badge badge-red">禁止</span></td>
+              <td>不输入具体家庭信息，可泛化描述</td>
+              <td>"某学生家庭关注度较低" （不提具体原因）</td>
+            </tr>
+            <tr>
+              <td><strong>学生作文/作业</strong></td>
+              <td><span class="badge badge-orange">脱敏后可</span></td>
+              <td>去除姓名、班级等个人信息后可输入</td>
+              <td>删掉作文纸上的姓名和班级再拍照/输入</td>
+            </tr>
+            <tr>
+              <td><strong>教学设计/教案</strong></td>
+              <td><span class="badge badge-green">可以</span></td>
+              <td>教学专业内容不涉及个人隐私</td>
+              <td>教案、课件内容可直接输入</td>
+            </tr>
+            <tr>
+              <td><strong>心理咨询记录</strong></td>
+              <td><span class="badge badge-red">严禁</span></td>
+              <td>任何情况下都不能输入AI</td>
+              <td>如需AI帮助，只描述泛化的行为模式</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 安全数据处理步骤 -->
+      <h4 style="margin-top:2rem;">🔄 安全数据处理四步法</h4>
+      <div class="flow-diagram" style="margin-top:1rem;">
+        <div class="flow-row">
+          <div class="flow-box accent">🛡️ 脱敏处理<br><small>去除所有个人标识</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box blue">🤖 AI分析<br><small>输入脱敏数据</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box green">✅ 结果验证<br><small>教师审核准确性</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box purple">🔐 安全存储<br><small>妥善保管结果</small></div>
+        </div>
+      </div>
+
+      <div class="steps" style="margin-top:1.5rem;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>脱敏处理（输入前）</strong>
+            <p>在将任何涉及学生的数据输入AI之前，先进行脱敏：删除姓名→替换为编号→去除可识别特征→检查是否还有遗漏的个人信息。
+            建议建立一个"编号-姓名"对照表，保存在本地（不上传网络），方便还原。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>AI分析（使用中）</strong>
+            <p>使用脱敏后的数据向AI提问。注意在对话过程中也不要无意间透露学生真实信息。
+            如果AI追问具体细节，用匿名方式回答。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>结果验证（输出后）</strong>
+            <p>AI分析的结果需要教师根据专业判断进行审核。AI只是提供参考，不能作为唯一依据，
+            尤其是涉及学生评价、分组、干预措施等重要决策。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <strong>安全存储（使用后）</strong>
+            <p>分析结果保存在学校指定的安全系统中，不在个人社交媒体、云盘等非授权平台存储涉及学生的任何数据。
+            定期清理AI对话记录中的敏感内容。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">隐私保护的实用技巧</div>
+          <ul>
+            <li>📋 <strong>建立脱敏检查清单：</strong>每次使用AI前，过一遍检查清单，确保无遗漏</li>
+            <li>🔢 <strong>统一编号规则：</strong>全班使用统一的匿名编号（如S01-S50），方便管理</li>
+            <li>🧹 <strong>定期清理：</strong>每月清理一次AI平台上的对话记录</li>
+            <li>📵 <strong>离线优先：</strong>如果学校有本地部署的AI工具，优先使用，减少数据外传风险</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 3: AI输出验证方法 -->
+    <!-- ============================================ -->
+    <section class="section" id="accuracy">
+      <div class="section-header">
+        <div class="section-icon orange">🔍</div>
+        <div>
+          <div class="section-title">AI输出验证方法</div>
+          <div class="section-subtitle">AI不是万能的——识别和应对AI的"幻觉"与错误</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>⚠️ AI为什么会"犯错"？</h4>
+        <p>AI大语言模型本质上是基于概率的文本生成器，它会"说"最可能的下一个词，而不是"知道"正确答案。
+        这意味着AI可能会非常"自信"地给出错误的回答。在教育场景中，
+        如果教师不加验证地使用AI输出，可能会给学生传递错误知识。理解AI的局限性是负责任使用AI的前提。</p>
+      </div>
+
+      <!-- AI出错的原因 -->
+      <h4 style="margin-top:1.5rem;">🧠 AI出错的四大原因</h4>
+      <div class="card-grid-2" style="margin-top:1rem;">
+        <div class="scenario-card">
+          <div class="sc-icon">👻</div>
+          <h4>幻觉（Hallucination）</h4>
+          <p>AI会"编造"不存在的事实，如虚构参考文献、杜撰名人名言、编造历史事件细节。
+          这些内容看起来非常真实，但完全是AI生成的。</p>
+          <p style="font-size:0.85rem;color:#E53E3E;margin-top:0.5rem;">
+            <strong>教育风险：</strong>引用虚假文献、传播错误知识点
+          </p>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-icon">📅</div>
+          <h4>知识截止（Knowledge Cutoff）</h4>
+          <p>AI的训练数据有截止日期，可能不了解最新的课程标准修订、教育政策变化、考试大纲调整等。</p>
+          <p style="font-size:0.85rem;color:#E53E3E;margin-top:0.5rem;">
+            <strong>教育风险：</strong>基于旧版课标或过时政策提供建议
+          </p>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-icon">🌐</div>
+          <h4>文化偏见（Cultural Bias）</h4>
+          <p>AI模型的训练数据以英文为主，可能对中国教育体系、教学实践、文化传统理解不够深入或存在偏差。</p>
+          <p style="font-size:0.85rem;color:#E53E3E;margin-top:0.5rem;">
+            <strong>教育风险：</strong>教学建议不符合中国国情和校情
+          </p>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-icon">🔢</div>
+          <h4>逻辑与计算错误</h4>
+          <p>AI在数学计算、逻辑推理方面可能出错，尤其是复杂的多步骤问题。生成的数学解题过程可能步骤有误。</p>
+          <p style="font-size:0.85rem;color:#E53E3E;margin-top:0.5rem;">
+            <strong>教育风险：</strong>数学/物理等理科题目解答有误
+          </p>
+        </div>
+      </div>
+
+      <!-- 三步验证法 -->
+      <h4 style="margin-top:2rem;">✅ AI输出三步验证法</h4>
+      <div class="steps" style="margin-top:1rem;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>事实核查（Fact Check）</strong>
+            <p>对AI输出中的关键事实进行逐一核实：<br>
+            · <strong>历史事件和人物：</strong>查阅课本或权威资料核实日期、人物、事件经过<br>
+            · <strong>科学知识：</strong>与教材和学科权威文献对照<br>
+            · <strong>政策法规：</strong>到教育部官网或中国政府网核实最新政策<br>
+            · <strong>参考文献：</strong>每一条引用都要到知网、万方等数据库中验证其是否真实存在<br>
+            · <strong>数学解题：</strong>亲自验算关键步骤和最终答案</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>专业判断（Professional Review）</strong>
+            <p>用您的教学经验和专业知识审视AI输出：<br>
+            · 教学建议是否符合本校学情？<br>
+            · 教学设计是否符合新课程标准的要求？<br>
+            · 评语是否客观公正，不带有偏见？<br>
+            · 难度设置是否与学生实际水平匹配？<br>
+            · 是否符合中国教育的价值观和文化传统？</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>同行校验（Peer Review）</strong>
+            <p>对于重要的教学内容和评价，建议经过同行审阅：<br>
+            · 将AI辅助生成的教学设计在教研组内讨论<br>
+            · 请同学科教师检查AI生成的试题是否有错误<br>
+            · 涉及学生评价的内容，请年级组长或教研组长审核<br>
+            · 论文发表前请有经验的教师帮助审阅</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI可能出错的教育场景对比 -->
+      <h4 style="margin-top:2rem;">📋 AI出错的典型教育场景</h4>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ AI可能犯的错误</div>
+          <ul>
+            <li><strong>历史学科：</strong>AI可能混淆中国近现代史的关键时间节点和人物关系</li>
+            <li><strong>数学学科：</strong>复杂方程求解时中间步骤出错，或几何证明逻辑跳步</li>
+            <li><strong>语文学科：</strong>古诗词背景解读有误，或对课文主题思想理解偏差</li>
+            <li><strong>政策引用：</strong>引用已废止的教育政策或编造不存在的文件名称</li>
+            <li><strong>课标参考：</strong>混淆2011版和2022版课程标准的具体要求</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 教师应该怎么做</div>
+          <ul>
+            <li><strong>历史学科：</strong>用教材和统编教参核对所有日期、事件和人物关系</li>
+            <li><strong>数学学科：</strong>亲自验算每一道题的解题过程和答案</li>
+            <li><strong>语文学科：</strong>参照《教师教学用书》确认文本解读的准确性</li>
+            <li><strong>政策引用：</strong>到教育部官网核实政策文件是否存在且现行有效</li>
+            <li><strong>课标参考：</strong>以手头最新版《义务教育课程标准》为准</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 自查 Prompt -->
+      <h4 style="margin-top:2rem;">🔍 AI自查 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：请AI自我验证</div>
+        <p>请你重新审视上面生成的内容，从以下角度进行自查：<br><br>
+        1. <strong>事实准确性：</strong>是否有可能不准确的事实陈述？请标注出来<br>
+        2. <strong>参考文献：</strong>引用的文献/政策是否确实存在？如果不确定，请明确说明<br>
+        3. <strong>时效性：</strong>内容是否可能已过时？是否有需要核实最新版本的政策或标准？<br>
+        4. <strong>适用性：</strong>建议是否适合中国中小学的教育实际？<br>
+        5. <strong>偏见检查：</strong>内容是否对任何学生群体存在偏见？<br><br>
+        对于不确定的内容，请用 <strong>【待核实】</strong> 标注，并说明建议的核实方式。</p>
+      </div>
+
+      <div class="infobox infobox-warn" style="margin-top:1.5rem;">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">记住：让AI自查不能替代教师验证</div>
+          <p>让AI自我审查是一个有用的辅助手段，但不能完全依赖。AI可能对自己的错误"视而不见"，
+          或者在自查时制造新的错误。教师的专业判断和人工核实始终是质量保证的最后一道防线。
+          <strong>原则：AI输出到学生手中之前，教师必须亲自审核。</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 4: AI使用边界 -->
+    <!-- ============================================ -->
+    <section class="section" id="boundaries">
+      <div class="section-header">
+        <div class="section-icon green">🚦</div>
+        <div>
+          <div class="section-title">AI使用边界</div>
+          <div class="section-subtitle">画好红绿灯——AI在教育中的"可为"与"不可为"</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🎯 清晰的边界是负责任使用的前提</h4>
+        <p>AI 能做很多事，但不是什么都应该让AI来做。在教育场景中，有些工作适合用AI提效，
+        有些需要谨慎使用，有些则必须禁止。划清边界，不仅保护学生，也保护教师自己。</p>
+      </div>
+
+      <!-- 三级边界表 -->
+      <h4 style="margin-top:1.5rem;">🚦 AI教育应用三级分类</h4>
+      <div class="table-wrapper" style="margin-top:1rem;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:8%;">级别</th>
+              <th style="width:22%;">应用场景</th>
+              <th style="width:35%;">具体说明</th>
+              <th style="width:35%;">注意事项</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge badge-green">✅ 鼓励</span></td>
+              <td><strong>辅助备课</strong></td>
+              <td>生成教学设计、课件大纲、教学活动创意、导入语设计等</td>
+              <td>最终教案需教师审核修改，符合学情</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-green">✅ 鼓励</span></td>
+              <td><strong>生成练习题</strong></td>
+              <td>根据知识点和难度要求生成各类练习题和测试题</td>
+              <td>必须逐题检查准确性，验算答案</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-green">✅ 鼓励</span></td>
+              <td><strong>辅助教研</strong></td>
+              <td>整理教研记录、生成论文框架、搭建研究思路</td>
+              <td>学术成果需确保原创性和学术诚信</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-green">✅ 鼓励</span></td>
+              <td><strong>事务性文本</strong></td>
+              <td>通知、计划、总结、活动方案等行政文本撰写</td>
+              <td>具体信息（时间、地点等）需教师确认</td>
+            </tr>
+            <tr style="background:#FFFBEB;">
+              <td><span class="badge badge-orange">⚠️ 谨慎</span></td>
+              <td><strong>主观题评分</strong></td>
+              <td>作文评分、主观题评价可以参考AI建议</td>
+              <td>AI评分仅作参考，最终成绩由教师确定</td>
+            </tr>
+            <tr style="background:#FFFBEB;">
+              <td><span class="badge badge-orange">⚠️ 谨慎</span></td>
+              <td><strong>学生心理评估</strong></td>
+              <td>可以向AI咨询一般性的心理健康知识</td>
+              <td>不能用AI替代专业心理咨询，不能输入学生个人信息</td>
+            </tr>
+            <tr style="background:#FFFBEB;">
+              <td><span class="badge badge-orange">⚠️ 谨慎</span></td>
+              <td><strong>家长沟通建议</strong></td>
+              <td>可以参考AI生成的沟通话术框架</td>
+              <td>必须根据实际情况灵活调整，不能照搬模板</td>
+            </tr>
+            <tr style="background:#FFF5F5;">
+              <td><span class="badge badge-red">❌ 禁止</span></td>
+              <td><strong>替代批改论文考试</strong></td>
+              <td>高利害考试（期中、期末、中考模拟等）不能由AI批改</td>
+              <td>这类考试直接关系学生升学和评价，必须由教师人工批改</td>
+            </tr>
+            <tr style="background:#FFF5F5;">
+              <td><span class="badge badge-red">❌ 禁止</span></td>
+              <td><strong>做出学生处分决定</strong></td>
+              <td>对学生的奖惩、分班、座位等决策不能由AI决定</td>
+              <td>涉及学生切身利益的决定必须由教师/学校集体决策</td>
+            </tr>
+            <tr style="background:#FFF5F5;">
+              <td><span class="badge badge-red">❌ 禁止</span></td>
+              <td><strong>泄露学生隐私</strong></td>
+              <td>将学生个人信息、成绩排名等输入公共AI平台</td>
+              <td>违反法律法规，可能面临法律责任</td>
+            </tr>
+            <tr style="background:#FFF5F5;">
+              <td><span class="badge badge-red">❌ 禁止</span></td>
+              <td><strong>完全依赖AI教学</strong></td>
+              <td>不备课、不思考，全程让AI生成教学内容</td>
+              <td>教师有不可替代的专业责任，AI不能替代教师的教育智慧</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 场景讨论 -->
+      <h4 style="margin-top:2rem;">💬 边界案例讨论</h4>
+
+      <div class="infobox infobox-info" style="margin-top:1rem;">
+        <div class="infobox-icon">🤔</div>
+        <div class="infobox-body">
+          <div class="infobox-title">场景一：用AI给学生写期末评语可以吗？</div>
+          <p><strong>答：可以辅助，但不能全盘照搬。</strong>
+          您可以让AI根据学生特点（匿名化后）生成评语初稿，但最终评语必须由您根据对学生的真实了解修改定稿。
+          每个学生都值得一份用心写的评语，而不是千篇一律的AI模板。
+          建议做法：AI生成框架→教师补充个性化细节→确保每份评语都能体现对学生的真实关注。</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1rem;">
+        <div class="infobox-icon">🤔</div>
+        <div class="infobox-body">
+          <div class="infobox-title">场景二：学生用AI写作业怎么办？</div>
+          <p><strong>答：这是一个需要全校统一应对的问题。</strong>
+          建议：① 学校层面制定AI使用规范，明确哪些作业可以使用AI辅助、哪些不可以；
+          ② 调整作业设计，增加个性化、实践性、反思性作业，降低AI可替代性；
+          ③ 加强过程性评价，不仅看结果，更看学习过程；
+          ④ 教育引导学生正确认识AI，将AI作为学习助手而非"抄作业"工具。</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1rem;">
+        <div class="infobox-icon">🤔</div>
+        <div class="infobox-body">
+          <div class="infobox-title">场景三：有家长质疑教师使用AI备课不够"用心"</div>
+          <p><strong>答：需要正确沟通AI的角色。</strong>
+          向家长解释：① AI是教师的辅助工具，就像计算器之于数学、搜索引擎之于查资料；
+          ② 教师使用AI是为了提高效率，把更多时间留给关注每一个孩子；
+          ③ 教学设计的核心是教师的专业判断和对学生的了解，AI只是帮助执行；
+          ④ 所有AI辅助的内容都经过教师的审核和调整。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 5: 学校AI使用规范制定 -->
+    <!-- ============================================ -->
+    <section class="section" id="guidelines">
+      <div class="section-header">
+        <div class="section-icon blue">📜</div>
+        <div>
+          <div class="section-title">学校AI使用规范制定</div>
+          <div class="section-subtitle">建章立制——制定校本AI使用管理办法</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🏫 为什么学校需要AI使用规范？</h4>
+        <p>随着AI工具在教育中的快速普及，学校迫切需要一套清晰的AI使用管理规范。
+        没有规范，教师不知道什么能做、什么不能做；有了规范，大家才能放心、规范地使用AI。
+        校本AI使用规范应该是"指导性"而非"限制性"的——引导教师正确使用，而非一刀切禁止。</p>
+      </div>
+
+      <!-- 规范核心要素 -->
+      <h4 style="margin-top:1.5rem;">📋 校本AI使用规范五大核心要素</h4>
+      <div class="card-grid-3" style="margin-top:1rem;">
+        <div class="feature-card card-accent-red">
+          <div class="card-icon">🔐</div>
+          <h4>数据安全</h4>
+          <p>明确哪些数据可以/不可以输入AI工具，制定数据脱敏标准和操作流程，
+          规定数据存储和销毁的管理办法。</p>
+        </div>
+        <div class="feature-card card-accent-blue">
+          <div class="card-icon">📏</div>
+          <h4>使用范围</h4>
+          <p>划定AI辅助教学的适用范围（鼓励、谨慎、禁止三级），
+          明确不同场景下AI的使用限度。</p>
+        </div>
+        <div class="feature-card card-accent-purple">
+          <div class="card-icon">🔍</div>
+          <h4>审核流程</h4>
+          <p>建立AI辅助内容的审核机制：日常教学教师自审，
+          重要场合（考试、评价）需教研组审核。</p>
+        </div>
+        <div class="feature-card card-accent-green">
+          <div class="card-icon">📚</div>
+          <h4>培训要求</h4>
+          <p>规定教师使用AI工具前需完成的培训内容和考核，
+          定期更新培训以跟上技术发展。</p>
+        </div>
+        <div class="feature-card card-accent-orange">
+          <div class="card-icon">⚖️</div>
+          <h4>违规处理</h4>
+          <p>明确违反AI使用规范的处理方式，
+          建立发现问题→报告→整改→反馈的闭环机制。</p>
+        </div>
+      </div>
+
+      <!-- 制定规范的步骤 -->
+      <div class="infobox infobox-success" style="margin-top:1.5rem;">
+        <div class="infobox-icon">✨</div>
+        <div class="infobox-body">
+          <div class="infobox-title">制定校本AI使用规范的建议步骤</div>
+          <ol>
+            <li><strong>调研摸底（第1-2周）：</strong>了解全校教师AI使用现状，收集需求和顾虑</li>
+            <li><strong>政策学习（第2-3周）：</strong>学习教育部和省市相关政策文件，确保上位政策一致</li>
+            <li><strong>草拟规范（第3-5周）：</strong>由信息中心牵头，教务处、德育处、教研组共同参与起草</li>
+            <li><strong>征求意见（第5-6周）：</strong>向全体教师、家长代表、学生代表征求意见</li>
+            <li><strong>修改定稿（第6-7周）：</strong>根据反馈修改完善，经校务会审议通过</li>
+            <li><strong>培训推行（第7-8周）：</strong>组织全员培训，确保每位教师了解并理解规范</li>
+            <li><strong>定期修订（每学期一次）：</strong>根据技术发展和实施效果，动态调整规范内容</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- 规范模板 Prompt -->
+      <h4 style="margin-top:2rem;">📜 校本AI使用规范 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：学校AI使用管理办法（草案）</div>
+        <p>请帮我起草一份校本AI使用管理办法。<br><br>
+        <strong>学校信息：</strong><br>
+        · 学校类型：<span class="placeholder">[公办小学/初中/高中/九年一贯制]</span><br>
+        · 学校规模：<span class="placeholder">[教师人数、学生人数]</span><br>
+        · 信息化基础：<span class="placeholder">[如：已有智慧校园平台/信息化水平一般]</span><br>
+        · 教师AI使用现状：<span class="placeholder">[如：约30%教师已开始使用AI辅助教学]</span><br><br>
+        <strong>请包含以下章节：</strong><br>
+        1. <strong>总则：</strong>制定目的、适用范围、基本原则<br>
+        2. <strong>数据安全与隐私保护：</strong>数据分类、脱敏要求、存储规范、禁止事项<br>
+        3. <strong>教学应用规范：</strong>AI辅助备课、出题、批改、评价的使用标准<br>
+        4. <strong>学生使用管理：</strong>学生使用AI完成作业的规定、教育引导措施<br>
+        5. <strong>审核与监督：</strong>内容审核流程、使用情况监督、质量评估<br>
+        6. <strong>培训与发展：</strong>教师AI素养培训要求、考核标准<br>
+        7. <strong>违规处理：</strong>违规行为界定、处理流程和措施<br>
+        8. <strong>附则：</strong>生效日期、解释权、修订机制<br><br>
+        语言风格：规范、正式，符合学校管理制度文本规范。约3000-5000字。</p>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">规范制定的关键原则</div>
+          <ul>
+            <li>🎯 <strong>实用为本：</strong>规范要具体可操作，避免空洞的原则性表述</li>
+            <li>🤝 <strong>共同参与：</strong>教师、家长、学生都参与讨论，形成共识</li>
+            <li>⚖️ <strong>适度开放：</strong>鼓励创新使用，而非一味限制</li>
+            <li>🔄 <strong>动态更新：</strong>AI技术发展极快，规范需要定期修订</li>
+            <li>📋 <strong>配套措施：</strong>规范+培训+考核三管齐下，确保落地</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 6: 行动承诺与持续学习 -->
+    <!-- ============================================ -->
+    <section class="section" id="action">
+      <div class="section-header">
+        <div class="section-icon teal">🤝</div>
+        <div>
+          <div class="section-title">行动承诺与持续学习</div>
+          <div class="section-subtitle">从学习到行动——开启负责任的AI教育之旅</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>📜 AI教师使用自律承诺</h4>
+        <p>完成六个模块的学习后，请认真阅读以下自律承诺，
+        这不是法律文书，而是您对自己的专业承诺——承诺负责任地使用AI，守护教育的温度和底线。</p>
+      </div>
+
+      <!-- 承诺书 -->
+      <div class="card card-lg" style="border:2px solid var(--teacher-border);background:var(--teacher-bg);margin-top:1.5rem;">
+        <h4 style="text-align:center;font-size:1.2rem;margin-bottom:1rem;">📜 AI辅助教学自律承诺书</h4>
+        <p style="text-align:center;color:var(--muted);margin-bottom:1.5rem;">（自我承诺，非法律文件）</p>
+        <p>作为一名中小学教师，我深知教育的神圣使命和AI技术的双重性。在使用AI辅助教育教学的过程中，我郑重承诺：</p>
+        <ol style="margin-top:1rem;">
+          <li style="margin-bottom:0.75rem;"><strong>以人为本：</strong>我将始终把学生的全面发展放在首位，AI是我的助手，不是我的替代者。我对每一个教育决策承担最终责任。</li>
+          <li style="margin-bottom:0.75rem;"><strong>隐私至上：</strong>我绝不将学生的个人信息（姓名、身份证号、家庭情况、心理记录等）输入任何AI工具。使用涉及学生的数据前，我将严格进行脱敏处理。</li>
+          <li style="margin-bottom:0.75rem;"><strong>严把质量：</strong>AI输出的所有内容在到达学生手中之前，我将亲自审核其准确性、适当性和公正性。我不盲信AI的输出。</li>
+          <li style="margin-bottom:0.75rem;"><strong>学术诚信：</strong>我将正确使用AI辅助教研和论文写作，确保所有学术成果基于我的真实研究和思考，不用AI代替独立思考。</li>
+          <li style="margin-bottom:0.75rem;"><strong>持续学习：</strong>我将持续关注AI技术的发展和教育应用的新动态，不断提升自己的AI素养和数字化教学能力。</li>
+          <li style="margin-bottom:0.75rem;"><strong>公平公正：</strong>我将警惕AI可能存在的偏见，确保AI辅助的教学和评价对所有学生公平公正。</li>
+          <li style="margin-bottom:0.75rem;"><strong>遵规守纪：</strong>我将遵守国家法律法规、学校AI使用规范和教师职业道德准则，在合规的框架内使用AI。</li>
+        </ol>
+        <p style="margin-top:1.5rem;text-align:right;color:var(--muted);">
+          承诺人：____________ &nbsp;&nbsp;&nbsp; 日期：____________
+        </p>
+      </div>
+
+      <!-- 持续学习资源 -->
+      <h4 style="margin-top:2rem;">📚 持续学习资源推荐</h4>
+      <div class="card-grid-2" style="margin-top:1rem;">
+        <div class="card">
+          <h4>📋 政策文件</h4>
+          <ul>
+            <li>《中华人民共和国个人信息保护法》</li>
+            <li>《未成年人保护法》中数据保护条款</li>
+            <li>《生成式人工智能服务管理暂行办法》</li>
+            <li>教育部关于教育信息化和AI教育应用的相关文件</li>
+            <li>所在省市教育厅关于AI教育应用的指导意见</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>📖 推荐书目</h4>
+          <ul>
+            <li>《人工智能与教育：面向教育领域的人工智能》（UNESCO）</li>
+            <li>《AI时代的教师》——探讨教师角色转型</li>
+            <li>《教育中的人工智能》——理论与实践</li>
+            <li>《数字素养与教师专业发展》</li>
+            <li>学科教学论最新版教材中的信息技术融合章节</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>🌐 在线平台</h4>
+          <ul>
+            <li>国家中小学智慧教育平台（国家级在线学习资源）</li>
+            <li>中国教师研修网（教师培训和继续教育）</li>
+            <li>各省教师继续教育平台</li>
+            <li>学科教研公众号和教师社群</li>
+            <li>AI教育应用的优质微信公众号</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>👥 教师社群</h4>
+          <ul>
+            <li>学校教研组——定期开展AI教学应用研讨</li>
+            <li>区级教研员组织的AI教学交流活动</li>
+            <li>教师AI学习互助小组（推荐与同事共同建立）</li>
+            <li>各学科AI教学应用的线上交流群</li>
+            <li>名师工作室——跟随有经验的教师学习AI应用</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 回顾整个课程 -->
+      <h4 style="margin-top:2rem;">🗺️ 回顾：六大模块学习路径</h4>
+      <div class="flow-diagram" style="margin-top:1rem;">
+        <div class="flow-row">
+          <div class="flow-box accent">🧠 模块一<br><small>AI认知入门</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box blue">📝 模块二<br><small>AI辅助备课</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box green">✏️ 模块三<br><small>批改与评价</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box purple">🏫 模块四<br><small>班级与家校</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box accent">📖 模块五<br><small>教研与发展</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box blue">⚖️ 模块六<br><small>伦理与规范</small></div>
+        </div>
+      </div>
+
+      <!-- 各模块快速入口 -->
+      <h4 style="margin-top:2rem;">🔗 继续学习——回顾各模块核心内容</h4>
+      <div class="card-grid-3" style="margin-top:1rem;">
+        <a href="module1.html" class="card" style="text-decoration:none;color:inherit;transition:all .2s;border-left:4px solid var(--teacher-accent);">
+          <h4>模块一</h4>
+          <p>AI认知与工具入门——了解AI是什么、能做什么，掌握基本的AI对话技巧</p>
+        </a>
+        <a href="module2.html" class="card" style="text-decoration:none;color:inherit;transition:all .2s;border-left:4px solid #3182CE;">
+          <h4>模块二</h4>
+          <p>AI辅助备课——用AI高效完成教学设计、课件制作和教学活动策划</p>
+        </a>
+        <a href="module3.html" class="card" style="text-decoration:none;color:inherit;transition:all .2s;border-left:4px solid #D69E2E;">
+          <h4>模块三</h4>
+          <p>作业批改与评价——AI辅助批改、生成评语和分析学生学习数据</p>
+        </a>
+        <a href="module4.html" class="card" style="text-decoration:none;color:inherit;transition:all .2s;border-left:4px solid #E07A5F;">
+          <h4>模块四</h4>
+          <p>班级管理与家校沟通——AI助力通知撰写、家长会准备和沟通话术</p>
+        </a>
+        <a href="module5.html" class="card" style="text-decoration:none;color:inherit;transition:all .2s;border-left:4px solid #805AD5;">
+          <h4>模块五</h4>
+          <p>教研与专业发展——AI辅助听课评课、论文写作和个人成长规划</p>
+        </a>
+        <a href="module6.html" class="card" style="text-decoration:none;color:inherit;transition:all .2s;border-left:4px solid #2C7A7B;">
+          <h4>模块六</h4>
+          <p>AI教育伦理——伦理原则、隐私保护、输出验证和使用边界</p>
+        </a>
+      </div>
+
+      <!-- 课程总结 -->
+      <div class="infobox infobox-success" style="margin-top:1.5rem;">
+        <div class="infobox-icon">🎉</div>
+        <div class="infobox-body">
+          <div class="infobox-title">恭喜完成全部六个模块的学习！🎓</div>
+          <p>从AI入门到伦理规范，您已经走完了AI赋能教师的完整学习旅程。回顾这段旅程，您已经掌握了：</p>
+          <ul>
+            <li>✅ AI的基本概念和对话技巧</li>
+            <li>✅ AI辅助备课、出题、教学设计的方法</li>
+            <li>✅ AI辅助批改作业和生成学生评价的技能</li>
+            <li>✅ AI驱动班级管理和家校沟通的策略</li>
+            <li>✅ AI辅助教研、论文写作和专业发展的路径</li>
+            <li>✅ 负责任使用AI的伦理原则和安全规范</li>
+          </ul>
+          <p style="margin-top:1rem;font-weight:600;color:var(--teacher-accent);">
+            记住：AI是帮助您成为更好教师的工具，而不是替代您的存在。<br>
+            教育的核心永远是人——是您对学生的关爱、理解和引导。<br>
+            带上AI这个新伙伴，继续在教育的道路上发光发热！🌟
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module Navigation -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:2rem;border-top:2px solid var(--beige);">
+      <a href="module5.html" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--teacher-bg);border:1px solid var(--teacher-border);border-radius:var(--radius-md);color:var(--teacher-accent);font-weight:600;font-size:0.9rem;">← 上一模块：教研与专业发展</a>
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--teacher-accent);border:1px solid var(--teacher-accent-dark);border-radius:var(--radius-md);color:#fff;font-weight:600;font-size:0.9rem;">返回课程总览 →</a>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+  const sections = document.querySelectorAll('.section, [id]');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        sidebarLinks.forEach(l => l.classList.remove('active'));
+        const id = e.target.id || e.target.querySelector('[id]')?.id;
+        if (id) {
+          const link = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+          if (link) link.classList.add('active');
+        }
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+  sections.forEach(s => { if (s.id) obs.observe(s); });
+</script>
+</body>
+</html>
