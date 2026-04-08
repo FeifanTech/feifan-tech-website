@@ -1,0 +1,477 @@
+/* ============================================================
+   AI 短剧制作培训 — 课程专用样式
+   Cinematic Amber/Gold 主题 | 继承通用样式
+   ============================================================ */
+
+@import url('../styles.css');
+
+/* ── 短剧课程专用变量 ── */
+:root {
+  --drama-accent:       #D97706;
+  --drama-accent-dark:  #B45309;
+  --drama-accent-light: #FBBF24;
+  --drama-bg:           #FFFBEB;
+  --drama-bg-light:     #FEF3C7;
+  --drama-border:       #FCD34D;
+  --drama-shadow:       0 4px 12px rgba(217,119,6,0.12);
+  --drama-deep:         #78350F;
+}
+
+/* ── 链接覆盖：使用 amber 色 ── */
+a { color: var(--drama-accent); }
+a:hover { color: var(--drama-accent-dark); }
+
+/* ── Logo Badge 覆盖 ── */
+.logo-badge { background: var(--drama-accent) !important; }
+
+/* ── 头部导航激活状态覆盖 ── */
+.header-nav a:hover,
+.header-nav a.active {
+  background: var(--drama-bg) !important;
+  color: var(--drama-accent) !important;
+}
+
+/* ── 侧边栏激活状态覆盖 ── */
+.sidebar-nav li a:hover {
+  color: var(--drama-accent);
+  border-left-color: var(--drama-accent-light);
+}
+.sidebar-nav li a.active {
+  color: var(--drama-accent);
+  border-left-color: var(--drama-accent);
+}
+.sidebar-nav li a.active .nav-num {
+  background: var(--drama-accent);
+}
+
+/* ── 步骤圆点覆盖 ── */
+.step-num { background: var(--drama-accent); box-shadow: 0 0 0 4px rgba(217,119,6,0.15); }
+
+/* ─────────────────────────────────────────────
+   Drama Hero
+───────────────────────────────────────────── */
+.drama-hero {
+  background: linear-gradient(135deg, #451A03 0%, #78350F 40%, #92400E 70%, #B45309 100%);
+  border-radius: var(--radius-xl);
+  padding: 4rem 3.5rem;
+  margin-bottom: 3rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.drama-hero::before {
+  content: '';
+  position: absolute;
+  right: -100px;
+  top: -100px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251,191,36,0.25) 0%, transparent 70%);
+}
+.drama-hero::after {
+  content: '';
+  position: absolute;
+  left: -50px;
+  bottom: -80px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,119,6,0.2) 0%, transparent 70%);
+}
+.drama-hero-content { position: relative; z-index: 1; }
+.drama-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+.drama-hero h1 span { color: var(--drama-accent-light); }
+.drama-hero .hero-desc {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.85);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+.stat-item { text-align: center; }
+.stat-num { font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1; }
+.stat-num span { font-size: 1rem; font-weight: 600; }
+.stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.65); margin-top: 4px; }
+
+/* ── Session hero 覆盖 (模块页) ── */
+.session-hero {
+  background: linear-gradient(135deg, #451A03 0%, var(--drama-accent-dark) 60%, var(--drama-accent) 100%) !important;
+}
+.session-hero::after {
+  background: rgba(217,119,6,0.15) !important;
+}
+.hero-session-num { background: var(--drama-accent) !important; }
+
+/* ─────────────────────────────────────────────
+   Module Card — 顶部 amber 边框
+───────────────────────────────────────────── */
+.module-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--drama-accent);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.module-card:hover {
+  box-shadow: var(--drama-shadow);
+  transform: translateY(-3px);
+}
+.module-card .mc-num {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--drama-accent);
+  background: var(--drama-bg);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  align-self: flex-start;
+}
+.module-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.4;
+}
+.module-card p {
+  font-size: 0.875rem;
+  color: var(--medium);
+  line-height: 1.6;
+  flex: 1;
+}
+.module-card .mc-meta {
+  font-size: 0.78rem;
+  color: var(--muted);
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.module-card .mc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--drama-accent);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+.module-card .mc-link:hover { color: var(--drama-accent-dark); }
+
+/* ─────────────────────────────────────────────
+   Drama Badge
+───────────────────────────────────────────── */
+.drama-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+.drama-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--drama-accent-light);
+}
+
+/* ─────────────────────────────────────────────
+   Workflow Card
+───────────────────────────────────────────── */
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.workflow-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.workflow-card:hover {
+  box-shadow: var(--drama-shadow);
+  transform: translateY(-2px);
+}
+.workflow-card .wf-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+.workflow-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.4rem;
+}
+.workflow-card p {
+  font-size: 0.84rem;
+  color: var(--medium);
+  line-height: 1.6;
+}
+.workflow-card ul {
+  list-style: none;
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--medium);
+}
+.workflow-card ul li { margin-bottom: 4px; }
+.workflow-card ul li::before { content: '▸ '; color: var(--drama-accent); font-weight: 700; }
+
+/* ─────────────────────────────────────────────
+   Tool Card (短剧版)
+───────────────────────────────────────────── */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.tool-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-align: center;
+}
+.tool-card:hover {
+  box-shadow: var(--drama-shadow);
+  transform: translateY(-2px);
+}
+.tool-card .tool-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.tool-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.4rem;
+}
+.tool-card p {
+  font-size: 0.82rem;
+  color: var(--medium);
+  line-height: 1.5;
+}
+.tool-card .tool-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--drama-bg);
+  color: var(--drama-accent-dark);
+  margin-top: 0.5rem;
+}
+
+/* ─────────────────────────────────────────────
+   Prompt Template Box (短剧版)
+───────────────────────────────────────────── */
+.prompt-template {
+  background: #451A03;
+  color: #E8EAF0;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin: 1.25rem 0;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  position: relative;
+  overflow-x: auto;
+  box-shadow: var(--shadow-md);
+}
+.prompt-template .pt-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--drama-accent);
+  color: #fff;
+  padding: 3px 12px;
+  border-radius: 0 var(--radius-lg) 0 var(--radius-md);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.prompt-template .placeholder {
+  color: var(--drama-accent-light);
+  font-weight: 600;
+}
+
+/* ─────────────────────────────────────────────
+   Comparison Panels
+───────────────────────────────────────────── */
+.compare-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.compare-panel {
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+.compare-panel.bad {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+}
+.compare-panel.good {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+}
+.compare-panel .cp-header {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.compare-panel.bad .cp-header { color: #991B1B; }
+.compare-panel.good .cp-header { color: #166534; }
+.compare-panel ul { list-style: none; font-size: 0.84rem; }
+.compare-panel.bad ul li::before { content: '✗ '; color: #DC2626; font-weight: 700; }
+.compare-panel.good ul li::before { content: '✓ '; color: #16A34A; font-weight: 700; }
+.compare-panel ul li { margin-bottom: 4px; color: var(--medium); }
+
+/* ─────────────────────────────────────────────
+   Phase Timeline
+───────────────────────────────────────────── */
+.phase-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 1.25rem 0;
+}
+.phase-item {
+  display: flex;
+  gap: 1.25rem;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+.phase-item:last-child { padding-bottom: 0; }
+.phase-item::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 48px;
+  bottom: 0;
+  width: 2px;
+  background: var(--drama-border);
+}
+.phase-item:last-child::before { display: none; }
+.phase-num {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--drama-accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 900;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 4px rgba(217,119,6,0.15);
+  z-index: 1;
+}
+.phase-body {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+  flex: 1;
+}
+.phase-body h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.4rem;
+}
+.phase-body p {
+  font-size: 0.875rem;
+  color: var(--medium);
+  line-height: 1.6;
+}
+.phase-body ul {
+  list-style: none;
+  margin-top: 0.5rem;
+  font-size: 0.84rem;
+  color: var(--medium);
+}
+.phase-body ul li { margin-bottom: 4px; }
+.phase-body ul li::before { content: '▸ '; color: var(--drama-accent); font-weight: 700; }
+
+/* ─────────────────────────────────────────────
+   Skill Card (短剧版)
+───────────────────────────────────────────── */
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.skill-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-align: center;
+}
+.skill-card:hover {
+  box-shadow: var(--drama-shadow);
+  transform: translateY(-2px);
+}
+.skill-card .skill-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.skill-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.4rem;
+}
+.skill-card p {
+  font-size: 0.82rem;
+  color: var(--medium);
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────
+   Responsive
+───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .drama-hero { padding: 2rem 1.5rem; }
+  .drama-hero h1 { font-size: 1.8rem; }
+  .compare-panels { grid-template-columns: 1fr; }
+  .workflow-grid { grid-template-columns: 1fr; }
+  .tool-grid { grid-template-columns: 1fr; }
+}

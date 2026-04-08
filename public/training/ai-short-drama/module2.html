@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块二：AI剧本创作与分镜设计 — AI 短剧制作实战</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🎬 AI 短剧制作实战 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html" class="active">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块二导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#structure"><span class="nav-num">1</span>剧本结构</a></li>
+      <li><a href="#ai-script"><span class="nav-num">2</span>AI写剧本</a></li>
+      <li><a href="#storyboard"><span class="nav-num">3</span>分镜设计</a></li>
+      <li><a href="#prompt-craft"><span class="nav-num">4</span>Prompt工程</a></li>
+      <li><a href="#iteration"><span class="nav-num">5</span>迭代优化</a></li>
+      <li><a href="#practice"><span class="nav-num">6</span>课后练习</a></li>
+    </ul>
+
+    <div class="sidebar-title" style="margin-top:1.5rem;">快速跳转</div>
+    <ul class="sidebar-nav">
+      <li><a href="index.html">← 课程总览</a></li>
+      <li><a href="module1.html">← 模块一</a></li>
+      <li><a href="module3.html">模块三 →</a></li>
+      <li><a href="../index.html">← 返回培训主页</a></li>
+    </ul>
+  </aside>
+
+  <!-- ===== Main Content ===== -->
+  <main class="main-content">
+
+    <!-- Session Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块二</span>
+        AI剧本创作与分镜设计
+      </div>
+      <h1>✍️ AI剧本创作与分镜设计<br><span>从创意构思到可执行的分镜方案</span></h1>
+      <p class="hero-subtitle">
+        掌握短剧剧本的结构设计方法，学会用AI工具高效完成从创意概念到完整剧本再到逐镜头分镜表的全流程。
+        结合您的影视专业经验，打造真正具有专业水准的AI短剧脚本。
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 4 课时</div>
+        <div class="hero-meta-item">📖 实操 + 模板练习</div>
+        <div class="hero-meta-item">🎯 编剧/导演适用</div>
+        <div class="hero-meta-item">🔧 Prompt工程核心技法</div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Section 1: 短剧剧本结构设计 -->
+    <!-- ============================================ -->
+    <section class="section" id="structure">
+      <div class="section-header">
+        <div class="section-icon blue">📐</div>
+        <div>
+          <div class="section-title">短剧剧本结构设计</div>
+          <div class="section-subtitle">理解短剧的叙事节奏与结构特点</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>📱 短剧的两种主要形态</h4>
+        <p>当前短剧市场主要有两种形态，各有不同的结构要求和创作策略：</p>
+        <ul>
+          <li><strong>竖屏短剧（1-3分钟/集）：</strong>以抖音、快手等短视频平台为主要阵地，强调极致的开头钩子和快速反转，每一秒都要有信息量。观众习惯"随时划走"，因此前3秒决定生死。</li>
+          <li><strong>横屏短剧（5-10分钟/集）：</strong>以优酷、腾讯、B站等平台为主，节奏可以稍缓但依然紧凑。允许更多的人物塑造和情节铺垫，但每场戏仍需要有明确的戏剧功能。</li>
+        </ul>
+        <p>无论哪种形态，短剧的核心原则不变：<strong>每个场景都必须推动剧情、揭示角色或制造悬念</strong>，没有"过渡性"的废场景。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">短剧剧本的四大结构要素</h4>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>🪝 钩子开场（前3秒）</h4>
+          <p>用一个强视觉画面、一句震撼台词或一个悬念情境，在前3秒内锁定观众注意力。例如："她看着手机里的视频，脸色瞬间变了——视频里的人，是三年前'已经死去'的丈夫。"</p>
+        </div>
+        <div class="card">
+          <h4>⚡ 冲突建立</h4>
+          <p>在30秒内明确核心冲突。短剧没有时间慢慢铺垫，需要用最简洁的方式让观众理解"谁想要什么"和"什么在阻碍"。冲突越清晰、越强烈，观众的代入感越强。</p>
+        </div>
+        <div class="card">
+          <h4>🔄 情节反转</h4>
+          <p>每1-2分钟至少一次小反转，让观众始终处于"意料之外"的状态。反转可以是信息揭露、角色立场变化、情境突变等。好的反转让观众不舍得划走。</p>
+        </div>
+        <div class="card">
+          <h4>🔗 悬念留存（结尾hook）</h4>
+          <p>每集结尾留下一个未解决的悬念或新的冲突点，驱动观众点击下一集。结尾hook的质量直接决定追剧率和完播率。</p>
+        </div>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">3-5分钟短剧典型结构</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>时间段</th>
+              <th>内容要素</th>
+              <th>目的</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>0:00 - 0:03</strong></td>
+              <td>强视觉钩子/震撼台词/悬念画面</td>
+              <td>3秒内抓住注意力，阻止划走</td>
+            </tr>
+            <tr>
+              <td><strong>0:03 - 0:30</strong></td>
+              <td>快速建立人物关系与核心冲突</td>
+              <td>让观众理解故事背景与利害关系</td>
+            </tr>
+            <tr>
+              <td><strong>0:30 - 1:30</strong></td>
+              <td>冲突升级，第一次反转发生</td>
+              <td>情绪升温，制造意外感</td>
+            </tr>
+            <tr>
+              <td><strong>1:30 - 3:00</strong></td>
+              <td>连续反转，核心事件爆发</td>
+              <td>推向情绪高潮，维持观看动力</td>
+            </tr>
+            <tr>
+              <td><strong>3:00 - 4:00</strong></td>
+              <td>高潮场景，关键抉择或真相揭露</td>
+              <td>释放积累的情绪张力</td>
+            </tr>
+            <tr>
+              <td><strong>4:00 - 5:00</strong></td>
+              <td>短暂收束 + 新悬念/反转结尾</td>
+              <td>给出阶段性满足，同时留下追看钩子</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">短剧节奏的黄金法则</div>
+          <p>短剧的核心是"快节奏+强冲突"，每10秒要有一个信息点。所谓"信息点"可以是一个新事实、一句关键台词、一个表情变化或一个场景切换——总之，不能让观众在任何10秒内感到"什么都没发生"。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 2: 用AI写剧本 -->
+    <!-- ============================================ -->
+    <section class="section" id="ai-script">
+      <div class="section-header">
+        <div class="section-icon orange">🤖</div>
+        <div>
+          <div class="section-title">用AI写剧本：从创意到完整剧本</div>
+          <div class="section-subtitle">三步法：概念生成 → 角色设定 → 分场剧本</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>📝 AI辅助编剧的正确姿势</h4>
+        <p>AI不会替代编剧，但它可以成为编剧最高效的"头脑风暴搭档"和"初稿生成器"。正确的工作流是：<strong>用AI快速生成大量创意素材，然后用您的专业判断力筛选、组合和打磨</strong>。</p>
+        <p>以下是经过验证的三步法，每一步都配有可直接使用的Prompt模板。请根据您的具体项目需求修改<span class="placeholder">占位符</span>部分的内容。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">Step 1：创意概念生成</h4>
+      <div class="card">
+        <p>第一步是用AI快速生成多个短剧创意概念，然后从中筛选最有潜力的方向。建议一次生成5-8个概念，从不同角度碰撞灵感。</p>
+      </div>
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 模板 — 创意概念生成</div>
+你是一位资深短剧编剧，擅长创作高完播率的竖屏短剧。请为我生成5个短剧创意概念。
+
+要求：
+- 题材类型：<span class="placeholder">都市情感 / 悬疑反转 / 甜宠 / 职场逆袭 / 古风权谋</span>
+- 目标平台：<span class="placeholder">抖音竖屏 / B站横屏</span>
+- 目标受众：<span class="placeholder">18-35岁女性 / 25-40岁男性 / 全年龄段</span>
+- 每集时长：<span class="placeholder">1-3分钟 / 3-5分钟</span>
+- 预计集数：<span class="placeholder">10-20集 / 5-8集</span>
+
+每个概念请包含：
+1. 一句话概念（20字以内的核心卖点）
+2. 故事梗概（100字以内）
+3. 核心冲突
+4. 主要反转点（至少2个）
+5. 目标受众的情绪钩子（为什么会追看）
+      </div>
+
+      <h4 style="margin-top:1.5rem;">Step 2：角色设定</h4>
+      <div class="card">
+        <p>选定概念后，下一步是建立立体的角色设定。好的角色是短剧的灵魂，即使在快节奏的叙事中，角色也需要有清晰的动机和可信的行为逻辑。</p>
+      </div>
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 模板 — 角色设定</div>
+基于以下短剧概念，请为我设计主要角色：
+
+短剧概念：<span class="placeholder">在此粘贴你选定的创意概念</span>
+
+请为每个角色（主角、对手角色、关键配角）提供：
+1. 姓名与年龄
+2. 外在身份（职业、社会角色）
+3. 内在需求（角色真正渴望的东西）
+4. 致命弱点（推动剧情冲突的性格缺陷）
+5. 人物弧光（从开始到结束的变化轨迹）
+6. 标志性口头禅或行为习惯（增强辨识度）
+7. 与其他角色的关系图谱
+8. AI视觉描述（用于后续AI生成角色形象的外貌提示词，包含：年龄外貌、服装风格、标志性特征，约50字）
+      </div>
+
+      <h4 style="margin-top:1.5rem;">Step 3：分场剧本</h4>
+      <div class="card">
+        <p>有了概念和角色后，进入最核心的环节——分场剧本撰写。AI可以快速生成初稿，但<strong>场与场之间的节奏控制、情绪递进和信息密度，需要您的专业判断来把关</strong>。</p>
+      </div>
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 模板 — 分场剧本</div>
+请根据以下信息，撰写一集完整的短剧分场剧本：
+
+短剧名称：<span class="placeholder">剧名</span>
+本集集数：<span class="placeholder">第X集</span>
+时长目标：<span class="placeholder">3分钟</span>
+本集主线：<span class="placeholder">描述本集要讲的核心事件</span>
+
+角色设定：
+<span class="placeholder">粘贴角色设定信息</span>
+
+前情提要（如非第一集）：
+<span class="placeholder">上一集结尾的悬念/状态</span>
+
+请按以下格式输出：
+---
+【场景一】地点：XXX | 时间：XXX
+（场景描述：环境、氛围、光线）
+
+角色A：（动作描述）台词内容
+角色B：（动作描述）台词内容
+（旁白/画外音：如有）
+
+【镜头提示】景别建议、运镜建议
+---
+
+要求：
+- 前3秒必须有视觉钩子或悬念台词
+- 每个场景需标注景别建议（特写/中景/远景/全景）
+- 对白要口语化、有潜台词
+- 每1分钟左右安排一个小反转或信息点
+- 结尾留悬念（如非最终集）
+- 控制总字数在<span class="placeholder">800-1200字</span>
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1.5rem;">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI生成的剧本需要专业打磨</div>
+          <p>AI擅长快速生成结构完整的初稿，但在以下方面仍需您的专业介入：对白的"人味"和潜台词层次、情绪节奏的精确控制、伏笔与呼应的整体设计、角色行为的心理逻辑一致性。您的编剧经验和对人性的理解，是AI无法替代的核心竞争力。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 3: AI辅助分镜设计 -->
+    <!-- ============================================ -->
+    <section class="section" id="storyboard">
+      <div class="section-header">
+        <div class="section-icon green">🎞️</div>
+        <div>
+          <div class="section-title">AI辅助分镜设计</div>
+          <div class="section-subtitle">将剧本转化为可执行的视觉方案</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🎬 AI时代的分镜表</h4>
+        <p>在AI短剧制作中，分镜表（Storyboard）/镜头清单（Shot List）的角色比传统拍摄更加关键。传统拍摄时，导演可以在片场根据实际情况灵活调整镜头；但在AI制作中，<strong>每个镜头都需要通过提示词（Prompt）来生成</strong>，因此分镜表同时也是"提示词设计蓝图"。</p>
+        <p>一份好的AI分镜表不仅要包含常规的景别、动作和台词信息，还需要为每个镜头预设AI工具的提示词方向——这是传统分镜与AI分镜的最大差异。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">AI短剧分镜表模板（示例场景）</h4>
+      <p>以下以"女主发现'已故'丈夫出现在监控视频中"这一场景为例，展示完整的AI分镜表格式：</p>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>镜号</th>
+              <th>景别</th>
+              <th>画面描述</th>
+              <th>角色动作</th>
+              <th>台词/旁白</th>
+              <th>时长</th>
+              <th>AI工具提示词</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1</strong></td>
+              <td>特写</td>
+              <td>手机屏幕，监控画面中一个模糊的男性身影</td>
+              <td>手指颤抖地放大画面</td>
+              <td>（无）</td>
+              <td>2秒</td>
+              <td>Extreme close-up, smartphone screen showing CCTV footage, blurry male figure, finger zooming in, tense atmosphere, cold blue light</td>
+            </tr>
+            <tr>
+              <td><strong>2</strong></td>
+              <td>特写</td>
+              <td>女主的脸部，眼睛瞪大，瞳孔中映出手机屏幕的光</td>
+              <td>表情从疑惑转为震惊，嘴唇微张</td>
+              <td>（旁白）三年了……</td>
+              <td>3秒</td>
+              <td>Close-up, young woman's face, eyes widening in shock, phone screen light reflecting in pupils, dramatic lighting, shallow depth of field</td>
+            </tr>
+            <tr>
+              <td><strong>3</strong></td>
+              <td>中景</td>
+              <td>女主坐在昏暗的房间里，手机光照亮她苍白的脸</td>
+              <td>猛地站起来，椅子向后倒</td>
+              <td>不可能……他明明已经……</td>
+              <td>3秒</td>
+              <td>Medium shot, woman standing up abruptly in dark room, chair falling backward, phone light illuminating pale face, cinematic noir lighting</td>
+            </tr>
+            <tr>
+              <td><strong>4</strong></td>
+              <td>远景</td>
+              <td>空旷的客厅全景，女主孤独的身影站在窗前</td>
+              <td>走向窗边，一手撑着窗框</td>
+              <td>（无，仅背景音乐）</td>
+              <td>2秒</td>
+              <td>Wide shot, empty living room at night, lone woman silhouette by window, moonlight streaming in, melancholic atmosphere, high contrast</td>
+            </tr>
+            <tr>
+              <td><strong>5</strong></td>
+              <td>过肩镜头</td>
+              <td>从女主肩膀后方看向手机屏幕，画面定格在男性身影</td>
+              <td>双手紧握手机，回看监控截图</td>
+              <td>我要找到你。</td>
+              <td>3秒</td>
+              <td>Over-the-shoulder shot, woman holding phone tightly, CCTV screenshot on screen, determined posture, warm-to-cold color transition</td>
+            </tr>
+            <tr>
+              <td><strong>6</strong></td>
+              <td>特写</td>
+              <td>手机屏幕上，监控时间戳显示：昨天 23:47</td>
+              <td>（无角色）</td>
+              <td>（音效：心跳声加速）</td>
+              <td>2秒</td>
+              <td>Extreme close-up, phone screen, CCTV timestamp reading yesterday 23:47, grainy surveillance footage, suspenseful mood, dark vignette</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">用AI从剧本生成分镜描述</h4>
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 模板 — 剧本转分镜表</div>
+你是一位经验丰富的影视分镜师，同时精通AI视频生成工具的提示词写作。请将以下剧本场景转化为逐镜头分镜表。
+
+剧本场景：
+<span class="placeholder">粘贴一段分场剧本内容</span>
+
+请按以下格式输出分镜表：
+| 镜号 | 景别 | 画面描述 | 角色动作 | 台词/旁白 | 时长 | AI工具提示词（英文） |
+
+要求：
+- 每个镜头时长控制在2-5秒
+- 景别使用：特写/近景/中景/全景/远景/过肩/主观镜头
+- AI工具提示词使用英文，包含：景别、光线、色调、构图、情绪氛围
+- 注意镜头之间的视觉逻辑衔接
+- 总镜头数控制在<span class="placeholder">8-12个</span>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">您的镜头语言经验是核心竞争力</div>
+          <p>作为有经验的影视人，您对景别和镜头运动的理解是写出好提示词的关键。AI可以生成分镜表的初稿，但镜头之间的情绪递进、视线引导和节奏变化，需要您凭借多年的实拍经验来调整和优化。同一段剧本，专业导演设计的分镜方案和非专业人士的版本，在最终成片效果上会有天壤之别。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 4: 影视Prompt工程 -->
+    <!-- ============================================ -->
+    <section class="section" id="prompt-craft">
+      <div class="section-header">
+        <div class="section-icon purple">🎯</div>
+        <div>
+          <div class="section-title">影视Prompt工程：专业提示词写作</div>
+          <div class="section-subtitle">让AI"看见"你脑海中的画面</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🔑 提示词决定画面品质</h4>
+        <p>在AI短剧制作中，提示词（Prompt）是导演与AI之间的唯一沟通语言。一段模糊的描述只能得到平庸的画面，而一段融合了专业影视语言的提示词，可以引导AI生成接近电影级别的视觉效果。</p>
+        <p>好消息是：<strong>您作为影视专业人士，已经掌握了写好提示词最重要的知识——镜头语言、光影设计和场景构思</strong>。接下来要做的，只是学会把这些专业知识"翻译"成AI能理解的格式。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">业余 vs 专业：提示词对比</h4>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 业余提示词</div>
+          <ul>
+            <li><strong>示例1：</strong>"一个女人在房间里哭"</li>
+            <li><strong>示例2：</strong>"两个人在街上走路聊天"</li>
+            <li><strong>示例3：</strong>"一个男人生气地看着手机"</li>
+          </ul>
+          <p style="margin-top:0.75rem;"><strong>问题：</strong>缺少景别、光线、色调、构图和情绪氛围信息，AI只能"猜"画面风格，结果往往平淡、缺乏电影感。</p>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 专业提示词</div>
+          <ul>
+            <li><strong>示例1：</strong>"Close-up, young woman crying silently, single tear rolling down cheek, soft backlight from window, warm golden hour tones, shallow depth of field, melancholic atmosphere, cinematic 2.39:1"</li>
+            <li><strong>示例2：</strong>"Medium tracking shot, two people walking on rain-soaked neon-lit street at night, reflections on wet ground, side angle, cool cyan and magenta tones, urban loneliness mood, anamorphic lens flare"</li>
+            <li><strong>示例3：</strong>"Close-up from low angle, man's face lit by phone screen in dark room, jaw clenched, veins visible on temple, cold blue light on face with warm ambient background, tense thriller atmosphere"</li>
+          </ul>
+          <p style="margin-top:0.75rem;"><strong>优势：</strong>每条提示词都包含专业的镜头语言，AI能精准还原导演意图。</p>
+        </div>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">CLSMA 框架：影视级提示词公式</h4>
+      <div class="card card-lg">
+        <h4>🎬 五维一体的电影级提示词框架</h4>
+        <p>CLSMA是专为影视从业者设计的AI视觉提示词框架，将电影制作中的五个核心维度系统化：</p>
+        <div class="card-grid card-grid-3" style="margin-top:1rem;">
+          <div class="card">
+            <h4>📷 C — Camera 镜头</h4>
+            <p>景别（close-up / medium / wide）、角度（low angle / high angle / eye level）、运镜（tracking / pan / static）、镜头特性（anamorphic / telephoto）</p>
+          </div>
+          <div class="card">
+            <h4>💡 L — Lighting 光线</h4>
+            <p>光源方向（backlight / side light / Rembrandt）、光质（soft / hard / diffused）、色温（warm golden / cool blue / neutral）、光比（high contrast / low key / silhouette）</p>
+          </div>
+          <div class="card">
+            <h4>🏞️ S — Scene 场景</h4>
+            <p>环境设定（interior / exterior / time of day）、场景细节（道具、陈设、天气）、空间关系（前景、中景、背景层次）、美术风格（写实 / 风格化）</p>
+          </div>
+          <div class="card">
+            <h4>🎭 M — Mood 情绪</h4>
+            <p>整体氛围（tense / melancholic / romantic / eerie）、色调倾向（desaturated / vibrant / monochrome）、画面风格参考（noir / neo-noir / dreamy）、情感基调</p>
+          </div>
+          <div class="card">
+            <h4>🏃 A — Action 动作</h4>
+            <p>角色动作（walking / running / sitting still）、表情描述（微表情、眼神方向）、动态状态（motion blur / frozen moment）、与环境的互动</p>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">CLSMA 实战示例</h4>
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 示例 — 紧张对峙场景</div>
+<span class="placeholder">[C-Camera]</span> Medium close-up, slight low angle, handheld camera subtle shake
+<span class="placeholder">[L-Lighting]</span> Single overhead practical light, harsh shadows on face, underexposed background
+<span class="placeholder">[S-Scene]</span> Abandoned warehouse interior, dusty air particles in light beam, concrete walls
+<span class="placeholder">[M-Mood]</span> Tense, suspenseful, neo-noir atmosphere, desaturated with teal shadows
+<span class="placeholder">[A-Action]</span> Man slowly reaching into jacket pocket, eyes locked on someone off-screen, jaw clenched
+      </div>
+
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 示例 — 浪漫告白场景</div>
+<span class="placeholder">[C-Camera]</span> Close-up with rack focus, eye-level, slow dolly in
+<span class="placeholder">[L-Lighting]</span> Warm golden hour backlight, soft lens flare, gentle fill light on face
+<span class="placeholder">[S-Scene]</span> Rooftop terrace at sunset, city skyline bokeh in background, string lights overhead
+<span class="placeholder">[M-Mood]</span> Romantic, tender, warm color palette, soft grain, dreamy atmosphere
+<span class="placeholder">[A-Action]</span> Woman looking up with glistening eyes, slight smile forming, wind gently moving hair
+      </div>
+
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 示例 — 悬疑发现场景</div>
+<span class="placeholder">[C-Camera]</span> Extreme close-up transitioning to wide shot, static camera, deep focus
+<span class="placeholder">[L-Lighting]</span> Cold fluorescent overhead, green-tinted, flickering light effect
+<span class="placeholder">[S-Scene]</span> Dimly lit office at night, computer screens glowing, scattered documents on desk
+<span class="placeholder">[M-Mood]</span> Eerie, unsettling, thriller atmosphere, high contrast, clinical cold tones
+<span class="placeholder">[A-Action]</span> Hands trembling while opening a sealed envelope, pulling out a photograph slowly
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 5: 剧本迭代与优化 -->
+    <!-- ============================================ -->
+    <section class="section" id="iteration">
+      <div class="section-header">
+        <div class="section-icon red">🔄</div>
+        <div>
+          <div class="section-title">剧本迭代与优化</div>
+          <div class="section-subtitle">从AI初稿到专业成品的打磨流程</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🛠️ 迭代是核心工作流</h4>
+        <p>AI生成的第一版剧本永远只是起点。真正的创作价值体现在<strong>迭代打磨的过程</strong>中——这个过程恰恰是影视专业人士的主战场。您的编剧经验让您能精准判断初稿中哪些部分可用、哪些需要调整、哪些必须推翻重来。</p>
+        <p>建议的迭代流程：<strong>AI生成初稿 → 专业评估 → 定向修改指令 → AI重写 → 再评估 → 人工精修</strong>。通常需要3-5轮迭代才能达到可拍摄的水准。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">定向修改Prompt模板</h4>
+      <div class="card">
+        <p>迭代的关键是给出<strong>具体的修改指令</strong>而非笼统的"写好一点"。以下模板帮助您针对不同维度精准调整：</p>
+      </div>
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 模板 — 剧本定向修改</div>
+请根据以下反馈修改剧本：
+
+原剧本：
+<span class="placeholder">粘贴当前版本的剧本</span>
+
+修改方向：<span class="placeholder">节奏 / 对话 / 冲突 / 角色 / 结构</span>
+
+具体问题：
+<span class="placeholder">
+例如：
+- 【节奏】第二场到第三场之间的过渡太慢，需要加快，删掉多余的环境描写
+- 【对话】角色A的台词太书面化，需要更口语化，加入犹豫和停顿
+- 【冲突】核心冲突在第1分钟才出现，太晚了，需要在前15秒就暗示
+- 【角色】角色B的反应不符合其设定的性格，她应该更隐忍而非直接爆发
+- 【结构】结尾的悬念不够强，观众没有足够动力点击下一集
+</span>
+
+要求：
+- 保留原剧本中好的部分（特别是：<span class="placeholder">列出你希望保留的具体内容</span>）
+- 只修改上述提到的问题部分
+- 修改后标注【已修改】标签，方便我对比
+      </div>
+
+      <h4 style="margin-top:1.5rem;">迭代检查清单</h4>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>📋 结构与节奏检查</h4>
+          <ul>
+            <li>前3秒是否有有效的注意力钩子？</li>
+            <li>核心冲突是否在30秒内建立？</li>
+            <li>每分钟是否有至少一次小反转或信息点？</li>
+            <li>结尾hook是否足够驱动追看？</li>
+            <li>总时长是否符合目标？是否有可删减的"废镜头"？</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>📋 角色与对话检查</h4>
+          <ul>
+            <li>角色行为是否符合其设定的性格逻辑？</li>
+            <li>对白是否自然口语化？有没有"AI腔"？</li>
+            <li>台词是否有潜台词和情感层次？</li>
+            <li>不同角色的说话风格是否有区分度？</li>
+            <li>关键台词是否足够有记忆点？</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn" style="margin-top:1.5rem;">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">重要提醒</div>
+          <p>永远不要直接使用AI的第一版输出。专业的剧本至少需要3-5轮迭代。每一轮迭代都是您的专业判断力在发挥作用——这种判断力来自您多年的创作经验，是AI无法自动完成的。把迭代过程当作与一个高效但需要指导的助手之间的协作，而非期待一次性的完美结果。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 6: 课后练习 -->
+    <!-- ============================================ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon orange">📝</div>
+        <div>
+          <div class="section-title">课后练习</div>
+          <div class="section-subtitle">学以致用，完成从创意到分镜的全流程实操</div>
+        </div>
+      </div>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块二 · 课后练习</h2>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <strong>选择一个题材，用AI生成3个不同的短剧创意概念</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              使用本模块提供的"创意概念生成"Prompt模板，选择您感兴趣或擅长的题材类型，让AI生成至少3个创意概念。用您的专业眼光评估每个概念的市场潜力和制作可行性，选出最佳方案。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：3个创意概念文档 + 最佳方案选择理由（200字以上）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <strong>选择最佳概念，完成一份完整的3分钟短剧分场剧本</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              基于您选定的最佳概念，使用"角色设定"和"分场剧本"Prompt模板，完成一集3分钟短剧的完整分场剧本。请至少进行3轮AI迭代修改，确保节奏紧凑、对白自然、冲突清晰。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：角色设定文档 + 完整分场剧本（标注经过几轮迭代）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <strong>为第一场戏完成逐镜头分镜表（至少8个镜头）</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选取剧本中的第一场戏，参考本模块的分镜表模板，完成逐镜头的分镜设计。包含镜号、景别、画面描述、角色动作、台词/旁白、时长和AI工具提示词等所有字段。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：包含至少8个镜头的完整分镜表</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">4</div>
+          <div>
+            <strong>用CLSMA框架为每个镜头写出AI视觉提示词</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              为分镜表中的每个镜头，运用CLSMA框架（Camera / Lighting / Scene / Mood / Action）写出完整的AI视觉提示词。每条提示词应包含五个维度的专业描述，确保AI能精准还原您的导演意图。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：每个镜头的CLSMA格式提示词（英文，每条50-100词）</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1rem;">
+        <div class="infobox-icon">🎉</div>
+        <div class="infobox-body">
+          <div class="infobox-title">完成模块二，剧本创作能力已升级！</div>
+          <p>恭喜您完成了AI剧本创作与分镜设计模块！您现在已经：</p>
+          <ul>
+            <li>✅ 掌握了短剧的结构设计原则和节奏要求</li>
+            <li>✅ 学会了用三步法（概念→角色→分场）高效创作AI短剧剧本</li>
+            <li>✅ 能够将剧本转化为包含AI提示词的专业分镜表</li>
+            <li>✅ 掌握了CLSMA框架，能写出影视级的AI视觉提示词</li>
+            <li>✅ 建立了AI剧本迭代优化的工作流</li>
+          </ul>
+          <p>接下来，让我们进入模块三，学习AI视觉素材生成的实战技巧！</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <a href="module1.html" class="btn-prev">← 模块一：AI视频制作认知</a>
+      <a href="module3.html" class="btn-next">模块三：AI视觉素材生成 →</a>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
