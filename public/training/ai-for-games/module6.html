@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块六：AI加速游戏测试、运营与综合实战 — AI × 游戏开发实战</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🎮 AI × 游戏开发实战 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html" class="active">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块六导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#testing"><span class="nav-num">1</span>AI自动化测试</a></li>
+      <li><a href="#analytics"><span class="nav-num">2</span>玩家行为分析</a></li>
+      <li><a href="#operations"><span class="nav-num">3</span>AI运营策略</a></li>
+      <li><a href="#pipeline"><span class="nav-num">4</span>AI全流程整合</a></li>
+      <li><a href="#project"><span class="nav-num">5</span>综合实战项目</a></li>
+      <li><a href="#practice"><span class="nav-num">6</span>课后练习与结业</a></li>
+    </ul>
+
+    <div class="sidebar-title" style="margin-top:1.5rem;">快速跳转</div>
+    <ul class="sidebar-nav">
+      <li><a href="module5.html">← 模块五</a></li>
+      <li><a href="index.html">← 课程总览</a></li>
+      <li><a href="../index.html">← 返回培训主页</a></li>
+    </ul>
+  </aside>
+
+  <!-- ===================== Main Content ===================== -->
+  <main class="main-content">
+
+    <!-- ===== Hero ===== -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块六</span>
+        终章 · 从测试到上线
+      </div>
+      <h1>🚀 AI加速游戏测试、运营与综合实战<br><span>打通最后一公里，用 AI 完成从质量保障到持续运营的全链路</span></h1>
+      <p class="hero-subtitle">
+        本模块是整个课程的收官之作。我们将探索 AI 在游戏测试自动化、玩家行为分析、运营策略制定中的前沿应用，
+        学习如何将前五个模块所学的 AI 技能整合为一条完整的游戏开发管线，并通过一个综合实战项目检验全部所学。
+        从自动化 QA 到智能运营，从开发管线构建到结业汇报，让 AI 贯穿游戏的全生命周期。
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 6 课时</div>
+        <div class="hero-meta-item">🧪 测试 · 运营 · 实战</div>
+        <div class="hero-meta-item">🎯 全体学员</div>
+        <div class="hero-meta-item">🔧 15+ 实用工具</div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         Section 1: AI驱动的游戏自动化测试
+         ============================================================ -->
+    <section class="section" id="testing">
+      <div class="section-header">
+        <div class="section-icon blue">🧪</div>
+        <div>
+          <div class="section-title">AI驱动的游戏自动化测试</div>
+          <div class="section-subtitle">用 AI 重塑游戏 QA 流程，让测试更快、更全、更智能</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h3>🔍 AI 如何变革游戏质量保障</h3>
+        <p>
+          传统游戏测试依赖大量人工测试员反复游玩，不仅成本高昂，而且难以覆盖所有边界情况。
+          AI 正在从根本上改变这一现状：通过强化学习训练的 AI 代理可以 24/7 不间断地进行自动化游玩测试，
+          计算机视觉可以自动检测画面异常和 UI 错位，自然语言处理可以分析玩家反馈中的 bug 报告并自动分类。
+        </p>
+        <p>
+          AI 测试不是要取代人工 QA，而是成为人工 QA 的超级放大器——让测试团队将精力集中在创意体验评估和复杂交互测试上，
+          而将重复性、大规模的回归测试交给 AI 完成。
+        </p>
+        <ul>
+          <li><strong>自动探索测试：</strong>AI 代理自主探索游戏世界，发现人类测试员可能忽略的边缘路径</li>
+          <li><strong>视觉回归检测：</strong>利用图像对比技术自动发现 UI 变化、渲染异常和视觉 bug</li>
+          <li><strong>智能 Bug 分类：</strong>NLP 模型自动对 bug 报告进行分类、优先级排序和重复检测</li>
+          <li><strong>性能预测分析：</strong>AI 根据场景复杂度预测潜在的性能瓶颈，提前优化</li>
+        </ul>
+      </div>
+
+      <h3 style="margin-top:2rem;">📊 传统 QA vs AI 辅助 QA 对比</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>对比维度</th>
+              <th>传统人工 QA</th>
+              <th>AI 辅助 QA</th>
+              <th>提升幅度</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>测试速度</strong></td>
+              <td>每轮回归测试数天</td>
+              <td>自动化回归数小时完成</td>
+              <td>⚡ 5-10x</td>
+            </tr>
+            <tr>
+              <td><strong>覆盖范围</strong></td>
+              <td>核心路径为主，覆盖率 40-60%</td>
+              <td>全路径探索，覆盖率 85-95%</td>
+              <td>📈 2x+</td>
+            </tr>
+            <tr>
+              <td><strong>人力成本</strong></td>
+              <td>大型 QA 团队，人月成本高</td>
+              <td>少量 QA 工程师 + AI 工具</td>
+              <td>💰 节省 50-70%</td>
+            </tr>
+            <tr>
+              <td><strong>测试精度</strong></td>
+              <td>易疲劳，重复测试遗漏多</td>
+              <td>一致性高，不受疲劳影响</td>
+              <td>🎯 显著提升</td>
+            </tr>
+            <tr>
+              <td><strong>回归检测</strong></td>
+              <td>手动对比，耗时长</td>
+              <td>自动截图对比，秒级检测</td>
+              <td>🔄 100x</td>
+            </tr>
+            <tr>
+              <td><strong>报告生成</strong></td>
+              <td>人工撰写测试报告</td>
+              <td>AI 自动生成结构化报告</td>
+              <td>📝 自动化</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:2rem;">🔄 AI 测试核心工作流</h3>
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <div class="wf-icon">🤖</div>
+          <h4>自动化功能测试</h4>
+          <p>利用 AI 代理模拟真实玩家行为，自动执行游戏功能测试用例，覆盖主线流程、支线任务、UI 交互等各个维度</p>
+        </div>
+        <div class="workflow-card">
+          <div class="wf-icon">⚡</div>
+          <h4>性能压力测试</h4>
+          <p>AI 自动生成高负载场景，模拟大量并发玩家，智能识别帧率骤降、内存泄漏、加载瓶颈等性能问题</p>
+        </div>
+        <div class="workflow-card">
+          <div class="wf-icon">⚖️</div>
+          <h4>平衡性验证</h4>
+          <p>训练多个 AI 代理以不同策略对战，通过蒙特卡洛模拟和统计分析验证数值平衡性，发现 OP 组合和无效策略</p>
+        </div>
+        <div class="workflow-card">
+          <div class="wf-icon">📱</div>
+          <h4>兼容性测试</h4>
+          <p>AI 驱动的云测试平台自动在数百种设备配置上运行游戏，检测兼容性问题、适配异常和平台特有 bug</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:2rem;">📋 AI 测试用例生成</h3>
+      <div class="prompt-template">
+        <span class="pt-label">Prompt 模板 — AI 自动化测试用例生成</span>
+你是一位资深游戏 QA 工程师。请为以下游戏功能生成全面的自动化测试用例：
+
+游戏类型：<span class="placeholder">RPG / FPS / MOBA 等</span>
+测试功能：<span class="placeholder">背包系统 / 战斗系统 / 交易系统 等</span>
+功能描述：<span class="placeholder">简述该功能的核心逻辑和用户交互流程</span>
+
+请输出：
+1. 正常流程测试用例（至少 5 条）
+2. 边界条件测试用例（至少 3 条）
+3. 异常/错误输入测试用例（至少 3 条）
+4. 性能相关测试用例（至少 2 条）
+5. 每条用例包含：用例名称、前置条件、操作步骤、预期结果、优先级
+
+────────── 示例 ──────────
+游戏类型：MMORPG
+测试功能：背包系统
+功能描述：玩家可以拾取、使用、丢弃、交易物品，背包上限 200 格
+
+→ 正常流程：拾取物品后背包数量 +1，物品图标正确显示……
+→ 边界条件：背包满时拾取物品的提示与处理……
+→ 异常输入：快速重复点击使用按钮的并发处理……
+      </div>
+
+      <h3 style="margin-top:2rem;">⚖️ 手动测试 vs AI 测试对比</h3>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 纯手动测试</div>
+          <ul>
+            <li>测试周期长，每次版本更新需要数天回归</li>
+            <li>容易遗漏边缘场景和罕见 bug</li>
+            <li>测试员疲劳导致后期质量下降</li>
+            <li>难以实现 7×24 持续测试</li>
+            <li><strong>成本高昂，大型项目需要 50+ 人的 QA 团队</strong></li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ AI 辅助自动化测试</div>
+          <ul>
+            <li>自动化回归测试，数小时完成全量覆盖</li>
+            <li>AI 探索引擎自动发现边缘路径和隐藏 bug</li>
+            <li>一致性高，不受人为因素影响</li>
+            <li>7×24 不间断运行，持续集成持续测试</li>
+            <li><strong>团队精简，QA 专注创意体验和深度测试</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI 测试的局限性</div>
+          <p>
+            AI 测试擅长发现<strong>可量化的技术 bug</strong>（崩溃、卡死、数值异常），但对于<strong>体验类问题</strong>（手感不佳、节奏拖沓、情感传达不到位）仍然依赖有经验的人工测试员。最佳实践是将 AI 自动化测试与人工体验测试相结合，各取所长。
+            此外，AI 测试模型需要持续训练和维护，初期搭建成本不可忽视。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Section 2: AI玩家行为分析与留存优化
+         ============================================================ -->
+    <section class="section" id="analytics">
+      <div class="section-header">
+        <div class="section-icon purple">📊</div>
+        <div>
+          <div class="section-title">AI玩家行为分析与留存优化</div>
+          <div class="section-subtitle">用数据驱动的 AI 分析理解玩家，预测行为，优化留存</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h3>📈 数据驱动的游戏设计决策</h3>
+        <p>
+          现代游戏的成功不仅取决于创意和技术，还高度依赖对玩家行为的深度理解。AI 驱动的行为分析
+          让游戏团队能够从海量数据中提取洞察：哪些关卡让玩家流失？哪些活动最能激发付费意愿？
+          哪些社交功能提升了长期留存？
+        </p>
+        <p>
+          通过机器学习模型，我们可以构建玩家画像、预测玩家生命周期价值（LTV）、提前识别流失风险用户，
+          并基于这些洞察动态调整游戏内容和运营策略。数据不再只是事后回顾的工具，而成为游戏设计的前瞻性指南。
+        </p>
+        <ul>
+          <li><strong>玩家聚类分析：</strong>利用无监督学习将玩家分为不同类型（探索型、竞技型、社交型、收集型），针对性设计内容</li>
+          <li><strong>LTV 预测模型：</strong>在玩家注册早期预测其终身价值，优化获客和运营投入</li>
+          <li><strong>实时异常检测：</strong>AI 实时监控游戏经济系统和玩家行为，发现外挂、刷bug、经济崩溃等异常</li>
+          <li><strong>个性化推荐：</strong>根据玩家偏好推荐关卡、商品、好友，提升参与度和满意度</li>
+        </ul>
+      </div>
+
+      <h3 style="margin-top:2rem;">💎 AI 分析核心维度</h3>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <h4>📅 留存分析</h4>
+          <p>追踪次日/7日/30日留存率，使用生存分析模型定位流失节点，识别关键留存因子并量化其影响权重</p>
+        </div>
+        <div class="skill-card">
+          <h4>💰 付费预测</h4>
+          <p>基于玩家早期行为特征预测付费概率与金额，构建 LTV 预测模型，指导精准营销和差异化运营</p>
+        </div>
+        <div class="skill-card">
+          <h4>🚪 流失预警</h4>
+          <p>利用时序模型监测活跃度下降趋势，在玩家流失前 3-7 天发出预警，触发自动化挽回策略</p>
+        </div>
+        <div class="skill-card">
+          <h4>🎯 关卡难度分析</h4>
+          <p>统计各关卡通过率、平均尝试次数、放弃率，AI 自动识别难度曲线异常，推荐动态难度调节方案</p>
+        </div>
+        <div class="skill-card">
+          <h4>👥 社交网络分析</h4>
+          <p>构建玩家社交关系图谱，识别核心意见领袖和社交中心，分析社交关系对留存和付费的放大效应</p>
+        </div>
+        <div class="skill-card">
+          <h4>🧬 A/B 测试</h4>
+          <p>AI 驱动的多变量测试平台，自动分配流量、监控指标、计算统计显著性，加速迭代决策速度</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:2rem;">📋 玩家行为数据分析</h3>
+      <div class="prompt-template">
+        <span class="pt-label">Prompt 模板 — AI 玩家行为分析报告</span>
+你是一位游戏数据分析专家。请根据以下玩家行为数据生成分析报告：
+
+游戏类型：<span class="placeholder">MMORPG / 卡牌 / SLG 等</span>
+分析周期：<span class="placeholder">近 7 天 / 近 30 天 / 版本更新后</span>
+核心数据：
+- 日活跃用户 (DAU)：<span class="placeholder">数值</span>
+- 次日留存率：<span class="placeholder">百分比</span>
+- 7 日留存率：<span class="placeholder">百分比</span>
+- 付费率：<span class="placeholder">百分比</span>
+- ARPU：<span class="placeholder">金额</span>
+关注问题：<span class="placeholder">留存下降 / 付费率低迷 / 关卡流失严重 等</span>
+
+请输出：
+1. 数据概况与趋势分析
+2. 核心问题诊断（根因分析）
+3. 玩家分群画像
+4. 具体优化建议（至少 5 条，附优先级和预期效果）
+5. 需要进一步验证的假设
+
+────────── 示例 ──────────
+游戏类型：卡牌 RPG
+分析周期：近 7 天
+DAU: 50,000 → 42,000（下降 16%）
+次日留存：45%（低于行业均值 50%）
+关注问题：新版本上线后留存显著下降
+
+→ 诊断：新增关卡 12-15 难度陡升，通过率仅 8%，远低于设计目标 35%……
+→ 建议：① 调低关卡 13 的 Boss 血量 20%……
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1.5rem;">
+        <div class="infobox-icon">ℹ️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">隐私与伦理注意事项</div>
+          <p>
+            在进行玩家行为分析时，务必遵守<strong>数据隐私法规</strong>（如 GDPR、个人信息保护法）。
+            所有数据采集需经过用户授权，分析结果应<strong>匿名化处理</strong>。
+            AI 模型不应被用于操纵性设计（dark patterns），而应以<strong>提升玩家体验</strong>为核心目标。
+            建立数据伦理审查机制，确保 AI 分析的应用符合行业道德标准。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Section 3: AI辅助游戏运营策略
+         ============================================================ -->
+    <section class="section" id="operations">
+      <div class="section-header">
+        <div class="section-icon green">📢</div>
+        <div>
+          <div class="section-title">AI辅助游戏运营策略</div>
+          <div class="section-subtitle">让 AI 成为运营团队的智能助手，提升效率和创意质量</div>
+        </div>
+      </div>
+
+      <p>
+        游戏运营是一项需要持续投入创意和精力的工作——策划活动、撰写公告、管理社区、规划版本节奏……
+        AI 可以在这些环节中成为运营人员的得力助手，快速生成初稿、提供数据驱动的策略建议、
+        自动化重复性工作，让运营团队将更多时间投入到高价值的策略思考和玩家关系维护中。
+      </p>
+
+      <h3 style="margin-top:2rem;">🔄 AI 运营核心工作流</h3>
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <div class="wf-icon">🎉</div>
+          <h4>活动策划</h4>
+          <p>AI 根据节日、版本节奏、玩家数据生成活动创意方案，包含活动玩法、奖励设计、时间规划和预算估算</p>
+        </div>
+        <div class="workflow-card">
+          <div class="wf-icon">📝</div>
+          <h4>公告文案</h4>
+          <p>AI 快速生成版本更新公告、维护通知、活动预告等运营文案，支持多种语气风格和多语言翻译</p>
+        </div>
+        <div class="workflow-card">
+          <div class="wf-icon">💬</div>
+          <h4>社区运营</h4>
+          <p>AI 辅助监控社区舆情，自动分类玩家反馈，生成回复建议，识别潜在危机并触发预警</p>
+        </div>
+        <div class="workflow-card">
+          <div class="wf-icon">📅</div>
+          <h4>版本规划</h4>
+          <p>基于数据分析和市场趋势，AI 辅助制定季度/年度版本路线图，平衡内容节奏和商业目标</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:2rem;">📋 AI 活动策划方案生成</h3>
+      <div class="prompt-template">
+        <span class="pt-label">Prompt 模板 — 游戏活动策划方案</span>
+你是一位经验丰富的游戏运营策划。请根据以下信息生成一份完整的游戏活动策划方案：
+
+游戏名称：<span class="placeholder">游戏名</span>
+游戏类型：<span class="placeholder">MMORPG / 二次元卡牌 / 开放世界 等</span>
+活动主题：<span class="placeholder">春节 / 周年庆 / 联动活动 等</span>
+活动时长：<span class="placeholder">7 天 / 14 天 / 21 天</span>
+目标人群：<span class="placeholder">全体玩家 / 回流玩家 / 付费用户 等</span>
+核心目标：<span class="placeholder">提升 DAU / 促进付费 / 拉新 / 促活回流</span>
+
+请输出：
+1. 活动概述与创意亮点
+2. 详细玩法设计（含参与条件和流程）
+3. 奖励体系设计（免费层 + 付费层）
+4. 时间节奏规划（每日/每阶段安排）
+5. 预期数据目标和 KPI
+6. 风险点与应对方案
+
+────────── 示例 ──────────
+游戏名称：幻境物语
+游戏类型：二次元卡牌 RPG
+活动主题：一周年庆典
+活动时长：14 天
+目标人群：全体玩家 + 回流用户
+核心目标：DAU 提升 30%，回流率 15%
+
+→ 活动概述：「星辰许愿·周年嘉年华」三段式庆典活动……
+→ 玩法设计：阶段一「回忆之旅」——回顾一年重要版本……
+      </div>
+
+      <h3 style="margin-top:2rem;">📊 AI 运营工具矩阵</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>运营场景</th>
+              <th>AI 工具/方法</th>
+              <th>核心能力</th>
+              <th>效率提升</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>活动文案</strong></td>
+              <td>ChatGPT / Claude</td>
+              <td>多风格文案生成、多语言翻译、A/B 文案对比</td>
+              <td>5x 产出速度</td>
+            </tr>
+            <tr>
+              <td><strong>社区舆情</strong></td>
+              <td>NLP 情感分析模型</td>
+              <td>实时情感监控、热点话题提取、危机预警</td>
+              <td>实时响应</td>
+            </tr>
+            <tr>
+              <td><strong>活动素材</strong></td>
+              <td>Midjourney / DALL·E</td>
+              <td>活动海报、banner、社交媒体图片快速生成</td>
+              <td>10x 产出速度</td>
+            </tr>
+            <tr>
+              <td><strong>数据报告</strong></td>
+              <td>AI 数据分析助手</td>
+              <td>自动生成运营日报/周报，异常指标自动标注</td>
+              <td>80% 时间节省</td>
+            </tr>
+            <tr>
+              <td><strong>玩家客服</strong></td>
+              <td>AI 客服机器人</td>
+              <td>常见问题自动回复、工单智能分类和流转</td>
+              <td>70% 工单自动处理</td>
+            </tr>
+            <tr>
+              <td><strong>推送策略</strong></td>
+              <td>个性化推荐引擎</td>
+              <td>基于用户画像的精准推送时间和内容优化</td>
+              <td>点击率提升 40%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-demo" style="margin-top:1.5rem;">
+        <div class="infobox-icon">🎬</div>
+        <div class="infobox-body">
+          <div class="infobox-title">示例：AI 生成的春节活动方案摘要</div>
+          <p><strong>活动名称：</strong>「龙腾新春·福运连连」新春庆典</p>
+          <p><strong>活动时长：</strong>1月25日 - 2月8日（15天）</p>
+          <p><strong>核心玩法：</strong>① 每日签到领红包（保底 + 随机大奖）② 春联对对碰小游戏（社交传播）③ 限定龙年套装抽取池 ④ 公会年夜饭协作任务（组队奖励翻倍）</p>
+          <p><strong>奖励亮点：</strong>免费层——累计登录 7 天送 SSR 自选券；付费层——龙年限定皮肤 + 专属特效头像框</p>
+          <p><strong>预期效果：</strong>DAU 峰值提升 45%，付费渗透率提升 8%，回流用户 12%+</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Section 4: AI全流程整合
+         ============================================================ -->
+    <section class="section" id="pipeline">
+      <div class="section-header">
+        <div class="section-icon orange">🔄</div>
+        <div>
+          <div class="section-title">AI全流程整合：构建你的AI游戏开发管线</div>
+          <div class="section-subtitle">将 AI 融入游戏开发的每一个环节，打造 AI-First 开发文化</div>
+        </div>
+      </div>
+
+      <p>
+        前五个模块我们分别学习了 AI 在创意策划、剧情关卡、音频音乐、美术资产、智能 NPC 等环节的应用。
+        现在是时候将这些零散的技能串联起来，构建一条完整的 AI 游戏开发管线。
+        这不仅仅是技术整合，更是思维方式的转变——从「偶尔用一下 AI 工具」到「AI 融入每一个开发决策」。
+      </p>
+
+      <h3 style="margin-top:2rem;">📈 AI 游戏开发全流程管线</h3>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <div class="phase-num">1</div>
+          <div class="phase-body">
+            <h4>立项阶段 — AI 市场洞察</h4>
+            <p>利用 AI 分析市场趋势、竞品数据、玩家社区讨论，辅助立项决策。AI 生成市场分析报告，识别蓝海赛道和差异化机会点。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">2</div>
+          <div class="phase-body">
+            <h4>创意设计 — AI 头脑风暴</h4>
+            <p>用 LLM 进行创意发散：生成世界观设定、核心玩法原型、角色概念，利用 AI 图像生成工具快速出概念图验证创意方向。（模块一、二）</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">3</div>
+          <div class="phase-body">
+            <h4>策划制作 — AI 内容量产</h4>
+            <p>AI 辅助编写 GDD、生成关卡布局、设计数值体系、撰写剧情文本和任务对话。将策划效率提升 3-5 倍。（模块二）</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">4</div>
+          <div class="phase-body">
+            <h4>美术开发 — AI 资产流水线</h4>
+            <p>从概念原画到角色建模、场景搭建、纹理材质、特效制作，构建 AI 驱动的美术资产流水线，大幅缩短美术制作周期。（模块三、四）</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">5</div>
+          <div class="phase-body">
+            <h4>程序实现 — AI 编码助手</h4>
+            <p>利用 GitHub Copilot、ChatGPT 等 AI 编码助手加速程序开发，自动生成代码框架、调试错误、优化性能、编写文档。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">6</div>
+          <div class="phase-body">
+            <h4>测试优化 — AI 质量保障</h4>
+            <p>AI 自动化测试覆盖功能、性能、平衡性、兼容性，智能 Bug 检测与分类，持续集成持续测试。（本模块第一节）</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">7</div>
+          <div class="phase-body">
+            <h4>上线运营 — AI 智能运营</h4>
+            <p>AI 驱动玩家行为分析、精准推送、活动策划、社区管理、客服自动化，数据驱动持续迭代优化。（本模块第二、三节）</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-lg" style="margin-top:2rem;">
+        <h3>🌟 构建 AI-First 游戏开发文化</h3>
+        <p>
+          将 AI 真正融入团队不是一朝一夕的事，需要从工具、流程、文化三个层面同步推进：
+        </p>
+        <ul>
+          <li><strong>工具层：</strong>为每个岗位配置合适的 AI 工具集，建立团队共享的 Prompt 库和最佳实践文档</li>
+          <li><strong>流程层：</strong>在现有开发流程中嵌入 AI 检查点，如「AI 预审设计文档」「AI 生成测试用例」「AI 辅助代码审查」</li>
+          <li><strong>文化层：</strong>鼓励团队成员主动探索 AI 应用，设立 AI 创新激励机制，定期分享 AI 应用案例和心得</li>
+          <li><strong>度量层：</strong>建立 AI 应用效果度量体系，追踪各环节的效率提升和质量改善数据</li>
+          <li><strong>迭代层：</strong>定期回顾 AI 工具使用情况，跟进新工具和新技术，持续优化 AI 开发管线</li>
+        </ul>
+      </div>
+
+      <div class="infobox infobox-warn" style="margin-top:1.5rem;">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI 整合常见陷阱</div>
+          <p>
+            <strong>陷阱一：工具堆砌，缺乏流程。</strong>引入大量 AI 工具但没有融入开发流程，导致「用了但没用好」。<br>
+            <strong>陷阱二：过度依赖，丧失判断。</strong>将 AI 输出直接作为最终成果，跳过人工审核和创意加工。<br>
+            <strong>陷阱三：忽视版权风险。</strong>使用 AI 生成内容时未关注训练数据版权和生成物的法律归属问题。<br>
+            <strong>陷阱四：团队抵触。</strong>未做好变革管理，部分成员担心被取代而消极应对 AI 转型。<br>
+            <strong>陷阱五：一步到位心态。</strong>试图一次性完成全流程 AI 化，而非渐进式推进和迭代。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Section 5: 综合实战项目
+         ============================================================ -->
+    <section class="section" id="project">
+      <div class="section-header">
+        <div class="section-icon teal">🎮</div>
+        <div>
+          <div class="section-title">综合实战项目</div>
+          <div class="section-subtitle">运用全部所学，用 AI 全链路赋能一个完整的游戏项目</div>
+        </div>
+      </div>
+
+      <p>
+        综合实战项目是本课程的毕业设计，要求你将模块一至模块六学到的所有 AI 技能综合运用到一个游戏项目中。
+        你可以选择一个已有的游戏 Demo 进行 AI 改造升级，也可以从零开始构思一个新项目。
+        重点不在于游戏的完成度，而在于<strong>展示 AI 在各环节的应用效果和你的 AI 思维能力</strong>。
+      </p>
+
+      <h3 style="margin-top:2rem;">📈 实战项目流程</h3>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <div class="phase-num">1</div>
+          <div class="phase-body">
+            <h4>项目选题</h4>
+            <p>确定游戏类型和题材方向，用 AI 进行市场分析和竞品调研，输出一份 AI 辅助的立项报告（包含市场机会、差异化定位、目标用户画像）。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">2</div>
+          <div class="phase-body">
+            <h4>创意阶段</h4>
+            <p>利用 LLM 进行世界观和核心玩法创意发散，AI 图像生成工具制作 Mood Board 和概念图，输出创意文档和视觉概念集。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">3</div>
+          <div class="phase-body">
+            <h4>策划阶段</h4>
+            <p>AI 辅助编写 GDD 关键章节：核心玩法描述、系统设计、关卡规划、数值框架、剧情大纲和任务设计。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">4</div>
+          <div class="phase-body">
+            <h4>资产制作</h4>
+            <p>使用 AI 工具制作游戏资产组合：角色概念图、场景原画、UI 界面设计、音效与配乐、3D 模型（任选至少 3 类）。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">5</div>
+          <div class="phase-body">
+            <h4>NPC 设计</h4>
+            <p>设计至少一个智能 NPC：定义性格档案、对话逻辑、行为决策树，编写 System Prompt 并进行对话测试。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">6</div>
+          <div class="phase-body">
+            <h4>测试运营</h4>
+            <p>编写 AI 测试策略文档，设计数据分析指标体系，策划一个完整的上线活动方案，展示 AI 在后链路的应用。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">7</div>
+          <div class="phase-body">
+            <h4>成果展示</h4>
+            <p>制作结业演示 Deck，包含项目概述、AI 应用全景图、各环节成果展示、效率对比数据和个人 AI 心得总结。</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:2rem;">📊 项目评估标准</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>评估维度</th>
+              <th>评分权重</th>
+              <th>评估要点</th>
+              <th>优秀标准</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>🎨 创意质量</strong></td>
+              <td>25%</td>
+              <td>游戏创意的新颖性、世界观完整度、玩法设计深度</td>
+              <td>创意令人眼前一亮，世界观自洽且有深度</td>
+            </tr>
+            <tr>
+              <td><strong>🤖 AI 运用深度</strong></td>
+              <td>30%</td>
+              <td>AI 工具使用的广度和深度，Prompt 工程的质量</td>
+              <td>全流程深度使用 AI，Prompt 精心设计且效果出色</td>
+            </tr>
+            <tr>
+              <td><strong>📦 成果完整度</strong></td>
+              <td>25%</td>
+              <td>各环节交付物的完成情况和质量</td>
+              <td>所有环节有完整交付物，整体协调统一</td>
+            </tr>
+            <tr>
+              <td><strong>🎤 展示表达</strong></td>
+              <td>20%</td>
+              <td>演示 Deck 质量、口头表达清晰度、时间控制</td>
+              <td>演示生动有条理，对比数据有说服力</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1.5rem;">
+        <div class="infobox-icon">ℹ️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">项目展示指南</div>
+          <p>
+            结业展示建议时长 <strong>15-20 分钟</strong>（含 Q&A）。演示 Deck 建议 20-30 页，
+            结构为：项目概述 → 各环节 AI 应用展示（附 before/after 对比）→ 效率提升数据 → AI 使用心得 → 未来展望。
+            鼓励使用视频、动画、实时演示等多媒体形式增强表现力。评委将重点关注 <strong>AI 应用的深度和创新性</strong>，而非游戏本身的完成度。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Section 6: 课后练习与结业
+         ============================================================ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon orange">📝</div>
+        <div>
+          <div class="section-title">课后练习与结业</div>
+          <div class="section-subtitle">最终交付物清单与课程回顾</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h3>📋 最终项目交付物</h3>
+        <p>以下是综合实战项目需要提交的四大交付物，每一项都应体现 AI 工具的深度运用：</p>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>📄 交付物一：AI 增强游戏开发文档集</h4>
+        <p>
+          包括 AI 辅助生成的立项报告、GDD 核心章节（世界观设定、核心玩法、系统设计、关卡规划、数值框架）、
+          剧情大纲和关键任务对话脚本。每份文档需标注 AI 辅助的具体方式和人工优化的部分。
+        </p>
+        <ul>
+          <li>立项分析报告（含 AI 市场洞察）</li>
+          <li>GDD 核心章节（至少 3 个完整章节）</li>
+          <li>剧情大纲 + 至少 2 段完整任务对话</li>
+          <li>数值设计框架文档</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>🎨 交付物二：AI 生成资产作品集</h4>
+        <p>
+          展示使用 AI 工具制作的各类游戏资产，包含生成过程（Prompt、参数、迭代记录）和最终成果。
+          要求至少覆盖以下类别中的 3 项：
+        </p>
+        <ul>
+          <li>角色概念图 / 立绘（至少 3 张，含 Prompt 和迭代过程）</li>
+          <li>场景 / 环境原画（至少 2 张）</li>
+          <li>UI 界面设计稿（主界面 + 至少 1 个子界面）</li>
+          <li>音效 / 配乐（至少 2 段，标注 AI 工具和参数）</li>
+          <li>3D 模型 / 材质（至少 1 个完整资产）</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>🤖 交付物三：智能 NPC 原型或设计规格书</h4>
+        <p>
+          设计并展示至少一个智能 NPC 的完整方案。如果有技术能力，鼓励制作可交互的 NPC 原型；
+          否则提供详细的设计规格书即可：
+        </p>
+        <ul>
+          <li>NPC 性格档案和背景设定</li>
+          <li>System Prompt 完整设计</li>
+          <li>行为决策逻辑（行为树或状态机设计图）</li>
+          <li>至少 5 轮对话测试记录（展示不同场景下的 NPC 反应）</li>
+          <li>情感系统设计（如适用）</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>🎤 交付物四：AI 转型成果展示 Deck</h4>
+        <p>
+          制作一份结业演示文稿，全面展示你在本课程中的 AI 实践成果和思维转变：
+        </p>
+        <ul>
+          <li>项目概述与 AI 应用全景图</li>
+          <li>各环节 AI 应用展示（含 before/after 对比）</li>
+          <li>效率提升数据（时间节省、质量改善的量化对比）</li>
+          <li>遇到的挑战与解决方案</li>
+          <li>个人 AI 工作流总结和最佳实践分享</li>
+          <li>对 AI × 游戏开发未来的展望</li>
+        </ul>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">🎉</div>
+        <div class="infobox-body">
+          <div class="infobox-title">🎊 恭喜你完成「AI × 游戏开发实战」全部课程！</div>
+          <p>
+            回顾这段学习旅程，我们一起走过了六个精彩的模块：<br><br>
+            <strong>模块一</strong> — 认识 AI 与游戏开发的融合趋势，掌握 Prompt 工程基础<br>
+            <strong>模块二</strong> — 用 AI 赋能游戏创意策划、剧情编写和关卡设计<br>
+            <strong>模块三</strong> — 探索 AI 在游戏音频、音效和音乐创作中的应用<br>
+            <strong>模块四</strong> — 掌握 AI 驱动的游戏美术与资产生产流水线<br>
+            <strong>模块五</strong> — 构建 LLM 驱动的智能 NPC 对话与行为系统<br>
+            <strong>模块六</strong> — 打通测试运营最后一公里，完成综合实战项目<br><br>
+            你已经具备了将 AI 融入游戏开发全流程的知识和实战经验。AI 技术日新月异，
+            但你掌握的<strong>思维方法和实践框架</strong>将持续受用。保持好奇，持续探索，
+            让 AI 成为你游戏开发旅程中最强大的伙伴！🚀
+          </p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1.5rem;">
+        <h4>📚 继续学习推荐</h4>
+        <p>完成本课程后，你可以继续探索以下方向深化 AI × 游戏开发能力：</p>
+        <ul>
+          <li><strong>高级 Prompt 工程：</strong>深入学习 Chain-of-Thought、ReAct、Tool-Use 等高级提示技术</li>
+          <li><strong>游戏 AI 专项：</strong>研究强化学习在游戏 AI 中的前沿应用（如 AlphaStar、OpenAI Five）</li>
+          <li><strong>生成式 AI 前沿：</strong>关注 Sora、Stable Diffusion 3、GPT-5 等新模型在游戏领域的应用</li>
+          <li><strong>AI Agent 开发：</strong>学习构建自主 AI Agent，打造更智能的游戏 NPC 和自动化工作流</li>
+          <li><strong>行业实践社区：</strong>加入 AI 游戏开发者社区，参与 Game Jam，在实战中持续提升</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== Bottom Nav ===== -->
+    <div class="bottom-nav">
+      <a href="module5.html" class="btn-prev">← 模块五：AI驱动的游戏角色行为与智能NPC</a>
+      <a href="index.html" class="btn-next">课程总览 →</a>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
