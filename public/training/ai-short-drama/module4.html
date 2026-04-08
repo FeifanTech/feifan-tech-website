@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块四：AI配音、音效与配乐 — AI 短剧制作实战</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🎬 AI 短剧制作实战 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html" class="active">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">本模块导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#voice"><span class="nav-num">①</span>AI语音合成与角色配音</a></li>
+      <li><a href="#voice-practice"><span class="nav-num">②</span>配音实战：从台词到音轨</a></li>
+      <li><a href="#music"><span class="nav-num">③</span>AI音乐生成</a></li>
+      <li><a href="#sfx"><span class="nav-num">④</span>AI音效设计</a></li>
+      <li><a href="#audio-mix"><span class="nav-num">⑤</span>音频混合与时间轴对齐</a></li>
+      <li><a href="#practice"><span class="nav-num">⑥</span>课后练习</a></li>
+    </ul>
+
+    <div class="sidebar-title" style="margin-top:1.5rem;">快速跳转</div>
+    <ul class="sidebar-nav">
+      <li><a href="index.html">← 课程总览</a></li>
+      <li><a href="module3.html">← 模块三</a></li>
+      <li><a href="module5.html">模块五 →</a></li>
+      <li><a href="../">← 返回培训主页</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ===== Hero ===== -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块四</span>
+        AI配音、音效与配乐
+      </div>
+      <h1>🔊 AI配音、音效与配乐<br><span>用声音赋予画面生命</span></h1>
+      <p class="hero-subtitle">
+        声音是短剧的"隐形主角"。本模块将系统讲解如何利用AI工具完成角色配音、背景配乐和音效设计，
+        并将三者混合为专业级音频轨道。影视从业者的听觉审美和配音经验将在这一环节转化为巨大优势。
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 4 课时</div>
+        <div class="hero-meta-item">🎙️ 配音 + 配乐 + 音效</div>
+        <div class="hero-meta-item">🎯 影视专业人士适用</div>
+        <div class="hero-meta-item">🔧 8+ 款AI音频工具</div>
+      </div>
+    </div>
+
+    <!-- ===== Section 1: AI语音合成与角色配音 ===== -->
+    <section class="section" id="voice">
+      <div class="section-header">
+        <div class="section-icon orange">🎙️</div>
+        <div>
+          <div class="section-title">AI语音合成与角色配音</div>
+          <div class="section-subtitle">用AI TTS技术为角色赋予独特声音</div>
+        </div>
+      </div>
+
+      <p>
+        AI语音合成（Text-to-Speech, TTS）技术已经发展到可以生成高度自然、富有情感的人声。
+        对于短剧制作而言，AI配音不仅大幅降低了配音成本，还能快速迭代、反复调整，
+        直到获得最满意的声音表现。传统配音流程中需要数天完成的工作，现在数小时即可搞定。
+      </p>
+
+      <h3>主流AI配音工具对比</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>工具</th>
+              <th>中文质量</th>
+              <th>情感表达</th>
+              <th>音色克隆</th>
+              <th>价格</th>
+              <th>适用场景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ElevenLabs</strong></td>
+              <td>⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>支持（高精度）</td>
+              <td>$5-$99/月</td>
+              <td>高品质角色配音、商业项目</td>
+            </tr>
+            <tr>
+              <td><strong>豆包TTS（火山引擎）</strong></td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐</td>
+              <td>支持</td>
+              <td>按量计费，有免费额度</td>
+              <td>中文短剧首选、性价比高</td>
+            </tr>
+            <tr>
+              <td><strong>Azure TTS</strong></td>
+              <td>⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐</td>
+              <td>支持（需企业认证）</td>
+              <td>按量计费</td>
+              <td>企业级项目、多语种需求</td>
+            </tr>
+            <tr>
+              <td><strong>Fish Audio</strong></td>
+              <td>⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐</td>
+              <td>支持（开源方案）</td>
+              <td>免费/开源</td>
+              <td>独立制作、定制化需求</td>
+            </tr>
+            <tr>
+              <td><strong>ChatTTS</strong></td>
+              <td>⭐⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐</td>
+              <td>随机音色生成</td>
+              <td>免费/开源</td>
+              <td>快速原型、多角色批量生成</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>角色配音核心技巧</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>🎭 角色音色设计</h4>
+          <p>
+            为每个角色建立"声音档案"：年龄、性别、性格特征、说话习惯。
+            选择或克隆与角色匹配的音色，确保整部剧中角色声音一致。
+          </p>
+        </div>
+        <div class="card">
+          <h4>💫 情感标记</h4>
+          <p>
+            在台词旁标注情感状态（愤怒、温柔、惊讶等），利用SSML标签或工具内置情感参数，
+            让AI配音具备真实的情感起伏。
+          </p>
+        </div>
+        <div class="card">
+          <h4>⏱️ 语速节奏控制</h4>
+          <p>
+            通过调整语速（speed）、停顿（pause）和重音（emphasis）参数，
+            让对白节奏贴合画面剪辑，避免"朗读感"。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🔄 多角色切换</h4>
+          <p>
+            为不同角色分配不同音色ID，建立角色-音色对照表。
+            批量生成时按角色分组处理，确保音色不会混淆。
+          </p>
+        </div>
+      </div>
+
+      <h3>配音方向Prompt模板</h3>
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 模板 — 配音方向指引</div>
+角色：<span class="placeholder">林晓（女，28岁，职场精英）</span>
+音色：<span class="placeholder">成熟女声、略带磁性、语速偏快</span>
+
+台词01：
+文本："你以为我不知道吗？这件事从一开始就不对。"
+情感：<span class="placeholder">压抑的愤怒，表面平静但内心翻涌</span>
+节奏：<span class="placeholder">前半句缓慢、低沉；后半句加速、语气加重</span>
+备注：<span class="placeholder">不要"喊"，而是"咬牙切齿"的克制感</span>
+
+台词02：
+文本："算了……都过去了。"
+情感：<span class="placeholder">疲惫、释然、略带遗憾</span>
+节奏：<span class="placeholder">"算了"后停顿1秒，后半句轻声、放慢</span>
+备注：<span class="placeholder">声音比上一句低半个调，像是自言自语</span>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">影视人的独特优势</div>
+          <p>
+            有配音导演经验的人在这一环节优势巨大——您知道什么样的声音表演才是"对"的。
+            AI工具提供的是"声带"，而您提供的是"表演指导"。
+            这正是传统影视从业者无法被AI取代的核心竞争力。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 2: 配音实战 ===== -->
+    <section class="section" id="voice-practice">
+      <div class="section-header">
+        <div class="section-icon blue">🎬</div>
+        <div>
+          <div class="section-title">配音实战：从台词到音轨</div>
+          <div class="section-subtitle">一步步完成专业级AI配音</div>
+        </div>
+      </div>
+
+      <h3>配音工作流程</h3>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <div class="phase-num">1</div>
+          <div class="phase-body">
+            <h4>台词整理</h4>
+            <p>从剧本中提取所有对白，按角色和场次分类。为每句台词标注：</p>
+            <ul>
+              <li>角色名称与音色编号</li>
+              <li>情感状态与强度（如：愤怒 70%、悲伤 30%）</li>
+              <li>特殊要求（方言、口音、耳语等）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">2</div>
+          <div class="phase-body">
+            <h4>角色音色选择</h4>
+            <p>在AI工具中试听预设音色或上传参考音频进行音色克隆。关键考量：</p>
+            <ul>
+              <li>音色与角色年龄、性格的匹配度</li>
+              <li>音色之间的区分度（避免角色声音相似）</li>
+              <li>音色在不同情感下的表现稳定性</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">3</div>
+          <div class="phase-body">
+            <h4>逐句录制</h4>
+            <p>按台词列表逐句生成AI配音。每句生成2-3个版本，选择最佳版本。注意：</p>
+            <ul>
+              <li>每句单独生成，方便后期替换和调整</li>
+              <li>保持统一的录音参数（采样率、格式）</li>
+              <li>命名规范：场次_角色_台词序号（如 S01_林晓_001.wav）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">4</div>
+          <div class="phase-body">
+            <h4>情感调整</h4>
+            <p>对生成结果进行精细化调整：</p>
+            <ul>
+              <li>调整情感参数，让表现更贴合剧情</li>
+              <li>修改语速和停顿，配合画面节奏</li>
+              <li>必要时重新生成或拼接不同版本的片段</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">5</div>
+          <div class="phase-body">
+            <h4>音轨对齐</h4>
+            <p>将配音音频放入时间轴，与画面精确同步：</p>
+            <ul>
+              <li>对白起始时间与角色口型/动作对齐</li>
+              <li>调整音频时长，必要时微调语速</li>
+              <li>检查对白间隔是否自然</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h3>AI配音常见问题及解决方案</h3>
+      <div class="card-grid card-grid-3">
+        <div class="card">
+          <h4>✂️ 断句调整</h4>
+          <p>
+            AI有时会在不合适的位置断句。解决方法：在文本中手动添加逗号或句号控制断句位置，
+            或使用SSML的 &lt;break&gt; 标签精确控制停顿。
+          </p>
+        </div>
+        <div class="card">
+          <h4>📖 拼音标注</h4>
+          <p>
+            遇到多音字或生僻字时，在文本中标注拼音。
+            部分工具支持直接输入拼音替代汉字，确保发音准确。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🗣️ 语气词添加</h4>
+          <p>
+            适当加入"嗯""啊""呃"等语气词，以及叹息、轻笑等非语言声音，
+            让对白更贴近真实对话的感觉。
+          </p>
+        </div>
+      </div>
+
+      <h3>配音质量对比</h3>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 生硬的AI配音</div>
+          <ul>
+            <li>全程同一语速、同一音调</li>
+            <li>没有情感起伏，像在"念稿"</li>
+            <li>断句不自然，在不该停的地方停顿</li>
+            <li>多音字读错（如"还"hái/huán）</li>
+            <li>角色之间声音区分度低</li>
+            <li>对白节奏与画面完全脱节</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 自然的AI配音</div>
+          <ul>
+            <li>语速随情绪变化，有快有慢</li>
+            <li>情感饱满，关键台词有"爆发力"</li>
+            <li>断句自然，停顿有呼吸感</li>
+            <li>多音字和专有名词发音准确</li>
+            <li>每个角色声音特征鲜明</li>
+            <li>对白节奏与画面剪辑紧密配合</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">常见踩坑提醒</div>
+          <p>
+            <strong>多音字问题：</strong>中文多音字是AI配音的一大难题，如"了"（le/liǎo）、"得"（de/dé/děi）、"还"（hái/huán）等，务必逐句检查。<br>
+            <strong>专业术语发音：</strong>行业术语、人名地名等AI可能发音错误，建议用同音字替代或标注拼音。<br>
+            <strong>情感转折不自然：</strong>同一句台词中有情感转变时（如从开心到悲伤），AI往往处理不好。
+            建议将台词拆成两段分别生成，再在后期拼接。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 3: AI音乐生成 ===== -->
+    <section class="section" id="music">
+      <div class="section-header">
+        <div class="section-icon purple">🎵</div>
+        <div>
+          <div class="section-title">AI音乐生成</div>
+          <div class="section-subtitle">用AI创作专属短剧配乐</div>
+        </div>
+      </div>
+
+      <p>
+        背景配乐是短剧氛围的"隐形推手"。AI音乐生成工具让没有音乐创作能力的制作者也能获得
+        高质量的原创配乐，彻底告别版权纠纷和高昂的音乐授权费用。
+      </p>
+
+      <h3>AI音乐生成工具对比</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>工具</th>
+              <th>音乐质量</th>
+              <th>风格范围</th>
+              <th>时长</th>
+              <th>商用授权</th>
+              <th>中文歌词支持</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Suno</strong></td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>极广（流行、古风、电子、爵士等）</td>
+              <td>最长4分钟</td>
+              <td>付费版支持</td>
+              <td>支持（质量较好）</td>
+            </tr>
+            <tr>
+              <td><strong>Udio</strong></td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>极广（尤其擅长人声）</td>
+              <td>最长15分钟</td>
+              <td>付费版支持</td>
+              <td>支持</td>
+            </tr>
+            <tr>
+              <td><strong>Stable Audio</strong></td>
+              <td>⭐⭐⭐⭐</td>
+              <td>广（偏电子和氛围音乐）</td>
+              <td>最长3分钟</td>
+              <td>付费版支持</td>
+              <td>不支持歌词</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>短剧配乐类型与应用场景</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>🎼 背景配乐（BGM）</h4>
+          <p>
+            贯穿全剧的基调音乐，音量较低、旋律柔和。
+            根据场景情绪选择不同风格：温馨场景用钢琴+弦乐，紧张场景用低沉电子音。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🎤 主题曲</h4>
+          <p>
+            短剧片头或片尾使用的标志性音乐，强化品牌记忆。
+            可以用AI生成带歌词的完整歌曲，风格与剧集调性一致。
+          </p>
+        </div>
+        <div class="card">
+          <h4>💔 情绪音乐</h4>
+          <p>
+            在关键剧情节点使用的情绪强化音乐——告白、争吵、离别、重逢。
+            需要精确匹配画面情绪，是配乐中最考验功力的部分。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🔀 过场音乐</h4>
+          <p>
+            场景转换时的短小音乐片段，通常3-10秒。
+            起到"缝合"不同场景的作用，避免画面转换时的突兀感。
+          </p>
+        </div>
+      </div>
+
+      <h3>配乐生成Prompt模板</h3>
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 模板 — AI配乐生成</div>
+场景：<span class="placeholder">男女主角雨中重逢</span>
+情绪：<span class="placeholder">感动、温暖、略带忧伤</span>
+风格：<span class="placeholder">cinematic, emotional ballad</span>
+乐器：<span class="placeholder">piano, strings, soft percussion</span>
+节奏：<span class="placeholder">slow tempo, 70 BPM</span>
+时长：<span class="placeholder">2分钟</span>
+参考：<span class="placeholder">类似电影《情书》的配乐风格</span>
+
+---
+
+Suno Prompt 示例：
+"<span class="placeholder">A cinematic emotional ballad with piano and strings,
+slow tempo 70bpm, bittersweet reunion in the rain,
+gentle crescendo, warm and touching</span>"
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI音乐工具常用风格术语</div>
+          <p>
+            掌握以下英文术语能大幅提升AI音乐生成质量：<br>
+            <strong>情绪类：</strong>melancholic（忧郁）、euphoric（欢快）、tense（紧张）、serene（宁静）、dramatic（戏剧性）<br>
+            <strong>风格类：</strong>cinematic（电影感）、ambient（氛围）、orchestral（管弦乐）、lo-fi（低保真）、epic（史诗感）<br>
+            <strong>节奏类：</strong>slow tempo（慢节奏）、upbeat（明快）、rhythmic（有节奏感）、syncopated（切分节奏）<br>
+            <strong>乐器类：</strong>piano（钢琴）、strings（弦乐）、synth pad（合成器铺底）、acoustic guitar（原声吉他）
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 4: AI音效设计 ===== -->
+    <section class="section" id="sfx">
+      <div class="section-header">
+        <div class="section-icon green">🔊</div>
+        <div>
+          <div class="section-title">AI音效设计</div>
+          <div class="section-subtitle">用声音构建真实可信的画面世界</div>
+        </div>
+      </div>
+
+      <p>
+        音效（Sound Effects / SFX）是短剧音频中最容易被忽视却至关重要的部分。
+        环境音、动作音效和特殊效果共同构建了画面的"真实感"，
+        让观众从"看到"升级为"身临其境"。
+      </p>
+
+      <h3>AI音效工具</h3>
+      <div class="card-grid card-grid-3">
+        <div class="card">
+          <h4>🔉 ElevenLabs Sound Effects</h4>
+          <p>
+            通过文本描述生成任意音效，支持精确的声音描述。
+            质量高、生成快，适合大部分短剧音效需求。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🎧 Stable Audio</h4>
+          <p>
+            不仅能生成音乐，也可以生成音效和环境音。
+            擅长氛围类音效，如雨声、风声、城市背景音等。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🛠️ 自制+AI增强</h4>
+          <p>
+            用手机录制基础音效素材，再通过AI工具进行降噪、增强和风格化处理。
+            适合需要高度定制化音效的场景。
+          </p>
+        </div>
+      </div>
+
+      <h3>短剧音效分类与应用</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>音效类别</th>
+              <th>示例</th>
+              <th>应用场景</th>
+              <th>制作建议</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>环境音</strong></td>
+              <td>咖啡厅嘈杂声、街道车流、办公室键盘声、雨声</td>
+              <td>建立场景氛围，贯穿整个场景</td>
+              <td>音量低、循环播放、不抢对白</td>
+            </tr>
+            <tr>
+              <td><strong>动作音效</strong></td>
+              <td>开门声、脚步声、放下杯子、翻书声</td>
+              <td>配合画面中角色的具体动作</td>
+              <td>与画面精确同步，音量适中</td>
+            </tr>
+            <tr>
+              <td><strong>UI音效</strong></td>
+              <td>手机来电、消息提示音、闹钟</td>
+              <td>涉及电子设备的剧情场景</td>
+              <td>使用真实或近似的音效素材</td>
+            </tr>
+            <tr>
+              <td><strong>转场音效</strong></td>
+              <td>whoosh过渡音、时钟滴答、心跳声</td>
+              <td>场景切换、时间流逝、气氛转变</td>
+              <td>简短有力，3秒以内</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>音效叠加与混合技巧</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>📐 层次化叠加</h4>
+          <p>
+            将音效分层处理：底层（环境音）→ 中层（动作音效）→ 顶层（特殊效果）。
+            每层独立控制音量和空间感，避免声音"糊成一团"。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🔄 渐入渐出处理</h4>
+          <p>
+            所有音效都应添加适当的淡入淡出（Fade In/Out），
+            避免突然出现或消失造成的听觉不适。环境音尤其需要平滑过渡。
+          </p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">声音设计的最高境界</div>
+          <p>
+            好的音效设计是"看不见"的——观众不会注意到它，但如果没有，感觉就不对。
+            当观众沉浸在剧情中而完全没有意识到音效的存在时，说明您的音效设计做到了最好。
+            这和传统影视中的音效设计理念是完全一致的。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 5: 音频混合与时间轴对齐 ===== -->
+    <section class="section" id="audio-mix">
+      <div class="section-header">
+        <div class="section-icon teal">🎚️</div>
+        <div>
+          <div class="section-title">音频混合与时间轴对齐</div>
+          <div class="section-subtitle">将对白、配乐和音效融合为专业音轨</div>
+        </div>
+      </div>
+
+      <p>
+        音频混合（Audio Mixing）是将配音对白、背景配乐和音效三条独立音轨
+        融合为一条和谐统一的最终音轨的过程。这一步直接决定了短剧的"听觉品质"，
+        也是最能体现专业功底的环节。
+      </p>
+
+      <h3>混音三大原则</h3>
+      <div class="card-grid card-grid-3">
+        <div class="card">
+          <h4>🗣️ 对白优先</h4>
+          <p>
+            对白是最重要的音频元素，必须清晰可辨。
+            所有其他声音都不能遮盖对白。
+            当对白出现时，配乐和环境音应自动降低。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🎵 音乐铺底</h4>
+          <p>
+            背景配乐作为情感基调"铺"在底层，
+            音量通常是对白的30%-50%。
+            在没有对白的段落可以适当提高音乐音量。
+          </p>
+        </div>
+        <div class="card">
+          <h4>✨ 音效点缀</h4>
+          <p>
+            音效在特定时间点"点缀"，与画面动作精确同步。
+            音效不要过多——宁缺毋滥，
+            关键动作的音效才需要保留。
+          </p>
+        </div>
+      </div>
+
+      <h3>音量平衡参考</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>音频类型</th>
+              <th>建议音量范围（dB）</th>
+              <th>注意事项</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>对白/配音</strong></td>
+              <td>-12 dB ~ -6 dB</td>
+              <td>始终保持最高优先级，响度一致性很重要</td>
+            </tr>
+            <tr>
+              <td><strong>背景配乐</strong></td>
+              <td>-24 dB ~ -18 dB</td>
+              <td>有对白时降至 -24 dB，无对白时可升至 -15 dB</td>
+            </tr>
+            <tr>
+              <td><strong>环境音</strong></td>
+              <td>-30 dB ~ -20 dB</td>
+              <td>保持低音量持续播放，营造空间感</td>
+            </tr>
+            <tr>
+              <td><strong>动作音效</strong></td>
+              <td>-18 dB ~ -8 dB</td>
+              <td>根据动作的剧情重要性灵活调整</td>
+            </tr>
+            <tr>
+              <td><strong>转场音效</strong></td>
+              <td>-15 dB ~ -6 dB</td>
+              <td>短促有力，不与相邻场景的声音冲突</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">推荐音频混合工具</div>
+          <p>
+            <strong>剪映（CapCut）：</strong>最易上手，自带多轨音频编辑，适合快速制作和短视频平台发布。<br>
+            <strong>Audacity：</strong>免费开源的专业音频编辑器，支持多轨混音、降噪、均衡器等，适合精细化调整。<br>
+            <strong>DaVinci Resolve Fairlight：</strong>专业级音频后期工作站，集成在DaVinci Resolve中，
+            支持完整的混音、母带处理和环绕声制作，适合追求极致品质的项目。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 6: 课后练习 ===== -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon red">📝</div>
+        <div>
+          <div class="section-title">课后练习</div>
+          <div class="section-subtitle">动手实践，巩固本模块所学</div>
+        </div>
+      </div>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块四 · 课后练习</h2>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <strong>为模块二的剧本中3个角色分别选择/设计AI音色</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              回顾模块二中创作的剧本，为其中3个主要角色建立"声音档案"，
+              包括音色描述、情感范围和参考音色。在至少一个AI TTS工具中试听并确定最终音色。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：3份角色声音档案 + 每个角色的音色试听片段（各30秒）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <strong>完成第一场戏的完整配音（含情感标注）</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选取剧本中的第一场戏，为所有台词添加情感标注和语速指引，
+              然后使用AI配音工具完成全部对白的配音生成。注意多音字检查和情感表现。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：带情感标注的台词表 + 第一场戏全部配音音频文件</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <strong>用AI生成2段不同情绪的背景配乐</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              根据剧本中的两个不同情绪场景（如一个温馨场景、一个紧张场景），
+              编写配乐Prompt并使用Suno或Udio生成各一段背景配乐，每段不少于1分钟。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：2段AI生成配乐 + 对应的Prompt记录</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">4</div>
+          <div>
+            <strong>为一个关键场景制作完整的音频混合（对白+配乐+音效）</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选取一个关键剧情场景，将配音对白、背景配乐和至少3种音效（环境音、动作音效、转场音效）
+              进行多轨混合，按照本模块讲解的音量平衡原则输出最终音轨。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：完整混音音轨（MP3/WAV）+ 多轨时间轴截图</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Bottom Navigation ===== -->
+    <div class="bottom-nav">
+      <a href="module3.html" class="btn-prev">← 模块三：AI视频与画面生成</a>
+      <a href="module5.html" class="btn-next">模块五：AI短剧后期制作 →</a>
+    </div>
+
+    <a href="#" class="back-top" title="返回顶部">↑</a>
+
+  </main>
+</div>
+
+<!-- Scroll Spy -->
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
