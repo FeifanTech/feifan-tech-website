@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块六：项目实战——完成一部AI短剧 — AI 短剧制作实战</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🎬 AI 短剧制作实战 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html" class="active">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">本模块导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#project-plan"><span class="nav-num">①</span>项目规划与选题</a></li>
+      <li><a href="#full-workflow"><span class="nav-num">②</span>全流程实战演练</a></li>
+      <li><a href="#quality"><span class="nav-num">③</span>质量把控与常见问题</a></li>
+      <li><a href="#publish"><span class="nav-num">④</span>发布与分发策略</a></li>
+      <li><a href="#business"><span class="nav-num">⑤</span>商业模式与变现路径</a></li>
+      <li><a href="#graduation"><span class="nav-num">⑥</span>结业项目与评价标准</a></li>
+    </ul>
+
+    <div class="sidebar-title" style="margin-top:1.5rem;">快速跳转</div>
+    <ul class="sidebar-nav">
+      <li><a href="index.html">← 课程总览</a></li>
+      <li><a href="module5.html">← 模块五</a></li>
+      <li><a href="../">← 返回培训主页</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- ===== Hero ===== -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块六</span>
+        项目实战与结业
+      </div>
+      <h1>🎬 项目实战：完成一部AI短剧<br><span>综合运用全部技能，从零交付完整作品</span></h1>
+      <p class="hero-subtitle">
+        这是本课程的毕业模块。您将综合运用前五个模块学到的所有技能——从剧本创作、AI画面生成、
+        配音配乐到后期合成——独立完成一部3-5分钟的AI短剧。本模块还将涵盖项目管理、质量把控、
+        发布运营和商业变现的完整知识体系，帮助您从"学会技术"迈向"产出作品"。
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 3 课时</div>
+        <div class="hero-meta-item">🎬 全流程实战 + 结业项目</div>
+        <div class="hero-meta-item">🎯 综合运用与成片交付</div>
+        <div class="hero-meta-item">🔧 全部工具综合应用</div>
+      </div>
+    </div>
+
+    <!-- ===== Section 1: 项目规划与选题 ===== -->
+    <section class="section" id="project-plan">
+      <div class="section-header">
+        <div class="section-icon blue">📋</div>
+        <div>
+          <div class="section-title">项目规划与选题</div>
+          <div class="section-subtitle">好的开始是成功的一半——选对题材、做好规划</div>
+        </div>
+      </div>
+
+      <p>
+        一部成功的AI短剧始于周密的规划。在动手制作之前，您需要明确目标受众、选择适合AI制作的题材类型、
+        制定合理的生产时间线。不是所有题材都适合AI制作——有些类型天然契合AI的特性，
+        而有些则会放大AI的短板。选对题材，可以让您事半功倍。
+      </p>
+
+      <h3>AI短剧题材适配分析</h3>
+      <p>
+        不同题材对AI制作的友好程度差异很大。以下是各类题材的AI制作适配评估：
+      </p>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>题材类型</th>
+              <th>AI制作难度</th>
+              <th>适合原因</th>
+              <th>注意事项</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>🚀 科幻</strong></td>
+              <td>⭐ 低</td>
+              <td>未来感场景本身就"非真实"，AI的超现实风格反而是优势；特效场景天然适合AI生成</td>
+              <td>科技道具和UI界面需要保持设计一致性</td>
+            </tr>
+            <tr>
+              <td><strong>🧙 奇幻</strong></td>
+              <td>⭐ 低</td>
+              <td>魔法、异世界等元素对"真实感"要求低；观众对奇幻画面的容忍度高</td>
+              <td>魔法效果和角色造型需要在镜头间保持统一</td>
+            </tr>
+            <tr>
+              <td><strong>🔍 悬疑</strong></td>
+              <td>⭐⭐ 中</td>
+              <td>暗调画面可掩盖AI瑕疵；气氛营造可借助AI特效增强；对话驱动减少动作戏</td>
+              <td>关键线索道具必须在不同镜头中保持一致</td>
+            </tr>
+            <tr>
+              <td><strong>👘 古装</strong></td>
+              <td>⭐⭐ 中</td>
+              <td>AI擅长生成精美的古风场景和服饰；观众对古装的"画面感"有较高期待</td>
+              <td>服饰细节和历史准确性需要人工把关；角色换装时一致性挑战大</td>
+            </tr>
+            <tr>
+              <td><strong>💕 都市情感</strong></td>
+              <td>⭐⭐⭐ 高</td>
+              <td>现代场景素材丰富，贴近日常生活容易引发共鸣</td>
+              <td>对角色面部表情和肢体语言要求极高；观众对"真实感"非常敏感，微小瑕疵容易出戏</td>
+            </tr>
+            <tr>
+              <td><strong>🎨 动画风格</strong></td>
+              <td>⭐ 低</td>
+              <td>完全回避真实感问题；风格化画面天然适合AI；角色一致性更容易维持</td>
+              <td>需要确立并坚持统一的美术风格；动画运动的流畅度仍需后期优化</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">选题策略</div>
+          <p>
+            选择AI擅长的题材能事半功倍——科幻和奇幻类的"非真实感"反而是优势。
+            如果是第一次独立完成AI短剧，建议从科幻、奇幻或动画风格入手，
+            积累经验后再挑战对真实感要求更高的题材。
+          </p>
+        </div>
+      </div>
+
+      <h3>5天项目生产计划模板</h3>
+      <p>
+        以下是一份经过实践验证的5天AI短剧生产计划，适用于3-5分钟的短剧项目：
+      </p>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <div class="phase-num">1</div>
+          <div class="phase-body">
+            <h4>Day 1：策划与剧本</h4>
+            <p>
+              确定选题方向和目标受众，完成故事大纲和分场剧本撰写。
+              利用AI辅助进行创意发散和剧本润色（模块一技能）。
+              产出：完整剧本文档 + 角色设定表。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">2</div>
+          <div class="phase-body">
+            <h4>Day 2：分镜与视觉预演</h4>
+            <p>
+              根据剧本制作详细分镜表，确定每个镜头的景别、构图和运镜方式。
+              使用AI生成概念图和角色参考图（模块二技能）。
+              产出：完整分镜表 + 角色/场景参考图。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">3</div>
+          <div class="phase-body">
+            <h4>Day 3：素材生成</h4>
+            <p>
+              集中生成所有AI视频素材，包括角色画面、场景画面和动作片段。
+              同步生成配音、配乐和音效素材（模块三、四技能）。
+              产出：全部视频素材 + 全部音频素材。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">4</div>
+          <div class="phase-body">
+            <h4>Day 4：剪辑与合成</h4>
+            <p>
+              按照分镜表完成粗剪和精剪，对齐音画，添加转场和特效。
+              完成调色统一和字幕添加（模块五技能）。
+              产出：完成精剪的成片初版。
+            </p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">5</div>
+          <div class="phase-body">
+            <h4>Day 5：审核、修改与发布</h4>
+            <p>
+              全片通览检查，修复质量问题，优化细节。
+              按目标平台规格导出成品，准备封面和文案，完成发布。
+              产出：最终成品视频 + 发布素材包。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 2: 全流程实战演练 ===== -->
+    <section class="section" id="full-workflow">
+      <div class="section-header">
+        <div class="section-icon orange">🔄</div>
+        <div>
+          <div class="section-title">全流程实战演练</div>
+          <div class="section-subtitle">整合全部模块技能，走通从创意到成片的完整链路</div>
+        </div>
+      </div>
+
+      <p>
+        本节将前五个模块的技能整合为一条完整的制作流水线。每个阶段都对应您已经学过的具体技能，
+        现在要做的是把这些"珍珠"串成"项链"——让每个环节无缝衔接，形成高效的端到端工作流。
+      </p>
+
+      <h3>四大制作阶段</h3>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <div class="phase-num">1</div>
+          <div class="phase-body">
+            <h4>Phase 1：策划阶段 —— 创意→剧本→分镜（模块1-2技能）</h4>
+            <p>
+              这是整个项目的地基。从最初的创意火花出发，通过AI辅助完成故事构思、角色设计和场景规划。
+              然后将创意转化为结构化的分场剧本，最后制作详细的分镜表指导后续制作。
+            </p>
+            <ul>
+              <li>使用ChatGPT/Claude进行创意发散和剧本生成</li>
+              <li>建立角色档案卡：外貌、性格、服装、标志性特征</li>
+              <li>制作分镜表：镜号、景别、画面描述、对白、时长</li>
+              <li>输出Prompt库：为每个镜头准备AI生成提示词</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">2</div>
+          <div class="phase-body">
+            <h4>Phase 2：素材生成 —— 角色图→场景图→视频片段（模块3技能）</h4>
+            <p>
+              进入核心制作环节。根据策划阶段的产出，使用AI工具批量生成视觉素材。
+              关键挑战是保持角色在不同镜头间的一致性。
+            </p>
+            <ul>
+              <li>生成角色基准图，建立角色视觉锚点</li>
+              <li>生成场景背景图，确保风格统一</li>
+              <li>使用AI视频工具（如Runway、Pika）生成动态镜头</li>
+              <li>每个镜头生成3-5个候选版本，择优使用</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">3</div>
+          <div class="phase-body">
+            <h4>Phase 3：音频制作 —— 配音→音乐→音效（模块4技能）</h4>
+            <p>
+              为画面注入灵魂。AI配音赋予角色声音，AI配乐营造情绪氛围，音效增添真实感和沉浸感。
+            </p>
+            <ul>
+              <li>为每个角色选定AI语音并生成全部对白</li>
+              <li>根据场景情绪生成或选取背景配乐</li>
+              <li>添加环境音效和动作音效</li>
+              <li>预混音：确认各音频轨道的音量平衡</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">4</div>
+          <div class="phase-body">
+            <h4>Phase 4：后期合成 —— 剪辑→调色→字幕→输出（模块5技能）</h4>
+            <p>
+              最终的整合环节。将视频、音频、特效、字幕等所有元素在时间线上精确组装，
+              打磨细节，输出成品。
+            </p>
+            <ul>
+              <li>按分镜表顺序粗剪，建立叙事骨架</li>
+              <li>精剪节奏，添加转场，对齐音画</li>
+              <li>全片调色统一，确保视觉风格一致</li>
+              <li>添加字幕，校对文字和时间轴</li>
+              <li>按目标平台规格导出最终成品</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">迭代式制作流程</div>
+          <p>
+            这个流程并非线性的。实际制作中，您可能需要在不同阶段之间反复迭代。
+            例如，在剪辑阶段发现某个镜头效果不佳，需要返回素材生成阶段重新制作；
+            或者在配音阶段发现台词需要调整，需要回到剧本阶段修改。
+            这种迭代是正常的，关键是保持灵活性，同时用制作文档记录每次修改的原因和结果。
+          </p>
+        </div>
+      </div>
+
+      <h3>制作文档管理</h3>
+      <div class="card-grid card-grid-3">
+        <div class="card">
+          <h4>📝 剧本文档</h4>
+          <p>
+            包含完整剧本、角色设定和场景描述。
+            每次修改标注版本号和修改原因，确保团队（或自己）能追溯创作决策。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🎯 Prompt记录表</h4>
+          <p>
+            记录每个镜头使用的AI提示词、参数设置和生成结果。
+            这是最宝贵的经验积累——下次制作时可以直接复用成功的Prompt。
+          </p>
+        </div>
+        <div class="card">
+          <h4>📊 制作进度表</h4>
+          <p>
+            按场次/镜号跟踪每个素材的制作状态：待生成、已生成、已审核、需重做。
+            一目了然掌握整体进度，避免遗漏。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 3: 质量把控与常见问题 ===== -->
+    <section class="section" id="quality">
+      <div class="section-header">
+        <div class="section-icon green">✅</div>
+        <div>
+          <div class="section-title">质量把控与常见问题</div>
+          <div class="section-subtitle">建立质检清单，解决AI短剧的典型质量问题</div>
+        </div>
+      </div>
+
+      <p>
+        AI短剧的质量把控是从"能看"到"好看"的关键一步。由于AI生成素材天然存在不确定性，
+        建立系统化的质检流程尤为重要。以下是一套经过实战验证的质量检查体系。
+      </p>
+
+      <h3>五维质量检查清单</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>👤 角色一致性检查</h4>
+          <ul>
+            <li>角色面部特征在不同镜头间是否一致</li>
+            <li>服装颜色、款式是否前后统一</li>
+            <li>发型、配饰等细节是否保持不变</li>
+            <li>角色体型比例是否稳定</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>🖼️ 画面质量检查</h4>
+          <ul>
+            <li>是否存在AI伪影（多余的手指、变形等）</li>
+            <li>画面清晰度是否达标（无模糊、噪点）</li>
+            <li>光影方向是否合理且前后一致</li>
+            <li>场景背景是否与剧情设定吻合</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>🔊 音画同步检查</h4>
+          <ul>
+            <li>配音与角色口型是否基本同步</li>
+            <li>音效与画面动作是否同步</li>
+            <li>配乐的情绪节奏是否与画面匹配</li>
+            <li>各音轨音量是否平衡</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>🎬 节奏流畅性检查</h4>
+          <ul>
+            <li>镜头切换是否自然，无跳跃感</li>
+            <li>转场效果是否恰当</li>
+            <li>整体叙事节奏是否紧凑不拖沓</li>
+            <li>情绪起伏是否合理</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>📝 字幕准确性检查</h4>
+          <ul>
+            <li>字幕文字是否与配音完全一致</li>
+            <li>字幕出现/消失时间是否精准</li>
+            <li>字体大小和颜色是否清晰易读</li>
+            <li>是否有错别字或标点错误</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>常见质量问题与解决方案</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>问题</th>
+              <th>表现</th>
+              <th>解决方案</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>角色变脸</strong></td>
+              <td>同一角色在不同镜头中五官或长相发生明显变化</td>
+              <td>使用角色参考图（reference image）锁定外貌；选择支持角色一致性的工具；在Prompt中详细描述角色特征</td>
+            </tr>
+            <tr>
+              <td><strong>画面闪烁</strong></td>
+              <td>相邻帧之间色彩或亮度突然跳变，产生闪烁感</td>
+              <td>后期添加帧间平滑处理；使用调色工具统一色彩；必要时重新生成问题片段</td>
+            </tr>
+            <tr>
+              <td><strong>动作不自然</strong></td>
+              <td>角色肢体动作僵硬、关节弯曲异常或移动轨迹不合理</td>
+              <td>选择动态效果更好的AI模型；使用运动引导（motion guidance）功能；通过剪辑节奏掩盖不自然之处</td>
+            </tr>
+            <tr>
+              <td><strong>唇形不同步</strong></td>
+              <td>角色说话时嘴型与配音对白明显不匹配</td>
+              <td>使用AI唇形同步工具修正；通过切换景别（如切到特写以外的镜头）避开唇形问题；调整配音节奏</td>
+            </tr>
+            <tr>
+              <td><strong>音质不一致</strong></td>
+              <td>不同场景或角色的配音在音质、音量、混响感上有明显差异</td>
+              <td>统一音频处理参数；在同一环境设置下批量生成配音；后期用均衡器和压缩器统一音色</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>质量对比</h3>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 粗糙的AI短剧</div>
+          <ul>
+            <li>角色每个镜头长相都不同，观众无法辨识</li>
+            <li>画面风格忽而写实忽而卡通，缺乏统一感</li>
+            <li>配音与画面严重脱节，嘴型对不上</li>
+            <li>镜头切换生硬，没有转场过渡</li>
+            <li>字幕错字连篇，时间轴偏移严重</li>
+            <li>背景音乐与场景情绪完全不搭</li>
+            <li>整体像"AI素材拼贴"而非完整故事</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 精品AI短剧</div>
+          <ul>
+            <li>角色形象从头到尾高度一致，辨识度强</li>
+            <li>统一的视觉风格和调色，画面赏心悦目</li>
+            <li>配音自然流畅，音画基本同步</li>
+            <li>剪辑节奏紧凑，转场自然不突兀</li>
+            <li>字幕精准无误，排版专业美观</li>
+            <li>配乐和音效完美烘托场景氛围</li>
+            <li>有完整叙事弧线，让人想看下去</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">一致性是最大挑战</div>
+          <p>
+            AI短剧最大的质量风险是"一致性"——每个镜头单独看还行，连起来就穿帮。
+            解决这个问题没有捷径，需要在素材生成阶段就严格把控角色参考图和场景设定，
+            在后期阶段通过调色和剪辑技巧进一步弥合差异。
+            建议每完成5-10个镜头就做一次连贯性检查，及时发现和修复问题。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 4: 发布与分发策略 ===== -->
+    <section class="section" id="publish">
+      <div class="section-header">
+        <div class="section-icon purple">📱</div>
+        <div>
+          <div class="section-title">发布与分发策略</div>
+          <div class="section-subtitle">让作品触达观众——平台选择与运营技巧</div>
+        </div>
+      </div>
+
+      <p>
+        一部精心制作的AI短剧如果发布策略不当，可能无人问津。不同平台有不同的内容生态、
+        用户画像和推荐机制。了解各平台的特点和要求，才能让您的作品获得最大曝光。
+      </p>
+
+      <h3>主流平台发布规格</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>平台</th>
+              <th>推荐时长</th>
+              <th>推荐分辨率</th>
+              <th>内容风格</th>
+              <th>审核注意事项</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>抖音</strong></td>
+              <td>1-3分钟</td>
+              <td>1080×1920（竖屏）</td>
+              <td>节奏快、反转多、强钩子开头</td>
+              <td>避免暴力血腥；标注AI生成内容；版权音乐需授权</td>
+            </tr>
+            <tr>
+              <td><strong>快手</strong></td>
+              <td>1-5分钟</td>
+              <td>1080×1920（竖屏）</td>
+              <td>接地气、情感共鸣、故事完整</td>
+              <td>内容需积极向上；避免低俗擦边；AI标注要求同抖音</td>
+            </tr>
+            <tr>
+              <td><strong>B站</strong></td>
+              <td>3-10分钟</td>
+              <td>1920×1080（横屏）</td>
+              <td>创意优先、技术展示、深度内容</td>
+              <td>社区对AI内容接受度较高但需标注；鼓励分享制作过程</td>
+            </tr>
+            <tr>
+              <td><strong>微信视频号</strong></td>
+              <td>1-3分钟</td>
+              <td>1080×1920（竖屏）</td>
+              <td>正能量、知识向、家庭友好</td>
+              <td>审核较严格；敏感话题需谨慎；建议搭配公众号图文</td>
+            </tr>
+            <tr>
+              <td><strong>YouTube</strong></td>
+              <td>5-15分钟</td>
+              <td>1920×1080 / 3840×2160</td>
+              <td>高质量、国际化、系列内容</td>
+              <td>需遵守AI生成内容披露政策；注意全球版权法规</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>短剧营销四要素</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>📌 标题策略</h4>
+          <p>
+            标题是决定用户是否点击的第一要素。好的标题应该：制造悬念或冲突（"当AI觉醒后……"）、
+            包含关键词方便搜索、长度控制在15-25字、避免标题党但要有吸引力。
+            建议准备3-5个候选标题，用AI工具辅助优化。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🎨 封面设计</h4>
+          <p>
+            封面是视觉钩子。使用AI生成高质量封面图，突出核心角色或戏剧冲突画面。
+            添加简洁有力的文字标题，确保在手机小屏上也清晰可辨。
+            色彩饱和度适当提高，在信息流中更醒目。
+          </p>
+        </div>
+        <div class="card">
+          <h4>⏰ 发布时间</h4>
+          <p>
+            不同平台的用户活跃时段不同。一般规律：工作日晚上7-10点是短视频观看高峰；
+            周末全天流量较均匀；B站夜间活跃度更高。
+            首次发布建议选择周五晚间，给算法足够的冷启动时间。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🏷️ 标签使用</h4>
+          <p>
+            合理使用标签（hashtag）可以显著提升内容被推荐的概率。
+            建议组合：2-3个热门大标签 + 2-3个精准小标签 + 1个品牌标签。
+            例如：#AI短剧 #科幻微电影 #AI创作 #[作品名] 等。
+          </p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI内容标注要求</div>
+          <p>
+            越来越多的平台要求创作者披露AI生成内容。抖音、快手已明确要求标注AI生成或AI辅助内容；
+            YouTube要求在上传时声明是否使用AI生成的逼真内容。建议主动在视频描述或片尾标注
+            "本片使用AI辅助制作"，这既是合规要求，也是对观众的尊重。
+            透明标注反而能增加观众的信任感和好奇心。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 5: 商业模式与变现路径 ===== -->
+    <section class="section" id="business">
+      <div class="section-header">
+        <div class="section-icon teal">💰</div>
+        <div>
+          <div class="section-title">商业模式与变现路径</div>
+          <div class="section-subtitle">从作品到产品——探索AI短剧的商业价值</div>
+        </div>
+      </div>
+
+      <p>
+        AI短剧不仅是创意表达的载体，也是一门可以持续运营的生意。
+        相比传统短剧制作，AI短剧的核心优势在于大幅降低的制作成本和显著缩短的生产周期，
+        这使得小团队甚至个人创作者也能进行规模化内容生产。
+      </p>
+
+      <h3>五大变现模式</h3>
+      <div class="card-grid card-grid-3">
+        <div class="card">
+          <h4>📊 平台分成</h4>
+          <p>
+            通过各平台的创作者激励计划获取流量收益。
+            抖音中视频计划、B站创作激励、YouTube广告分成等。
+            优势是门槛低、可自动化，但单价较低，需要持续产出。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🎯 品牌植入</h4>
+          <p>
+            当账号积累一定粉丝后，可承接品牌合作。
+            AI短剧的优势是可以快速定制品牌内容，制作成本低、交付周期短。
+            适合消费品、游戏、App等需要创意内容的品牌。
+          </p>
+        </div>
+        <div class="card">
+          <h4>📜 IP授权</h4>
+          <p>
+            当某个系列短剧积累足够人气后，可以进行IP衍生开发。
+            包括改编为长剧、游戏、小说、周边商品等。
+            AI大幅降低了IP孵化的试错成本。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🔄 系列化运营</h4>
+          <p>
+            打造系列化内容矩阵，通过连续剧或单元剧模式持续吸引观众。
+            AI制作的高效率使得日更或周更成为可能。
+            系列化内容更容易积累粉丝和建立品牌认知。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🎓 培训输出</h4>
+          <p>
+            将AI短剧制作经验转化为培训课程或咨询服务。
+            随着行业对AI内容制作人才的需求增长，
+            具备实战经验的创作者可以通过教学实现知识变现。
+          </p>
+        </div>
+      </div>
+
+      <h3>AI短剧制作成本结构</h3>
+      <p>
+        以一部3-5分钟AI短剧的典型制作为例，以下是主要成本构成：
+      </p>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>成本项目</th>
+              <th>传统短剧</th>
+              <th>AI短剧</th>
+              <th>节省幅度</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>演员/场地</strong></td>
+              <td>5,000-50,000元</td>
+              <td>0元</td>
+              <td>100%</td>
+            </tr>
+            <tr>
+              <td><strong>拍摄设备</strong></td>
+              <td>2,000-10,000元</td>
+              <td>0元</td>
+              <td>100%</td>
+            </tr>
+            <tr>
+              <td><strong>AI工具订阅</strong></td>
+              <td>—</td>
+              <td>500-2,000元/月</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>后期制作</strong></td>
+              <td>3,000-20,000元</td>
+              <td>500-2,000元</td>
+              <td>70-90%</td>
+            </tr>
+            <tr>
+              <td><strong>配音/配乐</strong></td>
+              <td>2,000-10,000元</td>
+              <td>100-500元</td>
+              <td>90-95%</td>
+            </tr>
+            <tr>
+              <td><strong>总计（单集）</strong></td>
+              <td>12,000-90,000元</td>
+              <td>1,100-4,500元</td>
+              <td>85-95%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">低成本快速试错</div>
+          <p>
+            AI短剧的最大优势是低成本快速试错——可以同时测试多个题材方向。
+            传统模式下拍一部短剧的预算，用AI可以同时制作10-20部不同题材的作品，
+            通过数据反馈找到最受欢迎的方向，再集中资源深耕。
+            这种"广撒网、深耕耘"的策略是AI时代内容创业的核心优势。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 6: 结业项目要求与评价标准 ===== -->
+    <section class="section" id="graduation">
+      <div class="section-header">
+        <div class="section-icon red">🎓</div>
+        <div>
+          <div class="section-title">结业项目要求与评价标准</div>
+          <div class="section-subtitle">完成毕业作品，展示您的AI短剧制作能力</div>
+        </div>
+      </div>
+
+      <p>
+        恭喜您来到课程的最后环节！结业项目是对您在整个课程中所学技能的综合检验。
+        您需要独立完成一部完整的AI短剧，并提交相关制作文档。
+        这不仅是一次考核，更是您正式迈入AI短剧制作领域的第一部作品。
+      </p>
+
+      <h3>结业项目要求</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card card-lg">
+          <h4>🎬 成片要求</h4>
+          <ul>
+            <li>完成一部 <strong>3-5分钟</strong> 的AI短剧成片</li>
+            <li>包含完整的叙事弧线（开头、发展、高潮、结局）</li>
+            <li>至少包含 <strong>2个以上</strong> 的角色</li>
+            <li>至少包含 <strong>3个以上</strong> 不同的场景</li>
+            <li>配音、配乐、字幕齐全</li>
+            <li>按目标平台规格导出（至少1080p）</li>
+          </ul>
+        </div>
+        <div class="card card-lg">
+          <h4>📄 文档要求</h4>
+          <ul>
+            <li>完整的 <strong>剧本文档</strong>（含角色设定和场景描述）</li>
+            <li>详细的 <strong>分镜表</strong>（含每个镜头的提示词记录）</li>
+            <li><strong>制作过程文档</strong>：工具选择理由、关键Prompt记录、迭代过程说明</li>
+            <li><strong>制作总结</strong>：遇到的问题、解决方案、学习心得</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>评价标准</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>评价维度</th>
+              <th>评分标准</th>
+              <th>权重</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>📖 剧本质量</strong></td>
+              <td>故事完整性、情节合理性、对白自然度、角色塑造深度</td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td><strong>🖼️ 视觉效果</strong></td>
+              <td>画面质量、构图美感、色彩运用、场景氛围营造</td>
+              <td>25%</td>
+            </tr>
+            <tr>
+              <td><strong>🔊 音频质量</strong></td>
+              <td>配音表现力、配乐适配度、音效恰当性、音量平衡</td>
+              <td>15%</td>
+            </tr>
+            <tr>
+              <td><strong>✂️ 剪辑节奏</strong></td>
+              <td>镜头切换流畅度、叙事节奏把控、转场效果运用、整体节奏感</td>
+              <td>15%</td>
+            </tr>
+            <tr>
+              <td><strong>👤 角色一致性</strong></td>
+              <td>角色外貌稳定性、服装道具统一性、风格连贯性</td>
+              <td>15%</td>
+            </tr>
+            <tr>
+              <td><strong>💡 创新性</strong></td>
+              <td>题材创意、AI工具的创新运用、表现手法的独特性</td>
+              <td>10%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>继续学习路径</h3>
+      <div class="card-grid card-grid-3">
+        <div class="card">
+          <h4>🔄 系列化创作</h4>
+          <p>
+            以结业作品为起点，尝试发展为系列短剧。
+            在实战中持续打磨技能，建立自己的创作风格和工作流。
+          </p>
+        </div>
+        <div class="card">
+          <h4>🛠️ 工具深耕</h4>
+          <p>
+            深入研究1-2款核心AI工具的高级功能，
+            成为特定工具的专家级用户，提升制作效率和质量上限。
+          </p>
+        </div>
+        <div class="card">
+          <h4>👥 社区交流</h4>
+          <p>
+            加入AI创作者社区，分享作品、交流经验。
+            关注行业动态和新工具发布，保持技术敏感度。
+          </p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">🎉</div>
+        <div class="infobox-body">
+          <div class="infobox-title">恭喜您完成全部课程！</div>
+          <p>
+            从模块一的AI辅助编剧，到模块六的项目实战，您已经系统掌握了AI短剧制作的完整技能链。
+            您现在已经具备：
+          </p>
+          <ul>
+            <li>✅ 使用AI辅助完成剧本创作和分镜设计的能力</li>
+            <li>✅ 使用AI工具生成视频、图像、配音、配乐的能力</li>
+            <li>✅ 完成后期剪辑、调色、字幕、特效的能力</li>
+            <li>✅ 独立完成一部完整AI短剧的能力</li>
+            <li>✅ AI短剧发布运营和商业变现的知识</li>
+          </ul>
+          <p>
+            AI技术日新月异，今天学到的具体工具可能很快迭代更新，但您掌握的制作思维和流程方法论将长期受用。
+            保持学习、持续创作，期待在各大平台看到您的AI短剧作品！🎬
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Bottom Navigation ===== -->
+    <div class="bottom-nav">
+      <a href="module5.html" class="btn-prev">← 模块五：AI后期制作与合成</a>
+      <a href="index.html" class="btn-next">返回课程总览 →</a>
+    </div>
+
+    <a href="#" class="back-top" title="返回顶部">↑</a>
+
+  </main>
+</div>
+
+<!-- Scroll Spy -->
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
