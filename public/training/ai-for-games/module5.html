@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块五：AI驱动的游戏角色行为与智能NPC — AI × 游戏开发实战</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🎮 AI × 游戏开发实战 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html" class="active">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块五导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview"><span class="nav-num">1</span>智能NPC的前世今生</a></li>
+      <li><a href="#dialogue"><span class="nav-num">2</span>LLM驱动的NPC对话系统</a></li>
+      <li><a href="#behavior"><span class="nav-num">3</span>AI行为决策与动态行为树</a></li>
+      <li><a href="#emotion"><span class="nav-num">4</span>NPC情感系统与动态叙事</a></li>
+      <li><a href="#platforms"><span class="nav-num">5</span>智能NPC开发平台与集成</a></li>
+      <li><a href="#practice"><span class="nav-num">6</span>课后练习</a></li>
+    </ul>
+
+    <div class="sidebar-title" style="margin-top:1.5rem;">快速跳转</div>
+    <ul class="sidebar-nav">
+      <li><a href="module4.html">← 模块四</a></li>
+      <li><a href="index.html">← 课程总览</a></li>
+      <li><a href="module6.html">模块六 →</a></li>
+      <li><a href="../index.html">← 返回培训主页</a></li>
+    </ul>
+  </aside>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main class="main-content">
+
+    <!-- ============ SESSION HERO ============ -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块五</span>
+        AI角色行为 · 智能NPC · 对话系统 · 情感建模
+      </div>
+      <h1>🤖 AI驱动的游戏角色行为与智能NPC<br><span>从脚本式NPC到拥有"灵魂"的AI角色</span></h1>
+      <p class="hero-subtitle">
+        本模块深入探讨如何利用大语言模型（LLM）和AI技术，打造具备动态对话能力、自主行为决策、
+        情感记忆与个性化反应的智能NPC。从传统状态机到LLM驱动的角色行为，从静态对话树到实时生成的
+        自然语言交互，全面掌握下一代游戏角色AI的核心技术栈。
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 6 课时</div>
+        <div class="hero-meta-item">📚 核心技术模块</div>
+        <div class="hero-meta-item">🎯 AI程序员 / 游戏策划</div>
+        <div class="hero-meta-item">🔧 5+ 平台与工具</div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Section 1: 智能NPC的前世今生 -->
+    <!-- ============================================ -->
+    <section class="section" id="overview">
+      <div class="section-header">
+        <div class="section-icon blue">🧠</div>
+        <div>
+          <div class="section-title">智能NPC的前世今生</div>
+          <div class="section-subtitle">从脚本驱动到LLM赋能——游戏NPC的进化之路</div>
+        </div>
+      </div>
+
+      <p>游戏NPC（Non-Player Character）是玩家与虚拟世界交互的核心桥梁。从最早的固定台词、
+        循环巡逻，到如今能够理解上下文、记住玩家行为并做出个性化回应的AI角色，NPC技术经历了
+        数十年的迭代进化。理解这段演进史，有助于我们在设计下一代智能角色时做出更明智的技术选型。</p>
+
+      <h3 style="margin-top:2rem;">📊 NPC行为方案对比</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>方案类型</th>
+              <th>核心原理</th>
+              <th>灵活性</th>
+              <th>开发成本</th>
+              <th>典型应用</th>
+              <th>局限性</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>脚本式</strong></td>
+              <td>预写对话/行为，if-else分支</td>
+              <td>⭐</td>
+              <td>低</td>
+              <td>早期RPG、文字冒险</td>
+              <td>内容有限，无法扩展</td>
+            </tr>
+            <tr>
+              <td><strong>有限状态机 (FSM)</strong></td>
+              <td>定义状态与转换条件</td>
+              <td>⭐⭐</td>
+              <td>中低</td>
+              <td>动作游戏敌人AI</td>
+              <td>状态爆炸，维护困难</td>
+            </tr>
+            <tr>
+              <td><strong>行为树 (BT)</strong></td>
+              <td>树状节点组合行为逻辑</td>
+              <td>⭐⭐⭐</td>
+              <td>中</td>
+              <td>3A级游戏（光环、虚幻）</td>
+              <td>仍需手动设计所有分支</td>
+            </tr>
+            <tr>
+              <td><strong>目标导向行动规划 (GOAP)</strong></td>
+              <td>AI自动规划达成目标的行动序列</td>
+              <td>⭐⭐⭐⭐</td>
+              <td>高</td>
+              <td>F.E.A.R.、中土世界</td>
+              <td>规划开销大，调试复杂</td>
+            </tr>
+            <tr>
+              <td><strong>LLM驱动</strong></td>
+              <td>大语言模型实时生成行为与对话</td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>中高</td>
+              <td>新一代开放世界、社交模拟</td>
+              <td>延迟、成本、内容可控性</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:2rem;">⚖️ 传统NPC vs AI驱动NPC</h3>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 传统脚本式NPC</div>
+          <ul>
+            <li>对话内容固定，重复游玩体验一致</li>
+            <li>无法理解玩家自由输入的文字</li>
+            <li>行为模式可预测，缺乏沉浸感</li>
+            <li>新增内容需大量人工编写分支</li>
+            <li>无法根据玩家行为动态调整态度</li>
+            <li><strong>结果：玩家很快发现NPC是"木头人"</strong></li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ AI驱动智能NPC</div>
+          <ul>
+            <li>对话实时生成，每次交互都独一无二</li>
+            <li>理解自然语言，支持开放式对话</li>
+            <li>行为涌现，创造意想不到的游戏时刻</li>
+            <li>基于人设Prompt自动扩展内容</li>
+            <li>根据互动历史动态调整情感与态度</li>
+            <li><strong>结果：NPC拥有"性格"，玩家产生情感连接</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h3>🔄 范式转变：从预制内容到涌现行为</h3>
+        <p>传统NPC设计本质上是一种<strong>内容预制（Pre-authored Content）</strong>模式——
+          设计师提前编写好每一句台词、每一条行为路径。这意味着NPC的表现上限完全取决于人工投入的时间和精力。</p>
+        <p>LLM驱动的NPC则开启了<strong>涌现行为（Emergent Behavior）</strong>的新范式。
+          设计师只需定义角色的人设、知识边界和行为准则，AI会在这个框架内自主生成合理的对话和行为。
+          这不仅大幅降低了内容创作的边际成本，更让NPC能够应对设计师从未预想到的玩家行为。</p>
+        <p>斯坦福大学2023年的"Generative Agents"实验已经证明：25个AI代理在虚拟小镇中
+          自发形成了社交关系、组织活动、传播信息，展现出惊人的群体智能涌现。这预示着游戏NPC设计
+          正在经历一场深刻的革命。</p>
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1.5rem;">
+        <div class="infobox-icon">ℹ️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">行业采用现状</div>
+          <p>截至2024年，<strong>Inworld AI</strong> 已与多家3A工作室达成合作，
+            <strong>NVIDIA ACE</strong> 技术在GTC大会上引发广泛关注，
+            <strong>育碧、暴雪、Riot Games</strong> 等公司均已公开其AI NPC研发计划。
+            独立开发者也可通过 <strong>Convai、Replica Studios</strong> 等平台快速接入智能NPC能力。
+            行业共识是：AI NPC不再是实验概念，而是即将落地的核心技术。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 2: LLM驱动的NPC对话系统 -->
+    <!-- ============================================ -->
+    <section class="section" id="dialogue">
+      <div class="section-header">
+        <div class="section-icon purple">💬</div>
+        <div>
+          <div class="section-title">LLM驱动的NPC对话系统</div>
+          <div class="section-subtitle">集成ChatGPT/Claude API，打造实时动态NPC对话体验</div>
+        </div>
+      </div>
+
+      <p>对话是玩家与NPC交互最直接的方式。传统对话树虽然可控，但缺乏灵活性；
+        而大语言模型的引入让NPC真正具备了"听懂"和"会说"的能力。本节详细讲解
+        如何设计和实现一个生产级的LLM NPC对话系统。</p>
+
+      <div class="card card-lg">
+        <h3>🏗️ 对话系统架构</h3>
+        <p>一个完整的LLM NPC对话系统包含五个核心模块，形成从玩家输入到游戏反馈的完整链路：</p>
+        <p><strong>玩家输入 → 上下文管理器 → LLM API调用 → 响应过滤器 → 游戏输出</strong></p>
+        <ul>
+          <li><strong>玩家输入层：</strong>捕获文本/语音输入，进行预处理（敏感词初筛、长度限制、语言检测）</li>
+          <li><strong>上下文管理器：</strong>组装System Prompt + 角色记忆 + 游戏状态 + 近期对话历史，控制Token用量</li>
+          <li><strong>LLM API层：</strong>调用ChatGPT/Claude/本地模型，设置temperature、max_tokens等参数</li>
+          <li><strong>响应过滤器：</strong>内容安全审核、格式校验、角色一致性检查、情感标签提取</li>
+          <li><strong>游戏输出层：</strong>文本显示/TTS语音合成、触发动画/表情、更新游戏状态</li>
+        </ul>
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">Prompt 模板 — NPC角色系统提示词</span>
+你是<span class="placeholder">[角色名称]</span>，一位<span class="placeholder">[职业/身份]</span>，生活在<span class="placeholder">[游戏世界/地点]</span>。
+
+## 性格特征
+- 你的性格是<span class="placeholder">[核心性格特征，如：沉稳睿智、略带忧郁]</span>
+- 说话风格：<span class="placeholder">[语言风格，如：文雅正式、喜欢引用古诗]</span>
+- 口头禅：<span class="placeholder">[角色标志性用语]</span>
+
+## 知识边界
+- 你只了解<span class="placeholder">[游戏世界观]</span>范围内的事物
+- 你不知道现实世界的科技、品牌、历史事件
+- 你对<span class="placeholder">[特定领域]</span>非常精通，对<span class="placeholder">[其他领域]</span>知之甚少
+
+## 游戏状态感知
+- 当前时间：<span class="placeholder">[游戏内时间]</span>
+- 与玩家的关系：<span class="placeholder">[好感度/信任度数值]</span>
+- 当前情绪：<span class="placeholder">[情绪状态]</span>
+- 已知玩家信息：<span class="placeholder">[玩家曾做过的关键行为]</span>
+
+## 行为准则
+- 绝不打破角色扮演，不承认自己是AI
+- 对话长度控制在2-4句话
+- 如果玩家问超出知识范围的问题，用角色身份合理回避
+- 根据好感度调整语气：低好感→冷淡警惕，高好感→热情亲切
+
+────────── 示例 ──────────
+你是"苏老板"，一位经营百年药铺的老中医，生活在架空古风世界"云岚镇"。
+性格温和但固执，坚信传统医术，对新奇事物保持好奇但谨慎。
+说话喜欢用药材打比方，口头禅是"这味药…有意思"。
+当前好感度75/100，情绪平和。玩家曾帮他寻回失窃的药方。
+      </div>
+
+      <h3 style="margin-top:2rem;">📊 对话系统设计要素</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>设计要素</th>
+              <th>关键考量</th>
+              <th>推荐方案</th>
+              <th>风险等级</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>响应延迟</strong></td>
+              <td>玩家期望&lt;2秒得到回复</td>
+              <td>流式输出 + 打字机效果 + 本地缓存高频问题</td>
+              <td>⚠️ 高</td>
+            </tr>
+            <tr>
+              <td><strong>API成本</strong></td>
+              <td>每次对话消耗Token，大量玩家可能导致高额费用</td>
+              <td>短上下文窗口 + 摘要压缩 + 小模型优先</td>
+              <td>⚠️ 高</td>
+            </tr>
+            <tr>
+              <td><strong>内容安全</strong></td>
+              <td>防止NPC输出不当内容或被玩家诱导破坏角色</td>
+              <td>多层过滤器 + 敏感词库 + 角色一致性检测</td>
+              <td>🔴 极高</td>
+            </tr>
+            <tr>
+              <td><strong>对话记忆</strong></td>
+              <td>NPC应记住之前的对话和玩家行为</td>
+              <td>向量数据库存储 + 摘要提取 + 滑动窗口</td>
+              <td>⚠️ 中</td>
+            </tr>
+            <tr>
+              <td><strong>角色一致性</strong></td>
+              <td>NPC回答必须符合设定的人设和世界观</td>
+              <td>强System Prompt + Few-shot示例 + 后校验</td>
+              <td>⚠️ 中</td>
+            </tr>
+            <tr>
+              <td><strong>多语言支持</strong></td>
+              <td>国际化游戏需支持多种语言的NPC对话</td>
+              <td>LLM原生多语言能力 + 翻译后校验</td>
+              <td>🟡 低</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:2rem;">🔄 对话系统核心组件</h3>
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <div class="wf-icon">🎭</div>
+          <h4>角色人设Prompt</h4>
+          <p>精心设计的System Prompt是智能NPC的"灵魂"。包含性格、背景故事、说话风格、
+            知识范围等维度，让LLM在角色框架内自由发挥。好的人设Prompt能让NPC在千次对话中
+            保持一致的性格魅力。</p>
+        </div>
+        <div class="workflow-card">
+          <div class="wf-icon">🚧</div>
+          <h4>知识边界设定</h4>
+          <p>明确NPC"知道什么"和"不知道什么"是防止角色崩塌的关键。通过负面指令（不知道现实世界）
+            和正面知识注入（游戏世界设定文档），构建NPC的认知边界。RAG技术可动态注入新知识。</p>
+        </div>
+        <div class="workflow-card">
+          <div class="wf-icon">💕</div>
+          <h4>情感状态管理</h4>
+          <p>NPC的情感不应只是一个标签，而是一套动态数值系统。根据玩家行为实时更新好感度、
+            信任度、恐惧感等参数，并将这些数值注入Prompt上下文，让AI生成符合当前情感状态的回复。</p>
+        </div>
+        <div class="workflow-card">
+          <div class="wf-icon">🧠</div>
+          <h4>对话记忆系统</h4>
+          <p>短期记忆使用滑动窗口保留最近N轮对话；长期记忆通过向量数据库存储关键事件和情感节点；
+            工作记忆提取当前任务相关信息。三层记忆架构让NPC能够"记住"与每位玩家的独特故事。</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn" style="margin-top:1.5rem;">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">内容安全与响应延迟警告</div>
+          <p><strong>内容安全：</strong>LLM生成的内容不可预测，务必实现多层安全过滤机制。
+            建议在API返回后先经过敏感词检测、角色一致性校验、情感极端值过滤三道关卡，
+            再呈现给玩家。针对恶意Prompt注入攻击（如玩家试图让NPC"忘记"自己是角色），
+            需在System Prompt中加入强化防御指令。</p>
+          <p><strong>响应延迟：</strong>网络请求+模型推理通常需要1-3秒，
+            建议采用流式输出（Streaming）配合打字机动画效果，让玩家感知NPC正在"思考"，
+            同时缓存高频问答对以减少API调用。离线场景可考虑部署轻量级本地模型。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 3: AI行为决策与动态行为树 -->
+    <!-- ============================================ -->
+    <section class="section" id="behavior">
+      <div class="section-header">
+        <div class="section-icon green">🎯</div>
+        <div>
+          <div class="section-title">AI行为决策与动态行为树</div>
+          <div class="section-subtitle">用AI增强NPC的自主决策能力——巡逻、战斗、逃跑、交互、待机</div>
+        </div>
+      </div>
+
+      <p>NPC的行为不仅仅是"说话"，更包括在游戏世界中的行动决策。传统行为树需要设计师手动
+        穷举所有行为分支，而AI可以在行为框架内动态生成决策，让NPC表现出更接近"思考"的行为模式。
+        本节探讨如何将LLM与经典行为系统结合，打造既可控又智能的NPC行为。</p>
+
+      <h3 style="margin-top:2rem;">📈 AI行为决策管线</h3>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <div class="phase-num">1</div>
+          <div class="phase-body">
+            <h4>感知 (Perception)</h4>
+            <p>NPC通过游戏引擎获取环境信息：视野内的实体、声音事件、威胁等级、
+              资源位置、同伴状态等。感知层将原始游戏数据转化为结构化的"世界认知"，
+              作为AI决策的输入。感知范围和精度可根据NPC类型动态调整。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">2</div>
+          <div class="phase-body">
+            <h4>决策 (Decision)</h4>
+            <p>基于感知信息，AI评估当前情境并选择行为目标。可以使用LLM进行高层决策
+              （如"是战斗还是逃跑"），也可使用效用系统（Utility AI）对多个候选行为
+              打分排序。关键是在智能性和性能之间找到平衡点。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">3</div>
+          <div class="phase-body">
+            <h4>规划 (Planning)</h4>
+            <p>确定目标后，AI规划实现目标的行动序列。例如"逃跑"目标可能分解为：
+              识别安全区域 → 计算最优路径 → 沿途是否需要丢弃物品减速敌人。
+              GOAP算法或LLM结构化输出均可用于生成行动计划。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">4</div>
+          <div class="phase-body">
+            <h4>执行 (Execution)</h4>
+            <p>将规划好的行为序列映射到具体的游戏动作：移动指令、动画触发、
+              技能释放、物品使用等。执行层需处理行为中断（如被攻击打断当前动作）
+              和优先级切换（紧急事件覆盖当前计划）。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">5</div>
+          <div class="phase-body">
+            <h4>学习 (Learning)</h4>
+            <p>执行结果反馈回系统，更新NPC的行为倾向和记忆。如果某策略成功，
+              增加未来选择该策略的权重；如果失败，调整参数或标记该情境下的错误模式。
+              长期积累形成NPC独特的"战斗风格"和"行为习惯"。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">Prompt 模板 — NPC行为决策（结构化输出）</span>
+你是一个游戏NPC行为决策AI。根据以下场景信息，输出JSON格式的行为决策。
+
+## 当前场景
+- NPC身份：<span class="placeholder">[角色名称和类型]</span>
+- 生命值：<span class="placeholder">[当前HP/最大HP]</span>
+- 位置：<span class="placeholder">[当前坐标和区域]</span>
+- 视野内实体：<span class="placeholder">[周围NPC、敌人、物品列表]</span>
+- 当前任务：<span class="placeholder">[正在执行的任务]</span>
+- 情绪状态：<span class="placeholder">[恐惧/愤怒/平静等数值]</span>
+
+## 输出格式（严格JSON）
+{
+  "action": "<span class="placeholder">[patrol|combat|flee|interact|idle|investigate]</span>",
+  "target": "<span class="placeholder">[行为目标对象]</span>",
+  "priority": <span class="placeholder">[1-10优先级]</span>,
+  "reason": "<span class="placeholder">[决策原因简述]</span>",
+  "sub_actions": ["<span class="placeholder">[子行为序列]</span>"]
+}
+
+────────── 示例 ──────────
+场景：守卫"铁木"，HP 40/100，视野内发现3个敌人且友军已撤退
+输出：
+{
+  "action": "flee",
+  "target": "south_gate",
+  "priority": 9,
+  "reason": "生命值过低且无援军，战术撤退保存实力",
+  "sub_actions": ["smoke_bomb", "sprint_south", "alert_allies"]
+}
+      </div>
+
+      <h3 style="margin-top:2rem;">📊 NPC行为类型与实现方案</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>行为类型</th>
+              <th>触发条件</th>
+              <th>传统实现</th>
+              <th>AI增强实现</th>
+              <th>适用场景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>巡逻 (Patrol)</strong></td>
+              <td>无威胁时的默认行为</td>
+              <td>固定路点循环</td>
+              <td>AI动态生成巡逻路线，考虑时间和环境变化</td>
+              <td>开放世界守卫、城镇居民</td>
+            </tr>
+            <tr>
+              <td><strong>战斗 (Combat)</strong></td>
+              <td>检测到敌对实体</td>
+              <td>攻击距离内循环攻击</td>
+              <td>AI评估战局，选择战术（包抄、远程、撤退再战）</td>
+              <td>所有战斗类NPC</td>
+            </tr>
+            <tr>
+              <td><strong>逃跑 (Flee)</strong></td>
+              <td>HP低或威胁过高</td>
+              <td>背离敌人直线移动</td>
+              <td>AI寻找掩体、求援路线，动态调整逃跑策略</td>
+              <td>非战斗NPC、低等级敌人</td>
+            </tr>
+            <tr>
+              <td><strong>交互 (Interact)</strong></td>
+              <td>玩家接近或触发事件</td>
+              <td>固定对话树</td>
+              <td>LLM生成上下文相关的动态对话和任务</td>
+              <td>任务NPC、商人、导师</td>
+            </tr>
+            <tr>
+              <td><strong>调查 (Investigate)</strong></td>
+              <td>感知到异常（声音、痕迹）</td>
+              <td>移动到事件点，短暂等待</td>
+              <td>AI评估威胁等级，决定是否呼叫支援或独自调查</td>
+              <td>潜行游戏的巡逻敌人</td>
+            </tr>
+            <tr>
+              <td><strong>待机 (Idle)</strong></td>
+              <td>无任务无威胁</td>
+              <td>原地播放固定动画</td>
+              <td>AI生成随机生活行为（聊天、工作、休息）</td>
+              <td>城镇NPC、背景角色</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:2rem;">⚖️ 静态行为树 vs AI增强行为</h3>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 静态行为树</div>
+          <ul>
+            <li>所有行为分支必须手动设计和编码</li>
+            <li>面对未预见的情境，NPC表现僵硬</li>
+            <li>新增行为需修改树结构，易引入Bug</li>
+            <li>不同NPC间行为高度同质化</li>
+            <li>无法适应玩家策略变化</li>
+            <li><strong>开发100种行为需手写100条分支</strong></li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ AI动态行为决策</div>
+          <ul>
+            <li>AI根据情境上下文动态选择行为</li>
+            <li>能够应对设计师未预见的新情境</li>
+            <li>通过调整Prompt即可改变行为倾向</li>
+            <li>不同NPC基于个性产生差异化行为</li>
+            <li>观察玩家模式，自适应调整策略</li>
+            <li><strong>定义行为框架后AI自动组合涌现</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">推荐：混合架构（行为树 + LLM）</div>
+          <p>实际生产中，最佳实践是将<strong>行为树作为骨架</strong>，<strong>LLM作为智能节点</strong>。
+            行为树负责高优先级的确定性行为（如生命危急时必须逃跑），LLM负责低优先级的开放性决策
+            （如闲暇时做什么）。这样既保证了关键行为的可靠性和性能，又赋予NPC足够的智能感。
+            UE5的行为树中可通过自定义Task节点调用LLM API，Unity中可通过Behavior Designer插件实现类似架构。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 4: NPC情感系统与动态叙事 -->
+    <!-- ============================================ -->
+    <section class="section" id="emotion">
+      <div class="section-header">
+        <div class="section-icon orange">❤️</div>
+        <div>
+          <div class="section-title">NPC情感系统与动态叙事</div>
+          <div class="section-subtitle">为NPC注入"灵魂"——情感建模、关系演化与自适应叙事</div>
+        </div>
+      </div>
+
+      <p>真正令人难忘的NPC不仅能说会做，更重要的是有"感情"。情感系统让NPC根据与玩家的互动
+        历史产生信任、恐惧、感激、愤怒等情绪反应，这些情绪反过来影响NPC的对话语气、行为选择
+        和叙事走向，创造出真正个性化的游戏体验。</p>
+
+      <h3 style="margin-top:2rem;">💎 NPC情感维度模型</h3>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <h4>🤝 信任度</h4>
+          <p>反映NPC对玩家的信赖程度。高信任度时NPC愿意分享秘密、委托重要任务；
+            低信任度时NPC警惕防备、拒绝合作。通过完成承诺、诚实回答、帮助NPC来提升。
+            背叛行为会导致信任度断崖式下跌。</p>
+        </div>
+        <div class="skill-card">
+          <h4>😨 恐惧感</h4>
+          <p>NPC面对威胁时的恐惧程度。恐惧值高的NPC会变得顺从、颤抖、
+            回答含糊甚至逃跑。过度恐惧可能导致NPC完全拒绝交流或向其他NPC求救。
+            恐惧会随时间缓慢衰减，但创伤性事件留下持久印记。</p>
+        </div>
+        <div class="skill-card">
+          <h4>⚔️ 忠诚度</h4>
+          <p>NPC对玩家阵营的忠诚程度。高忠诚度NPC愿意冒险帮助玩家、提供折扣、
+            在关键时刻挺身而出。忠诚度受长期行为积累影响，短期行为难以大幅改变。
+            极端情况下NPC可能为玩家牺牲自己。</p>
+        </div>
+        <div class="skill-card">
+          <h4>💕 好感度</h4>
+          <p>NPC对玩家的总体好感。影响对话态度（冷漠/友善/热情）、商品价格、
+            任务奖励等。好感度是最基础的情感维度，每次正面或负面互动都会小幅调整。
+            送礼、帮忙、对话选择都是影响因素。</p>
+        </div>
+        <div class="skill-card">
+          <h4>📖 记忆深度</h4>
+          <p>NPC记住与玩家互动细节的能力。记忆深度影响NPC是否能引用过去的事件、
+            是否记得玩家的名字和偏好。通过向量数据库和摘要系统，关键记忆可以
+            持久保存，琐碎记忆逐渐淡化，模拟真实的人类记忆特征。</p>
+        </div>
+        <div class="skill-card">
+          <h4>🌊 情绪波动</h4>
+          <p>NPC情绪的不稳定程度。高波动性NPC情绪变化快，可能因小事大喜大悲；
+            低波动性NPC沉稳冷静，不易受单次事件影响。波动性是NPC性格的重要维度，
+            让不同NPC对相同事件产生截然不同的反应。</p>
+        </div>
+      </div>
+
+      <div class="prompt-template">
+        <span class="pt-label">Prompt 模板 — 情感感知NPC回复</span>
+## 角色情感状态（由游戏系统实时注入）
+- 信任度：<span class="placeholder">[0-100]</span>/100
+- 好感度：<span class="placeholder">[0-100]</span>/100
+- 恐惧感：<span class="placeholder">[0-100]</span>/100
+- 当前情绪：<span class="placeholder">[平静/喜悦/愤怒/悲伤/恐惧/惊讶]</span>
+- 情绪强度：<span class="placeholder">[轻微/中等/强烈]</span>
+
+## 情感影响规则
+- 信任度 &lt; 20：回答简短冷淡，拒绝分享信息，可能说谎
+- 信任度 20-60：正常交流，但保留敏感信息
+- 信任度 &gt; 60：愿意分享秘密，主动提供帮助
+- 恐惧感 &gt; 70：说话结巴，回避目光描述，可能求饶
+- 好感度影响称呼方式：低→"你"，中→"朋友"，高→"知己/挚友"
+
+## 回复格式
+[对话内容]
+<span class="placeholder">[emotion:当前情绪标签]</span>
+<span class="placeholder">[animation:对应表情动画ID]</span>
+
+────────── 示例 ──────────
+信任度85，好感度72，恐惧感5，情绪：喜悦（中等）
+玩家："苏老板，最近生意怎么样？"
+NPC回复："哎呀，知己来了！最近可太忙了，你上次带回的那株雪莲，
+我研究出了新配方，等会儿你一定要尝尝。这味药…有意思！"
+[emotion:joy]
+[animation:smile_warm]
+      </div>
+
+      <div class="card card-lg">
+        <h3>📖 动态叙事：让NPC关系驱动故事走向</h3>
+        <p>传统游戏叙事是<strong>线性或分支式</strong>的——玩家在预设的关键节点做选择，
+          导向不同的剧情分支。但每条分支都是设计师提前编写好的。</p>
+        <p>AI驱动的动态叙事则让<strong>NPC关系状态成为叙事引擎</strong>。当玩家与某个NPC
+          的信任度突破阈值，可能自动触发新的任务线；当玩家同时得罪了两个NPC派系，可能引发
+          意想不到的联盟剧情。NPC之间也会基于各自的情感状态互相影响，形成复杂的社交网络。</p>
+        <p>实现动态叙事的关键技术：<strong>事件触发系统</strong>（情感阈值触发剧情事件）、
+          <strong>NPC社交图谱</strong>（NPC之间的关系网络）、<strong>叙事状态机</strong>
+          （追踪全局叙事进展）、<strong>LLM叙事生成</strong>（根据当前状态生成新的任务描述和对话）。</p>
+      </div>
+
+      <div class="infobox infobox-demo" style="margin-top:1.5rem;">
+        <div class="infobox-icon">🎬</div>
+        <div class="infobox-body">
+          <div class="infobox-title">示例：情感驱动的NPC行为变化</div>
+          <p><strong>场景：</strong>药铺老板"苏老板"初始对玩家态度中立（好感度50、信任度40）。</p>
+          <p><strong>阶段一（信任建立）：</strong>玩家帮苏老板找回失窃药方 → 信任度+25，好感度+15。
+            苏老板开始称呼玩家"小友"，主动提供折扣，愿意讲述药铺的历史。</p>
+          <p><strong>阶段二（深度信任）：</strong>玩家多次完成委托且从未出卖信息 → 信任度90+。
+            苏老板深夜秘密联系玩家，透露镇上暗藏的阴谋，委托调查失踪的药材商。新任务线自动触发。</p>
+          <p><strong>分支（背叛路线）：</strong>若玩家将苏老板的秘密出卖给竞争对手 → 信任度骤降至10。
+            苏老板变得冷漠甚至敌视，关闭商店拒绝交易，后续可能雇人对付玩家。游戏体验完全不同。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 5: 智能NPC开发平台与集成 -->
+    <!-- ============================================ -->
+    <section class="section" id="platforms">
+      <div class="section-header">
+        <div class="section-icon teal">🔧</div>
+        <div>
+          <div class="section-title">智能NPC开发平台与集成</div>
+          <div class="section-subtitle">主流NPC AI平台评测——从零代码方案到深度自定义集成</div>
+        </div>
+      </div>
+
+      <p>开发智能NPC不必从零开始。市面上已有多个成熟的NPC AI平台，提供从角色创建、
+        对话管理到引擎集成的完整工具链。本节详细介绍主流平台的特点和集成方法，
+        帮助你根据项目需求做出最佳选择。</p>
+
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tool-icon">🌐</div>
+          <h4>Inworld AI</h4>
+          <p>行业领先的NPC AI平台，提供可视化角色编辑器、多模态交互（文字+语音+手势）、
+            情感系统和记忆管理。已与3A工作室合作，支持UE5和Unity插件化集成。</p>
+          <span class="tool-tag">3A级方案</span>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon">🤖</div>
+          <h4>Convai</h4>
+          <p>专注于对话式AI角色，提供语音交互、知识库管理和行为触发器。
+            免费层支持独立开发者原型开发，API灵活易用，学习曲线平缓。</p>
+          <span class="tool-tag">独立开发者友好</span>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon">💚</div>
+          <h4>NVIDIA ACE</h4>
+          <p>NVIDIA的AI角色引擎，集成Audio2Face面部动画、Riva语音识别和NeMo大模型。
+            提供端到端的智能NPC方案，适合追求极致视觉表现的项目。</p>
+          <span class="tool-tag">视觉+语音</span>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon">🎙️</div>
+          <h4>Replica Studios</h4>
+          <p>以AI语音合成见长，提供高品质的NPC语音克隆和实时TTS。
+            可与其他对话AI方案配合使用，为文本对话添加逼真的语音表现。</p>
+          <span class="tool-tag">语音合成</span>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon">🔨</div>
+          <h4>自定义LLM集成</h4>
+          <p>直接调用OpenAI/Claude/本地LLM API，完全自主控制对话逻辑、
+            角色系统和记忆管理。灵活度最高但开发工作量最大，适合有AI工程能力的团队。</p>
+          <span class="tool-tag">完全自主</span>
+        </div>
+      </div>
+
+      <h3 style="margin-top:2rem;">📊 平台对比评测</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>平台</th>
+              <th>对话质量</th>
+              <th>语音支持</th>
+              <th>引擎集成</th>
+              <th>价格模式</th>
+              <th>上手难度</th>
+              <th>适合团队</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Inworld AI</strong></td>
+              <td>⭐⭐⭐⭐⭐</td>
+              <td>✅ 内置</td>
+              <td>UE5 / Unity 插件</td>
+              <td>按交互量计费</td>
+              <td>中等</td>
+              <td>中大型工作室</td>
+            </tr>
+            <tr>
+              <td><strong>Convai</strong></td>
+              <td>⭐⭐⭐⭐</td>
+              <td>✅ 内置</td>
+              <td>UE5 / Unity / Web</td>
+              <td>免费层 + 付费扩展</td>
+              <td>低</td>
+              <td>独立开发者/小团队</td>
+            </tr>
+            <tr>
+              <td><strong>NVIDIA ACE</strong></td>
+              <td>⭐⭐⭐⭐</td>
+              <td>✅ Audio2Face</td>
+              <td>UE5 / Omniverse</td>
+              <td>企业授权</td>
+              <td>高</td>
+              <td>3A工作室</td>
+            </tr>
+            <tr>
+              <td><strong>Replica Studios</strong></td>
+              <td>⭐⭐⭐</td>
+              <td>✅ 核心功能</td>
+              <td>API / UE5插件</td>
+              <td>订阅制</td>
+              <td>低</td>
+              <td>需要语音方案的团队</td>
+            </tr>
+            <tr>
+              <td><strong>自定义LLM</strong></td>
+              <td>取决于模型</td>
+              <td>需自行集成</td>
+              <td>完全自定义</td>
+              <td>API Token费用</td>
+              <td>高</td>
+              <td>有AI工程师的团队</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:2rem;">📈 平台集成流程</h3>
+      <div class="phase-timeline">
+        <div class="phase-item">
+          <div class="phase-num">1</div>
+          <div class="phase-body">
+            <h4>选择平台</h4>
+            <p>根据项目规模、预算、技术栈和NPC复杂度选择合适的平台。
+              独立开发者建议从Convai免费层起步快速验证概念；
+              中大型项目考虑Inworld AI获取企业级支持；
+              追求极致表现选择NVIDIA ACE生态。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">2</div>
+          <div class="phase-body">
+            <h4>创建角色</h4>
+            <p>在平台中定义NPC的人设：名字、背景故事、性格特征、说话风格、
+              知识范围。大多数平台提供可视化编辑器，可直接在Web界面中配置角色属性，
+              并实时测试对话效果。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">3</div>
+          <div class="phase-body">
+            <h4>配置行为</h4>
+            <p>设置NPC的行为触发器、情感参数、记忆规则和对话边界。
+              定义NPC在不同游戏事件下的反应方式，如任务完成后表达感谢、
+              被攻击后变得敌对等。部分平台支持可视化行为流程编辑。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">4</div>
+          <div class="phase-body">
+            <h4>引擎集成</h4>
+            <p>通过官方SDK/插件将NPC AI接入游戏引擎。UE5和Unity通常提供现成插件，
+              安装后只需配置API密钥和角色ID。自定义方案需编写HTTP客户端调用REST API，
+              处理异步回调和错误重试。</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="phase-num">5</div>
+          <div class="phase-body">
+            <h4>测试优化</h4>
+            <p>进行系统性的对话测试：覆盖边界情况、恶意输入、长对话记忆、多NPC交互等场景。
+              监控API延迟和成本数据，优化上下文长度和调用频率。收集QA团队和玩家反馈，
+              持续迭代角色Prompt和行为配置。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1.5rem;">
+        <div class="infobox-icon">ℹ️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">平台方案 vs 自定义方案：如何选择？</div>
+          <p><strong>选择平台方案的场景：</strong>团队缺少AI/NLP专业人员、项目周期紧张需要快速原型、
+            需要语音+面部动画等多模态功能、预算充足且追求稳定性。平台方案的优势是大幅降低开发门槛，
+            让游戏设计师而非AI工程师也能创建智能NPC。</p>
+          <p><strong>选择自定义方案的场景：</strong>团队拥有AI工程能力、对NPC行为有高度定制化需求、
+            需要完全控制数据隐私和成本、计划在本地部署模型减少延迟。自定义方案的优势是灵活性和长期成本控制，
+            但需要更多的前期投入和持续维护。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 6: 课后练习 -->
+    <!-- ============================================ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon orange">📝</div>
+        <div>
+          <div class="section-title">课后练习</div>
+          <div class="section-subtitle">动手实践——设计你的第一个智能NPC角色</div>
+        </div>
+      </div>
+
+      <p>通过以下三个练习，将本模块学到的理论知识转化为实际技能。每个练习都对应一个核心知识点，
+        完成后你将拥有设计和实现智能NPC的基础能力。</p>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>📝 练习一：设计NPC角色系统提示词</h4>
+        <p><strong>目标：</strong>为一个游戏NPC编写完整的System Prompt，包含性格、知识边界和情感状态。</p>
+        <ul>
+          <li>选择一个游戏世界观（奇幻、科幻、古风、末日等）</li>
+          <li>创建一个NPC角色：定义名字、职业、背景故事</li>
+          <li>编写性格特征（至少3个维度）和说话风格</li>
+          <li>定义知识边界：NPC知道什么、不知道什么</li>
+          <li>设置情感参数初始值和变化规则</li>
+          <li>编写3组测试对话，验证Prompt在不同情感状态下的表现</li>
+        </ul>
+        <p><strong>提交：</strong>完整的System Prompt文档 + 测试对话记录</p>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>📝 练习二：设计NPC行为决策流程图</h4>
+        <p><strong>目标：</strong>为一个战斗型NPC设计AI辅助的行为决策系统。</p>
+        <ul>
+          <li>绘制感知→决策→规划→执行→学习的完整管线图</li>
+          <li>定义至少5种行为类型及其触发条件</li>
+          <li>设计混合架构：标注哪些行为由行为树处理、哪些由LLM决策</li>
+          <li>编写一个LLM行为决策的Prompt，输出结构化JSON</li>
+          <li>考虑性能优化：LLM调用频率限制、缓存策略、降级方案</li>
+        </ul>
+        <p><strong>提交：</strong>行为决策流程图 + LLM决策Prompt + 性能优化方案文档</p>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>📝 练习三：构建对话原型</h4>
+        <p><strong>目标：</strong>使用NPC AI平台（Inworld AI 或 Convai）构建一个可交互的NPC对话原型。</p>
+        <ul>
+          <li>注册Convai或Inworld AI账号（均有免费层）</li>
+          <li>使用练习一设计的角色创建AI NPC</li>
+          <li>配置角色的知识库、情感参数和行为触发器</li>
+          <li>进行至少10轮多样化测试对话</li>
+          <li>记录NPC表现：角色一致性、回复质量、情感表现</li>
+          <li>总结优化方向和改进建议</li>
+        </ul>
+        <p><strong>提交：</strong>平台角色配置截图 + 测试对话记录 + 分析报告</p>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">练习完成提示</div>
+          <p>完成三个练习后，你已经掌握了智能NPC设计的核心技能：<strong>角色人设设计、行为架构规划、
+            平台实战集成</strong>。在下一个模块中，我们将探讨如何将这些AI能力整合到完整的游戏开发
+            流程中，打造端到端的AI增强游戏体验。建议在进入模块六之前，确保练习三的对话原型能够
+            正常运行并展现出基本的智能交互能力。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BOTTOM NAV ============ -->
+    <div class="bottom-nav">
+      <a href="module4.html" class="btn-prev">← 模块四：AI驱动的游戏关卡与场景设计</a>
+      <a href="module6.html" class="btn-next">模块六 →</a>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
