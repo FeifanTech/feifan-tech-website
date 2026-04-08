@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块三：AI视觉素材生成 — AI 短剧制作实战</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🎬 AI 短剧制作实战 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html" class="active">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块三导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#image-tools"><span class="nav-num">1</span>图片生成工具</a></li>
+      <li><a href="#character-consistency"><span class="nav-num">2</span>角色一致性</a></li>
+      <li><a href="#video-gen"><span class="nav-num">3</span>视频生成</a></li>
+      <li><a href="#style-unity"><span class="nav-num">4</span>风格统一</a></li>
+      <li><a href="#workflow"><span class="nav-num">5</span>生产工作流</a></li>
+      <li><a href="#practice"><span class="nav-num">6</span>课后练习</a></li>
+    </ul>
+
+    <div class="sidebar-title" style="margin-top:1.5rem;">快速跳转</div>
+    <ul class="sidebar-nav">
+      <li><a href="index.html">← 课程总览</a></li>
+      <li><a href="module2.html">← 模块二</a></li>
+      <li><a href="module4.html">模块四 →</a></li>
+      <li><a href="../index.html">← 返回培训主页</a></li>
+    </ul>
+  </aside>
+
+  <!-- ===== Main Content ===== -->
+  <main class="main-content">
+
+    <!-- Session Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块三</span>
+        AI视觉素材生成
+      </div>
+      <h1>🎨 AI视觉素材生成：图片与视频<br><span>从概念到可用的影视级视觉素材</span></h1>
+      <p class="hero-subtitle">
+        深入学习AI图片生成与视频生成的主流工具和核心技术，攻克角色一致性这一AI短剧的最大挑战，
+        掌握画面风格统一的方法论，建立完整的视觉素材生产工作流。
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 5 课时</div>
+        <div class="hero-meta-item">📖 实操 + 工具对比</div>
+        <div class="hero-meta-item">🎯 美术/导演/制片适用</div>
+        <div class="hero-meta-item">🔧 Midjourney · FLUX · 可灵 · Vidu</div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Section 1: AI图片生成工具详解 -->
+    <!-- ============================================ -->
+    <section class="section" id="image-tools">
+      <div class="section-header">
+        <div class="section-icon blue">🖼️</div>
+        <div>
+          <div class="section-title">AI图片生成工具详解</div>
+          <div class="section-subtitle">选对工具，事半功倍——主流AI图片生成工具的能力与适用场景</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🔍 为什么工具选择至关重要？</h4>
+        <p>AI短剧制作的第一步是生成大量视觉素材：角色设定图、场景概念图、分镜参考图等。不同的AI图片生成工具在画风、人物表现力、可控性和价格上差异巨大，选错工具可能导致大量返工。</p>
+        <p>作为影视专业人士，您需要像选择摄影器材一样精心选择AI工具——<strong>没有"最好的"工具，只有"最合适的"工具</strong>。下面我们逐一分析当前主流AI图片生成工具的特点。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">主流AI图片生成工具对比</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>工具</th>
+              <th>优势</th>
+              <th>局限</th>
+              <th>适用场景</th>
+              <th>价格区间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Midjourney</strong></td>
+              <td>画面美感极强，构图专业，风格化能力突出，上手简单</td>
+              <td>人物精细控制较弱，无法本地部署，需翻墙</td>
+              <td>场景概念图、风格探索、艺术化海报</td>
+              <td>$10-60/月</td>
+            </tr>
+            <tr>
+              <td><strong>FLUX（via ComfyUI）</strong></td>
+              <td>开源免费，可本地部署，支持LoRA/ControlNet，人物一致性方案成熟</td>
+              <td>学习曲线陡峭，需要一定硬件配置，需ComfyUI工作流搭建</td>
+              <td>角色设定图、分镜批量生成、需要精确控制的场景</td>
+              <td>免费（需自备GPU）</td>
+            </tr>
+            <tr>
+              <td><strong>Stable Diffusion（SDXL/SD3）</strong></td>
+              <td>开源生态丰富，ControlNet成熟，社区模型多，可深度定制</td>
+              <td>原生画质不如MJ，需要大量参数调优，显存要求高</td>
+              <td>需要ControlNet精确控制的分镜、特定风格模型应用</td>
+              <td>免费（需自备GPU）</td>
+            </tr>
+            <tr>
+              <td><strong>通义万相</strong></td>
+              <td>中文理解优秀，国内直接使用，无需翻墙，人像质量好</td>
+              <td>开放性不如开源方案，风格可控性有限</td>
+              <td>中文场景快速出图、国内项目快速原型</td>
+              <td>免费/按量计费</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">不同任务的最佳工具推荐</h4>
+      <div class="card-grid card-grid-3">
+        <div class="card">
+          <h4>🧑‍🎨 角色设定图</h4>
+          <p><strong>首选：FLUX + ComfyUI</strong></p>
+          <p>角色设定图需要高度的可控性和一致性。FLUX配合IP Adapter和LoRA，可以精确控制角色的面部特征、服装细节和姿态，是目前角色设定的最优方案。</p>
+        </div>
+        <div class="card">
+          <h4>🏞️ 场景概念图</h4>
+          <p><strong>首选：Midjourney</strong></p>
+          <p>场景概念图追求的是整体氛围和美感。Midjourney在构图、光影和氛围感方面无出其右，一条Prompt就能生成电影级的场景概念图，效率极高。</p>
+        </div>
+        <div class="card">
+          <h4>🎬 分镜参考图</h4>
+          <p><strong>首选：FLUX / SD + ControlNet</strong></p>
+          <p>分镜图需要精确的构图控制和角色位置摆放。ControlNet可以通过姿态骨架、深度图等方式精确控制画面构图，完美匹配分镜表的要求。</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">影视人的工具选择策略</div>
+          <p>不要试图用一个工具解决所有问题。实际项目中，建议采用<strong>组合方案</strong>：用Midjourney做场景和风格探索，用FLUX+ComfyUI做角色和分镜的精确生成，用通义万相做中文场景的快速原型。就像传统拍摄中，不同场景会选择不同的镜头和灯光方案一样。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 2: 角色一致性 -->
+    <!-- ============================================ -->
+    <section class="section" id="character-consistency">
+      <div class="section-header">
+        <div class="section-icon orange">🎭</div>
+        <div>
+          <div class="section-title">角色一致性：AI短剧的核心挑战</div>
+          <div class="section-subtitle">让同一个角色在每个镜头中都"像同一个人"</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🚨 为什么角色一致性是最大挑战？</h4>
+        <p>在传统影视中，角色一致性是天然保证的——同一个演员出现在不同场景中。但AI生成的图片和视频中，即使使用相同的Prompt描述，每次生成的"同一角色"在面部特征、体型比例、服装细节上都可能出现明显差异。</p>
+        <p>这个问题直接决定了AI短剧的<strong>可看性和专业度</strong>。观众可以接受AI画面的些许不完美，但无法接受主角在不同镜头中变成了"不同的人"。角色一致性是区分"AI实验作品"与"AI商业作品"的分水岭。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">五大角色一致性技术方案</h4>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>📋 角色参考图（Character Sheet）</h4>
+          <p>为每个角色生成一张多角度参考图（正面、侧面、3/4角度），明确角色的面部特征、发型、服装等所有视觉要素。这是最基础也最重要的一步，后续所有图片和视频生成都以此为参照。</p>
+        </div>
+        <div class="card">
+          <h4>🔌 IP Adapter</h4>
+          <p>IP Adapter是一种图像提示适配器，可以将参考图片的视觉特征"注入"到新生成的图片中。在ComfyUI中使用IP Adapter，可以让生成的角色在面部特征上高度接近参考图，是目前最便捷的一致性方案。</p>
+        </div>
+        <div class="card">
+          <h4>🧬 LoRA训练</h4>
+          <p>通过用特定角色的多张图片训练一个LoRA模型，让AI"学会"这个角色的视觉特征。训练完成后，只需在Prompt中触发LoRA，就能稳定生成该角色。效果最好，但需要一定的训练时间和技术门槛。</p>
+        </div>
+        <div class="card">
+          <h4>🎲 一致性种子（Seed）</h4>
+          <p>在同一模型中使用固定的随机种子（Seed），配合高度相似的Prompt，可以获得一定程度的一致性。这是最简单但效果最弱的方案，通常作为辅助手段与其他技术配合使用。</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>👤 面部参考（Face Reference）</h4>
+        <p>部分工具（如可灵、Midjourney的--cref参数）支持直接上传面部参考图，在生成新图片时保持面部特征一致。这种方式操作简便，适合快速生成不同场景下的同一角色。不同工具的面部参考能力差异较大，需要逐一测试。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">角色设定图生成工作流</h4>
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 模板 — 角色设定图（Character Sheet）</div>
+character design sheet, multiple views of the same character,
+front view, side view, 3/4 view, back view,
+
+角色描述：<span class="placeholder">25岁中国女性 / 短发 / 干练职场风 / 白色衬衫+黑色西装裤</span>
+面部特征：<span class="placeholder">圆脸 / 单眼皮 / 自然妆容 / 坚定的眼神</span>
+体型比例：<span class="placeholder">中等身材 / 165cm / 匀称体型</span>
+服装细节：<span class="placeholder">白色立领衬衫 / 黑色修身西装裤 / 黑色尖头高跟鞋</span>
+配色方案：<span class="placeholder">黑白灰为主 / 点缀金色饰品</span>
+
+white background, clean layout, consistent proportions,
+professional character reference sheet, high detail
+      </div>
+
+      <div class="prompt-template" style="margin-top:1rem;">
+        <div class="pt-label">Prompt 模板 — IP Adapter一致性生成</div>
+[在ComfyUI中配置IP Adapter节点]
+
+步骤1：加载角色参考图作为 IP Adapter 输入
+步骤2：设置 IP Adapter 权重为 <span class="placeholder">0.7-0.85</span>（过高会限制姿态变化）
+步骤3：在文本Prompt中描述新场景：
+
+<span class="placeholder">角色名</span>, same character as reference,
+场景：<span class="placeholder">在办公室开会 / 认真讨论的表情 / 坐在会议桌前</span>
+镜头：<span class="placeholder">medium shot / 中景 / 略微俯拍</span>
+光线：<span class="placeholder">办公室日光灯 / 柔和均匀的光线</span>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">角色一致性效果对比</h4>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 不一致的角色</div>
+          <ul>
+            <li><strong>镜头1：</strong>圆脸、长发、浓妆</li>
+            <li><strong>镜头2：</strong>瓜子脸、短发、淡妆</li>
+            <li><strong>镜头3：</strong>五官比例完全不同</li>
+            <li><strong>镜头4：</strong>服装颜色和款式变化</li>
+          </ul>
+          <p style="margin-top:0.75rem;"><strong>问题：</strong>观众无法辨认这是同一个角色，严重破坏叙事连贯性，作品显得业余，无法用于商业项目。</p>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ 一致的角色</div>
+          <ul>
+            <li><strong>镜头1：</strong>面部特征稳定，五官比例一致</li>
+            <li><strong>镜头2：</strong>不同角度下仍可辨认同一人</li>
+            <li><strong>镜头3：</strong>服装风格统一，细节匹配</li>
+            <li><strong>镜头4：</strong>表情变化自然，角色神态连贯</li>
+          </ul>
+          <p style="margin-top:0.75rem;"><strong>优势：</strong>观众自然接受这是同一角色，叙事流畅，作品具备商业化水准，可用于正式发行。</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn" style="margin-top:1rem;">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">角色一致性是AI短剧质量的分水岭</div>
+          <p>在整个AI短剧制作流程中，角色一致性是需要花<strong>最多时间打磨</strong>的环节。建议在正式生产之前，用至少1-2天时间专门测试和优化角色参考图与一致性方案。宁可前期多花时间建立稳定的角色方案，也不要在后期面对几十个镜头中"面目全非"的角色返工。这就像传统拍摄中的选角和定妆——定妆照不满意，宁可推迟开机。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 3: AI视频生成实战 -->
+    <!-- ============================================ -->
+    <section class="section" id="video-gen">
+      <div class="section-header">
+        <div class="section-icon green">🎥</div>
+        <div>
+          <div class="section-title">AI视频生成实战</div>
+          <div class="section-subtitle">将静态画面变为动态影像——AI视频生成工具实操指南</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🎬 从图片到视频：AI短剧的关键一跃</h4>
+        <p>AI视频生成是整个短剧制作流程中最激动人心的环节——将精心设计的角色图和场景图"动"起来。当前AI视频生成有两种主要模式：<strong>图生视频（Image-to-Video, i2v）</strong>和<strong>文生视频（Text-to-Video, t2v）</strong>。</p>
+        <p>对于AI短剧制作，我们强烈推荐以<strong>图生视频（i2v）</strong>为核心工作模式。原因很简单：先用图片工具确保角色和画面的质量与一致性，再将确认好的图片转化为视频，比直接用文字生成视频的可控性高出数倍。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">主流AI视频生成工具对比</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>工具</th>
+              <th>图生视频能力</th>
+              <th>文生视频能力</th>
+              <th>最长时长</th>
+              <th>运动控制</th>
+              <th>国内可用</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>可灵 (Kling)</strong></td>
+              <td>★★★★★ 人物动作自然，面部表情丰富，支持口型驱动</td>
+              <td>★★★★ 语义理解较好，场景生成稳定</td>
+              <td>10秒</td>
+              <td>支持运动笔刷、起止帧控制</td>
+              <td>✅ 直接可用</td>
+            </tr>
+            <tr>
+              <td><strong>Vidu</strong></td>
+              <td>★★★★ 画面质感优秀，人物一致性较好</td>
+              <td>★★★★ 中文理解优秀，场景丰富</td>
+              <td>8秒</td>
+              <td>支持镜头运动控制</td>
+              <td>✅ 直接可用</td>
+            </tr>
+            <tr>
+              <td><strong>Runway Gen-3</strong></td>
+              <td>★★★★ 画面质感精致，风格化能力强</td>
+              <td>★★★★★ 对英文Prompt响应精确</td>
+              <td>10秒</td>
+              <td>支持Motion Brush、Camera控制</td>
+              <td>❌ 需翻墙</td>
+            </tr>
+            <tr>
+              <td><strong>Pika</strong></td>
+              <td>★★★ 适合简单运动，风格独特</td>
+              <td>★★★ 短片段效果不错</td>
+              <td>4秒</td>
+              <td>支持基础运动方向控制</td>
+              <td>❌ 需翻墙</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">四大核心概念</h4>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>🖼️→🎥 图生视频（i2v）</h4>
+          <p>以一张或多张静态图片为起点，AI根据图片内容和文字描述生成视频。优势在于可以精确控制画面起点，角色一致性最高。是AI短剧制作的<strong>核心工作模式</strong>。</p>
+        </div>
+        <div class="card">
+          <h4>✏️→🎥 文生视频（t2v）</h4>
+          <p>仅通过文字描述生成视频，无需提供参考图片。生成自由度最高但可控性最低，适合生成无角色的空镜头、自然景观等场景，不建议用于角色镜头。</p>
+        </div>
+        <div class="card">
+          <h4>🔄 视频续写</h4>
+          <p>以一段现有视频的最后一帧为起点，继续生成后续动作。可以将多个短片段首尾相连，延长视频时长。注意：续写次数过多会导致画面质量和一致性逐渐下降。</p>
+        </div>
+        <div class="card">
+          <h4>🎮 运动控制</h4>
+          <p>通过运动笔刷、起止帧、镜头参数等方式控制视频中物体和镜头的运动方式。对于影视专业人士，这是最重要的功能——它让您能够像操控摄影机一样"导演"AI视频。</p>
+        </div>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">视频生成Prompt模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 模板 — 图生视频（i2v）影视级参数</div>
+[上传角色/场景图片作为参考帧]
+
+画面描述：<span class="placeholder">女主角缓缓转头，目光从窗外收回，看向桌上的手机</span>
+
+运动描述：
+- 角色动作：<span class="placeholder">缓慢转头 / 自然眨眼 / 表情从平静转为惊讶</span>
+- 镜头运动：<span class="placeholder">固定机位 / 缓推 / 缓慢zoom in到面部特写</span>
+- 环境运动：<span class="placeholder">窗帘微微飘动 / 背景光线无变化</span>
+
+影视参数：
+- 景别：<span class="placeholder">medium close-up / 中近景</span>
+- 节奏：<span class="placeholder">slow and deliberate / 缓慢而克制</span>
+- 情绪：<span class="placeholder">tension building / 紧张感递增</span>
+- 光线：<span class="placeholder">侧光 / 明暗对比强烈 / 暖色调</span>
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1rem;">
+        <div class="infobox-icon">📌</div>
+        <div class="infobox-body">
+          <div class="infobox-title">图生视频优先原则</div>
+          <p>建议在AI短剧制作中始终使用<strong>"图生视频"模式</strong>而非"文生视频"。图生视频的核心优势在于：图片阶段可以反复调整直到满意，确保角色一致性和画面质量后再生成视频，避免视频阶段的不可控返工。文生视频只建议用于无人物的空镜头（如风景、建筑外观、天气变化等过渡镜头）。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 4: 画面风格统一 -->
+    <!-- ============================================ -->
+    <section class="section" id="style-unity">
+      <div class="section-header">
+        <div class="section-icon purple">🎨</div>
+        <div>
+          <div class="section-title">画面风格统一</div>
+          <div class="section-subtitle">让每一帧都属于同一部作品——视觉一致性的系统方法</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🎞️ 风格统一：从"AI拼贴"到"AI电影"</h4>
+        <p>除了角色一致性之外，画面风格的统一是AI短剧看起来"专业"还是"业余"的另一个关键因素。即使角色完全一致，如果不同镜头的色调、光影、质感不统一，整部作品看起来仍然会像"AI图片的幻灯片拼贴"而非一部完整的影视作品。</p>
+        <p>影视专业人士在这方面有天然优势——您已经熟悉色彩管理、光影设计和视觉叙事语言，现在要做的只是<strong>将这些专业知识转化为AI可理解的风格参数</strong>。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">风格统一的四大维度</h4>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>🎨 色调（Color Tone）</h4>
+          <p>定义作品的整体色彩倾向。例如：暖色调（琥珀色/橙色氛围）、冷色调（蓝灰色调）、低饱和度（胶片感）、高对比度（戏剧化）。所有镜头必须遵循统一的色调方案，就像传统后期中的统一调色。</p>
+        </div>
+        <div class="card">
+          <h4>💡 光影风格（Lighting Style）</h4>
+          <p>确定光线的质感和方向。例如：柔光（均匀散射光）、硬光（强烈方向性光源）、伦勃朗光（经典三角光）、自然光（真实环境光感）。光影风格直接决定画面的情绪基调。</p>
+        </div>
+        <div class="card">
+          <h4>📷 画面质感（Visual Texture）</h4>
+          <p>定义画面的"物质感"。例如：电影胶片感（颗粒+微微过曝）、数字电影感（干净锐利）、复古DV风格（低分辨率+色彩偏移）、动画渲染风格。质感统一能让作品产生独特的视觉标识。</p>
+        </div>
+        <div class="card">
+          <h4>🕰️ 时代感（Period Aesthetics）</h4>
+          <p>如果作品有特定的时代背景，所有视觉元素需要匹配该时代的美学特征。例如：90年代（粗颗粒、暖黄色调、CRT质感）、未来科幻（冷蓝色、高科技材质、霓虹灯光）。</p>
+        </div>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">风格指南Prompt模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">Prompt 模板 — 视觉风格指南（Style Guide）</div>
+[以下风格参数应统一应用到所有镜头的Prompt中]
+
+色调：<span class="placeholder">warm amber tones / 暖琥珀色调 / 低饱和 / 整体偏暖</span>
+光影：<span class="placeholder">soft natural light / 柔和自然光 / 侧光为主 / 阴影柔和</span>
+质感：<span class="placeholder">cinematic film grain / 电影胶片颗粒感 / 轻微暗角 / 浅景深</span>
+时代：<span class="placeholder">contemporary urban / 当代都市 / 现代简约空间</span>
+参考风格：<span class="placeholder">类似《花束般的恋爱》的日系暖色影调 / 柔和而不过曝</span>
+
+固定后缀（所有镜头统一添加）：
+cinematic lighting, film grain, shallow depth of field,
+<span class="placeholder">warm color palette, soft shadows, 35mm film look</span>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">风格统一实操工作流</h4>
+      <div class="card card-lg">
+        <h4>📋 三步建立统一视觉风格</h4>
+        <p><strong>步骤一：建立风格参考板</strong><br>
+        从经典影视作品、摄影作品或Midjourney生成的概念图中，筛选5-10张代表目标风格的参考图片。这些图片应覆盖不同场景类型（室内/室外/日景/夜景），但风格感受一致。</p>
+        <p><strong>步骤二：提取风格关键词</strong><br>
+        从参考图中提取可量化的风格描述词：色温（暖/冷/中性）、对比度（高/低/中）、饱和度（高/低/自然）、光线质感（硬/柔/混合）、画面噪点（无/轻微/明显）。将这些关键词组合成"风格Prompt后缀"。</p>
+        <p><strong>步骤三：统一应用到所有镜头</strong><br>
+        将提炼出的风格Prompt后缀作为固定模板，附加到每一个镜头的生成Prompt末尾。确保所有镜头共享同一套风格参数。在ComfyUI中，可以创建一个风格节点模板，在所有工作流中复用。</p>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">影视专业人士的视觉统一优势</div>
+          <p>您在传统影视工作中积累的<strong>色彩管理、摄影布光和视觉叙事</strong>经验，在AI短剧制作中是巨大的优势。普通用户很难准确描述"伦勃朗光"、"青橙对比"或"35mm胶片质感"，而这些正是您日常工作的语言。将这些专业术语直接写进Prompt中，AI会比普通用户更精确地响应您的风格要求。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 5: 素材生产工作流 -->
+    <!-- ============================================ -->
+    <section class="section" id="workflow">
+      <div class="section-header">
+        <div class="section-icon teal">⚙️</div>
+        <div>
+          <div class="section-title">素材生产工作流</div>
+          <div class="section-subtitle">从剧本到可用素材——完整的端到端生产流程</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🔄 系统化的素材生产流程</h4>
+        <p>AI短剧的视觉素材生产不是"随意生成一堆图片和视频"，而是需要一个严谨的、有序的工作流程。就像传统拍摄有"前期筹备→拍摄→后期"的标准流程一样，AI素材生产同样需要<strong>标准化的工作流</strong>来保证质量和效率。</p>
+      </div>
+
+      <h4 style="margin-top:1.5rem;">推荐的端到端工作流程</h4>
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <h4>第一步：角色设定</h4>
+          <p><strong>🧑‍🎨 生成角色参考图</strong></p>
+          <p>为每个主要角色生成完整的角色设定图（Character Sheet），包括多角度视图、表情变化、不同服装等。测试并确认角色一致性方案（IP Adapter/LoRA），直到在不同场景下都能稳定复现。</p>
+          <p><strong>产出物：</strong>每个角色的参考图集 + 一致性生成方案</p>
+        </div>
+        <div class="card">
+          <h4>第二步：场景设定</h4>
+          <p><strong>🏠 生成场景概念图</strong></p>
+          <p>根据剧本中涉及的所有场景，逐一生成场景概念图。确保场景风格与整体视觉风格指南一致。同一场景在不同镜头中要保持空间关系和道具摆放的连续性。</p>
+          <p><strong>产出物：</strong>所有场景的概念图集 + 场景布局说明</p>
+        </div>
+        <div class="card">
+          <h4>第三步：分镜生成</h4>
+          <p><strong>🎬 基于剧本生成各镜头画面</strong></p>
+          <p>按照分镜表逐个镜头生成画面。每个镜头需要包含正确的角色、场景、构图和情绪。使用ControlNet控制姿态和构图，使用IP Adapter保持角色一致性，使用风格后缀保证视觉统一。</p>
+          <p><strong>产出物：</strong>完整的分镜画面集（与分镜表一一对应）</p>
+        </div>
+        <div class="card">
+          <h4>第四步：视频生成</h4>
+          <p><strong>🎥 将关键帧转化为视频片段</strong></p>
+          <p>将确认好的分镜画面作为起始帧，使用图生视频工具生成对应的视频片段。添加角色动作、镜头运动和环境动效。每个镜头可能需要多次生成和筛选，选择最佳结果。</p>
+          <p><strong>产出物：</strong>所有镜头的视频片段（5-10秒/段）</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1rem;">
+        <h4>第五步：素材审核与补拍</h4>
+        <p><strong>🔍 质量检查与补充生成</strong></p>
+        <p>将所有视频素材按剧本顺序排列预览，检查以下关键指标：角色一致性是否在可接受范围内？画面风格是否统一？动作是否自然连贯？是否有明显的AI瑕疵（如手指异常、面部扭曲）？对不合格的镜头进行重新生成（"补拍"），直到整体质量达标。</p>
+        <p><strong>产出物：</strong>完整的、经审核的视频素材集，可直接进入后期剪辑阶段</p>
+      </div>
+
+      <div class="infobox infobox-warn" style="margin-top:1rem;">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">常见陷阱：技术参数不统一</div>
+          <p>在素材生产过程中，以下技术参数必须始终保持统一，否则后期剪辑时会出现严重问题：</p>
+          <ul>
+            <li><strong>分辨率一致性：</strong>所有图片和视频使用相同的分辨率（如1920×1080或1080×1920），混用不同分辨率会导致画面裁切或拉伸</li>
+            <li><strong>画面比例：</strong>横屏（16:9）或竖屏（9:16）一经确定，全片统一，不能混用</li>
+            <li><strong>帧率统一：</strong>所有视频片段使用相同的帧率（推荐24fps或30fps），混用帧率会导致剪辑时出现卡顿或加速感</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 6: 课后练习 -->
+    <!-- ============================================ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon red">📝</div>
+        <div>
+          <div class="section-title">课后练习</div>
+          <div class="section-subtitle">动手实操，将知识转化为可执行的技能</div>
+        </div>
+      </div>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块三 · 课后练习</h2>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <strong>角色设定图设计</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              为模块二中创作的剧本设计2个主要角色的完整角色设定图。每个角色需要包含：正面、侧面、3/4角度视图，2-3种表情变化，以及至少1套服装细节图。要求角色形象与剧本中的人物描述一致。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：2个角色各1张多角度设定图（含表情和服装细节）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <strong>一致性测试对比</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              使用至少2个不同的AI图片工具（如Midjourney和FLUX，或通义万相和Stable Diffusion）生成同一角色在3个不同场景中的图片。对比两个工具在角色一致性方面的表现，记录每个工具的优缺点和一致性评分（1-10分）。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：2个工具各3张图片（共6张）+ 一致性对比分析报告</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <strong>图片转视频实操</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              从角色设定图中选择3张不同场景/动作的角色图片，使用AI视频生成工具（推荐可灵或Vidu）将每张图片转化为一段5-10秒的视频片段。视频需包含明确的角色动作和镜头运动，Prompt中使用本模块所学的影视级参数。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：3段视频片段（各5-10秒）+ 每段视频的生成Prompt和参数记录</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">4</div>
+          <div>
+            <strong>视觉风格指南文档</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              为您的短剧项目建立一份完整的视觉风格指南文档。内容包括：色调方案（附参考图）、光影风格描述、画面质感定义、统一的Prompt风格后缀，以及5-10张风格参考图。该文档将作为后续所有素材生成的视觉标准。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：视觉风格指南文档（含风格参考图、关键词、Prompt后缀模板）</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1rem;">
+        <div class="infobox-icon">🎉</div>
+        <div class="infobox-body">
+          <div class="infobox-title">完成模块三，视觉素材能力已就位！</div>
+          <p>恭喜您完成了AI视觉素材生成模块！您现在已经：</p>
+          <ul>
+            <li>✅ 掌握了主流AI图片生成工具的特点与适用场景</li>
+            <li>✅ 学会了角色一致性的五大技术方案</li>
+            <li>✅ 能够使用图生视频模式生成影视级AI视频片段</li>
+            <li>✅ 建立了画面风格统一的系统方法论</li>
+            <li>✅ 掌握了端到端的视觉素材生产工作流</li>
+          </ul>
+          <p>接下来，让我们进入模块四，学习如何将这些素材剪辑成完整的AI短剧作品！</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <a href="module2.html" class="btn-prev">← 模块二：AI剧本创作与分镜设计</a>
+      <a href="module4.html" class="btn-next">模块四：AI短剧后期制作 →</a>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
