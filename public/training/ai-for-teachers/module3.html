@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块三：AI赋能作业批改与学生评价 — AI赋能中小学教师</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🏫 AI 赋能中小学教师 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html">模块二</a>
+    <a href="module3.html" class="active">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块三导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#pain-points"><span class="nav-num">1</span>批改痛点</a></li>
+      <li><a href="#batch-review"><span class="nav-num">2</span>AI批量批改</a></li>
+      <li><a href="#comments"><span class="nav-num">3</span>个性化评语</a></li>
+      <li><a href="#analysis"><span class="nav-num">4</span>学情数据分析</a></li>
+      <li><a href="#report"><span class="nav-num">5</span>期末评价报告</a></li>
+      <li><a href="#practice"><span class="nav-num">6</span>实战演练</a></li>
+    </ul>
+
+    <div class="sidebar-title" style="margin-top:1.5rem;">快速跳转</div>
+    <ul class="sidebar-nav">
+      <li><a href="index.html">← 课程总览</a></li>
+      <li><a href="module2.html">← 模块二</a></li>
+      <li><a href="module4.html">模块四 →</a></li>
+      <li><a href="../index.html">← 返回培训主页</a></li>
+    </ul>
+  </aside>
+
+  <!-- ===== Main Content ===== -->
+  <main class="main-content">
+
+    <!-- Session Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块三</span>
+        AI赋能作业批改与学生评价
+      </div>
+      <h1>📝 AI赋能作业批改与学生评价<br>从机械批改到智慧评价——让每个学生都能获得个性化反馈</h1>
+      <p class="hero-subtitle">
+        告别"该生表现良好"式的千篇一律，学会用AI高效批改作业、生成个性化评语、分析学情数据。
+        掌握REVIEW批改框架，覆盖语文作文、数学解题、英语写作等全科批改场景。
+        让每一份反馈都精准、温暖、有建设性。
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 3 课时</div>
+        <div class="hero-meta-item">📝 10+ Prompt模板</div>
+        <div class="hero-meta-item">🎯 适用全学科</div>
+        <div class="hero-meta-item">📊 含学情分析</div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Section 1: 批改痛点与AI解决方案 -->
+    <!-- ============================================ -->
+    <section class="section" id="pain-points">
+      <div class="section-header">
+        <div class="section-icon red">😩</div>
+        <div>
+          <div class="section-title">批改痛点与AI解决方案</div>
+          <div class="section-subtitle">精准诊断教师批改中的效率瓶颈</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🤔 作业批改现状调查</h4>
+        <p>据调查，中小学教师每天平均花费 <strong>2-3 小时</strong> 在作业批改上，占据了教学工作量的 <strong>30%-40%</strong>。
+        然而，大量时间花在了机械性、重复性的批改工作上，真正高质量的个性化反馈却少之又少。</p>
+        <p>以下是一线教师最常见的批改痛点——看看哪些说中了您的日常？</p>
+      </div>
+
+      <div class="table-wrapper" style="margin-top:1rem;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:5%;">序号</th>
+              <th style="width:18%;">痛点</th>
+              <th style="width:30%;">具体表现</th>
+              <th style="width:12%;">耗时估算</th>
+              <th style="width:35%;">AI解决方案</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge badge-red">1</span></td>
+              <td><strong>作文批改耗时</strong></td>
+              <td>语文老师每篇作文精批需要15-20分钟，一个班45篇作文需要连续批改10+小时</td>
+              <td>10-15小时/班</td>
+              <td>✅ AI 5秒完成初批，从内容、结构、语言、创意四个维度给出评分和修改建议，教师只需复核和个性化调整</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-orange">2</span></td>
+              <td><strong>数学批改重复</strong></td>
+              <td>同类错题反复出现，教师重复写"计算错误""审题不清"等批注，效率低下</td>
+              <td>3-5小时/班</td>
+              <td>✅ AI自动识别错误类型，归类共性问题，生成针对性的错因分析和纠正建议</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">3</span></td>
+              <td><strong>英语批改机械化</strong></td>
+              <td>听写、翻译、选择题批改纯属机械对答案，耗时却无教学价值</td>
+              <td>2-3小时/班</td>
+              <td>✅ AI批量核对答案，自动统计错误率，重点标注高频错词和语法错误</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-purple">4</span></td>
+              <td><strong>评语千篇一律</strong></td>
+              <td>"该生表现良好""继续努力"——家长看了等于没看，学生看了毫无触动</td>
+              <td>5-8小时/学期</td>
+              <td>✅ AI根据每位学生的具体表现生成个性化评语，温暖具体、有针对性</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-teal">5</span></td>
+              <td><strong>学情分析缺数据</strong></td>
+              <td>凭经验判断班级薄弱点，缺少系统性的数据分析，难以精准教学</td>
+              <td>持续困扰</td>
+              <td>✅ AI分析全班考试数据，生成可视化学情报告，精准定位薄弱知识点</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-info" style="margin-top:1.5rem;">
+        <div class="infobox-icon">📊</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI辅助批改效率提升数据</div>
+          <div class="card-grid-3" style="margin-top:0.75rem;">
+            <div class="card" style="text-align:center;">
+              <div style="font-size:2rem;font-weight:800;color:var(--teacher-accent);">70%</div>
+              <p style="font-size:0.85rem;">批改时间节省</p>
+            </div>
+            <div class="card" style="text-align:center;">
+              <div style="font-size:2rem;font-weight:800;color:var(--teacher-accent);">3x</div>
+              <p style="font-size:0.85rem;">反馈详细程度提升</p>
+            </div>
+            <div class="card" style="text-align:center;">
+              <div style="font-size:2rem;font-weight:800;color:var(--teacher-accent);">95%</div>
+              <p style="font-size:0.85rem;">教师满意度</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compare Panels: Traditional vs AI -->
+      <h4 style="margin-top:1.5rem;">传统批改 vs AI辅助批改</h4>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">❌ 传统批改模式</div>
+          <ul>
+            <li><strong>逐字逐句阅读</strong> — 教师一篇一篇手动批改，效率极低</li>
+            <li><strong>批注简单重复</strong> — "语句不通""计算有误"反复出现</li>
+            <li><strong>缺乏系统分析</strong> — 凭感觉判断班级薄弱点</li>
+            <li><strong>评语套路化</strong> — "该生学习认真，望继续努力"</li>
+            <li><strong>反馈滞后</strong> — 作业收上来一周才发下去</li>
+            <li><strong>身心俱疲</strong> — 晚上加班批改是常态</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">✅ AI辅助批改模式</div>
+          <ul>
+            <li><strong>AI快速初批</strong> — 数秒内完成基础批改，教师专注审核</li>
+            <li><strong>精准错因分析</strong> — AI识别错误类型并给出具体改进建议</li>
+            <li><strong>数据驱动学情</strong> — 自动生成班级知识点掌握情况报告</li>
+            <li><strong>个性化评语</strong> — 根据每个学生的表现量身定制反馈</li>
+            <li><strong>当天批当天反馈</strong> — 批改效率提升，及时反馈学生</li>
+            <li><strong>工作生活平衡</strong> — 节省的时间用于教研和休息</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-teacher" style="margin-top:1rem;">
+        <div class="infobox-icon">👩‍🏫</div>
+        <div class="infobox-body">
+          <div class="infobox-title">教师心声</div>
+          <p>"以前批一个班的作文要两个晚上，现在AI帮我初批后，我只需要花1-2小时审核调整。省下来的时间，我可以更多地和学生面对面交流。" — 某初中语文教师</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 2: AI批量批改实战 -->
+    <!-- ============================================ -->
+    <section class="section" id="batch-review">
+      <div class="section-header">
+        <div class="section-icon green">✅</div>
+        <div>
+          <div class="section-title">AI批量批改实战</div>
+          <div class="section-subtitle">掌握REVIEW批改框架，让AI成为您的批改助手</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🔍 REVIEW 批改框架</h4>
+        <p>REVIEW 是专为教师设计的AI批改框架，6个字母分别代表批改的6个关键步骤。
+        掌握这个框架，您就能高效指导AI完成各学科的作业批改。</p>
+      </div>
+
+      <!-- REVIEW Framework -->
+      <div class="card-grid-3" style="margin-top:1.5rem;">
+        <div class="feature-card card-accent-red">
+          <div class="card-icon">📖</div>
+          <h4>R — Read（读题审意）</h4>
+          <p>告诉AI作业的题目要求和评分标准</p>
+          <p style="font-size:0.85rem;color:var(--muted);">例：<em>"这是一篇以'我的家乡'为题的记叙文，字数要求600字"</em></p>
+        </div>
+        <div class="feature-card card-accent-orange">
+          <div class="card-icon">📊</div>
+          <h4>E — Evaluate（评分标准）</h4>
+          <p>明确告诉AI评分维度和分值分配</p>
+          <p style="font-size:0.85rem;color:var(--muted);">例：<em>"满分50分：内容15分、结构10分、语言15分、创意10分"</em></p>
+        </div>
+        <div class="feature-card card-accent-blue">
+          <div class="card-icon">✔️</div>
+          <h4>V — Verify（核实答案）</h4>
+          <p>提供参考答案或评判标准供AI参照</p>
+          <p style="font-size:0.85rem;color:var(--muted);">例：<em>"参考答案见附件，允许有不同解法但结果须正确"</em></p>
+        </div>
+        <div class="feature-card card-accent-purple">
+          <div class="card-icon">🔎</div>
+          <h4>I — Identify（识别问题）</h4>
+          <p>要求AI标记具体的错误位置和类型</p>
+          <p style="font-size:0.85rem;color:var(--muted);">例：<em>"请标出每处语法错误、错别字和逻辑不通之处"</em></p>
+        </div>
+        <div class="feature-card card-accent-green">
+          <div class="card-icon">💬</div>
+          <h4>E — Express（表达反馈）</h4>
+          <p>指定反馈风格——鼓励式、建设性</p>
+          <p style="font-size:0.85rem;color:var(--muted);">例：<em>"反馈语气要温和鼓励，先肯定优点再指出不足"</em></p>
+        </div>
+        <div class="feature-card card-accent-teal">
+          <div class="card-icon">📋</div>
+          <h4>W — Wrap-up（总结建议）</h4>
+          <p>要求AI给出总评和改进建议</p>
+          <p style="font-size:0.85rem;color:var(--muted);">例：<em>"最后给出总评和3条具体可操作的改进建议"</em></p>
+        </div>
+      </div>
+
+      <!-- 语文作文批改 Prompt -->
+      <h4 style="margin-top:2.5rem;">📝 语文作文批改 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：语文作文批改</div>
+        <p><strong>【R-题目】</strong>以下是一名<span class="placeholder">[年级]</span>学生的<span class="placeholder">[记叙文/议论文/说明文]</span>，题目为"<span class="placeholder">[作文题目]</span>"，要求<span class="placeholder">[字数要求/其他要求]</span>。<br><br>
+        <strong>【E-评分标准】</strong>请按以下维度评分（总分<span class="placeholder">[X]</span>分）：<br>
+        · 内容主题（<span class="placeholder">[X]</span>分）：立意是否明确，内容是否充实，素材是否恰当<br>
+        · 结构布局（<span class="placeholder">[X]</span>分）：层次是否清晰，段落是否合理，过渡是否自然<br>
+        · 语言表达（<span class="placeholder">[X]</span>分）：语句是否通顺，用词是否准确，修辞是否恰当<br>
+        · 创意亮点（<span class="placeholder">[X]</span>分）：是否有独特的视角、精彩的表达或深刻的思考<br><br>
+        <strong>【V-参照】</strong>请参照<span class="placeholder">[年级]</span>语文课程标准的写作要求进行评判。<br><br>
+        <strong>【I-问题标注】</strong>请在正文中用【】标注错别字，用〈〉标注语病，用※标注特别精彩的语句。<br><br>
+        <strong>【E-反馈风格】</strong>评语请先肯定2-3个亮点，再指出2-3个需要改进的地方，语气温和鼓励。<br><br>
+        <strong>【W-总结】</strong>最后给出总评等级（<span class="placeholder">[优秀/良好/合格/待改进]</span>），附3条具体可操作的修改建议。<br><br>
+        <strong>学生作文原文：</strong><br>
+        <span class="placeholder">[粘贴学生作文]</span></p>
+      </div>
+
+      <div class="infobox infobox-demo" style="margin-top:1rem;">
+        <div class="infobox-icon">🎬</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI批改输出示例（节选）</div>
+          <p style="background:#f0f4f0;padding:0.8rem;border-radius:8px;font-size:0.88rem;">
+            <strong>📊 评分结果：</strong><br>
+            · 内容主题：12/15 — 选材贴近生活，情感真挚，但部分段落展开不够充分<br>
+            · 结构布局：8/10 — 总分总结构清晰，但第三段过渡略显生硬<br>
+            · 语言表达：11/15 — 语言流畅，有几处比喻用得好，但存在3处语病<br>
+            · 创意亮点：7/10 — 结尾的反问引人深思，开头可再新颖些<br>
+            <strong>总分：38/50（良好）</strong><br><br>
+            <strong>✨ 亮点：</strong>第二段对家乡集市的描写很生动，"叫卖声此起彼伏"的场景让读者有身临其境之感……<br>
+            <strong>📝 改进建议：</strong>1. 第三段的过渡可以用一句承上启下的话来衔接……
+          </p>
+        </div>
+      </div>
+
+      <!-- 数学解题过程批改 Prompt -->
+      <h4 style="margin-top:2.5rem;">🔢 数学解题过程批改 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：数学作业批改</div>
+        <p><strong>【R-题目】</strong>以下是<span class="placeholder">[年级]</span>数学<span class="placeholder">[章节名称]</span>的作业，共<span class="placeholder">[X]</span>道题。<br><br>
+        <strong>【E-评分标准】</strong><br>
+        · 解题思路是否正确（占40%）<br>
+        · 计算过程是否规范（占30%）<br>
+        · 最终答案是否正确（占20%）<br>
+        · 书写格式是否规范（占10%）<br><br>
+        <strong>【V-参考答案】</strong><br>
+        <span class="placeholder">[提供每道题的标准答案和解题步骤]</span><br><br>
+        <strong>【I-问题识别】</strong>对于每道错题，请：<br>
+        1. 指出错误发生在哪一步<br>
+        2. 分析错误原因（概念不清/计算失误/审题错误/方法选择不当）<br>
+        3. 给出正确的解题过程<br><br>
+        <strong>【E-反馈】</strong>对做对的题简单打✓，对错题给出鼓励性的纠正反馈。<br><br>
+        <strong>【W-总结】</strong>总结该生本次作业的知识点掌握情况，推荐2-3道类似的巩固练习。<br><br>
+        <strong>学生作业：</strong><br>
+        <span class="placeholder">[粘贴学生作业内容或拍照转文字]</span></p>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">数学批改小技巧</div>
+          <ul>
+            <li>📸 <strong>拍照转文字：</strong>先用手机拍照，再用OCR工具（如讯飞扫描王）转成文字，粘贴给AI</li>
+            <li>📋 <strong>批量处理：</strong>可以把全班同一道题的答案汇总给AI，让AI统计错误率和常见错因</li>
+            <li>🔄 <strong>追问深化：</strong>"请为这道题出3道同类型的变式练习，难度递增"</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 英语作文批改 Prompt -->
+      <h4 style="margin-top:2.5rem;">🌍 英语作文批改 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：英语作文批改</div>
+        <p><strong>【R-题目】</strong>以下是<span class="placeholder">[年级]</span>学生的英语<span class="placeholder">[书面表达/看图写话/读后续写]</span>，题目要求：<span class="placeholder">[作文要求]</span>，字数要求<span class="placeholder">[X]</span>词左右。<br><br>
+        <strong>【E-评分标准】</strong>请按以下维度评分（总分<span class="placeholder">[X]</span>分）：<br>
+        · 语法准确性（<span class="placeholder">[X]</span>分）：时态、主谓一致、冠词等<br>
+        · 词汇丰富度（<span class="placeholder">[X]</span>分）：是否使用多样化的词汇和短语<br>
+        · 逻辑连贯性（<span class="placeholder">[X]</span>分）：是否使用连接词，段落过渡是否自然<br>
+        · 内容完整性（<span class="placeholder">[X]</span>分）：是否覆盖所有要点<br><br>
+        <strong>【I-问题标注】</strong>请逐句检查，标注：<br>
+        · 语法错误 → 用 [G] 标注，并给出正确形式<br>
+        · 拼写错误 → 用 [S] 标注<br>
+        · 用词不当 → 用 [W] 标注，并给出更好的替换词<br>
+        · 优秀表达 → 用 ★ 标注<br><br>
+        <strong>【E-反馈】</strong>请用中文给出评语，适合<span class="placeholder">[年级]</span>学生阅读理解。<br><br>
+        <strong>【W-总结】</strong>列出该生最需要加强的3个语法/词汇知识点，推荐针对性练习。<br><br>
+        <strong>学生作文：</strong><br>
+        <span class="placeholder">[粘贴学生英语作文]</span></p>
+      </div>
+
+      <!-- Efficiency Comparison -->
+      <h4 style="margin-top:2rem;">⏱ 批改效率对比</h4>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">⏳ 传统批改耗时</div>
+          <ul>
+            <li><strong>语文作文（45篇）：</strong>15分钟/篇 × 45 = 11.25小时</li>
+            <li><strong>数学作业（45份）：</strong>5分钟/份 × 45 = 3.75小时</li>
+            <li><strong>英语作文（45篇）：</strong>10分钟/篇 × 45 = 7.5小时</li>
+            <li><strong>期末评语（45人）：</strong>10分钟/人 × 45 = 7.5小时</li>
+            <li style="color:var(--danger);font-weight:700;">合计：约 30 小时/轮</li>
+          </ul>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">⚡ AI辅助批改耗时</div>
+          <ul>
+            <li><strong>语文作文（45篇）：</strong>AI初批 + 教师审核3分钟/篇 = 2.25小时</li>
+            <li><strong>数学作业（45份）：</strong>AI核对 + 教师审核1分钟/份 = 0.75小时</li>
+            <li><strong>英语作文（45篇）：</strong>AI初批 + 教师审核2分钟/篇 = 1.5小时</li>
+            <li><strong>期末评语（45人）：</strong>AI生成 + 教师修改2分钟/人 = 1.5小时</li>
+            <li style="color:var(--teacher-accent);font-weight:700;">合计：约 6 小时/轮（节省80%）</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 3: 个性化评语生成 -->
+    <!-- ============================================ -->
+    <section class="section" id="comments">
+      <div class="section-header">
+        <div class="section-icon purple">💬</div>
+        <div>
+          <div class="section-title">个性化评语生成</div>
+          <div class="section-subtitle">告别"该生表现良好"，让每条评语都走心</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🎯 为什么个性化评语很重要？</h4>
+        <p>一条好的评语，能让学生感受到被关注、被理解；一条套话式的评语，则让学生和家长都觉得敷衍。
+        AI可以帮您根据每位学生的具体表现，快速生成温暖、具体、有建设性的个性化评语。</p>
+      </div>
+
+      <!-- Scenario Cards -->
+      <h4 style="margin-top:1.5rem;">📌 四类典型评语场景</h4>
+      <div class="card-grid-2" style="margin-top:1rem;">
+        <div class="scenario-card">
+          <div class="sc-icon">🌟</div>
+          <h4>优秀学生激励型评语</h4>
+          <p>肯定成绩的同时提出更高期望，避免"骄傲自满"，激发持续进步的动力。</p>
+          <p style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem;">
+            <strong>关键词：</strong>赞赏具体成就、提出挑战目标、鼓励带动他人
+          </p>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-icon">📈</div>
+          <h4>进步学生鼓励型评语</h4>
+          <p>用数据说话，强调进步幅度，让学生看到自己的成长轨迹。</p>
+          <p style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem;">
+            <strong>关键词：</strong>具体进步点、前后对比、继续加油的方向
+          </p>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-icon">🤗</div>
+          <h4>需要帮助学生关怀型评语</h4>
+          <p>不回避问题但充满关爱，让学生感受到教师的温暖和信任。</p>
+          <p style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem;">
+            <strong>关键词：</strong>发现闪光点、包容鼓励、具体帮扶建议
+          </p>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-icon">🎒</div>
+          <h4>行为习惯引导型评语</h4>
+          <p>针对学习态度、课堂纪律、同学交往等方面给出正向引导。</p>
+          <p style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem;">
+            <strong>关键词：</strong>正面引导、具体行为、改变建议
+          </p>
+        </div>
+      </div>
+
+      <!-- Core Prompt Template for Comments -->
+      <h4 style="margin-top:2rem;">🟢 个性化评语生成 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：个性化学生评语</div>
+        <p>请为一名<span class="placeholder">[年级]</span><span class="placeholder">[学科]</span>成绩<span class="placeholder">[优秀/中等/待提高]</span>的学生撰写期中评语。<br><br>
+        <strong>学生基本信息：</strong><br>
+        · 姓名：<span class="placeholder">[姓名/编号]</span><br>
+        · 性格特点：<span class="placeholder">[如：内向安静/活泼开朗/认真踏实]</span><br>
+        · 学习表现：<span class="placeholder">[如：数学成绩突出，语文阅读理解有待加强]</span><br>
+        · 突出优点：<span class="placeholder">[如：乐于助人、书写工整、课堂发言积极]</span><br>
+        · 需要改进：<span class="placeholder">[如：作业拖拉、上课容易走神、粗心大意]</span><br>
+        · 近期变化：<span class="placeholder">[如：本学期数学成绩进步了15分]</span><br><br>
+        <strong>评语要求：</strong><br>
+        1. 语气温暖鼓励，像对自己孩子说话一样<br>
+        2. 具体到事例，不要空泛套话<br>
+        3. 先肯定优点（2-3点），再温和指出不足（1-2点）<br>
+        4. 最后给出期望和鼓励<br>
+        5. 字数控制在200-300字<br>
+        6. 适合写在学生手册/成绩报告单上</p>
+      </div>
+
+      <div class="infobox infobox-demo" style="margin-top:1rem;">
+        <div class="infobox-icon">🎬</div>
+        <div class="infobox-body">
+          <div class="infobox-title">AI生成评语示例</div>
+          <p style="background:#f0f4f0;padding:0.8rem;border-radius:8px;font-size:0.88rem;">
+            <strong>输入：</strong>五年级学生小明，数学优秀，语文中等，性格活泼好动，爱打篮球，课堂上有时管不住自己，但乐于助人。<br><br>
+            <strong>AI输出：</strong>"小明同学，你是一个阳光开朗、充满活力的男孩。这学期你的数学成绩始终名列前茅，特别是应用题的解题思路清晰严谨，老师为你骄傲！你在班级中热心助人，同学们都喜欢和你做朋友。如果能把打篮球时的专注力也带到语文课堂上，相信你的阅读理解水平会有很大提升。老师期待看到一个各科均衡发展的你！加油！"
+          </p>
+        </div>
+      </div>
+
+      <!-- Batch Comment Generation Steps -->
+      <h4 style="margin-top:2rem;">📋 批量生成班级评语的步骤</h4>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>准备学生信息表</strong>
+            <p>用表格整理每位学生的关键信息：姓名、成绩概况、性格特点、突出优点、需要改进的方面。可以用Excel表格列好，方便批量使用。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>设定统一的评语风格</strong>
+            <p>在第一轮对话中告诉AI您想要的评语风格，如："请生成温暖鼓励风格的评语，每条200-300字，适合小学三年级学生的家长阅读。"</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>逐个或分批生成</strong>
+            <p>把每位学生的信息逐个粘贴给AI，也可以一次性给3-5位学生的信息让AI批量生成。建议每次不超过5位，以确保质量。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <strong>教师审核和个性化调整</strong>
+            <p>逐条阅读AI生成的评语，检查是否准确反映学生实际情况，添加您观察到的独特细节，调整不贴切的表述。这一步至关重要！</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <strong>查重和差异化检查</strong>
+            <p>检查全班评语，确保没有雷同表述。可以让AI帮忙检查："请检查以下45条评语，标出表述相似度超过50%的评语对。"</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Batch Prompt Template -->
+      <div class="prompt-template" style="margin-top:1.5rem;">
+        <div class="pt-label">🟢 Prompt模板：批量评语生成</div>
+        <p>我是一名<span class="placeholder">[年级]</span>班主任，需要为以下学生撰写期中评语。<br><br>
+        <strong>统一要求：</strong><br>
+        · 每条评语200-300字<br>
+        · 风格温暖鼓励，具体到人<br>
+        · 先写优点，再写改进方向，最后写期望<br>
+        · 每条评语的结构和用词要有差异，不能千篇一律<br><br>
+        <strong>学生信息：</strong><br>
+        <strong>学生1：</strong><span class="placeholder">[姓名]</span>，成绩<span class="placeholder">[水平]</span>，特点：<span class="placeholder">[描述]</span><br>
+        <strong>学生2：</strong><span class="placeholder">[姓名]</span>，成绩<span class="placeholder">[水平]</span>，特点：<span class="placeholder">[描述]</span><br>
+        <strong>学生3：</strong><span class="placeholder">[姓名]</span>，成绩<span class="placeholder">[水平]</span>，特点：<span class="placeholder">[描述]</span><br>
+        ……</p>
+      </div>
+
+      <div class="infobox infobox-warn" style="margin-top:1rem;">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">评语生成注意事项</div>
+          <ul>
+            <li>🔒 <strong>隐私保护：</strong>使用AI时建议用编号代替真实姓名，避免学生信息外泄</li>
+            <li>✏️ <strong>必须人工审核：</strong>AI生成的评语可能不完全准确，教师必须逐条审核</li>
+            <li>🚫 <strong>避免负面标签：</strong>检查评语中是否有不恰当的措辞，如"差生""笨"等</li>
+            <li>💎 <strong>添加独特细节：</strong>加入您亲眼观察到的温暖瞬间，这是AI无法替代的</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 4: 学情数据分析 -->
+    <!-- ============================================ -->
+    <section class="section" id="analysis">
+      <div class="section-header">
+        <div class="section-icon blue">📊</div>
+        <div>
+          <div class="section-title">学情数据分析</div>
+          <div class="section-subtitle">用AI做数据驱动的精准教学决策</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>📈 从"凭感觉"到"看数据"</h4>
+        <p>传统的学情分析依赖教师的主观经验——"感觉这次考试比上次好一些""好像很多人不太会分数运算"。
+        AI可以帮您从成绩数据中精确提取信息，生成清晰的学情报告，让教学调整有据可依。</p>
+      </div>
+
+      <!-- Flow Diagram: Data Analysis Pipeline -->
+      <h4 style="margin-top:1.5rem;">学情分析五步流程</h4>
+      <div class="flow-diagram" style="margin-top:1rem;">
+        <div class="flow-row">
+          <div class="flow-box accent">📥 收集数据<br><small>考试成绩、作业记录</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box blue">🤖 AI分析<br><small>统计、归类、挖掘</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box green">🔍 识别问题<br><small>薄弱点、共性错题</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box purple">📋 制定策略<br><small>分层辅导、重点突破</small></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box accent">📈 跟踪效果<br><small>对比前后数据</small></div>
+        </div>
+      </div>
+
+      <!-- Data Analysis Prompt Templates -->
+      <h4 style="margin-top:2rem;">📊 考试成绩分析 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：班级考试成绩分析</div>
+        <p>我是一名<span class="placeholder">[年级][学科]</span>教师，以下是本班<span class="placeholder">[X]</span>名学生的<span class="placeholder">[考试名称]</span>成绩数据。请帮我进行全面的学情分析。<br><br>
+        <strong>数据格式：</strong>学号 - 姓名 - 总分 - 各题得分<br>
+        <span class="placeholder">[粘贴成绩数据]</span><br><br>
+        <strong>请分析以下内容：</strong><br>
+        1. <strong>整体概况：</strong>平均分、最高分、最低分、及格率、优秀率、分数段分布<br>
+        2. <strong>题目分析：</strong>每道题的得分率，标出得分率低于60%的题目<br>
+        3. <strong>知识点分析：</strong>每个知识点的掌握情况，找出全班薄弱知识点TOP3<br>
+        4. <strong>学生分层：</strong>将学生分为A（优秀）B（良好）C（合格）D（需帮助）四组<br>
+        5. <strong>进退步分析：</strong>与上次考试对比，标出进步最大和退步最大的学生<br>
+        6. <strong>教学建议：</strong>针对分析结果，给出下阶段的教学调整建议<br><br>
+        请用清晰的格式输出，适合放入教学分析报告中。</p>
+      </div>
+
+      <!-- Error Analysis Prompt -->
+      <h4 style="margin-top:2rem;">🔍 共性错题分析 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：错题归因分析</div>
+        <p>以下是本班学生在<span class="placeholder">[考试/作业名称]</span>中的错题汇总。请帮我进行错因分析。<br><br>
+        <strong>错题数据：</strong><br>
+        · 第<span class="placeholder">[X]</span>题（<span class="placeholder">[知识点]</span>）：错误人数<span class="placeholder">[Y]</span>人，常见错误答案：<span class="placeholder">[列出]</span><br>
+        · 第<span class="placeholder">[X]</span>题（<span class="placeholder">[知识点]</span>）：错误人数<span class="placeholder">[Y]</span>人，常见错误答案：<span class="placeholder">[列出]</span><br>
+        <span class="placeholder">[继续列出...]</span><br><br>
+        <strong>请分析：</strong><br>
+        1. 每道错题的可能错因（概念不清/计算失误/审题不仔细/方法不当）<br>
+        2. 哪些知识点需要集中讲评<br>
+        3. 为每道易错题出2道变式练习，帮助学生巩固<br>
+        4. 建议的讲评策略和顺序</p>
+      </div>
+
+      <!-- Data Input Tips -->
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">数据整理小技巧</div>
+          <ul>
+            <li>📊 <strong>Excel导出：</strong>从学校成绩管理系统导出CSV/Excel文件，直接粘贴给AI</li>
+            <li>📝 <strong>简化格式：</strong>如果数据量大，可以只提供汇总数据（如每题得分率），不必逐个学生列出</li>
+            <li>🔒 <strong>隐私保护：</strong>上传数据前删除学生真实姓名，用学号或编号代替</li>
+            <li>📋 <strong>多次分析：</strong>先让AI做整体分析，再追问具体知识点的深入分析</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Learning Progress Tracking Prompt -->
+      <h4 style="margin-top:2rem;">📈 学习进度跟踪 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：学生学习进度跟踪</div>
+        <p>以下是学生<span class="placeholder">[编号]</span>本学期<span class="placeholder">[学科]</span>的历次考试成绩：<br><br>
+        · 第一次月考：<span class="placeholder">[X]</span>分（班级排名<span class="placeholder">[Y]</span>）<br>
+        · 期中考试：<span class="placeholder">[X]</span>分（班级排名<span class="placeholder">[Y]</span>）<br>
+        · 第二次月考：<span class="placeholder">[X]</span>分（班级排名<span class="placeholder">[Y]</span>）<br>
+        · 期末考试：<span class="placeholder">[X]</span>分（班级排名<span class="placeholder">[Y]</span>）<br><br>
+        请分析：<br>
+        1. 成绩变化趋势（上升/下降/波动）<br>
+        2. 各知识模块的掌握变化<br>
+        3. 可能的原因推测<br>
+        4. 针对性的辅导建议</p>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 5: 期末评价报告生成 -->
+    <!-- ============================================ -->
+    <section class="section" id="report">
+      <div class="section-header">
+        <div class="section-icon orange">📄</div>
+        <div>
+          <div class="section-title">期末评价报告生成</div>
+          <div class="section-subtitle">高效生成素质报告书评语和综合评价</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>📋 期末评价的挑战</h4>
+        <p>每到学期末，班主任面临最头疼的任务之一就是为每位学生撰写素质报告书评语。
+        一个班45人，每人需要一段300-500字的综合评价，还要涵盖德智体美劳五个维度——
+        这意味着需要写15000-22500字！AI可以大幅减轻这个负担。</p>
+      </div>
+
+      <!-- Comprehensive Evaluation Prompt -->
+      <h4 style="margin-top:2rem;">📝 素质报告书评语 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：素质报告书评语</div>
+        <p>请为<span class="placeholder">[年级]</span>学生撰写一份素质报告书评语，要求涵盖"五育"维度。<br><br>
+        <strong>学生信息：</strong><br>
+        · 学号：<span class="placeholder">[编号]</span><br>
+        · 德育表现：<span class="placeholder">[如：担任班长/劳动委员，热心助人，尊重师长，偶尔与同学发生小摩擦]</span><br>
+        · 智育表现：<span class="placeholder">[如：语文85分，数学92分，英语78分，总排名第12]</span><br>
+        · 体育表现：<span class="placeholder">[如：800米达标，参加了校运动会跳远比赛]</span><br>
+        · 美育表现：<span class="placeholder">[如：参加了学校合唱团，美术课作品被展示]</span><br>
+        · 劳动表现：<span class="placeholder">[如：值日认真，参加了社区志愿服务]</span><br>
+        · 本学期亮点：<span class="placeholder">[如：数学竞赛获区三等奖]</span><br>
+        · 需要改进：<span class="placeholder">[如：英语口语需要加强]</span><br><br>
+        <strong>评语要求：</strong><br>
+        1. 字数300-400字<br>
+        2. 按"德→智→体→美→劳"顺序，但行文自然流畅，不要生硬分块<br>
+        3. 语气温暖，以鼓励为主<br>
+        4. 使用第二人称（"你"），适合学生和家长阅读<br>
+        5. 结尾寄语要有力量感</p>
+      </div>
+
+      <!-- Parent Letter Template -->
+      <h4 style="margin-top:2rem;">✉️ 家长通知书评语 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：家长通知书评语</div>
+        <p>请为<span class="placeholder">[年级]</span>学生<span class="placeholder">[编号]</span>撰写一份家长通知书评语。<br><br>
+        <strong>本学期表现概要：</strong><br>
+        · 学科成绩：<span class="placeholder">[各科成绩简述]</span><br>
+        · 课堂表现：<span class="placeholder">[听课/发言/互动情况]</span><br>
+        · 作业完成：<span class="placeholder">[完成率/质量/及时性]</span><br>
+        · 品德行为：<span class="placeholder">[纪律/同学关系/礼貌]</span><br>
+        · 特别事件：<span class="placeholder">[获奖/突出表现/需要关注的事项]</span><br><br>
+        <strong>评语要求：</strong><br>
+        1. 面向家长，语气正式但温暖<br>
+        2. 200-300字<br>
+        3. 客观反映学生在校表现<br>
+        4. 给出假期学习和习惯培养的具体建议<br>
+        5. 表达与家长携手共育的愿望</p>
+      </div>
+
+      <!-- Warning Box -->
+      <div class="infobox infobox-warn" style="margin-top:1.5rem;">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">重要提醒：AI评语必须人工审核</div>
+          <p>AI生成的评语虽然高效，但存在以下风险：</p>
+          <ul>
+            <li>❌ <strong>事实性错误：</strong>AI可能"编造"学生并未做过的事情</li>
+            <li>❌ <strong>信息混淆：</strong>批量生成时可能把A学生的信息写到B学生的评语中</li>
+            <li>❌ <strong>过度美化：</strong>AI倾向于正面表达，可能忽略需要严肃指出的问题</li>
+            <li>❌ <strong>用词不当：</strong>某些表述可能不符合学校文化或家长期望</li>
+          </ul>
+          <p style="margin-top:0.5rem;font-weight:600;color:var(--danger);">
+            ⚡ 务必逐条审核，确保每条评语准确反映该学生的真实情况！
+          </p>
+        </div>
+      </div>
+
+      <!-- Quality Checklist -->
+      <h4 style="margin-top:2rem;">✅ 评语质量检查清单</h4>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:5%;">序号</th>
+              <th style="width:35%;">检查项目</th>
+              <th style="width:40%;">说明</th>
+              <th style="width:20%;">状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><strong>事实准确性</strong></td>
+              <td>评语中提到的事实（成绩、活动、获奖等）是否属实</td>
+              <td><span class="badge badge-green">必查</span></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><strong>人物对应性</strong></td>
+              <td>评语内容是否准确对应到该学生，没有张冠李戴</td>
+              <td><span class="badge badge-green">必查</span></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><strong>措辞恰当性</strong></td>
+              <td>有无不恰当的措辞，是否符合学校要求</td>
+              <td><span class="badge badge-green">必查</span></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><strong>差异化程度</strong></td>
+              <td>全班评语是否有足够的差异，没有大段雷同</td>
+              <td><span class="badge badge-blue">建议查</span></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><strong>发展性建议</strong></td>
+              <td>是否给出了具体可操作的发展建议</td>
+              <td><span class="badge badge-blue">建议查</span></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><strong>字数合规</strong></td>
+              <td>是否符合学校规定的字数要求</td>
+              <td><span class="badge badge-gray">选查</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-success" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💎</div>
+        <div class="infobox-body">
+          <div class="infobox-title">高效批量审核技巧</div>
+          <p>生成全班评语后，可以用这个Prompt让AI帮您做初步质量检查：</p>
+          <p style="background:#f0f4f0;padding:0.8rem;border-radius:8px;font-size:0.88rem;margin-top:0.5rem;">
+            "请检查以下45条学生评语，完成以下检查：<br>
+            1. 找出表述高度相似（相似度>50%）的评语对<br>
+            2. 检查是否有空泛套话（如"各方面表现良好"之类）<br>
+            3. 确认每条评语都包含至少1个具体事例<br>
+            4. 标出字数不在200-400字范围内的评语"
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 6: 实战演练 -->
+    <!-- ============================================ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon teal">🎯</div>
+        <div>
+          <div class="section-title">实战演练</div>
+          <div class="section-subtitle">学以致用——用AI完成真实的批改和评价任务</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🚀 动手实践才是最好的学习</h4>
+        <p>本模块的三个实战任务覆盖了作文批改、评语生成和学情分析三大核心场景。
+        请使用您日常教学中的真实素材来完成这些任务，效果最佳。</p>
+      </div>
+
+      <!-- Task 1: Essay Review -->
+      <div class="skill-card" style="margin-top:1.5rem;">
+        <div class="skill-icon" style="background:var(--teacher-bg);color:var(--teacher-accent);">1</div>
+        <div>
+          <h4>实战任务一：用AI批改3篇学生作文</h4>
+          <div class="steps" style="margin-top:0.75rem;">
+            <div class="step">
+              <div class="step-num">①</div>
+              <div class="step-content">
+                <strong>准备素材</strong>
+                <p>从最近一次作文作业中选取3篇不同水平（优/中/待提高）的学生作文。如果不方便用真实作文，可以让AI模拟生成3篇不同水平的学生作文。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">②</div>
+              <div class="step-content">
+                <strong>使用REVIEW框架批改</strong>
+                <p>使用本模块的语文作文批改Prompt模板，逐篇让AI批改。注意设定好评分标准和反馈风格。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">③</div>
+              <div class="step-content">
+                <strong>对比评分</strong>
+                <p>自己也对这3篇作文打分（先不看AI的结果），然后对比AI评分与您的评分，记录差异和原因。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">④</div>
+              <div class="step-content">
+                <strong>总结反思</strong>
+                <p>AI批改在哪些方面帮到了您？哪些方面需要您补充？AI的评分和您的评分差异大吗？</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task 2: Comments -->
+      <div class="skill-card" style="margin-top:1.5rem;">
+        <div class="skill-icon" style="background:var(--teacher-bg);color:var(--teacher-accent);">2</div>
+        <div>
+          <h4>实战任务二：为班级10名学生生成个性化期中评语</h4>
+          <div class="steps" style="margin-top:0.75rem;">
+            <div class="step">
+              <div class="step-num">①</div>
+              <div class="step-content">
+                <strong>整理学生信息</strong>
+                <p>选取班级中10名不同类型的学生（优秀生、进步生、中等生、需帮助学生各2-3名），用表格整理他们的关键信息。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">②</div>
+              <div class="step-content">
+                <strong>分批生成评语</strong>
+                <p>使用个性化评语Prompt模板，每次3-5人，分批让AI生成评语。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">③</div>
+              <div class="step-content">
+                <strong>审核和修改</strong>
+                <p>逐条审核，至少修改3处不准确或不够个性化的地方，添加您的独特观察。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">④</div>
+              <div class="step-content">
+                <strong>差异化检查</strong>
+                <p>比较10条评语，确保内容和措辞有足够差异。可以用AI帮您做相似度检查。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task 3: Data Analysis -->
+      <div class="skill-card" style="margin-top:1.5rem;">
+        <div class="skill-icon" style="background:var(--teacher-bg);color:var(--teacher-accent);">3</div>
+        <div>
+          <h4>实战任务三：用AI生成学情分析报告</h4>
+          <div class="steps" style="margin-top:0.75rem;">
+            <div class="step">
+              <div class="step-num">①</div>
+              <div class="step-content">
+                <strong>准备成绩数据</strong>
+                <p>导出一次考试的成绩数据（可以是全班或抽取20名学生的数据），注意删除真实姓名。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">②</div>
+              <div class="step-content">
+                <strong>让AI生成分析报告</strong>
+                <p>使用考试成绩分析Prompt模板，让AI生成包含统计数据、知识点分析和教学建议的完整报告。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">③</div>
+              <div class="step-content">
+                <strong>验证分析结果</strong>
+                <p>用Excel验证AI给出的统计数据（平均分、及格率等）是否正确，标记有出入的地方。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">④</div>
+              <div class="step-content">
+                <strong>制定改进计划</strong>
+                <p>根据AI的分析结果，撰写一份300字的教学改进计划，说明下阶段的重点教学调整。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Self-Evaluation Prompt -->
+      <div class="prompt-template" style="margin-top:1.5rem;">
+        <div class="pt-label">🟢 自我反思 Prompt（完成练习后使用）</div>
+        <p>我刚完成了AI辅助批改和评价的实战练习。<br>
+        我是一名<span class="placeholder">[学科]</span>教师，完成了以下任务：<br>
+        · 任务一（作文批改）：<span class="placeholder">[完成情况和心得]</span><br>
+        · 任务二（评语生成）：<span class="placeholder">[完成情况和心得]</span><br>
+        · 任务三（学情分析）：<span class="placeholder">[完成情况和心得]</span><br><br>
+        我发现AI在<span class="placeholder">[xxx方面]</span>做得特别好，但在<span class="placeholder">[xxx方面]</span>还需要我手动调整。<br>
+        请根据我的反馈，给出3条提升AI批改和评价质量的建议。</p>
+      </div>
+
+      <div class="infobox infobox-success" style="margin-top:1rem;">
+        <div class="infobox-icon">🎉</div>
+        <div class="infobox-body">
+          <div class="infobox-title">完成模块三，您的批改效率将大幅提升！</div>
+          <p>恭喜！完成本模块后，您已掌握：</p>
+          <ul>
+            <li>✅ REVIEW批改框架的使用方法</li>
+            <li>✅ 语文/数学/英语作业的AI批改技巧</li>
+            <li>✅ 个性化评语的AI辅助生成方法</li>
+            <li>✅ 学情数据分析的AI应用</li>
+            <li>✅ 期末评价报告的高效生成流程</li>
+            <li>✅ 10+个即拿即用的批改和评价Prompt模板</li>
+          </ul>
+          <p>下一模块，我们将学习如何用AI高效管理班级和优化家校沟通！</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <a href="module2.html" class="btn-prev">← 模块二：AI辅助备课</a>
+      <a href="module4.html" class="btn-next">模块四：班级管理与家校沟通 →</a>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

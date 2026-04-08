@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模块二：AI辅助备课与教学设计 — AI赋能中小学教师</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-logo">🏫 AI 赋能中小学教师 <span class="logo-badge">v1.0</span></div>
+  <nav class="header-nav">
+    <a href="index.html">课程总览</a>
+    <a href="module1.html">模块一</a>
+    <a href="module2.html" class="active">模块二</a>
+    <a href="module3.html">模块三</a>
+    <a href="module4.html">模块四</a>
+    <a href="module5.html">模块五</a>
+    <a href="module6.html">模块六</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-title">模块二导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview"><span class="nav-num">1</span>备课痛点分析</a></li>
+      <li><a href="#lesson-plan"><span class="nav-num">2</span>AI生成教案</a></li>
+      <li><a href="#courseware"><span class="nav-num">3</span>AI辅助课件</a></li>
+      <li><a href="#differentiated"><span class="nav-num">4</span>分层教学设计</a></li>
+      <li><a href="#practice"><span class="nav-num">5</span>实战演练</a></li>
+    </ul>
+
+    <div class="sidebar-title" style="margin-top:1.5rem;">快速跳转</div>
+    <ul class="sidebar-nav">
+      <li><a href="index.html">← 课程总览</a></li>
+      <li><a href="module1.html">← 模块一</a></li>
+      <li><a href="module3.html">模块三 →</a></li>
+      <li><a href="../index.html">← 返回培训主页</a></li>
+    </ul>
+  </aside>
+
+  <!-- ===== Main Content ===== -->
+  <main class="main-content">
+
+    <!-- Session Hero -->
+    <div class="session-hero">
+      <div class="hero-badge">
+        <span class="hero-session-num">模块二</span>
+        AI辅助备课与教学设计
+      </div>
+      <h1>📋 AI辅助备课与教学设计<br>让备课时间减半，让教学设计更精彩</h1>
+      <p class="hero-subtitle">
+        掌握TEACH备课框架，学会用AI生成高质量教案、课件大纲和练习题。
+        覆盖语文、数学、英语等全科备课场景，包含10+个即拿即用的Prompt模板。
+        让AI成为您最得力的备课助手。
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⏱ 3 课时</div>
+        <div class="hero-meta-item">📖 实战为主</div>
+        <div class="hero-meta-item">🎯 全科适用</div>
+        <div class="hero-meta-item">📝 10+ Prompt模板</div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- Section 1: 备课痛点分析 -->
+    <!-- ============================================ -->
+    <section class="section" id="overview">
+      <div class="section-header">
+        <div class="section-icon red">😩</div>
+        <div>
+          <div class="section-title">备课痛点分析</div>
+          <div class="section-subtitle">找到痛点，才能对症下药</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🤔 教师备课现状调查</h4>
+        <p>根据对500+一线教师的调研，以下是最常见的备课痛点。看看哪些说中了您的心声？</p>
+      </div>
+
+      <div class="table-wrapper" style="margin-top:1rem;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:5%;">序号</th>
+              <th style="width:20%;">痛点</th>
+              <th style="width:35%;">具体表现</th>
+              <th style="width:40%;">AI解决方案</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge badge-red">1</span></td>
+              <td><strong>查找资料耗时</strong></td>
+              <td>备一节课要翻教参、搜百度、看公众号，花1-2小时找素材</td>
+              <td>✅ AI一次性整合知识点、案例、素材，5分钟完成资料收集</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-orange">2</span></td>
+              <td><strong>教案撰写重复</strong></td>
+              <td>年年写类似的教案，格式要求多，创新空间小</td>
+              <td>✅ AI根据框架自动生成规范教案，教师只需审核和个性化调整</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-blue">3</span></td>
+              <td><strong>课件制作低效</strong></td>
+              <td>PPT排版花大量时间，内容编排费脑力</td>
+              <td>✅ AI生成课件大纲和内容，配合Gamma/Canva一键生成精美PPT</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-purple">4</span></td>
+              <td><strong>练习题编制难</strong></td>
+              <td>出题要考虑梯度、覆盖面、难度适配</td>
+              <td>✅ AI按知识点、难度、题型自动生成分层练习题，附详细解析</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-teal">5</span></td>
+              <td><strong>分层教学设计难</strong></td>
+              <td>一个班学生水平参差不齐，难以兼顾所有层次</td>
+              <td>✅ AI一次生成基础/提高/拓展三个层次的教学材料</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-green">6</span></td>
+              <td><strong>跨学科融合缺思路</strong></td>
+              <td>学校要求学科融合教学，但不知道怎么融</td>
+              <td>✅ AI提供跨学科关联点和融合教学方案建议</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Before-After Comparison -->
+      <h4 style="margin-top:2rem;">备课效率对比：传统方式 vs AI辅助</h4>
+      <div class="compare-panels">
+        <div class="compare-panel bad">
+          <div class="cp-header">⏰ 传统备课流程（约2-3小时）</div>
+          <ul>
+            <li>📖 翻阅教参和教材 — 30分钟</li>
+            <li>🔍 网上搜索补充资料 — 30分钟</li>
+            <li>✍️ 手写/打字完成教案 — 40分钟</li>
+            <li>🎨 制作PPT课件 — 30分钟</li>
+            <li>📝 编写随堂练习题 — 20分钟</li>
+            <li>🔄 检查修改润色 — 20分钟</li>
+          </ul>
+          <p style="font-weight:700;color:#C53030;margin-top:0.5rem;">总计：约 170 分钟</p>
+        </div>
+        <div class="compare-panel good">
+          <div class="cp-header">🚀 AI辅助备课流程（约40-60分钟）</div>
+          <ul>
+            <li>🎯 明确教学目标和要求 — 10分钟</li>
+            <li>🤖 用AI生成教案初稿 — 5分钟</li>
+            <li>✏️ 教师审核和个性化调整 — 15分钟</li>
+            <li>🎨 AI生成课件大纲 + Gamma出PPT — 10分钟</li>
+            <li>📝 AI生成分层练习题 — 5分钟</li>
+            <li>🔄 最终检查确认 — 10分钟</li>
+          </ul>
+          <p style="font-weight:700;color:#059669;margin-top:0.5rem;">总计：约 55 分钟 ⚡ 节省约65%</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-success" style="margin-top:1rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">关键认知</div>
+          <p>AI辅助备课的核心不是"让AI替你备课"，而是<strong>"让AI替你做苦力，你来做决策"</strong>。教学目标的确定、内容的筛选、活动的适配 — 这些教师的专业判断是AI无法替代的。AI只是帮您把想法快速变成文本。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 2: AI生成教案实战 -->
+    <!-- ============================================ -->
+    <section class="section" id="lesson-plan">
+      <div class="section-header">
+        <div class="section-icon green">📋</div>
+        <div>
+          <div class="section-title">AI 生成教案实战</div>
+          <div class="section-subtitle">掌握TEACH框架，一次生成高质量教案</div>
+        </div>
+      </div>
+
+      <!-- TEACH Framework -->
+      <div class="card card-lg">
+        <h4>🎯 TEACH备课框架 — 教师专属Prompt结构</h4>
+        <p>在模块一中我们学习了通用的RACE框架，这里我们进一步学习专门为备课优化的<strong>TEACH框架</strong>：</p>
+      </div>
+
+      <div class="card-grid" style="margin-top:1rem;">
+        <div class="feature-card card-accent-green">
+          <div class="card-icon">📌</div>
+          <h4>T — Topic（课题）</h4>
+          <p>明确课题名称和来源</p>
+          <p style="font-size:0.85rem;color:var(--muted);">例：<em>"人教版四年级上册数学《角的度量》"</em></p>
+        </div>
+        <div class="feature-card card-accent-blue">
+          <div class="card-icon">🎯</div>
+          <h4>E — Educational Goals（教学目标）</h4>
+          <p>说明三维目标或核心素养目标</p>
+          <p style="font-size:0.85rem;color:var(--muted);">例：<em>"学生能认识量角器，能正确测量角的度数"</em></p>
+        </div>
+        <div class="feature-card card-accent-purple">
+          <div class="card-icon">👨‍🎓</div>
+          <h4>A — Audience（学生情况）</h4>
+          <p>描述学情和班级特点</p>
+          <p style="font-size:0.85rem;color:var(--muted);">例：<em>"四年级学生，已学过直角和钝角锐角的概念，动手操作能力较强"</em></p>
+        </div>
+        <div class="feature-card card-accent-orange">
+          <div class="card-icon">📖</div>
+          <h4>C — Content Requirements（内容要求）</h4>
+          <p>说明教案需包含的具体内容</p>
+          <p style="font-size:0.85rem;color:var(--muted);">例：<em>"包含教学重难点、40分钟教学流程、板书设计、5道练习"</em></p>
+        </div>
+        <div class="feature-card card-accent-red">
+          <div class="card-icon">📐</div>
+          <h4>H — How to Present（呈现方式）</h4>
+          <p>指定输出格式和风格</p>
+          <p style="font-size:0.85rem;color:var(--muted);">例：<em>"用表格呈现教学流程，每个环节标注时间和师生活动"</em></p>
+        </div>
+      </div>
+
+      <!-- Language Arts Lesson Plan Template -->
+      <h4 style="margin-top:2.5rem;">📝 语文课教案 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：语文课教案生成</div>
+        <p><strong>【T-课题】</strong>统编版<span class="placeholder">[年级]</span>语文<span class="placeholder">[上/下]</span>册，课文《<span class="placeholder">[课文名称]</span>》（<span class="placeholder">[作者]</span>），第<span class="placeholder">[X]</span>课时。<br><br>
+        <strong>【E-目标】</strong><br>
+        · 知识与技能：<span class="placeholder">[如：学会本课生字词，理解课文主要内容]</span><br>
+        · 过程与方法：<span class="placeholder">[如：通过朗读和讨论，体会作者的情感表达]</span><br>
+        · 情感态度：<span class="placeholder">[如：感悟亲情的可贵，培养感恩意识]</span><br><br>
+        <strong>【A-学情】</strong>学生为<span class="placeholder">[年级]</span>学生，班级共<span class="placeholder">[X]</span>人，语文基础<span class="placeholder">[较好/中等/参差不齐]</span>，<span class="placeholder">[补充学生特点]</span>。<br><br>
+        <strong>【C-内容要求】</strong><br>
+        请生成一份完整教案，包含：<br>
+        1. 教学目标（三维目标）<br>
+        2. 教学重点和难点<br>
+        3. 教学准备（教师准备和学生准备）<br>
+        4. 教学流程（45分钟，分环节标注时间和具体活动）<br>
+        5. 板书设计<br>
+        6. 课后作业设计（基础+拓展）<br>
+        7. 教学反思要点<br><br>
+        <strong>【H-格式】</strong>教学流程部分请用表格形式呈现，列出：环节名称、时间、教师活动、学生活动、设计意图。</p>
+      </div>
+
+      <div class="infobox infobox-demo" style="margin-top:1rem;">
+        <div class="infobox-icon">🎬</div>
+        <div class="infobox-body">
+          <div class="infobox-title">实际使用示例</div>
+          <p><strong>输入：</strong></p>
+          <p style="background:#f0f4f0;padding:0.8rem;border-radius:8px;font-size:0.88rem;">
+            【T-课题】统编版八年级上册语文，课文《背影》（朱自清），第一课时。<br>
+            【E-目标】知识与技能：理解"背影"在文中的象征意义，掌握细节描写手法；过程与方法：通过品读关键段落体会父子深情；情感态度：感悟父爱的深沉，珍惜亲情。<br>
+            【A-学情】八年级学生42人，语文基础中等，部分学生课外阅读量大。<br>
+            【C-内容要求】包含完整教案六要素+板书+课后作业。<br>
+            【H-格式】教学流程用表格呈现。
+          </p>
+          <p style="margin-top:0.5rem;">AI将在30秒内生成一份结构完整、内容详实的教案，教师只需审核调整即可使用。</p>
+        </div>
+      </div>
+
+      <!-- Math Lesson Plan Template -->
+      <h4 style="margin-top:2.5rem;">🔢 数学课教案 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：数学课教案生成</div>
+        <p><strong>【T-课题】</strong>人教版<span class="placeholder">[年级]</span>数学<span class="placeholder">[上/下]</span>册，《<span class="placeholder">[章节名称]</span>》第<span class="placeholder">[X]</span>节"<span class="placeholder">[课时标题]</span>"。<br><br>
+        <strong>【E-目标】</strong><br>
+        · 理解<span class="placeholder">[核心概念]</span>的含义<br>
+        · 掌握<span class="placeholder">[计算方法/解题步骤]</span><br>
+        · 能运用所学知识解决<span class="placeholder">[实际问题类型]</span><br><br>
+        <strong>【A-学情】</strong>学生为<span class="placeholder">[年级]</span>学生，已掌握<span class="placeholder">[前置知识点]</span>，对<span class="placeholder">[新知识]</span>尚未接触。班级数学水平<span class="placeholder">[描述]</span>。<br><br>
+        <strong>【C-内容要求】</strong>请生成包含以下内容的教案：<br>
+        1. 教学目标和重难点<br>
+        2. 40分钟教学流程（含引入情境、探究新知、巩固练习、小结）<br>
+        3. 例题2道（含详细解题过程）<br>
+        4. 随堂练习5道（基础2道+提高2道+拓展1道）<br>
+        5. 板书设计<br>
+        6. 易错点提醒<br><br>
+        <strong>【H-格式】</strong>教学流程用表格，例题用分步解答格式，练习题附参考答案和解析。</p>
+      </div>
+
+      <!-- English Lesson Plan Template -->
+      <h4 style="margin-top:2.5rem;">🌍 英语课教案 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：英语课教案生成</div>
+        <p><strong>【T-课题】</strong><span class="placeholder">[教材版本]</span><span class="placeholder">[年级]</span>英语，Unit <span class="placeholder">[X]</span> "<span class="placeholder">[单元标题]</span>"，<span class="placeholder">[Reading/Listening/Grammar/Writing]</span>课。<br><br>
+        <strong>【E-目标】</strong><br>
+        · 语言知识：掌握<span class="placeholder">[目标词汇/语法结构]</span><br>
+        · 语言技能：能够<span class="placeholder">[听/说/读/写的具体能力目标]</span><br>
+        · 情感态度：<span class="placeholder">[文化意识/学习策略目标]</span><br><br>
+        <strong>【A-学情】</strong><span class="placeholder">[年级]</span>学生，英语水平<span class="placeholder">[描述]</span>，已掌握<span class="placeholder">[前置语言知识]</span>。<br><br>
+        <strong>【C-内容要求】</strong><br>
+        1. 完整教案含教学目标、重难点、教学流程<br>
+        2. 教学流程遵循PPP模式（Presentation-Practice-Production）或PWP模式<br>
+        3. 包含2个课堂互动活动设计<br>
+        4. 课堂用语建议（中英双语）<br>
+        5. 课后作业（口头+书面）<br><br>
+        <strong>【H-格式】</strong>教学流程用表格呈现，课堂活动附详细操作说明。</p>
+      </div>
+
+      <!-- Teaching Plan Optimization Tips -->
+      <div class="infobox infobox-tip" style="margin-top:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">教案优化追问技巧</div>
+          <p>AI生成的初稿通常需要调整。以下是常用的追问Prompt：</p>
+          <ul>
+            <li>🔄 <strong>调整难度：</strong>"请将教学流程中的探究环节降低难度，增加脚手架引导"</li>
+            <li>🎭 <strong>增加互动：</strong>"请在导入环节增加一个角色扮演活动"</li>
+            <li>⏱ <strong>调整时间：</strong>"总时间改为35分钟，请重新分配各环节时间"</li>
+            <li>📊 <strong>调整格式：</strong>"请把教学流程改成更详细的版本，每个环节列出关键提问"</li>
+            <li>🔗 <strong>对接课标：</strong>"请将教学目标与《义务教育课程标准（2022年版）》对接"</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 3: AI辅助课件制作 -->
+    <!-- ============================================ -->
+    <section class="section" id="courseware">
+      <div class="section-header">
+        <div class="section-icon blue">🎨</div>
+        <div>
+          <div class="section-title">AI辅助课件制作</div>
+          <div class="section-subtitle">告别PPT排版焦虑，AI帮你做精美课件</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🎯 课件制作三步法</h4>
+        <p>AI辅助课件制作的核心流程：<strong>先用对话AI生成大纲和内容 → 再用课件AI一键生成PPT → 最后教师微调细节</strong>。</p>
+      </div>
+
+      <!-- Step-by-Step Guide -->
+      <div class="steps" style="margin-top:1.5rem;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>生成课件大纲</strong>
+            <p>先用文心一言/ChatGPT生成结构化的课件大纲，包括每页标题、要点和讲解备注。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>一键生成PPT</strong>
+            <p>将大纲粘贴到Gamma或Canva AI中，选择教育模板风格，一键生成精美PPT。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>教师微调完善</strong>
+            <p>检查内容准确性，调整图片和布局，添加校本元素和个性化内容。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide Outline Template -->
+      <h4 style="margin-top:2rem;">生成课件大纲的 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：课件大纲生成</div>
+        <p>请为<span class="placeholder">[年级]</span><span class="placeholder">[学科]</span>课"<span class="placeholder">[课题名称]</span>"生成一份PPT课件大纲。<br><br>
+        要求：<br>
+        1. 共<span class="placeholder">[10-15]</span>页幻灯片<br>
+        2. 每页包含：标题、3-4个核心要点、讲解备注<br>
+        3. 页面安排：封面→学习目标→导入→新知讲解（3-4页）→互动环节→练习→小结→作业<br>
+        4. 每页要点用简洁的短句，适合学生阅读<br>
+        5. 标注哪些页面适合添加图片/图表/动画<br><br>
+        请用以下格式输出：<br>
+        【第X页 - 页面标题】<br>
+        · 要点1<br>
+        · 要点2<br>
+        · 要点3<br>
+        📝 讲解备注：xxx<br>
+        🎨 视觉建议：xxx</p>
+      </div>
+
+      <!-- Visual Aids Template -->
+      <h4 style="margin-top:2rem;">生成教学图表说明的 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：教学可视化素材</div>
+        <p>我需要在<span class="placeholder">[学科]</span>课件中添加可视化素材来解释"<span class="placeholder">[概念/知识点]</span>"。<br><br>
+        请为我设计：<br>
+        1. 一个思维导图结构（用文字描述，我可以用工具绘制）<br>
+        2. 一个对比表格（展示<span class="placeholder">[对比内容]</span>）<br>
+        3. 一个流程图描述（展示<span class="placeholder">[过程/步骤]</span>）<br><br>
+        要求：内容简洁明了，适合<span class="placeholder">[年级]</span>学生理解，配色建议使用教育场景常用的蓝绿色调。</p>
+      </div>
+
+      <!-- Interactive Activity Template -->
+      <h4 style="margin-top:2rem;">设计课堂互动活动的 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：课堂互动活动设计</div>
+        <p>请为<span class="placeholder">[年级]</span><span class="placeholder">[学科]</span>"<span class="placeholder">[课题]</span>"设计3个不同类型的课堂互动活动。<br><br>
+        要求：<br>
+        1. 每个活动时间控制在5-8分钟<br>
+        2. 活动类型多样化（如小组讨论、竞赛、角色扮演、动手操作等）<br>
+        3. 每个活动包含：活动名称、目标、材料准备、操作步骤、评价方式<br>
+        4. 确保全班学生都能参与，不能只有少数学生活跃<br>
+        5. 考虑班级人数约<span class="placeholder">[X]</span>人的实际情况</p>
+      </div>
+
+      <!-- Tool Recommendations -->
+      <div class="infobox infobox-teacher" style="margin-top:1.5rem;">
+        <div class="infobox-icon">👩‍🏫</div>
+        <div class="infobox-body">
+          <div class="infobox-title">推荐的AI课件制作工具</div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>工具</th>
+                  <th>特点</th>
+                  <th>适合场景</th>
+                  <th>价格</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Gamma</strong></td>
+                  <td>AI一键生成PPT，设计感强</td>
+                  <td>公开课、展示课</td>
+                  <td>基础版免费</td>
+                </tr>
+                <tr>
+                  <td><strong>Canva AI</strong></td>
+                  <td>海量教育模板，操作简单</td>
+                  <td>日常教学课件</td>
+                  <td>教育版免费</td>
+                </tr>
+                <tr>
+                  <td><strong>美图AI PPT</strong></td>
+                  <td>中文友好，模板本土化</td>
+                  <td>日常备课</td>
+                  <td>免费</td>
+                </tr>
+                <tr>
+                  <td><strong>讯飞智教</strong></td>
+                  <td>与课标教材深度融合</td>
+                  <td>标准化教学</td>
+                  <td>部分免费</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-top:1rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">课件制作小技巧</div>
+          <ul>
+            <li>📐 <strong>少字多图：</strong>每页PPT文字不超过6行，多用图表和图示</li>
+            <li>🎨 <strong>统一风格：</strong>全套课件使用同一配色和字体</li>
+            <li>⏱ <strong>标注时间：</strong>在备注中标注每页的讲解时间，避免超时</li>
+            <li>🔄 <strong>迭代优化：</strong>上完课后根据实际效果让AI帮你改进课件</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 4: 分层教学设计 -->
+    <!-- ============================================ -->
+    <section class="section" id="differentiated">
+      <div class="section-header">
+        <div class="section-icon purple">🎯</div>
+        <div>
+          <div class="section-title">分层教学设计</div>
+          <div class="section-subtitle">用AI实现真正的因材施教</div>
+        </div>
+      </div>
+
+      <div class="card card-lg">
+        <h4>🤔 为什么分层教学这么难？</h4>
+        <p>一个班级40+学生，学习水平参差不齐。传统教学中，教师很难为不同层次的学生准备不同的学习材料 — 时间和精力都不够。<strong>AI让分层教学从理想变为现实：一次对话，三套材料。</strong></p>
+      </div>
+
+      <!-- Three Levels -->
+      <h4 style="margin-top:1.5rem;">分层教学的三个层次</h4>
+      <div class="flow-diagram">
+        <div class="flow-row">
+          <div class="flow-box green">🌟 A层（拓展）<br><span style="font-size:0.8rem">学优生：挑战+拓展</span></div>
+          <div class="flow-box blue">📚 B层（提高）<br><span style="font-size:0.8rem">中等生：巩固+提升</span></div>
+          <div class="flow-box accent">🌱 C层（基础）<br><span style="font-size:0.8rem">待进生：夯实+鼓励</span></div>
+        </div>
+      </div>
+
+      <!-- Differentiated Materials Template -->
+      <h4 style="margin-top:2rem;">分层练习生成 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：分层练习题生成</div>
+        <p>请为<span class="placeholder">[年级]</span><span class="placeholder">[学科]</span>"<span class="placeholder">[知识点]</span>"生成三个层次的练习题。<br><br>
+        <strong>🌱 C层（基础巩固）— 面向基础较弱的学生：</strong><br>
+        · 5道基础题，考查核心概念的理解和简单运用<br>
+        · 每道题附带详细解题步骤和提示<br>
+        · 语言简洁，避免复杂表述<br><br>
+        <strong>📚 B层（能力提高）— 面向中等水平学生：</strong><br>
+        · 5道中等难度题，考查知识的灵活运用<br>
+        · 包含1-2道实际应用题<br>
+        · 附参考答案和简要解析<br><br>
+        <strong>🌟 A层（拓展挑战）— 面向学有余力的学生：</strong><br>
+        · 3道综合性题目，考查举一反三的能力<br>
+        · 包含1道开放性思考题<br>
+        · 附参考答案，鼓励多种解法<br><br>
+        所有题目请标注对应的知识点和难度星级（⭐-⭐⭐⭐⭐⭐）。</p>
+      </div>
+
+      <!-- Differentiated Reading Template -->
+      <h4 style="margin-top:2rem;">分层阅读任务 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：分层阅读学习单</div>
+        <p>我正在教<span class="placeholder">[年级]</span>语文课文《<span class="placeholder">[课文名称]</span>》。请为三个层次的学生设计不同的阅读学习单。<br><br>
+        <strong>🌱 C层学习单：</strong><br>
+        · 基础理解题（填空、判断）<br>
+        · 关键词句摘抄任务<br>
+        · 简单的"谁做了什么"概括练习<br><br>
+        <strong>📚 B层学习单：</strong><br>
+        · 段落大意概括<br>
+        · 修辞手法识别和分析<br>
+        · 人物/情感分析简答题<br><br>
+        <strong>🌟 A层学习单：</strong><br>
+        · 主题深度探究问题<br>
+        · 与其他作品的比较阅读<br>
+        · 创意写作延伸任务<br><br>
+        每份学习单请设计为A4纸一页内容量，格式清晰美观。</p>
+      </div>
+
+      <!-- Differentiated Homework Template -->
+      <h4 style="margin-top:2rem;">个性化作业设计 Prompt 模板</h4>
+      <div class="prompt-template">
+        <div class="pt-label">🟢 Prompt模板：个性化课后作业</div>
+        <p>请为<span class="placeholder">[年级]</span><span class="placeholder">[学科]</span>"<span class="placeholder">[知识点]</span>"这节课设计三种难度的课后作业。<br><br>
+        每种难度包含：<br>
+        1. 必做题（2-3题）：所有学生都需完成的基础练习<br>
+        2. 选做题：根据学生能力自主选择<br>
+        3. 挑战题（选做）：为学有余力的学生准备<br><br>
+        要求：<br>
+        · 总作业时间控制在<span class="placeholder">[20/30/40]</span>分钟以内<br>
+        · 作业形式多样（书面、口头、动手实践）<br>
+        · 附评分标准或自查清单</p>
+      </div>
+
+      <!-- Real-World Example -->
+      <div class="infobox infobox-demo" style="margin-top:1.5rem;">
+        <div class="infobox-icon">🎬</div>
+        <div class="infobox-body">
+          <div class="infobox-title">真实案例：五年级数学分层练习</div>
+          <p><strong>知识点：</strong>小数乘法</p>
+          <p><strong>C层基础题示例：</strong> 3.2 × 4 = ？（提示：先算32×4=128，再点小数点）</p>
+          <p><strong>B层提高题示例：</strong>小明买了2.5千克苹果，每千克7.8元，一共花了多少钱？</p>
+          <p><strong>A层挑战题示例：</strong>一块长方形菜地，长12.5米，宽是长的0.8倍。如果每平方米种8棵白菜，这块菜地一共能种多少棵白菜？</p>
+        </div>
+      </div>
+
+      <div class="infobox infobox-success" style="margin-top:1rem;">
+        <div class="infobox-icon">✨</div>
+        <div class="infobox-body">
+          <div class="infobox-title">分层教学的AI辅助要点</div>
+          <ul>
+            <li>🎯 <strong>先统一后分层：</strong>核心知识点全班统一讲授，练习和作业分层设计</li>
+            <li>🔄 <strong>动态调整：</strong>根据学生进步情况，定期调整分层标准</li>
+            <li>💬 <strong>正向引导：</strong>不要让学生感到被"分等级"，而是"个性化学习路径"</li>
+            <li>📊 <strong>AI追踪建议：</strong>可以请AI根据学生表现数据给出分层调整建议</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- Section 5: 实战演练 -->
+    <!-- ============================================ -->
+    <section class="section" id="practice">
+      <div class="section-header">
+        <div class="section-icon orange">🏋️</div>
+        <div>
+          <div class="section-title">实战演练</div>
+          <div class="section-subtitle">动手做一做，让学习真正落地</div>
+        </div>
+      </div>
+
+      <div class="homework-box">
+        <div class="homework-header">
+          <div class="hw-icon">📝</div>
+          <h2>模块二 · 实战演练</h2>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">1</div>
+          <div>
+            <strong>用TEACH框架生成一份完整教案</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选择您下周要上的一节课，使用TEACH框架编写Prompt，让AI生成完整教案。然后认真审核教案，标注需要修改的地方，并让AI进行至少2轮优化。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：最终教案（标注AI生成部分和教师修改部分）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">2</div>
+          <div>
+            <strong>创建一份分层练习单</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              选择一个知识点，使用分层练习Prompt模板生成A/B/C三个层次的练习题。打印出来后在班级中实际使用，收集学生反馈。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：三个层次的练习单 + 使用后的简短反思（200字）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hw-item">
+          <div class="hw-num">3</div>
+          <div>
+            <strong>用AI设计3个课堂互动活动</strong>
+            <span style="font-size:0.84rem;opacity:0.85;">
+              为您的某节课使用AI设计3个不同类型的互动活动。选择其中1个在课堂上实施，记录实施效果和学生参与度。
+            </span>
+            <div style="margin-top:0.5rem;">
+              <span class="hw-deliverable">交付物：3个活动方案 + 1个实施反馈记录</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bonus Challenge -->
+      <div class="infobox infobox-info" style="margin-top:1.5rem;">
+        <div class="infobox-icon">🌟</div>
+        <div class="infobox-body">
+          <div class="infobox-title">附加挑战（选做）</div>
+          <p><strong>课件大纲生成：</strong>用AI生成一节课的PPT大纲，然后用Gamma或Canva AI生成实际课件。截图对比AI生成版本和您平时自己做的版本，写下感受。</p>
+        </div>
+      </div>
+
+      <!-- Self-Evaluation -->
+      <div class="prompt-template" style="margin-top:1.5rem;">
+        <div class="pt-label">🟢 AI辅助备课自评 Prompt</div>
+        <p>我刚用AI完成了一节<span class="placeholder">[学科]</span>课的备课工作。<br>
+        课题是：<span class="placeholder">[课题名称]</span><br>
+        耗时：<span class="placeholder">[X分钟]</span>（以前备同样的课需要<span class="placeholder">[Y分钟]</span>）<br>
+        使用的工具：<span class="placeholder">[工具名称]</span><br><br>
+        我觉得AI做得好的地方：<span class="placeholder">[...]</span><br>
+        我觉得需要改进的地方：<span class="placeholder">[...]</span><br><br>
+        请根据我的反馈，给出3条提升AI备课效率的具体建议。</p>
+      </div>
+
+      <div class="infobox infobox-success" style="margin-top:1.5rem;">
+        <div class="infobox-icon">🎉</div>
+        <div class="infobox-body">
+          <div class="infobox-title">完成模块二，您的备课效率将大幅提升！</div>
+          <p>恭喜！完成本模块后，您已掌握：</p>
+          <ul>
+            <li>✅ TEACH备课框架的使用方法</li>
+            <li>✅ 语文/数学/英语教案的AI生成技巧</li>
+            <li>✅ AI辅助课件制作的三步法</li>
+            <li>✅ 分层教学设计的AI辅助方法</li>
+            <li>✅ 10+个即拿即用的备课Prompt模板</li>
+          </ul>
+          <p>下一模块，我们将学习如何用AI高效批改作业和撰写个性化评语！</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <a href="module1.html" class="btn-prev">← 模块一：AI认知入门</a>
+      <a href="module3.html" class="btn-next">模块三：作业批改与评价 →</a>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
