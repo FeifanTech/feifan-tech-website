@@ -110,6 +110,7 @@ The website can be deployed to various platforms:
 - **Vercel:** `npm run build` and deploy
 - **Netlify:** Connect repository and auto-deploy
 - **GitHub Pages:** Build and deploy to gh-pages branch
+- **Aliyun ECS (Auto Deploy on merge to main):** See `/docs/deployment-aliyun.md`
 
 ## 👥 Company Information
 
