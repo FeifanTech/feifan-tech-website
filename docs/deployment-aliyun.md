@@ -21,6 +21,8 @@
 - `ALIYUN_SSH_PRIVATE_KEY`：私钥内容（建议使用专用 deploy key）
 - `ALIYUN_KNOWN_HOSTS`：服务器主机密钥（`known_hosts` 一整行，建议用 `ssh-keyscan -H <host>` 获取并人工核对指纹）
 - `ALIYUN_DEPLOY_PATH`：服务器部署目录（如 `/var/www/feifan-tech-website`，必须是绝对路径，且字符集需满足：`A-Za-z0-9._/-`）
+- `VITE_SUPABASE_URL`：Supabase 项目 URL（打包时注入，格式 `https://<project-ref>.supabase.co`）
+- `VITE_SUPABASE_ANON_KEY`：Supabase 匿名访问密钥（打包时注入）
 
 ---
 
