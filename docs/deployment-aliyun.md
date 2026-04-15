@@ -1,6 +1,6 @@
 # 阿里云 ECS 自动部署说明（GitHub Actions）
 
-本项目已提供自动部署工作流：`/home/runner/work/feifan-tech-website/feifan-tech-website/.github/workflows/deploy-aliyun.yml`。
+本项目已提供自动部署工作流：`.github/workflows/deploy-aliyun.yml`。
 
 触发方式：
 - PR 合并到 `main` 后会产生一次 `push main`，自动触发构建与部署
@@ -19,7 +19,8 @@
 - `ALIYUN_SSH_PORT`：SSH 端口（默认 22，可选）
 - `ALIYUN_SSH_USER`：部署用户（如 `root` 或专用部署用户）
 - `ALIYUN_SSH_PRIVATE_KEY`：私钥内容（建议使用专用 deploy key）
-- `ALIYUN_DEPLOY_PATH`：服务器部署目录（如 `/var/www/feifan-tech-website`）
+- `ALIYUN_KNOWN_HOSTS`：服务器主机密钥（`known_hosts` 一整行，建议用 `ssh-keyscan -H <host>` 获取并人工核对指纹）
+- `ALIYUN_DEPLOY_PATH`：服务器部署目录（如 `/var/www/feifan-tech-website`，必须是绝对路径，且字符集需满足：`A-Za-z0-9._/-`）
 
 ---
 
@@ -42,6 +43,25 @@ sudo chown -R <你的部署用户>:<你的部署用户组> /var/www/feifan-tech-
 ### 2.3 配置 SSH 公钥登录
 
 把与 `ALIYUN_SSH_PRIVATE_KEY` 配套的公钥加入部署用户的 `~/.ssh/authorized_keys`。
+
+### 2.4 准备 known_hosts（用于安全校验）
+
+在本地执行：
+
+```bash
+ssh-keyscan -H <你的服务器IP或域名>
+```
+
+将输出结果保存到 `ALIYUN_KNOWN_HOSTS` Secret，并做一次人工核对，示例：
+
+```bash
+# 查看 ssh-keyscan 结果的指纹
+ssh-keyscan -H <你的服务器IP或域名> 2>/dev/null | ssh-keygen -lf -
+```
+
+再在服务器上对比（任选一种）：
+- 在服务器执行 `ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub`（或对应 host key 文件）
+- 或在阿里云控制台查看实例指纹信息后比对
 
 ---
 
@@ -82,5 +102,7 @@ sudo systemctl reload nginx
 
 - `Missing required secret`：检查 Secrets 名称是否与工作流完全一致
 - `Permission denied (publickey)`：检查私钥、公钥和部署用户是否匹配
+- `Host key verification failed`：检查 `ALIYUN_KNOWN_HOSTS` 内容是否正确
 - `rsync: command not found`：在 ECS 安装 `rsync`
 - `Action 成功但页面未更新`：确认 Nginx `root` 与 `ALIYUN_DEPLOY_PATH` 一致
+- 说明：工作流使用 `rsync --delete`，会删除目标目录中 dist 不存在的文件，请确保 `ALIYUN_DEPLOY_PATH` 是独立站点目录

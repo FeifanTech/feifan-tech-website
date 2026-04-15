@@ -14,6 +14,8 @@ jobs:
   deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout code
@@ -37,13 +39,14 @@ jobs:
           ALIYUN_SSH_PORT: ${{ secrets.ALIYUN_SSH_PORT }}
           ALIYUN_SSH_USER: ${{ secrets.ALIYUN_SSH_USER }}
           ALIYUN_SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_SSH_PRIVATE_KEY }}
+          ALIYUN_KNOWN_HOSTS: ${{ secrets.ALIYUN_KNOWN_HOSTS }}
           ALIYUN_DEPLOY_PATH: ${{ secrets.ALIYUN_DEPLOY_PATH }}
         run: |
           set -euo pipefail
 
           ALIYUN_SSH_PORT="${ALIYUN_SSH_PORT:-22}"
 
-          required_vars=("ALIYUN_HOST" "ALIYUN_SSH_USER" "ALIYUN_SSH_PRIVATE_KEY" "ALIYUN_DEPLOY_PATH")
+          required_vars=("ALIYUN_HOST" "ALIYUN_SSH_USER" "ALIYUN_SSH_PRIVATE_KEY" "ALIYUN_KNOWN_HOSTS" "ALIYUN_DEPLOY_PATH")
           for var in "${required_vars[@]}"; do
             if [ -z "${!var}" ]; then
               echo "::error::Missing required secret: $var"
@@ -51,15 +54,38 @@ jobs:
             fi
           done
 
+          if [[ ! "$ALIYUN_DEPLOY_PATH" =~ ^/ ]]; then
+            echo "::error::ALIYUN_DEPLOY_PATH must be an absolute path."
+            exit 1
+          fi
+
+          SAFE_DEPLOY_PATH="${ALIYUN_DEPLOY_PATH%/}"
+          if [ -z "$SAFE_DEPLOY_PATH" ]; then
+            SAFE_DEPLOY_PATH="/"
+          fi
+
+          case "$SAFE_DEPLOY_PATH" in
+            "/"|"/root"|"/home"|"/var"|"/var/www"|"/etc")
+              echo "::error::Refusing risky ALIYUN_DEPLOY_PATH: $SAFE_DEPLOY_PATH"
+              exit 1
+              ;;
+          esac
+
+          if [[ ! "$SAFE_DEPLOY_PATH" =~ ^/[A-Za-z0-9._/-]+$ ]]; then
+            echo "::error::ALIYUN_DEPLOY_PATH contains unsupported characters."
+            exit 1
+          fi
+
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           echo "$ALIYUN_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          echo "$ALIYUN_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
 
-          ssh-keyscan -p "$ALIYUN_SSH_PORT" -H "$ALIYUN_HOST" >> ~/.ssh/known_hosts
-
-          ssh -p "$ALIYUN_SSH_PORT" "${ALIYUN_SSH_USER}@${ALIYUN_HOST}" "mkdir -p '$ALIYUN_DEPLOY_PATH'"
+          REMOTE_DEPLOY_PATH_ESCAPED="$(printf "%q" "$SAFE_DEPLOY_PATH")"
+          ssh -p "$ALIYUN_SSH_PORT" "${ALIYUN_SSH_USER}@${ALIYUN_HOST}" "mkdir -p $REMOTE_DEPLOY_PATH_ESCAPED"
 
           rsync -az --delete \
             -e "ssh -p $ALIYUN_SSH_PORT" \
-            dist/ "${ALIYUN_SSH_USER}@${ALIYUN_HOST}:${ALIYUN_DEPLOY_PATH}/"
+            dist/ "${ALIYUN_SSH_USER}@${ALIYUN_HOST}:${REMOTE_DEPLOY_PATH_ESCAPED}/"
