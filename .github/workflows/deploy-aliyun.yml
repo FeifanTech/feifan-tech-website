@@ -42,14 +42,13 @@ jobs:
           ALIYUN_SSH_PORT: ${{ secrets.ALIYUN_SSH_PORT }}
           ALIYUN_SSH_USER: ${{ secrets.ALIYUN_SSH_USER }}
           ALIYUN_SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_SSH_PRIVATE_KEY }}
-          ALIYUN_KNOWN_HOSTS: ${{ secrets.ALIYUN_KNOWN_HOSTS }}
           ALIYUN_DEPLOY_PATH: ${{ secrets.ALIYUN_DEPLOY_PATH }}
         run: |
           set -euo pipefail
 
           ALIYUN_SSH_PORT="${ALIYUN_SSH_PORT:-22}"
 
-          required_vars=("ALIYUN_HOST" "ALIYUN_SSH_USER" "ALIYUN_SSH_PRIVATE_KEY" "ALIYUN_KNOWN_HOSTS" "ALIYUN_DEPLOY_PATH")
+          required_vars=("ALIYUN_HOST" "ALIYUN_SSH_USER" "ALIYUN_SSH_PRIVATE_KEY" "ALIYUN_DEPLOY_PATH")
           for var in "${required_vars[@]}"; do
             if [ -z "${!var}" ]; then
               echo "::error::Missing required secret: $var"
@@ -83,7 +82,17 @@ jobs:
           chmod 700 ~/.ssh
           printf '%s' "$ALIYUN_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          printf '%s' "$ALIYUN_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+          SSH_KEYSCAN_ERR_FILE="/tmp/aliyun-ssh-keyscan.err"
+          if ! ssh-keyscan -H -p "$ALIYUN_SSH_PORT" "$ALIYUN_HOST" > ~/.ssh/known_hosts 2>"$SSH_KEYSCAN_ERR_FILE"; then
+            echo "::error::ssh-keyscan failed for ${ALIYUN_HOST}:${ALIYUN_SSH_PORT}. Details:"
+            cat "$SSH_KEYSCAN_ERR_FILE" >&2 || true
+            exit 1
+          fi
+          if [ ! -s ~/.ssh/known_hosts ]; then
+            echo "::error::ssh-keyscan returned empty host keys for ${ALIYUN_HOST}:${ALIYUN_SSH_PORT}."
+            cat "$SSH_KEYSCAN_ERR_FILE" >&2 || true
+            exit 1
+          fi
           chmod 644 ~/.ssh/known_hosts
 
           REMOTE_DEPLOY_PATH_ESCAPED="$(printf "%q" "$SAFE_DEPLOY_PATH")"
