@@ -80,24 +80,43 @@ jobs:
 
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf '%s' "$ALIYUN_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+
+          printf '%s\n' "$ALIYUN_SSH_PRIVATE_KEY" | sed 's/\r$//' > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          if ! ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null 2>&1; then
+            echo "::error::ALIYUN_SSH_PRIVATE_KEY is not a valid private key after writing to disk."
+            echo "::group::Key file debug"
+            wc -l ~/.ssh/deploy_key || true
+            sed -n '1p;$p' ~/.ssh/deploy_key || true
+            echo "::endgroup::"
+            exit 1
+          fi
+
+          echo "::group::Deploy key fingerprint"
+          ssh-keygen -lf ~/.ssh/deploy_key
+          echo "::endgroup::"
+
           SSH_KEYSCAN_ERR_FILE="/tmp/aliyun-ssh-keyscan.err"
           if ! ssh-keyscan -H -p "$ALIYUN_SSH_PORT" "$ALIYUN_HOST" > ~/.ssh/known_hosts 2>"$SSH_KEYSCAN_ERR_FILE"; then
             echo "::error::ssh-keyscan failed for ${ALIYUN_HOST}:${ALIYUN_SSH_PORT}. Details:"
             cat "$SSH_KEYSCAN_ERR_FILE" >&2 || true
             exit 1
           fi
+
           if [ ! -s ~/.ssh/known_hosts ]; then
             echo "::error::ssh-keyscan returned empty host keys for ${ALIYUN_HOST}:${ALIYUN_SSH_PORT}."
             cat "$SSH_KEYSCAN_ERR_FILE" >&2 || true
             exit 1
           fi
+
           chmod 644 ~/.ssh/known_hosts
 
           REMOTE_DEPLOY_PATH_ESCAPED="$(printf "%q" "$SAFE_DEPLOY_PATH")"
-          ssh -p "$ALIYUN_SSH_PORT" "${ALIYUN_SSH_USER}@${ALIYUN_HOST}" "mkdir -p $REMOTE_DEPLOY_PATH_ESCAPED"
+          SSH_OPTS="-i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -p $ALIYUN_SSH_PORT"
+
+          ssh $SSH_OPTS "${ALIYUN_SSH_USER}@${ALIYUN_HOST}" "mkdir -p $REMOTE_DEPLOY_PATH_ESCAPED"
 
           rsync -az --delete \
-            -e "ssh -p $ALIYUN_SSH_PORT" \
+            -e "ssh $SSH_OPTS" \
             dist/ "${ALIYUN_SSH_USER}@${ALIYUN_HOST}:${REMOTE_DEPLOY_PATH_ESCAPED}/"
