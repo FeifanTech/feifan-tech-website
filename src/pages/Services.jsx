@@ -8,6 +8,7 @@ import {
   Database,
   Shield,
   Cpu,
+  Monitor,
   Globe,
   BarChart3,
   ArrowRight,
@@ -29,6 +30,12 @@ const Services = () => {
         title: t('services.items.ai.title'),
         description: t('services.items.ai.description'),
         features: t('services.items.ai.features', { returnObjects: true }),
+      },
+      {
+        icon: <Globe className="w-7 h-7" />,
+        title: t('services.items.modelSubscriptionAgency.title'),
+        description: t('services.items.modelSubscriptionAgency.description'),
+        features: t('services.items.modelSubscriptionAgency.features', { returnObjects: true }),
       },
       {
         icon: <Database className="w-7 h-7" />,
@@ -77,6 +84,12 @@ const Services = () => {
         title: t('services.items.privateDeployment.title'),
         description: t('services.items.privateDeployment.description'),
         features: t('services.items.privateDeployment.features', { returnObjects: true }),
+      },
+      {
+        icon: <Monitor className="w-7 h-7" />,
+        title: t('services.items.hardwareAgency.title'),
+        description: t('services.items.hardwareAgency.description'),
+        features: t('services.items.hardwareAgency.features', { returnObjects: true }),
       },
     ],
     training: [

@@ -362,6 +362,16 @@
           "Predictive Analytics"
         ]
       },
+      "modelSubscriptionAgency": {
+        "title": "Foundation Model Subscription Agency",
+        "description": "Subscription provisioning, account management, and enterprise procurement support for Alibaba and other leading foundation model platforms",
+        "features": [
+          "Alibaba and multi-vendor model subscriptions",
+          "Enterprise account setup and quota planning",
+          "Model selection and cost optimization advice",
+          "Corporate procurement and renewal support"
+        ]
+      },
       "industryCustomization": {
         "title": "Industry Intelligent Customization",
         "description": "Customized intelligent solutions tailored to different industries, deeply integrated with business scenarios",
@@ -382,6 +392,16 @@
           "System autonomy and control",
           "Customized operation support",
           "Version upgrade services"
+        ]
+      },
+      "hardwareAgency": {
+        "title": "Xinchuang Hardware & AI Display Agency",
+        "description": "Authorized agency, delivery coordination, and supporting services for Xinchuang hardware and AI display products for enterprise and public-sector clients",
+        "features": [
+          "Authorized Xinchuang hardware distribution",
+          "AI display solution selection",
+          "Enterprise and public-sector procurement support",
+          "Deployment coordination and after-sales handoff"
         ]
       },
       "aiTraining": {
@@ -848,8 +868,10 @@
         "Data Analytics",
         "Cybersecurity",
         "AI & ML Solutions",
+        "Foundation Model Subscription Agency",
         "Industry Intelligent Customization",
         "Private Deployment",
+        "Xinchuang Hardware & AI Display Agency",
         "Consulting",
         "Other"
       ]
