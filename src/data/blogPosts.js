@@ -1,6 +1,365 @@
 // Static blog data shared between Blog.jsx and BlogPost.jsx
 export const POSTS = [
   {
+    slug: 'open-source-dify-virtual-try-on-workflow-2026',
+    category: 'Engineering',
+    categoryColor: '#4A9E7A',
+    date: '2026-04-18',
+    readTimeZh: '9 分钟',
+    readTimeEn: '9 min read',
+    authorZh: '六合',
+    authorEn: 'Liu He',
+    authorTitleZh: '资深交付总监',
+    authorTitleEn: 'Senior Delivery Director',
+    authorAvatar: '六',
+    authorColor: '#B85C35',
+    titleZh: '开源模型 + Dify 实现 AI 试衣换装：一条更适合业务落地的工作流',
+    titleEn: 'Open-Source Models + Dify for AI Virtual Try-On: A Workflow Better Suited to Production',
+    excerptZh: '如果说试衣换装的核心难点在于视觉生成，那么真正让它走向业务的关键，则在于如何把开源模型、任务编排、审核兜底和交付流程连成一条稳定工作流。本文分享我们更偏工程化的一种实现路径。',
+    excerptEn: 'If visual generation is the core challenge of virtual try-on, the real step toward production is building a stable workflow across open-source models, task orchestration, review gates, and delivery logic. This article shares a more engineering-oriented implementation path.',
+    tagsZh: ['Dify', '开源模型', 'AI试衣', '工作流编排', '低代码AI'],
+    tagsEn: ['Dify', 'Open-Source Models', 'Virtual Try-On', 'Workflow Orchestration', 'Low-Code AI'],
+    contentZh: `## 为什么我们会考虑“开源模型 + 工作流平台”的组合
+
+做 AI 试衣换装时，团队通常会先盯着最显眼的那一层：生成效果。
+
+但如果目标从 Demo 变成业务可用，真正的问题会很快转向另外几类：
+- 用户输入怎么收集
+- 多个模型怎么串起来
+- 哪些步骤可以自动化，哪些需要人工审核
+- 失败任务怎么回退、重试和通知
+- 最终结果怎么回写到业务系统
+
+也正因为如此，我们越来越倾向于把“开源视觉模型”与“低代码 AI 工作流平台”分开看待：  
+前者负责能力，后者负责流程。
+
+在这个组合里，Dify 这类工作流平台的价值，不是替代底层模型，而是把原本散落的多个步骤，组织成一条可配置、可观察、可扩展的执行链。
+
+---
+
+## 一条典型的试衣换装工作流如何拆分
+
+如果从业务实现角度拆，我们会把整条链路分成五段：
+
+### 1. 输入接入
+用户上传人物图和服装图，选择换装类别、风格或输出比例。  
+这一步看起来简单，但实际要同时做：
+- 文件合法性校验
+- 尺寸与分辨率限制
+- 人像与服装图的基础质量判断
+
+### 2. 视觉预处理
+这里通常由开源模型完成，包括：
+- 人体检测 / 分割
+- 姿态估计
+- 服装区域解析
+- 遮挡判断
+
+这一步输出的不是最终图片，而是一组中间条件，用来喂给后续的 try-on 模型。
+
+### 3. 试衣生成
+核心生成阶段通常会依赖开源虚拟试衣或图像编辑模型。  
+实践里我们更关心的不是“某个模型是否最火”，而是：
+- 是否支持稳定的条件输入
+- 对服装纹理是否保真
+- 推理显存和时间是否可接受
+- 能否做局部重绘或多轮 refinement
+
+### 4. 质量判断与审核分流
+不是每次生成都应直接返回给用户。  
+对于明显异常的结果，可以自动拦截，或进入人工审核队列。
+
+### 5. 结果交付
+最终结果还要考虑：
+- 存储地址
+- 任务状态回写
+- 成功/失败通知
+- 历史记录与再次编辑入口
+
+这五段拼起来，才是一条业务链路；只做中间生成，仍然只是一个视觉 Demo。
+
+---
+
+## 开源模型在这条链路里适合承担什么
+
+我们更倾向于把开源模型分成三层来使用：
+
+### 第一层：感知模型
+负责看懂输入，包括人体解析、关键点检测、服装掩码生成。  
+这类模型决定的是“后面有没有正确条件可用”。
+
+### 第二层：生成模型
+负责真正的换装输出。  
+这里可能是专门的虚拟试衣模型，也可能是经过条件控制和 LoRA 微调后的图像生成模型。
+
+### 第三层：辅助判断模型
+负责质量打分、异常分类、描述生成，或者给审核员提供解释信息。
+
+把这三层拆开有一个好处：可以按需替换，而不是把所有问题都压在一个大模型上。
+
+---
+
+## Dify 在这里最有价值的，不是“低代码”，而是编排
+
+很多人一听到 Dify，会先想到“给业务同学用的低代码平台”。  
+但在这类多步骤视觉任务里，它真正值得用的地方其实是工作流编排：
+
+### 1. 统一入口
+把表单输入、文件参数、业务上下文整理成结构化变量。
+
+### 2. 节点化组织
+预处理、生成、审核、通知这些阶段可以拆成不同节点，便于独立调试。
+
+### 3. 条件路由
+例如：
+- 分辨率过低 → 直接拒绝
+- 置信度不足 → 进入人工审核
+- 生成成功 → 自动回写并通知
+
+### 4. 审计与排错
+当任务失败时，至少可以快速知道卡在：
+- 输入校验
+- 模型调用
+- 中间结果解析
+- 结果交付
+
+这类透明度，对交付团队非常重要。
+
+---
+
+## 一个更现实的落地架构
+
+如果要用开源模型 + Dify 做一版能跑且能运维的系统，我们更推荐这样的职责划分：
+
+### Dify 负责：
+- 表单与任务入口
+- 工作流编排
+- 条件分流
+- 任务状态管理
+- 基础日志与回调
+
+### 独立推理服务负责：
+- GPU 推理
+- 模型版本管理
+- 图像预处理与后处理
+- 批量任务队列
+- 失败重试策略
+
+### 业务系统负责：
+- 用户身份与权限
+- 订单、商品或素材记录
+- 结果展示与历史查询
+- 审核员后台
+
+这样分层的好处是，Dify 用来组织流程，而不是硬扛所有高负载视觉推理逻辑。
+
+---
+
+## 最容易踩的几个坑
+
+### 1. 以为 Dify 能替代推理系统
+它适合编排，不适合直接承担复杂 GPU 服务本身。
+
+### 2. 只测效果，不测吞吐
+试衣任务在线上往往是排队型负载，峰值时延会迅速放大。
+
+### 3. 没有异常兜底
+人物遮挡严重、服装图不规范、模型超时，这些情况必须进入降级流程。
+
+### 4. 审核流程缺失
+只要结果会进入商品详情、广告素材或客户可见页面，就不能假设每张图都适合自动放行。
+
+---
+
+## 为什么这条路线值得做
+
+开源模型 + Dify 的组合，最大的优势不一定是“最强效果”，而是：
+- 成本结构更可控
+- 可替换性更强
+- 工作流更容易按业务需求调整
+- 更适合从 PoC 慢慢走向系统化交付
+
+对很多企业来说，真正重要的不是一次性做出最惊艳的效果，而是能不能在预算、效率和治理之间取得平衡。
+
+---
+
+## 结语
+
+AI 试衣换装要想真正进入业务，不能只看模型，还必须看流程。
+
+开源模型提供核心视觉能力，Dify 负责把输入、编排、审核、通知和交付组织起来。只有当这两层配合好，虚拟试衣才更可能从一个技术点子，变成一个能持续运行的业务能力。`,
+
+    contentEn: `## Why We Consider the Combination of Open-Source Models and a Workflow Platform
+
+When teams build AI virtual try-on, they usually focus first on the most visible layer: generation quality.
+
+But once the goal moves from demo to production, the critical questions shift quickly:
+- how user inputs are collected
+- how multiple models are chained together
+- which steps can be automated and which require review
+- how failed tasks are retried, downgraded, or escalated
+- how results are written back into the business system
+
+That is why we increasingly treat open-source visual models and low-code AI workflow platforms as two different layers:  
+the former provides capability, the latter provides process.
+
+In that setup, Dify’s value is not to replace the underlying models. It is to organize scattered steps into a configurable, observable, and extensible execution chain.
+
+---
+
+## How a Typical Try-On Workflow Breaks Down
+
+From a delivery perspective, we usually split the pipeline into five stages:
+
+### 1. Input intake
+Users upload a person image and a garment image, then choose category, style, or aspect ratio.  
+Even this first step requires:
+- file validation
+- size and resolution constraints
+- basic quality checks on the person and garment images
+
+### 2. Visual preprocessing
+This is usually handled by open-source models, including:
+- human detection and segmentation
+- pose estimation
+- garment parsing
+- occlusion judgment
+
+The output here is not the final image. It is a set of intermediate conditions for the try-on stage.
+
+### 3. Try-on generation
+The core generation stage typically depends on open-source virtual try-on or image-editing models.  
+In practice, we care less about whether a model is trendy and more about:
+- stable conditioning support
+- garment texture fidelity
+- acceptable inference time and GPU memory usage
+- support for local refinement or multi-pass generation
+
+### 4. Quality judgment and review routing
+Not every generated result should go directly to the user.  
+Obvious failures can be intercepted automatically or sent into a human review queue.
+
+### 5. Result delivery
+The final stage must still handle:
+- storage location
+- task state updates
+- success and failure notification
+- history and re-edit entry points
+
+Only when these five parts connect do you have a business workflow. Generation alone is still a visual demo.
+
+---
+
+## What Open-Source Models Should Handle in This Stack
+
+We prefer to use open-source models in three layers:
+
+### Layer 1: Perception models
+These understand the inputs, including human parsing, keypoint detection, and garment mask generation.  
+They determine whether the system has usable conditions for downstream generation.
+
+### Layer 2: Generation models
+These produce the actual try-on output.  
+That may be a specialized virtual try-on model, or an image generation model adapted through conditional control and fine-tuning.
+
+### Layer 3: Auxiliary judgment models
+These help score quality, classify failures, generate descriptions, or support reviewers with explanation.
+
+Separating the layers makes replacement much easier instead of forcing one large model to do everything.
+
+---
+
+## Dify’s Real Value Here Is Orchestration, Not Just “Low Code”
+
+When people hear Dify, they often think first of a low-code platform for business users.  
+In multi-step visual workloads, however, the most valuable part is workflow orchestration:
+
+### 1. Unified entry
+Form inputs, file parameters, and business context can be normalized into structured variables.
+
+### 2. Node-based composition
+Preprocessing, generation, review, and notification can be split into nodes and debugged independently.
+
+### 3. Conditional routing
+For example:
+- low resolution → reject directly
+- low confidence → route to human review
+- generation success → write back automatically and notify
+
+### 4. Auditability and debugging
+When a task fails, teams can quickly see whether the issue happened in:
+- input validation
+- model invocation
+- intermediate result parsing
+- result delivery
+
+That level of transparency is very important for delivery teams.
+
+---
+
+## A More Practical Delivery Architecture
+
+If you want a system based on open-source models plus Dify that can actually run and be operated, we recommend a division like this:
+
+### Dify handles:
+- form and task entry
+- workflow orchestration
+- conditional routing
+- task state management
+- basic logging and callbacks
+
+### Dedicated inference services handle:
+- GPU inference
+- model version management
+- image pre- and post-processing
+- queued batch tasks
+- retry strategies
+
+### The business system handles:
+- user identity and access control
+- order, product, or asset records
+- result presentation and history
+- reviewer back office
+
+This separation lets Dify organize workflows without forcing it to carry heavy visual inference responsibilities.
+
+---
+
+## Common Pitfalls
+
+### 1. Assuming Dify can replace the inference system
+It is good at orchestration, not at being the GPU serving layer itself.
+
+### 2. Testing image quality without testing throughput
+Try-on workloads often become queue-heavy online, and peak latency grows fast.
+
+### 3. Missing fallback logic
+Severe occlusion, bad garment images, or model timeouts must flow into downgrade paths.
+
+### 4. Skipping review
+If results appear in product pages, campaign assets, or any customer-facing surface, you should not assume every image deserves automatic release.
+
+---
+
+## Why This Route Is Worth Building
+
+The main advantage of open-source models plus Dify is not necessarily “the best possible visual quality.” It is:
+- more controllable cost structure
+- stronger replaceability
+- easier workflow adaptation to business needs
+- a better path from PoC to operational delivery
+
+For many teams, the real goal is not one spectacular output. It is a sustainable balance across cost, speed, and governance.
+
+---
+
+## Closing Thought
+
+To bring AI virtual try-on into real business, you cannot look only at models. You must look at workflow.
+
+Open-source models provide the core visual capability. Dify organizes intake, orchestration, review, notification, and delivery. Only when those two layers fit together does virtual try-on begin to look like a real operating capability rather than a technical curiosity.`,
+  },
+  {
     slug: 'ai-virtual-try-on-technical-sharing-2026',
     category: 'Technology',
     categoryColor: '#5B8DB8',
