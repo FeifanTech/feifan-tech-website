@@ -1,6 +1,257 @@
 // Static blog data shared between Blog.jsx and BlogPost.jsx
 export const POSTS = [
   {
+    slug: 'ai-virtual-try-on-technical-sharing-2026',
+    category: 'Technology',
+    categoryColor: '#5B8DB8',
+    date: '2026-04-19',
+    readTimeZh: '8 分钟',
+    readTimeEn: '8 min read',
+    authorZh: '六合',
+    authorEn: 'Liu He',
+    authorTitleZh: '资深交付总监',
+    authorTitleEn: 'Senior Delivery Director',
+    authorAvatar: '六',
+    authorColor: '#B85C35',
+    titleZh: 'AI 试衣换装技术分享：从“生成一张图”到“交付可上线能力”',
+    titleEn: 'AI Virtual Try-On: From Generating an Image to Shipping a Production Capability',
+    excerptZh: 'AI 试衣换装看起来像一个“图像生成”问题，但真正做进业务后才会发现，它同时是一个人体建模、服装理解、条件生成和性能优化问题。本文分享我们对这条技术链路的拆解。',
+    excerptEn: 'AI virtual try-on looks like an image generation problem, but once you move it into production it becomes a combined problem of human parsing, garment understanding, conditioned generation, and performance engineering. This article breaks down that full stack.',
+    tagsZh: ['AI试衣', '虚拟换装', '计算机视觉', '图像生成', '电商AI'],
+    tagsEn: ['Virtual Try-On', 'Fashion AI', 'Computer Vision', 'Image Generation', 'E-commerce AI'],
+    contentZh: `## 试衣换装为什么比想象中难
+
+很多人第一次看到 AI 试衣换装，会觉得它本质上就是“把一件衣服 P 到人身上”。但只要真正做过项目，就会很快发现这不是简单的图像叠加，而是一条很长的技术链路。
+
+一个看起来自然的换装结果，至少要同时满足四件事：
+- 人体姿态不能崩
+- 服装结构不能错
+- 面料纹理要尽量保真
+- 最终结果还要像真实照片，而不是 AI 痕迹很重的合成图
+
+这意味着虚拟试衣不是一个单点模型问题，而是多个子系统共同工作的结果。
+
+---
+
+## 一条完整的技术链路通常包含什么
+
+从工程视角看，虚拟换装一般会拆成以下几个阶段：
+
+### 1. 人体检测与人体解析
+先识别人物区域，再把头发、上衣、裤子、手臂、腿等部位分开。  
+如果这一步不准，后面的换装几乎一定会穿帮，例如袖口压到手臂、衣摆遮挡关系错误。
+
+### 2. 姿态估计与关键点对齐
+模型需要知道肩、肘、腰、膝等关键位置，才能判断目标服装在当前姿态下应该如何形变。  
+同一件衣服在站立、转身、抬手时的受力和褶皱完全不同。
+
+### 3. 服装图像理解
+不仅要识别这是一件“上衣”或“连衣裙”，还要理解：
+- 版型
+- 长短
+- 领口形态
+- 纹理和图案
+- 遮挡区域
+
+对电商场景来说，这一步尤其重要，因为用户最敏感的往往就是“花纹变了”“版型不像”“logo 不对”。
+
+### 4. 条件生成与细节修复
+生成模型会在人体、姿态和服装条件约束下产出试穿图，再通过局部修复或超分增强细节。  
+如果只追求整体自然，很容易牺牲服装细节；如果只追求服装保真，人物脸部和肢体又容易失真。
+
+---
+
+## 真正难的地方，是一致性
+
+AI 试衣最常见的失败，并不是“完全生成错”，而是局部不一致：
+- 左右袖长不一致
+- 扣子数量变化
+- 领口边缘糊掉
+- 图案被拉伸变形
+- 衣服下摆和人体遮挡关系错误
+
+这些问题之所以难，是因为它们不一定会在低分辨率预览里暴露出来，但一旦放到商品详情页或营销素材里，就非常明显。
+
+所以试衣换装项目真正要关注的，不只是“能不能生成”，而是这三个一致性：
+1. **结构一致性**：衣服轮廓、版型、关键部件稳定
+2. **纹理一致性**：图案、材质、颜色不过度漂移
+3. **身份一致性**：人物脸部、发型、体态不要被模型偷偷改掉
+
+---
+
+## 从模型 Demo 到业务上线，中间还差哪些工程工作
+
+很多团队会在 Demo 阶段得到一批效果不错的样例图，然后误以为已经“快能上线了”。实际上，上线前往往还有四道坎：
+
+### 1. 数据集建设
+需要覆盖不同体型、姿态、服装类别、拍摄角度和光照环境。  
+如果训练/测试样本过于单一，模型在线上会迅速失真。
+
+### 2. 评测体系
+不能只靠人工主观打分。通常需要同时看：
+- 人体区域保真度
+- 服装纹理相似度
+- 关键点误差
+- 用户点击/停留/转化表现
+
+### 3. 推理性能
+试衣换装是强视觉任务，推理成本通常不低。  
+如果单次生成需要 8~15 秒，用户大概率不会等；如果压缩得太狠，效果又会明显下降。
+
+### 4. 异常兜底
+并不是每张图都适合自动换装。  
+对于遮挡过重、姿态过极端、图像分辨率过低的输入，系统应该主动拒绝、提示重拍，而不是硬生成一张错误结果。
+
+---
+
+## 适合优先落地的业务场景
+
+我们更看好这几类先落地：
+- 电商商品详情页的试穿预览
+- 营销投放素材快速生成
+- 门店导购场景的虚拟试衣体验
+- 设计打样阶段的款式预览
+
+这些场景有一个共同点：都希望降低拍摄和制作成本，同时缩短内容生产周期。
+
+但如果要直接用于高价值、高精度的正式商业主图，仍然需要更严格的质检与人工审核。
+
+---
+
+## 我们的判断：这会是“CV + 生成式 AI”结合最实用的方向之一
+
+AI 试衣换装之所以值得关注，不只是因为它好看，而是因为它非常贴近实际业务：
+- 对电商有直接转化价值
+- 对服饰品牌有内容生产价值
+- 对门店有体验升级价值
+
+它不是一个只适合展示的炫技功能，而是一个很可能进入真实业务链条的 AI 能力。
+
+---
+
+## 结语
+
+做虚拟试衣，真正的挑战从来不是“生成一张漂亮图片”，而是如何在真实业务里长期稳定地产出可信结果。
+
+从人体解析、姿态建模，到服装保真、推理性能和异常兜底，这条链路一环都不能少。只有把这些工程问题都补齐，AI 换装才可能从 Demo 走向产品。`,
+
+    contentEn: `## Why Virtual Try-On Is Harder Than It Looks
+
+The first impression many people have of AI virtual try-on is that it is basically “put one garment onto one person.” In practice, anyone who has worked on a real project quickly discovers that it is not a simple overlay problem at all.
+
+For a try-on result to feel believable, at least four things must hold at the same time:
+- the human pose cannot break
+- the garment structure cannot drift
+- the fabric texture should stay as faithful as possible
+- the final image must still look like a photo rather than an obvious synthetic composition
+
+That means virtual try-on is not a single-model problem. It is the result of several subsystems working together.
+
+---
+
+## What a Full Technical Pipeline Usually Includes
+
+From an engineering perspective, virtual try-on is usually broken into several stages:
+
+### 1. Human detection and human parsing
+First detect the person, then separate hair, top, pants, arms, legs, and other body regions.  
+If this step is weak, the final try-on almost always fails through wrong occlusion or broken sleeve placement.
+
+### 2. Pose estimation and keypoint alignment
+The system needs shoulders, elbows, waist, knees, and other keypoints to understand how a garment should deform under the current pose.  
+The same garment behaves very differently in standing, turning, or raised-arm postures.
+
+### 3. Garment understanding
+It is not enough to know that something is a shirt or a dress. The model must also understand:
+- silhouette
+- length
+- neckline shape
+- texture and pattern
+- occluded regions
+
+In e-commerce scenarios this matters a lot, because users notice immediately when the pattern changes, the cut looks wrong, or the logo moves.
+
+### 4. Conditioned generation and detail refinement
+The generative model produces the try-on image under human, pose, and garment constraints, then often uses local refinement or super-resolution to recover detail.  
+If you optimize only for realism, garment fidelity drops. If you optimize only for garment fidelity, the person often becomes distorted.
+
+---
+
+## The Real Difficulty Is Consistency
+
+The most common virtual try-on failures are not complete collapse. They are local inconsistencies:
+- sleeve lengths mismatch
+- button counts change
+- neckline edges blur
+- patterns stretch unnaturally
+- lower hem and body occlusion look wrong
+
+These are difficult because they may not be obvious in low-resolution previews, but become very visible in product pages and marketing assets.
+
+That is why production try-on systems must care about three kinds of consistency:
+1. **structural consistency**: silhouette, garment parts, and key shapes remain stable
+2. **texture consistency**: pattern, material, and color do not drift too far
+3. **identity consistency**: the person’s face, hair, and body should not be unintentionally altered
+
+---
+
+## What Still Separates a Demo from Production
+
+Many teams generate a few strong samples in a demo and assume they are close to launch. In practice, production still requires at least four additional layers of work:
+
+### 1. Dataset construction
+You need coverage across body types, poses, garment categories, camera angles, and lighting conditions.  
+If the training and test sets are narrow, online quality falls apart quickly.
+
+### 2. Evaluation
+Subjective scoring is not enough. Teams usually need to track:
+- human-region fidelity
+- garment texture similarity
+- keypoint error
+- user behavior metrics such as click-through, dwell, or conversion
+
+### 3. Inference performance
+Virtual try-on is a heavy visual workload, so inference is often expensive.  
+If one generation takes 8 to 15 seconds, most users will not wait. If the model is compressed too aggressively, quality drops visibly.
+
+### 4. Failure fallback
+Not every image is a good candidate for automatic try-on.  
+For severe occlusion, extreme pose, or very low resolution, the system should reject gracefully and ask for a better image instead of forcing a bad result.
+
+---
+
+## Business Scenarios That Make Sense First
+
+We see the strongest near-term fit in:
+- e-commerce try-on previews on product pages
+- fast generation of campaign assets
+- in-store guided virtual fitting experiences
+- early-stage style preview during design sampling
+
+These scenarios all share the same goal: reduce content-production cost while shortening visual production cycles.
+
+For high-value official hero assets, however, stricter review and human quality control are still necessary.
+
+---
+
+## Our View: This Will Be One of the Most Practical Intersections of CV and Generative AI
+
+Virtual try-on matters not only because it looks impressive, but because it maps directly to business value:
+- direct impact on e-commerce conversion
+- lower content production cost for fashion brands
+- stronger in-store digital experience
+
+It is not just a showcase feature. It is a capability that can plausibly enter real business workflows.
+
+---
+
+## Closing Thought
+
+The real challenge in virtual try-on has never been generating a pretty image once. It is producing trustworthy results consistently in a live business environment.
+
+From human parsing and pose modeling to garment fidelity, inference speed, and fallback handling, every part of the chain matters. Only when those engineering problems are solved does AI wardrobe change move from demo to product.`,
+  },
+  {
     slug: 'ai-engineering-training-series-overview-2026',
     category: 'Industry',
     categoryColor: '#7B6FA0',
