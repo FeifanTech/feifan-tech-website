@@ -1,6 +1,788 @@
 // Static blog data shared between Blog.jsx and BlogPost.jsx
 export const POSTS = [
   {
+    slug: 'ai-engineering-training-series-overview-2026',
+    category: 'Industry',
+    categoryColor: '#7B6FA0',
+    date: '2026-04-18',
+    readTimeZh: '7 分钟',
+    readTimeEn: '7 min read',
+    authorZh: '阿苏',
+    authorEn: 'A Su',
+    authorTitleZh: '数字化产品负责人',
+    authorTitleEn: 'Head of Digital Products',
+    authorAvatar: '阿',
+    authorColor: '#D97757',
+    titleZh: 'AI 工程进阶培训系列：我们为什么把“AI 培训”做成一门工程课',
+    titleEn: 'Advanced AI Engineering Training Series: Why We Turned AI Training into an Engineering Discipline',
+    excerptZh: '我们回看这套内部 AI 工程进阶课程后，一个判断更加明确：企业真正需要的不是一堂“AI 工具课”，而是一套能把模型能力接进研发、交付和治理体系的工程训练。',
+    excerptEn: 'After reviewing our internal advanced AI engineering curriculum, one conclusion became clearer: enterprises do not just need an “AI tools class.” They need engineering training that connects model capability to delivery, operations, and governance.',
+    tagsZh: ['AI培训', '课程体系', 'AI工程', '组织升级'],
+    tagsEn: ['AI Training', 'Curriculum', 'AI Engineering', 'Capability Building'],
+    contentZh: `## 我们重新看了这套课程，结论很直接
+
+过去一年，市场上很多“AI 培训”都停留在工具演示层：教大家怎么写 Prompt、怎么用几个热门产品、怎么把效率提一点。
+
+但当我们重新审阅飞凡已经沉淀下来的这套《AI 工程进阶培训》材料时，一个判断更加明确：**真正能进入企业组织能力的培训，必须是工程训练，而不是工具体验。**
+
+这套材料不是围绕单一模型，也不是围绕单一平台，而是围绕完整的 AI 工程体系展开，覆盖：
+- AI 原生架构设计
+- Prompt 工程规范
+- RAG 深度实战
+- Agent 与工具链编排
+- Java / Python / Go 后端集成
+- React / Vue / Node 前端集成
+- 可观测性与评估体系
+- 安全合规与生产加固
+
+这已经不是“会不会用 AI”的问题，而是“能不能把 AI 做进产品和系统”的问题。
+
+---
+
+## 企业培训为什么必须从“会用”升级到“会交付”
+
+真正困扰企业的，并不是员工不知道 ChatGPT 或 Claude，而是团队即使知道，也很难把这些能力转化成稳定的业务产出。
+
+常见断层通常出现在这些地方：
+- 会写 Prompt，但不会做结构化输出校验
+- 会做 Demo，但不会做 RAG 质量评估
+- 会接 API，但不会设计多模型路由和降级
+- 会写前端页面，但不会处理流式响应和中断控制
+- 会上线功能，但没有成本、质量和安全监控
+
+这也是为什么我们认为，企业 AI 培训必须从“功能试用课”升级为“交付能力课”。
+
+---
+
+## 这套课程最重要的地方，不是知识点多，而是结构完整
+
+很多课程的问题不是内容不对，而是内容碎。
+
+飞凡这套进阶课程比较难得的一点，是它本身已经具备完整的工程链路视角：
+
+### 第一层：架构认知
+先解决“AI 在系统里到底放哪一层”的问题，而不是一上来就写代码。
+
+### 第二层：核心能力建设
+把 Prompt、RAG、Agent 这三个最关键的能力模块拆开讲清楚。
+
+### 第三层：前后端落地
+直接落到 Java / Python / Go 与 React / Vue / Node 的实现实践。
+
+### 第四层：生产级治理
+最后再回到可观测性、安全、评估和上线清单。
+
+这套结构最大的价值，是让学员知道：**AI 项目不是从调用模型开始，而是从工程体系开始。**
+
+---
+
+## 谁最适合这套课程
+
+从材料本身的适用对象来看，这不是面向泛员工的通识课，而更适合这三类角色：
+- 系统架构师
+- 前后端工程师
+- 需要主导 AI 项目落地的技术负责人
+
+如果你的目标只是“让团队知道 AI 很厉害”，这套课会显得太硬核；但如果你的目标是“让团队半年内能稳定交付 AI 功能”，这套课反而是更现实的起点。
+
+---
+
+## 我们接下来为什么会把它写成博客系列
+
+原因很简单：这套课程里很多内容，本来就值得单独拿出来展开。
+
+例如：
+- 为什么 AI 原生架构和传统三层架构完全不是一回事
+- 为什么 RAG 评估不能只看“感觉回答得不错”
+- 为什么前端 AI 体验的关键其实是流式渲染和状态控制
+- 为什么没有可观测性与安全治理，AI 功能注定难以上线
+
+把课程做成博客系列，能让更多团队先从理解方法论开始，再决定是否进入系统训练。
+
+---
+
+## 结语
+
+我们一直认为，企业 AI 能力建设里最稀缺的不是模型账号，而是把模型能力工程化的人。
+
+这套 AI 工程进阶培训真正想解决的，正是这个问题：**帮助团队把“会调用模型”，升级成“会设计、会接入、会评估、会上线”。**`,
+
+    contentEn: `## We Reviewed the Curriculum Again, and the Conclusion Was Straightforward
+
+Over the past year, many so-called AI training programs have stayed at the tool-demo layer: how to write prompts, how to use a few popular products, how to gain a bit of efficiency.
+
+But after re-reading Feifan’s internal **Advanced AI Engineering Training** materials, one conclusion became clearer: **the training that truly enters enterprise capability is engineering training, not tool familiarization.**
+
+This curriculum is not organized around a single model or a single platform. It is organized around the full AI engineering stack:
+- AI-native architecture
+- prompt engineering standards
+- deep RAG practice
+- agent and tool orchestration
+- backend integration in Java / Python / Go
+- frontend integration in React / Vue / Node
+- observability and evaluation
+- security, compliance, and production hardening
+
+At that point, the question is no longer “can we use AI?” It becomes “can we build AI into real products and systems?”
+
+---
+
+## Why Enterprise Training Must Evolve from “Use” to “Deliver”
+
+The real problem inside enterprises is rarely that teams have never heard of ChatGPT or Claude. The problem is that even when they know the tools, they cannot translate that awareness into stable business output.
+
+The capability gap usually shows up here:
+- people can write prompts, but not validate structured outputs
+- they can build demos, but not evaluate RAG quality
+- they can call APIs, but not design routing and fallback across models
+- they can build UIs, but not handle streaming responses and interruption control
+- they can launch features, but not monitor cost, quality, and safety
+
+That is why enterprise AI training must evolve from a tools course into a delivery course.
+
+---
+
+## The Strength of This Curriculum Is Not Breadth Alone, but Structural Completeness
+
+Many courses are not wrong. They are fragmented.
+
+What stands out in this curriculum is that it already reflects a full engineering chain:
+
+### Layer 1: Architectural understanding
+It starts with where AI belongs in the system, not with code.
+
+### Layer 2: Core capability building
+It treats Prompt, RAG, and Agent systems as distinct engineering competencies.
+
+### Layer 3: Frontend and backend implementation
+It then moves directly into implementation patterns across mainstream stacks.
+
+### Layer 4: Production governance
+Finally, it closes on observability, safety, evaluation, and deployment checklists.
+
+That structure teaches the right lesson: **AI projects do not begin with model calls. They begin with engineering systems.**
+
+---
+
+## Who This Training Fits Best
+
+From the materials themselves, this is not a lightweight awareness course for all employees. It is best suited to:
+- system architects
+- frontend and backend engineers
+- technical leads responsible for AI delivery
+
+If your goal is merely to show that AI is impressive, this course will feel too deep. If your goal is to get a team reliably shipping AI features within months, it is a far better starting point.
+
+---
+
+## Why We Are Turning It into a Blog Series
+
+Because many parts of the curriculum are strong enough to stand alone.
+
+For example:
+- why AI-native architecture is fundamentally different from traditional layered architecture
+- why RAG cannot be evaluated by “the answer feels good”
+- why frontend AI experience depends heavily on streaming and state control
+- why AI features without observability and security governance rarely make it to production
+
+Publishing a blog series lets more teams understand the method before deciding whether to invest in formal training.
+
+---
+
+## Closing Thought
+
+In enterprise AI capability building, the scarce resource is not access to a model account. It is people who can operationalize model capability.
+
+That is exactly what this advanced training tries to solve: **help teams move from “calling a model” to “designing, integrating, evaluating, and shipping AI systems.”**`,
+  },
+  {
+    slug: 'ai-architecture-rag-agent-training-intro-2026',
+    category: 'Engineering',
+    categoryColor: '#4A9E7A',
+    date: '2026-04-17',
+    readTimeZh: '8 分钟',
+    readTimeEn: '8 min read',
+    authorZh: '赵懿',
+    authorEn: 'Zhao Yi',
+    authorTitleZh: '电商产品负责人',
+    authorTitleEn: 'Head of E-commerce Product',
+    authorAvatar: '赵',
+    authorColor: '#7B6FA0',
+    titleZh: '课程介绍：为什么 AI 原生架构、RAG 和 Agent 要一起学',
+    titleEn: 'Course Intro: Why AI-Native Architecture, RAG, and Agents Must Be Learned Together',
+    excerptZh: '在这套 AI 工程进阶培训里，架构设计、RAG 和 Agent 并不是三个孤立主题，而是一条从系统设计到执行闭环的主线。把它们拆开学，往往就会在交付时重新踩坑。',
+    excerptEn: 'In this advanced AI engineering training, architecture, RAG, and agents are not three isolated topics. They form one continuous line from system design to execution. Learn them separately, and teams usually rediscover the same failures in delivery.',
+    tagsZh: ['AI原生架构', 'RAG', 'Agent', '课程介绍'],
+    tagsEn: ['AI-Native Architecture', 'RAG', 'Agent', 'Course Intro'],
+    contentZh: `## 三个模块，实际上是一条主线
+
+复盘这套课程材料时，我们特别注意到一个设计：模块 01、03、04 不是被随意拼在一起的，而是完整对应了企业 AI 系统的核心骨架：
+- 模块 01：AI 原生架构设计范式
+- 模块 03：RAG 系统深度实战
+- 模块 04：Agent 与工具链编排
+
+这三块内容如果单独看，都很常见；但真正有价值的，是它们被放进了一个统一的系统视角里。
+
+---
+
+## 先学架构，是为了避免把 AI 做成“外挂功能”
+
+很多团队做 AI 的第一步，是先找个模型接上去，看看能不能跑起来。
+
+这会带来一个常见后果：AI 被塞进原有系统边角，变成一个难以治理的外挂模块。后面再补上下文管理、知识检索、工具编排、监控告警时，系统会越来越乱。
+
+课程在开头就先讲 AI 原生架构，其实是在解决一个前置问题：
+**AI 在系统中到底应该处于什么位置？**
+
+材料里把入口层、意图层、编排层、知识层、模型层、观测层拆得很清楚，这种分层的价值在于：
+- 各层职责明确
+- 模型可以替换
+- 路由和降级可以独立设计
+- 后续观测和治理更容易补齐
+
+对企业来说，这一步往往决定了项目后面是可持续迭代，还是越做越不可控。
+
+---
+
+## 只学 RAG，不学架构与 Agent，效果通常会打折
+
+RAG 是很多企业客户最先落地的 AI 能力，因为它天然对应知识库问答、文档检索和私域数据增强。
+
+但很多团队踩过同样的坑：
+- 只做了 embedding 和向量检索
+- 没有考虑分块策略
+- 没有做混合检索和重排序
+- 没有定义 Context Recall / Faithfulness 等评估指标
+
+结果就是系统看起来上线了，回答却时好时坏。
+
+这套课程里，RAG 不是“告诉你怎么接一个向量库”，而是从离线索引流水线、在线检索流水线、分块策略、混合检索、HyDE、质量评估一整套讲下来。这样的训练，才接近真实交付。
+
+---
+
+## Agent 不是“比聊天框高级一点”，而是执行层
+
+模块 04 讲 Agent 时，最有价值的不是概念介绍，而是把 Agent 当成一套有边界的执行系统来讲：
+- ReAct 循环
+- 工具函数设计规范
+- 工具安全设计
+- 多 Agent 编排模式
+- 超时、重试、最大步数、检查点与 HITL
+
+这一点非常关键，因为很多团队一提 Agent，就只想到“让模型自己多做几步”。但如果没有工具接口、安全约束和状态控制，Agent 只会把错误扩大。
+
+真正稳定的 Agent，必须建立在前面的架构设计和知识系统之上。
+
+---
+
+## 为什么这三块必须一起学
+
+因为它们分别回答的是三个不同层面的问题：
+
+### 架构模块回答：系统怎么搭
+谁负责路由，谁负责检索，谁负责编排，谁负责观测。
+
+### RAG 模块回答：知识怎么进系统
+文档怎么切、怎么索引、怎么检索、怎么评估。
+
+### Agent 模块回答：系统怎么行动
+多步任务怎么执行，工具怎么调用，风险怎么收敛。
+
+把这三块打通，团队才真正具备建设企业级 AI 系统的骨架能力。
+
+---
+
+## 结语
+
+我们很认同这套课程在这三个模块上的组合方式，因为它没有把 AI 工程讲成零散技巧，而是讲成一套能落地的系统方法。
+
+如果你的团队正在从“做一个 AI 功能”走向“做一个 AI 系统”，那么这三块内容应该被一起学、一起练、一起验收。`,
+
+    contentEn: `## Three Modules, One Backbone
+
+When we reviewed the curriculum, one design choice stood out: Modules 01, 03, and 04 are not grouped together by accident. They map directly to the structural backbone of an enterprise AI system:
+- Module 01: AI-native architecture
+- Module 03: deep RAG practice
+- Module 04: agent and tool orchestration
+
+Each topic is common on its own. The real value is that this training treats them as one connected system.
+
+---
+
+## Architecture Comes First So AI Does Not Become a Plug-in Attachment
+
+Many teams begin AI work by simply connecting a model and seeing what happens.
+
+The result is familiar: AI gets bolted onto the edge of the existing system as an unmanaged feature. Context handling, retrieval, orchestration, and monitoring are all patched in later, and the system becomes harder to reason about over time.
+
+This curriculum starts with AI-native architecture to answer a prerequisite question:
+**where does AI belong inside the system at all?**
+
+The material separates the entry layer, intent layer, orchestration layer, knowledge layer, model layer, and observability layer. That matters because:
+- responsibilities stay clear
+- models remain replaceable
+- routing and fallback can evolve independently
+- monitoring and governance can be added coherently
+
+For enterprises, this early decision often determines whether the system stays maintainable.
+
+---
+
+## RAG Alone Usually Underperforms Without Architecture and Agents
+
+RAG is often the first AI capability enterprises deploy because it maps cleanly to knowledge assistants, document retrieval, and private-data grounding.
+
+But many teams fall into the same traps:
+- embedding plus vector search only
+- weak chunking strategy
+- no hybrid retrieval or reranking
+- no metrics such as Context Recall or Faithfulness
+
+The result is a system that looks deployed but behaves inconsistently.
+
+In this course, RAG is not framed as “here is how to connect a vector store.” It is taught as a full system covering offline indexing, online retrieval, chunking strategy, hybrid retrieval, HyDE, and evaluation. That is much closer to real delivery work.
+
+---
+
+## Agents Are Not Just Smarter Chat, They Are the Execution Layer
+
+The strongest part of Module 04 is not the concept overview. It is the treatment of agents as bounded execution systems:
+- the ReAct loop
+- tool interface design
+- tool safety controls
+- multi-agent orchestration patterns
+- timeout, retry, max-step, checkpoint, and human-in-the-loop controls
+
+That is important because many teams still reduce agents to “letting the model take more steps.” Without interfaces, controls, and state discipline, agents mostly amplify failure.
+
+Stable agents must sit on top of the architecture and knowledge layers that come before them.
+
+---
+
+## Why These Three Must Be Learned Together
+
+Because they answer three different questions:
+
+### Architecture answers: how is the system structured?
+Who routes, who retrieves, who orchestrates, who observes?
+
+### RAG answers: how does knowledge enter the system?
+How are documents chunked, indexed, retrieved, and evaluated?
+
+### Agents answer: how does the system act?
+How are multi-step tasks executed, tools invoked, and risk contained?
+
+Once those three connect, a team gains the real skeleton of enterprise AI delivery.
+
+---
+
+## Closing Thought
+
+We strongly agree with the way this curriculum combines these modules. It does not teach AI engineering as scattered tricks. It teaches it as a system method that can actually be delivered.
+
+If your team is moving from “build an AI feature” toward “build an AI system,” these are topics that should be learned, practiced, and reviewed together.`,
+  },
+  {
+    slug: 'frontend-ai-training-react-vue-node-2026',
+    category: 'Technology',
+    categoryColor: '#5B8DB8',
+    date: '2026-04-16',
+    readTimeZh: '7 分钟',
+    readTimeEn: '7 min read',
+    authorZh: '龙刚',
+    authorEn: 'Long Gang',
+    authorTitleZh: '资深前端技术专家',
+    authorTitleEn: 'Senior Frontend Technology Expert',
+    authorAvatar: '龙',
+    authorColor: '#C47F3A',
+    titleZh: '课程介绍：前端工程师为什么要系统学习 AI 交互与流式架构',
+    titleEn: 'Course Intro: Why Frontend Engineers Need Systematic Training in AI Interaction and Streaming Architecture',
+    excerptZh: '这套课程的前端模块没有停留在“做个聊天框”，而是直接覆盖 React Hook、Vue Composable、打字机效果、Node.js BFF 与会话治理。它对应的其实是一整套 AI 前端工程能力。',
+    excerptEn: 'The frontend module in this curriculum goes far beyond “build a chat box.” It covers React hooks, Vue composables, typewriter rendering, Node.js BFF design, and session governance. In practice, that is a full AI frontend engineering skill set.',
+    tagsZh: ['前端AI', 'React', 'Vue', 'Node BFF', '流式交互'],
+    tagsEn: ['Frontend AI', 'React', 'Vue', 'Node BFF', 'Streaming UX'],
+    contentZh: `## AI 前端最容易被低估
+
+很多团队讨论 AI 落地时，注意力都集中在模型、Prompt、RAG 和 Agent 上，而前端常常被默认成“最后接个聊天框就行”。
+
+但实际项目里，用户对 AI 功能的第一感受，恰恰来自前端：
+- 回答是不是流畅出现
+- 状态是不是稳定
+- 错误是不是可理解
+- 中断和重试是不是顺手
+- 历史会话是不是一致
+
+如果这些体验做不好，再强的模型也会显得“不好用”。
+
+---
+
+## 这套课程的前端模块，讲的不是组件，而是工程问题
+
+在我们 review 这套培训材料时，模块 06 给我们的一个直观感受是：它把 AI 前端看成一个工程系统，而不是 UI 小技巧集合。
+
+课程里覆盖的内容包括：
+- React 流式输出 Hook
+- Vue 3 Composable
+- 打字机渐显组件
+- Node.js BFF 层设计
+
+表面看像是几个代码示例，实际背后对应的是四个关键问题：
+1. 流式响应如何消费
+2. 增量内容如何渲染
+3. 会话状态如何管理
+4. API Key、鉴权、限流如何隔离在服务端
+
+这才是 AI 前端真正难的地方。
+
+---
+
+## 流式体验不是“锦上添花”，而是基本可用性
+
+传统页面交互里，用户点击按钮后等待几秒是可以接受的；但在 AI 产品里，如果几秒内页面没有任何反馈，用户会立刻怀疑：
+- 是不是没发出去
+- 是不是系统卡住了
+- 是不是模型崩了
+
+课程里用 React Hook 和 Vue Composable 去讲流式消费，本质上是在训练前端工程师处理两类核心能力：
+- **乐观更新**：用户消息先出现，降低等待焦虑
+- **增量渲染**：输出边生成边展示，提高感知速度
+
+这已经不是“动效设计”，而是交互可信度设计。
+
+---
+
+## Node.js BFF 是 AI 前端体系里很关键的一层
+
+很多团队在做 AI 页面时，最大的问题不是 UI，而是边界混乱：
+- 前端直接碰供应商 API
+- API Key 暴露风险
+- 会话上下文散落在浏览器端
+- 用户权限和速率限制难以统一
+
+课程里专门把 Node.js BFF 拿出来讲，非常有必要。
+
+因为 AI 前端在生产环境里，通常需要一层专门的代理来处理：
+- 鉴权
+- 速率限制
+- Session 管理
+- SSE 转发
+- 审计与日志
+
+没有这层，前端只能做一个能跑的 Demo；有了这层，前端才可能参与生产级交付。
+
+---
+
+## 为什么前端工程师现在必须补这门课
+
+因为 AI 产品的前端，不再只是负责“展示结果”，而是开始承担：
+- 人机交互节奏控制
+- 多状态切换
+- 长任务反馈设计
+- 流式中断与恢复
+- 错误兜底与可解释性
+
+这意味着 AI 前端已经越来越像一个独立专业方向，而不是通用前端顺手兼顾的附属能力。
+
+---
+
+## 结语
+
+我们很赞同这套课程把前端模块单独做实，因为企业 AI 项目最终能不能被用户接受，很多时候不是输在模型上，而是输在交互上。
+
+对前端工程师来说，系统学习 AI 交互、流式架构和 BFF 设计，不是加分项，而会越来越像基础项。`,
+
+    contentEn: `## AI Frontend Is Still Undervalued
+
+When teams talk about AI delivery, most attention goes to models, prompts, RAG, and agents. Frontend is often reduced to “we’ll add a chat box at the end.”
+
+But in real products, the user’s first judgment of AI quality comes from the frontend:
+- does the answer appear smoothly?
+- does the state stay coherent?
+- are errors understandable?
+- do interrupt and retry flows make sense?
+- is session history consistent?
+
+If those experience layers fail, even a strong model feels weak.
+
+---
+
+## This Frontend Module Teaches Engineering Problems, Not UI Tricks
+
+When reviewing the curriculum, Module 06 stood out because it treats AI frontend as an engineering system rather than a set of component tricks.
+
+The module covers:
+- React streaming hooks
+- Vue 3 composables
+- typewriter-style rendering
+- Node.js BFF design
+
+On the surface these are examples. Underneath, they map to four real engineering questions:
+1. how to consume streaming responses
+2. how to render incremental output
+3. how to manage session state
+4. how to isolate API keys, auth, and rate limits on the server
+
+That is where AI frontend becomes difficult.
+
+---
+
+## Streaming Is Not a Nice-to-Have. It Is Basic Usability
+
+In traditional applications, waiting a few seconds after a button click is tolerable. In AI products, a few silent seconds immediately create doubt:
+- did the request fail?
+- is the system frozen?
+- did the model crash?
+
+By teaching streaming through React hooks and Vue composables, the course is really training two core capabilities:
+- **optimistic updates** so user intent is acknowledged immediately
+- **incremental rendering** so perceived speed improves
+
+This is not decorative motion work. It is trust design.
+
+---
+
+## Node.js BFF Is a Core Part of the AI Frontend Stack
+
+In many teams, the biggest frontend problem is not UI. It is weak boundaries:
+- frontend calling vendor APIs directly
+- API key exposure risk
+- session context fragmented across the browser
+- no unified control over auth or rate limits
+
+That is why the curriculum’s focus on Node.js BFF is so important.
+
+In production AI systems, a dedicated proxy layer usually handles:
+- authentication
+- rate limiting
+- session management
+- SSE forwarding
+- auditing and logging
+
+Without that layer, frontend can only ship demos. With it, frontend becomes part of production delivery.
+
+---
+
+## Why Frontend Engineers Need This Training Now
+
+AI frontend is no longer only about rendering results. It increasingly owns:
+- human-AI interaction pacing
+- multi-state transitions
+- long-task feedback design
+- interruption and resume flows
+- fallback messaging and explainability
+
+That means AI frontend is becoming a specialized engineering capability rather than a side task for general web work.
+
+---
+
+## Closing Thought
+
+We strongly agree with making the frontend module substantial and explicit. Many enterprise AI projects fail user adoption not because the model is weak, but because the interaction model is weak.
+
+For frontend engineers, systematic learning around AI interaction, streaming architecture, and BFF design is quickly moving from optional to foundational.`,
+  },
+  {
+    slug: 'ai-observability-security-training-intro-2026',
+    category: 'Engineering',
+    categoryColor: '#4A9E7A',
+    date: '2026-04-15',
+    readTimeZh: '8 分钟',
+    readTimeEn: '8 min read',
+    authorZh: '孙鹏',
+    authorEn: 'Sun Peng',
+    authorTitleZh: '资深测试专家',
+    authorTitleEn: 'Senior QA Expert',
+    authorAvatar: '孙',
+    authorColor: '#4A9E7A',
+    titleZh: '课程介绍：没有评估、观测与安全，AI 项目很难真正上线',
+    titleEn: 'Course Intro: Without Evaluation, Observability, and Security, AI Projects Rarely Reach Real Production',
+    excerptZh: '这套培训后半部分把可观测性、评估体系和安全合规单独拉出来讲，这一点非常对。AI 项目真正的难点往往不在“做出来”，而在“上线后还能稳定负责”。',
+    excerptEn: 'The later half of this curriculum explicitly separates observability, evaluation, and security into their own modules. That is exactly right. The hardest part of AI projects is often not building them, but operating them responsibly after launch.',
+    tagsZh: ['AI评估', '可观测性', '安全合规', '生产上线'],
+    tagsEn: ['AI Evaluation', 'Observability', 'Security', 'Production Readiness'],
+    contentZh: `## 为什么很多 AI 项目止步于 Demo
+
+AI 项目最容易出现一种错觉：前面 80% 的时间大家都在做“能力建设”，最后 20% 似乎只剩部署。
+
+但真正做过交付的人都知道，事情往往相反。模型跑通、接口接通、页面出来，这些都只是开始。真正困难的是：
+- 如何知道系统回答质量是不是在下降
+- 如何知道成本是不是失控
+- 如何知道是不是遭遇了注入或越权
+- 如何在异常发生后快速定位问题
+
+这也是为什么我们在 review 这套培训材料时，非常认可模块 07 和模块 08 被放到了核心位置。
+
+---
+
+## 可观测性，不是“出了问题再查日志”
+
+课程里把 AI 可观测性拆成四类指标：
+- 技术指标
+- 成本指标
+- 质量指标
+- 安全指标
+
+这个拆法很务实，因为 AI 系统跟传统系统最大的不同就在于：它不只是“服务可不可用”，还要问“回答好不好、花费值不值、风险大不大”。
+
+如果一个团队只能看到接口延迟和报错率，却看不到：
+- Token 消耗
+- 每请求成本
+- 用户满意度
+- 幻觉率
+- Prompt 注入尝试
+
+那这个系统在管理上就是半盲的。
+
+---
+
+## 评估体系决定了你能不能持续优化
+
+课程材料里对 RAG 评估给出了比较明确的指标框架，例如：
+- Context Recall
+- Context Precision
+- Answer Faithfulness
+- Answer Relevance
+
+这很关键，因为很多团队在 AI 项目里最大的风险，不是没有优化动作，而是优化方向完全凭感觉。
+
+如果没有评估指标，你很难回答这些问题：
+- 改了 chunking 策略是不是更好了
+- 换了 reranker 到底有没有收益
+- Prompt 更新后质量是提升还是回退
+- 用户投诉是模型问题、检索问题，还是前端呈现问题
+
+从测试和质量保障角度看，这些指标不是锦上添花，而是 AI 项目最基础的质量基线。
+
+---
+
+## 安全合规不是最后补一页 PPT
+
+模块 08 对 Prompt 注入、越狱、数据泄露、PII 脱敏、生产部署 Checklist 的强调，我们认为非常必要。
+
+原因很简单：AI 系统和传统系统相比，攻击面被大幅放大了。
+
+传统业务系统更多担心接口越权、SQL 注入、权限配置错误；AI 系统则额外要面对：
+- 用户输入试图改写系统行为
+- 模型在上下文中泄露敏感信息
+- 长 Prompt 消耗资源形成 DoS
+- 工具调用路径带来更复杂的越权风险
+
+如果这些东西不进入培训主线，团队上线时一定会补课，而且往往是在事故之后补。
+
+---
+
+## 这类课程最适合哪些团队
+
+如果你的团队已经做过一两个 AI 功能，但开始遇到以下问题：
+- 线上效果不稳定
+- 成本解释不清
+- 没法复盘用户投诉
+- 安全和法务不敢放行
+
+那说明团队真正缺的，往往不是“再换一个更强模型”，而是生产治理能力。
+
+这部分课程，正是补这个短板。
+
+---
+
+## 结语
+
+我们做质量和交付时，一直很强调一句话：**没有被观测、被评估、被审计的 AI，不能算真正上线。**
+
+这套课程把可观测性、评估体系和安全合规单独做实，是它非常有价值的地方。因为这三件事，决定的不是 AI 能不能演示，而是 AI 能不能长期负责。`,
+
+    contentEn: `## Why So Many AI Projects Stop at the Demo Stage
+
+AI projects often create a false impression: teams spend 80% of their time building capability, and it seems like the last 20% is just deployment.
+
+In practice, experienced delivery teams know the opposite is often true. Getting the model running, wiring the API, and rendering the UI is only the beginning. The harder questions are:
+- how do we know answer quality is degrading?
+- how do we know cost is drifting out of control?
+- how do we know prompt injection or privilege abuse is happening?
+- how do we locate failures quickly when incidents occur?
+
+That is why, when we reviewed this curriculum, we strongly agreed with the decision to make Modules 07 and 08 central.
+
+---
+
+## Observability Is Not “Check Logs After Failure”
+
+The course breaks AI observability into four categories:
+- technical metrics
+- cost metrics
+- quality metrics
+- security metrics
+
+That is a practical framework because AI systems differ from traditional systems in one critical way: availability alone is not enough. You also need to know whether the answer is good, whether the spend is justified, and whether the behavior remains safe.
+
+If a team can only see latency and error rate, but cannot see:
+- token consumption
+- per-request cost
+- user satisfaction
+- hallucination rate
+- prompt injection attempts
+
+then it is operating the system half-blind.
+
+---
+
+## Evaluation Determines Whether You Can Improve Systematically
+
+The curriculum defines concrete RAG evaluation dimensions such as:
+- Context Recall
+- Context Precision
+- Answer Faithfulness
+- Answer Relevance
+
+That matters because many AI teams do not lack optimization effort. They lack optimization direction.
+
+Without an evaluation system, it is very hard to answer:
+- did the new chunking strategy help?
+- did the reranker actually improve results?
+- did the prompt update improve quality or regress it?
+- is the complaint caused by the model, retrieval, or the presentation layer?
+
+From a QA perspective, these metrics are not optional polish. They are the minimum quality baseline for AI systems.
+
+---
+
+## Security and Compliance Are Not a Final Slide Deck
+
+We also strongly agree with the emphasis on prompt injection, jailbreaks, data leakage, PII redaction, and production deployment checklists.
+
+The reason is simple: AI systems enlarge the attack surface significantly.
+
+Traditional systems worry about API abuse, SQL injection, or permissions misconfiguration. AI systems must additionally handle:
+- user input attempting to rewrite system behavior
+- models leaking sensitive content from context
+- long-prompt resource exhaustion
+- more complex privilege issues through tool invocation paths
+
+If these topics are excluded from training, teams will still learn them later, usually after an incident.
+
+---
+
+## Which Teams Need This Most
+
+If your team has already shipped one or two AI features and is now facing problems such as:
+- unstable online quality
+- unclear cost explanation
+- inability to replay user issues
+- security or legal hesitation before release
+
+then the missing capability is often not “a stronger model.” It is production governance.
+
+That is exactly the gap this part of the curriculum addresses.
+
+---
+
+## Closing Thought
+
+In quality and delivery work, we often repeat one principle: **if an AI system cannot be observed, evaluated, and audited, it is not truly in production.**
+
+That is why this curriculum’s strong treatment of observability, evaluation, and security is so valuable. Those three areas determine not whether AI can be demoed, but whether it can be operated responsibly over time.`,
+  },
+  {
     slug: 'claude-cowork-enterprise-observations-2026',
     category: 'Industry',
     categoryColor: '#7B6FA0',
