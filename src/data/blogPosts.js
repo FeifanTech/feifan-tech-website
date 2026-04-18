@@ -1,6 +1,722 @@
 // Static blog data shared between Blog.jsx and BlogPost.jsx
 export const POSTS = [
   {
+    slug: 'claude-cowork-enterprise-observations-2026',
+    category: 'Industry',
+    categoryColor: '#7B6FA0',
+    date: '2026-04-18',
+    readTimeZh: '7 分钟',
+    readTimeEn: '7 min read',
+    authorZh: '王森贤',
+    authorEn: 'Wang Shenxian',
+    authorTitleZh: '资深项目管理专家',
+    authorTitleEn: 'Senior Project Management Expert',
+    authorAvatar: '王',
+    authorColor: '#7B6FA0',
+    titleZh: 'Claude Cowork：知识工作者开始拥有“可交付”的 AI 同事',
+    titleEn: 'Claude Cowork: Knowledge Workers Are Finally Getting an AI Teammate That Delivers',
+    excerptZh: 'Claude Cowork 不是把聊天框做大，而是把“交付结果”做成默认目标。对于企业来说，这意味着 AI 正从回答问题，走向真正接手文档、文件和桌面流程。',
+    excerptEn: 'Claude Cowork is not a bigger chat window. It is a shift toward outcome-first AI. For enterprises, that means AI is moving from answering questions to actually handling documents, files, and desktop workflows.',
+    tagsZh: ['Claude Cowork', '知识工作', '桌面代理', '企业协作'],
+    tagsEn: ['Claude Cowork', 'Knowledge Work', 'Desktop Agent', 'Enterprise Collaboration'],
+    contentZh: `## 从“问答助手”到“任务代理”
+
+Anthropic 最近推动 Claude Cowork 的核心变化，不在于它回答得更像人，而在于它开始**围绕结果组织工作**。
+
+公开信息显示，Claude Cowork 已通过 Claude Desktop 面向 macOS 和 Windows 提供更完整的研究预览/正式可用体验，能够在本地文件、文件夹和常用应用之间切换，把多步任务拼成一条可执行链路。
+
+这件事对企业客户尤其重要，因为大量真实知识工作并不是“问一句、答一句”，而是：
+- 找资料
+- 清洗文档
+- 汇总结论
+- 生成交付件
+- 再把结果放回原来的协作环境
+
+过去的 AI 只覆盖了中间的某一小段。Cowork 想覆盖的是整条链路。
+
+---
+
+## 它补上的，不是模型能力，而是工作形态
+
+我们观察企业内部的 AI 使用时，经常会遇到一个误区：团队以为只要模型更强，生产率自然就会提高。
+
+但真正拖慢知识工作的，往往不是推理本身，而是这些琐碎步骤：
+- 文件分散在本地与云端
+- 输入材料格式混乱
+- 人要频繁在多个应用之间跳转
+- 输出物还需要重新排版、归档、命名
+
+Claude Cowork 的价值，是把这些“原本懒得做、但必须做”的工作交给代理系统去完成。这样，人类才能把时间花在判断、取舍和最终决策上。
+
+---
+
+## 企业为什么现在会认真看 Cowork
+
+这轮产品更新里，一个很关键的信号是：Anthropic 不只强调“会做事”，也开始强调**可治理**。
+
+从公开更新来看，Cowork 相关能力已经开始覆盖：
+- 角色与权限控制
+- 分组启用与限制
+- 使用分析
+- OpenTelemetry 监控支持
+
+这意味着 Cowork 不再只是一个“个人效率工具”，而是在往**企业级工作编排层**靠近。
+
+对管理者而言，真正的问题不再是“员工会不会偷偷用 AI”，而是：
+1. 哪些团队适合先开放
+2. 哪些任务允许 AI 自动完成
+3. 哪些流程必须保留人工确认
+4. 如何监控成本、质量和使用边界
+
+如果这些治理问题不解决，AI 再强也只能停留在试验阶段。
+
+---
+
+## 我们的判断：2026 年桌面代理会先在中后台爆发
+
+Cowork 的第一波高价值场景，不太可能是创意行业最耀眼的工作，而更可能是这些中后台流程：
+- 运营整理与汇报
+- 法务材料归档与提取
+- 财务附件梳理与汇总
+- 研究资料阅读与初稿生成
+- 交付过程中的多文件整理
+
+这些场景有三个共同特点：
+- 规则相对明确
+- 输入材料很多
+- 人工时间主要消耗在搬运和组织上
+
+一旦代理能稳定处理这些工作，组织会非常快地看到 ROI。
+
+---
+
+## 结语
+
+Claude Cowork 代表的，不只是 Anthropic 又做了一个新入口，而是一个更值得企业重视的趋势：**AI 正在从“能力展示”走向“工作承接”**。
+
+接下来真正拉开差距的，不是谁先买了工具，而是谁先把流程、权限和验收机制设计好。`,
+
+    contentEn: `## From Assistant to Task Agent
+
+The important shift in Claude Cowork is not that it sounds more human. It is that it is increasingly organized around **finished outcomes**.
+
+Public product information shows Cowork running through the Claude Desktop app on macOS and Windows, moving across local files, folders, and common applications to complete multi-step knowledge-work tasks.
+
+That matters because real enterprise work is rarely just “ask and answer.” It is usually:
+- finding source material
+- cleaning and structuring documents
+- synthesizing conclusions
+- producing a deliverable
+- returning the result to the original workflow
+
+Earlier AI tools covered fragments of that chain. Cowork is trying to cover the chain itself.
+
+---
+
+## The Gap It Fills Is Workflow, Not Just Intelligence
+
+Inside enterprises, one recurring mistake is to assume that a stronger model automatically creates productivity.
+
+In practice, knowledge work is slowed down by operational friction:
+- files scattered across local and cloud systems
+- messy source formats
+- constant context switching between apps
+- reformatting, renaming, and archiving outputs
+
+Cowork’s value is that it targets exactly this category of work: the repetitive but necessary assembly layer that people often delay, avoid, or rush through.
+
+---
+
+## Why Enterprises Are Paying Attention Now
+
+The more meaningful signal in recent updates is not only that Cowork can act, but that Anthropic is increasingly emphasizing **governance**.
+
+Public updates point to enterprise controls such as:
+- role-based access control
+- group-level enablement and restriction
+- usage analytics
+- OpenTelemetry support
+
+That moves Cowork closer to an enterprise work orchestration layer rather than a personal productivity toy.
+
+For leaders, the real questions become:
+1. Which teams get access first?
+2. Which tasks can be automated end to end?
+3. Which workflows require mandatory human checkpoints?
+4. How do we monitor cost, quality, and boundaries?
+
+Without those answers, even a strong agent remains stuck in pilot mode.
+
+---
+
+## Our View: Desktop Agents Will Land First in Operational Work
+
+The first major Cowork wins in 2026 are unlikely to be in the most glamorous creative tasks. They are more likely in operational workflows such as:
+- operations reporting
+- legal file extraction and organization
+- finance attachment review
+- research synthesis and first-draft generation
+- delivery documentation and file cleanup
+
+These workflows share three properties:
+- relatively clear rules
+- lots of source material
+- heavy human time spent on movement and organization
+
+When an agent can handle those reliably, ROI becomes visible very quickly.
+
+---
+
+## Closing Thought
+
+Claude Cowork is not just another product surface. It signals a broader transition: **AI is moving from capability demonstration to work acceptance**.
+
+The organizations that benefit most will not be the ones that merely adopt the tool first, but the ones that redesign process, permissions, and review around it first.`,
+  },
+  {
+    slug: 'claude-opus-4-7-product-analysis-2026',
+    category: 'AI',
+    categoryColor: '#D97757',
+    date: '2026-04-17',
+    readTimeZh: '8 分钟',
+    readTimeEn: '8 min read',
+    authorZh: '谢记年',
+    authorEn: 'Xie Jinian',
+    authorTitleZh: '联合创始人 & 首席技术官',
+    authorTitleEn: 'Co-Founder & CTO',
+    authorAvatar: 'XJ',
+    authorColor: '#5B8DB8',
+    titleZh: 'Claude Opus 4.7：更强的不是“聪明”，而是长任务的稳定性',
+    titleEn: 'Claude Opus 4.7: The Real Upgrade Is Not Raw Intelligence, but Reliability on Long Tasks',
+    excerptZh: 'Anthropic 将 Claude Opus 4.7 定位为更擅长软件工程、复杂多步任务和高分辨率视觉工作的通用模型。对企业团队来说，最值得关注的是它在长任务中的一致性与自校验倾向。',
+    excerptEn: 'Anthropic positions Claude Opus 4.7 as a stronger model for software engineering, complex multi-step work, and higher-resolution vision tasks. For enterprise teams, the most important change is its consistency and tendency to self-check over long-running work.',
+    tagsZh: ['Claude Opus 4.7', '模型评测', '软件工程', '视觉能力'],
+    tagsEn: ['Claude Opus 4.7', 'Model Evaluation', 'Software Engineering', 'Vision'],
+    contentZh: `## Opus 4.7 为什么值得看
+
+Anthropic 在 2026 年 4 月 16 日发布 Claude Opus 4.7 时，最打动我们的不是“又刷新了一个榜单”，而是它对外强调的几个关键词：
+- 高难度软件工程
+- 长时间多步骤任务
+- 更高分辨率视觉
+- 更好的界面、文档和幻灯片产出质量
+
+这说明模型竞争正在从“会不会做”转向“能不能稳定做完”。
+
+---
+
+## 企业真正需要的是可托付，而不是偶尔惊艳
+
+很多团队评估模型时，容易被 Demo 级别的高光时刻吸引。但落到生产环境，真正决定价值的不是峰值表现，而是：
+1. 是否能持续遵循指令
+2. 是否能在长链路任务里保持上下文一致
+3. 是否会主动验证自己的输出
+4. 是否在失败时表现得可预期
+
+Anthropic 对 Opus 4.7 的描述，核心就在这里。它强调自己更擅长处理原本需要密切监督的复杂编码工作，并在完成前更愿意自查结果。
+
+对工程团队来说，这类改进往往比单次 benchmark 提升更有意义。
+
+---
+
+## 视觉能力升级，影响的不只是“看图”
+
+Opus 4.7 另一个值得重视的变化，是更高分辨率的视觉处理能力。
+
+很多人会把“视觉能力增强”理解成 OCR 更强，或者看图问答更准。但在企业场景里，它真正改变的是这些任务：
+- 理解复杂后台页面和控制台界面
+- 读取密集图表、表单、流程图
+- 生成更完整的界面草图和文档版式建议
+- 支撑代理系统在 GUI 环境中执行更长任务
+
+当模型能够更稳定地读懂屏幕，它就更有机会成为真正的工作代理，而不仅是文本助手。
+
+---
+
+## 从模型能力到产品能力：4.7 的外溢效应
+
+我们更关注的一点是：Opus 4.7 不是单独存在的模型升级，它会直接外溢到产品层。
+
+如果一个模型同时在编码、多步推理、视觉理解和专业产出质量上提升，那么它可以支撑的产品形态会明显扩大：
+- 更可靠的编码代理
+- 更可控的桌面执行代理
+- 更像成品的界面和演示文稿生成
+- 更少人工返工的知识工作流
+
+这也是为什么我们认为，2026 年的大模型竞争会越来越像“模型 + 产品工作流”的竞争，而不是单纯模型分数竞争。
+
+---
+
+## 怎么判断 4.7 是否适合你的团队
+
+建议不要只问“它是不是最强”，而要问三个更实际的问题：
+
+### 1. 你的任务是不是长链路任务
+如果你的场景需要 10 步以上的连续执行，稳定性比单点聪明更重要。
+
+### 2. 你的任务是否包含屏幕、文档、图表
+如果包含，视觉质量提升会直接影响成功率。
+
+### 3. 你的团队是否已经有验证机制
+更强的模型不是替代验证，而是让验证更高效。没有回归集、审计点和失败兜底，再强的模型也难以大规模上线。
+
+---
+
+## 结语
+
+Claude Opus 4.7 的意义，不只是更聪明，而是越来越接近企业真正愿意托付复杂工作的那个门槛。
+
+模型能力继续进步是确定的，但真正会产生业务差异的，是谁能把这种能力接进一个有验证、有治理、能复盘的交付系统里。`,
+
+    contentEn: `## Why Opus 4.7 Matters
+
+When Anthropic introduced Claude Opus 4.7 on April 16, 2026, the most important signal was not simply “another benchmark improvement.” It was the set of capabilities Anthropic chose to highlight:
+- difficult software engineering
+- long-running multi-step tasks
+- higher-resolution vision
+- better quality on interfaces, slides, and docs
+
+That points to a shift in model competition: from “can it do this at all?” to “can it do this reliably to completion?”
+
+---
+
+## Enterprises Need Delegatability, Not Occasional Brilliance
+
+Teams often over-index on demo moments when evaluating models. In production, what actually matters is:
+1. whether the model follows instructions consistently
+2. whether it stays coherent across long task chains
+3. whether it checks its own work before returning it
+4. whether failures are predictable and manageable
+
+Anthropic’s framing of Opus 4.7 is notable precisely because it emphasizes these traits. The promise is not just stronger reasoning, but greater confidence on work that previously required close supervision.
+
+For engineering organizations, that is often more valuable than a narrow benchmark jump.
+
+---
+
+## Better Vision Changes More Than Image Q&A
+
+The higher-resolution vision upgrade is also easy to underestimate.
+
+In enterprise settings, better vision affects tasks like:
+- understanding dense admin consoles and dashboards
+- reading charts, forms, and process diagrams
+- generating more usable UI drafts and document structures
+- supporting longer GUI-based agent workflows
+
+Once a model can read screens more reliably, it becomes far more useful as an execution layer rather than only a text assistant.
+
+---
+
+## From Model Capability to Product Capability
+
+What matters even more is that Opus 4.7 will not live as an isolated model improvement. It will spill upward into product behavior.
+
+If one model improves across coding, multi-step reasoning, visual understanding, and professional output quality, it can support:
+- more dependable coding agents
+- more controllable desktop agents
+- more production-ready design and presentation generation
+- less human rework in knowledge workflows
+
+This is why we expect 2026 model competition to look increasingly like “model plus workflow product” competition, not just leaderboard competition.
+
+---
+
+## How to Evaluate Whether 4.7 Fits Your Team
+
+Do not ask only whether it is the smartest model. Ask three more practical questions:
+
+### 1. Are your tasks long-horizon?
+If your workflow requires 10+ continuous steps, reliability matters more than flashiness.
+
+### 2. Do your tasks include screens, documents, or charts?
+If so, vision quality improvements can directly affect success rates.
+
+### 3. Do you already have validation in place?
+A stronger model does not remove the need for verification. It only makes verification more efficient. Without regression tests, audit points, and fallbacks, even a strong model is hard to scale.
+
+---
+
+## Closing Thought
+
+The real significance of Claude Opus 4.7 is not that it is merely smarter. It is that it is moving closer to the threshold where enterprises are willing to trust it with harder work.
+
+Model progress is inevitable. Business impact will come from who can connect that progress to a delivery system with verification, governance, and review.`,
+  },
+  {
+    slug: 'claude-design-workflow-commentary-2026',
+    category: 'Technology',
+    categoryColor: '#5B8DB8',
+    date: '2026-04-16',
+    readTimeZh: '6 分钟',
+    readTimeEn: '6 min read',
+    authorZh: '包季真',
+    authorEn: 'Bao Jizhen',
+    authorTitleZh: '体验技术负责人',
+    authorTitleEn: 'Head of Experience Technology',
+    authorAvatar: '包',
+    authorColor: '#4A9E7A',
+    titleZh: 'Claude Design：AI 终于开始直接交付“能用的视觉稿”',
+    titleEn: 'Claude Design: AI Is Finally Starting to Deliver Visual Work People Can Actually Use',
+    excerptZh: '据 2026 年 4 月 17 日公开报道，Anthropic Labs 推出 Claude Design 研究预览，支持通过对话生成原型、幻灯片、单页材料等视觉成果。真正的变量不只是“会画图”，而是能否进入团队的正式设计流程。',
+    excerptEn: 'According to public reports on April 17, 2026, Anthropic Labs launched Claude Design in research preview, enabling conversational generation of prototypes, slides, and one-pagers. The real question is not whether it can create visuals, but whether it can fit into a formal team design workflow.',
+    tagsZh: ['Claude Design', '设计工作流', '原型设计', 'AI创作'],
+    tagsEn: ['Claude Design', 'Design Workflow', 'Prototyping', 'AI Creation'],
+    contentZh: `## 先说结论：设计 AI 的战场变了
+
+过去两年，很多所谓“设计 AI”做的事情，本质上还是图片生成。它们能做海报、插图、风格图，但离真正的产品设计和企业传播物料，始终差一层。
+
+Claude Design 引人关注的地方，在于据公开报道，它的目标不是生成一张好看的图，而是直接产出：
+- 原型
+- 幻灯片
+- one-pager
+- 营销物料初稿
+
+这意味着 AI 正在试图越过“灵感辅助”阶段，进入“交付物生产”阶段。
+
+---
+
+## 为什么这件事会对产品和设计团队有冲击
+
+设计工作里最耗时间的部分，往往不是最后的精修，而是前面的这些步骤：
+- 把模糊需求转成结构化页面
+- 先做一版能讨论的草稿
+- 按品牌规范统一版式
+- 导出给不同角色评审
+
+如果 Claude Design 真能把“描述想法 → 生成可讨论版本”这个过程压缩到分钟级，那么它改变的不是设计师的审美能力，而是整个团队的沟通速度。
+
+产品经理、运营、市场、售前，都会更早拿到一个可视化的中间成果。
+
+---
+
+## 它最值得看的，不是生成，而是约束
+
+据公开报道，Claude Design 支持结合团队设计系统，并可输出 PDF、URL、PPTX，甚至衔接到 Canva 继续编辑。
+
+这背后的关键意义是：它不是孤立的创作玩具，而是在尝试接入一个更真实的企业设计链路。
+
+设计类 AI 要想真正进入团队协作，至少要解决四件事：
+1. 输出不能只好看，还要结构稳定
+2. 要能贴近品牌系统，而不是每次从零开始
+3. 要能导出到现有工具链，而不是锁死在自己内部
+4. 要让非设计岗位也能产出“足够像样”的第一稿
+
+如果这些约束成立，AI 生成的内容才会真正被团队吸收。
+
+---
+
+## 设计师不会消失，但工作重心会改变
+
+我们并不认为 Claude Design 这类产品会直接替代专业设计师。
+
+更可能发生的变化是：
+- 非设计岗位负责更早期的草图和结构表达
+- 设计师减少大量重复搭版工作
+- 设计负责人把更多精力放在系统、质量和品牌把控上
+
+换句话说，设计师的价值会更集中在**标准制定、审美判断、复杂交互和最终把关**，而不是一次次从空白画布开始。
+
+---
+
+## 我们的判断：2026 年最先被重构的是“轻设计”场景
+
+真正最先被改写的，不一定是最复杂的 APP 产品设计，而更可能是：
+- 销售演示文稿
+- 活动 landing page 初稿
+- 产品方案单页
+- 内部汇报材料
+- 市场活动视觉草案
+
+这些工作对质量有要求，但对极致原创性的要求并没有那么高，非常适合 AI 先切入。
+
+---
+
+## 结语
+
+Claude Design 是否会成为长期产品，现在还需要观察；而且目前更多信息仍来自公开报道而非完整官方技术说明。
+
+但它至少已经说明一件事：**AI 设计工具下一阶段的竞争，不是谁生成得更炫，而是谁能更快进入真实团队流程并输出可复用成果。**`,
+
+    contentEn: `## The Battlefield for Design AI Has Changed
+
+For the past two years, many so-called design AI tools were still fundamentally image generators. They could create posters, illustrations, and moodboards, but they often stopped short of real product design or enterprise-ready communication materials.
+
+Claude Design is interesting because, according to public reporting, its ambition is not simply to generate pretty images. It is to produce:
+- prototypes
+- slide decks
+- one-pagers
+- first drafts of marketing materials
+
+That is a different category of product. It pushes AI from inspiration support into deliverable production.
+
+---
+
+## Why This Matters for Product and Design Teams
+
+In design work, the most time-consuming part is often not final polish. It is the early translation layer:
+- turning vague requirements into page structure
+- creating a first draft that can be discussed
+- aligning to brand rules
+- exporting materials for cross-functional review
+
+If Claude Design can compress “describe the idea” into “generate a discussable version” within minutes, the biggest effect is not on taste itself. It is on team communication speed.
+
+Product managers, marketers, operators, and presales teams can all get to a visual intermediate artifact much earlier.
+
+---
+
+## The Most Important Part Is Not Generation, but Constraint
+
+Public reports suggest Claude Design can apply team design systems and export to PDF, URL, PPTX, and even Canva for continued editing.
+
+That matters because it suggests an attempt to plug into real design workflows rather than exist as an isolated creation toy.
+
+To become useful in teams, design AI must solve at least four things:
+1. output must be structurally stable, not just attractive
+2. it must respect design systems instead of starting from zero each time
+3. it must connect to existing toolchains rather than trap work internally
+4. it must let non-design roles produce a decent first draft
+
+Only then does generated content become operationally useful.
+
+---
+
+## Designers Will Not Disappear, but Their Work Will Shift
+
+We do not believe tools like Claude Design will simply replace professional designers.
+
+A more realistic shift is:
+- non-design roles create earlier drafts and structural proposals
+- designers spend less time on repetitive layout work
+- design leads spend more time on systems, quality, and brand control
+
+In other words, designer value concentrates further around **standards, taste, complex interaction, and final judgment** rather than starting from a blank canvas every time.
+
+---
+
+## Our View: “Light Design” Workflows Will Be Reshaped First
+
+The earliest workflow changes are unlikely to happen in the most complex product design environments. They are more likely in:
+- sales decks
+- landing page first drafts
+- product one-pagers
+- internal reporting materials
+- campaign visual drafts
+
+These tasks require quality, but not always maximum originality. That makes them ideal for AI-first acceleration.
+
+---
+
+## Closing Thought
+
+It remains too early to declare Claude Design a long-term platform, especially since much of the available detail still comes from public reporting rather than a full official technical release.
+
+But it already makes one thing clear: **the next phase of competition in AI design will not be about who generates the flashiest assets. It will be about who enters real team workflows fastest and produces reusable outputs.**`,
+  },
+  {
+    slug: 'openai-computer-use-enterprise-practice-2026',
+    category: 'Engineering',
+    categoryColor: '#4A9E7A',
+    date: '2026-04-15',
+    readTimeZh: '9 分钟',
+    readTimeEn: '9 min read',
+    authorZh: '王玉岗',
+    authorEn: 'Wang Yugang',
+    authorTitleZh: '首席技术专家',
+    authorTitleEn: 'Chief Technology Expert',
+    authorAvatar: '王',
+    authorColor: '#5B8DB8',
+    titleZh: 'OpenAI Computer Use：从“会看界面”到“会操作电脑”，企业该怎么落地',
+    titleEn: 'OpenAI Computer Use: From Understanding Interfaces to Operating Computers',
+    excerptZh: 'OpenAI 正把 Computer-Using Agent 能力沉淀为 API 与 Codex 工作流的一部分。对企业团队来说，机会与风险同时放大：自动化边界更大了，安全约束也必须同步升级。',
+    excerptEn: 'OpenAI is turning Computer-Using Agent capability into part of its API and Codex workflow. For enterprises, that expands both opportunity and risk: automation boundaries get larger, and safety constraints must mature at the same time.',
+    tagsZh: ['Computer Use', 'OpenAI', 'Codex', '代理执行', '自动化'],
+    tagsEn: ['Computer Use', 'OpenAI', 'Codex', 'Agent Execution', 'Automation'],
+    contentZh: `## 为什么 Computer Use 是一个分水岭
+
+当模型能读文档、写代码、调用 API 时，它已经很有用；但当模型开始能够**点击、输入、滚动并观察屏幕反馈**时，系统能力就发生了质变。
+
+OpenAI 最近围绕 computer use 给出的公开资料，已经把这条路线说得很清楚：
+- 在 API 层，computer use 通过 Responses API 提供
+- 当前仍是 preview/beta 能力
+- 模型会输出具体动作，由外部环境执行，再回传截图形成闭环
+- OpenAI 明确强调要在沙箱环境和严格安全控制下使用
+
+这不是一个“小功能”，而是一种新的执行接口。
+
+---
+
+## 它解决了什么旧问题
+
+传统自动化经常依赖两类方式：
+1. 调 API
+2. 写 RPA 脚本
+
+问题在于，很多企业系统并没有良好的 API；而 RPA 又高度脆弱，页面一改就容易失效。
+
+Computer Use 的意义，在于让模型直接通过通用 GUI 完成任务。它不用事先知道系统内部接口，而是像人一样操作：
+- 看屏幕
+- 找按钮
+- 点击
+- 输入
+- 根据结果继续下一步
+
+这让自动化第一次有机会覆盖那些“没有 API、但有人能做”的工作。
+
+---
+
+## 为什么 Codex 的意义比单独 API 更大
+
+如果只是 API 层支持 computer use，它更多还是一项开发能力；但当 Codex 也把“操作电脑”纳入工作流后，事情就变了。
+
+这意味着开发者与高级知识工作者会更自然地使用它来处理：
+- 本地环境中的多步操作
+- 跨工具调试与验证
+- 需要屏幕观察的任务执行
+- 重复性的日常电脑工作
+
+它不再只是“让代理能点浏览器”，而是在把“电脑本身”变成模型的一个通用工具。
+
+---
+
+## 企业落地时最容易忽略的四个风险
+
+OpenAI 官方文档已经明确提醒：computer use 仍在 beta/preview 阶段，不适合高风险、完全信任、强认证环境下直接放权。
+
+我们认为企业落地时，至少要把这四个风险单独拆出来：
+
+### 1. 界面误判
+模型看错按钮、弹窗或状态，可能在错误流程中继续执行。
+
+### 2. 提示注入与恶意页面
+屏幕内容本身可能诱导代理执行未授权动作。
+
+### 3. 身份与权限外溢
+一旦代理运行在已登录环境中，错误操作的真实代价会急剧放大。
+
+### 4. 审计不足
+如果没有完整截图、动作日志、回放链路，问题发生后几乎无法复盘。
+
+---
+
+## 一个可行的企业落地策略
+
+我们建议把 computer use 看成一种“受限代理执行层”，而不是默认自动驾驶。
+
+更稳妥的做法是分三层推进：
+
+### 第一层：只读观察
+先让模型只做页面理解、元素定位、步骤建议，不直接执行写操作。
+
+### 第二层：低风险执行
+放开搜索、筛选、下载、整理等低风险动作，要求全程截图和日志。
+
+### 第三层：人工确认闭环
+涉及外发、提交、支付、删除、审批等高风险动作，必须有人类确认。
+
+如果没有这一层层的权限设计，computer use 很容易在 PoC 演示后卡在上线前。
+
+---
+
+## 结语
+
+Computer Use 的真正价值，不在于“AI 会点鼠标了”，而在于它把几乎所有 GUI 系统都变成了潜在可操作对象。
+
+但正因为边界被扩大，治理也必须同步扩大。谁能先把环境隔离、权限收敛、日志审计和人工确认机制搭好，谁才可能把这类能力真正用进生产。`,
+
+    contentEn: `## Why Computer Use Is a Real Inflection Point
+
+When models can read documents, write code, and call APIs, they are already useful. But once a model can **click, type, scroll, and observe screenshots**, the execution model changes.
+
+OpenAI’s recent public documentation makes the direction clear:
+- computer use is exposed through the Responses API
+- it remains a preview/beta capability
+- the model proposes actions, the environment executes them, and screenshots are returned to close the loop
+- OpenAI explicitly recommends sandboxed environments and strong safety controls
+
+This is not a small feature. It is a new execution interface.
+
+---
+
+## What Old Problem It Solves
+
+Traditional automation usually relies on two routes:
+1. APIs
+2. RPA scripts
+
+The problem is that many enterprise systems have weak APIs, while RPA is fragile and breaks easily when UIs change.
+
+Computer use matters because it lets the model operate through the GUI itself. It does not need internal system interfaces in advance. It acts like a person:
+- look at the screen
+- find the button
+- click
+- type
+- continue based on the result
+
+For the first time, automation can credibly cover work that has no API but is still doable by a human at a keyboard.
+
+---
+
+## Why Codex Matters More Than the API Alone
+
+If computer use existed only as an API feature, it would remain mostly a developer capability. Once Codex also incorporates operating the computer as part of its workflow, the significance expands.
+
+That makes it much easier to apply the capability to:
+- multi-step work in local environments
+- cross-tool debugging and validation
+- tasks that require visual observation
+- repetitive day-to-day computer work
+
+It is no longer just about “letting an agent click a browser.” It is about turning the computer itself into a general-purpose tool for the model.
+
+---
+
+## Four Risks Enterprises Should Isolate Explicitly
+
+OpenAI’s documentation is clear that computer use is still in beta/preview and should not be trusted by default in high-risk, highly authenticated environments.
+
+In our view, enterprises should isolate at least four risks:
+
+### 1. UI misread
+The model may misinterpret a button, modal, or state and continue down the wrong path.
+
+### 2. Prompt injection through pages
+Screen content itself can attempt to steer the agent toward unauthorized actions.
+
+### 3. Identity and permission spillover
+If the agent runs inside a logged-in environment, the cost of mistakes rises sharply.
+
+### 4. Weak auditability
+Without screenshots, action logs, and replayable traces, incidents are extremely hard to investigate.
+
+---
+
+## A Practical Enterprise Rollout Strategy
+
+The right framing is not “full autonomy.” It is a constrained execution layer.
+
+A practical rollout can be staged in three layers:
+
+### Layer 1: Read-only observation
+Let the model understand pages, locate elements, and suggest steps without writing anything.
+
+### Layer 2: Low-risk execution
+Allow search, filtering, downloads, and structured organization, with screenshots and logs captured throughout.
+
+### Layer 3: Human-confirmed completion
+For sending, submitting, paying, deleting, or approving, require explicit human confirmation.
+
+Without this staged permission model, computer use will often succeed in demos and stall before production.
+
+---
+
+## Closing Thought
+
+The real importance of computer use is not that “AI can click now.” It is that almost any GUI system becomes a potentially operable surface.
+
+And because the execution boundary expands, governance must expand with it. The teams that win will be the ones that build isolation, permission control, audit logs, and human checkpoints before they scale the capability.`,
+  },
+  {
     slug: 'llm-enterprise-practice-2026',
     category: 'AI',
     categoryColor: '#D97757',
