@@ -1,6 +1,478 @@
 // Static blog data shared between Blog.jsx and BlogPost.jsx
 export const POSTS = [
   {
+    slug: 'imagegen-2-0-content-production-workflow-2026',
+    category: 'Technology',
+    categoryColor: '#5B8DB8',
+    date: '2026-04-23',
+    readTimeZh: '7 分钟',
+    readTimeEn: '7 min read',
+    authorZh: '阿苏',
+    authorEn: 'A Su',
+    authorTitleZh: '数字化产品负责人',
+    authorTitleEn: 'Head of Digital Products',
+    authorAvatar: '阿',
+    authorColor: '#D97757',
+    titleZh: 'ImageGen 2.0：图像生成开始从“出图工具”走向内容生产工作流',
+    titleEn: 'ImageGen 2.0: Image Generation Is Moving from Asset Creation to Content Workflow',
+    excerptZh: 'OpenAI 最近在 ChatGPT 中推出 ImageGen 2.0，并提供带推理能力的 ImageGen 2.0 Thinking。我们更关注的不是图片变得更好看，而是图像生成正在进入多版本、多约束、多工具协作的内容生产流程。',
+    excerptEn: 'OpenAI recently introduced ImageGen 2.0 in ChatGPT, alongside ImageGen 2.0 Thinking with reasoning and tool access. The important shift is not simply prettier images, but image generation moving into multi-version, constraint-aware content production workflows.',
+    tagsZh: ['ImageGen 2.0', '图像生成', '内容生产', '多模态AI', '营销素材'],
+    tagsEn: ['ImageGen 2.0', 'Image Generation', 'Content Production', 'Multimodal AI', 'Marketing Assets'],
+    contentZh: `## 最近的热点：图像生成不再只是“生成一张图”
+
+OpenAI 在 2026 年 4 月 21 日的 ChatGPT 更新中推出 ImageGen 2.0，并同时提到 ImageGen 2.0 Thinking：后者支持推理、多输出生成，并可以结合 web search 等工具使用。
+
+我们认为这个更新值得关注，不只是因为图像质量继续提升，而是因为它代表了一个更明确的趋势：**图像生成正在从单次出图工具，变成内容生产工作流的一部分。**
+
+以前很多团队用图像生成的方式很简单：
+- 写一句 prompt
+- 生成几张图
+- 选一张能用的
+- 手动再改
+
+而现在，真正有商业价值的图像生成开始进入另一种模式：
+- 先理解业务目标
+- 再生成多套方向
+- 根据品牌、渠道、投放场景做约束
+- 结合搜索、文案、版式一起迭代
+- 最后进入审核和发布流程
+
+这不是单点能力升级，而是工作流升级。
+
+---
+
+## 为什么 Thinking 版本更值得产品团队关注
+
+单纯的图像模型更像一个创作引擎，而带推理能力的图像生成，更像一个内容策划助手。
+
+对企业来说，真正难的往往不是“画得好不好”，而是这些问题：
+- 这张图适不适合当前活动目标
+- 是否符合品牌调性
+- 是否能适配不同渠道比例
+- 是否需要多版本 A/B 测试
+- 是否和文案、商品、用户群体一致
+
+如果图像生成模型能在生成前先做任务理解，在生成后做多版本比较，它的定位就会从“设计素材工具”变成“内容生产协作者”。
+
+这对市场、运营、电商和品牌团队都会产生影响。
+
+---
+
+## 对企业内容生产的三个变化
+
+### 1. 素材生产会更靠前
+
+过去很多视觉素材要等设计团队排期。现在，产品、运营和市场同学可以先生成一版方向明确的草案，再交给设计师精修。
+
+这会把大量早期沟通从文字描述，提前变成可视化讨论。
+
+### 2. 多版本测试成本会下降
+
+营销活动里，真正影响转化的往往不是“最漂亮的一张图”，而是哪一版更适合具体人群和渠道。
+
+当多输出生成和推理筛选成为默认能力后，团队更容易同时准备：
+- 不同风格版本
+- 不同人群版本
+- 不同渠道比例
+- 不同卖点表达
+
+这会让内容测试更接近数据驱动，而不是只靠经验判断。
+
+### 3. 审核和品牌规范会变得更重要
+
+生成成本下降以后，素材数量会迅速增加。随之而来的问题是：谁来保证它们不跑偏？
+
+企业需要把品牌规范、禁用元素、合规要求和版权风险前置到工作流里，而不是等到最后一轮人工挑错。
+
+---
+
+## 我们建议企业怎么开始用
+
+如果一个团队准备引入 ImageGen 2.0 这类能力，不建议一开始就追求“全自动出街素材”。
+
+更稳妥的路线是：
+
+### 第一阶段：内部草案生成
+用于活动方向、页面视觉、商品氛围图的初稿探索。
+
+### 第二阶段：多版本辅助
+围绕同一个商品或活动生成多个风格方向，供运营和设计一起筛选。
+
+### 第三阶段：受控发布
+把品牌规范、审核机制、素材归档和投放数据接入流程，再逐步扩大使用范围。
+
+这样既能享受效率提升，也能避免素材失控。
+
+---
+
+## 设计师的角色会更像“主编”
+
+我们不认为这类工具会简单替代设计师。更可能发生的变化是：设计师不再从零开始做每一张素材，而是成为风格系统、质量标准和最终判断的负责人。
+
+在这个模式下，AI 负责快速展开可能性，设计师负责收敛、修正和把关。
+
+这对团队协作是一个明显变化：内容生产从“线性排队”变成“并行探索 + 专业筛选”。
+
+---
+
+## 结语
+
+ImageGen 2.0 的热点，不应该只被理解为又一个更强的图像模型。它更像一个信号：内容生产正在进入“多模态工作流”阶段。
+
+接下来，企业真正要建设的不是某一个出图能力，而是从需求、生成、筛选、审核到发布的完整流程。谁先把这条流程设计好，谁就能更早把图像生成转化成稳定的生产力。`,
+
+    contentEn: `## The Recent Hot Topic: Image Generation Is No Longer Just “Make One Image”
+
+On April 21, 2026, OpenAI introduced ImageGen 2.0 in ChatGPT, along with ImageGen 2.0 Thinking, which adds reasoning, multi-output generation, and access to tools such as web search.
+
+The important part is not only better image quality. It is a clearer direction: **image generation is moving from one-off asset creation into content production workflows.**
+
+Many teams used image generation in a simple way:
+- write a prompt
+- generate several images
+- pick one
+- manually revise it
+
+The more valuable enterprise pattern is different:
+- understand the business goal
+- generate multiple directions
+- apply brand, channel, and campaign constraints
+- iterate alongside copy, layout, and research
+- route outputs into review and publishing
+
+That is a workflow upgrade, not just a model upgrade.
+
+---
+
+## Why the Thinking Version Matters for Product Teams
+
+A pure image model is a creation engine. A reasoning-capable image model behaves more like a content planning assistant.
+
+For enterprises, the hard questions are often not just whether an image looks good:
+- does it fit the campaign goal?
+- does it match the brand tone?
+- can it adapt to different channel ratios?
+- does it support A/B testing?
+- is it consistent with the copy, product, and audience?
+
+If image generation can reason before generating and compare multiple outputs afterward, it shifts from design asset tool to content production collaborator.
+
+That affects marketing, operations, e-commerce, and brand teams.
+
+---
+
+## Three Changes for Enterprise Content Production
+
+### 1. Visual exploration moves earlier
+
+Previously, many visual assets had to wait for design capacity. Now product, operations, and marketing teams can produce a directionally useful draft first, then hand it to designers for refinement.
+
+This turns early discussion from abstract text into visual conversation.
+
+### 2. Multi-version testing becomes cheaper
+
+In campaigns, the highest-converting image is not always the prettiest one. It is the one that fits the specific channel and audience.
+
+With multi-output generation and reasoning-based selection, teams can prepare:
+- different styles
+- different audience versions
+- different channel ratios
+- different selling points
+
+That makes content testing more data-driven and less dependent on intuition alone.
+
+### 3. Review and brand governance become more important
+
+When generation cost drops, asset volume rises quickly. The next question is: who ensures outputs stay on-brand and compliant?
+
+Enterprises need to move brand rules, prohibited elements, compliance checks, and copyright risk earlier in the workflow instead of relying on last-minute manual review.
+
+---
+
+## How Enterprises Should Start
+
+If a team wants to adopt capabilities like ImageGen 2.0, we do not recommend starting with fully automated public assets.
+
+A safer path is:
+
+### Stage 1: Internal draft generation
+Use it for campaign direction, page visuals, and product mood exploration.
+
+### Stage 2: Multi-version assistance
+Generate several directions for the same product or campaign so operations and design teams can review together.
+
+### Stage 3: Controlled publishing
+Add brand rules, review gates, asset archiving, and performance feedback before expanding usage.
+
+This captures efficiency while preventing uncontrolled asset production.
+
+---
+
+## Designers Become More Like Editors-in-Chief
+
+We do not believe these tools simply replace designers. A more likely shift is that designers stop starting every asset from a blank canvas and instead become responsible for style systems, quality standards, and final judgment.
+
+In this model, AI expands possibilities quickly. Designers narrow, correct, and approve.
+
+That changes collaboration from a linear queue into parallel exploration plus professional selection.
+
+---
+
+## Closing Thought
+
+ImageGen 2.0 should not be understood only as another stronger image model. It is a signal that content production is entering a multimodal workflow phase.
+
+The capability enterprises need to build is not just “generate images.” It is the full process from brief, generation, selection, review, and publishing. The teams that design that process first will turn image generation into stable productivity earlier.`,
+  },
+  {
+    slug: 'agents-sdk-sandbox-enterprise-agents-2026',
+    category: 'Engineering',
+    categoryColor: '#4A9E7A',
+    date: '2026-04-22',
+    readTimeZh: '8 分钟',
+    readTimeEn: '8 min read',
+    authorZh: '苏光荣',
+    authorEn: 'Su Guangrong',
+    authorTitleZh: '资深测试总监',
+    authorTitleEn: 'Senior QA Director',
+    authorAvatar: '苏',
+    authorColor: '#5B8DB8',
+    titleZh: 'Agents SDK 沙箱化：企业 Agent 从“能执行”走向“可托管”的关键一步',
+    titleEn: 'Agents SDK Sandboxing: The Step from Executable Agents to Governable Agents',
+    excerptZh: 'OpenAI 最近升级 Agents SDK，加入面向文件、命令、代码编辑和长任务的模型原生 harness 与沙箱执行能力。对企业来说，真正的热点不是 Agent 会做更多事，而是 Agent 开始有机会被安全托管。',
+    excerptEn: 'OpenAI recently upgraded the Agents SDK with a model-native harness and sandbox execution for files, commands, code editing, and long-horizon tasks. For enterprises, the hot topic is not that agents can do more, but that they can start to be governed safely.',
+    tagsZh: ['Agents SDK', '沙箱执行', '企业Agent', 'AI治理', '测试保障'],
+    tagsEn: ['Agents SDK', 'Sandbox Execution', 'Enterprise Agents', 'AI Governance', 'QA'],
+    contentZh: `## 最近的热点：Agent 开始进入“受控执行”阶段
+
+OpenAI 最近发布了 Agents SDK 的新一轮能力升级，重点包括模型原生 harness、文件与工具操作、命令执行、代码编辑，以及在受控沙箱环境中运行长任务。
+
+这件事真正值得关注的地方，不是“Agent 又能做更多事情了”，而是企业一直缺的那一层开始变清晰：**Agent 的执行环境必须可隔离、可观测、可复盘。**
+
+过去很多 Agent Demo 看起来很强，但一到企业内部就会遇到现实问题：
+- 能不能访问本地文件
+- 能不能执行命令
+- 执行失败怎么定位
+- 误操作怎么隔离
+- 运行过程能不能审计
+
+沙箱化和标准化 harness，正是为了解决这些问题。
+
+---
+
+## 为什么“会执行”还不够
+
+Agent 的能力越强，风险越大。
+
+一个只回答问题的模型，错误通常停留在文本层；但一个能改文件、跑命令、调用工具的 Agent，错误就可能变成真实系统变更。
+
+对企业来说，Agent 上线至少要回答四个问题：
+1. 它在哪个环境里执行
+2. 它有哪些文件和命令权限
+3. 每一步做了什么
+4. 出错后能不能回放和回滚
+
+如果这些问题没有答案，Agent 越自动化，治理风险越高。
+
+---
+
+## 沙箱的价值，不只是“安全”
+
+很多人把沙箱理解成安全防护。没错，但它还有另外两个同样重要的价值。
+
+### 1. 可重复
+
+测试同一个 Agent 任务时，如果每次环境都不一样，就很难判断问题来自模型、工具还是外部状态。沙箱可以让输入、文件和权限更可控，从而更容易做回归测试。
+
+### 2. 可观察
+
+沙箱环境中的文件变更、命令输出、错误日志、执行步骤都更容易记录。  
+这意味着 QA、研发和安全团队可以共同复盘一次 Agent 运行，而不是只看到最终结果。
+
+### 3. 可限制
+
+企业可以按任务类型配置不同权限：有的任务只能读文件，有的可以写临时目录，有的可以运行白名单命令。  
+这种权限分层，是 Agent 规模化使用的基础。
+
+---
+
+## 对测试和质量保障意味着什么
+
+从 QA 视角看，Agent 不应该只测“最后答案对不对”，而应该测整条执行链路。
+
+我们建议至少建立四类测试：
+
+### 1. 任务成功率测试
+给定固定输入，Agent 是否能在限定步数内完成任务。
+
+### 2. 副作用测试
+Agent 是否只修改允许修改的文件，是否触碰了不该碰的路径。
+
+### 3. 失败路径测试
+当命令失败、文件不存在、权限不足时，Agent 是否能停止、解释或降级。
+
+### 4. 注入与越权测试
+当文件内容或网页内容中出现恶意指令时，Agent 是否会忽略系统边界。
+
+这些测试以前很难做，因为 Agent 运行环境不稳定。沙箱化后，测试体系才有了更可靠的基础。
+
+---
+
+## 企业落地时的一个推荐分层
+
+如果要在企业里引入这类 Agent 执行能力，我们建议按三层推进。
+
+### 第一层：只读分析
+Agent 可以读取文件、总结内容、生成建议，但不能写入或执行高风险命令。
+
+### 第二层：临时目录执行
+Agent 可以在隔离 workspace 中创建文件、运行测试、生成报告，但不能直接改生产仓库或业务数据。
+
+### 第三层：受控变更
+Agent 可以提出代码修改或配置变更，但必须经过人类 review、CI 检查和权限审批。
+
+这套分层的核心思路是：先让 Agent 在可控范围内创造价值，再逐步放开更高权限。
+
+---
+
+## 不要把沙箱当成万能保险
+
+沙箱是必要条件，不是充分条件。
+
+企业还需要补齐：
+- 身份与权限管理
+- 任务级审计
+- 成本与资源配额
+- 输出内容审核
+- 人工确认机制
+- 事故回滚流程
+
+如果只是把 Agent 放进沙箱，但没有这些治理机制，风险只是被缩小，并没有被解决。
+
+---
+
+## 结语
+
+Agents SDK 这类能力的升级，说明行业正在从“展示 Agent 能做什么”，进入“让 Agent 在受控环境里可靠做事”的阶段。
+
+对企业来说，真正应该关注的不是 Agent 有多自主，而是它是否可托管、可测试、可审计。只有做到这些，Agent 才能从实验工具变成生产能力。`,
+
+    contentEn: `## The Recent Hot Topic: Agents Are Entering Controlled Execution
+
+OpenAI recently introduced a new evolution of the Agents SDK, including a model-native harness, file and tool operations, command execution, code editing, and sandbox execution for long-horizon tasks.
+
+The most important part is not simply that agents can do more. It is that the missing enterprise layer is becoming clearer: **agent execution must be isolated, observable, and replayable.**
+
+Many agent demos look impressive, but enterprise environments quickly expose harder questions:
+- can the agent access files?
+- can it run commands?
+- how do we debug failures?
+- how do we isolate mistakes?
+- can we audit the full run?
+
+Sandboxing and standardized harnesses directly address these questions.
+
+---
+
+## Why “Executable” Is Not Enough
+
+The more capable an agent becomes, the greater the risk.
+
+A model that only answers questions usually fails at the text layer. An agent that can edit files, run commands, and use tools can turn mistakes into real system changes.
+
+For enterprises, agent deployment must answer at least four questions:
+1. where does it execute?
+2. what file and command permissions does it have?
+3. what exactly did it do at each step?
+4. can failures be replayed or rolled back?
+
+Without those answers, more autonomy simply means more governance risk.
+
+---
+
+## Sandbox Value Is Not Only Security
+
+People often understand sandboxing as a safety layer. That is correct, but it also provides two other important benefits.
+
+### 1. Repeatability
+
+If the environment changes every time an agent task runs, it is hard to tell whether failure comes from the model, the tool, or external state. Sandboxes make inputs, files, and permissions more controllable, which makes regression testing possible.
+
+### 2. Observability
+
+File changes, command outputs, error logs, and execution steps are easier to capture inside a sandbox.  
+That means QA, engineering, and security teams can review a full run instead of only looking at the final answer.
+
+### 3. Restriction
+
+Enterprises can assign permissions by task type: some tasks can only read files, some can write to a temporary directory, and some can run only allowlisted commands.  
+That permission layering is the foundation for agent scale.
+
+---
+
+## What This Means for Testing and QA
+
+From a QA perspective, agents should not be tested only by final answer quality. The whole execution chain needs testing.
+
+We recommend at least four categories:
+
+### 1. Task success testing
+Given fixed inputs, can the agent complete the task within a bounded number of steps?
+
+### 2. Side-effect testing
+Does the agent modify only allowed files and avoid forbidden paths?
+
+### 3. Failure-path testing
+When a command fails, a file is missing, or permission is denied, does the agent stop, explain, or degrade gracefully?
+
+### 4. Injection and privilege testing
+If malicious instructions appear in files or web content, does the agent preserve system boundaries?
+
+These tests were difficult when agent environments were unstable. Sandboxing makes the test foundation more reliable.
+
+---
+
+## A Recommended Enterprise Rollout Model
+
+If enterprises want to adopt this kind of agent execution capability, we recommend three stages.
+
+### Layer 1: Read-only analysis
+The agent can read files, summarize content, and generate recommendations, but cannot write or run high-risk commands.
+
+### Layer 2: Temporary workspace execution
+The agent can create files, run tests, and produce reports inside an isolated workspace, but cannot directly change production repos or business data.
+
+### Layer 3: Controlled change
+The agent can propose code or configuration changes, but human review, CI checks, and permission approval remain mandatory.
+
+The idea is to let agents create value in controlled zones first, then gradually expand permissions.
+
+---
+
+## Do Not Treat Sandboxing as a Complete Insurance Policy
+
+Sandboxing is necessary, but not sufficient.
+
+Enterprises still need:
+- identity and access management
+- task-level audit logs
+- cost and resource quotas
+- output review
+- human confirmation
+- incident rollback workflows
+
+If an agent is sandboxed but none of these controls exist, the risk is reduced but not solved.
+
+---
+
+## Closing Thought
+
+The evolution of tools like the Agents SDK shows that the industry is moving from “show what agents can do” to “let agents do work reliably in controlled environments.”
+
+For enterprises, the key question is not how autonomous the agent is. It is whether the agent is governable, testable, and auditable. Only then can agents move from experiments into production capability.`,
+  },
+  {
     slug: 'open-source-dify-virtual-try-on-workflow-2026',
     category: 'Engineering',
     categoryColor: '#4A9E7A',
