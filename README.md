@@ -115,8 +115,6 @@ The website can be deployed to various platforms:
 ## 👥 Company Information
 
 **Feifan Tech (非凡科技)**
-- **CTO:** Xie Jinian (谢记年)
-- **Email:** yymhxie@gmail.com
 - **Location:** Hangzhou, Zhejiang, China
 - **Focus:** Technology innovation and digital transformation
 
