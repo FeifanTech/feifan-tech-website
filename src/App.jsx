@@ -52,7 +52,7 @@ function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/solutions" element={<Solutions />} />
           <Route path="/partners" element={<Partners />} />
-          <Route path="/training" element={<Training />} />
+          <Route path="/training-center" element={<Training />} />
         </Routes>
       </Layout>
     </Router>

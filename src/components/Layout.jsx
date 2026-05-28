@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
     { name: t('nav.solutions'), path: '/solutions' },
     { name: t('nav.partners'), path: '/partners' },
     { name: t('nav.blog'), path: '/blog' },
-    { name: t('nav.training'), path: '/training' },
+    { name: t('nav.training'), path: '/training-center' },
     { name: t('nav.contact'), path: '/contact' }
   ]
 
