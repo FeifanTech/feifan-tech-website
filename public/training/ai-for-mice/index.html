@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>会议 × AI 实战提效工作坊 — 飞凡科技 AI 培训</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* ── 主题色 ── */
+    :root {
+      --mice-accent:      #D97757;
+      --mice-accent-dark: #B85A3A;
+      --mice-bg:          #FDF5F0;
+      --mice-border:      #F0CDB8;
+    }
+
+    /* ── 模块手风琴 ── */
+    .module-card {
+      background: #fff;
+      border: 1px solid var(--beige);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      transition: background .15s;
+    }
+    .module-header:hover { background: var(--warm); }
+    .module-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .module-meta { flex: 1; min-width: 0; }
+    .module-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 2px; }
+    .module-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); }
+    .module-tagline { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+    .module-chevron { font-size: 1.2rem; color: var(--muted); transition: transform .3s; flex-shrink: 0; }
+    .module-header[aria-expanded="true"] .module-chevron { transform: rotate(180deg); }
+    .module-body {
+      padding: 1.25rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--beige);
+      display: none;
+    }
+    .module-body.open { display: block; }
+
+    /* ── 步骤 ── */
+    .step { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: var(--mice-accent);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-content .step-title { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+    .step-content .step-body { font-size: 0.85rem; color: var(--medium); line-height: 1.6; }
+
+    /* ── 工具徽章 ── */
+    .tool-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--mice-bg);
+      border: 1px solid var(--mice-border);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--mice-accent-dark);
+      margin: 3px;
+    }
+    .tool-badge .tb-zap { font-size: 0.7rem; }
+    .tool-badge .tb-desc { font-weight: 400; color: var(--muted); }
+
+    /* ── Prompt 卡片 ── */
+    .prompt-card { background: var(--dark); border-radius: var(--radius-md); overflow: hidden; margin: 1rem 0; }
+    .prompt-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .prompt-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--mice-accent); }
+    .copy-btn {
+      background: transparent; border: none;
+      font-size: 0.75rem; color: rgba(255,255,255,.45);
+      cursor: pointer; padding: 2px 6px; border-radius: 4px;
+      transition: color .15s;
+    }
+    .copy-btn:hover { color: rgba(255,255,255,.9); }
+    .prompt-pre {
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #86efac;
+      white-space: pre-wrap;
+      line-height: 1.65;
+      overflow-x: auto;
+      margin: 0;
+    }
+
+    /* ── 日程表 ── */
+    .schedule-table { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); }
+    .schedule-row { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); }
+    .schedule-row:last-child { border-bottom: none; }
+    .schedule-row:nth-child(even) { background: var(--warm); }
+    .schedule-row.break { opacity: .5; }
+    .schedule-time { font-family: monospace; font-size: 0.82rem; color: var(--muted); width: 120px; flex-shrink: 0; padding-top: 2px; }
+    .schedule-info { flex: 1; }
+    .schedule-phase { font-size: 0.9rem; font-weight: 700; color: var(--dark); }
+    .schedule-desc { font-size: 0.82rem; color: var(--medium); margin-top: 2px; }
+    .schedule-tag {
+      font-size: 0.72rem; padding: 2px 10px; border-radius: 999px;
+      background: var(--mice-bg); color: var(--mice-accent);
+      font-weight: 600; flex-shrink: 0;
+    }
+
+    /* ── 亮点卡片 ── */
+    .highlight-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2rem; }
+    .highlight-card { background: #fff; border: 1px solid var(--beige); border-radius: var(--radius-md); padding: 1.25rem; }
+
+    /* ── 提示词百宝箱 ── */
+    .toolbox-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+    .toolbox-card { background: #fff; border: 1px solid var(--beige); border-radius: var(--radius-md); overflow: hidden; }
+    .toolbox-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--beige); }
+    .toolbox-header .th-icon { font-size: 1.1rem; }
+    .toolbox-header .th-title { font-size: 0.85rem; font-weight: 700; color: var(--dark); }
+    .toolbox-pre {
+      background: var(--dark); padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; color: #86efac;
+      white-space: pre-wrap; line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── 工具矩阵表 ── */
+    .matrix-table { width: 100%; border-collapse: collapse; }
+    .matrix-table th {
+      background: var(--warm); text-align: left;
+      padding: 10px 16px; font-size: 0.82rem; font-weight: 700;
+      color: var(--dark); border-bottom: 1px solid var(--border);
+    }
+    .matrix-table td { padding: 10px 16px; font-size: 0.82rem; border-bottom: 1px solid var(--border); }
+    .matrix-table tr:last-child td { border-bottom: none; }
+    .matrix-table tr:nth-child(even) td { background: var(--warm); }
+    .matrix-table .first { font-weight: 700; color: var(--mice-accent); }
+
+    /* ── 进阶技巧网格 ── */
+    .tips-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+    .tip-card { background: #fff; border: 1px solid var(--beige); border-radius: var(--radius-md); padding: 1rem; }
+
+    /* ── CTA ── */
+    .mice-cta {
+      background: var(--dark);
+      border-radius: var(--radius-xl);
+      padding: 3rem;
+      text-align: center;
+      color: #fff;
+      margin-top: 3rem;
+    }
+    .mice-cta h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .mice-cta p { font-size: 0.9rem; color: rgba(255,255,255,.6); max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.65; }
+    .cta-buttons { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+    .cta-btn-primary {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 22px; background: var(--mice-accent);
+      color: #fff; border-radius: 10px; font-size: 0.9rem; font-weight: 700;
+      text-decoration: none; transition: all .2s;
+    }
+    .cta-btn-primary:hover { background: var(--mice-accent-dark); color: #fff; transform: scale(1.02); }
+    .cta-btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 22px; background: rgba(255,255,255,.1);
+      color: #fff; border-radius: 10px; font-size: 0.9rem; font-weight: 700;
+      text-decoration: none; border: 1px solid rgba(255,255,255,.2); transition: all .2s;
+    }
+    .cta-btn-outline:hover { background: rgba(255,255,255,.2); color: #fff; }
+
+    @media (max-width: 768px) {
+      .highlight-grid { grid-template-columns: 1fr; }
+      .toolbox-grid { grid-template-columns: 1fr; }
+      .tips-grid { grid-template-columns: 1fr; }
+      .mice-cta { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sticky Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🏢</span>
+    <span>会议 × AI 实战提效工作坊</span>
+    <span class="logo-badge">PCO / EMC</span>
+  </div>
+  <nav class="header-nav">
+    <a href="/training/">← 培训总览</a>
+    <a href="#schedule">日程</a>
+    <a href="#modules">详细模块</a>
+    <a href="#toolbox">提示词百宝箱</a>
+    <a href="#matrix">工具矩阵</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">课程导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview" class="active"><span class="nav-num">0</span> 课程概述</a></li>
+      <li><a href="#highlights"><span class="nav-num">✦</span> 课程亮点</a></li>
+      <li><a href="#schedule"><span class="nav-num">📅</span> 日程概览</a></li>
+      <li><a href="#modules"><span class="nav-num">📦</span> 详细模块</a></li>
+      <li><a href="#toolbox"><span class="nav-num">💎</span> 提示词百宝箱</a></li>
+      <li><a href="#matrix"><span class="nav-num">🔧</span> 工具矩阵</a></li>
+    </ul>
+    <div style="padding: 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border);">
+      <div class="sidebar-title">快速跳转</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <a href="#module-0" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:var(--mice-accent);">●</span> 破冰导入
+        </a>
+        <a href="#module-1" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#38A169;">●</span> 筹备阶段
+        </a>
+        <a href="#module-2" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#805AD5;">●</span> 创意阶段
+        </a>
+        <a href="#module-3" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#3182CE;">●</span> 内容阶段
+        </a>
+        <a href="#module-4" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#D69E2E;">●</span> 交付阶段
+        </a>
+        <a href="#module-5" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--medium);">
+          <span style="color:#E53E3E;">●</span> 避坑提升
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div id="overview"></div>
+
+    <!-- Hero -->
+    <div class="index-hero" style="background:linear-gradient(135deg,#1A2035 0%,#2D3748 50%,#3D3020 100%);">
+      <div class="index-hero-content">
+        <div class="hero-badge">
+          <span class="hero-session-num">行业专项</span>
+          PCO / EMC 会议策划师
+        </div>
+        <h1>会议 × AI<br/><span style="color:var(--mice-accent);">实战提效工作坊</span></h1>
+        <p class="hero-desc">
+          专为会议公司（PCO）与活动公司（EMC）打造的 AI 赋能实操课——从客户 Brief 到方案交付，
+          全流程拆解如何用 AI 实现 <strong>3 倍提速、降本增效</strong>。
+          不讲空洞理论，只给你拿来就用的工具和提示词。
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item"><div class="stat-num">3.5h</div><div class="stat-label">课程时长</div></div>
+          <div class="stat-item"><div class="stat-num">60%</div><div class="stat-label">实操比例</div></div>
+          <div class="stat-item"><div class="stat-num">20+</div><div class="stat-label">即用 Prompt</div></div>
+          <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">工作阶段</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 课程亮点 -->
+    <div id="highlights" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">✦</div>
+        <div>
+          <div class="section-title">课程亮点</div>
+          <div class="section-subtitle">三大核心差异化优势</div>
+        </div>
+      </div>
+      <div class="highlight-grid">
+        <div class="highlight-card">
+          <div style="font-size:2rem;margin-bottom:.75rem;">🔬</div>
+          <h3 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">全流程拆解</h3>
+          <p style="font-size:0.85rem;color:var(--medium);line-height:1.6;">覆盖筹备→创意→内容→交付四大阶段，每个环节都有对应 AI 工具与提示词。</p>
+        </div>
+        <div class="highlight-card">
+          <div style="font-size:2rem;margin-bottom:.75rem;">⚡</div>
+          <h3 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">即学即用</h3>
+          <p style="font-size:0.85rem;color:var(--medium);line-height:1.6;">核心提示词（Prompt）现场演示，课后提供《会议专属提示词百宝箱》可直接复制使用。</p>
+        </div>
+        <div class="highlight-card">
+          <div style="font-size:2rem;margin-bottom:.75rem;">🇨🇳</div>
+          <h3 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">本土化适配</h3>
+          <p style="font-size:0.85rem;color:var(--medium);line-height:1.6;">优先推荐国内可用工具，兼顾数据安全合规，远离「幻觉」与版权踩坑。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 课程日程概览 -->
+    <div id="schedule" class="section">
+      <div class="section-header">
+        <div class="section-icon blue">📅</div>
+        <div>
+          <div class="section-title">课程日程概览</div>
+          <div class="section-subtitle">3.5 小时全流程实战安排</div>
+        </div>
+      </div>
+      <div class="schedule-table">
+        <div class="schedule-row">
+          <span class="schedule-time">09:00 – 09:20</span>
+          <div class="schedule-info">
+            <div class="schedule-phase">破冰导入</div>
+            <div class="schedule-desc">行业现状痛点调研 + AI 效率公式揭秘</div>
+          </div>
+          <span class="schedule-tag">互动</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">09:20 – 10:00</span>
+          <div class="schedule-info">
+            <div class="schedule-phase">模块一：筹备阶段</div>
+            <div class="schedule-desc">用 AI 解读 Brief、行业洞察、用户画像</div>
+          </div>
+          <span class="schedule-tag">演示+练习</span>
+        </div>
+        <div class="schedule-row break">
+          <span class="schedule-time">10:00 – 10:10</span>
+          <div class="schedule-info">
+            <div class="schedule-phase">茶歇</div>
+          </div>
+          <span class="schedule-tag"></span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">10:10 – 10:50</span>
+          <div class="schedule-info">
+            <div class="schedule-phase">模块二：创意阶段</div>
+            <div class="schedule-desc">AI 批量生成主题方案 + 视觉方向 Moodboard</div>
+          </div>
+          <span class="schedule-tag">演示+练习</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">10:50 – 11:30</span>
+          <div class="schedule-info">
+            <div class="schedule-phase">模块三：内容阶段</div>
+            <div class="schedule-desc">AI 智能排盘议程 + 主持词 + 宣发文案</div>
+          </div>
+          <span class="schedule-tag">演示+练习</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">11:30 – 12:00</span>
+          <div class="schedule-info">
+            <div class="schedule-phase">模块四：交付阶段</div>
+            <div class="schedule-desc">AI 辅助提案 PPT + 预算审查隐形漏项</div>
+          </div>
+          <span class="schedule-tag">演示+练习</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">12:00 – 12:20</span>
+          <div class="schedule-info">
+            <div class="schedule-phase">避坑与提升</div>
+            <div class="schedule-desc">数据安全、幻觉识别、提示词进阶技巧</div>
+          </div>
+          <span class="schedule-tag">讲解</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-time">12:20 – 12:30</span>
+          <div class="schedule-info">
+            <div class="schedule-phase">资源包发放 &amp; Q&amp;A</div>
+            <div class="schedule-desc">《会议专属提示词百宝箱》+ 答疑</div>
+          </div>
+          <span class="schedule-tag">互动</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 详细模块内容 -->
+    <div id="modules" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">📦</div>
+        <div>
+          <div class="section-title">详细模块内容</div>
+          <div class="section-subtitle">点击展开查看每个模块的目标、工具与提示词</div>
+        </div>
+      </div>
+
+      <!-- Module 0 -->
+      <div id="module-0" class="module-card">
+        <button class="module-header" onclick="toggleModule(this)" aria-expanded="true">
+          <div class="module-icon" style="background:rgba(217,119,87,.15);border:1.5px solid rgba(217,119,87,.3);">⚡</div>
+          <div class="module-meta">
+            <div class="module-label">模块 1 &nbsp;·&nbsp; 20 分钟</div>
+            <div class="module-title">破冰导入：传统策划的「时间黑洞」与 AI 赋能公式</div>
+            <div class="module-tagline">让学员意识到效率痛点，建立 AI 赋能的心智模型</div>
+          </div>
+          <span class="module-chevron">▾</span>
+        </button>
+        <div class="module-body open">
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">🎯 目标</h4>
+          <p style="font-size:0.875rem;color:var(--medium);line-height:1.65;margin-bottom:1rem;">
+            通过互动提问，让学员梳理自己工作中最耗时的环节；揭示 AI 赋能的核心逻辑：
+            <strong style="color:var(--dark);">AI 搞定框架与初稿，人专注审美与客户洞察</strong>。
+          </p>
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.75rem;">📋 主要内容</h4>
+          <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1rem;">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">现场调研（5 min）</div>
+                <div class="step-body">举手投票：你的工作中，哪个环节最耗时？资料搜集 / 主题头脑风暴 / 文案撰写 / PPT 制作 / 预算核对？</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">痛点共鸣（5 min）</div>
+                <div class="step-body">展示真实数据：传统会议策划一份完整提案平均耗时 12-20 小时；引入「时间黑洞」概念。</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">AI 赋能公式揭秘（10 min）</div>
+                <div class="step-body">讲解「提示词工程」基础：角色设定 + 上下文 + 任务指令 + 输出格式 = 高质量 AI 输出。现场演示一个最简单的 Prompt 如何将效率提升 10 倍。</div>
+              </div>
+            </div>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-header">
+              <span class="prompt-title">破冰演示 Prompt · 快速自我介绍生成</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+            </div>
+            <pre class="prompt-pre">你是一位资深会议策划顾问，请用100字为我撰写一段专业自我介绍，适合在行业交流活动开场使用。
+
+我的背景：
+- 从业年限：[X]年
+- 擅长领域：[企业年会/峰会/产品发布/展览]
+- 服务过的代表性客户：[填写1-2家]
+- 个人特色：[填写你的差异化优势]
+
+要求：语气专业但不失亲切，突出实战经验，结尾留有互动空间。</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 1 -->
+      <div id="module-1" class="module-card">
+        <button class="module-header" onclick="toggleModule(this)" aria-expanded="false">
+          <div class="module-icon" style="background:rgba(56,161,105,.15);border:1.5px solid rgba(56,161,105,.3);">📄</div>
+          <div class="module-meta">
+            <div class="module-label">模块 2 &nbsp;·&nbsp; 40 分钟</div>
+            <div class="module-title">筹备阶段 — AI 快速解读 Brief 与行业洞察</div>
+            <div class="module-tagline">5 分钟读懂陌生行业 Brief，精准画像目标受众</div>
+          </div>
+          <span class="module-chevron">▾</span>
+        </button>
+        <div class="module-body">
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">🎯 目标</h4>
+          <p style="font-size:0.875rem;color:var(--medium);line-height:1.65;margin-bottom:1rem;">
+            接到新客户的 Brief 时，无论是医药、金融还是新能源行业，学员能在 5 分钟内
+            用 AI 完成行业快速入门、竞品分析、目标受众画像，不再从零摸索。
+          </p>
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">🛠 推荐工具</h4>
+          <div style="margin-bottom:1rem;">
+            <span class="tool-badge">⚡ Kimi <span class="tb-desc">超长上下文，粘贴整份 Brief 直接分析</span></span>
+            <span class="tool-badge">⚡ 通义千问 <span class="tb-desc">阿里出品，行业知识库丰富</span></span>
+            <span class="tool-badge">⚡ 文心一言 <span class="tb-desc">百度生态，中文理解能力强</span></span>
+            <span class="tool-badge">⚡ 豆包 <span class="tb-desc">字节跳动，多模态能力强</span></span>
+          </div>
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.75rem;">📋 操作步骤</h4>
+          <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1rem;">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">喂入 Brief（2 min）</div><div class="step-body">将客户原始 Brief 全文粘贴给 AI，附上行业背景说明。Kimi 支持直接上传 PDF。</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">行业快速解码（5 min）</div><div class="step-body">让 AI 提炼：客户核心诉求、行业现状趋势、目标受众特征、竞品活动案例。</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">受众画像生成（8 min）</div><div class="step-body">基于解码结果，让 AI 生成 2-3 个参会者人物画像（Persona），含职位、痛点、期望收获。</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">学员练习（25 min）</div><div class="step-body">每位学员选择一个真实或模拟的 Brief 案例，独立完成上述步骤，讲师点评 2-3 个案例。</div></div></div>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-header">
+              <span class="prompt-title">Prompt · 快速解读行业 Brief</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+            </div>
+            <pre class="prompt-pre"># 角色
+你是一位资深会议策划顾问，同时具备[行业名称]行业的深度认知。
+
+# 任务
+请帮我分析以下客户 Brief，并输出结构化的洞察报告。
+
+# 客户 Brief（原文）
+[将客户 Brief 全文粘贴在此]
+
+# 请按以下结构输出：
+
+## 1. 客户核心诉求（3条，每条不超过30字）
+
+## 2. 行业背景速览
+- 当前行业趋势（2-3点）
+- 竞品/同类活动参考（1-2个案例）
+
+## 3. 目标受众分析
+- 核心参会群体画像（职位、年龄、关注点）
+- 他们期望从本次活动获得什么
+
+## 4. 活动策划风险预警
+- 客户 Brief 中可能被忽视的隐性需求
+- 建议提前确认的3个关键问题
+
+## 5. 执行建议摘要（一段话，100字以内）</pre>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-header">
+              <span class="prompt-title">Prompt · 生成参会者人物画像</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+            </div>
+            <pre class="prompt-pre">基于上述行业洞察，请为本次活动生成3个典型参会者人物画像（Persona）。
+
+每个画像包含：
+- 姓名（虚构）、职位、所在城市
+- 年龄段与职业背景
+- 参加本次活动的核心动机
+- 最关心的3个议题关键词
+- 最让他/她感到失望的活动体验类型
+- 一句话：他/她希望从本次活动带走什么
+
+请用第一人称写出每个画像的内心独白（50字），让策划团队能产生共情。</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 2 -->
+      <div id="module-2" class="module-card">
+        <button class="module-header" onclick="toggleModule(this)" aria-expanded="false">
+          <div class="module-icon" style="background:rgba(128,90,213,.15);border:1.5px solid rgba(128,90,213,.3);">💡</div>
+          <div class="module-meta">
+            <div class="module-label">模块 3 &nbsp;·&nbsp; 40 分钟</div>
+            <div class="module-title">创意阶段 — AI 批量产出主题方案与视觉方向</div>
+            <div class="module-tagline">10 分钟生成 10 个主题候选，附完整视觉氛围参考</div>
+          </div>
+          <span class="module-chevron">▾</span>
+        </button>
+        <div class="module-body">
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">🎯 目标</h4>
+          <p style="font-size:0.875rem;color:var(--medium);line-height:1.65;margin-bottom:1rem;">
+            告别「开会头脑风暴三小时，最后用老板第一个想法」的困境。学会用 AI 批量生成
+            差异化主题方案，并用 AI 图像工具快速产出视觉氛围参考（Moodboard）。
+          </p>
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">🛠 推荐工具</h4>
+          <div style="margin-bottom:.75rem;">
+            <span class="tool-badge">⚡ Kimi / 通义 <span class="tb-desc">主题文案生成</span></span>
+            <span class="tool-badge">⚡ 即梦 AI <span class="tb-desc">字节旗下，国内图像生成首选</span></span>
+            <span class="tool-badge">⚡ LiblibAI <span class="tb-desc">Stable Diffusion 国内平台</span></span>
+            <span class="tool-badge">⚡ 美图设计室 <span class="tb-desc">AI 修图+素材，适合快速出稿</span></span>
+            <span class="tool-badge">⚡ Canva AI <span class="tb-desc">版式自动生成，Moodboard 友好</span></span>
+          </div>
+          <div class="infobox infobox-tip" style="margin-bottom:1rem;">
+            <span class="infobox-icon">⚠️</span>
+            <div>Midjourney 需要科学上网 + 海外信用卡，国内用户推荐优先使用
+            <strong>即梦 AI</strong>（字节跳动出品，中文 Prompt 友好，免费额度充足）。</div>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-header">
+              <span class="prompt-title">Prompt · 批量生成活动主题方案</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+            </div>
+            <pre class="prompt-pre"># 活动背景
+- 活动类型：[企业年会 / 行业峰会 / 产品发布会 / 展览]
+- 客户行业：[行业名称]
+- 预计规模：[人数] 人
+- 举办城市：[城市]
+- 活动调性：[正式专业 / 活泼创意 / 科技感 / 温暖人文]
+- 核心诉求：[一句话描述客户最想传达的信息]
+
+# 任务
+请为本次活动生成 10 个差异化主题方案，要求：
+1. 主题名称（中文4-8字，有记忆点）
+2. 英文副标题（便于国际化展示）
+3. 核心理念（30字，说明主题背后的逻辑）
+4. 视觉风格关键词（3-5个，用于指导设计）
+5. 一句话亮点：为什么这个主题能打动参会者？
+
+注意：
+- 10个方案要有明显差异，覆盖不同风格方向
+- 避免空洞、过时的主题（如「共创未来」「赋能同行」等泛化表达）
+- 考虑当下行业热点和参会者真实痛点</pre>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-header">
+              <span class="prompt-title">即梦 AI · 会议空间氛围图 Prompt</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+            </div>
+            <pre class="prompt-pre">科技感企业峰会主会场，蓝紫色渐变灯光，极简主义舞台设计，
+LED 背景屏显示抽象数字纹理，前排圆形沙发区，
+高端商务氛围，俯视视角，超宽画幅，真实摄影质感
+
+（提示：在即梦AI中选择「真实感」或「摄影」风格，
+宽高比选 16:9 或 21:9 适合幻灯片展示）</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 3 -->
+      <div id="module-3" class="module-card">
+        <button class="module-header" onclick="toggleModule(this)" aria-expanded="false">
+          <div class="module-icon" style="background:rgba(49,130,206,.15);border:1.5px solid rgba(49,130,206,.3);">📖</div>
+          <div class="module-meta">
+            <div class="module-label">模块 4 &nbsp;·&nbsp; 40 分钟</div>
+            <div class="module-title">内容阶段 — AI 智能排盘议程与文案创作</div>
+            <div class="module-tagline">告别熬夜排议程，一键生成主持词与全套宣发内容</div>
+          </div>
+          <span class="module-chevron">▾</span>
+        </button>
+        <div class="module-body">
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">🎯 目标</h4>
+          <p style="font-size:0.875rem;color:var(--medium);line-height:1.65;margin-bottom:1rem;">
+            掌握用 AI 完成多天议程智能排盘、生成主持词逐字稿、批量产出
+            社交媒体宣发文案（朋友圈 / 微博 / 微信公众号）的完整工作流。
+          </p>
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">🛠 推荐工具</h4>
+          <div style="margin-bottom:1rem;">
+            <span class="tool-badge">⚡ Kimi <span class="tb-desc">长文本处理，议程排盘首选</span></span>
+            <span class="tool-badge">⚡ 通义千问 <span class="tb-desc">文案写作质量高</span></span>
+            <span class="tool-badge">⚡ 讯飞星火 <span class="tb-desc">语音转写+文案，配合演讲稿使用</span></span>
+            <span class="tool-badge">⚡ WPS AI <span class="tb-desc">直接在 Office 环境中生成</span></span>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-header">
+              <span class="prompt-title">Prompt · 多天峰会议程智能排盘</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+            </div>
+            <pre class="prompt-pre"># 活动信息
+- 活动名称：[活动名称]
+- 举办时间：[X]天，每天 [开始时间] - [结束时间]
+- 场地：[城市，酒店/展馆]
+- 预计参会人数：[人数]
+
+# 议程要素
+必选环节：
+- 开幕式（含领导致辞）
+- 主旨演讲嘉宾：[数量]位，每位约[分钟]
+- 圆桌对话/Panel：[数量]场
+- 展览/Demo 区参观
+- 颁奖典礼（如有）
+- 午餐/晚宴
+
+# 请输出：
+
+## 完整议程表（按天分拆，精确到分钟）
+格式：| 时间 | 环节名称 | 形式 | 备注 |
+
+## 节奏优化说明
+- 为什么这样安排茶歇时间
+- 高能环节与放松环节如何交替
+- 哪些环节建议做视频直播
+
+## 主持人换场口播（每个环节衔接处，2-3句引导词）</pre>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-header">
+              <span class="prompt-title">Prompt · 批量生成宣发文案矩阵</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+            </div>
+            <pre class="prompt-pre"># 活动基本信息
+活动名称：[名称]
+时间：[日期]
+地点：[城市·场地]
+主题：[主题]
+亮点嘉宾：[2-3位关键嘉宾姓名+职位]
+参会对象：[目标群体描述]
+报名方式：[链接或联系方式]
+
+# 请生成以下宣发内容：
+
+## 1. 朋友圈倒计时文案 × 3条
+- 30天倒计时（神秘感，引发期待）
+- 7天倒计时（嘉宾阵容预告）
+- 1天倒计时（最后冲刺，营造紧迫感）
+每条：50-80字，含1-2个emoji，结尾加上报名入口提示
+
+## 2. 微信公众号预热标题 × 5个
+（吸引点击，带数字或悬念）
+
+## 3. 嘉宾预告海报文案
+格式：嘉宾姓名 | 职位 | 一句话演讲预告（20字以内，高度概括演讲价值）
+（为每位主要嘉宾生成）</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 4 -->
+      <div id="module-4" class="module-card">
+        <button class="module-header" onclick="toggleModule(this)" aria-expanded="false">
+          <div class="module-icon" style="background:rgba(214,158,46,.15);border:1.5px solid rgba(214,158,46,.3);">📊</div>
+          <div class="module-meta">
+            <div class="module-label">模块 5 &nbsp;·&nbsp; 30 分钟</div>
+            <div class="module-title">交付阶段 — AI 辅助提案 PPT 与预算审查</div>
+            <div class="module-tagline">3 分钟生成 PPT 初稿，AI 排查预算隐形漏项</div>
+          </div>
+          <span class="module-chevron">▾</span>
+        </button>
+        <div class="module-body">
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">🎯 目标</h4>
+          <p style="font-size:0.875rem;color:var(--medium);line-height:1.65;margin-bottom:1rem;">
+            学会用 AI 快速搭建提案 PPT 结构框架，并利用 AI 对预算表进行智能审核，
+            主动发现遗漏项和报价风险，避免事后追加预算损伤客户关系。
+          </p>
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.5rem;">🛠 推荐工具</h4>
+          <div style="margin-bottom:1rem;">
+            <span class="tool-badge">⚡ 讯飞智文 <span class="tb-desc">国内 AI PPT，中文效果最佳</span></span>
+            <span class="tool-badge">⚡ WPS AI <span class="tb-desc">一键生成 PPT，无需安装</span></span>
+            <span class="tool-badge">⚡ Kimi <span class="tb-desc">粘贴大纲直接输出 PPT Markdown</span></span>
+            <span class="tool-badge">⚡ ChatExcel <span class="tb-desc">AI 智能表格分析，预算审查</span></span>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-header">
+              <span class="prompt-title">Prompt · 会议提案 PPT 大纲生成</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+            </div>
+            <pre class="prompt-pre">请为以下活动项目生成一份完整的提案 PPT 大纲。
+
+# 项目信息
+- 活动名称：[名称]
+- 客户公司：[公司名]
+- 活动类型：[类型]
+- 活动规模：[人数、天数]
+- 我们的核心方案亮点：[3点核心优势]
+
+# PPT 结构要求（15-18页）
+
+请按以下顺序生成每页的：
+① 页面标题
+② 核心内容要点（3-5条，每条15字以内）
+③ 建议使用的图表/视觉元素类型
+
+必须包含的章节：
+1. 封面（含主题与执行团队）
+2. 理解客户（活动背景与核心诉求）
+3. 我们的洞察（行业趋势+受众分析）
+4. 主题方案（含主视觉方向）
+5. 执行亮点（3大差异化亮点）
+6. 完整执行流程
+7. 团队实力与过往案例
+8. 项目时间线
+9. 预算概览
+10. 结语与下一步行动</pre>
+          </div>
+          <div class="prompt-card">
+            <div class="prompt-header">
+              <span class="prompt-title">Prompt · AI 预算审查与漏项排查</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+            </div>
+            <pre class="prompt-pre"># 角色
+你是一位有10年经验的会议项目经理，熟悉各类活动的成本结构。
+
+# 任务
+请审查以下活动预算表，找出潜在问题和遗漏项。
+
+# 活动基本信息
+- 活动类型：[类型]
+- 规模：[人数]人，[天数]天
+- 举办城市：[城市]
+- 总预算：[金额]万元
+
+# 我的预算清单
+[将你的预算表内容粘贴在此，或列出各费用项]
+
+# 请输出：
+
+## 1. 预算健康评估（整体评价，100字以内）
+
+## 2. 疑似遗漏项（按重要程度排列）
+| 费用项 | 预估金额 | 遗漏风险等级 | 备注 |
+
+## 3. 报价风险提示
+- 哪些项目报价可能偏低？
+- 哪些项目建议增加备用金（%）？
+
+## 4. 行业经验提醒
+- 该类活动常见的「隐性费用」清单（如overtime、物料损耗、应急备用等）
+
+## 5. 优化建议（3条）</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module 5 -->
+      <div id="module-5" class="module-card">
+        <button class="module-header" onclick="toggleModule(this)" aria-expanded="false">
+          <div class="module-icon" style="background:rgba(229,62,62,.15);border:1.5px solid rgba(229,62,62,.3);">🛡</div>
+          <div class="module-meta">
+            <div class="module-label">模块 6 &nbsp;·&nbsp; 20 分钟</div>
+            <div class="module-title">避坑与提升 — 数据安全、AI 幻觉与提示词进阶</div>
+            <div class="module-tagline">用好 AI 的前提：知道它的边界在哪里</div>
+          </div>
+          <span class="module-chevron">▾</span>
+        </button>
+        <div class="module-body">
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.75rem;">⚠️ 三大必须注意的风险</h4>
+          <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem;">
+            <div class="infobox" style="border:1px solid #FEB2B2;background:#FFF5F5;">
+              <span class="infobox-icon">🔒</span>
+              <div>
+                <div class="infobox-title" style="color:#9B2C2C;">数据安全与保密</div>
+                <ul style="font-size:0.85rem;color:#C53030;margin-top:6px;padding-left:1.25rem;">
+                  <li>客户未公开信息（预算金额、嘉宾名单、商业计划）<strong>禁止</strong>直接输入公共 AI 平台</li>
+                  <li>敏感内容脱敏处理后再输入：将公司名替换为「A公司」，将真实金额替换为「X万元」</li>
+                  <li>如需处理大量机密数据，考虑使用企业版 AI（如企业微信 AI、钉钉 AI 助手）或本地部署方案</li>
+                  <li>输出内容需经人工审核后才能发送给客户</li>
+                </ul>
+              </div>
+            </div>
+            <div class="infobox" style="border:1px solid #FAF089;background:#FFFFF0;">
+              <span class="infobox-icon">🌀</span>
+              <div>
+                <div class="infobox-title" style="color:#744210;">AI 幻觉（Hallucination）识别</div>
+                <ul style="font-size:0.85rem;color:#975A16;margin-top:6px;padding-left:1.25rem;">
+                  <li>AI 可能「自信地编造」不存在的嘉宾履历、虚假案例数据、错误行业统计数字</li>
+                  <li>黄金法则：<strong>所有涉及具体数字、人名、公司名的内容必须人工核实</strong></li>
+                  <li>提示词技巧：在 Prompt 末尾加上「如有不确定，请注明『需核实』」</li>
+                  <li>让 AI 生成「框架和逻辑」，具体事实由人来填充</li>
+                </ul>
+              </div>
+            </div>
+            <div class="infobox" style="border:1px solid #90CDF4;background:#EBF8FF;">
+              <span class="infobox-icon">©️</span>
+              <div>
+                <div class="infobox-title" style="color:#2B6CB0;">版权与原创性风险</div>
+                <ul style="font-size:0.85rem;color:#2C5282;margin-top:6px;padding-left:1.25rem;">
+                  <li>AI 生成的图片、文案在部分场景下存在版权争议，商业使用前需了解平台规则</li>
+                  <li>AI 文案可能与其他项目高度相似，提交前建议做查重检测</li>
+                  <li>用 AI 做「创作助手」而非「复制机器」：在 AI 输出基础上加入自己的专业判断</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <h4 style="font-weight:700;color:var(--dark);margin-bottom:.75rem;">🚀 提示词进阶技巧</h4>
+          <div class="tips-grid">
+            <div class="tip-card"><p style="font-weight:700;color:var(--dark);font-size:0.85rem;margin-bottom:4px;">💡 角色赋予</p><p style="font-size:0.82rem;color:var(--medium);">让 AI 扮演特定专家角色，输出质量显著提升。如「你是资深 PCO」比「帮我写」效果好 3-5 倍。</p></div>
+            <div class="tip-card"><p style="font-weight:700;color:var(--dark);font-size:0.85rem;margin-bottom:4px;">💡 示例教学</p><p style="font-size:0.82rem;color:var(--medium);">在 Prompt 中加入 1-2 个好的输出示例（Few-shot），AI 会学习你的风格和格式。</p></div>
+            <div class="tip-card"><p style="font-weight:700;color:var(--dark);font-size:0.85rem;margin-bottom:4px;">💡 分步拆解</p><p style="font-size:0.82rem;color:var(--medium);">复杂任务不要一次要求，而是分「步骤一、步骤二」逐步完成，质量更高。</p></div>
+            <div class="tip-card"><p style="font-weight:700;color:var(--dark);font-size:0.85rem;margin-bottom:4px;">💡 迭代优化</p><p style="font-size:0.82rem;color:var(--medium);">第一次输出不满意？直接回复「继续优化第X点，加入Y元素」，比重新开始更高效。</p></div>
+            <div class="tip-card"><p style="font-weight:700;color:var(--dark);font-size:0.85rem;margin-bottom:4px;">💡 格式锁定</p><p style="font-size:0.82rem;color:var(--medium);">明确要求输出格式（表格/列表/段落/JSON），减少 AI 自由发挥导致的格式混乱。</p></div>
+            <div class="tip-card"><p style="font-weight:700;color:var(--dark);font-size:0.85rem;margin-bottom:4px;">💡 中文 Prompt</p><p style="font-size:0.82rem;color:var(--medium);">对于中文场景，直接用中文写 Prompt 效果比英文翻译好，更贴近本土化表达。</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 提示词百宝箱 -->
+    <div id="toolbox" class="section">
+      <div class="section-header">
+        <div class="section-icon orange">💎</div>
+        <div>
+          <div class="section-title">会议专属提示词百宝箱</div>
+          <div class="section-subtitle">课程配套的快速参考提示词，覆盖日常高频场景</div>
+        </div>
+      </div>
+      <p style="font-size:0.875rem;color:var(--medium);margin-bottom:1.25rem;line-height:1.65;">
+        以下是课程配套的快速参考提示词，覆盖日常高频场景。复制后根据实际项目填入方括号内容即可使用。
+      </p>
+      <div class="toolbox-grid">
+        <div class="toolbox-card">
+          <div class="toolbox-header"><span class="th-icon">📧</span><span class="th-title">客户邮件润色</span></div>
+          <pre class="toolbox-pre">请将以下邮件润色为专业、简洁的商务风格，保留原有信息，删除废话，语气礼貌但有执行力。
+
+[粘贴原始邮件]</pre>
+        </div>
+        <div class="toolbox-card">
+          <div class="toolbox-header"><span class="th-icon">📝</span><span class="th-title">活动执行方案摘要</span></div>
+          <pre class="toolbox-pre">请将以下执行方案提炼为300字以内的执行摘要，适合发给客户高层审阅，突出3个核心执行亮点。
+
+[粘贴方案内容]</pre>
+        </div>
+        <div class="toolbox-card">
+          <div class="toolbox-header"><span class="th-icon">🎤</span><span class="th-title">嘉宾介绍词</span></div>
+          <pre class="toolbox-pre">为以下嘉宾撰写60秒主持人介绍词，语气热情专业，避免照本宣科。
+
+嘉宾姓名：[]
+职位：[]
+核心成就：[]
+本次演讲主题：[]</pre>
+        </div>
+        <div class="toolbox-card">
+          <div class="toolbox-header"><span class="th-icon">📱</span><span class="th-title">朋友圈文案</span></div>
+          <pre class="toolbox-pre">为以下活动撰写朋友圈宣发文案，要求：80字以内，有情绪感染力，含2个相关emoji，结尾引导扫码/点击。
+
+活动信息：[简述]</pre>
+        </div>
+        <div class="toolbox-card">
+          <div class="toolbox-header"><span class="th-icon">🔍</span><span class="th-title">竞品活动分析</span></div>
+          <pre class="toolbox-pre">请分析[竞品公司名]近期举办的[活动名称]，从：活动定位、亮点环节、视觉风格、受众群体、可借鉴之处 5个维度进行结构化点评。</pre>
+        </div>
+        <div class="toolbox-card">
+          <div class="toolbox-header"><span class="th-icon">💰</span><span class="th-title">价格谈判话术</span></div>
+          <pre class="toolbox-pre">客户要求我们降价[X]%，但我方利润空间有限。请帮我生成一段专业的价格谈判话术，既维护客户关系，又守住底线，并给出2个替代降价的让步方案。</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 推荐 AI 工具矩阵 -->
+    <div id="matrix" class="section">
+      <div class="section-header">
+        <div class="section-icon teal">🔧</div>
+        <div>
+          <div class="section-title">推荐 AI 工具矩阵（国内可用）</div>
+          <div class="section-subtitle">按使用场景分类，优先推荐免费额度充足的工具</div>
+        </div>
+      </div>
+      <div class="table-wrapper">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>使用场景</th>
+              <th>首选工具</th>
+              <th>备选工具</th>
+              <th>免费额度</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>长文档分析 / Brief 解读</td><td class="first">Kimi</td><td>通义千问</td><td>✅ 充足</td></tr>
+            <tr><td>创意文案 / 主题生成</td><td class="first">通义千问</td><td>文心一言</td><td>✅ 充足</td></tr>
+            <tr><td>议程排盘 / 结构规划</td><td class="first">Kimi</td><td>豆包</td><td>✅ 充足</td></tr>
+            <tr><td>AI 图像 / Moodboard</td><td class="first">即梦 AI</td><td>LiblibAI</td><td>✅ 每日免费</td></tr>
+            <tr><td>PPT 生成</td><td class="first">讯飞智文</td><td>WPS AI</td><td>✅ / 有限</td></tr>
+            <tr><td>预算表智能分析</td><td class="first">ChatExcel</td><td>Kimi 上传 Excel</td><td>✅ 有限</td></tr>
+            <tr><td>主持词 / 演讲稿</td><td class="first">讯飞星火</td><td>通义千问</td><td>✅ 充足</td></tr>
+            <tr><td>社交媒体文案</td><td class="first">文心一言</td><td>Kimi</td><td>✅ 充足</td></tr>
+            <tr><td>实时语音转写</td><td class="first">讯飞听见</td><td>腾讯会议 AI 转写</td><td>⚡ 有限</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="mice-cta">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🎯</div>
+      <h3>想把这套 AI 工作流用到你的项目中？</h3>
+      <p>
+        飞凡科技提供面向会议机构的 AI 定制化培训与落地咨询服务，
+        帮助团队从「知道 AI」到「用好 AI」，打造可复制的高效工作流。
+      </p>
+      <div class="cta-buttons">
+        <a href="/contact" class="cta-btn-primary">预约定制培训 →</a>
+        <a href="/services" class="cta-btn-outline">了解 AI 咨询服务</a>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="page-nav">
+      <a href="/training/" class="page-nav-btn" style="background:var(--warm);color:var(--dark);border:1px solid var(--border);">← 返回培训总览</a>
+      <a href="/contact" class="page-nav-btn">预约培训 →</a>
+    </div>
+  </main>
+</div>
+
+<a href="#" class="back-top" title="返回顶部">↑</a>
+
+<script>
+  function toggleModule(btn) {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', !expanded);
+    const body = btn.nextElementSibling;
+    body.classList.toggle('open', !expanded);
+  }
+
+  function copyPrompt(btn) {
+    const pre = btn.closest('.prompt-card').querySelector('.prompt-pre');
+    navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = '已复制 ✓';
+      btn.style.color = '#86efac';
+      setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 2000);
+    }).catch(() => {});
+  }
+
+  // Active sidebar link on scroll
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
