@@ -165,6 +165,72 @@
     .tips-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
     .tip-card { background: #fff; border: 1px solid var(--beige); border-radius: var(--radius-md); padding: 1rem; }
 
+    /* ── Hero ── */
+    .index-hero {
+      border-radius: var(--radius-xl);
+      padding: 3rem 3rem;
+      margin-bottom: 2.5rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .index-hero::before {
+      content: '';
+      position: absolute;
+      right: -100px;
+      top: -100px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217,119,87,0.22) 0%, transparent 70%);
+    }
+    .index-hero::after {
+      content: '';
+      position: absolute;
+      left: -70px;
+      bottom: -100px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(66,153,225,0.16) 0%, transparent 70%);
+    }
+    .index-hero-content { position: relative; z-index: 1; }
+    .index-hero h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 0.8rem;
+      line-height: 1.18;
+      color: #fff;
+    }
+    .index-hero .hero-desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.84);
+      max-width: 980px;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+    .index-hero .hero-desc strong {
+      color: #fff;
+      font-weight: 800;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2.4rem;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-size: 2.15rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.72);
+      margin-top: 4px;
+    }
+
     /* ── CTA ── */
     .mice-cta {
       background: var(--dark);
@@ -193,6 +259,11 @@
     .cta-btn-outline:hover { background: rgba(255,255,255,.2); color: #fff; }
 
     @media (max-width: 768px) {
+      .index-hero { padding: 2.25rem 1.4rem; }
+      .index-hero h1 { font-size: 2rem; }
+      .hero-stats { gap: 1.2rem; }
+      .stat-num { font-size: 1.75rem; }
+      .stat-label { font-size: 0.75rem; }
       .highlight-grid { grid-template-columns: 1fr; }
       .toolbox-grid { grid-template-columns: 1fr; }
       .tips-grid { grid-template-columns: 1fr; }
