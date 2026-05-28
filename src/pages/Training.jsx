@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useTranslation } from 'react-i18next'
 import {
   Clock, Users, Target, ChevronDown, ChevronRight,
   Lightbulb, FileText, Presentation, ShieldCheck, Gift,
@@ -14,6 +13,8 @@ function PromptCard({ title, prompt }) {
     navigator.clipboard.writeText(prompt).then(() => {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
+    }).catch(() => {
+      setCopied(false)
     })
   }
   return (
@@ -22,6 +23,7 @@ function PromptCard({ title, prompt }) {
         <span className="text-xs font-semibold text-claude-accent uppercase tracking-wider">{title}</span>
         <button
           onClick={handleCopy}
+          aria-label={copied ? '已复制' : '复制提示词'}
           className="flex items-center gap-1 text-xs text-white/50 hover:text-white transition-colors bg-transparent border-0 shadow-none p-0"
         >
           {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -46,6 +48,7 @@ function Module({ icon: Icon, index, title, duration, tagline, color, children }
     >
       <button
         onClick={() => setOpen(v => !v)}
+        aria-expanded={open}
         className="w-full flex items-center gap-4 p-6 text-left bg-transparent border-0 shadow-none hover:bg-claude-warm/40 transition-colors"
       >
         <div
@@ -118,8 +121,6 @@ function Step({ num, title, body }) {
 
 /* ─── Main page ──────────────────────────────────────────── */
 export default function Training() {
-  const { t } = useTranslation('common')
-
   const highlights = [
     { icon: Clock, label: '课程时长', value: '3.5 小时', sub: '含互动练习与 Q&A' },
     { icon: Users, label: '适合人群', value: 'PCO / EMC', sub: '策划师、AM、PM 及主创' },
