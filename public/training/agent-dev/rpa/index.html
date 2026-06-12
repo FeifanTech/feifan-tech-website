@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RPA 自动化平台实战培训（影刀）— Agent 开发 · 飞凡科技</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    :root {
+      --rpa-accent:       #D97706;
+      --rpa-accent-dark:  #B45309;
+      --rpa-accent-light: #FCD34D;
+      --rpa-bg:           #FFFBEB;
+      --rpa-border:       #FDE68A;
+    }
+
+    /* ── Hero ── */
+    .session-hero {
+      background: linear-gradient(135deg, #1C0A00 0%, #451A03 50%, #92400E 100%);
+    }
+    .hero-badge { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25); }
+    .hero-session-num { background: var(--rpa-accent); }
+
+    /* ── 类比卡片 ── */
+    .analogy-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin: 1.25rem 0; }
+    .analogy-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .analogy-card .analogy-top { display: flex; align-items: center; gap: 10px; margin-bottom: .75rem; }
+    .analogy-icon {
+      width: 44px; height: 44px; border-radius: var(--radius-md);
+      background: var(--rpa-bg); border: 1px solid var(--rpa-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .analogy-card h4 { font-size: .95rem; font-weight: 700; color: var(--dark); margin: 0; }
+    .analogy-card .term-cn { font-size: .78rem; color: var(--muted); margin-top: 1px; }
+    .analogy-eq {
+      font-size: .82rem; color: var(--muted); margin: .5rem 0;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .analogy-eq .eq-arrow { color: var(--rpa-accent); font-weight: 700; }
+    .analogy-card p { font-size: .84rem; color: var(--medium); line-height: 1.6; margin: 0; }
+
+    /* ── RPA 流程图 ── */
+    .rpa-flow {
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 2rem;
+      margin: 1.25rem 0; overflow-x: auto;
+    }
+    .rpa-row { display: flex; align-items: center; justify-content: flex-start; gap: .5rem; flex-wrap: nowrap; }
+    .rpa-node {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 4px; min-width: 90px; text-align: center;
+    }
+    .rpa-node-box {
+      padding: 10px 14px; border-radius: var(--radius-md);
+      font-size: .8rem; font-weight: 700; border: 2px solid transparent;
+      white-space: nowrap; width: 100%;
+    }
+    .rpa-node-box.trigger  { background: #D1FAE5; border-color: #86EFAC; color: #065F46; }
+    .rpa-node-box.read     { background: var(--rpa-bg); border-color: var(--rpa-border); color: var(--rpa-accent); }
+    .rpa-node-box.loop     { background: #EDE9FE; border-color: #C4B5FD; color: #6D28D9; }
+    .rpa-node-box.click    { background: #ECFEFF; border-color: #A5F3FC; color: #0E7490; }
+    .rpa-node-box.type     { background: #EFF6FF; border-color: #BFDBFE; color: #1E40AF; }
+    .rpa-node-box.extract  { background: #FEF9C3; border-color: #FDE68A; color: #92400E; }
+    .rpa-node-box.excel    { background: #F0FDF4; border-color: #BBF7D0; color: #166534; }
+    .rpa-node-box.email    { background: #FDF4FF; border-color: #E9D5FF; color: #6B21A8; }
+    .rpa-node-box.end      { background: #FEE2E2; border-color: #FECACA; color: #991B1B; }
+    .rpa-label { font-size: .7rem; color: var(--muted); }
+    .rpa-arrow { color: var(--muted); font-size: 1.3rem; flex-shrink: 0; }
+
+    /* ── 动作卡片网格 ── */
+    .action-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin: 1.25rem 0; }
+    .action-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .action-icon {
+      width: 48px; height: 48px; border-radius: var(--radius-md);
+      background: var(--rpa-bg); border: 1px solid var(--rpa-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: .75rem;
+    }
+    .action-card h4 { font-size: .88rem; font-weight: 700; color: var(--dark); margin-bottom: .35rem; }
+    .action-card p  { font-size: .8rem; color: var(--medium); line-height: 1.5; margin: 0; }
+
+    /* ── 步骤增强版 ── */
+    .step-rpa .step-num { background: var(--rpa-accent); box-shadow: 0 0 0 4px rgba(217,119,6,.15); }
+
+    /* ── 界面模拟 ── */
+    .ui-diagram {
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.25rem 0;
+    }
+    .rpa-ui-mock {
+      background: #1A1007; border-radius: var(--radius-md);
+      padding: 1rem; display: grid;
+      grid-template-columns: 220px 1fr 180px;
+      grid-template-rows: 44px 1fr;
+      gap: 2px; min-height: 300px; font-size: .78rem;
+    }
+    .rpa-topbar {
+      grid-column: 1/-1; background: #2D1B09;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      display: flex; align-items: center; padding: 0 1rem; gap: .75rem; color: rgba(255,255,255,.7);
+    }
+    .rpa-topbar .tb-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .rpa-panel {
+      background: #231409; border-radius: 4px;
+      padding: .75rem; color: rgba(255,255,255,.8);
+    }
+    .rpa-canvas {
+      background: #160D04; border-radius: 4px;
+      padding: 1rem; color: rgba(255,255,255,.5);
+    }
+    .rpa-action-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 8px; background: rgba(255,255,255,.06);
+      border-radius: 4px; margin-bottom: 4px; cursor: pointer;
+      font-size: .75rem; color: rgba(255,255,255,.75);
+    }
+    .rpa-flow-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; border-radius: 6px; margin-bottom: 6px;
+      font-size: .75rem; font-weight: 600;
+    }
+    .rpa-flow-item.start { background: rgba(16,185,129,.2); border: 1px solid rgba(16,185,129,.3); color: #6EE7B7; }
+    .rpa-flow-item.action { background: rgba(217,119,6,.2); border: 1px solid rgba(217,119,6,.3); color: #FCD34D; }
+    .rpa-flow-item.loop { background: rgba(109,40,217,.2); border: 1px solid rgba(109,40,217,.3); color: #C4B5FD; }
+
+    /* ── 对比卡片 ── */
+    .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.25rem 0; }
+    .vs-card {
+      border-radius: var(--radius-lg); padding: 1.5rem; border: 2px solid;
+    }
+    .vs-card.before { background: #FEF2F2; border-color: #FECACA; }
+    .vs-card.after  { background: #F0FDF4; border-color: #BBF7D0; }
+    .vs-card h4 { font-size: 1rem; font-weight: 800; margin-bottom: .75rem; }
+    .vs-card.before h4 { color: #991B1B; }
+    .vs-card.after  h4 { color: #166534; }
+    .vs-card ul { list-style: none; padding: 0; }
+    .vs-card ul li { font-size: .85rem; color: var(--medium); padding: 4px 0; display: flex; gap: 8px; }
+
+    /* ── Prompt / 代码块 ── */
+    .code-card { background: var(--dark); border-radius: var(--radius-md); overflow: hidden; margin: 1rem 0; }
+    .code-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .code-title { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--rpa-accent-light); }
+    .copy-btn {
+      background: transparent; border: none; font-size: .75rem;
+      color: rgba(255,255,255,.4); cursor: pointer; padding: 2px 6px; border-radius: 4px;
+    }
+    .copy-btn:hover { color: rgba(255,255,255,.9); }
+    .code-pre {
+      padding: 1rem; font-family: 'JetBrains Mono', monospace;
+      font-size: .8rem; color: #86efac;
+      white-space: pre-wrap; line-height: 1.65; overflow-x: auto; margin: 0;
+    }
+
+    /* ── 时间节省计算器 ── */
+    .time-calc {
+      background: linear-gradient(135deg, #1C0A00, #451A03);
+      border-radius: var(--radius-xl); padding: 2rem;
+      color: #fff; margin: 1.25rem 0;
+    }
+    .time-calc h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #FCD34D; }
+    .calc-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .75rem 0; border-bottom: 1px solid rgba(255,255,255,.1);
+      font-size: .875rem;
+    }
+    .calc-row:last-child { border-bottom: none; }
+    .calc-label { color: rgba(255,255,255,.7); }
+    .calc-value { font-weight: 700; color: #FCD34D; font-size: 1.1rem; }
+    .calc-value.highlight { color: #34D399; font-size: 1.3rem; }
+
+    /* ── 检查清单 ── */
+    .checklist { list-style: none; padding: 0; }
+    .checklist li {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 7px 0; border-bottom: 1px solid var(--beige);
+      font-size: .875rem; color: var(--medium);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .check-box {
+      width: 20px; height: 20px; border-radius: 4px;
+      background: var(--rpa-bg); border: 2px solid var(--rpa-border);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; color: var(--rpa-accent); font-weight: 700;
+    }
+
+    /* ── CTA ── */
+    .rpa-cta {
+      background: linear-gradient(135deg, #1C0A00, #451A03);
+      border-radius: var(--radius-xl); padding: 3rem;
+      text-align: center; color: #fff; margin-top: 3rem;
+    }
+    .rpa-cta h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: .5rem; }
+    .rpa-cta p  { font-size: .9rem; color: rgba(255,255,255,.6); max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.65; }
+    .cta-buttons { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+    .cta-btn-primary {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 11px 24px; background: var(--rpa-accent);
+      color: #fff; border-radius: 10px; font-size: .9rem; font-weight: 700;
+      text-decoration: none; transition: all .2s;
+    }
+    .cta-btn-primary:hover { background: var(--rpa-accent-dark); color: #fff; transform: scale(1.02); }
+    .cta-btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 11px 24px; background: rgba(255,255,255,.1);
+      color: #fff; border-radius: 10px; font-size: .9rem; font-weight: 700;
+      text-decoration: none; border: 1px solid rgba(255,255,255,.2); transition: all .2s;
+    }
+    .cta-btn-outline:hover { background: rgba(255,255,255,.2); color: #fff; }
+
+    @media (max-width: 768px) {
+      .analogy-grid { grid-template-columns: 1fr; }
+      .action-grid { grid-template-columns: repeat(2,1fr); }
+      .vs-grid { grid-template-columns: 1fr; }
+      .rpa-cta { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sticky Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🤖</span>
+    <span>RPA 自动化培训</span>
+    <span class="logo-badge">影刀 · Agent 开发</span>
+  </div>
+  <nav class="header-nav">
+    <a href="/training/agent-dev/">← Agent 总览</a>
+    <a href="#concept">核心概念</a>
+    <a href="#ui">界面导览</a>
+    <a href="#actions">常用动作</a>
+    <a href="#project1">实战①</a>
+    <a href="#project2">实战②</a>
+    <a href="#tips">进阶技巧</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">课程导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#intro" class="active"><span class="nav-num">①</span> 认识 RPA</a></li>
+      <li><a href="#concept"><span class="nav-num">②</span> 核心概念图解</a></li>
+      <li><a href="#ui"><span class="nav-num">③</span> 界面导览</a></li>
+      <li><a href="#actions"><span class="nav-num">④</span> 常用动作详解</a></li>
+      <li><a href="#first-flow"><span class="nav-num">⑤</span> 第一个自动化流程</a></li>
+      <li><a href="#project1"><span class="nav-num">⑥</span> 实战①：自动数据录入</a></li>
+      <li><a href="#project2"><span class="nav-num">⑦</span> 实战②：定时报表生成</a></li>
+      <li><a href="#tips"><span class="nav-num">⑧</span> 进阶技巧</a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem;margin-top:1rem;border-top:1px solid var(--border);">
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">配套课程</div>
+      <a href="../dify/" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:#EEF2FF;border:1px solid #C7D2FE;border-radius:8px;text-decoration:none;color:#4F46E5;font-size:.84rem;font-weight:700;">
+        🧩 Dify 工作流培训 →
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="/training/">培训总览</a>
+      <span class="sep">›</span>
+      <a href="/training/agent-dev/">Agent 开发</a>
+      <span class="sep">›</span>
+      <span class="current">RPA 自动化培训</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="session-hero" id="intro">
+      <div class="hero-badge">
+        <span class="hero-session-num">RPA</span>
+        流程自动化平台 · 录制即用 · 无人值守
+      </div>
+      <h1>影刀 RPA 实战培训<br>让机器人替你干重复的活儿</h1>
+      <p class="hero-subtitle">你只需要录制一次操作，机器人就能 7×24 小时不停歇地重复执行——点击、填写、抓数据、发邮件，全都搞定。</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">⚙ 6 大模块</div>
+        <div class="hero-meta-item">⏱ 约半天上手</div>
+        <div class="hero-meta-item">🎯 2 个实战项目</div>
+        <div class="hero-meta-item">📊 时间节省 80%+</div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 模块一：认识 RPA ─────────────────────────── -->
+    <div class="section" id="intro">
+      <div class="section-header">
+        <div class="section-icon orange">🤖</div>
+        <div>
+          <div class="section-title">模块一：认识 RPA——什么是「数字机器人员工」？</div>
+          <div class="section-subtitle">用你最熟悉的场景理解 RPA</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">一句话理解 RPA</div>
+          RPA（Robotic Process Automation）就像雇了一个<strong>不知疲倦、不会出错的数字员工</strong>。
+          你在电脑上怎么操作，教它一遍，它就能自动重复执行——无论是打开网页、复制粘贴数据，
+          还是填写表单、发送邮件，全都可以自动化。
+        </div>
+      </div>
+
+      <!-- 对比：人工 vs RPA -->
+      <h3>📊 做同一件事，人工 vs RPA 机器人</h3>
+      <div class="vs-grid">
+        <div class="vs-card before">
+          <h4>😓 人工处理（每月底）</h4>
+          <ul>
+            <li><span>⏰</span>登录系统，手动导出数据：20 分钟</li>
+            <li><span>📋</span>复制数据到 Excel：30 分钟</li>
+            <li><span>🧮</span>手动汇总计算：40 分钟</li>
+            <li><span>📧</span>手动发送给各部门：15 分钟</li>
+            <li><span>⚠️</span>偶尔出错，还要返工：30 分钟</li>
+          </ul>
+          <div style="margin-top:1rem;font-size:.9rem;font-weight:700;color:#991B1B;">总计：约 135 分钟 + 人工出错风险</div>
+        </div>
+        <div class="vs-card after">
+          <h4>🤖 RPA 机器人（配置完成后）</h4>
+          <ul>
+            <li><span>✅</span>自动登录、导出数据：2 分钟</li>
+            <li><span>✅</span>自动整理数据到 Excel：1 分钟</li>
+            <li><span>✅</span>自动计算汇总：30 秒</li>
+            <li><span>✅</span>自动发送给各部门：30 秒</li>
+            <li><span>✅</span>零出错，每次一致</li>
+          </ul>
+          <div style="margin-top:1rem;font-size:.9rem;font-weight:700;color:#166534;">总计：约 4 分钟，零错误，可定时执行</div>
+        </div>
+      </div>
+
+      <!-- 时间节省器 -->
+      <div class="time-calc">
+        <h3>⚡ 算算你能省多少时间</h3>
+        <div class="calc-row">
+          <div class="calc-label">假设：每月手动处理报表</div>
+          <div class="calc-value">135 分钟 × 12 次</div>
+        </div>
+        <div class="calc-row">
+          <div class="calc-label">配置 RPA 一次性投入</div>
+          <div class="calc-value">约 4 小时</div>
+        </div>
+        <div class="calc-row">
+          <div class="calc-label">每次运行时间</div>
+          <div class="calc-value">4 分钟</div>
+        </div>
+        <div class="calc-row">
+          <div class="calc-label">首年净节省时间</div>
+          <div class="calc-value highlight">24+ 小时</div>
+        </div>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin-top:.75rem;margin-bottom:0;">
+          ✅ 之后每年持续节省，且机器人不会生病、不需要加班费、不会遗漏数据
+        </p>
+      </div>
+
+      <h3>🏢 哪些场景适合用 RPA？</h3>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card" style="border-top:3px solid var(--rpa-accent);">
+          <span class="card-icon">📊</span>
+          <h3>数据录入与整理</h3>
+          <p>从多个系统抓取数据，汇总到 Excel/数据库，生成报表，无需人工复制粘贴。</p>
+        </div>
+        <div class="feature-card" style="border-top:3px solid var(--info);">
+          <span class="card-icon">🌐</span>
+          <h3>网页自动化操作</h3>
+          <p>自动登录系统、填写表单、提交审批、抓取价格/商品信息、批量下载文件。</p>
+        </div>
+        <div class="feature-card" style="border-top:3px solid var(--success);">
+          <span class="card-icon">📧</span>
+          <h3>定时报告生成发送</h3>
+          <p>每天/每周自动汇总数据，生成格式化报告，自动发邮件给指定人员。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 模块二：核心概念 ─────────────────────────── -->
+    <div class="section" id="concept">
+      <div class="section-header">
+        <div class="section-icon blue">🧩</div>
+        <div>
+          <div class="section-title">模块二：核心概念图解——用生活类比记住它们</div>
+          <div class="section-subtitle">5 个概念，理解 RPA 的工作方式</div>
+        </div>
+      </div>
+
+      <div class="analogy-grid">
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">📋</div>
+            <div>
+              <h4>流程 (Flow / 机器人)</h4>
+              <div class="term-cn">自动化任务的完整程序</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>📖 <strong>操作说明书</strong></span>
+          </div>
+          <p>就像一份「新员工入职操作手册」，写清楚了「先做什么、再做什么、遇到问题怎么处理」。流程就是机器人的完整工作指南，从头到尾执行一遍就完成了任务。</p>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">🖱</div>
+            <div>
+              <h4>动作 (Action)</h4>
+              <div class="term-cn">流程中的单个操作步骤</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>✋ <strong>手的一个动作</strong></span>
+          </div>
+          <p>就像人的每个手部动作：「点击鼠标」「按下键盘」「复制文字」「打开窗口」。每一步操作都是一个「动作」，影刀的动作库里有几百种预设动作，可以直接拖拽使用。</p>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">📝</div>
+            <div>
+              <h4>变量 (Variable)</h4>
+              <div class="term-cn">存储中间数据的容器</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>🗒 <strong>便利贴</strong></span>
+          </div>
+          <p>就像在办公桌上贴一张便利贴：「客户姓名：张三」。机器人执行时，把「从系统里读到的订单编号」存到变量里，下一步填写表单时，再从变量里取出来填进去。</p>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">🎯</div>
+            <div>
+              <h4>元素选择器 (Selector)</h4>
+              <div class="term-cn">定位网页/软件上的具体控件</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>📍 <strong>精确的GPS地址</strong></span>
+          </div>
+          <p>告诉机器人「要点击哪里」。就像导航软件需要精确地址才能定位，选择器告诉机器人「第 3 行、第 2 列的那个按钮」——点错地方会出错，所以选择器要精确。</p>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">⏰</div>
+            <div>
+              <h4>触发器 (Trigger)</h4>
+              <div class="term-cn">启动流程的条件</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>⏰ <strong>定时闹钟</strong></span>
+          </div>
+          <p>就像设定闹钟「每天早上 8 点响」，触发器让机器人在指定时间或条件满足时自动启动流程，无需人工干预。例如：「每周一 9:00 自动运行报表流程」。</p>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">🔄</div>
+            <div>
+              <h4>循环 (Loop)</h4>
+              <div class="term-cn">重复执行相同动作</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>🏭 <strong>流水线</strong></span>
+          </div>
+          <p>就像流水线上，每个产品经过同样的处理步骤。「对 Excel 表格中每一行数据」循环执行「填写表单」这个动作，1000 行数据，机器人一条一条地自动处理完。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 模块三：界面导览 ─────────────────────────── -->
+    <div class="section" id="ui">
+      <div class="section-header">
+        <div class="section-icon green">🖥</div>
+        <div>
+          <div class="section-title">模块三：界面导览——认识影刀的工作台</div>
+          <div class="section-subtitle">打开影刀后，你会看到什么</div>
+        </div>
+      </div>
+
+      <div class="ui-diagram">
+        <div style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;font-weight:600;">🖥 影刀 RPA 编辑器示意图</div>
+        <div class="rpa-ui-mock">
+          <div class="rpa-topbar">
+            <div class="tb-dot" style="background:#FF5F57;"></div>
+            <div class="tb-dot" style="background:#FEBC2E;"></div>
+            <div class="tb-dot" style="background:#28C840;"></div>
+            <span style="margin-left:1rem;font-size:.8rem;">📋 月度报表自动化 v1.0</span>
+            <span style="margin-left:auto;padding:3px 12px;background:var(--rpa-accent);border-radius:6px;font-size:.75rem;cursor:pointer;">▶ 运行</span>
+          </div>
+          <!-- Left: 动作库 -->
+          <div class="rpa-panel">
+            <div style="font-size:.7rem;font-weight:700;letter-spacing:.06em;margin-bottom:.5rem;color:rgba(255,255,255,.5);">动作库</div>
+            <div style="font-size:.7rem;color:rgba(255,255,255,.4);margin-bottom:.4rem;">🌐 网页操作</div>
+            <div class="rpa-action-item">🖱 点击元素</div>
+            <div class="rpa-action-item">⌨ 输入文字</div>
+            <div class="rpa-action-item">📋 获取文本</div>
+            <div style="font-size:.7rem;color:rgba(255,255,255,.4);margin:6px 0 4px;">📊 Excel 操作</div>
+            <div class="rpa-action-item">📂 打开文件</div>
+            <div class="rpa-action-item">📖 读取数据</div>
+            <div class="rpa-action-item">✏ 写入数据</div>
+            <div style="font-size:.7rem;color:rgba(255,255,255,.4);margin:6px 0 4px;">📧 邮件</div>
+            <div class="rpa-action-item">📨 发送邮件</div>
+          </div>
+          <!-- Center: 流程画布 -->
+          <div class="rpa-canvas">
+            <div style="font-size:.7rem;color:rgba(255,255,255,.3);margin-bottom:.75rem;">流程编辑区</div>
+            <div class="rpa-flow-item start">▶ 开始</div>
+            <div style="padding-left:1rem;">
+              <div class="rpa-flow-item action">📂 打开 Excel 文件</div>
+              <div class="rpa-flow-item loop">🔄 遍历每一行数据</div>
+              <div style="padding-left:1rem;">
+                <div class="rpa-flow-item action">🌐 打开网页</div>
+                <div class="rpa-flow-item action">⌨ 填写表单</div>
+                <div class="rpa-flow-item action">🖱 点击提交</div>
+              </div>
+            </div>
+            <div class="rpa-flow-item action">📧 发送完成邮件</div>
+            <div class="rpa-flow-item start" style="background:rgba(239,68,68,.2);border-color:rgba(239,68,68,.3);color:#FCA5A5;">⏹ 结束</div>
+          </div>
+          <!-- Right: 属性面板 -->
+          <div class="rpa-panel">
+            <div style="font-size:.7rem;font-weight:700;letter-spacing:.06em;margin-bottom:.5rem;color:rgba(255,255,255,.5);">属性配置</div>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:.73rem;color:rgba(255,255,255,.7);">
+              <div>
+                <div style="color:rgba(255,255,255,.4);margin-bottom:2px;">动作名称</div>
+                <div style="padding:4px 8px;background:rgba(255,255,255,.08);border-radius:4px;">填写表单</div>
+              </div>
+              <div>
+                <div style="color:rgba(255,255,255,.4);margin-bottom:2px;">目标元素</div>
+                <div style="padding:4px 8px;background:rgba(255,255,255,.1);border-radius:4px;color:var(--rpa-accent-light);">[选择器已录制]</div>
+              </div>
+              <div>
+                <div style="color:rgba(255,255,255,.4);margin-bottom:2px;">输入内容</div>
+                <div style="padding:4px 8px;background:rgba(255,255,255,.08);border-radius:4px;">{{row.姓名}}</div>
+              </div>
+              <div>
+                <div style="color:rgba(255,255,255,.4);margin-bottom:2px;">等待时间(秒)</div>
+                <div style="padding:4px 8px;background:rgba(255,255,255,.08);border-radius:4px;">1 ——●—</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:1rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;">
+          <div style="background:#fff;border:1px solid var(--rpa-border);border-radius:8px;padding:.75rem;text-align:center;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">📦</div>
+            <div style="font-size:.78rem;font-weight:700;color:var(--rpa-accent);">左侧动作库</div>
+            <div style="font-size:.72rem;color:var(--muted);">拖拽到流程</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--rpa-border);border-radius:8px;padding:.75rem;text-align:center;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">🗺</div>
+            <div style="font-size:.78rem;font-weight:700;color:var(--rpa-accent);">中央流程区</div>
+            <div style="font-size:.72rem;color:var(--muted);">编排动作顺序</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--rpa-border);border-radius:8px;padding:.75rem;text-align:center;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">⚙️</div>
+            <div style="font-size:.78rem;font-weight:700;color:var(--rpa-accent);">右侧属性面板</div>
+            <div style="font-size:.72rem;color:var(--muted);">配置每个动作</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--rpa-border);border-radius:8px;padding:.75rem;text-align:center;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">🔴</div>
+            <div style="font-size:.78rem;font-weight:700;color:var(--rpa-accent);">录制器</div>
+            <div style="font-size:.72rem;color:var(--muted);">自动捕获操作</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">🎯</div>
+        <div class="infobox-body">
+          <div class="infobox-title">最快速的上手方式：先录制，再调整</div>
+          点击顶部「录制」按钮，然后在电脑上正常操作一遍，影刀会自动把你的每个操作转成动作步骤。
+          录制完后，再在流程中调整细节（比如把固定数据改成变量），通常 10 分钟就能完成一个简单流程。
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 模块四：常用动作 ─────────────────────────── -->
+    <div class="section" id="actions">
+      <div class="section-header">
+        <div class="section-icon orange">⚙</div>
+        <div>
+          <div class="section-title">模块四：常用动作详解——你的工具箱</div>
+          <div class="section-subtitle">掌握这 4 类动作，可以完成 90% 的 RPA 任务</div>
+        </div>
+      </div>
+
+      <h3>🌐 一、网页操作（最常用）</h3>
+      <div class="action-grid">
+        <div class="action-card">
+          <div class="action-icon">🖱</div>
+          <h4>点击元素</h4>
+          <p>点击网页上的任意按钮、链接、下拉菜单。用录制器捕获目标元素即可。</p>
+        </div>
+        <div class="action-card">
+          <div class="action-icon">⌨</div>
+          <h4>输入文字</h4>
+          <p>在输入框中填写内容，可以输入固定文字或变量值（如 <code>{{row.姓名}}</code>）。</p>
+        </div>
+        <div class="action-card">
+          <div class="action-icon">📋</div>
+          <h4>获取文本</h4>
+          <p>抓取网页上某个元素的文字内容，存入变量，供后续步骤使用。</p>
+        </div>
+        <div class="action-card">
+          <div class="action-icon">📷</div>
+          <h4>截图</h4>
+          <p>自动截取当前屏幕或指定区域，可用于存档、验证操作结果或报告附件。</p>
+        </div>
+        <div class="action-card">
+          <div class="action-icon">🔍</div>
+          <h4>等待元素出现</h4>
+          <p>等待某个元素加载完成后再执行下一步，避免网页加载慢导致点击失败。</p>
+        </div>
+        <div class="action-card">
+          <div class="action-icon">📜</div>
+          <h4>滚动页面</h4>
+          <p>模拟鼠标滚动，用于触发懒加载内容或定位到页面底部的元素。</p>
+        </div>
+      </div>
+
+      <h3>📊 二、Excel 操作（数据处理必备）</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>动作</th><th>用途</th><th>常见用法</th></tr></thead>
+          <tbody>
+            <tr><td>打开工作簿</td><td>打开指定路径的 Excel 文件</td><td>路径可用变量动态指定</td></tr>
+            <tr><td>读取工作表</td><td>把整张表读入变量（数据列表）</td><td>搭配循环遍历每一行</td></tr>
+            <tr><td>获取单元格值</td><td>读取特定行列的单元格</td><td>读取表头/动态行数</td></tr>
+            <tr><td>写入单元格</td><td>向指定单元格写入数据</td><td>把抓取结果写回 Excel</td></tr>
+            <tr><td>新增行</td><td>在表格末尾追加一行数据</td><td>持续记录日志数据</td></tr>
+            <tr><td>保存工作簿</td><td>保存并关闭文件</td><td>操作完必须执行此步</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>📧 三、邮件操作</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-purple">
+          <h4>📨 发送邮件</h4>
+          <p>配置收件人（可用变量）、主题、正文（支持 HTML 格式化）、附件（可动态绑定文件路径）。
+          适合定时发送报表、自动通知、异常告警。</p>
+        </div>
+        <div class="card card-accent-blue">
+          <h4>📥 读取邮件（监控）</h4>
+          <p>定时检查收件箱，当收到特定主题的邮件时自动触发处理流程。
+          例如：客户发送订单邮件 → 机器人自动解析附件 → 录入系统。</p>
+        </div>
+      </div>
+
+      <h3>🔧 四、逻辑控制（让流程更智能）</h3>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card">
+          <span class="card-icon">🔀</span>
+          <h3>条件判断（If/Else）</h3>
+          <p>根据变量值决定走哪条路。例如：金额>1万 → 走审批流程，否则 → 直接录入。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🔄</span>
+          <h3>循环（For Each）</h3>
+          <p>对列表中的每个元素执行相同操作。处理 Excel 表格每一行必用。</p>
+        </div>
+        <div class="feature-card">
+          <span class="card-icon">🛡</span>
+          <h3>异常处理（Try/Catch）</h3>
+          <p>当某步骤出错时，不崩溃，转而执行备用方案或记录日志继续。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 模块五：第一个流程 ─────────────────────────── -->
+    <div class="section" id="first-flow">
+      <div class="section-header">
+        <div class="section-icon green">⚡</div>
+        <div>
+          <div class="section-title">模块五：录制你的第一个自动化流程（10 分钟）</div>
+          <div class="section-subtitle">目标：自动在百度搜索，把结果截图保存到桌面</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-success">
+        <div class="infobox-icon">🎯</div>
+        <div class="infobox-body">
+          <div class="infobox-title">为什么从这个开始？</div>
+          这个小案例覆盖了 RPA 最核心的三个能力：<strong>打开浏览器</strong>、<strong>输入内容</strong>、<strong>截图保存</strong>。
+          掌握这三步，就能举一反三，自动化大多数网页操作场景。
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step step-rpa">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>新建流程</h4>
+            <p>打开影刀 → 点击「新建流程」→ 填写名称「搜索自动化-练习」→ 确认创建，进入流程编辑界面。</p>
+          </div>
+        </div>
+        <div class="step step-rpa">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>使用录制器（推荐新手）</h4>
+            <p>点击顶部「录制」按钮 → 影刀最小化 → 你正常在电脑上操作：打开 Chrome、访问 baidu.com、在搜索框输入「飞凡科技」、点击搜索 → 回到影刀点「停止录制」。影刀会自动生成对应动作。</p>
+            <div class="infobox infobox-tip" style="margin-top:.75rem;">
+              <div class="infobox-icon">💡</div>
+              <div class="infobox-body">录制时操作要慢一点，让影刀有时间捕获每个元素。快速操作可能会漏掉某些步骤。</div>
+            </div>
+          </div>
+        </div>
+        <div class="step step-rpa">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>手动添加截图动作</h4>
+            <p>在动作库中搜索「截图」→ 拖拽「截取屏幕截图」动作到流程末尾 → 在属性面板配置保存路径（如 <code>C:\Users\你的用户名\Desktop\搜索结果.png</code>）。</p>
+          </div>
+        </div>
+        <div class="step step-rpa">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>运行测试！</h4>
+            <p>点击顶部「▶ 运行」→ 观察机器人自动操作 → 检查桌面是否生成了截图文件。如果成功，恭喜你完成了第一个 RPA 流程！🎉</p>
+          </div>
+        </div>
+        <div class="step step-rpa">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>改造：把搜索词变成变量</h4>
+            <p>点击「开始」节点 → 添加输入参数 <code>keyword</code>（搜索关键词） → 找到「输入文字」那步动作 → 把固定的「飞凡科技」改成 <code>{{keyword}}</code> → 再次运行时输入不同关键词测试。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 实战① ─────────────────────────── -->
+    <div class="section" id="project1">
+      <div class="section-header">
+        <div class="section-icon orange">🏗</div>
+        <div>
+          <div class="section-title">实战项目①：自动数据录入系统</div>
+          <div class="section-subtitle">目标：从 Excel 读取 100 条数据，自动填写到网页系统，每条提交后继续下一条</div>
+        </div>
+      </div>
+
+      <h3>🏗 流程设计图</h3>
+      <div class="rpa-flow">
+        <div class="rpa-row">
+          <div class="rpa-node">
+            <div class="rpa-node-box trigger">▶ 触发</div>
+            <div class="rpa-label">手动/定时启动</div>
+          </div>
+          <div class="rpa-arrow">→</div>
+          <div class="rpa-node">
+            <div class="rpa-node-box read">📊 读 Excel</div>
+            <div class="rpa-label">加载所有行数据</div>
+          </div>
+          <div class="rpa-arrow">→</div>
+          <div class="rpa-node">
+            <div class="rpa-node-box loop">🔄 遍历每行</div>
+            <div class="rpa-label">循环每条记录</div>
+          </div>
+          <div class="rpa-arrow">→</div>
+          <div class="rpa-node">
+            <div class="rpa-node-box click">🌐 打开网页</div>
+            <div class="rpa-label">进入录入表单</div>
+          </div>
+          <div class="rpa-arrow">→</div>
+          <div class="rpa-node">
+            <div class="rpa-node-box type">⌨ 填写字段</div>
+            <div class="rpa-label">姓名/金额/日期</div>
+          </div>
+          <div class="rpa-arrow">→</div>
+          <div class="rpa-node">
+            <div class="rpa-node-box click">🖱 提交</div>
+            <div class="rpa-label">点击保存按钮</div>
+          </div>
+          <div class="rpa-arrow">→</div>
+          <div class="rpa-node">
+            <div class="rpa-node-box excel">✅ 标记完成</div>
+            <div class="rpa-label">写回 Excel 状态</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>📋 关键配置要点</h3>
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-orange">
+          <h4>📌 读取 Excel 数据</h4>
+          <p><strong>动作：</strong>「读取工作表」→ 选择文件路径和 Sheet 名称 → 勾选「包含表头」→ 结果存入变量 <code>data_list</code></p>
+          <p><strong>循环设置：</strong>拖入「For Each」→ 遍历变量 <code>data_list</code> → 循环变量命名为 <code>row</code>（代表每一行）</p>
+        </div>
+        <div class="card card-accent-blue">
+          <h4>📌 填写表单时引用数据</h4>
+          <p>在每个「输入文字」动作中，内容填写 <code>{{row.列名}}</code>，例如：</p>
+          <ul>
+            <li>姓名字段：<code>{{row.姓名}}</code></li>
+            <li>金额字段：<code>{{row.金额}}</code></li>
+            <li>日期字段：<code>{{row.日期}}</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">重要：加异常处理防止中断</div>
+          在循环体内加「Try/Catch」异常处理：当某一行填写出错时（如网络超时），
+          把该行的状态写为「失败」记录到 Excel，然后继续处理下一行，
+          而不是整个流程中断崩溃。这样 100 条数据里就算几条失败，其余的还是能完成。
+        </div>
+      </div>
+
+      <h3>⏱ 效率对比</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>指标</th><th>人工录入</th><th>RPA 自动化</th></tr></thead>
+          <tbody>
+            <tr><td>100 条数据处理时间</td><td>约 2-3 小时</td><td>约 15-20 分钟</td></tr>
+            <tr><td>出错率</td><td>约 2-5%（人工疲劳）</td><td>接近 0%（可预期）</td></tr>
+            <tr><td>是否需要人值守</td><td>全程人工盯着</td><td>运行时无需人工</td></tr>
+            <tr><td>配置一次后再次使用</td><td>每次都需重复人工</td><td>点击运行即可</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 实战② ─────────────────────────── -->
+    <div class="section" id="project2">
+      <div class="section-header">
+        <div class="section-icon purple">🏗</div>
+        <div>
+          <div class="section-title">实战项目②：定时报表生成 & 自动发送</div>
+          <div class="section-subtitle">目标：每天早上 8:00，自动抓取数据 → 生成 Excel 报表 → 发邮件给管理层</div>
+        </div>
+      </div>
+
+      <h3>🏗 流程设计图</h3>
+      <div class="rpa-flow">
+        <div class="rpa-row">
+          <div class="rpa-node">
+            <div class="rpa-node-box trigger">⏰ 定时触发</div>
+            <div class="rpa-label">每天 08:00</div>
+          </div>
+          <div class="rpa-arrow">→</div>
+          <div class="rpa-node">
+            <div class="rpa-node-box click">🌐 登录系统</div>
+            <div class="rpa-label">自动输入账号</div>
+          </div>
+          <div class="rpa-arrow">→</div>
+          <div class="rpa-node">
+            <div class="rpa-node-box extract">📋 抓取数据</div>
+            <div class="rpa-label">提取报表数据</div>
+          </div>
+          <div class="rpa-arrow">→</div>
+          <div class="rpa-node">
+            <div class="rpa-node-box excel">📊 写入 Excel</div>
+            <div class="rpa-label">生成格式化表格</div>
+          </div>
+          <div class="rpa-arrow">→</div>
+          <div class="rpa-node">
+            <div class="rpa-node-box email">📧 发邮件</div>
+            <div class="rpa-label">附件+正文发送</div>
+          </div>
+          <div class="rpa-arrow">→</div>
+          <div class="rpa-node">
+            <div class="rpa-node-box end">⏹ 完成</div>
+            <div class="rpa-label">等待次日触发</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>🔑 核心配置：自动发邮件</h3>
+      <div class="code-card">
+        <div class="code-header">
+          <span class="code-title">发送邮件动作 — 配置示例</span>
+        </div>
+        <pre class="code-pre">动作：发送邮件（SMTP）
+
+配置项：
+  收件人：manager@company.com; boss@company.com
+  主题：【自动报告】{{today}} 日销售数据汇总
+  正文（HTML）：
+    &lt;h3&gt;🤖 此邮件由 RPA 机器人自动生成&lt;/h3&gt;
+    &lt;p&gt;报告日期：{{today}}&lt;/p&gt;
+    &lt;p&gt;总销售额：{{total_amount}} 元&lt;/p&gt;
+    &lt;p&gt;订单数量：{{order_count}} 笔&lt;/p&gt;
+    &lt;p&gt;详细数据见附件。&lt;/p&gt;
+  附件：{{excel_file_path}}
+
+变量说明：
+  today        = 当前日期字符串（格式：2024-01-15）
+  total_amount = 从网页抓取的总销售额
+  order_count  = 从网页抓取的订单数量
+  excel_file_path = 生成的 Excel 报表文件路径</pre>
+      </div>
+
+      <h3>⏰ 设置定时触发</h3>
+      <div class="steps">
+        <div class="step step-rpa">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>在影刀中配置定时任务</h4>
+            <p>流程列表页 → 找到你的流程 → 点击「...」更多 → 「定时设置」→ 选择「每天」→ 设置时间「08:00」→ 确认。</p>
+          </div>
+        </div>
+        <div class="step step-rpa">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>保持机器在线</h4>
+            <p>定时任务在配置了任务的这台电脑上运行，需要确保电脑在触发时间处于开机且影刀在运行状态。如需长期无人值守，建议使用影刀云或专用的 RPA 服务器。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-green">
+          <h4>✅ 升级版：加入异常通知</h4>
+          <p>在流程最外层加 Try/Catch，当任何步骤出错时，发一封<strong>异常告警邮件</strong>给运维人员，邮件包含错误截图和错误信息，方便快速定位问题。</p>
+        </div>
+        <div class="card card-accent-purple">
+          <h4>🔗 进阶：与 Dify 结合</h4>
+          <p>RPA 抓取原始数据后，通过 HTTP 请求调用 Dify 的 API，让 AI 对数据进行<strong>智能分析和洞察总结</strong>，再把 AI 生成的分析报告也附在邮件里。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 进阶技巧 ─────────────────────────── -->
+    <div class="section" id="tips">
+      <div class="section-header">
+        <div class="section-icon teal">💡</div>
+        <div>
+          <div class="section-title">进阶技巧 & 常见问题</div>
+          <div class="section-subtitle">少走弯路的实战经验</div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-orange">
+          <h4>🎯 选择器稳定性技巧</h4>
+          <ul>
+            <li>优先用 ID 属性定位元素（最稳定）</li>
+            <li>避免用元素位置（第几行第几列）定位，网页改版就失效</li>
+            <li>选择器编辑时，勾选「自动等待元素」</li>
+            <li>对于动态内容，用「包含文字」方式匹配而非精确路径</li>
+          </ul>
+        </div>
+        <div class="card card-accent-blue">
+          <h4>🐛 调试技巧</h4>
+          <ul>
+            <li>在关键步骤后加「截图」动作，方便查看机器人执行状态</li>
+            <li>用「日志输出」动作打印变量值，确认数据是否正确读取</li>
+            <li>先在少量数据（如 3 条）上测试，确认正确后再跑全量</li>
+            <li>「单步执行」模式可以让流程一步一步走，便于定位问题</li>
+          </ul>
+        </div>
+        <div class="card card-accent-green">
+          <h4>⚡ 提升稳定性</h4>
+          <ul>
+            <li>关键操作前后加适当的「等待」动作（0.5-2秒），防止网页未加载</li>
+            <li>所有网页操作都包裹在 Try/Catch 中</li>
+            <li>操作结果写入日志文件，方便事后核查</li>
+            <li>账号密码用「安全变量」存储，不要明文写在流程中</li>
+          </ul>
+        </div>
+        <div class="card card-accent-purple">
+          <h4>⚠️ 常见报错及解决</h4>
+          <ul>
+            <li><strong>「找不到元素」</strong>：网页加载慢，在操作前加「等待元素出现」动作</li>
+            <li><strong>「坐标点击偏移」</strong>：改为用选择器点击，而非坐标点击</li>
+            <li><strong>「Excel 文件锁定」</strong>：确保流程结束时执行「关闭工作簿」动作</li>
+            <li><strong>「验证码阻挡」</strong>：联系系统管理员开白名单，或使用 API 接口替代网页操作</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 检查清单 -->
+      <h3>✅ 掌握检查清单</h3>
+      <div class="card" style="padding:1.5rem;">
+        <ul class="checklist">
+          <li><div class="check-box">✓</div>能用录制器录制一个完整的网页操作流程</li>
+          <li><div class="check-box">✓</div>能读取 Excel 数据并用循环遍历每一行</li>
+          <li><div class="check-box">✓</div>能在动作中正确引用变量（<code>{{变量名}}</code>语法）</li>
+          <li><div class="check-box">✓</div>能添加条件判断（If/Else）做逻辑分支</li>
+          <li><div class="check-box">✓</div>能配置异常处理（Try/Catch）防止流程中断</li>
+          <li><div class="check-box">✓</div>能设置定时触发，实现无人值守运行</li>
+          <li><div class="check-box">✓</div>能独立完成数据录入或报表生成自动化项目</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="rpa-cta">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🤖</div>
+      <h3>恭喜完成 RPA 培训！</h3>
+      <p>结合 Dify（AI 大脑）+ RPA（执行手脚），你已经具备交付完整 Agent 项目的能力。</p>
+      <div class="cta-buttons">
+        <a href="../dify/" class="cta-btn-primary">🧩 学习 Dify 培训</a>
+        <a href="/training/agent-dev/" class="cta-btn-outline">← 返回 Agent 总览</a>
+        <a href="/contact" class="cta-btn-outline">📞 预约项目支持</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="回到顶部">↑</a>
+
+<script>
+  // Active sidebar highlight
+  const links = document.querySelectorAll('.sidebar-nav a');
+  const sections = document.querySelectorAll('.section, .session-hero');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const id = e.target.id;
+        const active = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.25 });
+  sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

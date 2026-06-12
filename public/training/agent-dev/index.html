@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent 开发实战培训 — Dify 工作流 × RPA 自动化 · 飞凡科技</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    :root {
+      --agent-accent:      #0891B2;
+      --agent-accent-dark: #0E7490;
+      --agent-bg:          #ECFEFF;
+      --agent-border:      #A5F3FC;
+      --dify-accent:       #4F46E5;
+      --dify-bg:           #EEF2FF;
+      --dify-border:       #C7D2FE;
+      --rpa-accent:        #D97706;
+      --rpa-bg:            #FFFBEB;
+      --rpa-border:        #FDE68A;
+    }
+
+    /* ── Hero ── */
+    .index-hero {
+      background: linear-gradient(135deg, #0C1A2E 0%, #0E3A4A 50%, #0C4A6E 100%);
+      border-radius: var(--radius-xl);
+      padding: 3.5rem 3.5rem;
+      margin-bottom: 2.5rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .index-hero::before {
+      content: '';
+      position: absolute; right: -80px; top: -80px;
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(8,145,178,0.25) 0%, transparent 70%);
+    }
+    .index-hero::after {
+      content: '';
+      position: absolute; left: -60px; bottom: -90px;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(79,70,229,0.2) 0%, transparent 70%);
+    }
+    .index-hero-content { position: relative; z-index: 1; }
+    .index-hero h1 { font-size: 2.8rem; font-weight: 900; margin-bottom: 0.75rem; line-height: 1.2; }
+    .index-hero .hero-desc { font-size: 1rem; color: rgba(255,255,255,0.82); max-width: 620px; line-height: 1.7; margin-bottom: 2rem; }
+    .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 900; color: #fff; line-height: 1; }
+    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+    /* ── 学习路径流图 ── */
+    .path-visual {
+      display: flex; align-items: center; gap: 0;
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 2rem 1.5rem;
+      margin: 1.5rem 0; overflow-x: auto;
+    }
+    .pv-item {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; flex: 1; min-width: 110px; text-align: center;
+    }
+    .pv-icon {
+      width: 60px; height: 60px; border-radius: var(--radius-md);
+      background: #fff; border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; box-shadow: var(--shadow-sm); position: relative; z-index: 1;
+    }
+    .pv-item.active .pv-icon { background: var(--agent-accent); border-color: var(--agent-accent-dark); }
+    .pv-title { font-size: 0.82rem; font-weight: 700; color: var(--dark); }
+    .pv-sub   { font-size: 0.7rem; color: var(--muted); }
+    .pv-arrow { font-size: 1.6rem; color: var(--border); flex-shrink: 0; padding-bottom: 32px; }
+
+    /* ── 双平台大卡片 ── */
+    .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .platform-card {
+      background: #fff; border: 2px solid var(--border);
+      border-radius: var(--radius-xl); padding: 2rem;
+      box-shadow: var(--shadow-sm); transition: box-shadow .2s, transform .2s;
+      text-decoration: none; color: inherit; display: block;
+    }
+    .platform-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .platform-card.dify { border-color: var(--dify-border); }
+    .platform-card.rpa  { border-color: var(--rpa-border); }
+    .platform-icon {
+      width: 64px; height: 64px; border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin-bottom: 1rem;
+    }
+    .platform-icon.dify { background: var(--dify-bg); }
+    .platform-icon.rpa  { background: var(--rpa-bg); }
+    .platform-card h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .platform-card .platform-tag {
+      display: inline-block; padding: 2px 10px; border-radius: 999px;
+      font-size: 0.72rem; font-weight: 700; margin-bottom: 0.75rem;
+    }
+    .platform-card.dify .platform-tag { background: var(--dify-bg); color: var(--dify-accent); }
+    .platform-card.rpa  .platform-tag { background: var(--rpa-bg);  color: var(--rpa-accent); }
+    .platform-card p { font-size: 0.875rem; color: var(--medium); line-height: 1.65; margin-bottom: 1rem; }
+    .platform-features { list-style: none; padding: 0; margin-bottom: 1.25rem; }
+    .platform-features li {
+      font-size: 0.84rem; color: var(--medium);
+      padding: 5px 0; border-bottom: 1px solid var(--beige);
+      display: flex; gap: 8px; align-items: center;
+    }
+    .platform-features li:last-child { border-bottom: none; }
+    .platform-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 22px; border-radius: var(--radius-md);
+      font-size: 0.9rem; font-weight: 700; text-decoration: none; transition: all .2s;
+    }
+    .platform-card.dify .platform-link { background: var(--dify-accent); color: #fff; }
+    .platform-card.dify .platform-link:hover { background: #4338CA; color: #fff; }
+    .platform-card.rpa  .platform-link { background: var(--rpa-accent); color: #fff; }
+    .platform-card.rpa  .platform-link:hover { background: #B45309; color: #fff; }
+
+    /* ── 对比表格 ── */
+    .compare-header-dify { background: var(--dify-accent) !important; }
+    .compare-header-rpa  { background: var(--rpa-accent)  !important; }
+
+    /* ── 模块预览网格 ── */
+    .module-preview-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    .mp-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 1.25rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .mp-num {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 700; flex-shrink: 0; color: #fff;
+    }
+    .mp-num.dify { background: var(--dify-accent); }
+    .mp-num.rpa  { background: var(--rpa-accent); }
+    .mp-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+    .mp-card p  { font-size: 0.82rem; color: var(--muted); line-height: 1.5; margin: 0; }
+
+    /* ── CTA ── */
+    .agent-cta {
+      background: linear-gradient(135deg, #0C1A2E, #0E3A4A);
+      border-radius: var(--radius-xl); padding: 3rem;
+      text-align: center; color: #fff; margin-top: 2rem;
+    }
+    .agent-cta h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .agent-cta p  { font-size: 0.9rem; color: rgba(255,255,255,.6); max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.65; }
+    .cta-buttons { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+    .cta-btn-primary {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 11px 24px; background: var(--agent-accent);
+      color: #fff; border-radius: 10px; font-size: 0.9rem; font-weight: 700;
+      text-decoration: none; transition: all .2s;
+    }
+    .cta-btn-primary:hover { background: var(--agent-accent-dark); color: #fff; transform: scale(1.02); }
+    .cta-btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 11px 24px; background: rgba(255,255,255,.1);
+      color: #fff; border-radius: 10px; font-size: 0.9rem; font-weight: 700;
+      text-decoration: none; border: 1px solid rgba(255,255,255,.2); transition: all .2s;
+    }
+    .cta-btn-outline:hover { background: rgba(255,255,255,.2); color: #fff; }
+
+    @media (max-width: 768px) {
+      .index-hero { padding: 2rem 1.5rem; }
+      .index-hero h1 { font-size: 2rem; }
+      .hero-stats { gap: 1.5rem; }
+      .platform-grid { grid-template-columns: 1fr; }
+      .module-preview-grid { grid-template-columns: 1fr; }
+      .path-visual { flex-direction: column; padding: 1.5rem 1rem; }
+      .pv-arrow { transform: rotate(90deg); padding-bottom: 0; }
+      .agent-cta { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sticky Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🤖</span>
+    <span>Agent 开发实战培训</span>
+    <span class="logo-badge">Dify × RPA</span>
+  </div>
+  <nav class="header-nav">
+    <a href="/training/">← 培训总览</a>
+    <a href="#overview">课程概述</a>
+    <a href="#platforms">双平台</a>
+    <a href="#path">学习路径</a>
+    <a href="#compare">平台对比</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">课程导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#overview" class="active"><span class="nav-num">①</span> 课程概述</a></li>
+      <li><a href="#platforms"><span class="nav-num">②</span> 双平台介绍</a></li>
+      <li><a href="#path"><span class="nav-num">③</span> 学习路径</a></li>
+      <li><a href="#compare"><span class="nav-num">④</span> 平台对比</a></li>
+      <li><a href="#dify-preview"><span class="nav-num">⑤</span> Dify 模块预览</a></li>
+      <li><a href="#rpa-preview"><span class="nav-num">⑥</span> RPA 模块预览</a></li>
+      <li><a href="#faq"><span class="nav-num">⑦</span> 常见问题</a></li>
+    </ul>
+    <div style="padding: 1rem 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border);">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">直达课程</div>
+      <a href="dify/" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--dify-bg);border:1px solid var(--dify-border);border-radius:8px;text-decoration:none;color:var(--dify-accent);font-size:.84rem;font-weight:700;margin-bottom:.5rem;">
+        🧩 Dify 工作流培训 →
+      </a>
+      <a href="rpa/" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--rpa-bg);border:1px solid var(--rpa-border);border-radius:8px;text-decoration:none;color:var(--rpa-accent);font-size:.84rem;font-weight:700;">
+        🤖 RPA 自动化培训 →
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="/training/">培训总览</a>
+      <span class="sep">›</span>
+      <span class="current">Agent 开发实战培训</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="index-hero" id="overview">
+      <div class="index-hero-content">
+        <div class="hero-badge">
+          <span class="hero-session-num">NEW</span>
+          Agent 专项培训 · 2 大平台 · 实战导向
+        </div>
+        <h1>Agent 开发实战培训<br><span style="color:#67E8F9;">Dify 工作流 × RPA 自动化</span></h1>
+        <p class="hero-desc">
+          专为 <strong>没有技术背景</strong> 或刚接触 Agent 项目的同事设计。
+          通过有趣的类比、丰富的图解和真实项目案例，帮你快速掌握
+          <strong>AI 工作流开发（Dify）</strong> 和 <strong>RPA 流程自动化（影刀）</strong> 两大主流平台，独立承接 Agent 类项目。
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">核心平台</div></div>
+          <div class="stat-item"><div class="stat-num">12+</div><div class="stat-label">实战案例</div></div>
+          <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">代码门槛</div></div>
+          <div class="stat-item"><div class="stat-num">1天</div><div class="stat-label">快速上手</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 双平台介绍 -->
+    <div class="section" id="platforms">
+      <div class="section-header">
+        <div class="section-icon blue">🏗</div>
+        <div>
+          <div class="section-title">两大平台，各司其职</div>
+          <div class="section-subtitle">选对工具，事半功倍</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip" style="margin-bottom:1.5rem;">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">一句话记住区别</div>
+          <strong>Dify</strong> 管的是「<em>AI 的大脑</em>」——让 AI 思考、回答、推理；
+          <strong>RPA</strong> 管的是「<em>AI 的手脚</em>」——让机器人点击、填写、搬运数据。
+          两者结合，才能打造完整的 AI Agent 方案。
+        </div>
+      </div>
+
+      <div class="platform-grid">
+        <!-- Dify Card -->
+        <a href="dify/" class="platform-card dify">
+          <div class="platform-icon dify">🧩</div>
+          <div class="platform-tag">AI 工作流平台</div>
+          <h3 style="color:var(--dify-accent);">Dify — AI 应用积木工厂</h3>
+          <p>
+            类比乐高积木：把「LLM 对话」「知识库检索」「条件判断」等功能模块像积木一样拼接起来，
+            搭出一个完整的 AI 应用，无需写一行代码。
+          </p>
+          <ul class="platform-features">
+            <li>🧠 接入 GPT、Claude、通义等主流大模型</li>
+            <li>📚 知识库 RAG，让 AI 读懂你的企业文档</li>
+            <li>🔀 可视化拖拽设计多步骤 AI 流程</li>
+            <li>🔌 开放 API，可嵌入任意系统</li>
+            <li>💬 内置聊天、Agent、工作流三种模式</li>
+          </ul>
+          <span class="platform-link" style="background:var(--dify-accent);">进入 Dify 培训课程 →</span>
+        </a>
+
+        <!-- RPA Card -->
+        <a href="rpa/" class="platform-card rpa">
+          <div class="platform-icon rpa">🤖</div>
+          <div class="platform-tag">RPA 自动化平台</div>
+          <h3 style="color:var(--rpa-accent);">影刀 RPA — 数字机器人助手</h3>
+          <p>
+            类比培训一名新员工：你录制一遍操作流程，机器人就能 7×24 小时不知疲倦地重复执行，
+            自动点击网页、填写表单、汇总数据、发送报告。
+          </p>
+          <ul class="platform-features">
+            <li>🖱 录制操作，自动生成自动化流程</li>
+            <li>📊 批量处理 Excel / 数据库数据</li>
+            <li>🌐 网页抓取、自动登录、表单填写</li>
+            <li>📧 自动生成并发送邮件报告</li>
+            <li>⏰ 定时触发，无人值守全自动运行</li>
+          </ul>
+          <span class="platform-link" style="background:var(--rpa-accent);">进入 RPA 培训课程 →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 学习路径 -->
+    <div class="section" id="path">
+      <div class="section-header">
+        <div class="section-icon green">🗺</div>
+        <div>
+          <div class="section-title">学习路径</div>
+          <div class="section-subtitle">从零基础到独立交付，约 1-2 天</div>
+        </div>
+      </div>
+
+      <div class="path-visual">
+        <div class="pv-item active">
+          <div class="pv-icon" style="background:var(--agent-accent);border-color:var(--agent-accent-dark);">🎯</div>
+          <div class="pv-title">了解全局</div>
+          <div class="pv-sub">本页（30分钟）</div>
+        </div>
+        <div class="pv-arrow">→</div>
+        <div class="pv-item">
+          <div class="pv-icon" style="border-color:var(--dify-border);">🧩</div>
+          <div class="pv-title">Dify 入门</div>
+          <div class="pv-sub">核心概念 + 界面</div>
+        </div>
+        <div class="pv-arrow">→</div>
+        <div class="pv-item">
+          <div class="pv-icon" style="border-color:var(--dify-border);">⚡</div>
+          <div class="pv-title">Dify 实战</div>
+          <div class="pv-sub">搭建第一个工作流</div>
+        </div>
+        <div class="pv-arrow">→</div>
+        <div class="pv-item">
+          <div class="pv-icon" style="border-color:var(--rpa-border);">🤖</div>
+          <div class="pv-title">RPA 入门</div>
+          <div class="pv-sub">核心概念 + 界面</div>
+        </div>
+        <div class="pv-arrow">→</div>
+        <div class="pv-item">
+          <div class="pv-icon" style="border-color:var(--rpa-border);">🎬</div>
+          <div class="pv-title">RPA 实战</div>
+          <div class="pv-sub">录制第一个流程</div>
+        </div>
+        <div class="pv-arrow">→</div>
+        <div class="pv-item">
+          <div class="pv-icon">🚀</div>
+          <div class="pv-title">项目交付</div>
+          <div class="pv-sub">综合应用</div>
+        </div>
+      </div>
+
+      <div class="card card-accent-blue" style="margin-top:0;">
+        <h4>💡 建议学习顺序</h4>
+        <p style="margin-bottom:.5rem;">
+          如果项目以 <strong>AI 问答 / 知识库 / 多步推理</strong> 为主 → 优先学 Dify；<br>
+          如果项目以 <strong>自动化表单 / 数据搬运 / 系统集成</strong> 为主 → 优先学 RPA；<br>
+          大多数 Agent 项目两者都需要，建议先掌握 Dify，再学 RPA。
+        </p>
+      </div>
+    </div>
+
+    <!-- 平台对比 -->
+    <div class="section" id="compare">
+      <div class="section-header">
+        <div class="section-icon purple">⚖</div>
+        <div>
+          <div class="section-title">平台功能对比</div>
+          <div class="section-subtitle">快速判断应该用哪个平台</div>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>场景 / 需求</th>
+              <th class="compare-header-dify">Dify 工作流</th>
+              <th class="compare-header-rpa">影刀 RPA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>让 AI 理解并回答用户问题</td><td>✅ 核心强项</td><td>❌ 不适合</td></tr>
+            <tr><td>搭建知识库问答系统</td><td>✅ 内置支持</td><td>❌ 不适合</td></tr>
+            <tr><td>多步骤 AI 推理流程</td><td>✅ 可视化设计</td><td>⚠ 需配合</td></tr>
+            <tr><td>自动点击网页 / 填写表单</td><td>❌ 不适合</td><td>✅ 核心强项</td></tr>
+            <tr><td>批量处理 Excel 数据</td><td>⚠ 需代码节点</td><td>✅ 内置支持</td></tr>
+            <tr><td>定时自动执行任务</td><td>⚠ 需 API 触发</td><td>✅ 内置调度</td></tr>
+            <tr><td>接入第三方 API</td><td>✅ HTTP 节点</td><td>✅ 内置支持</td></tr>
+            <tr><td>对话式 AI 助手</td><td>✅ 内置聊天模式</td><td>❌ 不适合</td></tr>
+            <tr><td>系统间数据搬运</td><td>⚠ 需配合</td><td>✅ 核心强项</td></tr>
+            <tr><td>生成并发送邮件报告</td><td>⚠ 需配合</td><td>✅ 内置支持</td></tr>
+            <tr><td>技术门槛</td><td>🟢 低（拖拽为主）</td><td>🟢 低（录制为主）</td></tr>
+            <tr><td>部署方式</td><td>☁ 云端 / 本地可选</td><td>💻 本地客户端</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox infobox-success" style="margin-top:1rem;">
+        <div class="infobox-icon">🏆</div>
+        <div class="infobox-body">
+          <div class="infobox-title">黄金组合</div>
+          <strong>Dify（AI大脑）+ RPA（执行手脚）</strong> = 完整 Agent 解决方案。
+          例如：RPA 自动从系统抓取数据 → Dify 用 AI 分析并生成报告 → RPA 自动发送邮件。
+          这是目前最常见的企业 Agent 项目架构。
+        </div>
+      </div>
+    </div>
+
+    <!-- Dify 模块预览 -->
+    <div class="section" id="dify-preview">
+      <div class="section-header">
+        <div class="section-icon blue">🧩</div>
+        <div>
+          <div class="section-title">Dify 培训课程模块</div>
+          <div class="section-subtitle">6 大模块，从概念到实战</div>
+        </div>
+      </div>
+
+      <div class="module-preview-grid">
+        <div class="mp-card">
+          <div class="mp-num dify">1</div>
+          <div><h4>什么是 Dify？认知建立</h4><p>乐高积木类比、核心价值、Dify vs 写代码对比</p></div>
+        </div>
+        <div class="mp-card">
+          <div class="mp-num dify">2</div>
+          <div><h4>核心概念图解</h4><p>节点、工作流、知识库、变量——用生活场景类比每个概念</p></div>
+        </div>
+        <div class="mp-card">
+          <div class="mp-num dify">3</div>
+          <div><h4>界面导览 & 常用节点</h4><p>手把手界面讲解，LLM/知识库/条件/循环节点详解</p></div>
+        </div>
+        <div class="mp-card">
+          <div class="mp-num dify">4</div>
+          <div><h4>实战①：智能客服机器人</h4><p>从零搭建含知识库的多轮对话客服，30分钟完成</p></div>
+        </div>
+        <div class="mp-card">
+          <div class="mp-num dify">5</div>
+          <div><h4>实战②：文档自动分析系统</h4><p>上传合同/报告，AI 自动提取关键信息生成摘要</p></div>
+        </div>
+        <div class="mp-card">
+          <div class="mp-num dify">6</div>
+          <div><h4>进阶技巧 & 项目交付</h4><p>调试技巧、API 发布、性能优化、常见问题排查</p></div>
+        </div>
+      </div>
+
+      <a href="dify/" class="platform-link" style="background:var(--dify-accent);display:inline-flex;">
+        进入 Dify 完整培训课程 →
+      </a>
+    </div>
+
+    <!-- RPA 模块预览 -->
+    <div class="section" id="rpa-preview">
+      <div class="section-header">
+        <div class="section-icon orange">🤖</div>
+        <div>
+          <div class="section-title">RPA 培训课程模块</div>
+          <div class="section-subtitle">6 大模块，从录制到调度</div>
+        </div>
+      </div>
+
+      <div class="module-preview-grid">
+        <div class="mp-card">
+          <div class="mp-num rpa">1</div>
+          <div><h4>什么是 RPA？认知建立</h4><p>「数字新员工」类比，RPA vs 人工操作效益对比</p></div>
+        </div>
+        <div class="mp-card">
+          <div class="mp-num rpa">2</div>
+          <div><h4>核心概念图解</h4><p>流程、动作、变量、选择器——用快递员/导航类比讲清</p></div>
+        </div>
+        <div class="mp-card">
+          <div class="mp-num rpa">3</div>
+          <div><h4>界面导览 & 常用动作</h4><p>录制器使用、动作库详解、网页操作 / Excel 操作</p></div>
+        </div>
+        <div class="mp-card">
+          <div class="mp-num rpa">4</div>
+          <div><h4>实战①：自动数据录入</h4><p>从 Excel 读数据，自动填写网页表单，批量处理100条</p></div>
+        </div>
+        <div class="mp-card">
+          <div class="mp-num rpa">5</div>
+          <div><h4>实战②：定时报表生成</h4><p>定时抓取数据 → 汇总 → 生成 Excel → 自动发邮件</p></div>
+        </div>
+        <div class="mp-card">
+          <div class="mp-num rpa">6</div>
+          <div><h4>进阶技巧 & 项目交付</h4><p>异常处理、日志记录、定时调度、常见报错解决</p></div>
+        </div>
+      </div>
+
+      <a href="rpa/" class="platform-link" style="background:var(--rpa-accent);display:inline-flex;">
+        进入 RPA 完整培训课程 →
+      </a>
+    </div>
+
+    <!-- 常见问题 -->
+    <div class="section" id="faq">
+      <div class="section-header">
+        <div class="section-icon teal">❓</div>
+        <div>
+          <div class="section-title">常见问题</div>
+          <div class="section-subtitle">上手前最想知道的几个问题</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:.75rem;">
+        <h4>🤔 我没有编程基础，能学会吗？</h4>
+        <p style="margin:0;">完全可以。Dify 和影刀 RPA 都是可视化的低代码/无代码平台，核心操作是拖拽和点击，不需要写代码。本培训材料专门为非技术同事设计，通过生活类比帮你建立直觉。</p>
+      </div>
+      <div class="card" style="margin-bottom:.75rem;">
+        <h4>⏱ 学完大概需要多久？</h4>
+        <p style="margin:0;">理论学习约半天，配合实战练习约 1-2 天可以完成第一个项目。每个培训模块都有具体的时间预估。</p>
+      </div>
+      <div class="card" style="margin-bottom:.75rem;">
+        <h4>💻 需要提前安装什么软件？</h4>
+        <p style="margin:0;"><strong>Dify：</strong>直接用浏览器访问 Dify 云端版（dify.ai）或公司私有部署地址，无需安装。<strong>RPA：</strong>需要安装影刀客户端（Windows），公司应已提供安装包。</p>
+      </div>
+      <div class="card" style="margin-bottom:.75rem;">
+        <h4>🆚 Dify 和 Coze、Fastgpt 有什么区别？</h4>
+        <p style="margin:0;">功能上类似，都是 AI 工作流平台。Dify 的优势在于开源可私有部署、工作流设计最灵活、企业级功能完善。公司项目目前主要使用 Dify，但掌握后可以快速上手同类平台。</p>
+      </div>
+      <div class="card">
+        <h4>🔗 Dify 和 RPA 可以组合使用吗？</h4>
+        <p style="margin:0;">是的，这正是企业 Agent 项目的主流架构。RPA 负责从系统抓数据、触发流程；Dify 负责 AI 分析和生成内容；RPA 再把结果写回系统或发送通知。</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="agent-cta">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🚀</div>
+      <h3>准备好开始了吗？</h3>
+      <p>选择你的第一站，从概念到实战，一步一步掌握 Agent 开发。</p>
+      <div class="cta-buttons">
+        <a href="dify/" class="cta-btn-primary">🧩 开始 Dify 培训</a>
+        <a href="rpa/"  class="cta-btn-outline">🤖 开始 RPA 培训</a>
+        <a href="/training/" class="cta-btn-outline">← 返回培训总览</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="回到顶部">↑</a>
+
+<script>
+  // Active sidebar link highlight
+  const links = document.querySelectorAll('.sidebar-nav a');
+  const sections = document.querySelectorAll('.section, .index-hero');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const id = e.target.id;
+        const active = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

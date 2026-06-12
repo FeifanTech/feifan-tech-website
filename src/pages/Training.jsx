@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
   BookOpen, Users, ArrowRight, ChevronRight,
-  Lightbulb, Zap, Star, Award, Building2
+  Lightbulb, Zap, Star, Award, Building2, Bot
 } from 'lucide-react'
 
 /* ─── Course Card ─────────────────────────────────────────── */
@@ -162,6 +162,31 @@ export default function Training() {
     },
   ]
 
+  const agentCourses = [
+    {
+      num: '🧩',
+      badge: 'Agent 开发 · Dify',
+      badgeColor: ['#4F46E5', '#4338CA'],
+      title: 'Dify 工作流平台实战培训——像搭积木一样构建 AI 应用',
+      desc: '面向无编程基础的业务人员，通过乐高积木类比、可视化图解和实战案例，快速掌握 Dify 工作流平台，独立搭建知识库问答系统和文档分析自动化流程。',
+      tags: ['工作流设计', '知识库 RAG', 'LLM 节点', '零代码'],
+      href: '/training/agent-dev/dify/',
+      linkText: '进入 Dify 工作流培训',
+      linkColor: '#4F46E5',
+    },
+    {
+      num: '🤖',
+      badge: 'Agent 开发 · RPA',
+      badgeColor: ['#D97706', '#B45309'],
+      title: '影刀 RPA 自动化实战培训——让机器人替你干重复的活儿',
+      desc: '零门槛 RPA 实战课，通过「数字机器人员工」类比和录制即用方法，快速掌握自动数据录入、定时报表生成、网页自动化等核心场景，时间节省 80% 以上。',
+      tags: ['录制自动化', 'Excel 处理', '定时调度', '异常处理'],
+      href: '/training/agent-dev/rpa/',
+      linkText: '进入 RPA 自动化培训',
+      linkColor: '#D97706',
+    },
+  ]
+
   const advancedCourses = [
     {
       num: 'PM',
@@ -315,6 +340,30 @@ export default function Training() {
               {industryCourses.map((c, i) => (
                 <CourseCard key={c.href} {...c} index={i} />
               ))}
+            </div>
+          </div>
+
+          {/* ── Agent 开发专项 ── */}
+          <div>
+            <SectionHeader
+              icon={Bot}
+              iconBg="#4F46E5"
+              title="Agent 开发专项培训"
+              subtitle="Dify 工作流 × RPA 自动化——零门槛快速掌握 Agent 项目开发"
+            />
+            <div className="grid sm:grid-cols-2 gap-4">
+              {agentCourses.map((c, i) => (
+                <CourseCard key={c.href} {...c} index={i} />
+              ))}
+            </div>
+            <div className="mt-4 p-4 bg-white border border-claude-beige rounded-xl flex items-center gap-3">
+              <Bot className="w-5 h-5 text-[#4F46E5] flex-shrink-0" />
+              <p className="text-sm text-claude-medium">
+                两个平台结合使用，可打造完整 Agent 解决方案。查看总览与平台对比：
+                <a href="/training/agent-dev/" className="text-[#4F46E5] font-semibold hover:text-[#4338CA] ml-1">
+                  Agent 开发培训总览 →
+                </a>
+              </p>
             </div>
           </div>
 
