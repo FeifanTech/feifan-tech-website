@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dify 工作流平台实战培训 — Agent 开发 · 飞凡科技</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    :root {
+      --dify-accent:       #4F46E5;
+      --dify-accent-dark:  #4338CA;
+      --dify-accent-light: #818CF8;
+      --dify-bg:           #EEF2FF;
+      --dify-border:       #C7D2FE;
+    }
+
+    /* ── Hero ── */
+    .session-hero {
+      background: linear-gradient(135deg, #1E1B4B 0%, #312E81 55%, #4338CA 100%);
+    }
+    .hero-badge { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25); }
+    .hero-session-num { background: var(--dify-accent); }
+
+    /* ── 概念卡片（类比区） ── */
+    .analogy-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin: 1.25rem 0; }
+    .analogy-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .analogy-card .analogy-top {
+      display: flex; align-items: center; gap: 10px; margin-bottom: .75rem;
+    }
+    .analogy-icon {
+      width: 44px; height: 44px; border-radius: var(--radius-md);
+      background: var(--dify-bg); border: 1px solid var(--dify-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .analogy-card h4 { font-size: .95rem; font-weight: 700; color: var(--dark); margin: 0; }
+    .analogy-card .term-cn { font-size: .78rem; color: var(--muted); margin-top: 1px; }
+    .analogy-eq {
+      font-size: .82rem; color: var(--muted); margin: .5rem 0;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .analogy-eq .eq-arrow { color: var(--dify-accent); font-weight: 700; }
+    .analogy-card p { font-size: .84rem; color: var(--medium); line-height: 1.6; margin: 0; }
+
+    /* ── 界面标注图 ── */
+    .ui-diagram {
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.5rem;
+      margin: 1.25rem 0; position: relative;
+    }
+    .ui-mock {
+      background: #1E1B4B; border-radius: var(--radius-md);
+      padding: 1rem; display: grid;
+      grid-template-columns: 200px 1fr 200px;
+      grid-template-rows: 44px 1fr;
+      gap: 2px; min-height: 320px; font-size: .78rem;
+    }
+    .ui-topbar {
+      grid-column: 1/-1; background: #312E81;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      display: flex; align-items: center; padding: 0 1rem; gap: .75rem; color: rgba(255,255,255,.7);
+    }
+    .ui-topbar .tb-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .ui-panel {
+      background: #2D2A72; border-radius: 4px;
+      padding: .75rem; color: rgba(255,255,255,.8); overflow: hidden;
+    }
+    .ui-canvas {
+      background: #1A174A; border-radius: 4px;
+      padding: 1rem; color: rgba(255,255,255,.6);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: .5rem;
+    }
+    .ui-node {
+      background: rgba(79,70,229,.5); border: 1px solid var(--dify-accent-light);
+      border-radius: 8px; padding: 8px 14px;
+      font-size: .75rem; font-weight: 700; color: #fff;
+      white-space: nowrap;
+    }
+    .ui-connector { color: rgba(255,255,255,.3); font-size: 1.2rem; }
+    .ui-anno {
+      position: absolute; background: #fff;
+      border: 1px solid var(--dify-border); border-radius: 8px;
+      padding: 5px 10px; font-size: .75rem; font-weight: 600;
+      color: var(--dify-accent); box-shadow: var(--shadow-sm);
+      white-space: nowrap;
+    }
+    .ui-anno::before {
+      content: ''; position: absolute;
+      width: 20px; height: 2px; background: var(--dify-border);
+    }
+
+    /* ── 节点类型网格 ── */
+    .node-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin: 1.25rem 0; }
+    .node-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 1rem;
+      box-shadow: var(--shadow-sm); text-align: center;
+    }
+    .node-icon {
+      width: 52px; height: 52px; border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin: 0 auto .75rem;
+    }
+    .node-card h4 { font-size: .9rem; font-weight: 700; color: var(--dark); margin-bottom: .35rem; }
+    .node-card p  { font-size: .8rem; color: var(--medium); line-height: 1.5; margin: 0; }
+
+    /* ── 步骤增强版 ── */
+    .step-dify .step-num { background: var(--dify-accent); box-shadow: 0 0 0 4px rgba(79,70,229,.15); }
+
+    /* ── 工作流示意图 ── */
+    .workflow-demo {
+      background: var(--warm); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 2rem;
+      margin: 1.25rem 0; overflow-x: auto;
+    }
+    .wf-row { display: flex; align-items: center; justify-content: flex-start; gap: .5rem; flex-wrap: nowrap; }
+    .wf-node {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 4px; min-width: 90px; text-align: center;
+    }
+    .wf-node-box {
+      padding: 10px 14px; border-radius: var(--radius-md);
+      font-size: .8rem; font-weight: 700; border: 2px solid transparent;
+      white-space: nowrap; width: 100%;
+    }
+    .wf-node-box.start  { background: #D1FAE5; border-color: #86EFAC; color: #065F46; }
+    .wf-node-box.llm    { background: var(--dify-bg); border-color: var(--dify-border); color: var(--dify-accent); }
+    .wf-node-box.kb     { background: #FFFBEB; border-color: #FDE68A; color: #92400E; }
+    .wf-node-box.code   { background: #F1F5F9; border-color: #CBD5E1; color: #334155; }
+    .wf-node-box.cond   { background: #FDF4FF; border-color: #E9D5FF; color: #6B21A8; }
+    .wf-node-box.end    { background: #FEE2E2; border-color: #FECACA; color: #991B1B; }
+    .wf-node-box.http   { background: #ECFEFF; border-color: #A5F3FC; color: #0E7490; }
+    .wf-label { font-size: .7rem; color: var(--muted); }
+    .wf-arrow { color: var(--muted); font-size: 1.3rem; flex-shrink: 0; }
+
+    /* ── Prompt 示例 ── */
+    .prompt-card { background: var(--dark); border-radius: var(--radius-md); overflow: hidden; margin: 1rem 0; }
+    .prompt-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .prompt-title { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--dify-accent-light); }
+    .copy-btn {
+      background: transparent; border: none;
+      font-size: .75rem; color: rgba(255,255,255,.4);
+      cursor: pointer; padding: 2px 6px; border-radius: 4px;
+    }
+    .copy-btn:hover { color: rgba(255,255,255,.9); }
+    .prompt-pre {
+      padding: 1rem; font-family: 'JetBrains Mono', monospace;
+      font-size: .8rem; color: #86efac;
+      white-space: pre-wrap; line-height: 1.65; overflow-x: auto; margin: 0;
+    }
+
+    /* ── 检查清单 ── */
+    .checklist { list-style: none; padding: 0; }
+    .checklist li {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 7px 0; border-bottom: 1px solid var(--beige);
+      font-size: .875rem; color: var(--medium);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .check-box {
+      width: 20px; height: 20px; border-radius: 4px;
+      background: var(--dify-bg); border: 2px solid var(--dify-border);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; color: var(--dify-accent); font-weight: 700;
+    }
+
+    /* ── 模块导航 ── */
+    .module-nav {
+      display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 2rem;
+      padding: 1rem; background: var(--warm); border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+    .module-nav a {
+      padding: 6px 14px; border-radius: var(--radius-sm);
+      background: #fff; border: 1px solid var(--border);
+      font-size: .82rem; font-weight: 600; color: var(--medium);
+      text-decoration: none; transition: all .15s;
+    }
+    .module-nav a:hover, .module-nav a.active {
+      background: var(--dify-bg); border-color: var(--dify-border); color: var(--dify-accent);
+    }
+
+    /* ── 小提示横幅 ── */
+    .tip-inline {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--dify-bg); border: 1px solid var(--dify-border);
+      border-radius: 999px; padding: 4px 14px;
+      font-size: .8rem; font-weight: 600; color: var(--dify-accent);
+      margin: .5rem 0;
+    }
+
+    /* ── CTA ── */
+    .dify-cta {
+      background: linear-gradient(135deg, #1E1B4B, #312E81);
+      border-radius: var(--radius-xl); padding: 3rem;
+      text-align: center; color: #fff; margin-top: 3rem;
+    }
+    .dify-cta h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: .5rem; }
+    .dify-cta p  { font-size: .9rem; color: rgba(255,255,255,.6); max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.65; }
+    .cta-buttons { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+    .cta-btn-primary {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 11px 24px; background: var(--dify-accent);
+      color: #fff; border-radius: 10px; font-size: .9rem; font-weight: 700;
+      text-decoration: none; transition: all .2s;
+    }
+    .cta-btn-primary:hover { background: var(--dify-accent-dark); color: #fff; transform: scale(1.02); }
+    .cta-btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 11px 24px; background: rgba(255,255,255,.1);
+      color: #fff; border-radius: 10px; font-size: .9rem; font-weight: 700;
+      text-decoration: none; border: 1px solid rgba(255,255,255,.2); transition: all .2s;
+    }
+    .cta-btn-outline:hover { background: rgba(255,255,255,.2); color: #fff; }
+
+    @media (max-width: 768px) {
+      .analogy-grid { grid-template-columns: 1fr; }
+      .node-grid { grid-template-columns: repeat(2,1fr); }
+      .workflow-demo { overflow-x: auto; }
+      .dify-cta { padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sticky Header -->
+<header class="site-header">
+  <div class="header-logo">
+    <span>🧩</span>
+    <span>Dify 工作流培训</span>
+    <span class="logo-badge">Agent 开发</span>
+  </div>
+  <nav class="header-nav">
+    <a href="/training/agent-dev/">← Agent 总览</a>
+    <a href="#concept">核心概念</a>
+    <a href="#ui">界面导览</a>
+    <a href="#nodes">节点详解</a>
+    <a href="#project1">实战①</a>
+    <a href="#project2">实战②</a>
+    <a href="#tips">进阶技巧</a>
+  </nav>
+</header>
+
+<div class="page-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">课程导航</div>
+    <ul class="sidebar-nav">
+      <li><a href="#intro-why" class="active"><span class="nav-num">①</span> 认识 Dify</a></li>
+      <li><a href="#concept"><span class="nav-num">②</span> 核心概念图解</a></li>
+      <li><a href="#ui"><span class="nav-num">③</span> 界面导览</a></li>
+      <li><a href="#nodes"><span class="nav-num">④</span> 常用节点详解</a></li>
+      <li><a href="#first-flow"><span class="nav-num">⑤</span> 第一个工作流</a></li>
+      <li><a href="#project1"><span class="nav-num">⑥</span> 实战①：智能客服</a></li>
+      <li><a href="#project2"><span class="nav-num">⑦</span> 实战②：文档分析</a></li>
+      <li><a href="#tips"><span class="nav-num">⑧</span> 进阶技巧</a></li>
+    </ul>
+    <div style="padding:1rem 1.25rem;margin-top:1rem;border-top:1px solid var(--border);">
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">配套课程</div>
+      <a href="../rpa/" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;text-decoration:none;color:#D97706;font-size:.84rem;font-weight:700;">
+        🤖 RPA 自动化培训 →
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="/training/">培训总览</a>
+      <span class="sep">›</span>
+      <a href="/training/agent-dev/">Agent 开发</a>
+      <span class="sep">›</span>
+      <span class="current">Dify 工作流培训</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="session-hero" id="intro">
+      <div class="hero-badge">
+        <span class="hero-session-num">Dify</span>
+        AI 工作流平台 · 无代码 · 可视化拖拽
+      </div>
+      <h1>Dify 工作流平台<br>从零到上手 —— 像搭积木一样构建 AI 应用</h1>
+      <p class="hero-subtitle">你不需要写代码，只需要像拼乐高一样，把 AI 的各种能力模块拼接起来，就能搭出一个功能完整的 AI 应用。</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">📚 6 大模块</div>
+        <div class="hero-meta-item">⏱ 约半天上手</div>
+        <div class="hero-meta-item">🎯 2 个实战项目</div>
+        <div class="hero-meta-item">🟢 零代码门槛</div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 模块一：认识 Dify ─────────────────────────── -->
+    <div class="section" id="intro-why">
+      <div class="section-header">
+        <div class="section-icon blue">🧠</div>
+        <div>
+          <div class="section-title">模块一：认识 Dify——为什么需要它？</div>
+          <div class="section-subtitle">通过类比，建立直觉认知</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-info">
+        <div class="infobox-icon">💡</div>
+        <div class="infobox-body">
+          <div class="infobox-title">一句话理解 Dify</div>
+          Dify 是一个 <strong>AI 应用的积木工厂</strong>。就像乐高积木，它把「大语言模型」「知识库检索」「API 调用」「条件判断」等功能做成了标准积木块（节点），
+          你只需要在画布上拖拽拼接，就能搭出自己想要的 AI 应用。
+        </div>
+      </div>
+
+      <h3>🤔 没有 Dify 之前，我们怎么做？</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr><th>方式</th><th>传统写代码</th><th>用 Dify</th></tr></thead>
+          <tbody>
+            <tr><td>门槛</td><td>需要懂 Python、API 调用、后端部署</td><td>拖拽操作，零代码</td></tr>
+            <tr><td>开发时间</td><td>一个简单问答系统 1-2 周</td><td>1-2 小时完成</td></tr>
+            <tr><td>调试</td><td>改代码 → 重启 → 测试，反复折腾</td><td>可视化调试，实时查看每步输出</td></tr>
+            <tr><td>修改需求</td><td>改代码，可能影响其他功能</td><td>直接在画布上调整节点</td></tr>
+            <tr><td>知识库</td><td>需要自己搭 RAG 系统</td><td>内置知识库，上传即用</td></tr>
+            <tr><td>发布</td><td>需要服务器部署</td><td>一键生成 API / 分享链接</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>🍕 餐厅类比：Dify 的三种工作模式</h3>
+      <div class="card-grid card-grid-3">
+        <div class="feature-card" style="border-top:3px solid var(--dify-accent);">
+          <span class="card-icon">💬</span>
+          <h3>聊天助手模式</h3>
+          <p>就像一个服务员，你说什么它回什么。适合做对话机器人、客服助手、问答系统。</p>
+        </div>
+        <div class="feature-card" style="border-top:3px solid var(--success);">
+          <span class="card-icon">🔀</span>
+          <h3>工作流模式</h3>
+          <p>就像餐厅的后厨流程：点单→备料→烹饪→出餐。适合做多步骤自动化、批处理任务。</p>
+        </div>
+        <div class="feature-card" style="border-top:3px solid var(--warning);">
+          <span class="card-icon">🕵️</span>
+          <h3>Agent 模式</h3>
+          <p>就像一个会自主规划的大厨，能根据情况自己决定用哪些工具。适合复杂推理任务。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 模块二：核心概念 ─────────────────────────── -->
+    <div class="section" id="concept">
+      <div class="section-header">
+        <div class="section-icon purple">🧩</div>
+        <div>
+          <div class="section-title">模块二：核心概念图解——用生活类比记住它们</div>
+          <div class="section-subtitle">每个概念都有一个你熟悉的对应物</div>
+        </div>
+      </div>
+
+      <div class="analogy-grid">
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">🔀</div>
+            <div>
+              <h4>工作流 (Workflow)</h4>
+              <div class="term-cn">整个自动化流程</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>🍜 <strong>菜谱</strong></span>
+          </div>
+          <p>就像一份菜谱，规定了从「准备食材」到「端上桌」的每一个步骤。工作流就是你整个 AI 应用的「流程图」，定义了数据从输入到输出经历哪些处理。</p>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">⬜</div>
+            <div>
+              <h4>节点 (Node)</h4>
+              <div class="term-cn">工作流中的单个处理步骤</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>⚙️ <strong>工厂设备</strong></span>
+          </div>
+          <p>就像流水线上的一台机器，每个节点负责做一件事：有的节点负责「调用 AI」，有的负责「查知识库」，有的负责「根据条件分叉」。节点和节点之间用线连接。</p>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">📚</div>
+            <div>
+              <h4>知识库 (Knowledge Base)</h4>
+              <div class="term-cn">RAG 检索增强生成</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>📖 <strong>公司图书馆</strong></span>
+          </div>
+          <p>把你的企业文档、产品手册、FAQ 上传进去，AI 在回答问题时会先去「图书馆」查资料，再给出基于真实内容的回答，而不是「凭空想象」。</p>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">📦</div>
+            <div>
+              <h4>变量 (Variable)</h4>
+              <div class="term-cn">在节点间传递的数据</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>📋 <strong>快递单号</strong></span>
+          </div>
+          <p>就像快递单号，快递从一个城市运到另一个城市，单号始终跟着包裹走。变量就是数据在不同节点之间传递的「标签」，前一个节点的输出，可以作为下一个节点的输入。</p>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">🧠</div>
+            <div>
+              <h4>LLM 节点</h4>
+              <div class="term-cn">大语言模型调用</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>👨‍🍳 <strong>大厨</strong></span>
+          </div>
+          <p>这是整个工作流的「大脑」，负责理解、推理、生成文本。你告诉它「系统角色」（它扮演什么身份），给它「用户输入」，它就会按照你的要求生成回答。</p>
+        </div>
+
+        <div class="analogy-card">
+          <div class="analogy-top">
+            <div class="analogy-icon">🔌</div>
+            <div>
+              <h4>HTTP 节点</h4>
+              <div class="term-cn">调用外部接口</div>
+            </div>
+          </div>
+          <div class="analogy-eq">
+            <span>类比</span><span class="eq-arrow">→</span><span>📞 <strong>打电话给快递员</strong></span>
+          </div>
+          <p>当你需要从外部系统获取数据（查天气、查数据库、发通知）时，HTTP 节点就像打一个电话：你发出请求，等对方接听并告知结果，再把结果传给下一步。</p>
+        </div>
+      </div>
+
+      <!-- 整体架构图 -->
+      <h3>🗺 整体架构一览</h3>
+      <div class="flow-diagram">
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;text-align:center;">一个典型的 Dify 工作流长这样：</p>
+        <div class="flow-row">
+          <div class="flow-box green">📥 用户输入</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box blue">🔍 知识库检索</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box" style="background:var(--dify-bg);color:var(--dify-accent);border-color:var(--dify-border);">🧠 LLM 生成</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box purple">⚖ 条件判断</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box accent">📤 输出结果</div>
+        </div>
+        <p style="font-size:.78rem;color:var(--muted);margin-top:1rem;text-align:center;">每个方块就是一个「节点」，箭头就是数据流动的方向</p>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 模块三：界面导览 ─────────────────────────── -->
+    <div class="section" id="ui">
+      <div class="section-header">
+        <div class="section-icon green">🖥</div>
+        <div>
+          <div class="section-title">模块三：界面导览——认识你的工作台</div>
+          <div class="section-subtitle">打开 Dify 后，你会看到什么</div>
+        </div>
+      </div>
+
+      <!-- 模拟界面 + 标注 -->
+      <div class="ui-diagram">
+        <div style="font-size:.82rem;color:var(--muted);margin-bottom:1rem;font-weight:600;">🖥 Dify 工作流编辑器示意图</div>
+        <div class="ui-mock">
+          <!-- Top bar -->
+          <div class="ui-topbar">
+            <div class="tb-dot" style="background:#FF5F57;"></div>
+            <div class="tb-dot" style="background:#FEBC2E;"></div>
+            <div class="tb-dot" style="background:#28C840;"></div>
+            <span style="margin-left:1rem;font-size:.8rem;">✏ 智能客服工作流 v1.2</span>
+            <span style="margin-left:auto;padding:3px 12px;background:var(--dify-accent);border-radius:6px;font-size:.75rem;cursor:pointer;">▶ 运行</span>
+          </div>
+          <!-- Left panel -->
+          <div class="ui-panel">
+            <div style="font-size:.7rem;font-weight:700;letter-spacing:.06em;margin-bottom:.5rem;color:rgba(255,255,255,.5);">节点库</div>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div style="padding:5px 8px;background:rgba(255,255,255,.08);border-radius:4px;font-size:.75rem;cursor:pointer;">🧠 LLM</div>
+              <div style="padding:5px 8px;background:rgba(255,255,255,.08);border-radius:4px;font-size:.75rem;cursor:pointer;">📚 知识检索</div>
+              <div style="padding:5px 8px;background:rgba(255,255,255,.08);border-radius:4px;font-size:.75rem;cursor:pointer;">⚖ 条件分支</div>
+              <div style="padding:5px 8px;background:rgba(255,255,255,.08);border-radius:4px;font-size:.75rem;cursor:pointer;">🔄 循环</div>
+              <div style="padding:5px 8px;background:rgba(255,255,255,.08);border-radius:4px;font-size:.75rem;cursor:pointer;">💻 代码执行</div>
+              <div style="padding:5px 8px;background:rgba(255,255,255,.08);border-radius:4px;font-size:.75rem;cursor:pointer;">🔌 HTTP 请求</div>
+              <div style="padding:5px 8px;background:rgba(255,255,255,.08);border-radius:4px;font-size:.75rem;cursor:pointer;">📨 消息发送</div>
+            </div>
+          </div>
+          <!-- Canvas -->
+          <div class="ui-canvas">
+            <div style="font-size:.7rem;color:rgba(255,255,255,.3);margin-bottom:.5rem;">画布区域（拖拽节点到这里）</div>
+            <div style="display:flex;align-items:center;gap:.5rem;">
+              <div class="ui-node" style="background:rgba(16,185,129,.3);border-color:#10B981;">▶ 开始</div>
+              <div style="color:rgba(255,255,255,.3);">——</div>
+              <div class="ui-node">🔍 知识检索</div>
+              <div style="color:rgba(255,255,255,.3);">——</div>
+              <div class="ui-node">🧠 LLM</div>
+              <div style="color:rgba(255,255,255,.3);">——</div>
+              <div class="ui-node" style="background:rgba(239,68,68,.3);border-color:#EF4444;">⏹ 结束</div>
+            </div>
+          </div>
+          <!-- Right panel -->
+          <div class="ui-panel">
+            <div style="font-size:.7rem;font-weight:700;letter-spacing:.06em;margin-bottom:.5rem;color:rgba(255,255,255,.5);">节点配置</div>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:.75rem;color:rgba(255,255,255,.7);">
+              <div>
+                <div style="color:rgba(255,255,255,.4);margin-bottom:2px;">模型</div>
+                <div style="padding:4px 8px;background:rgba(255,255,255,.1);border-radius:4px;">GPT-4o-mini ▼</div>
+              </div>
+              <div>
+                <div style="color:rgba(255,255,255,.4);margin-bottom:2px;">系统提示词</div>
+                <div style="padding:6px 8px;background:rgba(255,255,255,.08);border-radius:4px;min-height:60px;font-size:.7rem;line-height:1.5;color:rgba(255,255,255,.6);">你是一个专业的客服助手，请根据以下知识库内容...</div>
+              </div>
+              <div>
+                <div style="color:rgba(255,255,255,.4);margin-bottom:2px;">温度</div>
+                <div style="padding:4px 8px;background:rgba(255,255,255,.1);border-radius:4px;">0.7 ——●————</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:1rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;">
+          <div style="background:#fff;border:1px solid var(--dify-border);border-radius:8px;padding:.75rem;text-align:center;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">📦</div>
+            <div style="font-size:.78rem;font-weight:700;color:var(--dify-accent);">左侧节点库</div>
+            <div style="font-size:.72rem;color:var(--muted);">拖拽到画布</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--dify-border);border-radius:8px;padding:.75rem;text-align:center;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">🎨</div>
+            <div style="font-size:.78rem;font-weight:700;color:var(--dify-accent);">中央画布</div>
+            <div style="font-size:.72rem;color:var(--muted);">拼接节点，连线</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--dify-border);border-radius:8px;padding:.75rem;text-align:center;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">⚙️</div>
+            <div style="font-size:.78rem;font-weight:700;color:var(--dify-accent);">右侧配置面板</div>
+            <div style="font-size:.72rem;color:var(--muted);">配置选中节点</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--dify-border);border-radius:8px;padding:.75rem;text-align:center;">
+            <div style="font-size:1.2rem;margin-bottom:4px;">▶</div>
+            <div style="font-size:.78rem;font-weight:700;color:var(--dify-accent);">顶部工具栏</div>
+            <div style="font-size:.72rem;color:var(--muted);">运行/保存/发布</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-tip">
+        <div class="infobox-icon">🎯</div>
+        <div class="infobox-body">
+          <div class="infobox-title">操作技巧</div>
+          <strong>双击画布</strong>可以快速添加节点 |
+          <strong>按住 Ctrl/Cmd 拖拽</strong>可以框选多个节点 |
+          <strong>鼠标滚轮</strong>可以缩放画布 |
+          <strong>节点右上角</strong>有「调试」按钮，可以单独测试这个节点的输出。
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 模块四：常用节点详解 ─────────────────────────── -->
+    <div class="section" id="nodes">
+      <div class="section-header">
+        <div class="section-icon purple">⬜</div>
+        <div>
+          <div class="section-title">模块四：常用节点详解——认识你的积木</div>
+          <div class="section-subtitle">掌握这 7 个节点，可以搭出 90% 的 AI 应用</div>
+        </div>
+      </div>
+
+      <div class="node-grid">
+        <div class="node-card">
+          <div class="node-icon" style="background:#D1FAE5;">▶</div>
+          <h4>开始节点</h4>
+          <p>每个工作流的起点，定义用户的输入变量（如：用户问题、上传的文件）。</p>
+        </div>
+        <div class="node-card">
+          <div class="node-icon" style="background:var(--dify-bg);">🧠</div>
+          <h4>LLM 节点</h4>
+          <p>调用大语言模型（GPT、Claude 等），配置系统提示词，输入内容，获取 AI 生成的结果。</p>
+        </div>
+        <div class="node-card">
+          <div class="node-icon" style="background:#FEF9C3;">🔍</div>
+          <h4>知识检索节点</h4>
+          <p>从你上传的知识库中检索相关内容，把检索结果传给 LLM，实现基于真实文档的回答。</p>
+        </div>
+        <div class="node-card">
+          <div class="node-icon" style="background:#FDF4FF;">⚖</div>
+          <h4>条件分支节点</h4>
+          <p>像代码里的 if-else。根据某个变量的值，决定走哪条路。例如：用户评分>4 → 感谢，否则 → 安抚。</p>
+        </div>
+        <div class="node-card">
+          <div class="node-icon" style="background:#ECFEFF;">🔌</div>
+          <h4>HTTP 请求节点</h4>
+          <p>向任意外部 API 发请求。比如：查询天气、调用企业数据库、向钉钉发通知。</p>
+        </div>
+        <div class="node-card">
+          <div class="node-icon" style="background:#F1F5F9;">💻</div>
+          <h4>代码节点</h4>
+          <p>当节点不够用时，可以写几行 Python 代码做数据处理，比如格式化日期、计算数值。</p>
+        </div>
+        <div class="node-card">
+          <div class="node-icon" style="background:#FEE2E2;">🔄</div>
+          <h4>循环节点</h4>
+          <p>对一个列表中的每个元素重复执行相同操作。例如：批量分析 10 份合同，每份合同走一遍流程。</p>
+        </div>
+        <div class="node-card">
+          <div class="node-icon" style="background:#FFF7ED;">📝</div>
+          <h4>变量赋值节点</h4>
+          <p>在工作流中途修改或合并变量的值，为后续节点做数据整合。</p>
+        </div>
+        <div class="node-card">
+          <div class="node-icon" style="background:#F0FDF4;">⏹</div>
+          <h4>结束节点</h4>
+          <p>工作流的终点，定义最终输出给用户的内容（直接输出文本或引用某个变量）。</p>
+        </div>
+      </div>
+
+      <h3>🔗 节点连接规则</h3>
+      <div class="flow-diagram">
+        <div class="flow-row" style="margin-bottom:.5rem;">
+          <div style="text-align:center;min-width:100px;">
+            <div class="flow-box">节点 A</div>
+            <div style="font-size:.72rem;color:var(--muted);margin-top:4px;">输出：{{result}}</div>
+          </div>
+          <div class="flow-arrow" style="margin:0 .75rem;">────→</div>
+          <div style="text-align:center;min-width:100px;">
+            <div class="flow-box blue">节点 B</div>
+            <div style="font-size:.72rem;color:var(--muted);margin-top:4px;">输入：{{result}}</div>
+          </div>
+          <div class="flow-arrow" style="margin:0 .75rem;font-size:.9rem;color:var(--muted);">A 的输出 = B 的输入</div>
+        </div>
+        <p style="font-size:.82rem;color:var(--muted);margin:0;text-align:center;">
+          ⚡ 重要：连接线不只是视觉上的箭头，它代表「数据传递」。节点 A 产生的变量，可以在节点 B 的配置中用 <code>{{变量名}}</code> 引用。
+        </p>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 模块五：第一个工作流 ─────────────────────────── -->
+    <div class="section" id="first-flow">
+      <div class="section-header">
+        <div class="section-icon green">⚡</div>
+        <div>
+          <div class="section-title">模块五：搭建你的第一个工作流（15 分钟）</div>
+          <div class="section-subtitle">目标：搭一个「文本摘要生成器」，输入长文章，输出摘要</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-success">
+        <div class="infobox-icon">🎯</div>
+        <div class="infobox-body">
+          <div class="infobox-title">完成标准</div>
+          在 Dify 画布上，能看到 <strong>开始 → LLM → 结束</strong> 三个节点连接好，输入一段文字后，能输出 AI 生成的摘要。
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step step-dify">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>新建工作流应用</h4>
+            <p>登录 Dify → 点击「创建应用」→ 选择「工作流」类型 → 填写名称「文章摘要生成器」→ 点击确认。</p>
+          </div>
+        </div>
+        <div class="step step-dify">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>配置「开始节点」——定义输入</h4>
+            <p>点击画布上已有的「开始」节点 → 右侧面板中点击「+添加变量」→ 变量名填 <code>article</code>，类型选「文本」，显示名称填「文章内容」→ 保存。</p>
+          </div>
+        </div>
+        <div class="step step-dify">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>添加 LLM 节点</h4>
+            <p>从左侧节点库拖拽「LLM」节点到画布 → 用鼠标从「开始」节点右侧的连接点拖出一条线，连接到 LLM 节点左侧。</p>
+          </div>
+        </div>
+        <div class="step step-dify">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>配置 LLM 节点——写提示词</h4>
+            <p>点击 LLM 节点 → 右侧面板选择模型（如 gpt-4o-mini）→ 在「系统提示词」填写：</p>
+            <div class="prompt-card">
+              <div class="prompt-header">
+                <span class="prompt-title">系统提示词 (System Prompt)</span>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-card').querySelector('.prompt-pre').textContent)">复制</button>
+              </div>
+              <pre class="prompt-pre">你是一个专业的文章摘要助手。请将用户提供的文章，提炼成一份简洁、准确的中文摘要，要求：
+1. 摘要控制在 200 字以内
+2. 保留核心观点和关键数据
+3. 使用清晰的分段展示</pre>
+            </div>
+            <p>在「用户消息」框中，点击「插入变量」→ 选择 <code>article</code>（就是开始节点定义的输入变量）。</p>
+          </div>
+        </div>
+        <div class="step step-dify">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>连接结束节点</h4>
+            <p>画布上已有「结束」节点 → 将 LLM 节点连接到结束节点 → 点击结束节点，在右侧「输出内容」选择 LLM 节点的输出变量。</p>
+          </div>
+        </div>
+        <div class="step step-dify">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <h4>测试运行！</h4>
+            <p>点击右上角「▶ 运行」→ 在弹出的输入框中粘贴一段文章 → 点击「运行」→ 查看每个节点的输入/输出和最终结果。🎉</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-inline">💡 小技巧：按住 Ctrl+Z 可以撤销，不用担心操作失误</div>
+    </div>
+
+    <!-- ─────────────────────────── 实战① ─────────────────────────── -->
+    <div class="section" id="project1">
+      <div class="section-header">
+        <div class="section-icon blue">🏗</div>
+        <div>
+          <div class="section-title">实战项目①：智能客服机器人（含知识库）</div>
+          <div class="section-subtitle">目标：搭建一个能回答产品问题、不乱编的客服 AI</div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-warn">
+        <div class="infobox-icon">⚠️</div>
+        <div class="infobox-body">
+          <div class="infobox-title">为什么要用知识库？</div>
+          直接用 LLM 回答客户问题，AI 可能会「幻觉」——编出不存在的产品信息。
+          加入知识库后，AI 先查你上传的文档，再基于真实内容作答，避免出错。
+        </div>
+      </div>
+
+      <h3>🏗 工作流设计图</h3>
+      <div class="workflow-demo">
+        <div class="wf-row">
+          <div class="wf-node">
+            <div class="wf-node-box start">▶ 开始</div>
+            <div class="wf-label">用户输入问题</div>
+          </div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-node">
+            <div class="wf-node-box kb">🔍 知识检索</div>
+            <div class="wf-label">从文档中找相关内容</div>
+          </div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-node">
+            <div class="wf-node-box llm">🧠 LLM 回答</div>
+            <div class="wf-label">基于文档内容作答</div>
+          </div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-node">
+            <div class="wf-node-box cond">⚖ 判断置信度</div>
+            <div class="wf-label">是否找到相关内容</div>
+          </div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-node">
+            <div class="wf-node-box end">⏹ 输出答案</div>
+            <div class="wf-label">返回给用户</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>📋 分步构建指南</h3>
+      <div class="steps">
+        <div class="step step-dify">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>创建知识库</h4>
+            <p>进入 Dify 左侧菜单「知识库」→「创建知识库」→ 上传你的产品文档（PDF/Word/TXT 均可）→ 选择「自动分段」→ 等待索引完成（通常 1-5 分钟）。</p>
+            <div class="infobox infobox-tip" style="margin-top:.75rem;">
+              <div class="infobox-icon">💡</div>
+              <div class="infobox-body">建议把文档整理清楚再上传：一个知识库只放同类文档（如：产品手册、FAQ、价格表），这样检索更准确。</div>
+            </div>
+          </div>
+        </div>
+        <div class="step step-dify">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>新建聊天助手应用</h4>
+            <p>「创建应用」→ 选择「聊天助手」→ 在「编排」页面，点击「上下文」→「添加」→ 选择你刚才创建的知识库。</p>
+          </div>
+        </div>
+        <div class="step step-dify">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>写系统提示词</h4>
+            <div class="prompt-card">
+              <div class="prompt-header">
+                <span class="prompt-title">系统提示词模板</span>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-card').querySelector('.prompt-pre').textContent)">复制</button>
+              </div>
+              <pre class="prompt-pre">你是【公司名称】的专业客服助手，名字叫「小飞」。
+
+【行为准则】
+1. 只基于提供的知识库内容回答问题，不要编造信息
+2. 如果知识库中找不到相关内容，请如实说「这个问题我需要帮你转接人工客服确认」
+3. 回答要简洁、友好、专业
+4. 如果用户的问题不清楚，先确认再回答
+
+【上下文】
+{{#context#}}（这里会自动填入从知识库检索到的相关内容）</pre>
+            </div>
+          </div>
+        </div>
+        <div class="step step-dify">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>调整检索设置</h4>
+            <p>点击知识库右侧的「设置」→ 检索方式选「混合检索」（语义+关键词，效果最好）→ TopK 设置为 3-5（检索最相关的 3-5 段）→ 相似度阈值设 0.5。</p>
+          </div>
+        </div>
+        <div class="step step-dify">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>测试 & 发布</h4>
+            <p>在右侧预览框中测试几个典型问题 → 如果回答不准确，检查知识库内容是否完整 → 满意后点「发布」→ 可以获得分享链接或 API 地址。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="infobox infobox-success">
+        <div class="infobox-icon">🎉</div>
+        <div class="infobox-body">
+          <div class="infobox-title">恭喜！你的第一个 RAG 客服已完成</div>
+          现在，无论用户问什么，AI 都会先去你的文档里找答案，不会乱编。
+          你可以把分享链接发给团队测试，收集反馈后继续优化知识库内容。
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 实战② ─────────────────────────── -->
+    <div class="section" id="project2">
+      <div class="section-header">
+        <div class="section-icon orange">🏗</div>
+        <div>
+          <div class="section-title">实战项目②：文档自动分析系统</div>
+          <div class="section-subtitle">目标：上传合同/报告，AI 自动提取关键信息并生成结构化摘要</div>
+        </div>
+      </div>
+
+      <h3>🏗 工作流设计图</h3>
+      <div class="workflow-demo">
+        <div class="wf-row">
+          <div class="wf-node">
+            <div class="wf-node-box start">▶ 开始</div>
+            <div class="wf-label">上传文档</div>
+          </div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-node">
+            <div class="wf-node-box code">💻 文档解析</div>
+            <div class="wf-label">提取文本内容</div>
+          </div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-node">
+            <div class="wf-node-box llm">🧠 信息提取</div>
+            <div class="wf-label">提取关键字段</div>
+          </div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-node">
+            <div class="wf-node-box llm">🧠 摘要生成</div>
+            <div class="wf-label">生成结构化摘要</div>
+          </div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-node">
+            <div class="wf-node-box end">⏹ 输出报告</div>
+            <div class="wf-label">Markdown 格式</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>🔑 核心提示词模板</h3>
+      <div class="prompt-card">
+        <div class="prompt-header">
+          <span class="prompt-title">信息提取提示词（合同分析）</span>
+          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.closest('.prompt-card').querySelector('.prompt-pre').textContent)">复制</button>
+        </div>
+        <pre class="prompt-pre">请从以下合同文本中，提取关键信息，以 JSON 格式输出：
+
+合同文本：
+{{doc_content}}
+
+请提取并输出以下字段（如找不到该信息，值填 "未提及"）：
+```json
+{
+  "甲方": "",
+  "乙方": "",
+  "合同金额": "",
+  "付款方式": "",
+  "交付日期": "",
+  "违约条款": "",
+  "特殊条款": []
+}
+```
+只输出 JSON，不要额外解释。</pre>
+      </div>
+
+      <div class="card-grid card-grid-2" style="margin-top:1.25rem;">
+        <div class="card card-accent-blue">
+          <h4>📌 适用场景扩展</h4>
+          <ul>
+            <li>合同审查（自动提取甲方/金额/条款）</li>
+            <li>简历筛选（批量提取关键技能/经验）</li>
+            <li>财务报表分析（提取核心指标）</li>
+            <li>会议纪要整理（提取决议/行动项）</li>
+          </ul>
+        </div>
+        <div class="card card-accent-green">
+          <h4>⚡ 批量处理升级版</h4>
+          <p>在「开始节点」改为「批量运行」模式，上传一个包含多个文档路径的列表，配合「循环节点」，可以一次性处理几十份文件，大幅提升效率。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────── 进阶技巧 ─────────────────────────── -->
+    <div class="section" id="tips">
+      <div class="section-header">
+        <div class="section-icon teal">💡</div>
+        <div>
+          <div class="section-title">进阶技巧 & 常见问题</div>
+          <div class="section-subtitle">用好这些技巧，效率提升 3 倍</div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-2">
+        <div class="card card-accent-purple">
+          <h4>🐛 调试技巧</h4>
+          <ul>
+            <li>单节点测试：点击节点右上角「▶」，单独测试该节点不用全流程跑</li>
+            <li>查看中间变量：运行后点击节点，可看到每步的实际输入/输出</li>
+            <li>开启「记录日志」：在工作流设置中开启，自动保存每次运行记录</li>
+          </ul>
+        </div>
+        <div class="card card-accent-blue">
+          <h4>🎛 提示词优化</h4>
+          <ul>
+            <li>给 AI 一个明确角色：「你是...」比「请帮我...」效果好</li>
+            <li>指定输出格式：「以 JSON 格式输出」「用 Markdown 标题分段」</li>
+            <li>给例子：「例如：输入 A，输出 B」效果最稳定</li>
+            <li>限制范围：「只基于以下内容回答，不要添加额外信息」</li>
+          </ul>
+        </div>
+        <div class="card card-accent-green">
+          <h4>🚀 发布 & API 集成</h4>
+          <ul>
+            <li>发布为网页：点「发布」→「运行」，获得可分享的聊天链接</li>
+            <li>获取 API：在「访问 API」页面，获取 API Key 和调用示例</li>
+            <li>嵌入网页：Dify 提供 iframe 代码，可直接嵌入任何网页</li>
+            <li>Webhook 触发：配置 HTTP 节点监听，实现事件驱动自动化</li>
+          </ul>
+        </div>
+        <div class="card card-accent-orange">
+          <h4>⚠️ 常见报错及解决</h4>
+          <ul>
+            <li><strong>「变量未定义」</strong>：检查前一个节点是否已定义该变量，名称是否拼写一致</li>
+            <li><strong>「知识库无结果」</strong>：降低相似度阈值，或检查文档内容是否已成功索引</li>
+            <li><strong>「超出 Token 限制」</strong>：在 LLM 节点设置最大输入长度，或先用代码节点截断</li>
+            <li><strong>「API 超时」</strong>：HTTP 节点增加超时时间，或添加重试逻辑</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 学习清单 -->
+      <h3>✅ 掌握检查清单</h3>
+      <div class="card" style="padding:1.5rem;">
+        <ul class="checklist">
+          <li><div class="check-box">✓</div>能创建并配置一个包含「开始→LLM→结束」的基础工作流</li>
+          <li><div class="check-box">✓</div>能上传文档并创建知识库，配置知识检索节点</li>
+          <li><div class="check-box">✓</div>能在节点间正确引用变量（<code>{{变量名}}</code> 语法）</li>
+          <li><div class="check-box">✓</div>能使用条件分支节点做逻辑判断</li>
+          <li><div class="check-box">✓</div>能单独测试单个节点，查看中间输出</li>
+          <li><div class="check-box">✓</div>能将应用发布并获取 API Key</li>
+          <li><div class="check-box">✓</div>能独立完成智能客服机器人或文档分析系统</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="dify-cta">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🧩</div>
+      <h3>Dify 学完了？来学 RPA！</h3>
+      <p>掌握 Dify（AI 大脑）后，学习影刀 RPA（执行手脚），组合起来打造完整 Agent 解决方案。</p>
+      <div class="cta-buttons">
+        <a href="../rpa/" class="cta-btn-primary">🤖 开始 RPA 培训</a>
+        <a href="/training/agent-dev/" class="cta-btn-outline">← 返回 Agent 总览</a>
+        <a href="/contact" class="cta-btn-outline">📞 预约定制培训</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<a href="#" class="back-top" title="回到顶部">↑</a>
+
+<script>
+  // Active sidebar highlight
+  const links = document.querySelectorAll('.sidebar-nav a');
+  const sections = document.querySelectorAll('.section, .session-hero');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const id = e.target.id;
+        const active = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.25 });
+  sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
