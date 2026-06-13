@@ -1,5 +1,742 @@
 // Static blog data shared between Blog.jsx and BlogPost.jsx
 export const POSTS = [
+  // ── Claude Loop × Harness 系列（2026-06） ───────────────────────────────────
+  {
+    slug: 'claude-agent-loop-ai-coding-paradigm-shift',
+    category: 'Engineering',
+    categoryColor: '#4A9E7A',
+    date: '2026-06-13',
+    readTimeZh: '9 分钟',
+    readTimeEn: '9 min read',
+    authorZh: '陈思远',
+    authorEn: 'Chen Siyuan',
+    authorTitleZh: '高级 AI 工程师',
+    authorTitleEn: 'Senior AI Engineer',
+    authorAvatar: '陈',
+    authorColor: '#4A9E7A',
+    titleZh: '从 Chat 到 Loop：Claude 的 Agentic 循环如何重新定义 AI 编程【系列一】',
+    titleEn: "From Chat to Loop: How Claude's Agentic Cycle Redefines AI Coding [Series 1]",
+    excerptZh: 'AI 编程工具正在经历一次范式跃迁——从"问答式助手"进化为"循环执行的 Agent"。Claude 的 Agentic Loop 是这场变革的核心机制：感知→思考→行动→观察，周而复始，直到任务完成。作为一名每天使用这套工具的工程师，我来拆解它真正改变了什么。',
+    excerptEn: "AI coding tools are undergoing a paradigm shift — from question-and-answer assistants to loop-executing agents. Claude's Agentic Loop is the core mechanism: perceive → reason → act → observe, repeating until the task is done. As an engineer who uses these tools daily, I break down what has truly changed.",
+    tagsZh: ['Agentic Loop', 'Claude Code', 'AI 编程', '智能体', '工程实践'],
+    tagsEn: ['Agentic Loop', 'Claude Code', 'AI Coding', 'Agent', 'Engineering Practice'],
+    contentZh: `## 为什么"聊天"不够用了
+
+两年前，我们把 AI 当搜索引擎用——粘贴代码，问"这段为什么报错？"，复制答案，继续写。
+
+今天，情况完全不同了。
+
+当我在 Claude Code 里说"帮我把 user-service 的认证模块从 JWT 迁移到 OAuth2，并更新相关测试"，Claude 不会只给我一段代码。它会：
+
+- 读取项目目录结构
+- 定位所有涉及认证的文件
+- 逐步修改代码
+- 运行测试、观察失败
+- 基于失败原因再次修改
+- 重复这个过程，直到测试全绿
+
+这就是 **Agentic Loop**。
+
+---
+
+## Loop 的四个步骤
+
+Claude 的 Agentic Loop 本质上是一个决策-执行-反馈的闭环，分为四个阶段：
+
+### 1. 感知（Perceive）
+Claude 读取当前上下文：文件内容、终端输出、报错信息、用户指令。它看到的不只是你的一句话，而是整个任务的"当前状态"。
+
+### 2. 思考（Reason）
+Claude 在内部推理下一步该做什么。这一步对用户是不可见的，但它会权衡多种选择：先改哪个文件？需不需要先跑测试？哪里可能有副作用？
+
+### 3. 行动（Act）
+Claude 调用工具执行操作：**read_file**（读取文件）、**edit_file**（修改代码）、**run_command**（执行终端命令）、**search_code**（在代码库中搜索）。
+
+### 4. 观察（Observe）
+工具返回结果，Claude 把结果当作新的输入，重新进入"感知"阶段，判断任务是否完成，还是需要继续循环。
+
+---
+
+## Loop 带来了什么真实变化
+
+### 任务复杂度上限大幅提升
+以前，AI 能帮你完成"写一个函数"这种单步任务。现在，"重构整个模块"、"把 REST API 迁移到 GraphQL"这类需要跨多个文件、多个步骤的任务，AI 都可以独立完成。
+
+### 错误自愈成为常态
+这是让我最惊讶的变化。Loop 使得 AI 可以看到自己的错误——它运行代码，发现失败，分析原因，修复，再运行。这个过程有时比我手动调试还快。
+
+### 工程师角色从"编码者"变为"审核者"
+我现在更多的时间花在检查 Claude 的输出是否符合架构意图，而不是自己逐行写代码。这种角色转变对效率的提升是量级的，但也要求工程师有更强的系统性思维。
+
+---
+
+## Loop 的边界：它还不能做什么
+
+诚实地说，Agentic Loop 目前有几个明显的局限：
+
+**上下文窗口限制**：当代码库很大时，Claude 看不到所有文件。它只能在可见的上下文内循环，这意味着复杂的跨仓库任务仍然需要人工协调。
+
+**幻觉累积风险**：如果 Loop 早期做了一个错误假设，后续步骤可能会在错误基础上继续叠加。需要工程师在关键节点介入检查。
+
+**不确定性放大**：单步 AI 的错误影响范围有限；Loop 中的错误可能在多个步骤后才暴露，影响范围更大。这是我们需要用"Harness 思维"来应对的挑战——下一篇文章我的同事李明轩会详细讨论这个话题。
+
+---
+
+## 我在日常开发中如何用好 Loop
+
+经过几个月的实践，我总结了几条个人使用原则：
+
+**任务拆分要明确**：给 Claude 的指令越具体，Loop 的质量越高。"优化性能"这类模糊指令会让 Loop 走偏；"找出 user-list 接口的 N+1 查询并修复"这类明确指令效果好得多。
+
+**在 Loop 中途介入**：不要等 Loop 完全结束再看结果。在关键步骤（如第一次跑测试之后）暂停，确认方向正确，再继续。
+
+**把 Loop 当合作者而非外包**：Loop 很强，但它不了解你们公司的业务逻辑和架构决策。你的判断是它缺失的那部分上下文。
+
+---
+
+## 结语
+
+从 Chat 到 Loop，这不只是 UI 的变化，是 AI 与工程师协作方式的根本性转变。
+
+这个系列我们会从工程师、技术管理者、DevOps 和产品经理四个视角，系统地探讨如何在企业中用好这套新范式。下一篇，来自我们技术副总裁李明轩，他会谈谈如何用"Harness 思维"为 Agent Loop 加上企业级的治理框架。`,
+    contentEn: `## Why "Chat" Is No Longer Enough
+
+Two years ago, we used AI like a search engine — paste some code, ask "why is this failing?", copy the answer, move on.
+
+Today, things are completely different.
+
+When I tell Claude Code "migrate the authentication module in user-service from JWT to OAuth2 and update the relevant tests," Claude doesn't just hand me a code snippet. Instead it:
+
+- Reads the project directory structure
+- Locates all files involved in authentication
+- Modifies code step by step
+- Runs the tests and observes failures
+- Revises based on the failure reasons
+- Repeats the process until all tests pass
+
+This is the **Agentic Loop**.
+
+---
+
+## The Four Stages of the Loop
+
+Claude's Agentic Loop is fundamentally a closed cycle of decision → execution → feedback, proceeding through four phases:
+
+### 1. Perceive
+Claude reads the current context: file contents, terminal output, error messages, user instructions. It is not just reading one sentence — it is reading the entire "current state" of the task.
+
+### 2. Reason
+Claude internally deliberates about the next step. This stage is invisible to the user, but it weighs multiple options: which file to change first, whether to run tests first, where side effects might lurk.
+
+### 3. Act
+Claude calls tools to take action: **read_file** (read a file), **edit_file** (modify code), **run_command** (execute terminal commands such as npm test), **search_code** (search across the codebase).
+
+### 4. Observe
+The tool returns results. Claude treats those results as new input, re-enters the "perceive" stage, and decides whether the task is done or whether another loop iteration is needed.
+
+---
+
+## What the Loop Actually Changes
+
+### Much higher task-complexity ceiling
+Previously, AI could help with single-step tasks like "write a function." Now, multi-file, multi-step tasks such as "refactor an entire module" or "migrate a REST API to GraphQL" can be completed autonomously by the AI.
+
+### Self-healing errors become the norm
+This is the change that surprised me most. The loop lets AI see its own mistakes — it runs the code, sees a failure, analyzes why, fixes it, runs again. Sometimes this is faster than manual debugging.
+
+### Engineer role shifts from "coder" to "reviewer"
+I now spend more time checking whether Claude's output aligns with the architectural intent, and less time writing code line by line myself. This role shift delivers an order-of-magnitude productivity gain, but it also demands stronger systemic thinking from engineers.
+
+---
+
+## The Boundaries: What the Loop Still Cannot Do
+
+Honestly, the Agentic Loop has several notable limitations today:
+
+**Context window constraints**: In a large codebase, Claude cannot see all files. It can only loop within the visible context, which means complex cross-repository tasks still require human coordination.
+
+**Compounding hallucination risk**: If the loop makes a wrong assumption early on, subsequent steps can stack on top of that error. Engineers need to step in at key checkpoints.
+
+**Amplified uncertainty**: A single-step AI error has limited blast radius. An error inside a loop may not surface until several steps later, with a much wider impact area. This is exactly the challenge that the "Harness mindset" addresses — my colleague Li Mingxuan will explore this in depth in the next post.
+
+---
+
+## How I Use the Loop Effectively Day to Day
+
+After several months of practice, I've settled on a few personal principles:
+
+**Be specific when framing tasks**: The more concrete the instruction, the higher the loop quality. Vague instructions like "optimize performance" let the loop drift; precise instructions like "find and fix the N+1 query in the user-list endpoint" work far better.
+
+**Intervene mid-loop**: Don't wait for the loop to finish before reviewing results. Pause at key steps (for example, after the first test run), confirm the direction is correct, then let it continue.
+
+**Treat the loop as a collaborator, not an outsourcer**: The loop is powerful, but it doesn't know your company's business logic or architectural decisions. Your judgment is the missing context it needs.
+
+---
+
+## Closing Thought
+
+From Chat to Loop, this is not just a UI change — it is a fundamental transformation in how AI and engineers collaborate.
+
+This series will systematically explore how to adopt this new paradigm in enterprise settings from four perspectives: engineer, technical leader, DevOps practitioner, and product manager. Next up, our VP of Engineering Li Mingxuan discusses how to apply a "Harness mindset" to build an enterprise-grade governance framework around Agent Loops.`,
+  },
+  {
+    slug: 'harness-mindset-taming-enterprise-ai-agent-loops',
+    category: 'AI',
+    categoryColor: '#7B5EA7',
+    date: '2026-06-12',
+    readTimeZh: '10 分钟',
+    readTimeEn: '10 min read',
+    authorZh: '李明轩',
+    authorEn: 'Li Mingxuan',
+    authorTitleZh: '技术副总裁',
+    authorTitleEn: 'VP of Engineering',
+    authorAvatar: '李',
+    authorColor: '#7B5EA7',
+    titleZh: '驾驭 AI Loop：用 Harness 思维为企业 Agent 加上安全绳【系列二】',
+    titleEn: 'Harnessing the AI Loop: A Governance Framework for Enterprise Agents [Series 2]',
+    excerptZh: 'Claude 的 Agentic Loop 给工程效率带来了质的飞跃，但在企业环境中，"自主执行"本身就是一把双刃剑。Harness 的核心思想——把 AI 的自主性关在可观测、可审计、可回滚的管道里——正是我们应对这个挑战的答案。',
+    excerptEn: 'Claude\'s Agentic Loop delivers a step-change in engineering productivity, but in an enterprise context "autonomous execution" is itself a double-edged sword. The Harness philosophy — confining AI autonomy inside observable, auditable, and rollback-capable pipelines — is our answer to that challenge.',
+    tagsZh: ['Harness', 'AI 治理', 'Agent 管控', '企业安全', '技术管理'],
+    tagsEn: ['Harness', 'AI Governance', 'Agent Control', 'Enterprise Security', 'Tech Leadership'],
+    contentZh: `## 当 Loop 碰上企业现实
+
+陈思远在上一篇文章里很好地描述了 Agentic Loop 的技术机制。作为技术副总裁，我想从另一个视角谈这个问题：当这套循环系统在你们公司的生产代码库上运行时，你准备好了吗？
+
+去年，我们有一次让 Agent Loop 直接在主分支上做了一次"范围受控"的重构。Loop 运行了 23 步，最终确实完成了任务。但它在第 11 步做了一个我们没预见到的决定：为了让测试通过，它修改了一个共享工具库的接口，导致另外三个服务的集成测试在第二天早上才被发现失败。
+
+代价不大，但教训深刻。这让我们开始认真思考：**如何给 Agent Loop 加上企业级的"安全绳"？**
+
+---
+
+## 什么是 Harness 思维
+
+"Harness"这个词的英文原意是"马具"——把马的力量引导到正确方向的工具，而不是限制马的速度。
+
+Harness 作为 CI/CD 平台，把这个理念发挥到了软件交付中：把部署流程关在一套可观测、可控制的管道里，让变更安全地到达生产。
+
+我们把同样的思维应用到 AI Agent 上，形成了"Harness 思想"的核心原则：
+
+**AI 可以有自主性，但自主性必须在可审计的边界内运行。**
+
+---
+
+## 四个关键治理维度
+
+### 1. 可观测性（Observability）
+
+你必须知道 Agent 在每一步做了什么。这意味着：
+
+- **步骤级日志**：记录 Agent 每次调用工具的输入、输出和耗时
+- **意图追踪**：记录 Agent 的推理摘要，而不只是最终结果
+- **影响范围可视化**：哪些文件被读取、修改、删除？哪些命令被执行？
+
+如果你没有这些数据，当出问题时，你只能靠猜测调查原因。
+
+### 2. 权限边界（Permission Boundaries）
+
+Agent Loop 的工具调用权限必须遵循最小权限原则：
+
+- **文件系统**：Agent 只能读写明确授权的目录
+- **命令执行**：白名单制，只允许执行预定义的命令集合
+- **外部服务**：只读权限优先；写操作需要额外确认机制
+- **分支保护**：Agent 永远不能直接推送到 main/master，只能操作特性分支
+
+这些不是"可选项"，是企业部署的前提条件。
+
+### 3. 检查点与人工确认（Checkpoints & Human-in-the-Loop）
+
+并非所有步骤都需要人工确认，但关键节点必须有：
+
+- **高风险操作前**：删除文件、修改数据库 schema、修改共享库
+- **超出预期范围时**：Agent 的操作影响了初始任务范围外的文件
+- **测试失败超过阈值时**：失败用例数量超过预设值，自动暂停等待人工判断
+
+我们在内部把这套机制叫做"Loop 的安全阀"——让 Agent 跑得快，但给它设定了几个它必须停下来问人的地方。
+
+### 4. 回滚能力（Rollback Capability）
+
+任何 Agent Loop 的变更都必须是可回滚的：
+
+- **变更前自动创建快照**：在 Loop 开始前，记录所有目标文件的当前状态
+- **分步回滚**：可以回滚到 Loop 中任意一个检查点，而不只是"全部撤销"
+- **回滚不影响 Git 历史**：使用 revert commit 而不是强制重置，保持历史可追溯
+
+---
+
+## 企业落地的分级策略
+
+不是所有场景都需要最高级别的管控。我们按风险等级把 Agent Loop 的应用场景分为三类：
+
+### 低风险：可以完全自动化
+代码格式化和 lint 修复、生成单元测试用例、文档注释补全、依赖版本升级。这些场景，Agent Loop 可以全自动运行，只需在 PR 创建后给人工一个审核窗口。
+
+### 中风险：需要关键检查点确认
+功能模块重构、API 接口修改、数据库迁移脚本生成。这些场景，Agent 在执行前要展示变更计划，获得人工确认后才能执行。
+
+### 高风险：严格受控，每步可见
+核心业务逻辑修改、安全相关代码变更、基础设施配置修改。这些场景，Agent 只能在只读沙箱中运行，输出作为"草稿建议"，由工程师人工审核后决定是否采纳。
+
+---
+
+## 从"使用 AI"到"治理 AI"
+
+我见过很多公司在引入 AI 编程工具时，把精力全部放在"提效"上，忽视了"治理"。这和早年引入微服务时只考虑拆分不考虑服务网格是同一个错误。
+
+Harness 思想的价值，不在于限制 AI，而在于让 AI 的能力在组织内安全地流动。就像马具让骏马的力量用于奔跑而不是脱缰，Agent 治理框架让 AI 的能力真正服务于团队的目标，而不是成为一个不可预测的风险源。
+
+下一篇，我们的 DevOps 平台工程师赵晓峰会分享他们如何在 Harness 的 CI/CD 管道中具体实现这套治理框架的技术细节。`,
+    contentEn: `## When the Loop Meets Enterprise Reality
+
+Chen Siyuan did an excellent job describing the mechanics of the Agentic Loop in the previous post. As VP of Engineering, I want to approach the question from a different angle: when this loop system is running against your company's production codebase, are you ready?
+
+Last year, we let an Agent Loop perform a "controlled" refactor directly on the main branch. The loop ran for 23 steps and ultimately completed the task. But at step 11 it made a decision we had not anticipated: to make the tests pass, it modified an interface in a shared utility library, causing integration test failures in three other services — failures that weren't discovered until the following morning.
+
+The cost was small, but the lesson was significant. That incident pushed us to seriously think: **how do you put an enterprise-grade safety harness on an Agent Loop?**
+
+---
+
+## What the Harness Mindset Is
+
+The word "harness" literally means horse tack — the equipment that channels a horse's power in the right direction without limiting its speed.
+
+Harness as a CI/CD platform applies this principle to software delivery: it confines the deployment process inside an observable, controllable pipeline so that changes reach production safely.
+
+We apply the same thinking to AI Agents, and that forms the core principle of the "Harness mindset":
+
+**AI can have autonomy, but that autonomy must operate within auditable boundaries.**
+
+---
+
+## Four Key Governance Dimensions
+
+### 1. Observability
+
+You must know what the Agent did at every step. That means:
+
+- **Step-level logs**: Record the input, output, and duration of every tool call the Agent makes
+- **Intent tracing**: Capture a summary of the Agent's reasoning, not just the final result
+- **Impact visibility**: Which files were read, modified, or deleted? Which commands were executed?
+
+Without this data, when something goes wrong you can only guess at the cause.
+
+### 2. Permission Boundaries
+
+The tool-calling permissions of an Agent Loop must follow the principle of least privilege:
+
+- **File system**: The Agent may only read and write directories it has been explicitly authorized to access
+- **Command execution**: Whitelist-based — only a predefined set of commands is permitted
+- **External services**: Read-only by default; write operations require an additional confirmation mechanism
+- **Branch protection**: The Agent must never push directly to main/master, and may only operate on feature branches
+
+These are not optional enhancements — they are prerequisites for enterprise deployment.
+
+### 3. Checkpoints and Human-in-the-Loop
+
+Not every step needs human confirmation, but critical nodes must:
+
+- **Before high-risk operations**: Deleting files, modifying database schemas, modifying shared libraries
+- **When scope expands unexpectedly**: The Agent's actions affect files outside the initial task scope
+- **When test failures exceed a threshold**: The loop automatically pauses for human judgment
+
+We call this internal mechanism the "Loop safety valve" — let the Agent run fast, but set a few spots where it must stop and ask.
+
+### 4. Rollback Capability
+
+Any changes made by an Agent Loop must be reversible:
+
+- **Automatic snapshot before changes**: Before the loop begins, record the current state of all target files
+- **Step-by-step rollback**: Roll back to any checkpoint within the loop, not just "undo everything"
+- **Rollback without disrupting Git history**: Use revert commits rather than force resets to keep history traceable
+
+---
+
+## A Tiered Strategy for Enterprise Adoption
+
+Not every scenario requires maximum control. We categorize Agent Loop use cases into three tiers by risk level:
+
+### Low risk: fully automatable
+Code formatting and lint fixes, generating unit test cases, completing documentation comments, dependency version upgrades. For these the Agent Loop can run fully automatically, with engineers given a review window after the PR is created.
+
+### Medium risk: requires confirmation at key checkpoints
+Feature module refactoring, API interface changes, database migration script generation. The Agent presents its change plan before executing and waits for human confirmation.
+
+### High risk: strictly controlled, every step visible
+Core business logic changes, security-related code changes, infrastructure configuration changes. The Agent operates in a read-only sandbox only, and its output is treated as a "draft proposal" for engineer review.
+
+---
+
+## From "Using AI" to "Governing AI"
+
+I see many companies that, when introducing AI coding tools, focus entirely on productivity gains and overlook governance. This is the same mistake made in the early microservices era.
+
+The value of the Harness mindset is not to constrain AI, but to let AI capability flow safely through the organization. Just as horse tack channels a thoroughbred's strength into running rather than bolting, an Agent governance framework lets AI capability genuinely serve the team's goals rather than becoming an unpredictable risk source.
+
+In the next post, our DevOps Platform Engineer Zhao Xiaofeng shares the technical details of how they implemented this governance framework inside Harness CI/CD pipelines.`,
+  },
+  {
+    slug: 'claude-loop-into-harness-cicd-production',
+    category: 'Engineering',
+    categoryColor: '#4A9E7A',
+    date: '2026-06-11',
+    readTimeZh: '11 分钟',
+    readTimeEn: '11 min read',
+    authorZh: '赵晓峰',
+    authorEn: 'Zhao Xiaofeng',
+    authorTitleZh: 'DevOps 平台工程师',
+    authorTitleEn: 'DevOps Platform Engineer',
+    authorAvatar: '赵',
+    authorColor: '#C0773A',
+    titleZh: '把 Claude Loop 接入 Harness CI/CD：从理念到生产落地【系列三】',
+    titleEn: 'Integrating Claude Loop into Harness CI/CD: From Concept to Production [Series 3]',
+    excerptZh: '上一篇讲了 Harness 思维的框架，这篇讲怎么落地。我们用了三个月时间，把 Claude 的 Agentic Loop 嵌入到 Harness 的流水线里，构建了一套"AI-in-the-pipeline"的工程实践。这里是我们踩过的坑和最终跑通的方案。',
+    excerptEn: "The previous post covered the Harness mindset framework. This one covers how to implement it. We spent three months embedding Claude's Agentic Loop into Harness pipelines, building an AI-in-the-pipeline engineering practice. Here are the pitfalls we hit and the solution that ultimately worked.",
+    tagsZh: ['Harness CI/CD', 'Claude Loop', 'DevOps', '流水线', 'AI 自动化'],
+    tagsEn: ['Harness CI/CD', 'Claude Loop', 'DevOps', 'Pipeline', 'AI Automation'],
+    contentZh: `## 为什么要把 Loop 放进 CI/CD
+
+工程师在本地用 Claude Code 跑 Agentic Loop，体验很好。但这有个根本性的问题：**它是个人行为，不是工程行为。**
+
+没有 CI/CD 的 Loop，意味着：没有一致的执行环境、没有审计日志、没有与代码 review 流程的集成、没有失败时的回滚保障。
+
+把 Loop 放进 Harness CI/CD，是把个人工具变成团队基础设施的关键一步。
+
+---
+
+## 我们的整体架构
+
+我们在 Harness 里构建了一个叫 **AI Agent Stage** 的自定义 Stage 类型，它在标准 CI 流程中插入一个受控的 Claude Loop 执行环境。
+
+整体流程分为五个阶段：
+
+- **触发**：PR 标签触发或手动触发
+- **预检 Stage**：验证任务定义文件、检查目标分支权限、创建文件快照
+- **AI Agent Stage**：在隔离容器中运行 Claude Loop，每步输出结构化日志，超时或异常自动中断
+- **验证 Stage**：运行完整测试套件、静态分析检查、变更范围验证
+- **人工门控**：展示变更摘要和 AI 推理日志，人工批准或拒绝，之后可选合并部署
+
+---
+
+## 核心组件详解
+
+### 任务定义文件（agent-task.yaml）
+
+我们用一个 YAML 文件来定义每次 Agent 任务的边界。这个文件由发起任务的工程师填写，经过 code review 后才能触发 AI Agent Stage。
+
+文件中包含：任务描述（description）、允许访问的路径范围（allowed_paths）、禁止访问的路径（forbidden_paths）、允许执行的命令白名单（如 npm test、npm run lint）、最大步数限制（我们通常设为 40 步）、以及触发人工确认的条件（如变更文件数超过 15、测试失败数超过 5、或尝试访问禁止路径时）。
+
+### 隔离容器环境
+
+Claude Loop 在一个网络隔离的容器中运行，容器内：代码仓库以**只读方式**挂载，一个可写工作区存放 Agent 的修改，只有白名单内的命令可以执行，无法访问外部网络（除 Claude API 外）。
+
+这确保了 Agent 即使"失控"也无法影响生产环境。
+
+### 结构化日志与可观测性
+
+我们为 Claude 的每次工具调用都生成一条结构化日志，包含步骤序号、时间戳、工具名称、输入参数、推理摘要、执行状态和影响的文件列表。这些日志实时流入 Harness 的日志系统，工程师可以在 Pipeline 运行时实时观察每一步。
+
+---
+
+## 我们踩过的三个大坑
+
+### 坑一：没有超时机制的 Loop 会永远跑下去
+
+我们第一版没有设置最大步数和超时。有一次 Claude 陷入了一个"修改→测试失败→修改"的死循环，跑了 87 步，产生了大量垃圾代码。
+
+**解法**：强制限制最大步数（我们用 40 步），超出后自动中断并标记为"需要人工介入"。
+
+### 坑二：变更范围悄悄扩大
+
+Claude 有时会为了解决一个问题，顺手修改了范围外的文件。这在小任务中看起来是好意，但在企业环境中是不可接受的。
+
+**解法**：在任务定义文件中严格定义禁止路径，并在每个工具调用后验证路径合法性。违规调用立即中断 Loop 并报警。
+
+### 坑三：人工门控信息不足导致批准走过场
+
+早期我们的审批步骤只展示一个 diff，工程师批准时只看了有没有明显错误，没有看 AI 的推理过程。"人工审核"变成了形式主义。
+
+**解法**：在审批步骤中同时展示变更 diff、AI 推理摘要日志、测试结果报告。审核时间从平均 30 秒提升到 5 分钟，但质量大幅提升。
+
+---
+
+## 量化效果
+
+我们在这套系统上线后，对三类常见任务做了效果统计：
+
+- **依赖升级任务**：从平均 2 小时工程师时间降至 15 分钟（含审核）
+- **测试用例补全**：覆盖率提升任务从 3 天降至 4 小时
+- **接口文档生成**：从 1 天降至 20 分钟
+
+但更重要的指标是**安全性**：上线 3 个月内，未发生一起因 AI 变更导致的生产事故。这归功于隔离环境和人工门控的组合。
+
+---
+
+## 给 DevOps 团队的建议
+
+**从低风险任务开始**：先让 Agent Loop 做格式化、测试生成这类无风险任务，团队建立信任后再扩大范围。
+
+**治理先于效率**：在 AI Agent Stage 进生产之前，先把日志、权限、回滚机制全部就位。效率可以后来优化，安全事故的代价无法弥补。
+
+**把任务定义文件纳入 code review**：任务定义文件和代码一样重要，必须经过审查才能执行。
+
+下一篇，我们的产品经理林佳佳会从产品和项目交付的视角，讲讲 Loop 时代的需求管理和交付节奏变化。`,
+    contentEn: `## Why Put the Loop Inside CI/CD
+
+Engineers running Claude Code's Agentic Loop locally have a great experience. But there is a fundamental problem: **it is personal behavior, not engineering behavior.**
+
+A loop without CI/CD means: no consistent execution environment, no audit trail, no integration with the code review process, and no rollback protection when things go wrong.
+
+Embedding the loop in Harness CI/CD is the critical step that turns a personal tool into team infrastructure.
+
+---
+
+## Our Overall Architecture
+
+We built a custom Stage type inside Harness called the **AI Agent Stage**, which inserts a controlled Claude Loop execution environment into the standard CI flow.
+
+The overall pipeline has five phases:
+
+- **Trigger**: PR label trigger or manual trigger
+- **Pre-flight Stage**: validate the task definition file, check target branch permissions, create a file snapshot
+- **AI Agent Stage**: run Claude Loop in an isolated container, emit structured logs per step, auto-interrupt on timeout or exception
+- **Validation Stage**: run the full test suite, static analysis, and change scope verification
+- **Human Gate**: show the change summary and AI reasoning log for manual approval or rejection, then optionally merge and deploy
+
+---
+
+## Key Components in Detail
+
+### The task definition file (agent-task.yaml)
+
+We use a YAML file to define the boundaries of each Agent task. This file is authored by the engineer initiating the task and must pass code review before the AI Agent Stage can be triggered.
+
+The file contains: a task description, the list of allowed file paths, forbidden paths, a command whitelist (such as npm test and npm run lint), a maximum step count (we typically set this to 40), and conditions that trigger mandatory human confirmation (such as the changed file count exceeding 15, test failures exceeding 5, or any attempt to access a forbidden path).
+
+### Isolated container environment
+
+The Claude Loop runs inside a network-isolated container. Inside the container: the code repository is mounted **read-only**, a writable workspace holds the Agent's modifications, only whitelisted commands can execute, and there is no external network access except to the Claude API.
+
+This ensures that even if the Agent goes off-track, it cannot affect the production environment.
+
+### Structured logs and observability
+
+We generate a structured log entry for every tool call Claude makes, containing the step number, timestamp, tool name, input parameters, a reasoning summary, execution status, and the list of files affected. These logs stream in real time into Harness's log system so engineers can observe every step while the pipeline is running.
+
+---
+
+## Three Big Pitfalls We Hit
+
+### Pitfall 1: a loop without a timeout runs forever
+
+Our first version had no step limit and no timeout. On one occasion Claude fell into a "modify → test fail → modify" loop and ran for 87 steps, generating a large volume of junk code.
+
+**Fix**: Enforce a hard step limit (we use 40). Once exceeded, the loop auto-interrupts and is flagged as "requires human intervention."
+
+### Pitfall 2: scope silently expanding
+
+Claude would sometimes modify files outside the defined scope while solving a problem. On a small task this looks like helpfulness; in an enterprise context it is unacceptable.
+
+**Fix**: Strictly define forbidden paths in the task definition file and validate path legality after every tool call. Any violation immediately interrupts the loop and triggers an alert.
+
+### Pitfall 3: insufficient information at the Human Gate leads to rubber-stamp approvals
+
+In our early setup the approval step displayed only a diff. Engineers would scan for obvious errors and click through without reviewing the AI's reasoning.
+
+**Fix**: The approval step now displays the change diff, the AI reasoning summary log, and the test result report simultaneously. Average review time grew from 30 seconds to 5 minutes — but quality improved dramatically.
+
+---
+
+## Quantified Outcomes
+
+After the system went live, we measured results across three common task categories:
+
+- **Dependency upgrade tasks**: average engineer time dropped from 2 hours to 15 minutes (including review)
+- **Test coverage completion**: tasks dropped from 3 days to 4 hours
+- **API documentation generation**: dropped from 1 day to 20 minutes
+
+The more important metric is **safety**: in the 3 months since launch, not a single production incident has been caused by an AI-driven change. This is attributable to the combination of the isolated environment and the Human Gate.
+
+---
+
+## Advice for DevOps Teams
+
+**Start with low-risk tasks**: Let the Agent Loop handle zero-risk tasks like formatting and test generation first. Build team confidence before expanding scope.
+
+**Governance before productivity**: Before the AI Agent Stage goes to production, have logging, permissions, and rollback mechanisms all in place.
+
+**Treat the task definition file like code**: It is as important as the code itself and must be reviewed before execution.
+
+Next up, our Product Manager Lin Jiajia discusses how requirements management and delivery cadence change in the Loop era.`,
+  },
+  {
+    slug: 'product-delivery-in-the-agent-loop-era',
+    category: 'Industry',
+    categoryColor: '#C0773A',
+    date: '2026-06-10',
+    readTimeZh: '8 分钟',
+    readTimeEn: '8 min read',
+    authorZh: '林佳佳',
+    authorEn: 'Lin Jiajia',
+    authorTitleZh: 'AI 产品经理',
+    authorTitleEn: 'AI Product Manager',
+    authorAvatar: '林',
+    authorColor: '#C05A78',
+    titleZh: 'Loop 时代的产品交付：当 AI Agent 成为研发主力【系列四】',
+    titleEn: 'Product Delivery in the Loop Era: When AI Agents Drive Development [Series 4]',
+    excerptZh: '当工程师有了 Agentic Loop，产品经理的工作方式也需要跟着变。需求写法变了，排期逻辑变了，验收标准变了，就连"一个迭代能交付什么"这个根本问题的答案也变了。我来聊聊这些变化对产品工作意味着什么。',
+    excerptEn: 'When engineers have an Agentic Loop, the way product managers work needs to evolve too. How requirements are written changes. Sprint logic changes. Acceptance criteria changes. Even the fundamental question of "what can we ship in one iteration" has a different answer.',
+    tagsZh: ['产品管理', 'AI 交付', 'Loop 时代', '需求工程', '迭代节奏'],
+    tagsEn: ['Product Management', 'AI Delivery', 'Loop Era', 'Requirements Engineering', 'Sprint Cadence'],
+    contentZh: `## 一个让我开始重新思考的时刻
+
+三个月前，我们有一个功能需求：给用户管理页面增加批量导出功能，支持 CSV 和 Excel 两种格式。
+
+按照以往的经验，我估计这需要一个工程师大约两天时间。我写好需求文档，排进了下个 Sprint。
+
+结果是：工程师用 Claude Loop 在三个小时内完成了完整功能，包括前端 UI、后端接口、导出逻辑和测试用例。
+
+我当时的第一反应不是高兴，是困惑：**如果这类任务三个小时就能做完，我们的 Sprint 规划逻辑是不是从根本上就错了？**
+
+---
+
+## Loop 改变了"任务大小"的概念
+
+传统的产品规划有一套约定俗成的"任务大小感"：小需求半天，中等需求 2-3 天，复杂功能 1-2 周。
+
+这套感觉是从"人工编码"的经验里校准出来的。但 Agentic Loop 打破了这个校准基础。
+
+不是所有任务都被等比例加速，但有一类任务——**逻辑清晰、边界明确、有充分测试验收条件的功能**——被显著压缩了。
+
+**Loop 适合的任务**（加速效果显著）：CRUD 功能开发、数据导入导出、表单和校验逻辑、接口文档生成、自动化测试补全。
+
+**Loop 效果有限的任务**（仍然需要人工主导）：需要深度理解业务上下文的架构决策、高度创新的交互设计、需要复杂算法的核心功能、涉及多系统协调的复杂集成。
+
+---
+
+## 需求文档必须升级
+
+当 AI Agent 成为研发主力时，需求文档的读者变了。过去，需求文档的主要读者是工程师——他理解业务背景，能从模糊描述中推断意图。但 Agent Loop 需要更精确的输入。
+
+### 差异一：边界必须显性化
+"做一个用户搜索功能"对工程师来说已经足够。但 Agent 需要知道：搜索哪些字段？支持模糊匹配吗？结果上限是多少？是否需要分页？默认排序是什么？这些信息，以前工程师会主动来问，或者凭经验判断。现在，如果需求里没有，Agent 会猜——而猜的结果不一定符合你的期望。
+
+### 差异二：验收条件要可执行
+模糊的验收条件（"界面要美观"、"性能要好"）对 Agent 没有意义。Loop 能够自我验证的验收条件，必须是可测试的：在 1000 条记录下搜索响应时间小于 500 毫秒、输入非法字符时显示错误提示而不是崩溃、导出文件符合标准格式等。
+
+### 差异三：错误路径要明确描述
+工程师会主动思考"如果用户输入了什么奇怪的东西"。Loop 如果没有被告知，可能只实现 happy path。产品文档需要明确描述错误场景和期望行为。
+
+---
+
+## 迭代节奏的变化
+
+**开发周期压缩了，但审核周期占比上升了**
+
+过去，一个两周 Sprint 里，开发占 60%，测试和 review 占 40%。现在，同等工作量下，开发被 Loop 压缩到 30%，但测试、审核、人工确认的时间比例上升到 70%。
+
+这不是坏事，这是正确的事。工程质量的瓶颈从"写代码速度"转移到了"审核质量"。
+
+**"可做的事情"的范围扩大了**
+
+过去，一个 Sprint 里我必须严格控制范围，因为每个新增需求都意味着工程师时间。现在，某些"边缘功能"可以在一个 Sprint 里顺手完成，不需要单独排期。这给产品规划带来了新的灵活性，但也需要 PM 更好地判断"顺手做"和"本末倒置"的边界。
+
+---
+
+## 对产品工作的三个新要求
+
+### 1. 学会写"Agent-ready 需求"
+能够把业务需求转化为边界清晰、验收可测的精确描述，是这个时代产品经理的核心竞争力之一。这不只是写作技巧，更是对业务的深度理解——你必须提前想清楚所有边界条件，因为工程师不再是那个帮你补全细节的人了。
+
+### 2. 理解 Harness 治理框架，参与验收
+产品经理需要理解 AI Agent 的工作边界：什么任务适合放给 Loop，什么任务需要人工主导。更重要的是，在人工门控环节，PM 应该作为业务逻辑的审核者参与进来，而不只是工程师在技术层面做审核。
+
+### 3. 重新定义"完成"的标准
+Loop 生成的代码可能技术上没有错误，但不符合产品意图。PM 需要更积极地参与验收过程，确保"能跑"和"符合预期"之间的差距被识别和弥补。
+
+---
+
+## 结语：PM 的角色在 Loop 时代更重要，不是更轻松
+
+有些人认为 AI 的提效会让产品工作变轻松——毕竟工程师"更快了"。但我的体验恰恰相反：Loop 时代，PM 需要在需求阶段投入更多精力，在验收阶段承担更多责任，在产品规划上做出更精准的判断。
+
+AI 加速的不是产品工作，而是把产品工作的质量要求提高了一个等级。
+
+这个系列到这里告一段落。从工程师、技术管理者、DevOps 到产品经理，我们尝试从四个角度描述 Claude Loop 和 Harness 思维在企业落地的全貌。希望这些第一手的实践经验，对你们有参考价值。`,
+    contentEn: `## A Moment That Made Me Rethink Everything
+
+Three months ago we had a feature request: add bulk export functionality to the user management page, supporting both CSV and Excel formats.
+
+Based on past experience, I estimated this would take an engineer about two days. I wrote the requirements document and slotted it into the next sprint.
+
+What actually happened: the engineer used Claude Loop to complete the full feature — frontend UI, backend endpoint, export logic, and test cases — in three hours.
+
+My first reaction wasn't happiness. It was confusion: **if this kind of task can be done in three hours, is our sprint planning logic fundamentally broken?**
+
+---
+
+## The Loop Changes What "Task Size" Means
+
+Traditional product planning has an ingrained sense of task sizing: small requirements take half a day, medium ones take 2-3 days, complex features take 1-2 weeks.
+
+This intuition was calibrated against hand-coding experience. The Agentic Loop has invalidated that calibration.
+
+One category of task — **features with clear logic, well-defined boundaries, and sufficient testable acceptance criteria** — has been dramatically compressed.
+
+**Tasks where Loop excels** (significant acceleration): CRUD feature development, data import and export, forms and validation logic, API documentation generation, automated test coverage completion.
+
+**Tasks where Loop is less effective** (still require human leadership): architectural decisions requiring deep business context, highly innovative interaction design, core features requiring complex algorithms, complex integrations involving multi-system coordination.
+
+---
+
+## Requirements Documents Must Level Up
+
+When an AI Agent is driving development, the audience for requirements documents has changed. Previously the primary reader was an engineer who understood the business context and could infer intent from ambiguous descriptions. An Agent Loop needs more precise input.
+
+### Difference 1: Boundaries must be explicit
+"Build a user search feature" is enough for an engineer. The Agent needs to know: which fields are searchable? Is fuzzy matching supported? What is the result limit? Is pagination required? What is the default sort order? If the requirements don't say, the Agent will guess — and the guesses may not match your intent.
+
+### Difference 2: Acceptance criteria must be executable
+Vague acceptance criteria ("the UI should look nice," "performance should be good") are meaningless to an Agent. Acceptance criteria must be testable: search response time under 500 milliseconds with 1000 records, invalid character input showing an error rather than crashing, exported files conforming to standard formats.
+
+### Difference 3: Error paths must be explicitly described
+Engineers proactively think about edge cases. A loop that has not been told about them may implement only the happy path. Product documents must explicitly describe error scenarios and expected behavior.
+
+---
+
+## How Sprint Cadence Has Changed
+
+**Development cycles shortened, but review cycle proportion increased**
+
+Previously, in a two-week sprint, development took 60% and testing plus review took 40%. Now, for equivalent scope, the Loop compresses development to 30%, but testing, review, and human confirmation account for 70%.
+
+This is not a bad thing. It is the right thing. The bottleneck for engineering quality has shifted from "speed of writing code" to "quality of review."
+
+**The scope of "what we can do" has expanded**
+
+Previously I had to strictly control sprint scope because every added requirement meant engineer time. Now, certain "edge features" can be completed within a sprint without separate scheduling. This brings new flexibility to product planning, but also requires PMs to develop better judgment about scope creep.
+
+---
+
+## Three New Demands on Product Work
+
+### 1. Learn to write "Agent-ready requirements"
+The ability to translate business requirements into precise descriptions with clear boundaries and testable acceptance criteria is one of the core competencies of a product manager in this era. You must think through all boundary conditions upfront, because the engineer is no longer the person who fills in the details for you.
+
+### 2. Understand the Harness governance framework and participate in acceptance
+Product managers need to understand the working boundaries of AI Agents: which tasks are appropriate for the Loop, and which require human leadership. At the Human Gate stage, PMs should participate as reviewers of business logic, not just leave technical review to engineers.
+
+### 3. Redefine what "done" means
+Code generated by a Loop may be technically error-free but not match the product intent. PMs need to participate more actively in the acceptance process, ensuring the gap between "it runs" and "it meets expectations" is identified and closed.
+
+---
+
+## Closing Thought: The PM Role Is More Important in the Loop Era, Not Easier
+
+Some people think AI-driven productivity gains will make product work easier. My experience is the opposite: in the Loop era, PMs need to invest more effort at the requirements stage, take more responsibility at the acceptance stage, and make more precise judgments in product planning.
+
+AI does not accelerate product work. It raises the quality bar for product work by one full level.
+
+This concludes our four-part series. From engineer, technical leader, and DevOps practitioner to product manager, we have tried to describe the complete picture of how Claude Loop and the Harness mindset land in an enterprise context. We hope these first-hand practical experiences serve as a useful reference for your own journey.`,
+  },
   {
     slug: 'mcp-protocol-enterprise-ai-connectivity-2026',
     category: 'Engineering',
