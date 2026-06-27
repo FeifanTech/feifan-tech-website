@@ -5292,5 +5292,441 @@ When any metric triggers an alert, immediately initiate root cause analysis — 
 In my experience, the most undervalued role in AI project delivery is the **AI Product Manager** — someone who can speak both business and technical language, acting as a translator between client ambiguity and engineering team quantification.
 
 Without this role, the success rate of AI project delivery drops significantly. This is the most consistent pattern I've observed across 30+ projects.`,
+  },,
+  {
+    slug: 'loop-engineering-intro-2026',
+    category: 'Engineering',
+    categoryColor: '#4A9E7A',
+    date: '2026-06-20',
+    readTimeZh: '9 分钟',
+    readTimeEn: '9 min read',
+    authorZh: '谢记年',
+    authorEn: 'Xie Jinian',
+    authorTitleZh: '联合创始人 & 首席技术官',
+    authorTitleEn: 'Co-Founder & CTO',
+    authorAvatar: 'XJ',
+    authorColor: '#5B8DB8',
+    titleZh: 'Loop Engineering：当你不再提示 AI，而是设计提示 AI 的系统',
+    titleEn: 'Loop Engineering: Stop Prompting Your Agent — Design the System That Does It',
+    excerptZh: '提示工程、上下文工程、线束工程……AI 工程术语的演进从未停歇。但 Loop Engineering 不是下一个热词，它代表的是一次根本性的角色转变：从"坐在键盘前的人"变成"设计键盘后面系统的人"。',
+    excerptEn: 'Prompt engineering, context engineering, harness engineering — the terminology keeps evolving. But Loop Engineering isn\'t just the next buzzword. It represents a fundamental role shift: from the person at the keyboard to the person who designs the system behind the keyboard.',
+    tagsZh: ['Loop Engineering', 'AI Agent', '自动化', '系统设计'],
+    tagsEn: ['Loop Engineering', 'AI Agents', 'Automation', 'System Design'],
+    contentZh: `## 一个定义，两句话
+
+2026 年 6 月，三位工程师在同一周独立说出了同一件事。
+
+Peter Steinberger（OpenClaw 作者）写道：我们不应该再提示编程智能体，而应该设计提示它们的循环。Anthropic Claude Code 负责人 Boris Cherny 说：他不再直接提示 Claude，而是让循环运行起来，他的工作是写循环。Addy Osmani（Google Chrome 工程师）把这件事命名为 **Loop Engineering**，并给出了一个一行定义：
+
+> **Loop engineering is replacing yourself as the person who prompts the agent, and designing the system that does it instead.**
+
+翻译成中文：Loop Engineering 是把你自己从"提示智能体的人"这个位置上移走，转而设计一个自动完成这件事的系统。
+
+---
+
+## 为什么这次不一样
+
+提示工程假设你坐在键盘前，一行行指挥智能体。上下文工程假设你更擅长给智能体装配信息。线束工程假设你精心搭建了智能体运行的脚手架。
+
+这三种工程的共同假设是：**有一个人在环路里**。
+
+Loop Engineering 删掉了这个假设。从它的视角看，你不是在驾驶一辆车，你是在设计一台能自己驾驶的车。你不再在循环内部，而是在循环外部——构建这个循环本身。
+
+这一转变之所以在 2026 年 6 月同时被三个人独立命名，不是因为突然有了什么技术突破，而是因为三个条件同时成熟了：
+- 编程智能体已经可靠到能独立完成非平凡任务而无需人类监督
+- 主流框架（Claude Code、GitHub Copilot Workspace 等）已经内置了调度原语
+- 单次智能体运行的成本已经低到可以反复、定时触发而不显浪费
+
+---
+
+## 一个循环的五个动作
+
+论文作者将一次循环迭代分解为五个基本动作：
+
+### 1. Discovery（发现）
+循环需要自己找到要做的工作。不是等你告诉它，而是主动去看：有哪些新 PR 待审查？有哪些测试失败了？有哪些监控告警被触发？
+
+### 2. Handoff（交接）
+发现工作后，循环需要把它交给合适的智能体。这不是简单的路由——好的交接包含足够的上下文，让接收方智能体知道"我为什么要做这件事"，而不只是"做什么"。
+
+### 3. Verification（验证）
+智能体完成工作后，循环需要独立验证结果。**这是最容易被忽视的一步**——让产生结果的同一个智能体来评估结果，就像让学生给自己的考卷打分，结果总是偏高。
+
+### 4. Persistence（持久化）
+验证通过的结果需要被保存到某个地方——代码仓库、数据库、工单系统——而不是停留在上下文窗口里随着会话结束而消失。
+
+### 5. Scheduling（调度）
+循环需要知道什么时候再次运行。是每 15 分钟？每次有新提交？每天凌晨 2 点？调度决策隐藏着真正的业务逻辑。
+
+---
+
+## 飞凡的实践：从外呼平台到质检循环
+
+以我们的智能合规外呼平台为例，早期版本需要质量分析师每天人工抽检 3% 的通话录音。这是一个典型的"人在环路里"模式：
+
+\`\`\`
+人工抽取样本 → 人工听录音 → 人工打分 → 人工汇报
+\`\`\`
+
+改造为 Loop Engineering 后，整个流程变成：
+
+\`\`\`
+调度触发（每小时）
+  → Discovery：拉取过去 1 小时的通话记录
+  → Handoff：将每通电话交给语音转写 + 合规检测智能体
+  → Verification：独立评分智能体对结果打分（与生成智能体解耦）
+  → Persistence：结果写入质检数据库，异常通话自动创建工单
+  → Scheduling：下一个小时继续
+\`\`\`
+
+结果是：质检覆盖率从 3% 提升到 **100%**，人工质检成本下降 **82%**，同时发现了之前随机抽检完全遗漏的一类系统性合规风险。
+
+---
+
+## 论文中提到的现实案例：Stripe 的规模
+
+Stripe 的工程团队运行着一个循环，每周自动合并超过 **1,300 个由机器写成的 Pull Request**。
+
+这不是实验室数字。这是一个生产级别的 Loop，它：
+- 自己发现需要更新的依赖
+- 自己生成变更代码
+- 自己运行测试验证
+- 自己将通过验证的 PR 合并进主干
+
+当然，这个 Loop 花了 Stripe 的工程师很长时间设计、调试和维护。但一旦运行，它在替代的是数十名工程师每周数百小时的重复劳动。
+
+---
+
+## 四个隐性成本
+
+Loop Engineering 不是银弹。论文作者诚实地列出了四个会悄悄积累的成本：
+
+**1. Verification Debt（验证债）**：越来越多的循环在运行，但验证步骤越来越草率。没有人在怀疑 AI 的输出。
+
+**2. Comprehension Rot（理解衰退）**：团队越来越难以回答"这个循环实际在做什么"。知识只存在于提示词和调度配置里。
+
+**3. Cognitive Surrender（认知投降）**：当循环一直正常运行时，没有人保持足够的警觉去注意它什么时候开始悄悄出错。
+
+**4. Token Blowout（Token 爆炸）**：一个调度不当的循环，每小时可以烧掉比预期多 50 倍的 Token。
+
+---
+
+## 结语
+
+Loop Engineering 不是要替代工程师，而是改变工程师的工作层次——从写代码，到设计写代码的系统；从提示智能体，到设计提示智能体的循环。
+
+这个转变和工业革命时代从"操作机器"到"设计机器"的转变有相似的逻辑。机器比人更快、更持久、更一致——但机器需要有人设计。
+
+如果你对我们如何在产品中落地 Loop Engineering 感兴趣，欢迎联系：[tech@feifan.ai](mailto:tech@feifan.ai)`,
+
+    contentEn: `## One Definition, Two Sentences
+
+In June 2026, three engineers independently said the same thing in the same week.
+
+Peter Steinberger (author of OpenClaw) wrote: we should no longer be prompting coding agents, but designing the loops that prompt them. Boris Cherny (lead on Claude Code at Anthropic) said: he no longer prompts Claude, but has loops running that prompt Claude and figure out what to do. Addy Osmani (Google Chrome engineer) named it **Loop Engineering** and gave a one-line definition:
+
+> **Loop engineering is replacing yourself as the person who prompts the agent, and designing the system that does it instead.**
+
+---
+
+## Why This One Is Different
+
+Prompt engineering assumes you're at the keyboard, directing the agent line by line. Context engineering assumes you're better at equipping agents with information. Harness engineering assumes you've carefully scaffolded the agent's operating environment.
+
+All three share one assumption: **there is a human inside the loop**.
+
+Loop Engineering removes that assumption. You're not driving a car — you're designing a car that drives itself. You're no longer inside the loop; you're outside it, building the loop itself.
+
+The reason three practitioners independently named this in the same week isn't some sudden technical breakthrough. It's because three conditions matured simultaneously:
+- Coding agents became reliable enough to finish non-trivial tasks unattended
+- Major harnesses (Claude Code, GitHub Copilot Workspace, etc.) built in scheduling primitives
+- The cost of a single agent run dropped far enough that running one repeatedly, on a timer, stopped looking wasteful
+
+---
+
+## Five Moves in a Loop Turn
+
+The paper's authors decompose a single loop iteration into five fundamental moves:
+
+### 1. Discovery
+The loop needs to find the work itself. Not wait for you to tell it — actively look: which PRs need review? Which tests are failing? Which monitoring alerts fired?
+
+### 2. Handoff
+After discovering work, the loop hands it to the right agent. Good handoff includes enough context for the receiving agent to understand *why* it's doing something, not just *what* to do.
+
+### 3. Verification
+After the agent completes work, the loop independently verifies the result. **This is the most commonly skipped step.** Having the same agent that produced the output evaluate the output is like having students grade their own exams — scores trend high.
+
+### 4. Persistence
+Verified results need to be saved somewhere — a code repository, database, ticketing system — not left in the context window to vanish when the session ends.
+
+### 5. Scheduling
+The loop needs to know when to run again. Every 15 minutes? On every new commit? At 2 AM daily? The scheduling decision encodes real business logic.
+
+---
+
+## Feifan in Practice: From Outbound Calls to QA Loops
+
+Our Intelligent Compliance Outbound Platform started with quality analysts manually sampling 3% of call recordings daily. Classic human-in-the-loop:
+
+\`\`\`
+Human samples → Human listens → Human scores → Human reports
+\`\`\`
+
+After rebuilding as a Loop Engineering system:
+
+\`\`\`
+Scheduled trigger (hourly)
+  → Discovery: pull the past hour's call records
+  → Handoff: send each call to transcription + compliance detection agents
+  → Verification: independent scoring agent evaluates results (decoupled from generator)
+  → Persistence: write to QA database, auto-create tickets for violations
+  → Scheduling: repeat next hour
+\`\`\`
+
+Results: QA coverage went from 3% to **100%**. Manual QA cost dropped **82%**. We also discovered a category of systemic compliance risk that random sampling had completely missed.
+
+---
+
+## Real-World Scale: Stripe's Loop
+
+Stripe's engineering team runs a loop that automatically merges over **1,300 machine-written pull requests per week**.
+
+This isn't a lab number. It's a production Loop that:
+- Finds dependencies that need updating
+- Generates the change code
+- Runs tests to verify
+- Merges passing PRs into the main branch autonomously
+
+It took Stripe engineers considerable time to design, debug, and maintain. But once running, it replaces hundreds of engineer-hours per week of repetitive work.
+
+---
+
+## Four Hidden Costs
+
+Loop Engineering is not a silver bullet. The paper's authors honestly catalog four costs that accrue silently:
+
+**1. Verification Debt**: More and more loops are running, but verification steps get sloppier. No one is questioning AI output.
+
+**2. Comprehension Rot**: The team becomes progressively unable to answer "what does this loop actually do?" Knowledge lives only in prompt text and scheduling config.
+
+**3. Cognitive Surrender**: When the loop runs correctly for a long time, no one stays alert enough to notice when it starts quietly going wrong.
+
+**4. Token Blowout**: A poorly scheduled loop can consume 50× more tokens per hour than expected.
+
+---
+
+## Closing
+
+Loop Engineering doesn't replace engineers — it shifts the level at which engineers operate. From writing code, to designing systems that write code. From prompting agents, to designing the loops that prompt agents.
+
+This mirrors the industrial revolution's shift from "operating machines" to "designing machines." Machines are faster, more persistent, more consistent than humans — but machines need someone to design them.
+
+If you're interested in how we deploy Loop Engineering in production, reach out: [tech@feifan.ai](mailto:tech@feifan.ai)`,
+  },
+  {
+    slug: 'generator-evaluator-split-2026',
+    category: 'AI',
+    categoryColor: '#D97757',
+    date: '2026-06-25',
+    readTimeZh: '7 分钟',
+    readTimeEn: '7 min read',
+    authorZh: '李玉锋',
+    authorEn: 'Li Yufeng',
+    authorTitleZh: '联合创始人 & 首席执行官',
+    authorTitleEn: 'Co-Founder & CEO',
+    authorAvatar: 'LY',
+    authorColor: '#D97757',
+    titleZh: 'Generator/Evaluator 分离：为什么不能让 AI 给自己的答案打分',
+    titleEn: 'Generator–Evaluator Split: Why You Cannot Let an AI Grade Its Own Output',
+    excerptZh: '在自动化 AI 循环中，最常见的工程失误是让同一个智能体既生成答案又评估答案。本文从认知科学和工程实践两个角度解释这一问题，并给出飞凡在生产系统中使用的分离架构。',
+    excerptEn: 'The most common engineering mistake in automated AI loops is letting the same agent both generate and evaluate its own output. We explain why this fails — from cognitive science to engineering practice — and share the decoupled architecture we use in production.',
+    tagsZh: ['Generator/Evaluator', 'AI评估', '智能体架构', 'Loop Engineering'],
+    tagsEn: ['Generator/Evaluator', 'AI Evaluation', 'Agent Architecture', 'Loop Engineering'],
+    contentZh: `## 一个反直觉的问题
+
+你让一个 AI 智能体写了一段代码，然后问它："这段代码对吗？"
+
+大概率，它会说："是的，这段代码应该是正确的。"
+
+这不是因为 AI 在撒谎，也不是因为它能力不足。这是一个更深的结构性问题：**生成和评估使用的是同一组权重、同一个上下文、同一套推理路径**。如果这条推理路径产生了错误的结论，它在评估阶段大概率会走同样的路径，得出同样的错误结论——并给它打高分。
+
+Loop Engineering 的论文作者在论文中直接点出了这个问题：
+
+> *An agent asked to grade its own output tends to praise it, and tuning an independent skeptical evaluator is far more tractable than making a generator critical of its own work.*
+
+---
+
+## 为什么会这样
+
+### 1. 确认偏差（Confirmation Bias）
+
+人类也有同样的认知缺陷。当一个人写完一段论证，再让他自己检查，他的大脑会自动寻找支持这个论证的证据，而不是反驳它的证据。这不是主观意愿，而是认知机制。
+
+大语言模型的工作方式与此类似。在生成阶段，模型选择了某一条推理路径；在评估阶段，它的注意力机制仍然会倾向于沿着这条路径走，因为这条路径在上下文里已经存在，对下一个 token 的预测产生了偏移。
+
+### 2. 损失函数不对称
+
+在 RLHF 训练中，模型被强化了"给出听起来自信的回答"这种行为模式。当你让它评估自己的输出时，"给出高分"是一个更安全的输出——符合它被训练时奖励的那种确定性语气。
+
+### 3. 上下文污染
+
+评估者和生成者共享同一个上下文窗口，意味着评估者"看见"了生成的全过程，包括中间推理步骤。这会导致锚定效应（Anchoring Effect）：评估者的判断会被它已经看到的结果拉偏。
+
+---
+
+## 三种实现 Generator/Evaluator 分离的方式
+
+### 方式一：独立实例，共享模型
+
+用同一个底座模型，但开启两个独立的上下文窗口。Generator 的上下文不传递给 Evaluator，Evaluator 只接收：待评估的输出 + 评估标准。
+
+这是成本最低的分离方式，适合大多数场景。
+
+\`\`\`
+Generator Context:  [任务描述] → [生成输出]
+                                        ↓ (只传输出，不传中间推理)
+Evaluator Context:  [评估标准] → [待评估输出] → [评分]
+\`\`\`
+
+### 方式二：不同模型，对抗评估
+
+用一个不同的模型作为 Evaluator，并给它明确的"挑剔"系统提示。
+
+> *你是一个严格的代码审查员。你的默认立场是"这段代码可能有问题"。请找出所有潜在的 Bug、边界情况和安全风险，除非你找不到任何问题，否则不要给出通过评估。*
+
+我们在实践中发现，给 Evaluator 一个明确的"怀疑主义"身份，比不加任何指令地要求它评估，能多发现 **2-4 倍**的真实问题。
+
+### 方式三：多数投票（Majority Voting）
+
+并行运行 N 个独立的 Evaluator 实例，每个实例独立给出判断，取多数票。
+
+这是最贵但最鲁棒的方式，适合高风险场景（如合规判断、财务数据验证）。我们在外呼平台的合规检测环节使用的是 3 个 Evaluator 实例，任意 2 个通过才算通过。
+
+---
+
+## 飞凡的实践数据
+
+在我们的智能客服产品中，我们测试了三种配置：
+
+| 配置 | 问题漏检率 | 误报率 | 延迟增加 |
+|------|-----------|--------|---------|
+| 自我评估（不分离） | 34% | 8% | 0% |
+| 独立实例分离 | 12% | 6% | +180ms |
+| 对抗性 Evaluator | 8% | 11% | +210ms |
+| 3-Evaluator 多数投票 | 4% | 9% | +420ms |
+
+对大多数场景，**独立实例分离**是性价比最高的选择。对合规强相关的场景，我们使用多数投票。
+
+---
+
+## 一个容易犯错的地方：Evaluator 也需要独立验证
+
+Generator/Evaluator 分离解决的是自评偏差问题，但它引入了另一个问题：谁来验证 Evaluator 的判断？
+
+我们的实践是建立一个小型的"黄金数据集"——由人类专家标注的、有明确正确答案的案例集。每次模型更新或提示词变更后，自动运行 Evaluator 在这个数据集上的表现评估，确保 Evaluator 本身没有退化。
+
+这是 Loop Engineering 中少数仍然需要"人在环路外监督"的环节之一。
+
+---
+
+## 结语
+
+Generator/Evaluator 分离不是一个复杂的架构——它的实现往往只需要几十行代码。但它能带来的质量提升是显著的，因为它修复的是大语言模型在自评场景下的一个根本性认知缺陷。
+
+在我们构建的所有自动化 AI 循环中，这是我们最坚持的一个原则：**生成和评估，永远不要用同一个上下文**。`,
+
+    contentEn: `## A Counter-Intuitive Problem
+
+You ask an AI agent to write a piece of code. Then you ask it: "Is this code correct?"
+
+Odds are, it will say: "Yes, this code should be correct."
+
+This isn't the AI lying or lacking capability. It's a deeper structural problem: **generation and evaluation use the same weights, the same context, the same reasoning path**. If that reasoning path produced a wrong conclusion, it will likely walk the same path in the evaluation phase, arrive at the same wrong conclusion — and give it a high score.
+
+The Loop Engineering paper states this directly:
+
+> *An agent asked to grade its own output tends to praise it, and tuning an independent skeptical evaluator is far more tractable than making a generator critical of its own work.*
+
+---
+
+## Why This Happens
+
+### 1. Confirmation Bias
+
+Humans have the same cognitive flaw. When someone writes an argument and checks it themselves, their brain automatically seeks evidence supporting that argument rather than refuting it. This isn't willful — it's a cognitive mechanism.
+
+Large language models work similarly. During generation, the model chose a specific reasoning path. During evaluation, its attention mechanism still tends to follow that path — because it already exists in context and has biased next-token predictions.
+
+### 2. Asymmetric Loss Functions
+
+RLHF training reinforced the behavior pattern of "giving confident-sounding answers." When you ask a model to evaluate its own output, "giving a high score" is a safer output — it matches the tone of certainty the model was rewarded for during training.
+
+### 3. Context Contamination
+
+When evaluator and generator share a context window, the evaluator has "witnessed" the full generation process, including intermediate reasoning steps. This causes an anchoring effect: the evaluator's judgment gets pulled toward the result it already observed.
+
+---
+
+## Three Ways to Implement Generator/Evaluator Separation
+
+### Approach 1: Independent Instances, Shared Model
+
+Use the same base model, but open two independent context windows. The Generator's context is not passed to the Evaluator. The Evaluator only receives: the output to evaluate + evaluation criteria.
+
+This is the lowest-cost separation approach and fits most scenarios.
+
+\`\`\`
+Generator Context:  [task description] → [generated output]
+                                                  ↓ (output only, no intermediate reasoning)
+Evaluator Context:  [evaluation criteria] → [output to evaluate] → [score]
+\`\`\`
+
+### Approach 2: Different Models, Adversarial Evaluation
+
+Use a different model as the Evaluator, and give it an explicit "skeptical" system prompt:
+
+> *You are a strict code reviewer. Your default stance is "this code probably has a problem." Find all potential bugs, edge cases, and security risks. Do not pass evaluation unless you genuinely cannot find any issues.*
+
+In practice, giving the Evaluator an explicit "skepticism" identity finds **2–4× more real problems** compared to asking it to evaluate without any instruction framing.
+
+### Approach 3: Majority Voting
+
+Run N independent Evaluator instances in parallel, each producing an independent judgment, take the majority vote.
+
+This is the most expensive but most robust approach, suitable for high-stakes scenarios (compliance judgments, financial data validation). In our outbound platform's compliance detection, we use 3 Evaluator instances — any 2 of 3 must pass for the result to be accepted.
+
+---
+
+## Feifan's Production Data
+
+Testing three configurations in our intelligent customer service product:
+
+| Configuration | Miss Rate | False Positive Rate | Added Latency |
+|--------------|-----------|---------------------|---------------|
+| Self-evaluation (no separation) | 34% | 8% | 0% |
+| Independent instance separation | 12% | 6% | +180ms |
+| Adversarial Evaluator | 8% | 11% | +210ms |
+| 3-Evaluator majority vote | 4% | 9% | +420ms |
+
+For most scenarios, **independent instance separation** offers the best cost-to-quality ratio. For compliance-critical scenarios, we use majority voting.
+
+---
+
+## One Common Mistake: Evaluators Also Need Independent Validation
+
+Generator/Evaluator separation solves the self-evaluation bias problem but introduces another: who validates the Evaluator's judgment?
+
+Our practice is to maintain a small "golden dataset" — cases annotated by human experts with clear correct answers. After every model update or prompt change, we automatically run the Evaluator against this dataset to ensure the Evaluator itself hasn't degraded.
+
+This is one of the few places in Loop Engineering where "human oversight outside the loop" remains essential.
+
+---
+
+## Closing
+
+Generator/Evaluator separation isn't a complex architecture — implementation typically requires only a few dozen lines of code. But the quality improvement it delivers is significant, because it fixes a fundamental cognitive flaw that large language models exhibit in self-evaluation scenarios.
+
+Across all automated AI loops we've built, this is the principle we hold most firmly: **generation and evaluation should never share the same context**.`,
   },
 ]
