@@ -12,9 +12,10 @@ export default function Blog() {
   const isZh = i18n.language.startsWith('zh')
   const [activeCategory, setActiveCategory] = useState('All')
 
-  const filtered = activeCategory === 'All'
+  const filtered = (activeCategory === 'All'
     ? POSTS
     : POSTS.filter(p => p.category === activeCategory)
+  ).filter(Boolean).sort((a, b) => new Date(b.date) - new Date(a.date))
 
   const categoryLabelZh = { All: '全部', AI: 'AI', Technology: '技术', Engineering: '工程', Industry: '行业' }
   const categoryLabelEn = { All: 'All', AI: 'AI', Technology: 'Technology', Engineering: 'Engineering', Industry: 'Industry' }
