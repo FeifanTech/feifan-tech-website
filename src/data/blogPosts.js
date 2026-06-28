@@ -5292,7 +5292,7 @@ When any metric triggers an alert, immediately initiate root cause analysis — 
 In my experience, the most undervalued role in AI project delivery is the **AI Product Manager** — someone who can speak both business and technical language, acting as a translator between client ambiguity and engineering team quantification.
 
 Without this role, the success rate of AI project delivery drops significantly. This is the most consistent pattern I've observed across 30+ projects.`,
-  },,
+  },
   {
     slug: 'loop-engineering-intro-2026',
     category: 'Engineering',
